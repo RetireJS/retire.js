@@ -1,0 +1,66 @@
+{
+	"retire-example": {
+		"vulnerabilities" : [
+			{ "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
+		],
+		"extractors" : {
+			"filename"		: [ "retire-example-([0-9.]+)(.min)?\\.js" ],
+			"filecontent"	: [ "/*! Retire-example v([0-9.]+)" ],
+			"hashes"		: {}
+		}
+	},
+	"jquery": {
+		"vulnerabilities" : [
+			{ "atOrAbove": "1.6", "below" : "1.6.3", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" ]}
+		],
+		"extractors" : {
+			"filename"		: [ "jquery-([0-9.]+)(.min)?\\.js" ],
+			"filecontent"	: [ "/*! jQuery v([0-9.]+)" ],
+			"hashes"		: {}
+		}
+	},
+	"jquery-migrate" : {
+		"vulnerabilities" : [
+			{ "below" : "1.2.0", "info" : [ "http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/" ]}
+		],
+		"extractors" : {
+			"filename"		: [ "jquery-migrate-([0-9.]+)(.min)?\\.js" ],
+			"filecontent"	: [ "/*! jQuery Migrate v([0-9.]+)" ],
+			"hashes"		: {}
+		}
+	},
+	"sessvars": {
+		"vulnerabilities" : [
+			{ "below" : "1.01", "info" : [ "http://www.thomasfrank.se/sessionvars.html" ]}
+		],
+		"extractors" : {
+			"filename"		: [ "sessvars-([0-9.]+)(.min)?\\.js"],
+			"filecontent"	: [ "sessvars ver ([0-9.]+)"],
+			"hashes"		: {}
+		}
+	},
+	"YUI" : {
+		"vulnerabilities" : [
+			{ "atOrAbove" : "2.5.0" , "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2012-5882/" ]},
+			{ "atOrAbove" : "2.4.0" , "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2012-5881/" ]},
+			{ "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4710/" ]},
+			{ "atOrAbove" : "2.5.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4208/" ]},
+			{ "atOrAbove" : "2.4.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4207/" ]}
+		],
+		"extractors" : {
+			"filename"		: [ "yui-([0-9.]+)(.min)?\\.js"],
+			"filecontent"	: [ "YUI ([0-9.]+)", "/yui/license.html\nversion: ([0-9.]+)"],
+			"hashes"		: {}
+		}
+	},
+	"prototypejs" : {
+		"vulnerabilities" : [
+			{ "below" : "1.6.0.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
+		],
+		"extractors" : {
+			"filename"		: [" prototype-([0-9.]+)(.min)?\\.js" ], 
+			"filecontent"	: [ "Prototype JavaScript framework, version ([0-9.]+)" ],
+			"hashes"		: {}
+		}
+	}
+}

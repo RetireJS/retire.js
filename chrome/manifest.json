@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "retire.js",
+  "description": "Scanning website for vulernable js libraries. Icon by http://www.studiomx.eu/",
+  "version": "1.0",
+  "icons": {
+  	"16":"icon16.png",
+  	"48":"icon48.png",
+  	"128":"icon128.png"
+  },
+  "author" : "Erlend Oftedal",
+
+  "permissions": [
+	"<all_urls>",
+	"webRequest",
+	"tabs"
+  ],
+  "browser_action": {
+    "default_icon" : "icon48.png",
+    "default_name" : "retire.js"
+  },
+  "background": {
+    "scripts"	: ["sha1.js", "retire.js", "plugin.js"],
+    "persistent": true
+  },
+  "content_scripts" : [{
+  	"matches"	: ["<all_urls>"],
+  	"js"		: ["log.js"]
+  }]
+}

@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+var _         = require('underscore')._,
+    program   = require("commander"),
+    retire    = require("../lib/retire"),
+    repo      = require("../lib/repo"),
+    resolve   = require("../lib/resolve"),
+    emitter    = new require('events').EventEmitter,
+    crypto    = require('crypto');
+
+var events = new emitter();
+
+/*
+ * Parse command line flags.
+ */
+program
+  .version(retire.version)
+  .parse(process.argv);
+
+
+var hash = {
+  "sha1" : function(data) {
+    shasum   = crypto.createHash('sha1');
+    shasum.update(data);
+    return shasum.digest('hex');
+  }
+}
+
+repo.loadrepository("http://erlend.oftedal.no/blog/repository.json").on('done', function(jsRepo) {
+  repo.loadrepository("http://erlend.oftedal.no/blog/repository.json").on('done', function(nodeRepo) {
+    events.emit('reposloaded', jsRepo, nodeRepo);
+  });
+});
+
+events.on('reposloaded', function() {
+  console.log("Yubi stubi");
+});

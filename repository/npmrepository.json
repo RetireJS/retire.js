@@ -1,0 +1,7 @@
+{
+	"somepackage": {
+		"vulnerabilities" : [
+			{ "atOrAbove": "1.8.0", "below" : "1.9.0", "info" : {}}
+		]
+	}
+}
