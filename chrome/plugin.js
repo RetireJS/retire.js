@@ -68,6 +68,12 @@ downloadRepo(function() {
 		if (details.method !== "GET") return;
 		cache.push(details.url);
 		console.log("Scanning " + details.url + " ...");
+		var result = exports.scanUri(details.url, repo);
+		if (result != null) {
+			vulnerable[details.url] = result;
+			warn(result);
+			return;			
+		}
 		var a = document.createElement("a");
 		a.href = details.url;
 		var fileName = (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1];

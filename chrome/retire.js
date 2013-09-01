@@ -8,6 +8,7 @@ function isDefined(o) {
 function scan(data, extractor, repo) {
 	for (var component in repo) {
 		var extractors = repo[component].extractors[extractor];
+		if (!isDefined(extractors)) continue;
 		for (var i in extractors) {
 			var re = new RegExp(extractors[i]);
 			var match = re.exec(data);
@@ -19,6 +20,7 @@ function scan(data, extractor, repo) {
 function scanhash(hash, repo) {
 	for (var component in repo) {
 		var hashes = repo[component].extractors.hashes;
+		if (!isDefined(hashes)) continue;
 		for (var i in hashes) {
 			if (i === hash) return { version: hashes[i], component: component };
 		}
@@ -62,6 +64,10 @@ function toComparable(n) {
 	return n;
 }
 
+exports.scanUri = function(uri, repo) {
+	var result = scan(uri, 'uri', repo);
+	return check(result, repo);
+};
 
 exports.scanFileName = function(fileName, repo) {
 	var result = scan(fileName, 'filename', repo);

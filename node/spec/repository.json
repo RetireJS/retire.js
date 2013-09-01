@@ -5,6 +5,7 @@
 			{ "atOrAbove": "1.8.0", "below" : "1.9.0", "info" : {}}
 		],
 		"extractors" : {
+			"uri"			: [ "/([0-9.]+)/jquery(\\.min)?\\.js" ],
 			"filename"    : [ "jquery-([0-9.]+)(.min)?\\.js" ],
 			"filecontent" : [ "/*! jQuery v([0-9.]+)" ],
 			"hashes": {

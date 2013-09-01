@@ -14,8 +14,9 @@
 			{ "atOrAbove": "1.6", "below" : "1.6.3", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" ]}
 		],
 		"extractors" : {
+			"uri"			: [ "/([0-9.]+)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-([0-9.]+)(.min)?\\.js" ],
-			"filecontent"	: [ "/*! jQuery v([0-9.]+)" ],
+			"filecontent"	: [ "/*! jQuery v([0-9.]+)", "/*!\n * jQuery JavaScript Library v([0-9.]+)" ],
 			"hashes"		: {}
 		}
 	},
@@ -58,6 +59,7 @@
 			{ "below" : "1.6.0.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
 		],
 		"extractors" : {
+			"uri"			: [ "/([0-9.]+)/prototype(\\.min)?\\.js" ],
 			"filename"		: [" prototype-([0-9.]+)(.min)?\\.js" ], 
 			"filecontent"	: [ "Prototype JavaScript framework, version ([0-9.]+)" ],
 			"hashes"		: {}

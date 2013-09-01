@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+var fs = require("fs");
+
+console.log("Checking that jsrepository is valid json...");
+JSON.parse(fs.readFileSync(__dirname + "/jsrepository.json"));
+
+console.log("Checking that npmrepository is valid json...");
+JSON.parse(fs.readFileSync(__dirname + "/npmrepository.json"));
+
+console.log("Done");
