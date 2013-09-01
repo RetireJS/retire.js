@@ -1,13 +1,11 @@
-
+/* global require, console, exports */
 var http = require('http');
 var emitter = require('events').EventEmitter;
 
 
-
-
 function loadJson(url) {
 	var events = new emitter();
-	console.log("Downloading " + url + " ...");
+	console.log('Downloading ' + url + ' ...');
 	http.get(url, function (res) {
 		var data = '';
 

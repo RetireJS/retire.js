@@ -1,13 +1,14 @@
 {
 	"jquery": {
 		"vulnerabilities" : [
-			{ "below" : "1.5.0", "info" : {}},
-			{ "atOrAbove": "1.8.0", "below" : "1.9.0", "info" : {}}
+			{ "atOrAbove": "1.6.0-rc.1", "below" : "1.6.0-rc.1.1", "info" : [ "http://some.url" ] }, 
+			{ "below" : "1.5.0", "info" : [ "http://some.url" ] },
+			{ "atOrAbove": "1.8.0", "below" : "1.9.0", "info" : [ "http://some.url" ] } 
 		],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+)/jquery(\\.min)?\\.js" ],
-			"filename"    : [ "jquery-([0-9.]+)(.min)?\\.js" ],
-			"filecontent" : [ "/*! jQuery v([0-9.]+)" ],
+			"uri"			: [ "/([0-9.]+(-rc[0-9.]+)?)/jquery(\\.min)?\\.js" ],
+			"filename"    : [ "jquery-([0-9.]+(-rc[0-9.]+)?)(.min)?\\.js" ],
+			"filecontent" : [ "/*! jQuery v([0-9.]+(-rc[0-9.]+)?)" ],
 			"hashes": {
 				"abcdelfkjsalkdj":"1.9.10"
 			}

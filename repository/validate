@@ -2,10 +2,25 @@
 
 var fs = require("fs");
 
+
+
 console.log("Checking that jsrepository is valid json...");
-JSON.parse(fs.readFileSync(__dirname + "/jsrepository.json"));
+var jsRepo = JSON.parse(fs.readFileSync(__dirname + "/jsrepository.json"));
+console.log("Validating regexes...")
+var count = 0;
+for (var i in jsRepo) {
+	var types = ["uri", "filecontent", "filename"];
+	for (var j in types) {
+		for (var k in jsRepo[i].extractors[types[j]]) {
+			count++;
+			new RegExp(jsRepo[i].extractors[types[j]][k]);
+		}
+	}  
+}
+console.log(count + " regexes validated.")
+
 
 console.log("Checking that npmrepository is valid json...");
 JSON.parse(fs.readFileSync(__dirname + "/npmrepository.json"));
 
-console.log("Done");
+console.log("Success");

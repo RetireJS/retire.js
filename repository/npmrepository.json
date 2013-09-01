@@ -1,7 +1,7 @@
 {
-	"somepackage": {
+	"retire-example": {
 		"vulnerabilities" : [
-			{ "atOrAbove": "1.8.0", "below" : "1.9.0", "info" : {}}
+			{ "atOrAbove": "0.0.1", "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		]
 	}
 }

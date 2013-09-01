@@ -1,26 +1,24 @@
-var npm = require("npm"),
-	fs = require("fs"),
-	findit = require("findit"),
-	emitter = require('events').EventEmitter,
-	repo = require("./repo.js");
+/* global require, exports */
 
-//var data = fs.readFileSync("packages.json");
-//var config = JSON.parse(data);
+var npm     = require("npm"),
+	findit  = require("findit"),
+	emitter = require("events").EventEmitter;
+
 
 function listdep(name, dep, sep, deps) {
 	for (var i in dep.dependencies) {
 		deps.push({ component: i, version: dep.dependencies[i].version });
 		listdep(i, dep.dependencies[i], sep + " ", deps);
-	}	
+	}
 }
 
 function getNodeDependencies() {
 	var events = new emitter();
-	npm.load({}, function(err) {
+	npm.load({}, function() {
 		npm.commands.ls([], true, function (er, _, pkginfo) {
 			var deps = [];
 			listdep(pkginfo.name, pkginfo, "", deps);
-			events.emit('done', pkginfo);
+			events.emit("done", pkginfo);
 		});
 	});
 	return events;
@@ -28,9 +26,9 @@ function getNodeDependencies() {
 
 function scanJsFiles(path) {
 	var finder = findit.find(path);
-	finder.on('file', function (file) {
+	finder.on("file", function (file) {
 		if (file.match(/\.js$/)) {
-			finder.emit('js', file);
+			finder.emit("js", file);
 		}
 	});
 	return finder;

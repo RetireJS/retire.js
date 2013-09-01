@@ -6,43 +6,46 @@ function isDefined(o) {
 }
 
 function scan(data, extractor, repo) {
+	var detected = [];
 	for (var component in repo) {
 		var extractors = repo[component].extractors[extractor];
 		if (!isDefined(extractors)) continue;
 		for (var i in extractors) {
 			var re = new RegExp(extractors[i]);
 			var match = re.exec(data);
-			if (match) return { version: match[1], component: component };
+			if (match) detected.push({ version: match[1], component: component, detection: extractor });
 		}
 	}
-	return null;	
+	return detected;
 }
+
 function scanhash(hash, repo) {
 	for (var component in repo) {
 		var hashes = repo[component].extractors.hashes;
 		if (!isDefined(hashes)) continue;
 		for (var i in hashes) {
-			if (i === hash) return { version: hashes[i], component: component };
+			if (i === hash) return [{ version: hashes[i], component: component, detection: 'hash' }];
 		}
 	}
-	return null;	
+	return [];
 }
 
 
 
-function check(result, repo) {
-	if (result === null) return null;
-	var vulns = repo[result.component].vulnerabilities;
-	for (var i in vulns) {
-		if (!isAtOrAbove(result.version, vulns[i].below)) {
-			if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
-				continue;
+function check(results, repo) {
+	for (var r in results) {
+		var result = results[r];
+		var vulns = repo[result.component].vulnerabilities;
+		for (var i in vulns) {
+			if (!isAtOrAbove(result.version, vulns[i].below)) {
+				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
+					continue;
+				}
+				result.vulnerabilities = vulns[i].info;
 			}
-			result.vulnerabilities = vulns[i].info;
-			return result;
 		}
 	}
-	return null;
+	return results;
 }
 
 function isAtOrAbove(version1, version2) {
@@ -50,8 +53,10 @@ function isAtOrAbove(version1, version2) {
 	var v2 = version2.split(/[\.\-]/g);
 	var l = v1.length > v2.length ? v1.length : v2.length;
 	for (var i = 0; i < l; i++) {
-		if (toComparable(v1[i]) > toComparable(v2[i])) return true;
-		if (toComparable(v1[i]) < toComparable(v2[i])) return false;		
+		var v1_c = toComparable(v1[i]);
+		var v2_c = toComparable(v2[i]);
+		if (v1_c > v2_c) return true;
+		if (v1_c < v2_c) return false;
 	}
 	return true;
 }
@@ -63,6 +68,16 @@ function toComparable(n) {
 	}
 	return n;
 }
+
+
+//------- External API -------
+
+exports.isVulnerable = function(results) {
+	for (var r in results) {
+		if (results[r].hasOwnProperty('vulnerabilities')) return true;
+	}
+	return false;
+};
 
 exports.scanUri = function(uri, repo) {
 	var result = scan(uri, 'uri', repo);
@@ -76,7 +91,7 @@ exports.scanFileName = function(fileName, repo) {
 
 exports.scanFileContent = function(content, repo, hasher) {
 	var result = scan(content, 'filecontent', repo);
-	if (result === null) {
+	if (result.length === 0) {
 		result = scanhash(hasher.sha1(content), repo);
 	}
 	return check(result, repo);

@@ -5,7 +5,7 @@
 		],
 		"extractors" : {
 			"filename"		: [ "retire-example-([0-9.]+)(.min)?\\.js" ],
-			"filecontent"	: [ "/*! Retire-example v([0-9.]+)" ],
+			"filecontent"	: [ "/\\*! Retire-example v([0-9.]+)" ],
 			"hashes"		: {}
 		}
 	},
@@ -15,8 +15,8 @@
 		],
 		"extractors" : {
 			"uri"			: [ "/([0-9.]+)/jquery(\\.min)?\\.js" ],
-			"filename"		: [ "jquery-([0-9.]+)(.min)?\\.js" ],
-			"filecontent"	: [ "/*! jQuery v([0-9.]+)", "/*!\n * jQuery JavaScript Library v([0-9.]+)" ],
+			"filename"		: [ "jquery-([0-9.]+)(\\.min)?\\.js" ],
+			"filecontent"	: [ "/\\*! jQuery v([0-9.]+)", "/\\*!\n \\* jQuery JavaScript Library v([0-9.]+)" ],
 			"hashes"		: {}
 		}
 	},
@@ -26,7 +26,20 @@
 		],
 		"extractors" : {
 			"filename"		: [ "jquery-migrate-([0-9.]+)(.min)?\\.js" ],
-			"filecontent"	: [ "/*! jQuery Migrate v([0-9.]+)" ],
+			"filecontent"	: [ "/\\*! jQuery Migrate v([0-9.]+)" ],
+			"hashes"		: {}
+		}
+	},
+	"jquery-ui-dialog" : {
+		"vulnerabilities" : [
+			{ "atOrAbove": "1.8.9", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/6016" ]}
+		],
+		"extractors" : {
+			"filecontent"	: [ 
+				"/\\*! jQuery UI - v([0-9.]+)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
+				"/\\*![\n *]+jQuery UI ([0-9.]+)(.*\n)*.*\\ui\\.dialog",
+				"/\\*![\n *]+jQuery UI Dialog ([0-9.]+)" 
+			],
 			"hashes"		: {}
 		}
 	},
@@ -62,6 +75,25 @@
 			"uri"			: [ "/([0-9.]+)/prototype(\\.min)?\\.js" ],
 			"filename"		: [" prototype-([0-9.]+)(.min)?\\.js" ], 
 			"filecontent"	: [ "Prototype JavaScript framework, version ([0-9.]+)" ],
+			"hashes"		: {}
+		}
+	},
+	"ember" : {
+		"vulnerabilities" : [
+			{ "atOrAbove" : "1.0.0-rc.1", "below" : "1.0.0-rc.1.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.2", "below" : "1.0.0-rc.2.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.3", "below" : "1.0.0-rc.3.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.4", "below" : "1.0.0-rc.4.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.5", "below" : "1.0.0-rc.5.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.6", "below" : "1.0.0-rc.6.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] }
+		],
+		"extractors" : {
+			"uri"			: [ "/([0-9.]+(-rc[0-9.]+)?)/ember(\\.min)?\\.js" ],
+			"filename"		: [ "ember-([0-9.]+(-rc[0-9.]+)?)(\\.min)?\\.js" ], 
+			"filecontent"	: [ 
+				"Project:   Ember -(?:.*\n){9,11}// Version: v([0-9.]+(-rc[0-9.]+)?)",
+				"// Version: v([0-9.]+(-rc[0-9.]+)?)(.*\n){10,15}(Ember Debug|@module ember|@class ember)"
+			],
 			"hashes"		: {}
 		}
 	}
