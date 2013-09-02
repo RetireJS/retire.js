@@ -1,5 +1,7 @@
 /* global chrome, console, exports, CryptoJS */
 
+var repoUrl = "http://erlend.oftedal.no/blog/repository.json?";
+
 var filter = {
 	"urls"  : ["<all_urls>"],
 	"types" : ["script"]
@@ -35,7 +37,7 @@ var vulnerable = {};
 function downloadRepo(cb) {
 	console.log("Downloading repo ...");
 	updatedAt = Date.now();
-	download("http://erlend.oftedal.no/blog/repository.json?" + updatedAt, function(repoData) {
+	download(repoUrl + updatedAt, function(repoData) {
 		repo = JSON.parse(repoData);
 		console.log("Done");
 		cache = [];
