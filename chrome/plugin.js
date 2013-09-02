@@ -1,6 +1,6 @@
 /* global chrome, console, exports, CryptoJS */
 
-var repoUrl = "http://erlend.oftedal.no/blog/repository.json?";
+var repoUrl = "http://localhost:8000/jsrepository.json?";
 
 var filter = {
 	"urls"  : ["<all_urls>"],
