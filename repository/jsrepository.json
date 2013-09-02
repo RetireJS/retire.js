@@ -43,6 +43,32 @@
 			"hashes"		: {}
 		}
 	},
+	"jquery-ui-autocomplete" : {
+		"vulnerabilities" : [
+			{ "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
+		],
+		"extractors" : {
+			"filecontent"	: [ 
+				"/\\*! jQuery UI - v([0-9.]+)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
+				"/\\*![\n *]+jQuery UI ([0-9.]+)(.*\n)*.*\\ui\\.autocomplete",
+				"/\\*![\n *]+jQuery UI Autocomplete ([0-9.]+)" 
+			],
+			"hashes"		: {}
+		}
+	},
+	"jquery-ui-tooltip" : {
+		"vulnerabilities" : [
+			{ "atOrAbove": "1.9.2", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
+		],
+		"extractors" : {
+			"filecontent"	: [ 
+				"/\\*! jQuery UI - v([0-9.]+)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
+				"/\\*![\n *]+jQuery UI ([0-9.]+)(.*\n)*.*\\ui\\.tooltip",
+				"/\\*![\n *]+jQuery UI Tooltip ([0-9.]+)" 
+			],
+			"hashes"		: {}
+		}
+	},
 	"sessvars": {
 		"vulnerabilities" : [
 			{ "below" : "1.01", "info" : [ "http://www.thomasfrank.se/sessionvars.html" ]}

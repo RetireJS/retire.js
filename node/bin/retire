@@ -5,17 +5,29 @@ var _         = require('underscore')._,
     retire    = require("../lib/retire"),
     repo      = require("../lib/repo"),
     resolve   = require("../lib/resolve"),
-    emitter    = new require('events').EventEmitter,
+    fs        = require("fs"),
+    emitter   = new require('events').EventEmitter,
     crypto    = require('crypto');
 
 var events = new emitter();
+var jsRepo = null;
+var nodeRepo = null;
 
 /*
  * Parse command line flags.
  */
 program
   .version(retire.version)
+  .option("")
+  .option("-p, --package",   "limit node scan to packages where parent is mentioned in pacakges.json (ignore node_modules)")
+  .option("-n, --node",   "Run node dependency scan only")
+  .option("-j, --js",   "Run node js scan only")
+
   .parse(process.argv);
+
+var config = _.extend({ }, _.pick(program, [
+  "package", "node", "js"
+]));
 
 
 var hash = {
@@ -26,12 +38,80 @@ var hash = {
   }
 }
 
-repo.loadrepository("http://erlend.oftedal.no/blog/repository.json").on('done', function(jsRepo) {
-  repo.loadrepository("http://erlend.oftedal.no/blog/repository.json").on('done', function(nodeRepo) {
-    events.emit('reposloaded', jsRepo, nodeRepo);
+
+
+function scanJsFile(file, repo) {
+  var results = retire.scanFileName(file, repo);
+  if (retire.isVulnerable(results)) {
+    results = retire.scanContent(fs.readFileSync("spec/repository.json"), repo);
+    if (retire.isVulnerable(results)) {
+      console.warn(results);
+    }
+  }  
+}
+
+
+
+
+events.on('load-js-repo', function() {
+  repo.loadrepository("http://erlend.oftedal.no/blog/repository.json").on('done', function(repo) {
+    jsRepo = repo;
+    events.emit('js-repo-loaded');
   });
 });
 
-events.on('reposloaded', function() {
-  console.log("Yubi stubi");
+events.on('load-node-repo', function() {
+  repo.loadrepository("http://erlend.oftedal.no/blog/npmrepository.json").on('done', function(repo) {
+    nodeRepo = repo;
+    events.emit('node-repo-loaded');
+  });
 });
+
+events.on('js-repo-loaded', function() {
+  events.emit(config.js ? 'scan-js' : 'load-node-repo');
+});
+
+events.on('node-repo-loaded', function() {
+  events.emit(config.node ? 'scan-node' : 'scan-js');
+});
+
+
+events.on('scan-js', function() {
+  resolve.scanJsFiles().on('jsfile', function(file) {
+    scanJsFile(file, jsRepo);
+  }).on('end', function() {
+    events.emit('js-scanned');
+  });
+});
+
+events.on('scan-node', function() {
+  resolve.getNodeDependencies(config.package).on('done', function(dependencies) {
+    for (var i in dependencies) {
+      results = retire.scanNodeDependency(dependencies[i], nodeRepo);
+      if (retire.isVulnerable(results)) {
+        var result = results[0]; //Only single scan here
+        console.warn(result.component + " " + result.version + " has known vulnerabilities: " + result.vulnerabilities.join(" "));
+        if (result.parent) {
+          function printParent(comp) {
+            if (comp.parent != null) printParent(comp.parent);
+            console.log(new Array(comp.level).join(" ") + (comp.parent ? String.fromCharCode(8627) + " " : "") + comp.component + " " + comp.version);
+          }
+          printParent(result);
+        }
+      }
+    }
+    events.emit('node-scanned');
+  });
+});
+
+events.on('js-scanned', function() {
+  if (!config.js) events.emit('scan-node');
+});
+
+
+if (config.node) {
+  events.emit('load-node-repo');
+} else {
+  events.emit('load-js-repo');
+}
+

@@ -16,7 +16,7 @@
     "commander"	: "1.1.x",
     "npm"		: "1.2.x",
     "findit"	: "0.1.2",
-    "events"	: ""
+    "events"	: "0.5.0"
   },
   "devDependencies": {
     "nodeunit": "",

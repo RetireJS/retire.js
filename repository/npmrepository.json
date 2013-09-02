@@ -3,5 +3,25 @@
 		"vulnerabilities" : [
 			{ "atOrAbove": "0.0.1", "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		]
+	},
+	"hutbot-scripts": {
+		"vulnerabilities" : [
+			{ "below" : "2.4.4", "info" : [ "https://nodesecurity.io/advisories/519408ce5111ce9429000001" ] }
+		]
+	},
+	"connect": {
+		"vulnerabilities" : [
+			{ "below" : "2.8.2", "info" : [ "https://nodesecurity.io/advisories/51d0d6abf196582611000001" ] }
+		]
+	},
+	"libnotify": {
+		"vulnerabilities" : [
+			{ "below" : "1.0.4", "info" : [ "https://nodesecurity.io/advisories/51940c6d5111ce9429000002" ] }
+		]
+	},
+	"tomato": {
+		"vulnerabilities" : [
+			{ "below" : "0.0.6", "info" : [ "https://nodesecurity.io/advisories/5194039ed66d3fe501000001" ] }
+		]
 	}
 }

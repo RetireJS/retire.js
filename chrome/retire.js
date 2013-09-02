@@ -98,6 +98,11 @@ exports.scanFileContent = function(content, repo, hasher) {
 };
 
 exports.scanNodeDependency = function(dependency, npmrepo) {
-	return check(dependency, npmrepo);
+	if (!isDefined(dependency.version)) {
+		console.warn("Missing version for " + dependency.component + ". Need to run npm install ?");
+		return [];
+	}
+	if (!isDefined(npmrepo[dependency.component])) return [];
+	return check([dependency], npmrepo);
 };
 
