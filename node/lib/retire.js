@@ -1,1 +1,1 @@
-../../chrome/retire.js
+../../chrome/js/retire.js
