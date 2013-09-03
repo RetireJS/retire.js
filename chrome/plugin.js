@@ -63,10 +63,12 @@ downloadRepo(function() {
 					rmsg = rmsg.concat(results[i].vulnerabilities);
 				}
 				chrome.browserAction.setBadgeText({text : "!", tabId : details.tabId });
-				chrome.tabs.sendMessage(details.tabId, {
-					message : "Loaded library with known vulnerability " + details.url +
-						" See " + rmsg.join(" ")
-				});
+				setTimeout(function() {
+					chrome.tabs.sendMessage(details.tabId, {
+						message : "Loaded library with known vulnerability " + details.url +
+							" See " + rmsg.join(" ")
+					});
+				}, 3000);
 			} else {
 				console.log(details.url, results);
 			}
