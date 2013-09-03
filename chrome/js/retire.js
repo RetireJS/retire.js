@@ -1,3 +1,9 @@
+/* 
+ * This file is used by both the Chrome plugin and the Cli scanner and thus 
+ * cannot have any external dependencies (no require)	
+ */
+
+
 var exports = exports || {};
 exports.version = '0.1.0';
 
