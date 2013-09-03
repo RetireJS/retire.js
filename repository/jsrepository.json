@@ -111,7 +111,10 @@
 			{ "atOrAbove" : "1.0.0-rc.3", "below" : "1.0.0-rc.3.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
 			{ "atOrAbove" : "1.0.0-rc.4", "below" : "1.0.0-rc.4.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
 			{ "atOrAbove" : "1.0.0-rc.5", "below" : "1.0.0-rc.5.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
-			{ "atOrAbove" : "1.0.0-rc.6", "below" : "1.0.0-rc.6.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] }
+			{ "atOrAbove" : "1.0.0-rc.6", "below" : "1.0.0-rc.6.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "below" : "0.9.7.1", "info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG" ] },
+			{ "below" : "0.9.7", "info" : [ "https://github.com/emberjs/ember.js/issues/699" ] }
+
 		],
 		"extractors" : {
 			"uri"			: [ "/([0-9.]+(-rc[0-9.]+)?)/ember(\\.min)?\\.js" ],
