@@ -46,6 +46,13 @@ function downloadRepo(cb) {
 	});
 }
 
+var hasher = {
+	sha1 : function(data) {
+		return CryptoJS.SHA1(data).toString(CryptoJS.enc.Hex);
+	}
+};
+
+
 
 downloadRepo(function() {
 	function scan(details) {
@@ -97,11 +104,12 @@ downloadRepo(function() {
 			return;
 		}
 		download(details.url, function(data) {
-			var results = exports.scanFileContent(data, repo, { sha1 : CryptoJS.SHA1 });
+			var results = exports.scanFileContent(data, repo, hasher);
 			if (results.length > 0) {
 				handleResults(results);
 				return;
 			}
+			console.log(hasher.sha1(data) + " : " + details.url);
 		});
 		return;
 	}

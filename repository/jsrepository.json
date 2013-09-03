@@ -124,5 +124,19 @@
 			],
 			"hashes"		: {}
 		}
+	},
+	"dojo" : {
+		"vulnerabilities" : [
+			{ "atOrAbove" : "1.4.0", "below" : "1.4.2", "info" : [ "https://bugs.dojotoolkit.org/ticket/10773" ] }
+		],
+		"extractors" : {
+			"uri"			: [ "/(?:dojo-)?([0-9.]+(-rc[0-9.]+)?)/dojo(\\.min)?\\.js" ],
+			"filename"		: [ "dojo-([0-9.]+(-rc[0-9.]+)?)(\\.min)?\\.js" ],
+			"hashes"		: {
+				"73cdd262799aab850abbe694cd3bfb709ea23627" : "1.4.1",
+				"c8c84eddc732c3cbf370764836a7712f3f873326" : "1.4.0"
+			}
+
+		}
 	}
 }
