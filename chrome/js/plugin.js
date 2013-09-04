@@ -14,7 +14,11 @@ function download(url, callback) {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
-			callback(xhr.responseText);
+			if (xhr.status == 200) {
+				callback(xhr.responseText);
+			} else {
+				console.warn("Got " + xhr.status + " when trying to download " + url);
+			}
 		}
 	};
 	xhr.open("GET", url, true);
