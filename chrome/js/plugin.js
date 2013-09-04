@@ -1,4 +1,4 @@
-/* global chrome, console, exports, CryptoJS */
+/* global chrome, console, exports, CryptoJS, Emitter */
 
 var repoUrl = "http://localhost:8000/jsrepository.json?";
 var updatedAt = Date.now();
@@ -47,7 +47,7 @@ function downloadRepo() {
 function getFileName(url) {
 	var a = document.createElement("a");
 	a.href = url;
-	return (a.pathname.match(/\/([^\/?#]+)$/i) || [,""])[1];	
+	return (a.pathname.match(/\/([^\/?#]+)$/i) || [,""])[1];
 }
 
 
