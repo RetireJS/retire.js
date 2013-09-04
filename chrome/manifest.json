@@ -20,7 +20,7 @@
     "default_name" : "retire.js"
   },
   "background": {
-    "scripts"	: ["js/sha1.js", "js/retire.js", "js/plugin.js"],
+    "scripts"	: ["js/sha1.js", "js/events.js", "js/retire.js", "js/plugin.js"],
     "persistent": true
   },
   "content_scripts" : [{
