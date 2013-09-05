@@ -200,5 +200,15 @@
 			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";" ],
 			"hashes"		: {}
 		}
+	},
+	"dont check" : {
+		"extractors" : { 
+			"uri" : [ 
+				"^http://ssl.google-analytics.com/ga.js",
+				"^http://www.google-analytics.com/ga.js", 
+				"^https://apis.google.com/js/plusone.js", 
+				"^http://cdn.cxense.com/cx.js" 
+			]
+		}
 	}	
 }
