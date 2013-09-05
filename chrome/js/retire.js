@@ -61,6 +61,7 @@ function isAtOrAbove(version1, version2) {
 	for (var i = 0; i < l; i++) {
 		var v1_c = toComparable(v1[i]);
 		var v2_c = toComparable(v2[i]);
+		if (typeof v1_c !== typeof v2_c) return typeof v1_c === 'number';
 		if (v1_c > v2_c) return true;
 		if (v1_c < v2_c) return false;
 	}

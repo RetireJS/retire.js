@@ -6,8 +6,8 @@
 			{ "atOrAbove": "1.8.0", "below" : "1.9.0", "info" : [ "http://some.url" ] } 
 		],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+(-rc[0-9.]+)?)/jquery(\\.min)?\\.js" ],
-			"filename"    : [ "jquery-([0-9.]+(-rc[0-9.]+)?)(.min)?\\.js" ],
+			"uri"			: [ "/([0-9.]+([a-z\\-0-9.]+)?)/jquery(\\.min)?\\.js" ],
+			"filename"    : [ "jquery-([0-9.]+(-rc[0-9.a-zA-Z\\-]+?)?)(.min)?\\.js" ],
 			"filecontent" : [ "/*! jQuery v([0-9.]+(-rc[0-9.]+)?)" ],
 			"hashes": {
 				"abcdelfkjsalkdj":"1.9.10"

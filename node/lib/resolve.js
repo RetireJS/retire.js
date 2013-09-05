@@ -2,13 +2,13 @@
 
 var npm     = require("npm"),
 	findit  = require("findit"),
-	fs 		= require("fs"),
+	fs		= require("fs"),
 	emitter = require("events").EventEmitter;
 
 
 function listdep(parent, filter, dep, level, deps) {
 	for (var i in dep.dependencies) {
-		if (filter != null && filter.indexOf(i) == -1) {
+		if (filter !== null && filter.indexOf(i) == -1) {
 			continue;
 		}
 		var d = { component: i, version: dep.dependencies[i].version, parent: parent, level: level };
