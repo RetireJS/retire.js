@@ -108,7 +108,7 @@
 		],
 		"extractors" : {
 			"uri"			: [ "/([0-9.]+)/prototype(\\.min)?\\.js" ],
-			"filename"		: [" prototype-([0-9.]+)(.min)?\\.js" ], 
+			"filename"		: [ "prototype-([0-9.]+)(.min)?\\.js" ], 
 			"filecontent"	: [ "Prototype JavaScript framework, version ([0-9.]+)" ],
 			"hashes"		: {}
 		}
@@ -169,9 +169,19 @@
 		],
 		"extractors" : {
 			"uri"			: [ "/([0-9.]+)/angular(\\.min)?\\.js" ],
-			"filename"		: [" angular(?:js)?-([0-9.]+)(.min)?\\.js" ], 
+			"filename"		: [ "angular(?:js)?-([0-9.]+)(.min)?\\.js" ], 
 			"filecontent"	: [ "/*[ \n]+AngularJS v([0-9.]+)" ],
 			"hashes"		: {}
 		}
+	},
+	"backbone.js" : {
+		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://backbonejs.org/#changelog" ] } ],
+		"extractors" : {
+			"uri"			: [ "/([0-9.]+)/backbone(\\.min)?\\.js" ],
+			"filename"		: [ "backbone(?:js)?-([0-9.]+)(.min)?\\.js" ], 
+			"filecontent"	: [ "//     Backbone.js ([0-9.]+)", "a=t.Backbone={}}a.VERSION=\"([0-9.]+)\"" ],
+			"hashes"		: {}
+		}
+
 	}
 }
