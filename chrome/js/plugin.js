@@ -35,7 +35,7 @@ function downloadRepo() {
 	console.log("Downloading repo ...");
 	updatedAt = Date.now();
 	download(repoUrl + updatedAt).on('success', function(repoData) {
-		repo = JSON.parse(repoData);
+		repo = JSON.parse(exports.replaceVersion(repoData));
 		console.log("Done");
 		cache = [];
 		vulnerable = {};

@@ -43,7 +43,7 @@ var hash = {
 function scanJsFile(file, repo) {
   var results = retire.scanFileName(file, repo);
   if (retire.isVulnerable(results)) {
-    results = retire.scanContent(fs.readFileSync("spec/repository.json"), repo);
+    results = retire.scanContent(fs.readFileSync(file), repo);
     if (retire.isVulnerable(results)) {
       console.warn(results);
     }
@@ -54,14 +54,14 @@ function scanJsFile(file, repo) {
 
 
 events.on('load-js-repo', function() {
-  repo.loadrepository("http://erlend.oftedal.no/blog/repository.json").on('done', function(repo) {
+  repo.loadrepository("http://localhost:8000/repository.json").on('done', function(repo) {
     jsRepo = repo;
     events.emit('js-repo-loaded');
   });
 });
 
 events.on('load-node-repo', function() {
-  repo.loadrepository("http://erlend.oftedal.no/blog/npmrepository.json").on('done', function(repo) {
+  repo.loadrepository("http://localhost:8000/npmrepository.json").on('done', function(repo) {
     nodeRepo = repo;
     events.emit('node-repo-loaded');
   });

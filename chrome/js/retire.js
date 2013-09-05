@@ -79,6 +79,10 @@ function toComparable(n) {
 
 //------- External API -------
 
+exports.replaceVersion = function(jsRepoJsonAsText) {
+	return jsRepoJsonAsText.replace(/§§version§§/g, "[0-9][0-9.a-z\\-]+?");
+};
+
 exports.isVulnerable = function(results) {
 	for (var r in results) {
 		if (results[r].hasOwnProperty('vulnerabilities')) return true;

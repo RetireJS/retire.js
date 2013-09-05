@@ -1,6 +1,8 @@
 /* global require, console, exports */
-var http = require('http');
+var http = require('http'),
+	retire = reqire('retire');
 var emitter = require('events').EventEmitter;
+
 
 
 function loadJson(url) {
@@ -14,7 +16,7 @@ function loadJson(url) {
 		});
 
 		res.on('end',function(){
-			var obj = JSON.parse(data);
+			var obj = JSON.parse(retire.replaceVersion(data));
 			events.emit('done', obj);
 		});
 	});

@@ -4,8 +4,8 @@
 			{ "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		],
 		"extractors" : {
-			"filename"		: [ "retire-example-([0-9.]+)(.min)?\\.js" ],
-			"filecontent"	: [ "/\\*! Retire-example v([0-9.]+)" ],
+			"filename"		: [ "retire-example-(§§version§§)(.min)?\\.js" ],
+			"filecontent"	: [ "/\\*! Retire-example v(§§version§§)" ],
 			"hashes"		: { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" }
 		}
 	},
@@ -15,9 +15,9 @@
 			{ "atOrAbove": "1.6", "below" : "1.6.3", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" ]}
 		],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+)/jquery(\\.min)?\\.js" ],
-			"filename"		: [ "jquery-([0-9.]+)(\\.min)?\\.js" ],
-			"filecontent"	: [ "/\\*! jQuery v([0-9.]+)", "/\\*!\n \\* jQuery JavaScript Library v([0-9.]+)" ],
+			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
+			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [ "/\\*! jQuery v(§§version§§)", "/\\*!\n \\* jQuery JavaScript Library v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
@@ -26,8 +26,8 @@
 			{ "below" : "1.2.0", "info" : [ "http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/" ]}
 		],
 		"extractors" : {
-			"filename"		: [ "jquery-migrate-([0-9.]+)(.min)?\\.js" ],
-			"filecontent"	: [ "/\\*! jQuery Migrate v([0-9.]+)" ],
+			"filename"		: [ "jquery-migrate-(§§version§§)(.min)?\\.js" ],
+			"filecontent"	: [ "/\\*! jQuery Migrate v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
@@ -37,9 +37,9 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*! jQuery UI - v([0-9.]+)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
-				"/\\*![\n *]+jQuery UI ([0-9.]+)(.*\n)*.*\\ui\\.dialog",
-				"/\\*![\n *]+jQuery UI Dialog ([0-9.]+)" 
+				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
+				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\ui\\.dialog",
+				"/\\*![\n *]+jQuery UI Dialog (§§version§§)" 
 			],
 			"hashes"		: {}
 		}
@@ -50,9 +50,9 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*! jQuery UI - v([0-9.]+)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
-				"/\\*![\n *]+jQuery UI ([0-9.]+)(.*\n)*.*\\ui\\.autocomplete",
-				"/\\*![\n *]+jQuery UI Autocomplete ([0-9.]+)" 
+				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
+				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\ui\\.autocomplete",
+				"/\\*![\n *]+jQuery UI Autocomplete (§§version§§)" 
 			],
 			"hashes"		: {}
 		}
@@ -63,9 +63,9 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*! jQuery UI - v([0-9.]+)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
-				"/\\*![\n *]+jQuery UI ([0-9.]+)(.*\n)*.*\\ui\\.tooltip",
-				"/\\*![\n *]+jQuery UI Tooltip ([0-9.]+)" 
+				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
+				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\ui\\.tooltip",
+				"/\\*![\n *]+jQuery UI Tooltip (§§version§§)" 
 			],
 			"hashes"		: {}
 		}
@@ -75,8 +75,8 @@
 			{ "below" : "1.01", "info" : [ "http://www.thomasfrank.se/sessionvars.html" ]}
 		],
 		"extractors" : {
-			"filename"		: [ "sessvars-([0-9.]+)(.min)?\\.js"],
-			"filecontent"	: [ "sessvars ver ([0-9.]+)"],
+			"filename"		: [ "sessvars-(§§version§§)(.min)?\\.js"],
+			"filecontent"	: [ "sessvars ver (§§version§§)"],
 			"hashes"		: {}
 		}
 	},
@@ -97,8 +97,8 @@
 			{ "atOrAbove" : "2.4.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4207/" ]}
 		],
 		"extractors" : {
-			"filename"		: [ "yui-([0-9.]+)(.min)?\\.js"],
-			"filecontent"	: [ "YUI ([0-9.]+)", "/yui/license.html\nversion: ([0-9.]+)"],
+			"filename"		: [ "yui-(§§version§§)(.min)?\\.js"],
+			"filecontent"	: [ "YUI (§§version§§)", "/yui/license.html\nversion: (§§version§§)"],
 			"hashes"		: {}
 		}
 	},
@@ -107,9 +107,9 @@
 			{ "below" : "1.6.0.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
 		],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+)/prototype(\\.min)?\\.js" ],
-			"filename"		: [ "prototype-([0-9.]+)(.min)?\\.js" ], 
-			"filecontent"	: [ "Prototype JavaScript framework, version ([0-9.]+)" ],
+			"uri"			: [ "/(§§version§§)/prototype(\\.min)?\\.js" ],
+			"filename"		: [ "prototype-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ "Prototype JavaScript framework, version (§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
@@ -125,11 +125,11 @@
 			{ "below" : "0.9.7", "info" : [ "https://github.com/emberjs/ember.js/issues/699" ] }
 		],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+(-rc[0-9.]+)?)/ember(\\.min)?\\.js" ],
-			"filename"		: [ "ember-([0-9.]+(-rc[0-9.]+)?)(\\.min)?\\.js" ], 
+			"uri"			: [ "/(§§version§§)/ember(\\.min)?\\.js" ],
+			"filename"		: [ "ember-(§§version§§)(\\.min)?\\.js" ], 
 			"filecontent"	: [ 
-				"Project:   Ember -(?:.*\n){9,11}// Version: v([0-9.]+(-rc[0-9.]+)?)",
-				"// Version: v([0-9.]+(-rc[0-9.]+)?)(.*\n){10,15}(Ember Debug|@module ember|@class ember)"
+				"Project:   Ember -(?:.*\n){9,11}// Version: v(§§version§§)",
+				"// Version: v(§§version§§)(.*\n){10,15}(Ember Debug|@module ember|@class ember)"
 			],
 			"hashes"		: {}
 		}
@@ -148,8 +148,8 @@
 			
 		],
 		"extractors" : {
-			"uri"			: [ "/(?:dojo-)?([0-9.]+(-rc[0-9.]+)?)/dojo(\\.min)?\\.js" ],
-			"filename"		: [ "dojo-([0-9.]+(-rc[0-9.]+)?)(\\.min)?\\.js" ],
+			"uri"			: [ "/(?:dojo-)?(§§version§§)/dojo(\\.min)?\\.js" ],
+			"filename"		: [ "dojo-(§§version§§)(\\.min)?\\.js" ],
 			"hashes"		: {
 				"73cdd262799aab850abbe694cd3bfb709ea23627" : "1.4.1",
 				"c8c84eddc732c3cbf370764836a7712f3f873326" : "1.4.0",
@@ -168,36 +168,36 @@
 		"vulnerabilities" : [
 		],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+)/angular(\\.min)?\\.js" ],
-			"filename"		: [ "angular(?:js)?-([0-9.]+)(.min)?\\.js" ], 
-			"filecontent"	: [ "/*[ \n]+AngularJS v([0-9.]+)" ],
+			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
+			"filename"		: [ "angular(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ "/*[ \n]+AngularJS v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
 	"backbone.js" : {
 		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://backbonejs.org/#changelog" ] } ],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+)/backbone(\\.min)?\\.js" ],
-			"filename"		: [ "backbone(?:js)?-([0-9.]+)(.min)?\\.js" ], 
-			"filecontent"	: [ "//     Backbone.js ([0-9.]+)", "a=t.Backbone={}}a.VERSION=\"([0-9.]+)\"" ],
+			"uri"			: [ "/(§§version§§)/backbone(\\.min)?\\.js" ],
+			"filename"		: [ "backbone(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ "//     Backbone.js (§§version§§)", "a=t.Backbone={}}a.VERSION=\"(§§version§§)\"" ],
 			"hashes"		: {}
 		}
 	},
 	"mustache.js" : {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+)/mustache(\\.min)?\\.js" ],
-			"filename"		: [ "mustache(?:js)?-([0-9.]+)(.min)?\\.js" ], 
-			"filecontent"	: [ "name:\"mustache.js\",version:\"([0-9.]+)\"" ],
+			"uri"			: [ "/(§§version§§)/mustache(\\.min)?\\.js" ],
+			"filename"		: [ "mustache(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ "name:\"mustache.js\",version:\"(§§version§§)\"" ],
 			"hashes"		: {}
 		}
 	},
 	"handlebars.js" : {
 		"vulnerabilities" : [ { "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } ],
 		"extractors" : {
-			"uri"			: [ "/([0-9.]+([0-9.a-zA-Z\\-]))/handlebars(\\.min)?\\.js" ],
-			"filename"		: [ "handlebars(?:js)?-([0-9.A-Za-z\\-]+?)(.min)?\\.js" ], 
-			"filecontent"	: [ "Handlebars.VERSION = \"([0-9.A-Za-z\\-]+)\";" ],
+			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
+			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";" ],
 			"hashes"		: {}
 		}
 	}	
