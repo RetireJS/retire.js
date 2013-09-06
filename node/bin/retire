@@ -21,7 +21,7 @@ program
   .option("")
   .option("-p, --package",   "limit node scan to packages where parent is mentioned in package.json (ignore node_modules)")
   .option("-n, --node",   "Run node dependency scan only")
-  .option("-j, --js",   "Run node js scan only")
+  .option("-j, --js",   "Run scan of JavaScript files only")
 
   .parse(process.argv);
 
