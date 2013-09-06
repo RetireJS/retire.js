@@ -54,7 +54,7 @@ function scanJsFile(file, repo) {
 
 
 events.on('load-js-repo', function() {
-  repo.loadrepository("http://localhost:8000/repository.json").on('done', function(repo) {
+  repo.loadrepository("http://localhost:8000/jsrepository.json").on('done', function(repo) {
     jsRepo = repo;
     events.emit('js-repo-loaded');
   });

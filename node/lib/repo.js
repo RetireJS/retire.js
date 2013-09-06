@@ -1,6 +1,6 @@
 /* global require, console, exports */
 var http = require('http'),
-	retire = reqire('retire');
+	retire = require('./retire');
 var emitter = require('events').EventEmitter;
 
 
