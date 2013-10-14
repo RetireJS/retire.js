@@ -21,3 +21,13 @@ _Description_
 Chrome plugin
 -------------
 _Description_
+
+Windows quirks
+---------------
+Requires NTFS filesystem, manually create the symlink with the following commands as administrator:
+```
+cd node\lib\
+del retire.js
+node --eval "require('fs').symlinkSync('../../chrome/js/retire.js', 'retire.j
+s', 'file')"
+
