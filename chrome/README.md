@@ -13,3 +13,4 @@ To use the development version:
 4. Click "Load unpacked extension..." and locate the "chrome" folder inside the repo
 5. Use and develop
 
+To test the reporting you can visit the demo page at [http://erlend.oftedal.no/blog/retire/](http://erlend.oftedal.no/blog/retire/)
