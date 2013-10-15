@@ -5,7 +5,7 @@ Please always run validate before creating a pull request
 
 
 ### jsrepository.json
-Lists vulnerable javascript libraries
+Lists vulnerable javascript libraries. §§version§§ is a placeholder for a regex capturing versions with numbers + alpha/beta/rc1 etc.
 
 	"retire-example": {  //user friendly name of library
 		"vulnerabilities" : [ //List of vulnerable versions and links to more info
