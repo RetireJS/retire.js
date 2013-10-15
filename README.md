@@ -20,7 +20,7 @@ _Description_
 
 Chrome plugin
 -------------
-_Description_
+Scans visisted sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.
 
 Windows quirks
 ---------------
@@ -28,6 +28,5 @@ Requires NTFS filesystem, manually create the symlink with the following command
 ```
 cd node\lib\
 del retire.js
-node --eval "require('fs').symlinkSync('../../chrome/js/retire.js', 'retire.j
-s', 'file')"
+node --eval "require('fs').symlinkSync('../../chrome/js/retire.js', 'retire.js', 'file')"
 
