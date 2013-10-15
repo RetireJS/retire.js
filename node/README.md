@@ -14,3 +14,8 @@ Usage
     
 API
 ---
+
+
+Source code / Reporting an issue
+--------------------------------
+The source code and issue tracker can be found at [https://github.com/bekk/retire.js](https://github.com/bekk/retire.js)
