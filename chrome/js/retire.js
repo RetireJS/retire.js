@@ -80,7 +80,7 @@ function toComparable(n) {
 //------- External API -------
 
 exports.replaceVersion = function(jsRepoJsonAsText) {
-	return jsRepoJsonAsText.replace(/§§version§§/g, "[0-9][0-9.a-z\\\\-]+?");
+	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z\\\\-]+?');
 };
 
 exports.isVulnerable = function(results) {
@@ -110,7 +110,7 @@ exports.scanFileContent = function(content, repo, hasher) {
 
 exports.scanNodeDependency = function(dependency, npmrepo) {
 	if (!isDefined(dependency.version)) {
-		console.warn("Missing version for " + dependency.component + ". Need to run npm install ?");
+		console.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
 		return [];
 	}
 	if (!isDefined(npmrepo[dependency.component])) return [];

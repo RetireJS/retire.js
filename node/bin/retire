@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 var _         = require('underscore')._,
-    program   = require("commander"),
-    retire    = require("../lib/retire"),
-    repo      = require("../lib/repo"),
-    resolve   = require("../lib/resolve"),
-    fs        = require("fs"),
+    program   = require('commander'),
+    retire    = require('../lib/retire'),
+    repo      = require('../lib/repo'),
+    resolve   = require('../lib/resolve'),
+    fs        = require('fs'),
     emitter   = new require('events').EventEmitter,
     crypto    = require('crypto');
 
@@ -18,25 +18,26 @@ var nodeRepo = null;
  */
 program
   .version(retire.version)
-  .option("")
-  .option("-p, --package",   "limit node scan to packages where parent is mentioned in package.json (ignore node_modules)")
-  .option("-n, --node",   "Run node dependency scan only")
-  .option("-j, --js",   "Run scan of JavaScript files only")
-
+  .option('')
+  .option('-p, --package', 'limit node scan to packages where parent is mentioned in package.json (ignore node_modules)')
+  .option('-n, --node',    'Run node dependency scan only')
+  .option('-j, --js',      'Run scan of JavaScript files only')
+  .option('')
+  .option('--jspath <path>', 'Folder to scan for javascript files')
   .parse(process.argv);
 
-var config = _.extend({ }, _.pick(program, [
-  "package", "node", "js"
+var config = _.extend({ jspath: '.' }, _.pick(program, [
+  'package', 'node', 'js', 'jspath'
 ]));
 
 
 var hash = {
-  "sha1" : function(data) {
+  'sha1' : function(data) {
     shasum   = crypto.createHash('sha1');
     shasum.update(data);
     return shasum.digest('hex');
   }
-}
+};
 
 
 
@@ -54,14 +55,14 @@ function scanJsFile(file, repo) {
 
 
 events.on('load-js-repo', function() {
-  repo.loadrepository("http://localhost:8000/jsrepository.json").on('done', function(repo) {
+  repo.loadrepository('http://localhost:8000/jsrepository.json').on('done', function(repo) {
     jsRepo = repo;
     events.emit('js-repo-loaded');
   });
 });
 
 events.on('load-node-repo', function() {
-  repo.loadrepository("http://localhost:8000/npmrepository.json").on('done', function(repo) {
+  repo.loadrepository('http://localhost:8000/npmrepository.json').on('done', function(repo) {
     nodeRepo = repo;
     events.emit('node-repo-loaded');
   });
@@ -77,12 +78,17 @@ events.on('node-repo-loaded', function() {
 
 
 events.on('scan-js', function() {
-  resolve.scanJsFiles().on('jsfile', function(file) {
+  resolve.scanJsFiles(config.jspath).on('jsfile', function(file) {
     scanJsFile(file, jsRepo);
   }).on('end', function() {
     events.emit('js-scanned');
   });
 });
+
+function printParent(comp) {
+  if (comp.parent !== null) printParent(comp.parent);
+  console.log(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
+}
 
 events.on('scan-node', function() {
   resolve.getNodeDependencies(config.package).on('done', function(dependencies) {
@@ -90,12 +96,8 @@ events.on('scan-node', function() {
       results = retire.scanNodeDependency(dependencies[i], nodeRepo);
       if (retire.isVulnerable(results)) {
         var result = results[0]; //Only single scan here
-        console.warn(result.component + " " + result.version + " has known vulnerabilities: " + result.vulnerabilities.join(" "));
+        console.warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + result.vulnerabilities.join(' '));
         if (result.parent) {
-          function printParent(comp) {
-            if (comp.parent != null) printParent(comp.parent);
-            console.log(new Array(comp.level).join(" ") + (comp.parent ? String.fromCharCode(8627) + " " : "") + comp.component + " " + comp.version);
-          }
           printParent(result);
         }
       }
