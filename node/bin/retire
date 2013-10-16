@@ -50,7 +50,10 @@ function scanJsFile(file, repo) {
     }
   }  
 }
-
+function printParent(comp) {
+  if ('parent' in comp) printParent(comp.parent);
+  console.log(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
+}
 
 
 
@@ -84,12 +87,6 @@ events.on('scan-js', function() {
     events.emit('js-scanned');
   });
 });
-
-function printParent(comp) {
-  if ('parent' in comp) printParent(comp.parent);
-  console.log(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
-}
-
 
 events.on('scan-node', function() {
   resolve.getNodeDependencies(config.package).on('done', function(dependencies) {

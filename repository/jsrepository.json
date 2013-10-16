@@ -201,6 +201,21 @@
 			"hashes"		: {}
 		}
 	},
+	"easyXDM" : {
+		"vulnerabilities" : [ { "below" : "2.4.18", "info" : [ "http://blog.kotowicz.net/2013/09/exploiting-easyxdm-part-1-not-usual.html", "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5212" ] } ],
+		"extractors" : {
+			"uri"			: [ "/(§§version§§)/easyXDM(\\.min)?\\.js" ],
+			"filename"		: [ "easyXDM-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ " \\* easyXDM\n \\* http://easyxdm.net/(\r|\n|.)+version:\"§§version§§\"",
+								"apply\\(easyXDM, \\{\n    /\\*\\*\n     \\* The version of the library\n     \\* @type \\{string\\}\n     \\*/\n    version: \"(§§version§§)\"" ],
+			"hashes"		: {}
+		}
+	},
+
+
+
+
+
 	"dont check" : {
 		"extractors" : { 
 			"uri" : [ 
