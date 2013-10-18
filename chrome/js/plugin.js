@@ -1,6 +1,6 @@
 /* global chrome, console, exports, CryptoJS, Emitter */
 
-var repoUrl = "http://localhost:8000/jsrepository.json?";
+var repoUrl = "https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json";
 var updatedAt = Date.now();
 var repo;
 var cache = [];
