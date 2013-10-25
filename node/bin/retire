@@ -22,12 +22,13 @@ program
   .option('-p, --package', 'limit node scan to packages where parent is mentioned in package.json (ignore node_modules)')
   .option('-n, --node',    'Run node dependency scan only')
   .option('-j, --js',      'Run scan of JavaScript files only')
+  .option('-v, --verbose', 'Show identified files')
   .option('')
   .option('--jspath <path>', 'Folder to scan for javascript files')
   .parse(process.argv);
 
 var config = _.extend({ jspath: '.' }, _.pick(program, [
-  'package', 'node', 'js', 'jspath'
+  'package', 'node', 'js', 'jspath', 'verbose'
 ]));
 
 
@@ -39,15 +40,23 @@ var hash = {
   }
 };
 
-
+function printResults(file, results) {
+  if (retire.isVulnerable(results) || !config.verbose) return;
+  var log = retire.isVulnerable(results) ? console.warn : console.log;
+  if (results.length > 0) {
+    log(file);
+    results.forEach(function(elm) {
+      log(' ' + String.fromCharCode(8627) + ' ' + elm.component + ' ' + elm.version);
+    });
+  }
+}
 
 function scanJsFile(file, repo) {
   var results = retire.scanFileName(file, repo);
+  printResults(file, results);
   if (retire.isVulnerable(results)) {
     results = retire.scanContent(fs.readFileSync(file), repo);
-    if (retire.isVulnerable(results)) {
-      console.warn(results);
-    }
+    printResults(file, results);
   }  
 }
 function printParent(comp) {
