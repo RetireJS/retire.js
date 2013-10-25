@@ -7,7 +7,7 @@
 		if (request.message) {
 			count++;
 			chrome.runtime.sendMessage({'count' : count});
-		    console.warn(request.message);
+			console.warn(request.message);
 		} 
 	});
 })();

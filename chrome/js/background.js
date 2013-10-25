@@ -65,7 +65,7 @@ function getFileName(url) {
 
 
 events.on('scan', function(details) {
-	if (details.url.indexOf('chrome-extension://') == 0) return;
+	if (details.url.indexOf('chrome-extension://') === 0) return;
 
 	if ((Date.now() - updatedAt) > 1000*60*60*6) {
 		downloadRepo().on('success', function() { events.emit('scan', details); });
