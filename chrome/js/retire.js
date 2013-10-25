@@ -79,8 +79,12 @@ function toComparable(n) {
 
 //------- External API -------
 
+exports.check = function(component, version, repo) {
+	return check([{component: component, version: version}], repo);
+};
+
 exports.replaceVersion = function(jsRepoJsonAsText) {
-	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z\\\\-]+?');
+	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z\\\\-]+');
 };
 
 exports.isVulnerable = function(results) {
