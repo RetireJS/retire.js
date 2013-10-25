@@ -4,6 +4,7 @@
 			{ "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		],
 		"extractors" : {
+			"func"			: [ "retire.VERSION" ],
 			"filename"		: [ "retire-example-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "/\\*! Retire-example v(§§version§§)" ],
 			"hashes"		: { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" }
@@ -15,6 +16,7 @@
 			{ "atOrAbove": "1.6", "below" : "1.6.3", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" ]}
 		],
 		"extractors" : {
+			"func"    		: [ "jQuery.fn.jquery" ],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [ "/\\*! jQuery v(§§version§§)", "/\\*!\n \\* jQuery JavaScript Library v(§§version§§)" ],
@@ -148,6 +150,7 @@
 			
 		],
 		"extractors" : {
+			"func"			: [ "dojo.version.toString()" ],
 			"uri"			: [ "/(?:dojo-)?(§§version§§)/dojo(\\.min)?\\.js" ],
 			"filename"		: [ "dojo-(§§version§§)(\\.min)?\\.js" ],
 			"hashes"		: {
@@ -168,6 +171,7 @@
 		"vulnerabilities" : [
 		],
 		"extractors" : {
+			"func"			: [ "angular.version.full" ],
 			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
 			"filename"		: [ "angular(?:js)?-(§§version§§)(.min)?\\.js" ], 
 			"filecontent"	: [ "/*[ \n]+AngularJS v(§§version§§)" ],
@@ -177,6 +181,7 @@
 	"backbone.js" : {
 		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://backbonejs.org/#changelog" ] } ],
 		"extractors" : {
+			"func"			: [ "Backbone.VERSION" ],
 			"uri"			: [ "/(§§version§§)/backbone(\\.min)?\\.js" ],
 			"filename"		: [ "backbone(?:js)?-(§§version§§)(.min)?\\.js" ], 
 			"filecontent"	: [ "//     Backbone.js (§§version§§)", "a=t.Backbone={}}a.VERSION=\"(§§version§§)\"" ],
@@ -186,6 +191,7 @@
 	"mustache.js" : {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ],
 		"extractors" : {
+			"func"			: [ "Mustache.version" ],
 			"uri"			: [ "/(§§version§§)/mustache(\\.min)?\\.js" ],
 			"filename"		: [ "mustache(?:js)?-(§§version§§)(.min)?\\.js" ], 
 			"filecontent"	: [ "name:\"mustache.js\",version:\"(§§version§§)\"" ],
@@ -195,6 +201,7 @@
 	"handlebars.js" : {
 		"vulnerabilities" : [ { "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } ],
 		"extractors" : {
+			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
 			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ], 
 			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";" ],

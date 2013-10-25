@@ -11,20 +11,26 @@
   "author" : "Erlend Oftedal",
 
   "permissions": [
-	"<all_urls>",
-	"webRequest",
-	"tabs"
+  	"<all_urls>",
+  	"webRequest",
+  	"tabs"
   ],
   "browser_action": {
     "default_icon" : "icons/icon48.png",
     "default_name" : "retire.js"
   },
+  "content_security_policy": "script-src 'self' 'unsafe-eval' chrome-extension-resource: ; object-src 'self'",
+
   "background": {
-    "scripts"	: ["js/sha1.js", "js/events.js", "js/retire.js", "js/plugin.js"],
+    "scripts"	: ["js/sha1.js", "js/events.js", "js/retire.js", "js/background.js"],
     "persistent": true
   },
   "content_scripts" : [{
   	"matches"	: ["<all_urls>"],
-  	"js"		: ["js/log.js"]
-  }]
+  	"js"		  : ["js/content.js"],
+    "run_at"  : "document_start"
+  }],
+  "sandbox" : {
+    "pages" : [ "sandbox.html" ]
+  }
 }

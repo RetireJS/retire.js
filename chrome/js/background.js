@@ -3,9 +3,11 @@
 var repoUrl = "https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json";
 var updatedAt = Date.now();
 var repo;
+var repoFuncs;
 var cache = [];
 var vulnerable = {};
 var events = new Emitter();
+var sandboxWin;
 
 var hasher = {
 	sha1 : function(data) {
@@ -39,9 +41,19 @@ function downloadRepo() {
 		console.log("Done");
 		cache = [];
 		vulnerable = {};
+		setFuncs();
 		events.emit('success');
 	});
 	return events;
+}
+
+function setFuncs() {
+	repoFuncs = {};
+	for (var component in repo) {
+		if (repo[component].extractors.func) {
+			repoFuncs[component] = repo[component].extractors.func;
+		}
+	}
 }
 
 function getFileName(url) {
@@ -53,6 +65,8 @@ function getFileName(url) {
 
 
 events.on('scan', function(details) {
+	if (details.url.indexOf('chrome-extension://') == 0) return;
+
 	if ((Date.now() - updatedAt) > 1000*60*60*6) {
 		downloadRepo().on('success', function() { events.emit('scan', details); });
 		return;
@@ -85,7 +99,20 @@ events.on('script-downloaded', function(details, content) {
 		events.emit('result-ready', details, results);
 		return;
 	}
+	events.emit('sandbox', details, content);
 	console.log(hasher.sha1(content) + " : " + details.url);
+});
+
+events.on('sandbox', function(details, content) {
+	sandboxWin.postMessage({ tabId: details.tabId, script : content, url: details.url, repoFuncs: repoFuncs }, "*");
+});
+
+window.addEventListener("message", function(evt) {
+	if (evt.data.version) {
+		var results = exports.check(evt.data.component, evt.data.version, repo);
+		console.log("SANDBOX", results);
+		events.emit('result-ready', { url : evt.data.original.url, tabId : evt.data.original.tabId }, results);
+	}
 });
 
 
@@ -108,13 +135,13 @@ events.on('result-ready', function(details, results) {
 	}
 });
 
-
 chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 chrome.runtime.onMessage.addListener(function (request, sender) {
 	if (request.count){
 		chrome.browserAction.setBadgeText({text : "" + request.count, tabId : sender.tab.id });
 	}
 });
+
 
 downloadRepo().on('success', function() {
 	var filter = {
@@ -129,4 +156,10 @@ downloadRepo().on('success', function() {
 	}
 	chrome.webRequest.onCompleted.addListener(scan, filter, []);
 });
+
+sandboxWin = window.open("sandbox.html","retire.js-sandbox","height=200,width=300");
+
+
+
+
 
