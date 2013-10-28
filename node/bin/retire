@@ -67,14 +67,14 @@ function printParent(comp) {
 
 
 events.on('load-js-repo', function() {
-  repo.loadrepository('http://localhost:8000/jsrepository.json').on('done', function(repo) {
+  repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json').on('done', function(repo) {
     jsRepo = repo;
     events.emit('js-repo-loaded');
   });
 });
 
 events.on('load-node-repo', function() {
-  repo.loadrepository('http://localhost:8000/npmrepository.json').on('done', function(repo) {
+  repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/npmrepository.json').on('done', function(repo) {
     nodeRepo = repo;
     events.emit('node-repo-loaded');
   });
