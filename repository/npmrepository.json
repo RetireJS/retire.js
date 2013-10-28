@@ -23,5 +23,46 @@
 		"vulnerabilities" : [
 			{ "below" : "0.0.6", "info" : [ "https://nodesecurity.io/advisories/5194039ed66d3fe501000001" ] }
 		]
+	},
+	"handlebars" : {
+		"vulnerabilities" : [ 
+			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
+		]
+	},
+	"handlebars-runtime" : {
+		"vulnerabilities" : [ 
+			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
+		]
+	},
+	"ember" : {
+		"vulnerabilities" : [
+			{ "atOrAbove" : "1.0.0-rc.1", "below" : "1.0.0-rc.1.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.2", "below" : "1.0.0-rc.2.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.3", "below" : "1.0.0-rc.3.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.4", "below" : "1.0.0-rc.4.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.5", "below" : "1.0.0-rc.5.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "atOrAbove" : "1.0.0-rc.6", "below" : "1.0.0-rc.6.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{ "below" : "0.9.7.1", "info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG" ] },
+			{ "below" : "0.9.7", "info" : [ "https://github.com/emberjs/ember.js/issues/699" ] }
+		]
+	},
+	"dojo" : {
+		"vulnerabilities" : [
+			{ "atOrAbove" : "0.4", "below" : "0.4.4", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2272/" ] },
+			{ "atOrAbove" : "1.0", "below" : "1.0.3", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
+			{ "atOrAbove" : "1.1", "below" : "1.1.2", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
+			{ "atOrAbove" : "1.2", "below" : "1.2.4", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
+			{ "atOrAbove" : "1.3", "below" : "1.3.3", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
+			{ "atOrAbove" : "1.4", "below" : "1.4.2", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
+			{ "below" : "1.4.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-2275/"] },
+			{ "below" : "1.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"] }
+		]
+	},
+	"backbone" : {
+		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://backbonejs.org/#changelog" ] } ]
+	},
+	"mustache" : {
+		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ]
 	}
+
 }
