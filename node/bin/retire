@@ -12,6 +12,7 @@ var _         = require('underscore')._,
 var events = new emitter();
 var jsRepo = null;
 var nodeRepo = null;
+var vulnsFound = false;
 
 /*
  * Parse command line flags.
@@ -54,8 +55,8 @@ function printResults(file, results) {
 function scanJsFile(file, repo) {
   var results = retire.scanFileName(file, repo);
   printResults(file, results);
-  if (retire.isVulnerable(results)) {
-    results = retire.scanContent(fs.readFileSync(file), repo);
+  if (!retire.isVulnerable(results)) {
+    results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
     printResults(file, results);
   }  
 }
@@ -102,6 +103,7 @@ events.on('scan-node', function() {
     for (var i in dependencies) {
       results = retire.scanNodeDependency(dependencies[i], nodeRepo);
       if (retire.isVulnerable(results)) {
+        vulnsFound = true;
         var result = results[0]; //Only single scan here
         console.warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + result.vulnerabilities.join(' '));
         if (result.parent) {

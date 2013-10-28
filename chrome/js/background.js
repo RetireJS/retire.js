@@ -36,7 +36,7 @@ function downloadRepo() {
 	var events = new Emitter();
 	console.log("Downloading repo ...");
 	updatedAt = Date.now();
-	download(repoUrl + updatedAt).on('success', function(repoData) {
+	download(repoUrl + "?" + updatedAt).on('success', function(repoData) {
 		repo = JSON.parse(exports.replaceVersion(repoData));
 		console.log("Done");
 		cache = [];
