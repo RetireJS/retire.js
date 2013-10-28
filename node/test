@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+node_modules/.bin/jshint lib bin spec/tests
+
+rm   -rf spec/out
+mkdir -p spec/out
+
+node_modules/.bin/nodeunit spec/tests
