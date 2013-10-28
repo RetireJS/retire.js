@@ -157,7 +157,6 @@ downloadRepo().on('success', function() {
 	chrome.webRequest.onCompleted.addListener(scan, filter, []);
 });
 
-//sandboxWin = window.open("sandbox.html","retire.js-sandbox","height=200,width=300");
 sandboxWin = window.document.getElementById("sandboxframe").contentWindow;
 
 

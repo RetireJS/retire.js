@@ -1,6 +1,5 @@
 var extension = null;
 window.addEventListener("message", function orig(evt) {
-	console.log(evt);
 	if (evt.data.repoFuncs) {
 		extension = evt.source;
 		var iframe = document.createElement("iframe");
