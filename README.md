@@ -5,7 +5,7 @@ Retire.js
 There is a pletora of JavaScript libraries for use on the web and in node.js apps out there. This greatly simplifies,
 but we need to stay update on security fixes. "Using Components with Known Vulnerabilities" is now a part of the 
 [OWASP Top 10](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) and insecure
-can libraries can pose a huge risk for your webapp. The goal of Retire.js is to help you detect use of version with 
+can libraries can pose a huge risk for your webapp. The goal of Retire.js is to help you detect the use of JS-library versions with 
 known vulnerabilities.
 
 Retire.js has two parts:
