@@ -43,7 +43,11 @@ var hash = {
 
 function printResults(file, results) {
   if (retire.isVulnerable(results) || !config.verbose) return;
-  var log = retire.isVulnerable(results) ? console.warn : console.log;
+  var log = console.log;
+  if (retire.isVulnerable(results)) {
+    log = console.warn;
+    vulnsFound = true;
+  }
   if (results.length > 0) {
     log(file);
     results.forEach(function(elm) {
@@ -111,13 +115,17 @@ events.on('scan-node', function() {
         }
       }
     }
-    events.emit('node-scanned');
+    events.emit('scan-done');
   });
 });
 
 events.on('js-scanned', function() {
-  if (!config.js) events.emit('scan-node');
+  events.emit(!config.js ? 'scan-node' : 'scan-done');
 });
+
+events.on('scan-done', function() {
+  process.exit(vulnsFound ? 1 : 0);
+})
 
 
 if (config.node) {
