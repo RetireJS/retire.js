@@ -42,7 +42,7 @@ var hash = {
 };
 
 function printResults(file, results) {
-  if (!config.verbose) return;
+  if (!retire.isVulnerable(results) && !config.verbose) return;
   var log = console.log;
   if (retire.isVulnerable(results)) {
     log = console.warn;
@@ -51,19 +51,23 @@ function printResults(file, results) {
   if (results.length > 0) {
     log(file);
     results.forEach(function(elm) {
-      log(' ' + String.fromCharCode(8627) + ' ' + elm.component + ' ' + elm.version);
+      var vuln = '';
+      if (retire.isVulnerable([elm])) {
+        vuln = ' has known vulnerabilities: ' + elm.vulnerabilities.join(' ');
+      }
+      log(' ' + String.fromCharCode(8627) + ' ' + elm.component + ' ' + elm.version + vuln);
     });
   }
 }
 
 function scanJsFile(file, repo) {
   var results = retire.scanFileName(file, repo);
-  printResults(file, results);
   if (!retire.isVulnerable(results)) {
     results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
-    printResults(file, results);
   }  
+  printResults(file, results);
 }
+
 function printParent(comp) {
   if ('parent' in comp) printParent(comp.parent);
   console.log(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
