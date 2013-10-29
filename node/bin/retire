@@ -42,7 +42,7 @@ var hash = {
 };
 
 function printResults(file, results) {
-  if (retire.isVulnerable(results) || !config.verbose) return;
+  if (!config.verbose) return;
   var log = console.log;
   if (retire.isVulnerable(results)) {
     log = console.warn;
