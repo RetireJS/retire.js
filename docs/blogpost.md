@@ -4,9 +4,9 @@ known vulnerabilities.
 
 Retire.js has three parts:
 
-1. A command line scanner
-2. A Chrome plugin
-3. A grunt plugin
+1. [A command line scanner](https://github.com/bekk/retire.js/tree/master/node)
+2. [A Chrome extension](https://github.com/bekk/retire.js/tree/master/chrome)
+3. [A grunt plugin](https://github.com/bekk/grunt-retire)
 
 Command line scanner
 --------------------
@@ -26,7 +26,7 @@ Options:
 --jspath <path>  Folder to scan for javascript files
 ```
 
-Chrome plugin
+Chrome extension
 -------------
 Scans visisted sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicated if vulnerable libraries were loaded.
 
