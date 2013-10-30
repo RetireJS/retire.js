@@ -23,7 +23,7 @@ program
   .option('-p, --package', 'limit node scan to packages where parent is mentioned in package.json (ignore node_modules)')
   .option('-n, --node',    'Run node dependency scan only')
   .option('-j, --js',      'Run scan of JavaScript files only')
-  .option('-v, --verbose', 'Show identified files')
+  .option('-v, --verbose', 'Show identified files (by default only vulnerable files are shown)')
   .option('')
   .option('--jspath <path>', 'Folder to scan for javascript files')
   .parse(process.argv);
