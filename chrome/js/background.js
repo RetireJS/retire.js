@@ -9,6 +9,7 @@ var vulnerable = {};
 var events = new Emitter();
 var sandboxWin;
 
+
 var hasher = {
 	sha1 : function(data) {
 		return CryptoJS.SHA1(data).toString(CryptoJS.enc.Hex);
@@ -37,7 +38,7 @@ function downloadRepo() {
 	console.log("Downloading repo ...");
 	updatedAt = Date.now();
 	download(repoUrl + "?" + updatedAt).on('success', function(repoData) {
-		repo = JSON.parse(exports.replaceVersion(repoData));
+		repo = JSON.parse(retire.replaceVersion(repoData));
 		console.log("Done");
 		cache = [];
 		vulnerable = {};
@@ -79,12 +80,12 @@ events.on('scan', function(details) {
 	}
 	cache.push(details.url);
 	console.log("Scanning " + details.url + " ...");
-	var results = exports.scanUri(details.url, repo);
+	var results = retire.scanUri(details.url, repo);
 	if (results.length > 0) {
 		events.emit('result-ready', details, results);
 		return;
 	}
-	results = exports.scanFileName(getFileName(details.url), repo);
+	results = retire.scanFileName(getFileName(details.url), repo);
 	if (results.length > 0) {
 		events.emit('result-ready', details, results);
 		return;
@@ -94,7 +95,7 @@ events.on('scan', function(details) {
 });
 
 events.on('script-downloaded', function(details, content) {
-	var results = exports.scanFileContent(content, repo, hasher);
+	var results = retire.scanFileContent(content, repo, hasher);
 	if (results.length > 0) {
 		events.emit('result-ready', details, results);
 		return;
@@ -109,7 +110,7 @@ events.on('sandbox', function(details, content) {
 
 window.addEventListener("message", function(evt) {
 	if (evt.data.version) {
-		var results = exports.check(evt.data.component, evt.data.version, repo);
+		var results = retire.check(evt.data.component, evt.data.version, repo);
 		console.log("SANDBOX", results);
 		events.emit('result-ready', { url : evt.data.original.url, tabId : evt.data.original.tabId }, results);
 	}
@@ -117,7 +118,7 @@ window.addEventListener("message", function(evt) {
 
 
 events.on('result-ready', function(details, results) {
-	if (exports.isVulnerable(results)) {
+	if (retire.isVulnerable(results)) {
 		vulnerable[details.url] = results;
 		console.warn(details.url, results);
 		var rmsg = [];

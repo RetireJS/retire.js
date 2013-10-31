@@ -131,7 +131,7 @@ events.on('js-scanned', function() {
 
 events.on('scan-done', function() {
   process.exit(vulnsFound ? 1 : 0);
-})
+});
 
 
 if (config.node) {
