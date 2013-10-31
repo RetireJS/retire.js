@@ -28,10 +28,12 @@ program
   .option('--jspath <path>', 'Folder to scan for javascript files')
   .option('--nodepath <path>', 'Folder to scan for node files')
   .option('--path <path>', 'Folder to scan for both')
+  .option('--jsrepo <path>', 'Local version of repo')
+  .option('--noderepo <path>', 'Local version of repo')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
-  'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path'
+  'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo'
 ]));
 
 
@@ -78,16 +80,23 @@ function printParent(comp) {
 
 
 events.on('load-js-repo', function() {
-  repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json').on('done', function(repo) {
-    jsRepo = repo;
-    events.emit('js-repo-loaded');
+  (config.jsrepo
+    ? loader = repo.loadrepositoryFromFile(config.jsrepo)
+    :repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json')
+  ).on('done', function(repo) {
+      jsRepo = repo;
+      events.emit('js-repo-loaded');
   });
 });
 
+
 events.on('load-node-repo', function() {
-  repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/npmrepository.json').on('done', function(repo) {
-    nodeRepo = repo;
-    events.emit('node-repo-loaded');
+  (config.noderepo
+    ? repo.loadrepositoryFromFile(config.noderepo)
+    : repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/npmrepository.json')
+  ).on('done', function(repo) {
+      nodeRepo = repo;
+      events.emit('node-repo-loaded');
   });
 });
 

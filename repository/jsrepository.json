@@ -29,7 +29,7 @@
 		],
 		"extractors" : {
 			"filename"		: [ "jquery-migrate-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "/\\*!(?:\n \\*)? jQuery Migrate v(§§version§§)" ],
+			"filecontent"	: [ "/\\*!(?:\n \\*)? jQuery Migrate(?: -)? v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
