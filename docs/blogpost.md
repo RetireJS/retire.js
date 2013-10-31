@@ -28,7 +28,7 @@ Options:
 
 Chrome extension
 -------------
-Scans visisted sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicated if vulnerable libraries were loaded.
+Scans visisted sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicated if vulnerable libraries were loaded. This extension is not meant to be enabled all the time, but rather something you enable when you want to assess your site.
 
 Grunt plugin
 -------------
