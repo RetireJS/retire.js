@@ -33,6 +33,18 @@
 			"hashes"		: {}
 		}
 	},
+	"jquery-mobile" : {
+		"vulnerabilities" : [
+			{ "below" : "1.0RC2", "info" : [ "http://osvdb.org/show/osvdb/94563", "http://osvdb.org/show/osvdb/94562", "http://osvdb.org/show/osvdb/94316", "http://osvdb.org/show/osvdb/94561", "http://osvdb.org/show/osvdb/94560" ]},
+			{ "below" : "1.0.1", "info": [ "http://osvdb.org/show/osvdb/94317" ] }
+		],
+		"extractors" : {
+			"filename"		: [ "jquery.mobile-(§§version§§)(.min)?\\.js" ],
+			"uri"			: [ "/(§§version§§)/jquery.mobile(\\.min)?\\.js" ],
+			"filecontent"	: [ "/\\*!(?:\n \\*)? jQuery Mobile(?: -)? v(§§version§§)" ],
+			"hashes"		: {}
+		}
+	},	
 	"jquery-ui-dialog" : {
 		"vulnerabilities" : [
 			{ "atOrAbove": "1.8.9", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/6016" ]}
