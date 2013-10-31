@@ -1,7 +1,7 @@
 /* global require, exports */
 
 var npm     = require('npm'),
-	findit  = require('findit'),
+	walkdir = require('walkdir'),
 	fs		= require('fs'),
 	readInstalled = require("read-installed"),
 	emitter = require('events').EventEmitter;
@@ -35,7 +35,7 @@ function getNodeDependencies(path, limit) {
 }
 
 function scanJsFiles(path) {
-	var finder = findit.find(path);
+	var finder = walkdir.find(path);
 	finder.on('file', function (file) {
 		if (file.match(/\.js$/)) {
 			finder.emit('jsfile', file);
