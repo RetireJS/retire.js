@@ -25,6 +25,8 @@ Options:
 --jspath <path>    Folder to scan for javascript files
 --nodepath <path>  Folder to scan for node files
 --path <path>      Folder to scan for both
+--jsrepo <path>    Local version of repo
+--noderepo <path>  Local version of repo
 ````
 
 
