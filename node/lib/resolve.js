@@ -1,7 +1,6 @@
 /* global require, exports */
 
-var npm     = require('npm'),
-	walkdir = require('walkdir'),
+var walkdir = require('walkdir'),
 	fs		= require('fs'),
 	readInstalled = require("read-installed"),
 	emitter = require('events').EventEmitter;
