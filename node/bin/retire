@@ -26,10 +26,12 @@ program
   .option('-v, --verbose', 'Show identified files (by default only vulnerable files are shown)')
   .option('')
   .option('--jspath <path>', 'Folder to scan for javascript files')
+  .option('--nodepath <path>', 'Folder to scan for node files')
+  .option('--path <path>', 'Folder to scan for both')
   .parse(process.argv);
 
-var config = _.extend({ jspath: '.' }, _.pick(program, [
-  'package', 'node', 'js', 'jspath', 'verbose'
+var config = _.extend({ path: '.' }, _.pick(program, [
+  'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path'
 ]));
 
 
@@ -99,7 +101,7 @@ events.on('node-repo-loaded', function() {
 
 
 events.on('scan-js', function() {
-  resolve.scanJsFiles(config.jspath).on('jsfile', function(file) {
+  resolve.scanJsFiles(config.jspath || config.path).on('jsfile', function(file) {
     scanJsFile(file, jsRepo);
   }).on('end', function() {
     events.emit('js-scanned');
@@ -107,7 +109,7 @@ events.on('scan-js', function() {
 });
 
 events.on('scan-node', function() {
-  resolve.getNodeDependencies(config.package).on('done', function(dependencies) {
+  resolve.getNodeDependencies(config.jspath || config.path, config.package).on('done', function(dependencies) {
     for (var i in dependencies) {
       results = retire.scanNodeDependency(dependencies[i], nodeRepo);
       if (retire.isVulnerable(results)) {

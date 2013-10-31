@@ -3,6 +3,7 @@
 var npm     = require('npm'),
 	findit  = require('findit'),
 	fs		= require('fs'),
+	readInstalled = require("read-installed"),
 	emitter = require('events').EventEmitter;
 
 
@@ -17,20 +18,18 @@ function listdep(parent, filter, dep, level, deps) {
 	}
 }
 
-function getNodeDependencies(limit) {
+function getNodeDependencies(path, limit) {
 	var events = new emitter();
-	npm.load({}, function() {
-		npm.commands.ls([], true, function (er, _, pkginfo) {
-			var deps = [];
-			var filter = null;
-			if (limit) {
-				var packages = JSON.parse(fs.readFileSync('package.json'));
-				filter = [];
-				for(var k in packages.dependencies) filter.push(k);
-			}
-			listdep({component: pkginfo.name, version: pkginfo.version}, filter, pkginfo, 1, deps);
-			events.emit('done', deps);				
-		});
+	readInstalled(path, null, null, function (er, pkginfo) {
+		var deps = [];
+		var filter = null;
+		if (limit) {
+			var packages = JSON.parse(fs.readFileSync('package.json'));
+			filter = [];
+			for(var k in packages.dependencies) filter.push(k);
+		}
+		listdep({component: pkginfo.name, version: pkginfo.version}, filter, pkginfo, 1, deps);
+		events.emit('done', deps);				
 	});
 	return events;
 }
