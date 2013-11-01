@@ -2,7 +2,7 @@ const { Cc, Ci } = require("chrome");
 
 function sha1(str) {
     var hasher = Cc["@mozilla.org/security/hash;1"].createInstance(Ci.nsICryptoHash);
-	var byteArray = toByteArray(str);
+    var byteArray = toByteArray(str);
 
     hasher.init(hasher.SHA1);
     hasher.update(byteArray, byteArray.length);
