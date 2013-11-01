@@ -1,0 +1,6 @@
+* Update badge pr. tab -> use map?
+* Reset the counter on reload
+* Invstigate issues in script-downloaded. Results is not accurate
+* Better integration with native devtools -> fx-team
+* Use shared retire.js
+* Remove unused code
