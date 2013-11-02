@@ -71,7 +71,7 @@ exports.scanJsFile = function(file, repo, config) {
 exports.registerWarnLogger = function(logger) {
 	warnLog = logger;
 };
-exports.registerWarnLogger = function(logger) {
+exports.registerInfoLogger = function(logger) {
 	infoLog = logger;
 };
 exports.on = function(name, listener) {

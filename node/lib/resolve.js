@@ -47,7 +47,7 @@ exports.scanJsFiles = function(path) {
 	return scanJsFiles(path);
 };
 
-exports.getNodeDependencies = function(limit) {
-	return getNodeDependencies(limit);
+exports.getNodeDependencies = function(path, limit) {
+	return getNodeDependencies(path, limit);
 };
 
