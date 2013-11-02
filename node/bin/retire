@@ -5,14 +5,18 @@ var _         = require('underscore')._,
     retire    = require('../lib/retire'),
     repo      = require('../lib/repo'),
     resolve   = require('../lib/resolve'),
-    fs        = require('fs'),
-    emitter   = new require('events').EventEmitter,
-    crypto    = require('crypto');
+    scanner   = require('../lib/scanner'),
+    emitter   = new require('events').EventEmitter;
 
 var events = new emitter();
 var jsRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
+
+scanner.on('vulnerable-dependency-found', function() {
+  vulnsFound = true;
+});
+
 
 /*
  * Parse command line flags.
@@ -37,45 +41,6 @@ var config = _.extend({ path: '.' }, _.pick(program, [
 ]));
 
 
-var hash = {
-  'sha1' : function(data) {
-    shasum   = crypto.createHash('sha1');
-    shasum.update(data);
-    return shasum.digest('hex');
-  }
-};
-
-function printResults(file, results) {
-  if (!retire.isVulnerable(results) && !config.verbose) return;
-  var log = console.log;
-  if (retire.isVulnerable(results)) {
-    log = console.warn;
-    vulnsFound = true;
-  }
-  if (results.length > 0) {
-    log(file);
-    results.forEach(function(elm) {
-      var vuln = '';
-      if (retire.isVulnerable([elm])) {
-        vuln = ' has known vulnerabilities: ' + elm.vulnerabilities.join(' ');
-      }
-      log(' ' + String.fromCharCode(8627) + ' ' + elm.component + ' ' + elm.version + vuln);
-    });
-  }
-}
-
-function scanJsFile(file, repo) {
-  var results = retire.scanFileName(file, repo);
-  if (!retire.isVulnerable(results)) {
-    results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
-  }  
-  printResults(file, results);
-}
-
-function printParent(comp) {
-  if ('parent' in comp) printParent(comp.parent);
-  console.log(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
-}
 
 
 
@@ -111,7 +76,7 @@ events.on('node-repo-loaded', function() {
 
 events.on('scan-js', function() {
   resolve.scanJsFiles(config.jspath || config.path).on('jsfile', function(file) {
-    scanJsFile(file, jsRepo);
+    scanner.scanJsFile(file, jsRepo, config);
   }).on('end', function() {
     events.emit('js-scanned');
   });
@@ -119,17 +84,7 @@ events.on('scan-js', function() {
 
 events.on('scan-node', function() {
   resolve.getNodeDependencies(config.jspath || config.path, config.package).on('done', function(dependencies) {
-    for (var i in dependencies) {
-      results = retire.scanNodeDependency(dependencies[i], nodeRepo);
-      if (retire.isVulnerable(results)) {
-        vulnsFound = true;
-        var result = results[0]; //Only single scan here
-        console.warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + result.vulnerabilities.join(' '));
-        if (result.parent) {
-          printParent(result);
-        }
-      }
-    }
+    scanner.scanDependencies(dependencies, nodeRepo);
     events.emit('scan-done');
   });
 });

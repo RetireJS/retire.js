@@ -5,7 +5,7 @@
 
 
 var exports = exports || {};
-exports.version = '0.1.7';
+exports.version = '0.1.9';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -120,4 +120,6 @@ exports.scanNodeDependency = function(dependency, npmrepo) {
 	if (!isDefined(npmrepo[dependency.component])) return [];
 	return check([dependency], npmrepo);
 };
+
+
 
