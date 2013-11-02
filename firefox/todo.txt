@@ -1,6 +1,5 @@
-* Update badge pr. tab -> use map?
+* Investigate why http://erlend.oftedal.no/blog/retire/dojo.js fails sandboxed test
 * Reset the counter on reload
-* Invstigate issues in script-downloaded. Results is not accurate
 * Better integration with native devtools -> fx-team
 * Use shared retire.js
-* Remove unused code
+* Clean up

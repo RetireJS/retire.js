@@ -1,7 +1,7 @@
-Build and Run
+Development
 =============
 
-** Prerequisites **
+**Prerequisites**
 
 See: https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/installation.html
 
@@ -28,3 +28,5 @@ This will create a .xpi file in the add-on folder.
 > cd ${project}/firefox
 > cfx xpi
 ```
+
+To test the reporting you can visit the demo page at http://erlend.oftedal.no/blog/retire/
