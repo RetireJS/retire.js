@@ -1,5 +1,9 @@
-* Investigate why http://erlend.oftedal.no/blog/retire/dojo.js fails sandboxed test
-* Reset the counter on reload
-* Better integration with native devtools -> fx-team
+* Fix leak with page worker. The background window object is not GC'ed when worker.destroy() is called.
+* Console warnings should be printed in the tab that creates the request.
+* Privacy file
 * Use shared retire.js
-* Clean up
+* Review
+
+Notes:
+On some browser profiles the button is not moved to the toolbar after install.
+Workaround: Manually move it the toolbar
