@@ -3,7 +3,7 @@ Command line scanner looking for use of known vulnerable js files and node modul
 Install
 -------
 
-    npm install retire
+    npm install -g retire
     
 
 Usage
