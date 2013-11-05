@@ -20,6 +20,6 @@ Scan a web app or node app for use of vulnerable JavaScript libraries and/or nod
 
 Chrome extension
 -------------
-Scans visisted sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.
+Scans visited sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.
 
 
