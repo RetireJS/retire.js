@@ -25,4 +25,4 @@ Scans visited sites for references to insecure libraries, and puts warnings in t
 
 Grunt plugin
 ------------
-A Grunt task for running Retire.js as part of your application's build routine, or some other automated workflow.
+A [Grunt task for running Retire.js](https://github.com/bekk/grunt-retire) as part of your application's build routine, or some other automated workflow.
