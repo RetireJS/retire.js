@@ -33,7 +33,7 @@ Options:
 
 Chrome extension
 -------------
-Scans visisted sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicated if vulnerable libraries were loaded. This extension is not meant to be enabled all the time, but rather something you enable when you want to assess your site.
+Scans visited sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicated if vulnerable libraries were loaded. This extension is not meant to be enabled all the time, but rather something you enable when you want to assess your site.
 
 Grunt plugin
 -------------
@@ -41,11 +41,11 @@ Scans the given grunt enabled project for JavaScript files with known vulnerabil
 
 The source
 ----------------
-The source of vulnerabilities is a manually maintained [JSON file](https://github.com/bekk/retire.js/tree/master/repository) in the GitHub repository. It was created by looking through release notes and issue trackers for the most common frameworks. If you see a framework or vulnerability missing, feel free to create a pull requrest (or register as an issue).
+The source of vulnerabilities is a manually maintained [JSON file](https://github.com/bekk/retire.js/tree/master/repository) in the GitHub repository. It was created by looking through release notes and issue trackers for the most common frameworks. If you see a framework or vulnerability missing, feel free to create a pull request (or register as an issue).
 
 Detection
 ---------------
-To detect a given version of a given component, Retire.js uses filename or URL. If that fails, it will download/open the file and look for specific comments within the file. If that also fails, there is the possibility to use hashes for minified files. And if that fails as well, the Chrome plugin will run code in a sandbox to try to detect the component and version. This last detection mechanims is not available in the command line scanner, as running arbitrary JavaScript-files in the node-process could have unwanted consequences. If anybody knows of a good way to sandbox the code on node, feel free to register and issue or contribute.
+To detect a given version of a given component, Retire.js uses filename or URL. If that fails, it will download/open the file and look for specific comments within the file. If that also fails, there is the possibility to use hashes for minified files. And if that fails as well, the Chrome plugin will run code in a sandbox to try to detect the component and version. This last detection mechanisms is not available in the command line scanner, as running arbitrary JavaScript-files in the node-process could have unwanted consequences. If anybody knows of a good way to sandbox the code on node, feel free to register an issue or contribute.
 
 It's important to note that even though your site is using a vulnerable library, that does not necessarily mean your site is vulnerable. It depends on whether and how your site exercises the vulnerable code. That said, it's better to be safe than sorry.
 
