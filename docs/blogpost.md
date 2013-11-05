@@ -37,7 +37,7 @@ Scans visited sites for references to insecure libraries, and puts warnings in t
 
 Grunt plugin
 -------------
-Scans the given grunt enabled project for JavaScript files with known vulnerabilites, and breaks if it finds any. See examples on the [repo page](https://github.com/bekk/grunt-retire).
+Scans the given grunt enabled project for JavaScript files with known vulnerabilities, and breaks if it finds any. See examples on the [repo page](https://github.com/bekk/grunt-retire).
 
 The source
 ----------------
