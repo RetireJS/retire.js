@@ -1,5 +1,5 @@
 * Fix leak with page worker. The background window object is not GC'ed when worker.destroy() is called.
-* Console warnings should be printed in the tab that creates the request.
+* Check if URL.path returns file name and not local path
 * Privacy file
 * Use shared retire.js
 * Review

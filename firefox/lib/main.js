@@ -122,6 +122,10 @@ function isChannelInitialDocument(httpChannel) {
   return httpChannel.loadFlags & httpChannel.LOAD_INITIAL_DOCUMENT_URI;
 }
 
+function getTabElementId(tabElement) {
+  return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
+}
+
 events.on(eventTarget, "scan", (details) => {
   if ((Date.now() - updatedAt) > 1000*60*60*6) {
     downloadRepo().then(() => { 
@@ -206,15 +210,18 @@ events.on(eventTarget, "log-result", (details, rmsg) => {
   if (tabId == tabs.activeTab.id) {
     setBadgeCount(tabMap.get(tabId).fileCount);
   }
-  //Could be sent to a pageWorker instead.
-  windowUtil.getMostRecentBrowserWindow().gBrowser.contentWindow.console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
+  tabUtil.getTabs().forEach((element) => {
+    if (getTabElementId(element) == details.tabId) {
+      tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
+    }
+  })
 });
 
 function scan(httpEvent) {
   try {   
     var channel = httpEvent.subject.QueryInterface(Ci.nsIHttpChannel);
     var url = httpEvent.subject.URI.spec;
-    var tabIdForRequest = tabUtil.getTabForContentWindow(getWindowForRequest(httpEvent.subject)).getAttribute("linkedpanel").replace(/panel/, "");
+    var tabIdForRequest = getTabElementId(tabUtil.getTabForContentWindow(getWindowForRequest(httpEvent.subject)));
     if (isChannelInitialDocument(channel)) {
       tabMap.set(tabIdForRequest, {fileCount: 0});
     }
