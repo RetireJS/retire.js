@@ -23,7 +23,7 @@ function getNodeDependencies(path, limit) {
 		var deps = [];
 		var filter = null;
 		if (limit) {
-			var packages = JSON.parse(fs.readFileSync('package.json'));
+			var packages = JSON.parse(fs.readFileSync(path +'/package.json'));
 			filter = [];
 			for(var k in packages.dependencies) filter.push(k);
 		}
@@ -47,7 +47,7 @@ exports.scanJsFiles = function(path) {
 	return scanJsFiles(path);
 };
 
-exports.getNodeDependencies = function(limit) {
-	return getNodeDependencies(limit);
+exports.getNodeDependencies = function(path, limit) {
+	return getNodeDependencies(path, limit);
 };
 
