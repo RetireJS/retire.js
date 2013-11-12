@@ -180,8 +180,7 @@
 		}
 	},
 	"angularjs" : {
-		"vulnerabilities" : [
-		],
+		"vulnerabilities" : [ { "below" : "1.2.0", "info" : [ "https://code.google.com/p/mustache-security/wiki/AngularJS" ] }],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
 			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
