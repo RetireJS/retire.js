@@ -27,6 +27,7 @@ Options:
 --path <path>      Folder to scan for both
 --jsrepo <path>    Local version of repo
 --noderepo <path>  Local version of repo
+--proxy <url>      Proxy url (http://some.sever:8080)
 ````
 
 

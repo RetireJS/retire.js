@@ -34,12 +34,15 @@ program
   .option('--path <path>', 'Folder to scan for both')
   .option('--jsrepo <path>', 'Local version of repo')
   .option('--noderepo <path>', 'Local version of repo')
+  .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo'
 ]));
-
+var downloadOptions = _.extend({ }, _.pick(program, [
+  'proxy'
+]));
 
 
 
@@ -47,7 +50,7 @@ var config = _.extend({ path: '.' }, _.pick(program, [
 events.on('load-js-repo', function() {
   (config.jsrepo
     ? loader = repo.loadrepositoryFromFile(config.jsrepo)
-    :repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json')
+    :repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json', downloadOptions)
   ).on('done', function(repo) {
       jsRepo = repo;
       events.emit('js-repo-loaded');
@@ -58,7 +61,7 @@ events.on('load-js-repo', function() {
 events.on('load-node-repo', function() {
   (config.noderepo
     ? repo.loadrepositoryFromFile(config.noderepo)
-    : repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/npmrepository.json')
+    : repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/npmrepository.json', downloadOptions)
   ).on('done', function(repo) {
       nodeRepo = repo;
       events.emit('node-repo-loaded');
