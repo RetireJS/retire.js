@@ -1,57 +1,48 @@
 const { Cc, Ci, Cu } = require("chrome");
 const retire = require("./retire");
+const sandbox = require("./sandbox");
 const hasher = require("./sha1");
-const data = require("self").data;
-const promise = require("sdk/core/promise");
 const systemEvents = require("sdk/system/events");
-const events = require("sdk/event/core");
-const toolbarButton = require("toolbarbutton/toolbarbutton").ToolbarButton;
-const XMLHttpRequest = require("sdk/net/xhr").XMLHttpRequest;
-const tabs = require("sdk/tabs");
+const data = require("self").data;
 const windowUtil = require("sdk/window/utils");
-const tabUtil = require("sdk/tabs/utils");
 const URL = require("sdk/url").URL;
-const worker = require("sdk/page-worker");
+const toolbarButton = require("toolbarbutton/toolbarbutton").ToolbarButton;
+const tabs = require("sdk/tabs");
+const tabUtil = require("sdk/tabs/utils");
+const events = require("sdk/event/core");
+const promise = require("sdk/core/promise");
+const XMLHttpRequest = require("sdk/net/xhr").XMLHttpRequest;
+const repoUrl = "https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json";
 
-var repoUrl = "https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json";
-var updatedAt = Date.now();
-var repo;
-var repoFuncs;
-var cache = [];
-var vulnerable = {};
-var tabMap = new Map();
-var eventTarget = {};
+let updatedAt = Date.now();
+let repo;
+let repoFuncs;
+let cache = [];
+let vulnerable = {};
+let tabInfo = new Map();
+let eventTarget = {};
+// todo: look into getters
+exports.getRepo = function () {
+  return repo;
+}
 
-var button = toolbarButton({
+let button = toolbarButton({
   id: "retire-js",
   label: "retire.js",
   tooltiptext: "retirejs",
   image: data.url("icons/icon16.png"),
-  onCommand: () => {
-    let tabBrowser = windowUtil.getMostRecentBrowserWindow().gBrowser;
-    windowUtil.getMostRecentBrowserWindow().gDevToolsBrowser.selectToolCommand(tabBrowser, "webconsole");
-  }
+  onCommand: toggleWebConsole
 });
+
 button.moveTo({
   toolbarID: 'nav-bar',
   forceMove: false
 });
 
-tabs.on("activate", (tab) => {
-  if (tabMap.get(tab.id)) {
-    setBadgeCount(tabMap.get(tab.id).fileCount);
-  } else {
-    setBadgeCount("");
-  }
-});
-tabs.on("close", (tab) => {
-  delete tabMap.delete(tab.id);
-});
-
 function download(url) {
-  var deferred = promise.defer();
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
+  let deferred = promise.defer();
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
         deferred.resolve(xhr.responseText);
@@ -65,8 +56,9 @@ function download(url) {
   return deferred.promise;
 }
 
+// fixme: If download repo fails, log it and show a warning in the button badge.
 function downloadRepo() {
-  var deferred = promise.defer();
+  let deferred = promise.defer();
   console.log("Downloading repo ...");
   updatedAt = Date.now();
   download(repoUrl + "?" + updatedAt).then((repoData) => {
@@ -79,25 +71,31 @@ function downloadRepo() {
   });
   return deferred.promise;
 }
+exports.downloadRepo = downloadRepo;
 
 function setFuncs() {
   repoFuncs = {};
-  for (var component in repo) {
+  for (let component in repo) {
     if (repo[component].extractors.func) {
       repoFuncs[component] = repo[component].extractors.func;
     }
   }
 }
 
-function getFileName(url) {
-  return new URL(url).path;
-}
-
 function setBadgeCount(count) {
   button.badge = {
     text: Number(count) > 0 ? count : "",
-    color: 'rgb(193, 56, 50)'
+    color: "rgb(193, 56, 50)"
   }
+}
+
+function toggleWebConsole() {
+  let { gBrowser, gDevToolsBrowser } = windowUtil.getMostRecentBrowserWindow();
+  gDevToolsBrowser.selectToolCommand(gBrowser, "webconsole");
+}
+
+function isChannelInitialDocument(httpChannel) {
+  return httpChannel.loadFlags & httpChannel.LOAD_INITIAL_DOCUMENT_URI;
 }
 
 function getWindowForRequest(request){
@@ -118,15 +116,20 @@ function getWindowForRequest(request){
   return null;
 }
 
-function isChannelInitialDocument(httpChannel) {
-  return httpChannel.loadFlags & httpChannel.LOAD_INITIAL_DOCUMENT_URI;
-}
-
 function getTabElementId(tabElement) {
   return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
 }
+exports.getTabElementId = getTabElementId;
+
+function getFileName(url) {
+  var path = new URL(url).path;
+  var filename = (path.match(/[^\/?#]+(?=$|[?#])/) || [""])[0];
+  return filename;
+}
+exports.getFileName = getFileName;
 
 events.on(eventTarget, "scan", (details) => {
+  console.log("scan")
   if ((Date.now() - updatedAt) > 1000*60*60*6) {
     downloadRepo().then(() => { 
       events.emit(eventTarget, "scan", details); 
@@ -140,14 +143,11 @@ events.on(eventTarget, "scan", (details) => {
     return;
   }
   cache.push(details.url);
-
-  var results = retire.scanUri(details.url, repo);
-  console.log("scanUri: " + results.length + ", "  + details.url);
+  let results = retire.scanUri(details.url, repo);
   if (results.length > 0) {
     events.emit(eventTarget, "result-ready", details, results);
     return;
   }
-
   results = retire.scanFileName(getFileName(details.url), repo);
   console.log("scanFileName: " + results.length + ", "  + details.url);
   if (results.length > 0) {
@@ -161,8 +161,7 @@ events.on(eventTarget, "scan", (details) => {
 });
 
 events.on(eventTarget, "script-downloaded", (details, content) => {
-  var results = retire.scanFileContent(content, repo, hasher);
-  console.log("scanFileContent: " + results.length + ", "  + details.url);
+  let results = retire.scanFileContent(content, repo, hasher);
   if (results.length > 0) {
     events.emit(eventTarget, "result-ready", details, results);
     return;
@@ -171,73 +170,86 @@ events.on(eventTarget, "script-downloaded", (details, content) => {
 });
 
 events.on(eventTarget, "sandbox", (details, content) => {
-  var pageWorker = worker.Page({
-    contentScriptFile: data.url("sandbox.js"),
-    contentURL: data.url("sandbox.html"),
-    contentScriptWhen: "end"
-  });
-  pageWorker.port.emit("detect-version", content, repoFuncs);
-  pageWorker.port.on("version-detected", (result) => {
-    if (result.version) {
-      var results = retire.check(result.component, result.version, repo);
-      console.log("version-detected, results: " + results.length + ", "  + details.url);
-      events.emit(eventTarget, "result-ready", details, results);
-    }
-  });
-  pageWorker.port.on("done", () => {
-    pageWorker.destroy();
-  });
+  sandbox.run(content, repoFuncs, eventTarget, details);
+});
+
+events.on(eventTarget, "sandbox-version-detected", (result, details) => {
+  if (result.version) {
+    let results = retire.check(result.component, result.version, repo);
+    events.emit(eventTarget, "result-ready", details, results);
+  }
 });
 
 events.on(eventTarget, "result-ready", (details, results) => {
   console.log("result-ready "+ details.url +", isVulnerable: " + retire.isVulnerable(results));
   if (retire.isVulnerable(results)) {
     vulnerable[details.url] = results;
-    var rmsg = [];
-    for (var i in results) {
+    let rmsg = [];
+    for (let i in results) {
       rmsg = rmsg.concat(results[i].vulnerabilities);
     }
-    events.emit(eventTarget, "log-result", details, rmsg.join(" "));
+    events.emit(eventTarget, "show-result", details, rmsg.join(" "));
   }
 });
 
-events.on(eventTarget, "log-result", (details, rmsg) => {
-  var tabId = details.tabId;
-  if (!tabMap.get(tabId)) {
-    tabMap.set(tabId, {fileCount: 0});
-  }
-  tabMap.get(tabId).fileCount++;
-  if (tabId == tabs.activeTab.id) {
-    setBadgeCount(tabMap.get(tabId).fileCount);
-  }
+events.on(eventTarget, "show-result", (details, rmsg) => {
+  let tabId = details.tabId;
+  tabInfo.get(tabId).vulnerableCount++;
   tabUtil.getTabs().forEach((element) => {
     if (getTabElementId(element) == details.tabId) {
       tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
     }
   })
+  if (tabId == tabs.activeTab.id) {
+    setBadgeCount(tabInfo.get(tabId).vulnerableCount);
+  }
 });
 
-function scan(httpEvent) {
-  try {   
-    var channel = httpEvent.subject.QueryInterface(Ci.nsIHttpChannel);
-    var url = httpEvent.subject.URI.spec;
-    var tabIdForRequest = getTabElementId(tabUtil.getTabForContentWindow(getWindowForRequest(httpEvent.subject)));
+function onHttpResponse(event) {
+  try {
+    let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
+    let tabIdForRequest = getTabElementId(tabUtil.getTabForContentWindow(getWindowForRequest(event.subject)));
     if (isChannelInitialDocument(channel)) {
-      tabMap.set(tabIdForRequest, {fileCount: 0});
+      tabInfo.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
+      setBadgeCount(tabInfo.get(tabIdForRequest).vulnerableCount);
     }
     if (/javascript/.test(channel.getResponseHeader("Content-Type"))) {
-      var details = {
-        url: url,
-        tabId: tabIdForRequest
-      };
-      events.emit(eventTarget, "scan", details);
+      tabInfo.get(tabIdForRequest).jsSources.push(event.subject.URI.spec);
     }
   } catch(e) { 
   }
   return;
 }
 
-downloadRepo().then(function () {
-  systemEvents.on("http-on-examine-response", scan);
-  systemEvents.on("http-on-examine-cached-response", scan);
+downloadRepo().then(() => {
+  systemEvents.on("http-on-examine-response", onHttpResponse);
+  systemEvents.on("http-on-examine-cached-response", onHttpResponse);
+
+  tabs.on("ready", (tab) => {
+    if (/^about:/.test(tab.url)) {
+      return;
+    }
+    tabInfo.get(tab.id).jsSources.forEach((url) => {
+      let details = {
+        url: url,
+        tabId: tab.id
+      };
+      events.emit(eventTarget, "scan", details);
+    }); 
+    console.log("tab ready");
+  });
+  tabs.on("activate", (tab) => {
+    if (tabInfo.has(tab.id)) {
+      setBadgeCount(tabInfo.get(tab.id).vulnerableCount);
+    } else {
+      setBadgeCount(null);
+    }
+    console.log("activate tab");
+  });
+  tabs.on("close", (tab) => {
+    delete tabInfo.delete(tab.id);
+    console.log("close tab");
+  });
 });
+
+
