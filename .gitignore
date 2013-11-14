@@ -4,3 +4,4 @@ node_modules/
 spec/out/
 chrome/js/retire.js
 npm-debug.log
+*.xpi
