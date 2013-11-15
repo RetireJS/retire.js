@@ -1,30 +1,20 @@
+"use strict";
+
 const { Cc, Ci, Cu } = require("chrome");
-const retire = require("./retire");
-const sandbox = require("./sandbox");
-const hasher = require("./sha1");
-const systemEvents = require("sdk/system/events");
+const repo = require("./repo");
+const scanner = require("./scanner");
 const data = require("self").data;
+const systemEvents = require("sdk/system/events");
 const windowUtil = require("sdk/window/utils");
-const URL = require("sdk/url").URL;
 const toolbarButton = require("toolbarbutton/toolbarbutton").ToolbarButton;
 const tabs = require("sdk/tabs");
 const tabUtil = require("sdk/tabs/utils");
-const events = require("sdk/event/core");
-const promise = require("sdk/core/promise");
-const XMLHttpRequest = require("sdk/net/xhr").XMLHttpRequest;
-const repoUrl = "https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json";
+const Request = require("sdk/request").Request;
 
-let updatedAt = Date.now();
-let repo;
-let repoFuncs;
-let cache = [];
-let vulnerable = {};
-let tabInfo = new Map();
-let eventTarget = {};
-// todo: look into getters
-exports.getRepo = function () {
-  return repo;
-}
+let tabTracker = new Map();
+
+exports.tabTracker = tabTracker;
+exports.getTabElementId = getTabElementId;
 
 let button = toolbarButton({
   id: "retire-js",
@@ -39,48 +29,56 @@ button.moveTo({
   forceMove: false
 });
 
-function download(url) {
-  let deferred = promise.defer();
-  let xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState == 4) {
-      if (xhr.status == 200) {
-        deferred.resolve(xhr.responseText);
-      } else {
-        console.warn("Got " + xhr.status + " when trying to download " + url);
-      }
+repo.download().then(() => {
+  systemEvents.on("http-on-examine-response", onHttpResponse);
+  systemEvents.on("http-on-examine-cached-response", onHttpResponse);
+  tabs.on("ready", (tab) => {
+    if (/^about:/.test(tab.url)) {
+      return;
     }
-  };
-  xhr.open("GET", url, true);
-  xhr.send();
-  return deferred.promise;
-}
-
-// fixme: If download repo fails, log it and show a warning in the button badge.
-function downloadRepo() {
-  let deferred = promise.defer();
-  console.log("Downloading repo ...");
-  updatedAt = Date.now();
-  download(repoUrl + "?" + updatedAt).then((repoData) => {
-    repo = JSON.parse(retire.replaceVersion(repoData));
-    cache = [];
-    vulnerable = {};
-    setFuncs();
-    deferred.resolve();
-    console.log("Repo downloaded");
+    tabTracker.get(tab.id).jsSources.forEach((url) => {
+      let details = {
+        url: url,
+        tabId: tab.id
+      };
+      scanner.scan(details);
+    }); 
+    console.log("tab ready");
   });
-  return deferred.promise;
-}
-exports.downloadRepo = downloadRepo;
-
-function setFuncs() {
-  repoFuncs = {};
-  for (let component in repo) {
-    if (repo[component].extractors.func) {
-      repoFuncs[component] = repo[component].extractors.func;
+  tabs.on("activate", (tab) => {
+    if (tabTracker.has(tab.id)) {
+      setBadgeCount(tabTracker.get(tab.id).vulnerableCount);
+    } else {
+      setBadgeCount(null);
     }
+    console.log("activate tab");
+  });
+  tabs.on("close", (tab) => {
+    delete tabTracker.delete(tab.id);
+    console.log("close tab");
+  });
+});
+
+/**
+ * TODO: Check up system/events on() with latest code.
+ * The docs are a bit confusing about the arguments.
+ * https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/system/events.html
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=910599
+ */
+systemEvents.on("retire-scanner-on-result-ready", (event) => {
+  let details = event.subject.details;
+  let rmsg = event.subject.msg;
+  let tabId = details.tabId;
+  tabTracker.get(tabId).vulnerableCount++;
+  tabUtil.getTabs().forEach((element) => {
+    if (getTabElementId(element) == details.tabId) {
+      tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
+    }
+  })
+  if (tabId == tabs.activeTab.id) {
+    setBadgeCount(tabTracker.get(tabId).vulnerableCount);
   }
-}
+}, true);
 
 function setBadgeCount(count) {
   button.badge = {
@@ -119,137 +117,20 @@ function getWindowForRequest(request){
 function getTabElementId(tabElement) {
   return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
 }
-exports.getTabElementId = getTabElementId;
-
-function getFileName(url) {
-  var path = new URL(url).path;
-  var filename = (path.match(/[^\/?#]+(?=$|[?#])/) || [""])[0];
-  return filename;
-}
-exports.getFileName = getFileName;
-
-events.on(eventTarget, "scan", (details) => {
-  console.log("scan")
-  if ((Date.now() - updatedAt) > 1000*60*60*6) {
-    downloadRepo().then(() => { 
-      events.emit(eventTarget, "scan", details); 
-    });
-    return;
-  }
-  if (cache.indexOf(details.url) > -1) {
-    if (vulnerable.hasOwnProperty(details.url)) {
-      events.emit(eventTarget, "result-ready", details, vulnerable[details.url]);
-    }
-    return;
-  }
-  cache.push(details.url);
-  let results = retire.scanUri(details.url, repo);
-  if (results.length > 0) {
-    events.emit(eventTarget, "result-ready", details, results);
-    return;
-  }
-  results = retire.scanFileName(getFileName(details.url), repo);
-  console.log("scanFileName: " + results.length + ", "  + details.url);
-  if (results.length > 0) {
-    events.emit(eventTarget, "result-ready", details, results);
-    return;
-  }
-  download(details.url).then((content) => { 
-    events.emit(eventTarget, "script-downloaded", details, content); 
-  });
-  return;
-});
-
-events.on(eventTarget, "script-downloaded", (details, content) => {
-  let results = retire.scanFileContent(content, repo, hasher);
-  if (results.length > 0) {
-    events.emit(eventTarget, "result-ready", details, results);
-    return;
-  }
-  events.emit(eventTarget, "sandbox", details, content);
-});
-
-events.on(eventTarget, "sandbox", (details, content) => {
-  sandbox.run(content, repoFuncs, eventTarget, details);
-});
-
-events.on(eventTarget, "sandbox-version-detected", (result, details) => {
-  if (result.version) {
-    let results = retire.check(result.component, result.version, repo);
-    events.emit(eventTarget, "result-ready", details, results);
-  }
-});
-
-events.on(eventTarget, "result-ready", (details, results) => {
-  console.log("result-ready "+ details.url +", isVulnerable: " + retire.isVulnerable(results));
-  if (retire.isVulnerable(results)) {
-    vulnerable[details.url] = results;
-    let rmsg = [];
-    for (let i in results) {
-      rmsg = rmsg.concat(results[i].vulnerabilities);
-    }
-    events.emit(eventTarget, "show-result", details, rmsg.join(" "));
-  }
-});
-
-events.on(eventTarget, "show-result", (details, rmsg) => {
-  let tabId = details.tabId;
-  tabInfo.get(tabId).vulnerableCount++;
-  tabUtil.getTabs().forEach((element) => {
-    if (getTabElementId(element) == details.tabId) {
-      tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
-    }
-  })
-  if (tabId == tabs.activeTab.id) {
-    setBadgeCount(tabInfo.get(tabId).vulnerableCount);
-  }
-});
 
 function onHttpResponse(event) {
   try {
     let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
     let tabIdForRequest = getTabElementId(tabUtil.getTabForContentWindow(getWindowForRequest(event.subject)));
     if (isChannelInitialDocument(channel)) {
-      tabInfo.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
-      setBadgeCount(tabInfo.get(tabIdForRequest).vulnerableCount);
+      tabTracker.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
+      setBadgeCount(tabTracker.get(tabIdForRequest).vulnerableCount);
     }
     if (/javascript/.test(channel.getResponseHeader("Content-Type"))) {
-      tabInfo.get(tabIdForRequest).jsSources.push(event.subject.URI.spec);
+      tabTracker.get(tabIdForRequest).jsSources.push(event.subject.URI.spec);
     }
   } catch(e) { 
   }
   return;
 }
-
-downloadRepo().then(() => {
-  systemEvents.on("http-on-examine-response", onHttpResponse);
-  systemEvents.on("http-on-examine-cached-response", onHttpResponse);
-
-  tabs.on("ready", (tab) => {
-    if (/^about:/.test(tab.url)) {
-      return;
-    }
-    tabInfo.get(tab.id).jsSources.forEach((url) => {
-      let details = {
-        url: url,
-        tabId: tab.id
-      };
-      events.emit(eventTarget, "scan", details);
-    }); 
-    console.log("tab ready");
-  });
-  tabs.on("activate", (tab) => {
-    if (tabInfo.has(tab.id)) {
-      setBadgeCount(tabInfo.get(tab.id).vulnerableCount);
-    } else {
-      setBadgeCount(null);
-    }
-    console.log("activate tab");
-  });
-  tabs.on("close", (tab) => {
-    delete tabInfo.delete(tab.id);
-    console.log("close tab");
-  });
-});
-
 
