@@ -14,10 +14,10 @@ const Request = require("sdk/request").Request;
 let tabTracker = new Map();
 
 exports.tabTracker = tabTracker;
-exports.getTabElementId = getTabElementId;
+exports.getIdForTabElement = getIdForTabElement;
 
 let button = toolbarButton({
-  id: "retire-js",
+  id: "retire-js-button",
   label: "retire.js",
   tooltiptext: "retirejs",
   image: data.url("icons/icon16.png"),
@@ -54,7 +54,7 @@ repo.download().then(() => {
     console.log("activate tab");
   });
   tabs.on("close", (tab) => {
-    delete tabTracker.delete(tab.id);
+    tabTracker.delete(tab.id);
     console.log("close tab");
   });
 });
@@ -71,10 +71,10 @@ systemEvents.on("retire-scanner-on-result-ready", (event) => {
   let tabId = details.tabId;
   tabTracker.get(tabId).vulnerableCount++;
   tabUtil.getTabs().forEach((element) => {
-    if (getTabElementId(element) == details.tabId) {
+    if (getIdForTabElement(element) == details.tabId) {
       tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
     }
-  })
+  });
   if (tabId == tabs.activeTab.id) {
     setBadgeCount(tabTracker.get(tabId).vulnerableCount);
   }
@@ -114,14 +114,14 @@ function getWindowForRequest(request){
   return null;
 }
 
-function getTabElementId(tabElement) {
+function getIdForTabElement(tabElement) {
   return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
 }
 
 function onHttpResponse(event) {
   try {
     let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
-    let tabIdForRequest = getTabElementId(tabUtil.getTabForContentWindow(getWindowForRequest(event.subject)));
+    let tabIdForRequest = getIdForTabElement(tabUtil.getTabForContentWindow(getWindowForRequest(event.subject)));
     if (isChannelInitialDocument(channel)) {
       tabTracker.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
       setBadgeCount(tabTracker.get(tabIdForRequest).vulnerableCount);
