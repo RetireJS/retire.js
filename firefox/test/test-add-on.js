@@ -142,10 +142,7 @@ function createServer() {
   let directoryService = Cc["@mozilla.org/file/directory_service;1"]
                    .getService(Ci.nsIProperties);
   let path = directoryService.get("CurWorkD", Ci.nsILocalFile);
-
   server.registerDirectory("/", path);
-  
-  //const SERVER_PORT = server.identity.primaryPort;
   return server;
 }
 
