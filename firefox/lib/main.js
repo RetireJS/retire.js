@@ -61,7 +61,7 @@ repo.download().then(() => {
 
 /**
  * TODO: Check up system/events on() with latest code.
- * The docs are a bit confusing about the arguments.
+ * The docs are a bit off regarding the arguments.
  * https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/system/events.html
  * https://bugzilla.mozilla.org/show_bug.cgi?id=910599
  */
