@@ -88,6 +88,8 @@ runBrowser() {
 
 exportXpi() {
   $CFX_TOOL xpi
+  echo "Add-on exported to: firefox/retire.xpi"
+  echo 
 }
 
 # ------------------------------------------------------------------------------
