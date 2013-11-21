@@ -3,3 +3,7 @@ Known issues:
 * When two Firefox windows are open the toolbar button badge is updated in both windows.   
 * On some browser profiles the button is not moved to the toolbar after install.
   Workaround: Manually move it the toolbar
+  
+  
+Todo:
+ * Simplify main.js - setBadgeCount: Add tabId argument and only update badge if the id is the active tab id

@@ -15,6 +15,8 @@ httpServer.start(-1);
 let tab1 = tabs.activeTab;
 let tab2 = null;
 
+// fixme: navigateToOtherPage -> navigateToNoScriptPage
+
 exports["test add-on"] = function(assert, done) {
   assert.ok(getToolbarButtonEl() != null, "Retire toolbarbutton should exist");
   repo.download().then(() => {
@@ -27,8 +29,13 @@ exports["test add-on"] = function(assert, done) {
       .then(test_toolbarbuttonBadgeShouldBeHidden)
       .then(activateTab2)
       .then(test_toolbarbuttonBadgeShouldBeVisible)
+      .then(navigateToNoScriptPage)
+      .then(test_toolbarbuttonBadgeShouldBeHidden)
+      .then(clickBackButton)
+      .then(test_toolbarbuttonBadgeShouldShowVulnerableCount)
       .then(() => {
         httpServer.stop(done);
+        //httpServer.stop();
       });
   });
 };
@@ -57,7 +64,7 @@ function test_toolbarbuttonBadgeShouldBeVisible(assert) {
 function test_toolbarbuttonShouldOpenWebConsole(assert) {
   let deferred = promise.defer();
   getToolbarButtonEl().doCommand();
-  getWebConsolePanel().then((panel) => {
+  getDevToolsWebConsolePanel().then((panel) => {
     let warningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-console.webconsole-msg-warn");
     assert.ok(panel.isReady, "Button command should activate devtools web console");
     assert.equal(warningEntries.length, 6, "There should be 6 warnings in the web console");
@@ -68,7 +75,7 @@ function test_toolbarbuttonShouldOpenWebConsole(assert) {
 
 function test_thereShouldBeSixEntriesInWebConsoleLog(assert) {
   let deferred = promise.defer();
-  getWebConsolePanel().then((panel) => {
+  getDevToolsWebConsolePanel().then((panel) => {
     let warningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-console.webconsole-msg-warn");
     assert.equal(warningEntries.length, 6, "There should be 6 warnings in the web console");
     deferred.resolve(assert);
@@ -79,7 +86,7 @@ function test_thereShouldBeSixEntriesInWebConsoleLog(assert) {
 function createTabAndMakeRequest(assert) {
   let deferred = promise.defer();
   tabs.open({ 
-    url: "http://localhost:" + httpServer.identity.primaryPort + "/test/web/index.html",
+    url: "http://localhost:" + httpServer.identity.primaryPort + "/test/web/test-page.html",
     onReady: () => {
       tab2 = tabs.activeTab;
       deferred.resolve(assert);
@@ -114,7 +121,26 @@ function activateTab2(assert) {
   return deferred.promise;
 }
 
-function getWebConsolePanel() {
+function navigateToNoScriptPage(assert) {
+  let deferred = promise.defer();
+  windowUtil.getMostRecentBrowserWindow().gBrowser.contentWindow.location.href = "./no-script-page.html"
+  timers.setTimeout(() => {
+    deferred.resolve(assert);
+  }, 500);
+  return deferred.promise;
+}
+
+function clickBackButton(assert) {
+  let deferred = promise.defer();
+  let backButtonEl = windowUtil.getMostRecentBrowserWindow().document.getElementById("back-button");
+  backButtonEl.doCommand();
+  timers.setTimeout(() => {
+    deferred.resolve(assert);
+  }, 500);
+  return deferred.promise;
+}
+
+function getDevToolsWebConsolePanel() {
   let deferred = promise.defer();
   timers.setTimeout(() => {
     let gDevTools = windowUtil.getMostRecentBrowserWindow().gDevTools;  
