@@ -7,5 +7,5 @@
   "license": "MPL 2.0",
   "version": "0.1.0",
   "icon": "data/icons/icon.png",
-  "icon64": "data/icons/icon128.png"
+  "icon64": "data/icons/icon64.png"
 }
