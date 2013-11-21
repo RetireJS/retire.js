@@ -1,6 +1,8 @@
 /* global require, console, exports */
-var fs      = require('fs'),
+var _       = require('underscore')._,
+    fs      = require('fs'),
     req     = require('request'),
+    path    = require('path'),
 	retire  = require('./retire');
 var emitter = require('events').EventEmitter;
 
@@ -8,31 +10,68 @@ var emitter = require('events').EventEmitter;
 function loadJson(url, options) {
 	var events = new emitter();
     var request = req;
-	console.log('Downloading ' + url + ' ...');
+    var logger = getLogger(options);
+	logger.log('Downloading ' + url + ' ...');
 	if (options.proxy) {
         request = request.defaults({'proxy' : options.proxy});
     }
     request.get(url, function (e, r, data) {
-        var obj = JSON.parse(retire.replaceVersion(data));
+        data = options.process ? options.process(data) : data;
+        var obj = JSON.parse(data);
         events.emit('done', obj);
     });
 	return events;
 }
 
-function loadJsonFromFile(file) {
-    console.log('Reading ' + file + ' ...');
+function loadJsonFromFile(file, options) {
+    var logger = getLogger(options);
+    logger.verbose('Reading ' + file + ' ...');
 	var events = new emitter();
-    fs.readFile(file, {}, function(err, data) {
-      var obj = JSON.parse(retire.replaceVersion(''+data));
-      events.emit('done', obj);
+    fs.readFile(file, { encoding : 'utf8'}, function(err, data) {
+        data = options.process ? options.process(data) : data;
+        var obj = JSON.parse(data);
+        events.emit('done', obj);
     });
     return events;
 }
 
+function loadFromCache(url, cachedir, options) {
+    var cacheIndex = path.resolve(cachedir, 'index.json');
+    if (!fs.existsSync(cachedir)) fs.mkdirSync(cachedir);
+    var cache = fs.existsSync(cacheIndex) ? JSON.parse(fs.readFileSync(cacheIndex)) : {};
+    var now = new Date().getTime();
+    if (cache[url]) {
+        if (now - cache[url].date < 60*60*1000) {
+            getLogger(options).log("Loading from cache: " + url);
+            return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
+        }
+    }
+    var events = new emitter();
+    loadJson(url, options).on('done', function(data) {
+        cache[url] = { date : now, file : now + '.json' };
+        fs.writeFileSync(path.resolve(cachedir, cache[url].file), JSON.stringify(data), { encoding : 'utf8' });
+        fs.writeFileSync(cacheIndex, JSON.stringify(cache), { encoding : 'utf8' });
+        events.emit('done', data);
+    });
+    return events;
+}
+
+function getLogger(options) {
+    return {
+        log : options.log || console.log,
+        verbose : options.verbose ? (options.log || console.log) : function() {}
+    };
+}
 
 exports.loadrepository = function(repoUrl, options) {
-	return loadJson(repoUrl, options);
+    options = _.extend(options, { process : retire.replaceVersion });
+    if (options.nocache) {
+        return loadJson(repoUrl, options);
+    }
+    return loadFromCache(repoUrl, options.cachedir, options);
 };
-exports.loadrepositoryFromFile = function(filepath) {
-	return loadJsonFromFile(filepath);
+
+exports.loadrepositoryFromFile = function(filepath, options) {
+    options = _.extend(options, { process : retire.replaceVersion });
+	return loadJsonFromFile(filepath, options);
 };
