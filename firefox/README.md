@@ -1,49 +1,38 @@
 Development
 =============
 
-**Prerequisites**
+## Prerequisites
 
 Download and install the latest SDK from Mozilla.
 
-See: https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/installation.html
+See the  [documentation](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/installation.html) for more information.
 
-Before running a target, the SDK must be activated.
 
-```sh
-> cd ${SDK_DIR}
-> source bin/activate
-```
+## fx.sh
 
-or with Bash
+Before running a target add ${ADD-ON-SDK}/bin to the $PATH
 
-```sh
-> cd ${SDK_DIR}
-> bash bin/activate
-```
+All targets must be executed from the same directory as this README file is in.
 
-All targets must be exectued from the same directory as this README file is in.
-
-**Test**
+**test**
 
 Run tests using a temporary browser profile
 ```sh
-> cfx test
+> ./fx.sh test
 ```
 
-**Run**
+**run**
 
 Run current code using a temporary browser profile
 ```sh
-> cfx run
+> ./fx.sh run
 ```
-Add ` -p ~/path-to-profile-dir` to the run command if you want run using an exising profile.
+Add ` -p ~/path-to-profile-dir` to the run target if you want run using an exising profile.
 The directory will be created if it does not exist.
 
-**Build**
+**build**
 
-Export a .xpi file in the add-on folder
+This will build the add-on and export it to a .xpi file
 ```sh
-> cfx xpi
+> ./fx.sh build
 ```
-
-To test the reporting you can visit the demo page at http://erlend.oftedal.no/blog/retire/

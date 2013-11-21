@@ -4,13 +4,22 @@
 # Defaults:
 # ------------------------------------------------------------------------------
 
-CFX_TOOL=/usr/local/addon-sdk-1.14/bin/cfx
-ADD_ON_DIR=./firefox
-NODE_RETIRE_JS_FILE=./node/lib/retire.js
-FX_RETIRE_JS_FILE=./firefox/lib/retire.js
+ADD_ON_DIR=./
+NODE_RETIRE_JS_FILE=../node/lib/retire.js
+FX_RETIRE_JS_FILE=$ADD_ON_DIR/lib/retire.js
 FX_PROFILE_DIR=""
 
 target=$1
+
+# ------------------------------------------------------------------------------
+# check if the cfx tool exist
+# ------------------------------------------------------------------------------
+
+if ! type cfx > /dev/null; then
+  echo "Aborting cfx command not found"
+  exit 1
+fi
+
 
 # ------------------------------------------------------------------------------
 # puts out the help text
@@ -66,7 +75,7 @@ done
 # ------------------------------------------------------------------------------
 
 runTests() {
-  $CFX_TOOL test
+  cfx test
 }
 
 # ------------------------------------------------------------------------------
@@ -76,9 +85,9 @@ runTests() {
 runBrowser() {
   if [ -z $FX_PROFILE_DIR ] 
   then
-    $CFX_TOOL run
+    cfx run
   else
-    $CFX_TOOL run -p $FX_PROFILE_DIR
+    cfx run -p $FX_PROFILE_DIR
   fi
 }
 
@@ -87,8 +96,8 @@ runBrowser() {
 # ------------------------------------------------------------------------------
 
 exportXpi() {
-  $CFX_TOOL xpi
-  echo "Add-on exported to: firefox/retire.xpi"
+  cfx xpi
+  echo "Add-on exported to: retire.xpi"
   echo 
 }
 

@@ -6,4 +6,7 @@ Known issues:
   
   
 Todo:
+ * Add "don't check" when collecting scripts
+ * Merge with upstream
+ * Update package.json
  * Simplify main.js - setBadgeCount: Add tabId argument and only update badge if the id is the active tab id
