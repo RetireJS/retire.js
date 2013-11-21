@@ -8,7 +8,8 @@ var emitter = require('events').EventEmitter;
 function loadJson(url, options) {
 	var events = new emitter();
     var request = req;
-	console.log('Downloading ' + url + ' ...');
+    var logger = options.log || console.log;
+	logger('Downloading ' + url + ' ...');
 	if (options.proxy) {
         request = request.defaults({'proxy' : options.proxy});
     }
@@ -20,7 +21,8 @@ function loadJson(url, options) {
 }
 
 function loadJsonFromFile(file) {
-    console.log('Reading ' + file + ' ...');
+    var logger = options.log || console.log;
+    logger('Reading ' + file + ' ...');
 	var events = new emitter();
     fs.readFile(file, {}, function(err, data) {
       var obj = JSON.parse(retire.replaceVersion(''+data));

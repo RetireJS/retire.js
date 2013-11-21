@@ -19,6 +19,12 @@ exports.should_not_be_vulnerable_higher_beta_when_beta = function(test) {
 	assert.isNotVulnerable(test, result);
 	test.done();
 };
+exports.should_not_be_vulnerable_rc_when_beta = function(test) {
+	repo.jquery.vulnerabilities = [{"below":"1.9.0b1"}];
+	var result = retire.scanUri("https://ajax.googleapis.com/ajax/libs/jquery/1.9.0rc1/jquery.min.js", repo);
+	assert.isNotVulnerable(test, result);
+	test.done();
+};
 exports.should_not_be_vulnerable_when_at_beta = function(test) {
 	repo.jquery.vulnerabilities = [{"below":"10.0.0.beta.2"}];
 	var result = retire.scanUri("https://ajax.googleapis.com/ajax/libs/jquery/10.0.0.beta.2/jquery.min.js", repo);
