@@ -5,5 +5,7 @@ Known issues:
   Workaround: Manually move it the toolbar
   
 Todo:
+ * Merge with master
+ * Upload build
  * Update info package.json
  * Simplify main.js - setBadgeCount: Add tabId argument and only update badge if the id is the active tab id

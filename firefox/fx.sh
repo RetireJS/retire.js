@@ -122,7 +122,10 @@ case "$target" in
     howToUse
     ;;
   *)
+    echo
     echo "$0: Target not supported (yet): $target"
+    echo
+    howToUse
     exit 1
     ;;
 esac  
