@@ -36,3 +36,5 @@ This will build the add-on and export it to a .xpi file
 ```sh
 > ./fx.sh build
 ```
+
+To test the reporting you can visit the demo page at http://erlend.oftedal.no/blog/retire/
