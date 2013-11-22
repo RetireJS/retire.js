@@ -40,6 +40,7 @@ function httpResponseListener(event) {
   try {
     let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
     let tabIdForRequest = getIdForTabElement(tabUtil.getTabForContentWindow(getWindowForRequest(event.subject)));
+    
     if (isChannelInitialDocument(channel)) {
       tabInfo.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
       // Start updating the badge if the request is initiated from the active tab.
@@ -48,7 +49,11 @@ function httpResponseListener(event) {
       }
     }
     if (/javascript/.test(channel.getResponseHeader("Content-Type"))) {
-      tabInfo.get(tabIdForRequest).jsSources.push(event.subject.URI.spec);
+      let requestedUri = event.subject.URI.spec;
+      if (repo.dontCheck(requestedUri)) {
+        return;
+      }
+      tabInfo.get(tabIdForRequest).jsSources.push(requestedUri);
     }
   } catch(e) { 
   }
@@ -86,27 +91,6 @@ function getIdForTabElement(tabElement) {
   return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
 }
 
-/**
- * TODO: Check up system/events on() with latest code.
- * The docs are a bit off regarding the arguments.
- * https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/system/events.html
- * https://bugzilla.mozilla.org/show_bug.cgi?id=910599
- */
-systemEvents.on("retire-scanner-on-result-ready", (event) => {
-  let details = event.subject.details;
-  let rmsg = event.subject.msg;
-  let tabId = details.tabId;
-  tabInfo.get(tabId).vulnerableCount++;
-  tabUtil.getTabs().forEach((element) => {
-    if (getIdForTabElement(element) == details.tabId) {
-      tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
-    }
-  });
-  if (tabs.activeTab.id == tabId) {
-    setBadgeCount(tabInfo.get(tabId).vulnerableCount);
-  }
-}, true);
-
 repo.download().then(() => {
   // Start listening for http responses.
   systemEvents.on("http-on-examine-response", httpResponseListener);
@@ -114,7 +98,7 @@ repo.download().then(() => {
   
   // When the DOM content for a tab is loaded, start scanning the js sources.
   tabs.on("ready", (tab) => {
-    // about:xx resources does not need to be scanned.
+    // about:xx resources should not be scanned.
     if (/^about:/.test(tab.url)) {
       return;
     }
@@ -154,3 +138,26 @@ repo.download().then(() => {
     console.log("close tab");
   });
 });
+
+
+/**
+ * TODO: Check up system/events on() with latest code.
+ * The docs are a bit off regarding the arguments.
+ * https://addons.mozilla.org/en-US/developers/docs/sdk/latest/modules/sdk/system/events.html
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=910599
+ */
+systemEvents.on("retire-scanner-on-result-ready", (event) => {
+  let details = event.subject.details;
+  let rmsg = event.subject.msg;
+  let tabId = details.tabId;
+  tabInfo.get(tabId).vulnerableCount++;
+  tabUtil.getTabs().forEach((element) => {
+    if (getIdForTabElement(element) == details.tabId) {
+      tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
+    }
+  });
+  if (tabs.activeTab.id == tabId) {
+    setBadgeCount(tabInfo.get(tabId).vulnerableCount);
+  }
+}, true);
+

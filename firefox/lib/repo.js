@@ -48,6 +48,10 @@ exports.download = () => {
   return download();
 };
 
+exports.dontCheck = (uri) => {
+  return dontCheck(uri);
+};
+
 function setFuncs() {
   repoFuncs = {};
   for (let component in repository) {
@@ -55,6 +59,20 @@ function setFuncs() {
       repoFuncs[component] = repository[component].extractors.func;
     }
   }
+}
+
+function dontCheck(uri) {
+  if (!repository) {
+    return false;
+  }
+  let uris = repository["dont check"].extractors.uri;
+  for (let i = 0; i < uris.length; i++) {
+    let re = new RegExp(uris[i]);
+    if (re.test(uri)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // fixme: If download repo fails, log it and show a warning in the button badge.

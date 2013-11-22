@@ -4,9 +4,6 @@ Known issues:
 * On some browser profiles the button is not moved to the toolbar after install.
   Workaround: Manually move it the toolbar
   
-  
 Todo:
- * Add "don't check" when collecting scripts
- * Merge with upstream
- * Update package.json
+ * Update info package.json
  * Simplify main.js - setBadgeCount: Add tabId argument and only update badge if the id is the active tab id
