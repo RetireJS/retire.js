@@ -239,10 +239,9 @@
 	"dont check" : {
 		"extractors" : { 
 			"uri" : [ 
-				"^http://ssl.google-analytics.com/ga.js",
-				"^http://www.google-analytics.com/ga.js", 
-				"^https://apis.google.com/js/plusone.js", 
-				"^http://cdn.cxense.com/cx.js" 
+				"^http[s]?://(ssl|www).google-analytics.com/ga.js",
+				"^http[s]?://apis.google.com/js/plusone.js", 
+				"^http[s]?://cdn.cxense.com/cx.js" 
 			]
 		}
 	}	
