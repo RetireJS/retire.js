@@ -3,27 +3,26 @@ Development
 
 ## Prerequisites
 
-Download and install the latest SDK from Mozilla.
+Download and install the latest Add-on SDK from Mozilla.
 
-See the  [documentation](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/installation.html) for more information.
+Please see the [documentation](https://addons.mozilla.org/en-US/developers/docs/sdk/latest/dev-guide/tutorials/installation.html) for more information.
 
+After install, make sure that ${ADD-ON-SDK}/bin is in your $PATH.
 
 ## fx.sh
-
-Before running a target add ${ADD-ON-SDK}/bin to the $PATH
 
 All targets must be executed from the same directory as this README file is in.
 
 **test**
 
-Run tests using a temporary browser profile
+Run tests using a temporary browser profile.
 ```sh
 > ./fx.sh test
 ```
 
 **run**
 
-Run current code using a temporary browser profile
+Run current code using a temporary browser profile.
 ```sh
 > ./fx.sh run
 ```

@@ -1,11 +1,11 @@
 {
   "name": "retirejs",
-  "fullName": "retire.js for Firefox",
+  "fullName": "Retire.js for Firefox",
   "id": "jid1-WraQ74BxTHiaUw",
   "description": "Scanning website for vulernable js libraries. Icon by http://www.studiomx.eu/",
   "author": "Erlend Oftedal",
   "license": "MPL 2.0",
   "version": "0.1.0a1",
-  "icon": "data/icons/icon.png",
+  "icon": "data/icons/add-on-icon.png",
   "icon64": "data/icons/icon64.png"
 }
