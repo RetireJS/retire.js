@@ -5,6 +5,7 @@ const repo = require("./repo");
 const scanner = require("./scanner");
 const data = require("self").data;
 const systemEvents = require("sdk/system/events");
+const windows = require("sdk/windows").browserWindows;
 const windowUtil = require("sdk/window/utils");
 const toolbarButton = require("toolbarbutton/toolbarbutton").ToolbarButton;
 const tabs = require("sdk/tabs");
@@ -19,7 +20,7 @@ exports.getIdForTabElement = getIdForTabElement;
 let button = toolbarButton({
   id: "retire-js-button",
   label: "retire.js",
-  tooltiptext: "retirejs",
+  tooltiptext: "Retire.js",
   image: data.url("icons/icon16.png"),
   onCommand: toggleWebConsole
 });
@@ -29,11 +30,18 @@ button.moveTo({
   forceMove: false
 });
 
-function setBadgeCount(count) {
-  button.badge = {
-    text: Number(count) > 0 ? count : "",
-    color: "rgb(193, 56, 50)"
+function updateButton(vulnerableCount) {
+  let count = Number(vulnerableCount);
+  let tooltipText = "Retire.js";
+  if (count > 0) {
+    tooltipText += "\n" + count + " vulnerable librar" + (count > 1 ? "ies" : "y") +
+                   " detected.\nPress button for more info.";
   }
+  button.badge = {
+    text: count,
+    color: "rgb(193, 56, 50)"
+  };
+  button.tooltiptext = tooltipText;
 }
 
 function httpResponseListener(event) {
@@ -45,7 +53,7 @@ function httpResponseListener(event) {
       tabInfo.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
       // Start updating the badge if the request is initiated from the active tab.
       if (tabs.activeTab.id == tabIdForRequest) {
-        setBadgeCount(tabInfo.get(tabIdForRequest).vulnerableCount);
+        updateButton(tabInfo.get(tabIdForRequest).vulnerableCount);
       }
     }
     if (/javascript/.test(channel.getResponseHeader("Content-Type"))) {
@@ -110,32 +118,40 @@ repo.download().then(() => {
       };
       scanner.scan(details);
     });
-    // Add an unload listener to the tab's page.
-    // (the tab can be opened in the background so we need to find that tab).
+    // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
+    // Also, a tab can be opened in the background so we need to find that tab.
     tabUtil.getTabs().forEach((tabElement) => {
       if (getIdForTabElement(tabElement) == tab.id) {
         tabUtil.getTabContentWindow(tabElement).addEventListener("unload", () => {
           if (tabs.activeTab.id == tab.id) {
-            setBadgeCount(null);
+            updateButton(null);
           }
         });
       }
     });
     console.log("tab ready");
   });
-  // When a tab is activated (shown), update the badge in the toolbarbutton.
+  // When a tab is activated, update the badge in the toolbarbutton.
   tabs.on("activate", (tab) => {
-    if (tabInfo.has(tab.id)) {
-      setBadgeCount(tabInfo.get(tab.id).vulnerableCount);
+    // Get the active tab id for the window that is in front.
+    let tabId = getIdForTabElement(tabUtil.getActiveTab(windowUtil.getMostRecentBrowserWindow()));
+    if (tabInfo.has(tabId)) {
+      updateButton(tabInfo.get(tabId).vulnerableCount);
     } else {
-      setBadgeCount(null);
+      updateButton(null);
     }
-    console.log("activate tab");
+    console.log("tab activate");
   });
+  windows.on("activate", () => {
+    if (tabInfo.has(tabs.activeTab.id)) {
+      updateButton(tabInfo.get(tabs.activeTab.id).vulnerableCount);
+    }
+  });
+ 
   // Remove the tab info when the tab is closed.
   tabs.on("close", (tab) => {
     tabInfo.delete(tab.id);
-    console.log("close tab");
+    console.log("tab close: " + tab.id);
   });
 });
 
@@ -157,7 +173,7 @@ systemEvents.on("retire-scanner-on-result-ready", (event) => {
     }
   });
   if (tabs.activeTab.id == tabId) {
-    setBadgeCount(tabInfo.get(tabId).vulnerableCount);
+    updateButton(tabInfo.get(tabId).vulnerableCount);
   }
 }, true);
 

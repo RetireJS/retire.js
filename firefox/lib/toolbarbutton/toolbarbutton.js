@@ -32,6 +32,7 @@ const NS_XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 const {unload} = require("./unload+");
 const {listen} = require("./listen");
 const winUtils = require("window-utils");
+const windowUtil = require("sdk/window/utils");
 
 const browserURL = "chrome://browser/content/browser.xul";
 
@@ -209,6 +210,9 @@ exports.ToolbarButton = function ToolbarButton(options) {
     },
     set badge(value) {
       getToolbarButtons(function(tbb) {
+        
+        if (tbb.ownerGlobal != windowUtil.getMostRecentBrowserWindow()) return;
+        
         if ( value && value.text ) {
           tbb.img.setAttribute("style", "margin-top:5px");
         } else {
@@ -230,7 +234,8 @@ exports.ToolbarButton = function ToolbarButton(options) {
 
 function getToolbarButtons(callback, id) {
   let buttons = [];
-  for each (var window in winUtils.windowIterator()) {
+  
+  for each (var window in windowUtil.windows()) {
     if (browserURL != window.location) continue;
     let tbb = window.document.getElementById(id);
     if (tbb) buttons.push(tbb);
