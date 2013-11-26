@@ -35,7 +35,6 @@ exports["test add-on"] = function(assert, done) {
       .then(test_toolbarbuttonBadgeShouldShowVulnerableCount)
       .then(() => {
         httpServer.stop(done);
-        //httpServer.stop();
       });
   });
 };
