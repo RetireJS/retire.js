@@ -44,6 +44,81 @@ function updateButton(vulnerableCount) {
   button.tooltiptext = tooltipText;
 }
 
+function getTabElement(tabId) {
+  let allTabs = tabUtil.getTabs();
+  for (let i = 0; i < allTabs.length; i++) {
+    if (getIdForTabElement(allTabs[i]) == tabId) {
+      return allTabs[i];
+    }
+  }
+  return null;
+}
+
+function getIdForTabElement(tabElement) {
+  return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
+}
+
+function toggleWebConsole() {
+  let { gBrowser, gDevToolsBrowser } = windowUtil.getMostRecentBrowserWindow();
+  gDevToolsBrowser.selectToolCommand(gBrowser, "webconsole");
+}
+
+function getWindowForRequest(request){
+  if (request instanceof Ci.nsIRequest) {
+    try {
+      if (request.notificationCallbacks) {
+        return request.notificationCallbacks.getInterface(Ci.nsILoadContext).associatedWindow;
+      }
+    } catch(e) {
+    }
+    try {
+      if (request.loadGroup && request.loadGroup.notificationCallbacks) {
+        return request.loadGroup.notificationCallbacks.getInterface(Ci.nsILoadContext).associatedWindow;
+      }
+    } catch(e) {
+    }
+  }
+  return null;
+}
+
+function tabReadyListener(tab) {
+  // about:xx resources should not be scanned.
+  if (/^about:/.test(tab.url)) {
+    return;
+  }
+  let tabId = tab.id;
+  tabInfo.get(tabId).jsSources.forEach((url) => {
+    let details = {
+      url: url,
+      tabId: tab.id
+    };
+    scanner.scan(details);
+  });
+  // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
+  tabUtil.getTabContentWindow(getTabElement(tabId)).addEventListener("unload", () => {
+    if (tabs.activeTab.id == tabId) {
+      updateButton(null);
+    }
+  });
+  console.log("tab ready");
+}
+
+function tabActivateListener() {
+  // Get the active tab id for the window that is in front.
+  let tabId = getIdForTabElement(tabUtil.getActiveTab(windowUtil.getMostRecentBrowserWindow()));
+  if (tabInfo.has(tabId)) {
+    updateButton(tabInfo.get(tabId).vulnerableCount);
+  } else {
+    updateButton(null);
+  }
+  console.log("tab activate");
+}
+
+function tabCloseListener(tab) {
+  tabInfo.delete(tab.id);
+  console.log("tab close: " + tab.id);
+}
+
 function httpResponseListener(event) {
   try {
     let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
@@ -68,94 +143,37 @@ function httpResponseListener(event) {
   return;
 }
 
-function toggleWebConsole() {
-  let { gBrowser, gDevToolsBrowser } = windowUtil.getMostRecentBrowserWindow();
-  gDevToolsBrowser.selectToolCommand(gBrowser, "webconsole");
-}
-
 function isChannelInitialDocument(httpChannel) {
   return httpChannel.loadFlags & httpChannel.LOAD_INITIAL_DOCUMENT_URI;
 }
 
-function getWindowForRequest(request){
-  if (request instanceof Ci.nsIRequest) {
-    try {
-      if (request.notificationCallbacks) {
-        return request.notificationCallbacks.getInterface(Ci.nsILoadContext).associatedWindow;
-      }
-    } catch(e) {
-    }
-    try {
-      if (request.loadGroup && request.loadGroup.notificationCallbacks) {
-        return request.loadGroup.notificationCallbacks.getInterface(Ci.nsILoadContext).associatedWindow;
-      }
-    } catch(e) {
-    }
-  }
-  return null;
-}
-
-function getIdForTabElement(tabElement) {
-  return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
-}
-
 repo.download().then(() => {
-  // Start listening for http responses.
   systemEvents.on("http-on-examine-response", httpResponseListener);
   systemEvents.on("http-on-examine-cached-response", httpResponseListener);
-  
-  // When the DOM content for a tab is loaded, start scanning the js sources.
-  tabs.on("ready", (tab) => {
-    // about:xx resources should not be scanned.
-    if (/^about:/.test(tab.url)) {
-      return;
-    }
-    // Scan javascript files found in the tab's page.
-    tabInfo.get(tab.id).jsSources.forEach((url) => {
-      let details = {
-        url: url,
-        tabId: tab.id
-      };
-      scanner.scan(details);
-    });
-    // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
-    // Also, a tab can be opened in the background so we need to find that tab.
-    tabUtil.getTabs().forEach((tabElement) => {
-      if (getIdForTabElement(tabElement) == tab.id) {
-        tabUtil.getTabContentWindow(tabElement).addEventListener("unload", () => {
-          if (tabs.activeTab.id == tab.id) {
-            updateButton(null);
-          }
-        });
-      }
-    });
-    console.log("tab ready");
-  });
-  // When a tab is activated, update the badge in the toolbarbutton.
-  tabs.on("activate", (tab) => {
-    // Get the active tab id for the window that is in front.
-    let tabId = getIdForTabElement(tabUtil.getActiveTab(windowUtil.getMostRecentBrowserWindow()));
-    if (tabInfo.has(tabId)) {
-      updateButton(tabInfo.get(tabId).vulnerableCount);
-    } else {
-      updateButton(null);
-    }
-    console.log("tab activate");
-  });
   windows.on("activate", () => {
     if (tabInfo.has(tabs.activeTab.id)) {
       updateButton(tabInfo.get(tabs.activeTab.id).vulnerableCount);
     }
   });
- 
-  // Remove the tab info when the tab is closed.
-  tabs.on("close", (tab) => {
-    tabInfo.delete(tab.id);
-    console.log("tab close: " + tab.id);
-  });
+  tabs.on("ready", tabReadyListener);
+  tabs.on("activate", tabActivateListener);
+  tabs.on("close", tabCloseListener);
 });
 
+function logToWebConsole(rmsg, details, windowId) {
+  // Use nsIScriptError interface
+  // This can be replaced with devtools apis when the apis are ready.
+  // See: https://bugzilla.mozilla.org/show_bug.cgi?id=843004.
+  let consoleService = Cc["@mozilla.org/consoleservice;1"]
+      .getService(Ci.nsIConsoleService);
+  let scriptError = Cc["@mozilla.org/scripterror;1"]
+      .createInstance(Ci.nsIScriptError);
+  let category = "Mixed Content Blocker"; // Use a security category. See comment above.
+  let logMessage = "Loaded library with known vulnerability " + details.url + " See this " + rmsg;
 
+  scriptError.initWithWindowID(logMessage, details.url, null, null, null, scriptError.warningFlag, category, windowId);
+  consoleService.logMessage(scriptError);
+}
 /**
  * TODO: Check up system/events on() with latest code.
  * The docs are a bit off regarding the arguments.
@@ -167,13 +185,10 @@ systemEvents.on("retire-scanner-on-result-ready", (event) => {
   let rmsg = event.subject.msg;
   let tabId = details.tabId;
   tabInfo.get(tabId).vulnerableCount++;
-  tabUtil.getTabs().forEach((element) => {
-    if (getIdForTabElement(element) == details.tabId) {
-      tabUtil.getTabContentWindow(element).console.warn("Loaded library with known vulnerability " + details.url + " See " + rmsg);
-    }
-  });
+  
+  logToWebConsole(rmsg, details, windowUtil.getInnerId(tabUtil.getTabContentWindow(getTabElement(tabId))));
+  
   if (tabs.activeTab.id == tabId) {
     updateButton(tabInfo.get(tabId).vulnerableCount);
   }
 }, true);
-

@@ -65,9 +65,7 @@ function test_toolbarbuttonShouldOpenWebConsole(assert) {
   let deferred = promise.defer();
   getToolbarButtonEl().doCommand();
   getDevToolsWebConsolePanel().then((panel) => {
-    let warningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-console.webconsole-msg-warn");
     assert.ok(panel.isReady, "Button command should activate devtools web console");
-    assert.equal(warningEntries.length, 6, "There should be 6 warnings in the web console");
     deferred.resolve(assert);
   });
   return deferred.promise;
@@ -76,8 +74,8 @@ function test_toolbarbuttonShouldOpenWebConsole(assert) {
 function test_thereShouldBeSixEntriesInWebConsoleLog(assert) {
   let deferred = promise.defer();
   getDevToolsWebConsolePanel().then((panel) => {
-    let warningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-console.webconsole-msg-warn");
-    assert.equal(warningEntries.length, 6, "There should be 6 warnings in the web console");
+    let securityWarningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-security");
+    assert.equal(securityWarningEntries.length, 6, "There should be 6 warnings in the web console");
     deferred.resolve(assert);
   });
   return deferred.promise;
