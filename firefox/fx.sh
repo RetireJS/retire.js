@@ -94,10 +94,13 @@ runBrowser() {
 # creates an xpi
 # ------------------------------------------------------------------------------
 
-exportXpi() {
+build() {
+  addonName=$(sed -n 's/.*"name": "\(.*\)",/\1/p' package.json)
+  version=$(sed -n 's/.*"version": "\(.*\)",/\1/p' package.json)
+  filename=$addonName-$version.xpi
   cfx xpi
-  echo "Add-on exported to: retire.xpi"
-  echo 
+  mv $addonName.xpi $filename
+  echo "Add-on built: $filename."
 }
 
 # ------------------------------------------------------------------------------
@@ -105,6 +108,8 @@ exportXpi() {
 # ------------------------------------------------------------------------------
 
 createRetireJs
+
+
 
 cd $ADD_ON_DIR
 case "$target" in
@@ -115,7 +120,7 @@ case "$target" in
     runBrowser
     ;;
   "build")
-    exportXpi
+    build
     ;;
   "-help")
     howToUse
