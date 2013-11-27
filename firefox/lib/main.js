@@ -44,7 +44,22 @@ function updateButton(vulnerableCount) {
   button.tooltiptext = tooltipText;
 }
 
-function getTabElement(tabId) {
+function logToWebConsole(rmsg, details, windowId) {
+  // Use nsIScriptError interface
+  // This can be replaced with devtools apis when the apis are ready.
+  // See: https://bugzilla.mozilla.org/show_bug.cgi?id=843004.
+  let consoleService = Cc["@mozilla.org/consoleservice;1"]
+      .getService(Ci.nsIConsoleService);
+  let scriptError = Cc["@mozilla.org/scripterror;1"]
+      .createInstance(Ci.nsIScriptError);
+  let category = "Mixed Content Blocker"; // Use a security category. See comment above.
+  let logMessage = "Loaded library with known vulnerability " + details.url + " See this " + rmsg;
+
+  scriptError.initWithWindowID(logMessage, details.url, null, null, null, scriptError.warningFlag, category, windowId);
+  consoleService.logMessage(scriptError);
+}
+
+function getBrowserTabElement(tabId) {
   let allTabs = tabUtil.getTabs();
   for (let i = 0; i < allTabs.length; i++) {
     if (getIdForTabElement(allTabs[i]) == tabId) {
@@ -94,12 +109,18 @@ function tabReadyListener(tab) {
     };
     scanner.scan(details);
   });
-  // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
-  tabUtil.getTabContentWindow(getTabElement(tabId)).addEventListener("unload", () => {
+  
+  function unloadListener() {
     if (tabs.activeTab.id == tabId) {
       updateButton(null);
     }
-  });
+    
+    console.log("arguments.callee", arguments.callee);
+    console.log("unload");
+  }
+  
+  // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
+  tabUtil.getTabContentWindow(getBrowserTabElement(tabId)).addEventListener("unload", unloadListener);
   console.log("tab ready");
 }
 
@@ -160,20 +181,6 @@ repo.download().then(() => {
   tabs.on("close", tabCloseListener);
 });
 
-function logToWebConsole(rmsg, details, windowId) {
-  // Use nsIScriptError interface
-  // This can be replaced with devtools apis when the apis are ready.
-  // See: https://bugzilla.mozilla.org/show_bug.cgi?id=843004.
-  let consoleService = Cc["@mozilla.org/consoleservice;1"]
-      .getService(Ci.nsIConsoleService);
-  let scriptError = Cc["@mozilla.org/scripterror;1"]
-      .createInstance(Ci.nsIScriptError);
-  let category = "Mixed Content Blocker"; // Use a security category. See comment above.
-  let logMessage = "Loaded library with known vulnerability " + details.url + " See this " + rmsg;
-
-  scriptError.initWithWindowID(logMessage, details.url, null, null, null, scriptError.warningFlag, category, windowId);
-  consoleService.logMessage(scriptError);
-}
 /**
  * TODO: Check up system/events on() with latest code.
  * The docs are a bit off regarding the arguments.
@@ -186,7 +193,7 @@ systemEvents.on("retire-scanner-on-result-ready", (event) => {
   let tabId = details.tabId;
   tabInfo.get(tabId).vulnerableCount++;
   
-  logToWebConsole(rmsg, details, windowUtil.getInnerId(tabUtil.getTabContentWindow(getTabElement(tabId))));
+  logToWebConsole(rmsg, details, windowUtil.getInnerId(tabUtil.getTabContentWindow(getBrowserTabElement(tabId))));
   
   if (tabs.activeTab.id == tabId) {
     updateButton(tabInfo.get(tabId).vulnerableCount);
