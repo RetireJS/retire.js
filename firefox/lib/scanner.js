@@ -78,7 +78,7 @@ function onResultReady(details, results) {
     for (let i in results) {
       rmsg = rmsg.concat(results[i].vulnerabilities);
     }
-    systemEvents.emit("retire-scanner-on-result-ready", {
+    systemEvents.emit("retirejs:scanner:on-result-ready", {
       data: "",
       subject: {
         details: details,
