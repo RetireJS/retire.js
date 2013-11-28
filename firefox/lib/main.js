@@ -35,7 +35,7 @@ function updateButton(vulnerableCount) {
   let tooltipText = "Retire.js";
   if (count > 0) {
     tooltipText += "\n" + count + " vulnerable librar" + (count > 1 ? "ies" : "y") +
-                   " detected.\nPress button for more info.";
+                   " detected.";
   }
   button.badge = {
     text: count,
@@ -113,10 +113,8 @@ function tabReadyListener(tab) {
   function unloadListener() {
     if (tabs.activeTab.id == tabId) {
       updateButton(null);
+      tabUtil.getTabContentWindow(getBrowserTabElement(tabId)).removeEventListener("unload", unloadListener);
     }
-    
-    console.log("arguments.callee", arguments.callee);
-    console.log("unload");
   }
   
   // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
