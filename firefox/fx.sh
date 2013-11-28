@@ -10,6 +10,7 @@ FX_RETIRE_JS_FILE=$ADD_ON_DIR/lib/retire.js
 FX_PROFILE_DIR=""
 
 target=$1
+release=false
 
 # ------------------------------------------------------------------------------
 # check if the cfx tool exist
@@ -35,6 +36,11 @@ function howToUse() {
   echo "Options:"
   echo "  -p PROFILEDIR"
   echo "     Use an existing profile located in PROFILEDIR. If the PROFILEDIR does not exist it will be automatically created."
+  echo "     Example:"
+  echo "     ./fx.sh run -p ~/firefox-retire-profile"
+  echo
+  echo "  -release"
+  echo "     Creates a release. Does not append a timestamp to the filename."
   echo
   exit 1
 }
@@ -64,6 +70,10 @@ do
     -p | --profiledir ) 
       shift
       FX_PROFILE_DIR=$2
+      ;;
+    -release ) 
+      shift
+      release=true
       ;;
   esac
   shift
@@ -97,10 +107,16 @@ runBrowser() {
 build() {
   addonName=$(sed -n 's/.*"name": "\(.*\)",/\1/p' package.json)
   version=$(sed -n 's/.*"version": "\(.*\)",/\1/p' package.json)
-  filename=$addonName-$version.xpi
+  now=$(date +"%Y%m%d%H%M%S")
+  if $release;
+    then
+      filename="${addonName}-${version}.xpi"
+    else
+      filename="${addonName}-${version}_${now}.xpi"
+  fi
   cfx xpi
   mv $addonName.xpi $filename
-  echo "Add-on built: $filename."
+  echo "Add-on built: $filename"
 }
 
 # ------------------------------------------------------------------------------
@@ -108,8 +124,6 @@ build() {
 # ------------------------------------------------------------------------------
 
 createRetireJs
-
-
 
 cd $ADD_ON_DIR
 case "$target" in
