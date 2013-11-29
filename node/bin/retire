@@ -39,7 +39,7 @@ program
   .option('--jsrepo <path>', 'Local version of repo')
   .option('--noderepo <path>', 'Local version of repo')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
-  .option('--ignore <paths>', 'Comma delimited list of paths')
+  .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
@@ -51,9 +51,7 @@ if (!config.nocache) {
   config.cachedir = path.resolve(tmp.tmpdir, '.retire-cache/');
 }
 config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
-function ignore(file) {
-  return _.detect(config.ignore, function(p) { return file.indexOf(p) == 0; });
-}
+
 
 events.on('load-js-repo', function() {
   (config.jsrepo
@@ -95,7 +93,7 @@ events.on('scan-js', function() {
 
 events.on('scan-node', function() {
   resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
-    scanner.scanDependencies(dependencies, nodeRepo);
+    scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
   });
 });
