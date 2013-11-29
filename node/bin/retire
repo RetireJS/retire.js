@@ -46,7 +46,9 @@ var config = _.extend({ path: '.' }, _.pick(program, [
   'dropexternal', 'nocache', 'proxy'
 ]));
 
-config.cachedir = path.resolve(tmp.tmpdir, '.retire-cache/');
+if (!config.nocache) {
+  config.cachedir = path.resolve(tmp.tmpdir, '.retire-cache/');
+}
 
 events.on('load-js-repo', function() {
   (config.jsrepo
