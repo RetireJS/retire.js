@@ -39,15 +39,20 @@ program
   .option('--jsrepo <path>', 'Local version of repo')
   .option('--noderepo <path>', 'Local version of repo')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
+  .option('--ignore <paths>', 'Comma delimited list of paths')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo', 
-  'dropexternal', 'nocache', 'proxy'
+  'dropexternal', 'nocache', 'proxy', 'ignore'
 ]));
 
 if (!config.nocache) {
   config.cachedir = path.resolve(tmp.tmpdir, '.retire-cache/');
+}
+config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
+function ignore(file) {
+  return _.detect(config.ignore, function(p) { return file.indexOf(p) == 0; });
 }
 
 events.on('load-js-repo', function() {

@@ -1,5 +1,6 @@
 var retire = require('./retire'),
-	fs     = require('fs'),
+    _      = require('underscore'),
+    fs     = require('fs'),
     crypto = require('crypto'),
     emitter   = new require('events').EventEmitter;
 
@@ -33,8 +34,15 @@ function printResults(file, results, config) {
     });
   }
 }
+function shouldIgnore(file, ignores) {
+  return _.detect(ignores, function(i) { return file.indexOf(i) === 0; });
+}
+
 
 function scanJsFile(file, repo, config) {
+  if (config.ignore && shouldIgnore(file, config.ignore)) {
+    return;
+  }
   var results = retire.scanFileName(file, repo);
   if (!retire.isVulnerable(results)) {
     results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
