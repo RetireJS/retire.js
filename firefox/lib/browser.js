@@ -25,6 +25,7 @@ exports.toggleWebConsole = () => {
   return toggleWebConsole();
 }
 
+// Fixme: make re-usable.
 function logToWebConsole(rmsg, details, windowId) {
   // Use nsIScriptError interface
   // This can be replaced with devtools apis when the apis are ready.
@@ -38,6 +39,11 @@ function logToWebConsole(rmsg, details, windowId) {
 
   scriptError.initWithWindowID(logMessage, details.url, null, null, null, scriptError.warningFlag, category, windowId);
   consoleService.logMessage(scriptError);
+}
+
+function toggleWebConsole() {
+  let { gBrowser, gDevToolsBrowser } = windowUtil.getMostRecentBrowserWindow();
+  gDevToolsBrowser.selectToolCommand(gBrowser, "webconsole");
 }
 
 function getWindowForRequest(request){
@@ -70,10 +76,5 @@ function getBrowserTabElement(tabId) {
 
 function getIdForTabElement(tabElement) {
   return tabElement.getAttribute("linkedpanel").replace(/panel/, "");
-}
-
-function toggleWebConsole() {
-  let { gBrowser, gDevToolsBrowser } = windowUtil.getMostRecentBrowserWindow();
-  gDevToolsBrowser.selectToolCommand(gBrowser, "webconsole");
 }
 
