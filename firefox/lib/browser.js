@@ -35,7 +35,7 @@ function logToWebConsole(rmsg, details, windowId) {
   let scriptError = Cc["@mozilla.org/scripterror;1"]
       .createInstance(Ci.nsIScriptError);
   let category = "Mixed Content Blocker"; // Use a security category. See comment above.
-  let logMessage = "Loaded library with known vulnerability " + details.url + " See this " + rmsg;
+  let logMessage = "Loaded library with known vulnerability " + details.url + "\nSee this " + rmsg;
 
   scriptError.initWithWindowID(logMessage, details.url, null, null, null, scriptError.warningFlag, category, windowId);
   consoleService.logMessage(scriptError);
