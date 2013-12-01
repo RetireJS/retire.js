@@ -37,9 +37,8 @@ function scan(details) {
     return;
   }
   results = retire.scanFileName(getFileName(details.url), repo.getRepository());
-  console.log("scanFileName: " + results.length + ", "  + details.url);
   if (results.length > 0) {
-    console.log("scanFileName", results);
+    console.log("scanFileName, result: ", results);
     onResultReady(details, results);
     return;
   }
@@ -55,7 +54,7 @@ function scan(details) {
 function onScriptDownloaded(details, content) {
   let results = retire.scanFileContent(content, repo.getRepository(), hasher);
   if (results.length > 0) {
-    console.log("scanFileContent", results);
+    console.log("scanFileContent, result:", results);
     onResultReady(details, results);
     return;
   }
@@ -71,8 +70,8 @@ function onVersionDetected(result, details) {
 }
 
 function onResultReady(details, results) {
-  console.log("resultReady "+ details.url +", isVulnerable: " + retire.isVulnerable(results));
   if (retire.isVulnerable(results)) {
+    console.log("vulnerable resultReady: ", details);
     repo.setVulnerable(details.url, results);
     let rmsg = [];
     for (let i in results) {

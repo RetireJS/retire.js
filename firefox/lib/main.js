@@ -11,6 +11,7 @@ const windowUtil = require("sdk/window/utils");
 const tabs = require("sdk/tabs");
 const tabUtil = require("sdk/tabs/utils");
 const toolbarButton = require("toolbarbutton/toolbarbutton").ToolbarButton;
+const timers = require("sdk/timers");
 
 let tabInfo = new Map();
 
@@ -35,6 +36,9 @@ repo.download().then(() => {
   tabs.on("activate", onTabActivate);
   tabs.on("ready", onTabReady);
   tabs.on("close", onTabClose);
+  tabs.on("open", (tab) => {
+    resetInfoForTab(tab.id);
+  });
 });
 
 function onScanResultReady(event) {
@@ -55,29 +59,32 @@ function onActivateWindow() {
 }
 
 function onTabReady(tab) {
-  // about:xx resources should not be scanned.
   if (/^about:/.test(tab.url)) {
     return;
   }
+
   let tabId = tab.id;
-  tabInfo.get(tabId).jsSources.forEach((url) => {
-    let details = {
-      url: url,
-      tabId: tab.id
-    };
-    scanner.scan(details);
-  });
+  timers.setTimeout(() => {
+    tabInfo.get(tabId).jsSources.forEach((url) => {
+      let details = {
+        url: url,
+        tabId: tabId
+      };
+      scanner.scan(details);
+    });
+  }, 1000);
   
+  // Add an unload listener to the tab's page in order to reset the button badge on back/forward cache (bfCache)
   function onUnload() {
     if (tabs.activeTab.id == tabId) {
+      console.log("unload");
       updateButton(null);
       tabUtil.getTabContentWindow(browser.getBrowserTabElement(tabId)).removeEventListener("unload", onUnload);
     }
   }
-  
-  // Add an unload listener to the tab's page in order to handle back/forward cache (bfCache)
   tabUtil.getTabContentWindow(browser.getBrowserTabElement(tabId)).addEventListener("unload", onUnload);
-  console.log("tab ready");
+
+  console.log("tab ready: " + tabId);
 }
 
 function onTabActivate() {
@@ -94,6 +101,13 @@ function onTabActivate() {
 function onTabClose(tab) {
   tabInfo.delete(tab.id);
   console.log("tab close: " + tab.id);
+}
+
+function resetInfoForTab(tabId) {
+  tabInfo.set(tabId, {
+    jsSources: [], 
+    vulnerableCount: 0
+  });
 }
 
 function updateButton(vulnerableCount) {
@@ -117,15 +131,15 @@ function isChannelInitialDocument(httpChannel) {
 function onExamineResponse(event) {
   try {
     let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
-    let tabIdForRequest = browser.getIdForTabElement(tabUtil.getTabForContentWindow(browser.getWindowForRequest(event.subject)));
-    
+    let tab = tabUtil.getTabForContentWindow(browser.getWindowForRequest(event.subject));
+    let tabIdForRequest = browser.getIdForTabElement(tab);
     if (isChannelInitialDocument(channel)) {
-      tabInfo.set(tabIdForRequest, {jsSources: [], vulnerableCount: 0});
-      // Start updating the badge if the request is initiated from the active tab.
+      resetInfoForTab(tabIdForRequest);
       if (tabs.activeTab.id == tabIdForRequest) {
         updateButton(tabInfo.get(tabIdForRequest).vulnerableCount);
       }
     }
+
     if (/javascript/.test(channel.getResponseHeader("Content-Type"))) {
       let requestedUri = event.subject.URI.spec;
       if (repo.dontCheck(requestedUri)) {
@@ -137,3 +151,5 @@ function onExamineResponse(event) {
   }
   return;
 }
+
+resetInfoForTab(tabs.activeTab.id);

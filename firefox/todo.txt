@@ -3,5 +3,7 @@ Known issues:
   Workaround: Manually move it the toolbar
   
 Todo:
+ * Try caching the log messages so they are not lost when the console's limit (200) is reached.
+   * The jsSources should be converted to an object.
  * Update info package.json
  * Simplify main.js - setBadgeCount: Add tabId argument and only update badge if the id is the active tab id
