@@ -120,7 +120,8 @@
 	},
 	"prototypejs" : {
 		"vulnerabilities" : [
-			{ "below" : "1.6.0.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
+			{ "atOrAbove" : "1.6.0", "below" : "1.6.0.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] },
+			{ "below" : "1.5.1.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
 		],
 		"extractors" : {
 			"uri"			: [ "/(§§version§§)/prototype(\\.min)?\\.js" ],
