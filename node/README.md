@@ -28,6 +28,7 @@ Options:
 --jsrepo <path>    Local version of repo
 --noderepo <path>  Local version of repo
 --proxy <url>      Proxy url (http://some.sever:8080)
+--ignore <paths>   Comma delimited list of paths to ignore
 ````
 
 

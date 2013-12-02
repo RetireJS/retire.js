@@ -3,6 +3,7 @@ var _       = require('underscore')._,
     fs      = require('fs'),
     req     = require('request'),
     path    = require('path'),
+    log     = require('./utils').log,
 	retire  = require('./retire');
 var emitter = require('events').EventEmitter;
 
@@ -10,8 +11,8 @@ var emitter = require('events').EventEmitter;
 function loadJson(url, options) {
 	var events = new emitter();
     var request = req;
-    var logger = getLogger(options);
-	logger.log('Downloading ' + url + ' ...');
+    var logger = log(options);
+	logger.info('Downloading ' + url + ' ...');
 	if (options.proxy) {
         request = request.defaults({'proxy' : options.proxy});
     }
@@ -24,8 +25,7 @@ function loadJson(url, options) {
 }
 
 function loadJsonFromFile(file, options) {
-    var logger = getLogger(options);
-    logger.verbose('Reading ' + file + ' ...');
+    log(options).verbose('Reading ' + file + ' ...');
 	var events = new emitter();
     fs.readFile(file, { encoding : 'utf8'}, function(err, data) {
         data = options.process ? options.process(data) : data;
@@ -42,7 +42,7 @@ function loadFromCache(url, cachedir, options) {
     var now = new Date().getTime();
     if (cache[url]) {
         if (now - cache[url].date < 60*60*1000) {
-            getLogger(options).log("Loading from cache: " + url);
+            log(options).info("Loading from cache: " + url);
             return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
         }
     }
@@ -54,13 +54,6 @@ function loadFromCache(url, cachedir, options) {
         events.emit('done', data);
     });
     return events;
-}
-
-function getLogger(options) {
-    return {
-        log : options.log || console.log,
-        verbose : options.verbose ? (options.log || console.log) : function() {}
-    };
 }
 
 exports.loadrepository = function(repoUrl, options) {
