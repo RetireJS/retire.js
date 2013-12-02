@@ -4,8 +4,8 @@
 # Defaults:
 # ------------------------------------------------------------------------------
 
-ADD_ON_DIR=./
-NODE_RETIRE_JS_FILE=../node/lib/retire.js
+ADD_ON_DIR=./firefox
+NODE_RETIRE_JS_FILE=./node/lib/retire.js
 FX_RETIRE_JS_FILE=$ADD_ON_DIR/lib/retire.js
 FX_PROFILE_DIR=""
 
