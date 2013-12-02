@@ -1,7 +1,7 @@
 "use strict";
 
 const { Cc, Ci } = require("chrome");
-const browser = require("./browser");
+const firefox = require("./firefox");
 const repo = require("./repo");
 const scanner = require("./scanner");
 const data = require("self").data;
@@ -20,7 +20,7 @@ let button = toolbarButton({
   label: "retire.js",
   tooltiptext: "Retire.js",
   image: data.url("icons/icon16.png"),
-  onCommand: browser.toggleWebConsole
+  onCommand: firefox.toggleWebConsole
 });
 
 button.moveTo({
@@ -49,7 +49,7 @@ function onScanResultReady(event) {
   if (tabs.activeTab.id == tabId) {
     updateButton(tabInfo.get(tabId).vulnerableCount);
   }
-  browser.logToWebConsole(rmsg, details, windowUtil.getInnerId(tabUtil.getTabContentWindow(browser.getBrowserTabElement(tabId))));
+  firefox.logToWebConsole(rmsg, details, windowUtil.getInnerId(tabUtil.getTabContentWindow(firefox.getBrowserTabElement(tabId))));
 }
 
 function onActivateWindow() {
@@ -79,17 +79,17 @@ function onTabReady(tab) {
     if (tabs.activeTab.id == tabId) {
       console.log("unload");
       updateButton(null);
-      tabUtil.getTabContentWindow(browser.getBrowserTabElement(tabId)).removeEventListener("unload", onUnload);
+      tabUtil.getTabContentWindow(firefox.getBrowserTabElement(tabId)).removeEventListener("unload", onUnload);
     }
   }
-  tabUtil.getTabContentWindow(browser.getBrowserTabElement(tabId)).addEventListener("unload", onUnload);
+  tabUtil.getTabContentWindow(firefox.getBrowserTabElement(tabId)).addEventListener("unload", onUnload);
 
   console.log("tab ready: " + tabId);
 }
 
 function onTabActivate() {
   // Get the active tab id for the window that is in front.
-  let tabId = browser.getIdForTabElement(tabUtil.getActiveTab(windowUtil.getMostRecentBrowserWindow()));
+  let tabId = firefox.getIdForTabElement(tabUtil.getActiveTab(windowUtil.getMostRecentBrowserWindow()));
   if (tabInfo.has(tabId)) {
     updateButton(tabInfo.get(tabId).vulnerableCount);
   } else {
@@ -131,8 +131,8 @@ function isChannelInitialDocument(httpChannel) {
 function onExamineResponse(event) {
   try {
     let channel = event.subject.QueryInterface(Ci.nsIHttpChannel);
-    let tab = tabUtil.getTabForContentWindow(browser.getWindowForRequest(event.subject));
-    let tabIdForRequest = browser.getIdForTabElement(tab);
+    let tab = tabUtil.getTabForContentWindow(firefox.getWindowForRequest(event.subject));
+    let tabIdForRequest = firefox.getIdForTabElement(tab);
     if (isChannelInitialDocument(channel)) {
       resetInfoForTab(tabIdForRequest);
       if (tabs.activeTab.id == tabIdForRequest) {
