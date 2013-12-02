@@ -11,7 +11,7 @@ After install, make sure that ${ADD-ON-SDK}/bin is in your $PATH.
 
 ## fx.sh
 
-All targets must be executed from the same directory as this README file is in.
+All targets must be executed from the project root directory.
 
 **test**
 
