@@ -96,7 +96,7 @@ function waitForScanner(assert) {
   let deferred = promise.defer();
   timers.setTimeout(() => {
     deferred.resolve(assert);
-  }, 500);
+  }, 1500);
   return deferred.promise;
 }
 
@@ -123,7 +123,7 @@ function navigateToNoScriptPage(assert) {
   windowUtil.getMostRecentBrowserWindow().gBrowser.contentWindow.location.href = "./no-script-page.html"
   timers.setTimeout(() => {
     deferred.resolve(assert);
-  }, 500);
+  }, 1500);
   return deferred.promise;
 }
 
@@ -133,7 +133,7 @@ function clickBackButton(assert) {
   backButtonEl.doCommand();
   timers.setTimeout(() => {
     deferred.resolve(assert);
-  }, 500);
+  }, 1500);
   return deferred.promise;
 }
 
