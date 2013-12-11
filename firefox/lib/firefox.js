@@ -28,13 +28,13 @@ exports.toggleWebConsole = () => {
 // Fixme: make re-usable.
 function logToWebConsole(rmsg, details, windowId) {
   // Use nsIScriptError interface
-  // This can be replaced with devtools apis when the apis are ready.
+  // This should be replaced with devtools apis when the apis are ready.
   // See: https://bugzilla.mozilla.org/show_bug.cgi?id=843004.
   let consoleService = Cc["@mozilla.org/consoleservice;1"]
       .getService(Ci.nsIConsoleService);
   let scriptError = Cc["@mozilla.org/scripterror;1"]
       .createInstance(Ci.nsIScriptError);
-  let category = "Mixed Content Blocker"; // Use a security category. See comment above.
+  let category = "CSP"; // Use a security category. See comment above.
   let logMessage = "Loaded library with known vulnerability " + details.url + "\nSee this " + rmsg;
 
   scriptError.initWithWindowID(logMessage, details.url, null, null, null, scriptError.warningFlag, category, windowId);
