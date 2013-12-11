@@ -5,7 +5,7 @@
   "description": "Scanning website for vulernable js libraries. Icon by http://www.studiomx.eu/",
   "author": "Erlend Oftedal",
   "license": "MPL 2.0",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "icon": "data/icons/add-on-icon.png",
   "icon64": "data/icons/icon64.png"
 }
