@@ -73,7 +73,8 @@ function test_toolbarbuttonShouldOpenWebConsole(assert) {
 function test_thereShouldBeSixEntriesInWebConsoleLog(assert) {
   let deferred = promise.defer();
   getDevToolsWebConsolePanel().then((panel) => {
-    let securityWarningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-security");
+    // Select entries. The first selector is for firefox versions before v26.
+    let securityWarningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-security, [category=security]");
     assert.equal(securityWarningEntries.length, 6, "There should be 6 warnings in the web console");
     deferred.resolve(assert);
   });
