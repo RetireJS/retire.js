@@ -1,9 +1,9 @@
 /* global require, exports */
 
-var walkdir 		= require('walkdir'),
-	fs 				= require('fs'),
-	readInstalled 	= require('read-installed'),
-	emitter 		= require('events').EventEmitter;
+var walkdir			= require('walkdir'),
+	fs				= require('fs'),
+	readInstalled	= require('read-installed'),
+	emitter			= require('events').EventEmitter;
 
 
 function listdep(parent, filter, dep, level, deps) {
