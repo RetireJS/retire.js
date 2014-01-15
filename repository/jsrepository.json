@@ -147,11 +147,13 @@
 			{ "below" : "0.9.7", "info" : [ "https://github.com/emberjs/ember.js/issues/699" ] }
 		],
 		"extractors" : {
-			"uri"			: [ "/(§§version§§)/ember(\\.min)?\\.js" ],
+			"func"			: [ "Ember.VERSION" ],			
+			"uri"			: [ "/(?:v)?(§§version§§)/ember(\\.min)?\\.js" ],
 			"filename"		: [ "ember-(§§version§§)(\\.min)?\\.js" ], 
 			"filecontent"	: [ 
 				"Project:   Ember -(?:.*\n){9,11}// Version: v(§§version§§)",
-				"// Version: v(§§version§§)(.*\n){10,15}(Ember Debug|@module ember|@class ember)"
+				"// Version: v(§§version§§)(.*\n){10,15}(Ember Debug|@module ember|@class ember)",
+				"Ember.VERSION[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")"
 			],
 			"hashes"		: {}
 		}
