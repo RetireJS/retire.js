@@ -54,7 +54,7 @@
 		"extractors" : {
 			"filecontent"	: [ 
 				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
-				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\ui\\.dialog",
+				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.dialog",
 				"/\\*![\n *]+jQuery UI Dialog (§§version§§)" 
 			],
 			"hashes"		: {}
