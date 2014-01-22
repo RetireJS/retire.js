@@ -6,7 +6,7 @@
 		"extractors" : {
 			"func"			: [ "retire.VERSION" ],
 			"filename"		: [ "retire-example-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "/\\*! Retire-example v(§§version§§)" ],
+			"filecontent"	: [ "/\\*!? Retire-example v(§§version§§)" ],
 			"hashes"		: { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" }
 		}
 	},
@@ -20,7 +20,7 @@
 			"func"    		: [ "jQuery.fn.jquery" ],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
-			"filecontent"	: [ "/\\*! jQuery v(§§version§§)", "/\\*!\n \\* jQuery JavaScript Library v(§§version§§)" ],
+			"filecontent"	: [ "/\\*!? jQuery v(§§version§§)", "/\\*!?\n \\* jQuery JavaScript Library v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
@@ -31,7 +31,7 @@
 		],
 		"extractors" : {
 			"filename"		: [ "jquery-migrate-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "/\\*!(?:\n \\*)? jQuery Migrate(?: -)? v(§§version§§)" ],
+			"filecontent"	: [ "/\\*!?(?:\n \\*)? jQuery Migrate(?: -)? v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},
@@ -43,7 +43,7 @@
 		"extractors" : {
 			"filename"		: [ "jquery.mobile-(§§version§§)(.min)?\\.js" ],
 			"uri"			: [ "/(§§version§§)/jquery.mobile(\\.min)?\\.js" ],
-			"filecontent"	: [ "/\\*!(?:\n \\*)? jQuery Mobile(?: -)? v(§§version§§)" ],
+			"filecontent"	: [ "/\\*!?(?:\n \\*)? jQuery Mobile(?: -)? v(§§version§§)" ],
 			"hashes"		: {}
 		}
 	},	
@@ -53,9 +53,9 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
-				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.dialog",
-				"/\\*![\n *]+jQuery UI Dialog (§§version§§)" 
+				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
+				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.dialog",
+				"/\\*!?[\n *]+jQuery UI Dialog (§§version§§)" 
 			],
 			"hashes"		: {}
 		}
@@ -66,9 +66,9 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
-				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.autocomplete",
-				"/\\*![\n *]+jQuery UI Autocomplete (§§version§§)" 
+				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
+				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.autocomplete",
+				"/\\*!?[\n *]+jQuery UI Autocomplete (§§version§§)" 
 			],
 			"hashes"		: {}
 		}
@@ -79,9 +79,9 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*! jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
-				"/\\*![\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.tooltip",
-				"/\\*![\n *]+jQuery UI Tooltip (§§version§§)" 
+				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
+				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.tooltip",
+				"/\\*!?[\n *]+jQuery UI Tooltip (§§version§§)" 
 			],
 			"hashes"		: {}
 		}
