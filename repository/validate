@@ -12,9 +12,14 @@ for (var i in jsRepo) {
 	var types = ["uri", "filecontent", "filename"];
 	for (var j in types) {
 		for (var k in jsRepo[i].extractors[types[j]]) {
-			var restring = jsRepo[i].extractors[types[j]][k];
-			count++;
-			var r = new RegExp(restring);
+			try {
+				var restring = jsRepo[i].extractors[types[j]][k];
+				count++;
+				var r = new RegExp(restring);
+			} catch(e) {
+				console.log("RegExp error ", i, types[j], k);
+				throw e;
+			}
 		}
 	}  
 }
