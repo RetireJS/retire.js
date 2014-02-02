@@ -29,6 +29,16 @@
 			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
 		]
 	},
+	"marked": {
+		"vulnerabilities" : [
+			{ "below" : "0.3.1", "info" : [ "https://nodesecurity.io/advisories/marked_multiple_content_injection_vulnerabilities" ] }
+		]
+	},
+	"js-yaml": {
+		"vulnerabilities" : [
+			{ "below" : "2.0.5", "info" : [ "https://nodesecurity.io/advisories/JS-YAML_Deserialization_Code_Execution" ] }
+		]
+	},
 	"handlebars-runtime" : {
 		"vulnerabilities" : [ 
 			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
