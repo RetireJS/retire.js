@@ -24,12 +24,16 @@ function printResults(file, results, options) {
   }
   if (results.length > 0) {
     logger(file);
+    var printed = {};
     results.forEach(function(elm) {
       var vuln = '';
+      var key = elm.component + ' ' + elm.version;
+      if (printed[key]) return;
       if (retire.isVulnerable([elm])) {
         vuln = ' has known vulnerabilities: ' + elm.vulnerabilities.join(' ');
       }
-      logger(' ' + String.fromCharCode(8627) + ' ' + elm.component + ' ' + elm.version + vuln);
+      logger(' ' + String.fromCharCode(8627) + ' ' + key + vuln);
+      printed[key] = true;
     });
   }
 }
