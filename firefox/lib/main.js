@@ -4,7 +4,7 @@ const { Cc, Ci } = require("chrome");
 const firefox = require("./firefox");
 const repo = require("./repo");
 const scanner = require("./scanner");
-const data = require("self").data;
+const data = require("sdk/self").data;
 const systemEvents = require("sdk/system/events");
 const windows = require("sdk/windows").browserWindows;
 const windowUtil = require("sdk/window/utils");
@@ -31,6 +31,7 @@ button.moveTo({
 repo.download().then(() => {
   systemEvents.on("http-on-examine-response", onExamineResponse);
   systemEvents.on("http-on-examine-cached-response", onExamineResponse);
+  systemEvents.on("http-on-examine-merged-response", onExamineResponse);
   systemEvents.on("retirejs:scanner:on-result-ready", onScanResultReady, true);
   windows.on("activate", onActivateWindow);
   tabs.on("activate", onTabActivate);
