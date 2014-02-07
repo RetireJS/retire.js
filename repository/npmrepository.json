@@ -39,6 +39,11 @@
 			{ "below" : "2.0.5", "info" : [ "https://nodesecurity.io/advisories/JS-YAML_Deserialization_Code_Execution" ] }
 		]
 	},
+	"st": {
+		"vulnerabilities" : [
+			{ "below" : "0.2.5", "info" : [ "https://nodesecurity.io/advisories/st_directory_traversal" ] }
+		]
+	},
 	"handlebars-runtime" : {
 		"vulnerabilities" : [ 
 			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
