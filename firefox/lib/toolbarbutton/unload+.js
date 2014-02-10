@@ -45,7 +45,7 @@ var Unloader = exports.Unloader = function Unloader() {
     unloaders.length = 0;
   }
 
-  require("unload").when(unloadersUnlaod);
+  require("sdk/system/unload").when(unloadersUnlaod);
 
   function removeUnloader(unloader) {
     let index = unloaders.indexOf(unloader);
