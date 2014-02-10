@@ -1,5 +1,5 @@
 /* 
- * This file is used by both the Chrome plugin and the Cli scanner and thus 
+ * This file is used by the browser plugins and the Cli scanner and thus 
  * cannot have any external dependencies (no require)	
  */
 
