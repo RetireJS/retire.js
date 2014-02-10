@@ -18,3 +18,8 @@ exports.log = function(options) {
 		verbose : options.verbose ? info(options) : function() {}
 	};
 };
+exports.forwardEvent = function(emitter, event) {
+	return function() {
+		emitter.emit([event].concat(arguments));
+	};
+};

@@ -6,6 +6,7 @@ var _         = require('underscore')._,
     repo      = require('../lib/repo'),
     resolve   = require('../lib/resolve'),
     scanner   = require('../lib/scanner'),
+    forward   = require('../lib/utils').forwardEvent,
     os        = require('os'),
     path      = require('path'),
     emitter   = new require('events').EventEmitter;
@@ -52,7 +53,6 @@ if (!config.nocache) {
 }
 config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
 
-
 events.on('load-js-repo', function() {
   (config.jsrepo
     ? loader = repo.loadrepositoryFromFile(config.jsrepo, config)
@@ -60,7 +60,7 @@ events.on('load-js-repo', function() {
   ).on('done', function(repo) {
       jsRepo = repo;
       events.emit('js-repo-loaded');
-  });
+  }).on('stop', forward(events, 'stop'));
 });
 
 
@@ -71,7 +71,7 @@ events.on('load-node-repo', function() {
   ).on('done', function(repo) {
       nodeRepo = repo;
       events.emit('node-repo-loaded');
-  });
+  }).on('stop', forward(events, 'stop'));
 });
 
 events.on('js-repo-loaded', function() {
@@ -104,6 +104,16 @@ events.on('js-scanned', function() {
 
 events.on('scan-done', function() {
   process.exit(vulnsFound ? 1 : 0);
+});
+
+process.on('uncaughtException', function (err) {
+  console.warn('Exception caught: ', arguments);
+  process.exit(1);
+});
+
+events.on('stop', function() {
+  console.warn('Error:', arguments);
+  process.exit(1);
 });
 
 if (config.node) {

@@ -4,6 +4,7 @@ var _       = require('underscore')._,
     req     = require('request'),
     path    = require('path'),
     log     = require('./utils').log,
+    forward   = require('../lib/utils').forwardEvent,
 	retire  = require('./retire');
 var emitter = require('events').EventEmitter;
 
@@ -16,10 +17,14 @@ function loadJson(url, options) {
 	if (options.proxy) {
         request = request.defaults({'proxy' : options.proxy});
     }
-    request.get(url, function (e, r, data) {
-        data = options.process ? options.process(data) : data;
-        var obj = JSON.parse(data);
-        events.emit('done', obj);
+    request.get(url, function (error, r, data) {
+        if (error) {
+            events.emit('stop', 'Error downloading: ' + url, error);
+        } else {
+            data = options.process ? options.process(data) : data;
+            var obj = JSON.parse(data);
+            events.emit('done', obj);
+        }
     });
 	return events;
 }
@@ -44,6 +49,8 @@ function loadFromCache(url, cachedir, options) {
         if (now - cache[url].date < 60*60*1000) {
             log(options).info("Loading from cache: " + url);
             return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
+        } else {
+            fs.unlink(path.resolve(cachedir, cache[url].date + '.json'));
         }
     }
     var events = new emitter();
@@ -52,7 +59,7 @@ function loadFromCache(url, cachedir, options) {
         fs.writeFileSync(path.resolve(cachedir, cache[url].file), JSON.stringify(data), { encoding : 'utf8' });
         fs.writeFileSync(cacheIndex, JSON.stringify(cache), { encoding : 'utf8' });
         events.emit('done', data);
-    });
+    }).on('stop', forward(events, 'stop'));
     return events;
 }
 
