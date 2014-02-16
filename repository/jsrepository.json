@@ -191,10 +191,11 @@
 			
 		],
 		"extractors" : {
-			"func"			: [ "dojo.version.toString()" ],
-			"uri"			: [ "/(?:dojo-)?(§§version§§)/dojo(\\.min)?\\.js" ],
-			"filename"		: [ "dojo-(§§version§§)(\\.min)?\\.js" ],
-			"hashes"		: {
+			"func"				 : [ "dojo.version.toString()" ],
+			"uri"				 : [ "/(?:dojo-)?(§§version§§)/dojo(\\.min)?\\.js" ],
+			"filename"			 : [ "dojo-(§§version§§)(\\.min)?\\.js" ],
+			"filecontentreplace" : [ "/dojo.version=\\{major:([0-9]+),minor:([0-9]+),patch:([0-9]+)/$1.$2.$3/"],
+			"hashes"			 : {
 				"73cdd262799aab850abbe694cd3bfb709ea23627" : "1.4.1",
 				"c8c84eddc732c3cbf370764836a7712f3f873326" : "1.4.0",
 				"d569ce9efb7edaedaec8ca9491aab0c656f7c8f0" : "1.0.0",

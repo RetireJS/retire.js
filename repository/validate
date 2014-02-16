@@ -9,15 +9,23 @@ var jsRepo = JSON.parse(fs.readFileSync(__dirname + "/jsrepository.json"));
 console.log("Validating regexes...")
 var count = 0;
 for (var i in jsRepo) {
-	var types = ["uri", "filecontent", "filename"];
+	var types = ["uri", "filecontent", "filename", "filecontentreplace"];
 	for (var j in types) {
 		for (var k in jsRepo[i].extractors[types[j]]) {
 			try {
 				var restring = jsRepo[i].extractors[types[j]][k];
 				count++;
+				if (types[j] == "filecontentreplace") {
+					var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(restring);
+					if (ar == null) {
+						console.warn("RegExp error - should be on format \"/search/replacement/\"", i, types[j], k);
+						process.exit(1);
+					}
+					restring = ar[1];
+				}
 				var r = new RegExp(restring);
 			} catch(e) {
-				console.log("RegExp error ", i, types[j], k);
+				console.warn("RegExp error ", i, types[j], k);
 				throw e;
 			}
 		}

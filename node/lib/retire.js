@@ -5,25 +5,43 @@
 
 
 var exports = exports || {};
-exports.version = '0.1.22';
+exports.version = '0.1.23';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
 }
 
-function scan(data, extractor, repo) {
+function scan(data, extractor, repo, matcher) {
+	matcher = matcher || simpleMatch;
 	var detected = [];
 	for (var component in repo) {
 		var extractors = repo[component].extractors[extractor];
 		if (!isDefined(extractors)) continue;
 		for (var i in extractors) {
-			var re = new RegExp(extractors[i]);
-			var match = re.exec(data);
-			if (match) detected.push({ version: match[1], component: component, detection: extractor });
+			var match = matcher(extractors[i], data);
+			if (match) detected.push({ version: match, component: component, detection: extractor });
 		}
 	}
 	return detected;
 }
+
+function simpleMatch(regex, data) {
+	var re = new RegExp(regex);
+	var match = re.exec(data);
+	return match ? match[1] : null;
+}
+function replacementMatch(regex, data) {
+	var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(regex);
+	var re = new RegExp("(" + ar[1] + ")");
+	var match = re.exec(data);
+	var ver = null;
+	if (match) {
+		ver = match[1].replace(new RegExp(ar[1]), ar[2]);
+		return ver;
+	}
+	return null;
+}
+
 
 function scanhash(hash, repo) {
 	for (var component in repo) {
@@ -106,6 +124,9 @@ exports.scanFileName = function(fileName, repo) {
 
 exports.scanFileContent = function(content, repo, hasher) {
 	var result = scan(content, 'filecontent', repo);
+	if (result.length === 0) {
+		result = scan(content, 'filecontentreplace', repo, replacementMatch);
+	}
 	if (result.length === 0) {
 		result = scanhash(hasher.sha1(content), repo);
 	}
