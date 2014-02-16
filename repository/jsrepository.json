@@ -97,8 +97,8 @@
 		],
 		"extractors" : {
 			"filecontent"	: [ 
-				"/\\*(?:.*\n){1,3}.*Class: prettyPhoto(?:.*\n){1,3}.*Version: (§§version§§)",
-				"\\$\\.prettyPhoto = \\{version: '(§§version§§)'\\};"
+				"/\\*(?:.*[\n\r]+){1,3}.*Class: prettyPhoto(?:.*[\n\r]+){1,3}.*Version: (§§version§§)",
+				"\\.prettyPhoto[ ]?=[ ]?\\{version:[ ]?(?:'|\")(§§version§§)(?:'|\")\\}"
 			],
 			"hashes"		: {}
 		}
@@ -131,7 +131,7 @@
 		],
 		"extractors" : {
 			"filename"		: [ "yui-(§§version§§)(.min)?\\.js"],
-			"filecontent"	: [ "YUI (§§version§§)", "/yui/license.html\nversion: (§§version§§)"],
+			"filecontent"	: [ "YUI (§§version§§)", "/yui/license.(?:html|txt)\nversion: (§§version§§)"],
 			"hashes"		: {}
 		}
 	},
@@ -143,7 +143,8 @@
 		"extractors" : {
 			"uri"			: [ "/(§§version§§)/prototype(\\.min)?\\.js" ],
 			"filename"		: [ "prototype-(§§version§§)(.min)?\\.js" ], 
-			"filecontent"	: [ "Prototype JavaScript framework, version (§§version§§)" ],
+			"filecontent"	: [ "Prototype JavaScript framework, version (§§version§§)",
+								"Prototype[ ]?=[ ]?\\{[ \r\n\t]*Version:[ ]?(?:'|\")(§§version§§)(?:'|\")" ],
 			"hashes"		: {}
 		}
 	},
