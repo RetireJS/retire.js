@@ -226,7 +226,7 @@
 			"func"			: [ "Backbone.VERSION" ],
 			"uri"			: [ "/(§§version§§)/backbone(\\.min)?\\.js" ],
 			"filename"		: [ "backbone(?:js)?-(§§version§§)(.min)?\\.js" ], 
-			"filecontent"	: [ "//     Backbone.js (§§version§§)", "a=t.Backbone={}}a.VERSION=\"(§§version§§)\"" ],
+			"filecontent"	: [ "//[ ]+Backbone.js (§§version§§)", "a=t.Backbone={}}a.VERSION=\"(§§version§§)\"" ],
 			"hashes"		: {}
 		}
 	},
@@ -236,7 +236,10 @@
 			"func"			: [ "Mustache.version" ],
 			"uri"			: [ "/(§§version§§)/mustache(\\.min)?\\.js" ],
 			"filename"		: [ "mustache(?:js)?-(§§version§§)(.min)?\\.js" ], 
-			"filecontent"	: [ "name:\"mustache.js\",version:\"(§§version§§)\"" ],
+			"filecontent"	: [ "name:\"mustache.js\",version:\"(§§version§§)\"",
+								"[^a-z]mustache.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")",
+								"exports.name[ ]?=[ ]?\"mustache.js\";[\n ]*exports.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\");"
+							  ],
 			"hashes"		: {}
 		}
 	},
@@ -246,7 +249,9 @@
 			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
 			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ], 
-			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";" ],
+			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
+								"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")"
+							  ],
 			"hashes"		: {}
 		}
 	},
