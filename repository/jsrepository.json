@@ -20,7 +20,12 @@
 			"func"    		: [ "jQuery.fn.jquery" ],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
-			"filecontent"	: [ "/\\*!? jQuery v(§§version§§)", "/\\*!?\n \\* jQuery JavaScript Library v(§§version§§)" ],
+			"filecontent"	: [ 
+								"/\\*!? jQuery v(§§version§§)", "\\* jQuery JavaScript Library v(§§version§§)", 
+								"\\* jQuery (§§version§§) - New Wave Javascript", "// \\$Id: jquery.js,v (§§version§§)",
+								"/\\*! jQuery v(§§version§§)", "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
+								"[^a-z]jquery:[ ]?\"(§§version§§)\""
+							  ],
 			"hashes"		: {}
 		}
 	},
