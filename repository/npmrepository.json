@@ -43,7 +43,15 @@
 		"vulnerabilities" : [
 			{ "below" : "0.2.5", "info" : [ "https://nodesecurity.io/advisories/st_directory_traversal" ] }
 		]
+	},	
+	"hapi": {
+		"vulnerabilities" : [
+			{ "atOrAbove" : "2.0", "below" : "2.2", "info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ] }
+		]
 	},
+
+
+
 	"handlebars-runtime" : {
 		"vulnerabilities" : [ 
 			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
