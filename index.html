@@ -43,6 +43,7 @@ known vulnerabilities.</p>
 <li>A command line scanner</li>
 <li>A grunt plugin</li>
 <li>A Chrome plugin</li>
+<li>A Firefox plugin</li>
 </ol><h2>
 <a name="command-line-scanner" class="anchor" href="#command-line-scanner"><span class="octicon octicon-link"></span></a>Command line scanner</h2>
 
@@ -56,7 +57,7 @@ known vulnerabilities.</p>
 
 
 <h2>
-<a name="chrome-plugin" class="anchor" href="#chrome-plugin"><span class="octicon octicon-link"></span></a>Chrome plugin</h2>
+<a name="chrome-plugin" class="anchor" href="#chrome-plugin"><span class="octicon octicon-link"></span></a>Chrome and Firefox plugins</h2>
 
 <p>Scans visited sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.</p>
       </section>
@@ -70,7 +71,25 @@ known vulnerabilities.</p>
       </footer>
     </div>
 
-    
 
+<h2>Vulnerabilities</h2>
+These are the vulnerabilities currently detected by Retire.js:
+<table id="">
+<tr><th>Library</th><th>Version from</th><th>Version up to</th><th>Links</th></tr>
+
+
+</table>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+$(function() {
+  $.getJSON("http://rawgithub.com/bekk/retire.js/master/repository/jsrepository.json", function(data) {
+    for (var i in data) {
+      console.log(data[i]);
+    }
+
+  });
+});
+</script>
   </body>
 </html>
