@@ -59,6 +59,8 @@
 	},
 	"ember" : {
 		"vulnerabilities" : [
+			{ "atOrAbove" : "1.3.0-*", "below" : "1.3.2", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },
+			{ "atOrAbove" : "1.2.0-*", "below" : "1.2.2", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },		
 			{ "atOrAbove" : "1.4.0-*", "below" : "1.4.0-beta.2", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
 			{ "atOrAbove" : "1.3.0-*", "below" : "1.3.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
 			{ "atOrAbove" : "1.2.0-*", "below" : "1.2.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
