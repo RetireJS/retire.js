@@ -60,6 +60,58 @@ known vulnerabilities.</p>
 <a name="chrome-plugin" class="anchor" href="#chrome-plugin"><span class="octicon octicon-link"></span></a>Chrome and Firefox plugins</h2>
 
 <p>Scans visited sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.</p>
+
+
+
+<h2>Vulnerabilities</h2>
+These are the vulnerabilities currently detected by Retire.js
+<h3>JavaScript libraries</h3>
+<table id="vulnsjs">
+<tr><th>Library</th><th>From version</th><th>Up to version</th><th>Links</th></tr>
+</table>
+
+<h3>Node packages</h3>
+<table id="vulnsnode">
+<tr><th>Library</th><th>From version</th><th>Up to version</th><th>Links</th></tr>
+</table>
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+$(function() {
+  function doIt(id, data) {
+    var keys = [];
+    for (var i in data) keys.push(i);
+    keys.sort(function(x,y) { return x.toLowerCase() < y.toLowerCase() ? -1 : 1;  });
+
+    for (var n in keys) {
+      var i = keys[n];
+      if (i == "retire-example") continue;
+      for (var j in data[i].vulnerabilities) {
+        var tr = $("<tr>").appendTo($("#" + id));
+        if (j==0) tr.append($("<td>").text(i).attr("rowspan", data[i].vulnerabilities.length).css("font-weight", "bold"));
+
+        tr.append($("<td>").text(data[i].vulnerabilities[j].atOrAbove || "<--"))
+          .append($("<td>").text(data[i].vulnerabilities[j].below || "-->"));
+        var td = $("<td>").appendTo(tr);
+        var breaker = "";
+        for (var k in data[i].vulnerabilities[j].info) {
+          var url = data[i].vulnerabilities[j].info[k];
+          td.append(breaker).append($("<a>").attr("href", url).text(url));
+          breaker = "<br>";
+        }
+      }
+    }
+  }
+  $.getJSON("http://rawgithub.com/bekk/retire.js/master/repository/jsrepository.json", function(data) { doIt("vulnsjs", data); });
+  $.getJSON("http://rawgithub.com/bekk/retire.js/master/repository/npmrepository.json", function(data) { doIt("vulnsnode", data); });
+
+});
+</script>
+
+
+
+
       </section>
     </div>
 
@@ -71,25 +123,5 @@ known vulnerabilities.</p>
       </footer>
     </div>
 
-
-<h2>Vulnerabilities</h2>
-These are the vulnerabilities currently detected by Retire.js:
-<table id="">
-<tr><th>Library</th><th>Version from</th><th>Version up to</th><th>Links</th></tr>
-
-
-</table>
-
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
-$(function() {
-  $.getJSON("http://rawgithub.com/bekk/retire.js/master/repository/jsrepository.json", function(data) {
-    for (var i in data) {
-      console.log(data[i]);
-    }
-
-  });
-});
-</script>
   </body>
 </html>
