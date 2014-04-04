@@ -49,6 +49,12 @@
 			{ "atOrAbove" : "2.0", "below" : "2.2", "info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ] }
 		]
 	},
+	"node-validator": {
+		"vulnerabilities" : [
+			{ "below" : "1.1.0", "info" : [ "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/" ] },
+			{ "below" : "2.0.0", "info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ] }
+		]
+	},
 
 
 
