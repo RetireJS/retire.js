@@ -8,7 +8,13 @@ var cache = [];
 var vulnerable = {};
 var events = new Emitter();
 var sandboxWin;
+var scanEnabled = true;
 
+chrome.browserAction.onClicked.addListener(function() {
+	scanEnabled = !scanEnabled;
+	console.log(scanEnabled);
+	chrome.browserAction.setIcon({ path: scanEnabled ? "icons/icon48.png" : "icons/icon_bw48.png" });
+}); 
 
 var hasher = {
 	sha1 : function(data) {
@@ -150,7 +156,7 @@ downloadRepo().on('success', function() {
 		"types" : ["script"]
 	};
 	function scan(details) {
-		if (details.method === "GET") {
+		if (details.method === "GET" && scanEnabled) {
 			events.emit('scan', details);
 		}
 		return;
