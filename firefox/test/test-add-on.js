@@ -24,7 +24,7 @@ exports["test add-on"] = function(assert, done) {
       .then(waitForScanner)
       .then(test_toolbarbuttonBadgeShouldShowVulnerableCount)
       .then(test_toolbarbuttonShouldOpenWebConsole)
-      .then(test_thereShouldBeSixEntriesInWebConsoleLog)
+      .then(test_thereShouldBeCorrectNumberOfEntriesInWebConsoleLog)
       .then(activateTab1)
       .then(test_toolbarbuttonBadgeShouldBeHidden)
       .then(activateTab2)
@@ -41,7 +41,7 @@ exports["test add-on"] = function(assert, done) {
 
 function test_toolbarbuttonBadgeShouldShowVulnerableCount(assert) {
   let deferred = promise.defer();
-  assert.equal(getToolbarButtonBadgeEl().textContent, "6", "Toolbar button badge should show 6 vulnerable sources");
+  assert.equal(getToolbarButtonBadgeEl().textContent, "5", "Toolbar button badge should show 5 vulnerable sources");
   deferred.resolve(assert);
   return deferred.promise;
 }
@@ -70,12 +70,12 @@ function test_toolbarbuttonShouldOpenWebConsole(assert) {
   return deferred.promise;
 }
 
-function test_thereShouldBeSixEntriesInWebConsoleLog(assert) {
+function test_thereShouldBeCorrectNumberOfEntriesInWebConsoleLog(assert) {
   let deferred = promise.defer();
   getDevToolsWebConsolePanel().then((panel) => {
     // Select entries. The first selector is for firefox versions before v26.
     let securityWarningEntries = panel.hud.outputNode.querySelectorAll(".webconsole-msg-security, [category=security]");
-    assert.equal(securityWarningEntries.length, 6, "There should be 6 warnings in the web console");
+    assert.equal(securityWarningEntries.length, 5, "There should be 5 warnings in the web console");
     deferred.resolve(assert);
   });
   return deferred.promise;

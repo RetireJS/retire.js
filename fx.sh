@@ -25,7 +25,7 @@ fi
 # puts out the help text
 # ------------------------------------------------------------------------------
 
-function howToUse() {
+function howToUse {
   echo "Usage: $0 target [target-specific options]"
   echo
   echo "Targets:"
@@ -49,7 +49,7 @@ function howToUse() {
 # create the firfox/lib/retire.js file based on the node/lib/retire.js
 # ------------------------------------------------------------------------------
 
-createRetireJs() {
+function createRetireJs {
   if (grep -Fxq "var exports = exports || {};" $NODE_RETIRE_JS_FILE); then
     cat $NODE_RETIRE_JS_FILE > $FX_RETIRE_JS_FILE
     sed -i.bak s/"var exports = exports || {};"/"if (typeof exports != \"object\") exports = {};"/g $FX_RETIRE_JS_FILE
@@ -83,7 +83,7 @@ done
 # runs the tests
 # ------------------------------------------------------------------------------
 
-runTests() {
+function runTests {
   cfx test
 }
 
@@ -91,7 +91,7 @@ runTests() {
 # runs the add-on in the browser
 # ------------------------------------------------------------------------------
 
-runBrowser() {
+function runBrowser {
   if [ -z $FX_PROFILE_DIR ] 
   then
     cfx run
@@ -104,7 +104,7 @@ runBrowser() {
 # creates an xpi
 # ------------------------------------------------------------------------------
 
-build() {
+function build {
   addonName=$(sed -n 's/.*"name": "\(.*\)",/\1/p' package.json)
   version=$(sed -n 's/.*"version": "\(.*\)",/\1/p' package.json)
   now=$(date +"%Y%m%d%H%M%S")
