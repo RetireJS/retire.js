@@ -7,7 +7,7 @@ window.addEventListener("message", function(evt) {
         document.getElementsByTagName("base")[0].setAttribute("href", evt.data.url.replace(/(https?:\/\/[^\/]+).*/, "$1/"));
 
         //stop framebusting
-        var valueof = function() { return evt.data.url };
+        var valueof = function() { return evt.data.url; };
         var f = function() {};
         var fakewin = { 
             location: { 

@@ -55,8 +55,8 @@ config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { re
 
 events.on('load-js-repo', function() {
   (config.jsrepo
-    ? loader = repo.loadrepositoryFromFile(config.jsrepo, config)
-    :repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json', config)
+    ? repo.loadrepositoryFromFile(config.jsrepo, config)
+    : repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json', config)
   ).on('done', function(repo) {
       jsRepo = repo;
       events.emit('js-repo-loaded');
