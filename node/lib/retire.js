@@ -12,7 +12,7 @@ function isDefined(o) {
 }
 
 function scan(data, extractor, repo, matcher) {
-	matcher = matcher || simpleMatch;
+	matcher = matcher || simpleMatch;
 	var detected = [];
 	for (var component in repo) {
 		var extractors = repo[component].extractors[extractor];
