@@ -84,11 +84,16 @@ events.on('node-repo-loaded', function() {
 
 
 events.on('scan-js', function() {
-  resolve.scanJsFiles(config.jspath || config.path).on('jsfile', function(file) {
-    scanner.scanJsFile(file, jsRepo, config);
-  }).on('end', function() {
-    events.emit('js-scanned');
-  });
+  resolve.scanJsFiles(config.jspath || config.path)
+    .on('jsfile', function(file) {
+      scanner.scanJsFile(file, jsRepo, config);
+    })
+    .on('bowerfile', function(bowerfile) {
+      scanner.scanBowerFile(bowerfile, jsRepo, config);
+    })
+    .on('end', function() {
+      events.emit('js-scanned');
+    });
 });
 
 events.on('scan-node', function() {

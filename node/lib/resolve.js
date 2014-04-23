@@ -39,6 +39,9 @@ function scanJsFiles(path) {
 		if (file.match(/\.js$/)) {
 			finder.emit('jsfile', file);
 		}
+		if (file.match(/\/bower.json$/)) {
+			finder.emit('bowerfile', file);
+		}
 	});
 	return finder;
 }

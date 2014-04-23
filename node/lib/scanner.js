@@ -59,7 +59,7 @@ function printParent(comp, options) {
 }
 
 function scanDependencies(dependencies, nodeRepo, options) {
-    for (var i in dependencies) {
+  for (var i in dependencies) {
 		results = retire.scanNodeDependency(dependencies[i], nodeRepo);
 		if (retire.isVulnerable(results)) {
 			events.emit('vulnerable-dependency-found');
@@ -69,8 +69,17 @@ function scanDependencies(dependencies, nodeRepo, options) {
 				printParent(result, options);
 			}
 		}
-    }
+  }
 }
+
+function scanBowerFile(file, repo, options) {
+  var bower = JSON.parse(fs.readFileSync(file));
+  if (bower.version) {
+    var results = retire.check(bower.name, bower.version, repo);
+    printResults(file, results, options);
+  }
+}
+
 
 
 exports.scanDependencies = function(dependencies, nodeRepo, options) {
@@ -78,6 +87,9 @@ exports.scanDependencies = function(dependencies, nodeRepo, options) {
 };
 exports.scanJsFile = function(file, repo, options) {
 	return scanJsFile(file, repo, options);
+};
+exports.scanBowerFile = function(file, repo, options) {
+  return scanBowerFile(file, repo, options);
 };
 exports.on = function(name, listener) {
 	events.on(name, listener);

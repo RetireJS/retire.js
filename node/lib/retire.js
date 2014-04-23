@@ -59,6 +59,7 @@ function scanhash(hash, repo) {
 function check(results, repo) {
 	for (var r in results) {
 		var result = results[r];
+		if (!isDefined(repo[result.component])) continue;
 		var vulns = repo[result.component].vulnerabilities;
 		for (var i in vulns) {
 			if (!isAtOrAbove(result.version, vulns[i].below)) {
