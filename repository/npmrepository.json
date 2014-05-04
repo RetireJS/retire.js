@@ -55,7 +55,11 @@
 			{ "below" : "2.0.0", "info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ] }
 		]
 	},
-
+	"printer" : {
+		"vulnerabilities" : [
+			{ "below" : "0.0.2", "info" : [ "https://nodesecurity.io/advisories/printer_potential_command_injection" ] }
+		]		
+	},
 
 
 	"handlebars-runtime" : {
