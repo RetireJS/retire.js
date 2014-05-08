@@ -5,7 +5,7 @@
 
 
 var exports = exports || {};
-exports.version = '0.2.0';
+exports.version = '0.2.1';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -66,12 +66,21 @@ function check(results, repo) {
 				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
 					continue;
 				}
-				result.vulnerabilities = vulns[i].info;
+				result.vulnerabilities = unique((result.vulnerabilities || []).concat(vulns[i].info));
 			}
 		}
 	}
 	return results;
 }
+
+function unique(ar) {
+	var r = [];
+	ar.forEach(function(e) { 
+		if (r.indexOf(e) == -1) r.push(e);
+	});
+	return r;
+}
+
 
 function isAtOrAbove(version1, version2) {
 	var v1 = version1.split(/[\.\-]/g);
