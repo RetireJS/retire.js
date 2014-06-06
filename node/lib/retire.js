@@ -66,7 +66,7 @@ function check(results, repo) {
 				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
 					continue;
 				}
-				result.vulnerabilities = unique((result.vulnerabilities || []).concat(vulns[i].info));
+				result.vulnerabilities = unique((result.vulnerabilities || []).concat(vulns[i].info));
 			}
 		}
 	}
