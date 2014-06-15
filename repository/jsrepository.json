@@ -57,6 +57,7 @@
 			{ "atOrAbove": "1.8.9", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/6016" ]}
 		],
 		"extractors" : {
+			"func"    		: [ "jQuery.ui.dialog.version" ],
 			"filecontent"	: [ 
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.dialog",
@@ -70,6 +71,7 @@
 			{ "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
 		],
 		"extractors" : {
+			"func"    		: [ "jQuery.ui.autocomplete.version" ],
 			"filecontent"	: [ 
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.autocomplete",
@@ -83,6 +85,7 @@
 			{ "atOrAbove": "1.9.2", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
 		],
 		"extractors" : {
+			"func"    		: [ "jQuery.ui.tooltip.version" ],
 			"filecontent"	: [ 
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.tooltip",
@@ -130,6 +133,7 @@
 			{ "atOrAbove" : "2.4.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4207/" ]}
 		],
 		"extractors" : {
+			"func"    		: [ "YUI.Version" ],		
 			"filename"		: [ "yui-(§§version§§)(.min)?\\.js"],
 			"filecontent"	: [ "YUI (§§version§§)", "/yui/license.(?:html|txt)\nversion: (§§version§§)"],
 			"hashes"		: {}
@@ -141,6 +145,7 @@
 			{ "below" : "1.5.1.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
 		],
 		"extractors" : {
+			"func"    		: [ "Prototype.Version" ],
 			"uri"			: [ "/(§§version§§)/prototype(\\.min)?\\.js" ],
 			"filename"		: [ "prototype-(§§version§§)(.min)?\\.js" ], 
 			"filecontent"	: [ "Prototype JavaScript framework, version (§§version§§)",
