@@ -229,7 +229,11 @@
 		}
 	},
 	"angularjs" : {
-		"vulnerabilities" : [ { "below" : "1.2.0", "info" : [ "https://code.google.com/p/mustache-security/wiki/AngularJS" ] }],
+		"vulnerabilities" : [ 
+			{ "below" : "1.2.0", "info" : [ "https://code.google.com/p/mustache-security/wiki/AngularJS" ] },
+			{ "atOrAbove" : "1.3.0-beta.1", "below" : "1.3.0-beta.14", "info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ] },
+			{ "below" : "1.2.19", "info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ] }
+		],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
 			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
