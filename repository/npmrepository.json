@@ -103,6 +103,9 @@
 	},
 	"mustache" : {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ]
+	},
+	"syntax-error" : {
+		"vulnerabilities" : [ { "below" : "1.1.1", "info" : [ "https://nodesecurity.io/advisories/syntax-error-potential-script-injection" ] } ]
 	}
 
 }
