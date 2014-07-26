@@ -140,7 +140,7 @@
 			{ "atOrAbove" : "2.8.0" , "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2012-5883/" ]},
 			{ "atOrAbove" : "2.5.0" , "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2012-5882/" ]},
 			{ "atOrAbove" : "2.4.0" , "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2012-5881/" ]},
-			{ "below" : "2.9.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4710/" ]},
+			{ "below" : "2.9.0", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4710/" ]},
 			{ "atOrAbove" : "2.8.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4209/" ]},
 			{ "atOrAbove" : "2.5.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4208/" ]},
 			{ "atOrAbove" : "2.4.0" , "below" : "2.8.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-4207/" ]}
