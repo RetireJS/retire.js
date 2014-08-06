@@ -291,7 +291,21 @@
 		}
 	},
 
-
+	"plupload" : {
+		"vulnerabilities" : [ 
+			{ "below" : "1.5.4", "info" : [ "http://www.cvedetails.com/cve/CVE-2012-2401/" ] },
+			{ "below" : "1.5.5", "info" : [ "http://www.cvedetails.com/cve/CVE-2013-0237/" ] }
+		],
+		"extractors" : {
+			"func"			: [ "plupload.VERSION" ],
+			"uri"			: [ "/(§§version§§)/plupload(\\.min)?\\.js" ],
+			"filename"		: [ "plupload-(§§version§§)(.min)?\\.js" ], 
+			"filecontent"	: [ "\\* Plupload - multi-runtime File Uploader(\r|\n)+ \\* v§§version§§",
+								"var g=\\{VERSION:\"§§version§§\",.*;window.plupload=g\\}"
+							  ],
+			"hashes"		: {}
+		}
+	},
 
 
 
