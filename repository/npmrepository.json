@@ -106,6 +106,12 @@
 	},
 	"syntax-error" : {
 		"vulnerabilities" : [ { "below" : "1.1.1", "info" : [ "https://nodesecurity.io/advisories/syntax-error-potential-script-injection" ] } ]
+	},
+	"crumb" : {
+		"vulnerabilities" : [ { "below" : "3.0.0", "info" : [ "https://nodesecurity.io/advisories/crumb_cors_token_disclosure" ] } ]
+	},
+	"qs" : {
+		"vulnerabilities" : [ { "below" : "1.0.0", "info" : [ "https://nodesecurity.io/advisories/qs_dos_extended_event_loop_blocking" ] } ]
 	}
 
 }
