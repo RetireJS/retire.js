@@ -16,7 +16,7 @@
     "commander"	     : "2.0.x",
     "read-installed" : "0.2.x",
     "walkdir"        : "0.0.7",
-    "request"        : "~2.27.0"
+    "request"        : "~2.40.0"
   },
   "devDependencies": {
     "nodeunit": "",
