@@ -43,7 +43,9 @@
 	"jquery-mobile" : {
 		"vulnerabilities" : [
 			{ "below" : "1.0RC2", "info" : [ "http://osvdb.org/show/osvdb/94563", "http://osvdb.org/show/osvdb/94562", "http://osvdb.org/show/osvdb/94316", "http://osvdb.org/show/osvdb/94561", "http://osvdb.org/show/osvdb/94560" ]},
-			{ "below" : "1.0.1", "info": [ "http://osvdb.org/show/osvdb/94317" ] }
+			{ "below" : "1.0.1", "info": [ "http://osvdb.org/show/osvdb/94317" ] },
+			{ "below" : "1.1.2", "info": [ "http://jquerymobile.com/changelog/1.1.2/" ] },
+			{ "below" : "1.2.0", "info": [ "http://jquerymobile.com/changelog/1.2.0/" ] }
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.mobile.version" ],
@@ -110,6 +112,9 @@
 	},	
 	"jPlayer" : {
 		"vulnerabilities" : [
+			{ "below" : "2.4.0", "info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2023" ]},
+			{ "below" : "2.3.0", "info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1942", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2022" ]},
+			{ "below" : "2.2.0", "info" : [ "http://jplayer.org/latest/release-notes/" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "new jQuery.jPlayer().version.script" ],
