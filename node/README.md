@@ -4,7 +4,7 @@ Install
 -------
 
     npm install -g retire
-    
+
 
 Usage
 -----
@@ -14,21 +14,22 @@ Usage: retire [options]
 
 Options:
 
--h, --help         output usage information
--V, --version      output the version number
+-h, --help              output usage information
+-V, --version           output the version number
 
--p, --package      limit node scan to packages where parent is mentioned in package.json (ignore node_modules)
--n, --node         Run node dependency scan only
--j, --js           Run scan of JavaScript files only
--v, --verbose      Show identified files (by default only vulnerable files are shown)
+-p, --package           limit node scan to packages where parent is mentioned in package.json (ignore node_modules)
+-n, --node              Run node dependency scan only
+-j, --js                Run scan of JavaScript files only
+-v, --verbose           Show identified files (by default only vulnerable files are shown)
 
---jspath <path>    Folder to scan for javascript files
---nodepath <path>  Folder to scan for node files
---path <path>      Folder to scan for both
---jsrepo <path>    Local version of repo
---noderepo <path>  Local version of repo
---proxy <url>      Proxy url (http://some.sever:8080)
---ignore <paths>   Comma delimited list of paths to ignore
+--jspath <path>         Folder to scan for javascript files
+--nodepath <path>       Folder to scan for node files
+--path <path>           Folder to scan for both
+--jsrepo <path>         Local version of repo
+--noderepo <path>       Local version of repo
+--proxy <url>           Proxy url (http://some.sever:8080)
+--ignore <paths>        Comma delimited list of paths to ignore
+--ignorefile <path>     Custom .retireignore file, defaults to .retireignore
 ````
 
 

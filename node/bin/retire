@@ -43,7 +43,7 @@ program
   .option('--noderepo <path>', 'Local version of repo')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
-  .option('--ignorefile <path>', 'Custom .retireignore file')
+  .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
