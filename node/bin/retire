@@ -64,7 +64,6 @@ if(config.ignorefile) {
   var lines = fs.readFileSync(config.ignorefile).toString().split(/\n/g).filter(function(e) { return e !== ''; });
   ignored = _.map(lines, function(e) { return path.resolve(e); });
   config.ignore = config.ignore.concat(ignored);
-  console.log(config.ignore)
 }
 
 events.on('load-js-repo', function() {
