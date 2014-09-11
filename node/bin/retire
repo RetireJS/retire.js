@@ -48,7 +48,7 @@ program
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile'
 ]));
 
 if (!config.nocache) {
@@ -61,9 +61,10 @@ if (!config.ignorefile && fs.existsSync(defaultIgnoreFile)) {
 }
 
 if(config.ignorefile) {
-  var lines = fs.readFileSync(config.ignorefile).toString().split(/\n/g);
+  var lines = fs.readFileSync(config.ignorefile).toString().split(/\n/g).filter(function(e) { return e !== ''; });
   ignored = _.map(lines, function(e) { return path.resolve(e); });
-  config.ignore.concat(ignored);
+  config.ignore = config.ignore.concat(ignored);
+  console.log(config.ignore)
 }
 
 events.on('load-js-repo', function() {
