@@ -61,7 +61,7 @@ if (!config.ignorefile && fs.existsSync(defaultIgnoreFile)) {
 }
 
 if(config.ignorefile) {
-  var lines = fs.readFileSync(config.ignorefile).toString().split(/\n/g).filter(function(e) { return e !== ''; });
+  var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
   ignored = _.map(lines, function(e) { return path.resolve(e); });
   config.ignore = config.ignore.concat(ignored);
 }
