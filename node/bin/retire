@@ -61,6 +61,10 @@ if (!config.ignorefile && fs.existsSync(defaultIgnoreFile)) {
 }
 
 if(config.ignorefile) {
+  if (!fs.existsSync(config.ignorefile)) {
+    console.warn('Error: Could not read ignore file: ' + config.ignorefile);
+    process.exit(1);
+  }
   var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
   ignored = _.map(lines, function(e) { return path.resolve(e); });
   config.ignore = config.ignore.concat(ignored);
