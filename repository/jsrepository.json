@@ -235,10 +235,12 @@
 	},
 	"angularjs" : {
 		"vulnerabilities" : [ 
-			{ "below" : "1.2.0", "info" : [ "https://code.google.com/p/mustache-security/wiki/AngularJS" ] },
-			{ "atOrAbove" : "1.3.0-beta.1", "below" : "1.3.0-beta.14", "info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ] },
+			{ "below" : "1.2.0", "info" : [ "https://code.google.com/p/mustache-security/wiki/AngularJS" ] },			
 			{ "below" : "1.2.19", "info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ] },
-			{ "below" : "1.2.24", "info" : [ "http://avlidienbrunn.se/angular.txt", "https://github.com/angular/angular.js/commit/b39e1d47b9a1b39a9fe34c847a81f589fba522f8"] }
+			{ "below" : "1.2.24", "info" : [ "http://avlidienbrunn.se/angular.txt", "https://github.com/angular/angular.js/commit/b39e1d47b9a1b39a9fe34c847a81f589fba522f8"] },
+			{ "atOrAbove" : "1.3.0-beta.1", "below" : "1.3.0-beta.14", "info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ] },
+			{ "atOrAbove" : "1.3.0-beta.1", "below" : "1.3.0-rc.1", "info" : [ "http://avlidienbrunn.se/angular.txt", "https://github.com/angular/angular.js/commit/b39e1d47b9a1b39a9fe34c847a81f589fba522f8"] }
+
 		],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
