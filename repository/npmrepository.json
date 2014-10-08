@@ -11,7 +11,7 @@
 	},
 	"connect": {
 		"vulnerabilities" : [
-			{ "below" : "2.8.2", "info" : [ "https://nodesecurity.io/advisories/51d0d6abf196582611000001" ] }
+			{ "below" : "2.8.1", "info" : [ "https://nodesecurity.io/advisories/51d0d6abf196582611000001" ] }
 		]
 	},
 	"libnotify": {
@@ -46,7 +46,8 @@
 	},	
 	"hapi": {
 		"vulnerabilities" : [
-			{ "atOrAbove" : "2.0", "below" : "2.2", "info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ] }
+			{ "atOrAbove" : "2.0", "below" : "2.2", "info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ] },
+			{ "below" : "6.1.0", "info" : [ "http://nodesecurity.io/advisories/hapijs-jsonp-CVE-2014-4671A" ] }
 		]
 	},
 	"node-validator": {
@@ -112,6 +113,24 @@
 	},
 	"qs" : {
 		"vulnerabilities" : [ { "below" : "1.0.0", "info" : [ "https://nodesecurity.io/advisories/qs_dos_extended_event_loop_blocking" ] } ]
+	},
+	"bassmaster" : {
+		"vulnerabilities" : [ { "below" : "1.5.2", "info" : [ "http://nodesecurity.io/advisories/bassmaster_js_injection" ] } ]
+	},
+	"libyaml" : {
+		"vulnerabilities" : [ { "below" : "0.2.3", "info" : [ "http://nodesecurity.io/advisories/libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags" ] } ]
+	},
+	"send" : {
+		"vulnerabilities" : [ { "below" : "0.8.4", "info" : [ "http://nodesecurity.io/advisories/send-directory-traversal" ] } ]
+	},
+	"yar" : {
+		"vulnerabilities" : [ { "below" : "2.2.0", "info" : [ "http://nodesecurity.io/advisories/yar-DoS" ] } ]
+	},
+	"codem-transcode" : {
+		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://nodesecurity.io/advisories/codem-transcode_command_injection" ] } ]
+	},
+	"ep_imageconvert" : {
+		"vulnerabilities" : [ { "below" : "0.0.3", "info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ] } ]
 	}
 
 }
