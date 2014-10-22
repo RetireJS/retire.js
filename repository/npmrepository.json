@@ -131,6 +131,12 @@
 	},
 	"ep_imageconvert" : {
 		"vulnerabilities" : [ { "below" : "0.0.3", "info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ] } ]
-	}
+	},
+	"sanitize-html": {
+		"vulnerabilities" : [ { "below" : "1.4.3", "info" : [ "https://github.com/punkave/sanitize-html/issues/29" ] } ]
+	},	
+	"htmlparser2": {
+		"vulnerabilities" : [ { "below" : "3.7.4", "info" : [ "https://github.com/fb55/htmlparser2/issues/105" ] } ]
+	}	
 
 }
