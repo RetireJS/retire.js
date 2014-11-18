@@ -136,7 +136,7 @@
 		"vulnerabilities" : [ { "below" : "1.4.3", "info" : [ "https://github.com/punkave/sanitize-html/issues/29" ] } ]
 	},	
 	"htmlparser2": {
-		"vulnerabilities" : [ { "below" : "3.7.4", "info" : [ "https://github.com/fb55/htmlparser2/issues/105" ] } ]
+		"vulnerabilities" : [ { "below" : "3.8.3", "info" : [ "https://github.com/fb55/htmlparser2/issues/105" ] } ]
 	}	
 
 }
