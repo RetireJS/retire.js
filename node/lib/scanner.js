@@ -49,7 +49,7 @@ function scanJsFile(file, repo, options) {
   var results = retire.scanFileName(file, repo);
   if (!retire.isVulnerable(results)) {
     results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
-  }  
+  }
   printResults(file, results, options);
 }
 
@@ -60,6 +60,9 @@ function printParent(comp, options) {
 
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
+    if (options.ignore && shouldIgnore(dependencies[i].component, options.ignore)) {
+      return;
+    }
 		results = retire.scanNodeDependency(dependencies[i], nodeRepo);
 		if (retire.isVulnerable(results)) {
 			events.emit('vulnerable-dependency-found');
