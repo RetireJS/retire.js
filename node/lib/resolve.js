@@ -17,9 +17,9 @@ function listdep(parent, filter, dep, level, deps) {
 			cyclic = false;
 			dep_parent = o.parent;
 			while (dep_parent != null) {
-				if (dep_parent.component == i) {
+				if (dep_parent.component === i) {
 					cyclic = true;
-					dep_parent = null;
+					break;
 				} else {
 					dep_parent = dep_parent.parent;
 				}
