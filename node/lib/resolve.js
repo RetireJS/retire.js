@@ -36,7 +36,7 @@ function listdep(parent, filter, dep, level, deps) {
 
 function getNodeDependencies(path, limit) {
 	var events = new emitter();
-	readInstalled(path, null, null, function (er, pkginfo) {
+	readInstalled(path, {}, function (er, pkginfo) {
 		var deps = [];
 		var filter = null;
 		if (limit) {
