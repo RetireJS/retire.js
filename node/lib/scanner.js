@@ -76,10 +76,14 @@ function scanDependencies(dependencies, nodeRepo, options) {
 }
 
 function scanBowerFile(file, repo, options) {
+  try {
   var bower = JSON.parse(fs.readFileSync(file));
-  if (bower.version) {
-    var results = retire.check(bower.name, bower.version, repo);
-    printResults(file, results, options);
+    if (bower.version) {
+      var results = retire.check(bower.name, bower.version, repo);
+      printResults(file, results, options);
+    }
+  } catch (e) {
+    log(options).warn('Could not parse file: ' + file);
   }
 }
 
