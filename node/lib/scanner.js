@@ -2,6 +2,7 @@ var retire = require('./retire'),
     _      = require('underscore'),
     fs     = require('fs'),
     crypto = require('crypto'),
+    path   = require('path'),
     log    = require('./utils').log,
     emitter   = new require('events').EventEmitter;
 
@@ -38,7 +39,7 @@ function printResults(file, results, options) {
   }
 }
 function shouldIgnore(file, ignores) {
-  return _.detect(ignores, function(i) { return file.indexOf(i) === 0; });
+  return _.detect(ignores, function(i) { return file.indexOf(i) === 0 || file.indexOf(path.resolve(i)) === 0; });
 }
 
 
