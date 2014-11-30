@@ -30,4 +30,4 @@ A [Grunt task for running Retire.js](https://github.com/bekk/grunt-retire) as pa
 
 Burp and OWASP ZAP plugin
 -------------------------
-(Burp)[http://portswigger.net/burp/] and (OWASP ZAP)[https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project] are penetration testing tools. @h3xstream has adapted Retire.js as a plugin for both of these
+@h3xstream has adapted Retire.js as a plugin for both of the penetration testing tools [Burp](http://portswigger.net/burp/) and [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project).
