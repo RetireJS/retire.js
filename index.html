@@ -37,13 +37,14 @@ but we need to stay update on security fixes. "Using Components with Known Vulne
 can libraries can pose a huge risk for your webapp. The goal of Retire.js is to help you detect use of version with 
 known vulnerabilities.</p>
 
-<p>Retire.js has three parts:</p>
+<p>Retire.js has these parts:</p>
 
 <ol>
 <li>A command line scanner</li>
 <li>A grunt plugin</li>
 <li>A Chrome plugin</li>
 <li>A Firefox plugin</li>
+<li>Burp and OWASP Zap plugin </li>
 </ol><h2>
 <a name="command-line-scanner" class="anchor" href="#command-line-scanner"><span class="octicon octicon-link"></span></a>Command line scanner</h2>
 
@@ -61,6 +62,11 @@ known vulnerabilities.</p>
 
 <p>Scans visited sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.</p>
 
+<h2>
+<a name="burpzap-plugin" class="anchor" href="#burpzap-plugin"><span class="octicon octicon-link"></span></a>Burp and OWASP ZAP plugins</h2>
+<p>
+  Retire.js has been adapted as a <a href="https://github.com/h3xstream/burp-retire-js">plugin</a> for the penetration testing tools Burp and OWASP ZAP.
+</p>
 
 
 <h2>Vulnerabilities</h2>
