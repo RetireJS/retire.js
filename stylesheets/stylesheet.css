@@ -362,6 +362,15 @@ Full-Width Styles
   background: #212121;
 }
 
+label.status {
+  font-weight: bold;
+  color: #090;
+}
+#vulnerable label.status {
+  color: #900;
+}
+
+
 
 
 /*******************************************************************************
