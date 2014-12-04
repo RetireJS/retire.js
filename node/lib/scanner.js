@@ -62,7 +62,7 @@ function printParent(comp, options) {
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
     if (options.ignore && shouldIgnore(dependencies[i].component, options.ignore)) {
-      return;
+      continue;
     }
 		results = retire.scanNodeDependency(dependencies[i], nodeRepo);
 		if (retire.isVulnerable(results)) {
