@@ -1,3 +1,5 @@
+Retire: <img src="http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/package.json" height=15>
+
 Retire.js
 =========
 #### What you require you must also retire
