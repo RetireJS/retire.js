@@ -140,5 +140,26 @@
 	},
 	"sequelize-restful": {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/sequelize/sequelize-restful/issues/16" ] } ]
+	},
+	"paypal-ipn": {
+		"vulnerabilities" : [ { "below" : "3.0.0", "info" : [ "http://nodesecurity.io/advisories/paypal-ipn-validation-bypass" ] } ]
+	},
+	"fancy-server": {
+		"vulnerabilities" : [ { "below" : "0.1.4", "info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ] } ]
+	},
+	"dns-sync": {
+		"vulnerabilities" : [ { "below" : "0.1.1", "info" : [ "http://nodesecurity.io/advisories/dns-sync-command-injection" ] } ]	
+	},
+	"nhouston": {
+		"vulnerabilities" : [ { "atOrAbove" : "0.0.0", "info" : [ "http://nodesecurity.io/advisories/nhouston-directory-traversal" ] } ]	
+	},
+	"remarkable": {
+		"vulnerabilities" : [ { "below" : "1.4.1", "info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ] } ]	
+	},
+	"validator" : {
+		"vulnerabilities" : [ 
+			{ "below" : "3.22.1", "info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ] },
+			{ "below" : "2.0.0", "info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
+		]	
 	}
 }
