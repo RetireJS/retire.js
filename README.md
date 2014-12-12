@@ -1,5 +1,8 @@
 Retire.js
 =========
+
+[![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)
+
 #### What you require you must also retire
 
 There are a plethora of JavaScript libraries for use on the Web and in Node.JS apps out there. This greatly simplifies development,
