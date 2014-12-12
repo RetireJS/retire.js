@@ -1,7 +1,7 @@
 Retire.js
 =========
 
-[![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/grunt-retire/master/package.json)
+[![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)
 
 #### What you require you must also retire
 
