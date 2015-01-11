@@ -130,6 +130,7 @@ events.on('scan-done', function() {
 
 process.on('uncaughtException', function (err) {
   console.warn('Exception caught: ', arguments);
+  console.warn(err.stack)
   process.exit(1);
 });
 

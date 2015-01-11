@@ -7,19 +7,36 @@ var walkdir			= require('walkdir'),
 
 
 function listdep(parent, filter, dep, level, deps) {
-	for (var i in dep.dependencies) {
-		if (filter !== null && filter.indexOf(i) == -1) {
-			continue;
+	var stack = [];
+	stack.push({parent: parent, filter: filter, dep: dep, level: level}); 
+	while ((o = stack.pop()) != null) {
+		for (var i in o.dep.dependencies) {
+			if (o.filter !== null && o.filter.indexOf(i) == -1) {
+				continue;
+			}
+			cyclic = false;
+			dep_parent = o.parent;
+			while (dep_parent != null) {
+				if (dep_parent.component === i) {
+					cyclic = true;
+					break;
+				} else {
+					dep_parent = dep_parent.parent;
+				}
+			}
+			if (cyclic) {
+				continue;
+			}
+			var d = { component: i, version: o.dep.dependencies[i].version, parent: o.parent, level: o.level };
+			deps.push(d);
+			stack.push({parent: d, filter: null, dep: o.dep.dependencies[i], level: o.level + 1}); 
 		}
-		var d = { component: i, version: dep.dependencies[i].version, parent: parent, level: level };
-		deps.push(d);
-		listdep(d, null, dep.dependencies[i], level + 1, deps);
 	}
 }
 
 function getNodeDependencies(path, limit) {
 	var events = new emitter();
-	readInstalled(path, null, null, function (er, pkginfo) {
+	readInstalled(path, {}, function (er, pkginfo) {
 		var deps = [];
 		var filter = null;
 		if (limit) {

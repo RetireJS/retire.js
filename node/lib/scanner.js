@@ -2,6 +2,7 @@ var retire = require('./retire'),
     _      = require('underscore'),
     fs     = require('fs'),
     crypto = require('crypto'),
+    path   = require('path'),
     log    = require('./utils').log,
     emitter   = new require('events').EventEmitter;
 
@@ -38,7 +39,7 @@ function printResults(file, results, options) {
   }
 }
 function shouldIgnore(file, ignores) {
-  return _.detect(ignores, function(i) { return file.indexOf(i) === 0; });
+  return _.detect(ignores, function(i) { return file.indexOf(i) === 0 || file.indexOf(path.resolve(i)) === 0; });
 }
 
 
@@ -61,7 +62,7 @@ function printParent(comp, options) {
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
     if (options.ignore && shouldIgnore(dependencies[i].component, options.ignore)) {
-      return;
+      continue;
     }
 		results = retire.scanNodeDependency(dependencies[i], nodeRepo);
 		if (retire.isVulnerable(results)) {
@@ -76,10 +77,14 @@ function scanDependencies(dependencies, nodeRepo, options) {
 }
 
 function scanBowerFile(file, repo, options) {
+  try {
   var bower = JSON.parse(fs.readFileSync(file));
-  if (bower.version) {
-    var results = retire.check(bower.name, bower.version, repo);
-    printResults(file, results, options);
+    if (bower.version) {
+      var results = retire.check(bower.name, bower.version, repo);
+      printResults(file, results, options);
+    }
+  } catch (e) {
+    log(options).warn('Could not parse file: ' + file);
   }
 }
 
