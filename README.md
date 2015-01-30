@@ -1,3 +1,6 @@
+Retire.js has a new home [https://github.com/RetireJS/retire.js](https://github.com/RetireJS/retire.js)
+
+
 Retire.js
 =========
 
