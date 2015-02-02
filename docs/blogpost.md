@@ -4,8 +4,8 @@ known vulnerabilities.
 
 Retire.js has three parts:
 
-1. [A command line scanner](https://github.com/bekk/retire.js/tree/master/node)
-2. [A Chrome extension](https://github.com/bekk/retire.js/tree/master/chrome)
+1. [A command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
+2. [A Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
 3. [A grunt plugin](https://github.com/bekk/grunt-retire)
 
 Command line scanner
@@ -41,7 +41,7 @@ Scans the given grunt enabled project for JavaScript files with known vulnerabil
 
 The source
 ----------------
-The source of vulnerabilities is a manually maintained [JSON file](https://github.com/bekk/retire.js/tree/master/repository) in the GitHub repository. It was created by looking through release notes and issue trackers for the most common frameworks. If you see a framework or vulnerability missing, feel free to create a pull request (or register as an issue).
+The source of vulnerabilities is a manually maintained [JSON file](https://github.com/RetireJS/retire.js/tree/master/repository) in the GitHub repository. It was created by looking through release notes and issue trackers for the most common frameworks. If you see a framework or vulnerability missing, feel free to create a pull request (or register as an issue).
 
 Detection
 ---------------
@@ -52,4 +52,4 @@ It's important to note that even though your site is using a vulnerable library,
 
 Want to help out?
 ---------------------
-We need help in both improving the scanner and plugin, and keeping the repository of known vulnerabilities up to date. You can contribute at [https://github.com/bekk/retire.js](https://github.com/bekk/retire.js)
+We need help in both improving the scanner and plugin, and keeping the repository of known vulnerabilities up to date. You can contribute at [https://github.com/RetireJS/retire.js](https://github.com/RetireJS/retire.js)
