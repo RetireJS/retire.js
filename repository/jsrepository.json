@@ -1,7 +1,7 @@
 {
 	"retire-example": {
 		"vulnerabilities" : [
-			{ "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
+			{ "below" : "0.0.2", "tagline": "Example vulnerability info", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		],
 		"extractors" : {
 			"func"			: [ "retire.VERSION" ],
@@ -13,8 +13,8 @@
 
 	"jquery": {
 		"vulnerabilities" : [
-			{ "below" : "1.6.3", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/" ]},
-			{ "below" : "1.9.0b1", "info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]}
+			{ "below" : "1.6.3",   "tagline": "Possible DOM-based XSS depending on use", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/" ]},
+			{ "below" : "1.9.0b1", "tagline": "Possible DOM-based XSS depending on use", "info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.fn.jquery" ],
@@ -31,8 +31,8 @@
 	},
 	"jquery-migrate" : {
 		"vulnerabilities" : [
-			{ "below" : "1.2.0", "info" : [ "http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/" ]},
-			{ "below" : "1.2.2", "info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]}
+			{ "below" : "1.2.0", "tagline": "Possible DOM-based XSS depending on use", "info" : [ "http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/" ]},
+			{ "below" : "1.2.2", "tagline": "Possible DOM-based XSS depending on use", "info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]}
 		],
 		"extractors" : {
 			"filename"		: [ "jquery-migrate-(§§version§§)(.min)?\\.js" ],
@@ -42,10 +42,10 @@
 	},
 	"jquery-mobile" : {
 		"vulnerabilities" : [
-			{ "below" : "1.0RC2", "info" : [ "http://osvdb.org/show/osvdb/94563", "http://osvdb.org/show/osvdb/94562", "http://osvdb.org/show/osvdb/94316", "http://osvdb.org/show/osvdb/94561", "http://osvdb.org/show/osvdb/94560" ]},
-			{ "below" : "1.0.1", "info": [ "http://osvdb.org/show/osvdb/94317" ] },
-			{ "below" : "1.1.2", "info": [ "http://jquerymobile.com/changelog/1.1.2/" ] },
-			{ "below" : "1.2.0", "info": [ "http://jquerymobile.com/changelog/1.2.0/" ] }
+			{ "below" : "1.0RC2", "tagline": "Possible XSS depending on use", "info" : [ "http://osvdb.org/show/osvdb/94563", "http://osvdb.org/show/osvdb/94562", "http://osvdb.org/show/osvdb/94316", "http://osvdb.org/show/osvdb/94561", "http://osvdb.org/show/osvdb/94560" ]},
+			{ "below" : "1.0.1",  "tagline": "Possible XSS depending on use", "info": [ "http://osvdb.org/show/osvdb/94317" ] },
+			{ "below" : "1.1.2",  "tagline": "Possible XSS depending on use", "info": [ "http://jquerymobile.com/changelog/1.1.2/" ] },
+			{ "below" : "1.2.0",  "tagline": "Possible XSS depending on use", "info": [ "http://jquerymobile.com/changelog/1.2.0/" ] }
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.mobile.version" ],
@@ -57,7 +57,7 @@
 	},	
 	"jquery-ui-dialog" : {
 		"vulnerabilities" : [
-			{ "atOrAbove": "1.8.9", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/6016" ]}
+			{ "atOrAbove": "1.8.9", "tagline": "Possible XSS depending on use", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/6016" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.dialog.version" ],
@@ -71,7 +71,7 @@
 	},
 	"jquery-ui-autocomplete" : {
 		"vulnerabilities" : [
-			{ "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
+			{ "below" : "1.10.0", "tagline": "Possible XSS depending on use", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.autocomplete.version" ],
@@ -85,7 +85,7 @@
 	},
 	"jquery-ui-tooltip" : {
 		"vulnerabilities" : [
-			{ "atOrAbove": "1.9.2", "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
+			{ "atOrAbove": "1.9.2", "below" : "1.10.0", "tagline": "Possible XSS depending on use", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.tooltip.version" ],
@@ -99,7 +99,7 @@
 	},
 	"jquery.prettyPhoto" : {
 		"vulnerabilities" : [
-			{ "below" : "3.1.5", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-6837&cid=3" ]}
+			{ "below" : "3.1.5", "tagline": "Site highly at risk for XSS", "info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-6837&cid=3" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.prettyPhoto.version" ],
@@ -112,9 +112,9 @@
 	},	
 	"jPlayer" : {
 		"vulnerabilities" : [
-			{ "below" : "2.4.0", "info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2023" ]},
-			{ "below" : "2.3.0", "info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1942", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2022" ]},
-			{ "below" : "2.2.0", "info" : [ "http://jplayer.org/latest/release-notes/" ]}
+			{ "below" : "2.4.0", "tagline": "XSS in jplayer.swf", "info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2023" ]},
+			{ "below" : "2.3.0", "tagline": "XSS in jplayer.swf", "info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1942", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2022" ]},
+			{ "below" : "2.2.0", "tagline": "XSS in jplayer.swf", "info" : [ "http://jplayer.org/latest/release-notes/" ]}
 		],
 		"extractors" : {
 			"func"    		: [ "new jQuery.jPlayer().version.script" ],
@@ -126,7 +126,7 @@
 	},
 	"sessvars": {
 		"vulnerabilities" : [
-			{ "below" : "1.01", "info" : [ "http://www.thomasfrank.se/sessionvars.html" ]}
+			{ "below" : "1.01", "tagline": "Possible DOM-based XSS depending on use", "info" : [ "http://www.thomasfrank.se/sessionvars.html" ]}
 		],
 		"extractors" : {
 			"filename"		: [ "sessvars-(§§version§§)(.min)?\\.js"],

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/popup.js"></script>
+<style type="text/css">
+	body { width: 600px;}
+	table { width: 100%; margin-top: 0.5em;}
+	.enabler { float: right; padding-top: 0.5em; }
+	.vulnerable { color: #f00;}
+	.vulnerable a:before { content: "["; margin-left: 0.5em; }
+	.vulnerable a:after { content: "]"; }
+	td { vertical-align: top; padding: 0.1em; }
+	tr:nth-child(2n+1) { background: #f0f0f0; }
+	h1 { margin: 0;}
+</style>
+</head>
+<body>
+<div class="enabler">
+<input type="checkbox">Enabled</input>
+</div>
+<h1>Retire.js</h1>
+<table id="results">
+</table>
+</body>
+</html>

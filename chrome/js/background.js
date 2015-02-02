@@ -10,12 +10,6 @@ var events = new Emitter();
 var sandboxWin;
 var scanEnabled = true;
 
-chrome.browserAction.onClicked.addListener(function() {
-	scanEnabled = !scanEnabled;
-	console.log(scanEnabled);
-	chrome.browserAction.setIcon({ path: scanEnabled ? "icons/icon48.png" : "icons/icon_bw48.png" });
-}); 
-
 var hasher = {
 	sha1 : function(data) {
 		return CryptoJS.SHA1(data).toString(CryptoJS.enc.Hex);
@@ -124,28 +118,39 @@ window.addEventListener("message", function(evt) {
 
 
 events.on('result-ready', function(details, results) {
-	if (retire.isVulnerable(results)) {
-		vulnerable[details.url] = results;
+	var vulnerable = retire.isVulnerable(results);
+	
+	if (vulnerable) {
 		console.warn(details.url, results);
-		var rmsg = [];
-		for (var i in results) {
-			rmsg = rmsg.concat(results[i].vulnerabilities);
-		}
 		chrome.browserAction.setBadgeText({text : "!", tabId : details.tabId });
-		setTimeout(function() {
-			chrome.tabs.sendMessage(details.tabId, {
-				message : "Loaded library with known vulnerability " + details.url + " See " + rmsg.join(" ")
-			});
-		}, 3000);
-	} else {
-		console.log(details.url, results);
 	}
+	if (!vulnerable) console.log(details.url, results);
+
+	vulnerable[details.url] = results;
+	console.warn(details.url, results);
+	
+	var result = { vulnerable: vulnerable, results: results, url: details.url };
+	setTimeout(function() {
+		chrome.tabs.sendMessage(details.tabId, {
+			message : JSON.stringify(result)
+		}, function(response) {
+			chrome.browserAction.setBadgeText({text : "" + response.count, tabId : details.tabId });
+		});
+	}, 3000);
 });
 
 chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
-chrome.runtime.onMessage.addListener(function (request, sender) {
-	if (request.count){
-		chrome.browserAction.setBadgeText({text : "" + request.count, tabId : sender.tab.id });
+
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+	if (request.to !== 'background') {
+		return;
+	}
+	if (request.message === 'enabled?') {
+		return sendResponse({ enabled : scanEnabled });
+	}
+	if (request.message === 'enable') {
+		scanEnabled = request.data;
 	}
 });
 

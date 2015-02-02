@@ -17,7 +17,8 @@
   ],
   "browser_action": {
     "default_icon" : "icons/icon48.png",
-    "default_name" : "retire.js"
+    "default_name" : "retire.js",
+    "default_popup": "popup.html"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval' chrome-extension-resource: ; object-src 'self'",
 
