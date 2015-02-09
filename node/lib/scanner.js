@@ -21,7 +21,9 @@ function printResults(file, results, options) {
   var logger = log(options).info;
   if (retire.isVulnerable(results)) {
     logger = log(options).warn;
-    events.emit('vulnerable-dependency-found');
+    events.emit('vulnerable-dependency-found', {file: file, results: results});
+  } else {
+    events.emit('dependency-found', results);
   }
   if (results.length > 0) {
     logger(file);
@@ -66,13 +68,15 @@ function scanDependencies(dependencies, nodeRepo, options) {
     }
 		results = retire.scanNodeDependency(dependencies[i], nodeRepo);
 		if (retire.isVulnerable(results)) {
-			events.emit('vulnerable-dependency-found');
+			events.emit('vulnerable-dependency-found', {results: results});
 			var result = results[0]; //Only single scan here
 			log(options).warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + result.vulnerabilities.join(' '));
 			if (result.parent) {
 				printParent(result, options);
 			}
-		}
+		} else {
+      events.emit('dependency-found', results);
+    }
   }
 }
 
