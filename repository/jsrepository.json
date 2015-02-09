@@ -70,9 +70,7 @@
 		}
 	},
 	"jquery-ui-autocomplete" : {
-		"vulnerabilities" : [
-			{ "below" : "1.10.0", "info" : [ "http://bugs.jqueryui.com/ticket/8859" ]}
-		],
+		"vulnerabilities" : [ ],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.autocomplete.version" ],
 			"filecontent"	: [ 
