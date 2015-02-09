@@ -44,11 +44,12 @@ program
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
+  .option('--cleanout', 'cleans the output')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile','cleanout'
 ]));
 
 if (!config.nocache) {

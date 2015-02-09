@@ -28,10 +28,15 @@ function printResults(file, results, options) {
     var printed = {};
     results.forEach(function(elm) {
       var vuln = '';
-      var key = elm.component + ' ' + elm.version;
+      var key = elm.component + ' ' + elm.version + ' ';
       if (printed[key]) return;
       if (retire.isVulnerable([elm])) {
+        if (options.cleanout){
+        vuln = ' has known vulnerabilities: ' + elm.vulnerabilities.join('\n');
+        }
+        else {
         vuln = ' has known vulnerabilities: ' + elm.vulnerabilities.join(' ');
+        }
       }
       logger(' ' + String.fromCharCode(8627) + ' ' + key + vuln);
       printed[key] = true;
