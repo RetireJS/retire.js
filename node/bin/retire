@@ -133,7 +133,7 @@ events.on('scan-done', function() {
   if (config.outputformat === 'json') {
     (vulnsFound ? console.warn : console.log)(JSON.stringify(finalResults));
   }
-  process.exit(vulnsFound ? 1 : 0);
+  process.exit(vulnsFound ? 13 : 0);
 });
 
 process.on('uncaughtException', function (err) {
