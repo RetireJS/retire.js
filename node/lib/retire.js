@@ -73,7 +73,7 @@ function check(results, repo) {
 				if (vulns[i].severity) {
 					vulnerability.severity = vulns[i].severity;
 				}
-				if (vulns[i].identifier) {
+				if (vulns[i].identifiers) {
 					vulnerability.identifiers = vulns[i].identifiers;
 				}
 				result.vulnerabilities = result.vulnerabilities || [];
