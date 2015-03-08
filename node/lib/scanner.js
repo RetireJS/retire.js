@@ -33,7 +33,7 @@ function printResults(file, results, options) {
       var key = elm.component + ' ' + elm.version;
       if (printed[key]) return;
       if (retire.isVulnerable([elm])) {
-        vuln = ' has known vulnerabilities: ' + printVulnerability(elm);
+        vuln = ' has known vulnerabilities:' + printVulnerability(elm, options);
       }
       logger(' ' + String.fromCharCode(8627) + ' ' + key + vuln);
       printed[key] = true;
@@ -41,29 +41,21 @@ function printResults(file, results, options) {
   }
 }
 
-function printVulnerability(component) {
-    var string = "";
-    component.vulnerabilities.forEach(function(vulnerability){
-        if (vulnerability.severity) {
-            string += vulnerability.severity + " severity; ";
-        }
-        if (vulnerability.identifiers) {
-            for (var id in vulnerability.identifiers) {
-                if (vulnerability.identifiers.hasOwnProperty(id)) {
-                    if (typeof vulnerability.identifiers[id] === "string") {
-                        string += id + ': ' + vulnerability.identifiers[id] + ', ';
-                    } else if (Array.isArray(vulnerability.identifiers[id])) {
-                        string += id + ': ' + vulnerability.identifiers[id].join(' ') + ' ';
-                    }
-                }
-            }
-
-        }
-        if (vulnerability.info) {
-            string += vulnerability.info.join(' ');
-        }
-    });
-    return string;
+function printVulnerability(component, options) {
+  var string = '';
+  component.vulnerabilities.forEach(function(vulnerability){
+    string += options.outputformat === 'clean' ? '\n   ' : ' ';
+    if (vulnerability.severity) {
+      string += 'severity: ' + vulnerability.severity + '; ';
+    }
+    if (vulnerability.identifiers) {
+      string += _.map(vulnerability.identifiers, function(id, name) {
+        return name + ': ' + _.flatten([id]).join(' ');
+      }).join(', ') + '; ';
+    }
+    string += vulnerability.info.join(options.outputformat === 'clean' ? '\n' : ' ');
+  });
+  return string;
 }
 
 function shouldIgnore(file, ignores) {

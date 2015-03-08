@@ -9,14 +9,14 @@ var walkdir			= require('walkdir'),
 function listdep(parent, filter, dep, level, deps) {
 	var stack = [];
 	stack.push({parent: parent, filter: filter, dep: dep, level: level}); 
-	while ((o = stack.pop()) != null) {
+	while (typeof (o = stack.pop()) !== 'undefined') {
 		for (var i in o.dep.dependencies) {
 			if (o.filter !== null && o.filter.indexOf(i) == -1) {
 				continue;
 			}
 			cyclic = false;
 			dep_parent = o.parent;
-			while (dep_parent != null) {
+			while (typeof dep_parent !== 'undefined') {
 				if (dep_parent.component === i) {
 					cyclic = true;
 					break;
