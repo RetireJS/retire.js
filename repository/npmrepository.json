@@ -26,137 +26,481 @@
 	},
 	"handlebars" : {
 		"vulnerabilities" : [ 
-			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
+			{
+				"below" : "1.0.0.beta.3",
+				"severity": "high",
+				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ]
+			}
 		]
 	},
 	"marked": {
 		"vulnerabilities" : [
-			{ "below" : "0.3.1", "info" : [ "https://nodesecurity.io/advisories/marked_multiple_content_injection_vulnerabilities" ] }
+			{
+				"below" : "0.3.1",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": ["CVE-2014-1850", "CVE-2014-3743"],
+					"advisory": "marked_multiple_content_injection_vulnerabilities"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/marked_multiple_content_injection_vulnerabilities" ]
+			}
 		]
 	},
 	"js-yaml": {
 		"vulnerabilities" : [
-			{ "below" : "2.0.5", "info" : [ "https://nodesecurity.io/advisories/JS-YAML_Deserialization_Code_Execution" ] }
+			{
+				"below" : "2.0.5",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": "CVE-2013-4660",
+					"advisory": "JS-YAML_Deserialization_Code_Execution"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/JS-YAML_Deserialization_Code_Execution" ]
+			}
 		]
 	},
 	"st": {
 		"vulnerabilities" : [
-			{ "below" : "0.2.5", "info" : [ "https://nodesecurity.io/advisories/st_directory_traversal" ] }
+			{
+				"below" : "0.2.5",
+				"severity": "low",
+				"identifiers": {
+					"CVE": "CVE-2914-3744",
+					"advisory": "st_directory_traversal"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/st_directory_traversal" ]
+			}
 		]
 	},	
 	"hapi": {
 		"vulnerabilities" : [
-			{ "atOrAbove" : "2.0", "below" : "2.2", "info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ] },
-			{ "below" : "6.1.0", "info" : [ "http://nodesecurity.io/advisories/hapijs-jsonp-CVE-2014-4671A" ] }
+			{
+				"atOrAbove" : "2.0",
+				"below" : "2.2",
+				"severity": "high",
+				"identifiers": {
+					"CVE": "CVE-2014-3742",
+					"advisory": "hapi_File_descriptor_leak_DoS_vulnerability"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ]
+			},
+			{
+				"below" : "6.1.0",
+				"severity": "high",
+				"identifiers": {
+					"CVE": "CVE-2014-4671",
+					"advisory": "hapijs-jsonp-CVE-2014-4671A"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/hapijs-jsonp-CVE-2014-4671A" ]
+			}
 		]
 	},
 	"node-validator": {
 		"vulnerabilities" : [
-			{ "below" : "1.1.0", "info" : [ "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/" ] },
-			{ "below" : "2.0.0", "info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ] }
+			{ "below" : "1.1.0",
+				"severity": "high",
+				"info" : [ "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/" ]
+			},
+			{
+				"below" : "2.0.0",
+				"severity": "low",
+				"info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ]
+			}
 		]
 	},
 	"printer" : {
 		"vulnerabilities" : [
-			{ "below" : "0.0.2", "info" : [ "https://nodesecurity.io/advisories/printer_potential_command_injection" ] }
+			{
+				"below" : "0.0.2",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": "CVE-2014-3741",
+					"advisory": "printer_potential_command_injection"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/printer_potential_command_injection" ]
+			}
 		]		
 	},
 
 
 	"handlebars-runtime" : {
 		"vulnerabilities" : [ 
-			{ "below" : "1.0.0.beta.3", "info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } 
+			{
+				"below" : "1.0.0.beta.3",
+				"severity": "high",
+				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] }
 		]
 	},
 	"ember" : {
 		"vulnerabilities" : [
-			{ "atOrAbove" : "1.3.0-*", "below" : "1.3.2", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },
-			{ "atOrAbove" : "1.2.0-*", "below" : "1.2.2", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },		
-			{ "atOrAbove" : "1.4.0-*", "below" : "1.4.0-beta.2", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
-			{ "atOrAbove" : "1.3.0-*", "below" : "1.3.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
-			{ "atOrAbove" : "1.2.0-*", "below" : "1.2.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
-			{ "atOrAbove" : "1.1.0-*", "below" : "1.1.3", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
-			{ "atOrAbove" : "1.0.0-*", "below" : "1.0.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ] },
-			{ "atOrAbove" : "1.0.0-rc.1", "below" : "1.0.0-rc.1.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
-			{ "atOrAbove" : "1.0.0-rc.2", "below" : "1.0.0-rc.2.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
-			{ "atOrAbove" : "1.0.0-rc.3", "below" : "1.0.0-rc.3.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
-			{ "atOrAbove" : "1.0.0-rc.4", "below" : "1.0.0-rc.4.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
-			{ "atOrAbove" : "1.0.0-rc.5", "below" : "1.0.0-rc.5.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
-			{ "atOrAbove" : "1.0.0-rc.6", "below" : "1.0.0-rc.6.1", "info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ] },
+			{
+				"atOrAbove" : "1.3.0-*",
+				"below" : "1.3.2",
+				"severity": "high",
+				"identifiers": {"CVE": "CVE-2014-0046"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
+			},
+			{
+				"atOrAbove" : "1.2.0-*",
+				"below" : "1.2.2",
+				"severity": "high",
+				"identifiers": {"CVE": "CVE-2014-0046"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
+			},
+			{
+				"atOrAbove" : "1.4.0-*",
+				"below" : "1.4.0-beta.2",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
+			},
+			{
+				"atOrAbove" : "1.3.0-*",
+				"below" : "1.3.1",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
+			},
+			{
+				"atOrAbove" : "1.2.0-*",
+				"below" : "1.2.1",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
+			},
+			{
+				"atOrAbove" : "1.1.0-*",
+				"below" : "1.1.3",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-*",
+				"below" : "1.0.1",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-rc.1",
+				"below" : "1.0.0-rc.1.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2013-4170"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-rc.2",
+				"below" : "1.0.0-rc.2.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2013-4170"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-rc.3",
+				"below" : "1.0.0-rc.3.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2013-4170"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-rc.4",
+				"below" : "1.0.0-rc.4.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2013-4170"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-rc.5",
+				"below" : "1.0.0-rc.5.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2013-4170"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
+			},
+			{
+				"atOrAbove" : "1.0.0-rc.6",
+				"below" : "1.0.0-rc.6.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2013-4170"},
+				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
+			},
 			{ "below" : "0.9.7.1", "info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG" ] },
-			{ "below" : "0.9.7", "info" : [ "https://github.com/emberjs/ember.js/issues/699" ] }
+			{
+				"below" : "0.9.7",
+				"severity": "medium",
+				"info" : [ "https://github.com/emberjs/ember.js/issues/699" ]
+			}
 		]
 	},
 	"dojo" : {
 		"vulnerabilities" : [
-			{ "atOrAbove" : "0.4", "below" : "0.4.4", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2272/" ] },
-			{ "atOrAbove" : "1.0", "below" : "1.0.3", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
-			{ "atOrAbove" : "1.1", "below" : "1.1.2", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
-			{ "atOrAbove" : "1.2", "below" : "1.2.4", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
-			{ "atOrAbove" : "1.3", "below" : "1.3.3", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
-			{ "atOrAbove" : "1.4", "below" : "1.4.2", "info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ] },
-			{ "below" : "1.4.2", "info" : [ "http://www.cvedetails.com/cve/CVE-2010-2275/"] },
-			{ "below" : "1.1", "info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"] }
+			{
+				"atOrAbove" : "0.4",
+				"below" : "0.4.4",
+				"severity": "high",
+				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272"]},
+				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2272/" ]
+			},
+			{
+				"atOrAbove" : "1.0",
+				"below" : "1.0.3",
+				"severity": "high",
+				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
+				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
+			},
+			{
+				"atOrAbove" : "1.1",
+				"below" : "1.1.2",
+				"severity": "high",
+				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
+				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
+			},
+			{
+				"atOrAbove" : "1.2",
+				"below" : "1.2.4",
+				"severity": "high",
+				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
+				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
+			},
+			{
+				"atOrAbove" : "1.3",
+				"below" : "1.3.3",
+				"severity": "high",
+				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
+				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
+			},
+			{
+				"atOrAbove" : "1.4",
+				"below" : "1.4.2",
+				"severity": "high",
+				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
+				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
+			},
+			{
+				"below" : "1.4.2",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2010-2275"},
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-2275/"]
+			},
+			{
+				"below" : "1.1",
+				"severity": "medium",
+				"identifiers": {"CVE": "CVE-2008-6681"},
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
+			}
 		]
 	},
 	"backbone" : {
-		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://backbonejs.org/#changelog" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.5.0",
+				"severity": "medium",
+				"identifiers": {"release": "0.5.0"},
+				"info" : [ "http://backbonejs.org/#changelog" ]
+			}
+		]
 	},
 	"mustache" : {
-		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.3.1",
+				"severity": "medium",
+				"identifiers": {"bug": "112"},
+				"info" : [ "https://github.com/janl/mustache.js/issues/112" ]
+			}
+		]
 	},
 	"syntax-error" : {
-		"vulnerabilities" : [ { "below" : "1.1.1", "info" : [ "https://nodesecurity.io/advisories/syntax-error-potential-script-injection" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "1.1.1",
+				"severity": "high",
+				"identifiers": {"advisory": "syntax-error-potential-script-injection"},
+				"info" : [ "https://nodesecurity.io/advisories/syntax-error-potential-script-injection" ]
+			}
+		]
 	},
 	"crumb" : {
-		"vulnerabilities" : [ { "below" : "3.0.0", "info" : [ "https://nodesecurity.io/advisories/crumb_cors_token_disclosure" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "3.0.0",
+				"severity": "low",
+				"identifiers": {"advisory": "crumb_cors_token_disclosure"},
+				"info" : [ "https://nodesecurity.io/advisories/crumb_cors_token_disclosure" ]
+			}
+		]
 	},
 	"qs" : {
-		"vulnerabilities" : [ { "below" : "1.0.0", "info" : [ "https://nodesecurity.io/advisories/qs_dos_extended_event_loop_blocking" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "1.0.0",
+				"severity": "low",
+				"identifiers": {"advisory": "qs_dos_extended_event_loop_blocking"},
+				"info" : [ "https://nodesecurity.io/advisories/qs_dos_extended_event_loop_blocking" ]
+			}
+		]
 	},
 	"bassmaster" : {
-		"vulnerabilities" : [ { "below" : "1.5.2", "info" : [ "http://nodesecurity.io/advisories/bassmaster_js_injection" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "1.5.2",
+				"severity": "high",
+				"identifiers": {
+					"CVE": "CVE-2014-7205",
+					"advisory": "bassmaster_js_injection"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/bassmaster_js_injection" ]
+			}
+		]
 	},
 	"libyaml" : {
-		"vulnerabilities" : [ { "below" : "0.2.3", "info" : [ "http://nodesecurity.io/advisories/libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.2.3",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": "CVE-2013-6393",
+					"advisory": "libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags" ]
+			}
+		]
 	},
 	"send" : {
-		"vulnerabilities" : [ { "below" : "0.8.4", "info" : [ "http://nodesecurity.io/advisories/send-directory-traversal" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.8.4",
+				"severity": "low",
+				"identifiers": {
+					"CVE": "CVE-2014-6394",
+					"advisory": "send-directory-traversal"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/send-directory-traversal" ]
+			}
+		]
 	},
 	"yar" : {
-		"vulnerabilities" : [ { "below" : "2.2.0", "info" : [ "http://nodesecurity.io/advisories/yar-DoS" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "2.2.0",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": "CVE-2014-4179",
+					"advisory": "yar-DoS"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/yar-DoS" ]
+			}
+		]
 	},
 	"codem-transcode" : {
-		"vulnerabilities" : [ { "below" : "0.5.0", "info" : [ "http://nodesecurity.io/advisories/codem-transcode_command_injection" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.5.0",
+				"severity": "high",
+				"identifiers": {
+					"CVE": "CVE-2013-7377",
+					"advisory": "codem-transcode_command_injection"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/codem-transcode_command_injection" ]
+			}
+		]
 	},
 	"ep_imageconvert" : {
-		"vulnerabilities" : [ { "below" : "0.0.3", "info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.0.3",
+				"severity": "high",
+				"identifiers": {
+					"CVE": "CVE-2013-3364",
+					"advisory": "ep_imageconvert_command_injection"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ]
+			}
+		]
 	},
 	"sanitize-html": {
-		"vulnerabilities" : [ { "below" : "1.4.3", "info" : [ "https://github.com/punkave/sanitize-html/issues/29" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "1.4.3",
+				"severity": "medium",
+				"info" : [ "https://github.com/punkave/sanitize-html/issues/29" ]
+			}
+		]
 	},	
 	"sequelize-restful": {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/sequelize/sequelize-restful/issues/16" ] } ]
 	},
 	"paypal-ipn": {
-		"vulnerabilities" : [ { "below" : "3.0.0", "info" : [ "http://nodesecurity.io/advisories/paypal-ipn-validation-bypass" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "3.0.0",
+				"severity": "medium",
+				"identifiers": {"advisory": "paypal-ipn-validation-bypass"},
+				"info" : [ "http://nodesecurity.io/advisories/paypal-ipn-validation-bypass" ]
+			}
+		]
 	},
 	"fancy-server": {
-		"vulnerabilities" : [ { "below" : "0.1.4", "info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ] } ]
+		"vulnerabilities" : [
+			{
+				"below" : "0.1.4",
+				"severity": "high",
+				"identifiers": {"advisory": "fancy-server-directory-traversal"},
+				"info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ]
+			}
+		]
 	},
 	"dns-sync": {
-		"vulnerabilities" : [ { "below" : "0.1.1", "info" : [ "http://nodesecurity.io/advisories/dns-sync-command-injection" ] } ]	
+		"vulnerabilities" : [
+			{
+				"below" : "0.1.1",
+				"severity": "high",
+				"identifiers": {"advisory": "dns-sync-command-injection"},
+				"info" : [ "http://nodesecurity.io/advisories/dns-sync-command-injection" ]
+			}
+		]
 	},
 	"nhouston": {
-		"vulnerabilities" : [ { "atOrAbove" : "0.0.0", "info" : [ "http://nodesecurity.io/advisories/nhouston-directory-traversal" ] } ]	
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "0.0.0",
+				"severity": "high",
+				"identifiers": {
+					"CVE": "CVE-2014-8883",
+					"advisory": "nhouston-directory-traversal"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/nhouston-directory-traversal" ]
+			}
+		]
 	},
 	"remarkable": {
-		"vulnerabilities" : [ { "below" : "1.4.1", "info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ] } ]	
+		"vulnerabilities" : [
+			{
+				"below" : "1.4.1",
+				"severity": "high",
+				"identifiers": {"advisory": "remarkable_content_injection"},
+				"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
+			}
+		]
 	},
 	"validator" : {
 		"vulnerabilities" : [ 
-			{ "below" : "3.22.1", "info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ] },
-			{ "below" : "2.0.0", "info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
+			{
+				"below" : "3.22.1",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": "CVE-2014-8882",
+					"advisory": "validator-isurl-denial-of-service"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ]
+			},
+			{
+				"below" : "2.0.0",
+				"severity": "medium",
+				"identifiers": {
+					"advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL"
+				},
+				"info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
 		]	
 	}
 }
