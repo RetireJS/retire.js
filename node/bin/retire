@@ -132,7 +132,7 @@ events.on('js-scanned', function() {
 
 events.on('scan-done', function() {
   if (config.outputformat === 'json') {
-    (vulnsFound ? console.warn : console.log)("this line should always print\n" + JSON.stringify(finalResults));
+    (vulnsFound ? console.warn : console.log)(JSON.stringify(finalResults));
   }
     var exit = function() {
         process.exit(vulnsFound ? (config.exitwith || 13) : 0);
