@@ -1,6 +1,6 @@
 /* global chrome, console, exports, CryptoJS, Emitter */
 
-var repoUrl = "https://raw.github.com/RetireJS/retire.js/master/repository/jsrepository.json";
+var repoUrl = "https://raw.githubusercontent.com/RetireJS/retire.js/secdec-feature/identifiers/repository/jsrepository.json";
 var updatedAt = Date.now();
 var repo;
 var repoFuncs;
@@ -119,7 +119,6 @@ window.addEventListener("message", function(evt) {
 
 events.on('result-ready', function(details, results) {
 	var vulnerable = retire.isVulnerable(results);
-	
 	if (vulnerable) {
 		console.warn(details.url, results);
 		chrome.browserAction.setBadgeText({text : "!", tabId : details.tabId });
@@ -170,6 +169,7 @@ downloadRepo().on('success', function() {
 });
 
 sandboxWin = window.document.getElementById("sandboxframe").contentWindow;
+
 
 
 
