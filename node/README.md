@@ -35,4 +35,4 @@ Options:
 
 Source code / Reporting an issue
 --------------------------------
-The source code and issue tracker can be found at [https://github.com/bekk/retire.js](https://github.com/bekk/retire.js)
+The source code and issue tracker can be found at [https://github.com/RetireJS/retire.js](https://github.com/RetireJS/retire.js)

@@ -1,7 +1,7 @@
 Retire.js
 =========
 
-[![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bekk/retire.js/master/node/package.json)
+[![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/RetireJS/retire.js/master/node/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/RetireJS/retire.js/master/node/package.json)
 
 #### What you require you must also retire
 
@@ -12,8 +12,8 @@ known vulnerabilities.
 
 Retire.js has four parts:
 
-1. [A command line scanner](https://github.com/bekk/retire.js/tree/master/node)
-2. [A Chrome extension](https://github.com/bekk/retire.js/tree/master/chrome)
+1. [A command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
+2. [A Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
 3. [A grunt plugin](https://github.com/bekk/grunt-retire)
 4. [Burp and OWASP Zap plugin](https://github.com/h3xstream/burp-retire-js)
 

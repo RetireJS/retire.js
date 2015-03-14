@@ -17,9 +17,11 @@ var jsRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
 var defaultIgnoreFile = '.retireignore';
+var finalResults = [];
 
-scanner.on('vulnerable-dependency-found', function() {
+scanner.on('vulnerable-dependency-found', function(results) {
   vulnsFound = true;
+  finalResults.push(results);
 });
 
 
@@ -42,13 +44,14 @@ program
   .option('--jsrepo <path>', 'Local version of repo')
   .option('--noderepo <path>', 'Local version of repo')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
+  .option('--outputformat <format>', 'Valid formats: text, json')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat'
 ]));
 
 if (!config.nocache) {
@@ -70,10 +73,12 @@ if(config.ignorefile) {
   config.ignore = config.ignore.concat(ignored);
 }
 
+
+
 events.on('load-js-repo', function() {
   (config.jsrepo
     ? repo.loadrepositoryFromFile(config.jsrepo, config)
-    : repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/jsrepository.json', config)
+    : repo.loadrepository('https://raw.github.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
   ).on('done', function(repo) {
       jsRepo = repo;
       events.emit('js-repo-loaded');
@@ -84,7 +89,7 @@ events.on('load-js-repo', function() {
 events.on('load-node-repo', function() {
   (config.noderepo
     ? repo.loadrepositoryFromFile(config.noderepo, config)
-    : repo.loadrepository('https://raw.github.com/bekk/retire.js/master/repository/npmrepository.json', config)
+    : repo.loadrepository('https://raw.github.com/RetireJS/retire.js/master/repository/npmrepository.json', config)
   ).on('done', function(repo) {
       nodeRepo = repo;
       events.emit('node-repo-loaded');
@@ -125,6 +130,9 @@ events.on('js-scanned', function() {
 });
 
 events.on('scan-done', function() {
+  if (config.outputformat === 'json') {
+    (vulnsFound ? console.warn : console.log)(JSON.stringify(finalResults));
+  }
   process.exit(vulnsFound ? 1 : 0);
 });
 
@@ -138,6 +146,11 @@ events.on('stop', function() {
   console.warn('Error:', arguments);
   process.exit(1);
 });
+
+if (config.outputformat === 'json') {
+  config.logger = function() {};
+  config.warnlogger = function() {};
+}
 
 if (config.node) {
   events.emit('load-node-repo');
