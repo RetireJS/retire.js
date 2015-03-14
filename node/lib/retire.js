@@ -5,7 +5,7 @@
 
 
 var exports = exports || {};
-exports.version = '0.4.0';
+exports.version = '1.0.0';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -66,7 +66,15 @@ function check(results, repo) {
 				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
 					continue;
 				}
-				result.vulnerabilities = unique((result.vulnerabilities || []).concat(vulns[i].info));
+				var vulnerability = { info : vulns[i].info };
+				if (vulns[i].severity) {
+					vulnerability.severity = vulns[i].severity;
+				}
+				if (vulns[i].identifiers) {
+					vulnerability.identifiers = vulns[i].identifiers;
+				}
+				result.vulnerabilities = result.vulnerabilities || [];
+				result.vulnerabilities.push(vulnerability);
 			}
 		}
 	}

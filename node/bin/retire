@@ -47,11 +47,12 @@ program
   .option('--outputformat <format>', 'Valid formats: text, json')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
+  .option('--exitwith', 'Custom exit code (default: 13) when vulnerabilities are found')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'exitwith'
 ]));
 
 if (!config.nocache) {
@@ -133,7 +134,7 @@ events.on('scan-done', function() {
   if (config.outputformat === 'json') {
     (vulnsFound ? console.warn : console.log)(JSON.stringify(finalResults));
   }
-  process.exit(vulnsFound ? 1 : 0);
+  process.exit(vulnsFound ? (config.exitwith || 13) : 0);
 });
 
 process.on('uncaughtException', function (err) {
