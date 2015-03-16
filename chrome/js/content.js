@@ -12,7 +12,8 @@
 				sendResponse({'count' : count});
 				var out = [];
 				result.results.forEach(function(r) {
-					out.push(r.component + " " + r.version + " - Info: " + r.vulnerabilities.join(" "))
+					out.push(r.component + " " + r.version + " - Info: " +
+						r.vulnerabilities.map(function(i) { return i.info }).flatten().join(" "));
 				})
 				console.warn("Loaded script with known vulnerabilities: " + result.url + "\n - " + out.join("\n - "));
 			}
@@ -21,3 +22,11 @@
 		}
 	});
 })();
+
+Array.prototype.flatten = function(){
+	var result = [];
+	this.forEach(function(x) {
+		result = result.concat(x);
+	});
+	return result;
+};

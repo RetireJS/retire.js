@@ -1,24 +1,30 @@
+var realwin = window;
+var realdoc = document;
 
 window.addEventListener("message", function(evt) {
+    //console.log('inner', evt, evt.data);
+    if (!evt.data.script) return evt.source.postMessage({ done : "true"}, "*");
     var repoFuncs = evt.data.repoFuncs;
-    try {
+    //try {
+        ['alert', 'prompt', 'confirm'].forEach(function(n) {
+            try {
+                Object.defineProperty(window, n, {
+                    get: function() { return function() {} },
+                    set: function() { },
+                    enumerable: true,
+                    configurable: false
+                });
+            } catch(e) {}
+        });
 
         //Make sure other scripts are loaded correctly
-        document.getElementsByTagName("base")[0].setAttribute("href", evt.data.url.replace(/(https?:\/\/[^\/]+).*/, "$1/"));
+        if (evt.data.url) {
+            document.getElementsByTagName("base")[0].setAttribute("href", evt.data.url.replace(/(https?:\/\/[^\/]+).*/, "$1/"));
+        }
 
-        //stop framebusting
-        var valueof = function() { return evt.data.url; };
-        var f = function() {};
-        var fakewin = { 
-            location: { 
-                replace: f, assign: f, reload:f, valueOf: valueof, hash: "",
-                href : { replace: f, valueOf: valueof } },
-        };
-        fakewin.top = fakewin;
-        fakewin.document = { location : fakewin.location };
-        var fun = new Function('window, document, top', evt.data.script);
-        fun(fakewin, fakewin.document, fakewin);
-
+        //Anti framebusting
+        window.fun = new Function('top', evt.data.script);
+        window.fun(window);
 
         for(var component in repoFuncs) {
             repoFuncs[component].forEach(function(func) {
@@ -30,9 +36,9 @@ window.addEventListener("message", function(evt) {
                 }
             });
         }
-    } catch(e) {
-        //console.log(e);
-    }
+    /*} catch(e) {
+        console.warn(e);
+    }*/
     evt.source.postMessage({ done : "true"}, "*");
 });
 
