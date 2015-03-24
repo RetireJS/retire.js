@@ -15,14 +15,17 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.6.3",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": { "CVE": "CVE-2011-4969" },
 				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"below" : "1.9.0b1",
-				"identifiers": { "bug": "11290" },
-				"severity": "high",
+				"identifiers": {
+					"bug": "11290",
+					"summary": "Selector interpreted as HTML"
+				},
+				"severity": "medium",
 				"info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]}
 		],
 		"extractors" : {
@@ -42,14 +45,20 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.2.0",
-				"severity": "high",
-				"identifiers": {"release": "jQuery Migrate 1.2.0 Released"},
+				"severity": "medium",
+				"identifiers": {
+					"release": "jQuery Migrate 1.2.0 Released",
+					"summary": "cross-site-scripting"
+				},
 				"info" : [ "http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/" ]
 			},
 			{
 				"below" : "1.2.2",
-				"severity": "high",
-				"identifiers": { "bug": "11290" },
+				"severity": "medium",
+				"identifiers": {
+					"bug": "11290",
+					"summary": "Selector interpreted as HTML"
+				},
 				"info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]
 			}
 		],
@@ -75,14 +84,22 @@
 			},
 			{
 				"below" : "1.1.2",
-				"severity": "high",
-				"identifiers": {"issue": "4787", "release": "http://jquerymobile.com/changelog/1.1.2/"},
+				"severity": "medium",
+				"identifiers": {
+					"issue": "4787",
+					"release": "http://jquerymobile.com/changelog/1.1.2/",
+					"summary": "location.href cross-site scripting"
+				},
 				"info": [ "http://jquerymobile.com/changelog/1.1.2/", "https://github.com/jquery/jquery-mobile/issues/4787" ]
 			},
 			{
 				"below" : "1.2.0",
-				"severity": "high",
-				"identifiers": {"issue": "4787", "release": "http://jquerymobile.com/changelog/1.2.0/"},
+				"severity": "medium",
+				"identifiers": {
+					"issue": "4787",
+					"release": "http://jquerymobile.com/changelog/1.2.0/",
+					"summary": "location.href cross-site scripting"
+				},
 				"info": [ "http://jquerymobile.com/changelog/1.2.0/", "https://github.com/jquery/jquery-mobile/issues/4787" ]
 			}
 		],
@@ -99,8 +116,11 @@
 			{
 				"atOrAbove": "1.8.9",
 				"below" : "1.10.0",
-				"severity": "high",
-				"identifiers": {"bug": "6016"},
+				"severity": "medium",
+				"identifiers": {
+					"bug": "6016",
+					"summary": "Title cross-site scripting vulnerability"
+				},
 				"info" : [ "http://bugs.jqueryui.com/ticket/6016" ]
 			}
 		],
@@ -132,7 +152,10 @@
 				"atOrAbove": "1.9.2",
 				"below" : "1.10.0",
 				"severity": "high",
-				"identifiers": {"bug": "8859"},
+				"identifiers": {
+					"bug": "8859",
+					"summary": "Autocomplete cross-site scripting vulnerability"
+				},
 				"info" : [ "http://bugs.jqueryui.com/ticket/8859" ]
 			}
 		],
@@ -181,7 +204,10 @@
 			{
 				"below" : "2.2.0",
 				"severity": "high",
-				"identifiers": {"release": "2.2.0"},
+				"identifiers": {
+					"release": "2.2.0",
+					"summary": "Flash SWF vulnerability"
+				},
 				"info" : [ "http://jplayer.org/latest/release-notes/" ]
 			}
 		],
@@ -197,7 +223,8 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.01",
-				"severity": "high",
+				"severity": "low",
+				"identifiers": {"summary": "Unsanitized data passed to eval()"},
 				"info" : [ "http://www.thomasfrank.se/sessionvars.html" ]
 			}
 		],
@@ -259,7 +286,7 @@
 			},
 			{
 				"below" : "2.9.0",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2010-4710"},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4710/" ]
 			},
@@ -320,14 +347,14 @@
 			{
 				"atOrAbove" : "1.3.0-*",
 				"below" : "1.3.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2014-0046"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
 			},
 			{
 				"atOrAbove" : "1.2.0-*",
 				"below" : "1.2.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2014-0046"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },
 			{
@@ -368,42 +395,42 @@
 			{
 				"atOrAbove" : "1.0.0-rc.1",
 				"below" : "1.0.0-rc.1.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2013-4170"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.2",
 				"below" : "1.0.0-rc.2.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2013-4170"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.3",
 				"below" : "1.0.0-rc.3.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2013-4170"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.4",
 				"below" : "1.0.0-rc.4.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2013-4170"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.5",
 				"below" : "1.0.0-rc.5.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2013-4170"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.6",
 				"below" : "1.0.0-rc.6.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2013-4170"},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
@@ -414,7 +441,10 @@
 			{
 				"below" : "0.9.7",
 				"severity": "high",
-				"identifiers": {"bug": "699"},
+				"identifiers": {
+					"bug": "699",
+					"summary": "Bound attributes aren't escaped properly"
+				},
 				"info" : [ "https://github.com/emberjs/ember.js/issues/699" ]
 			}
 		],
@@ -476,13 +506,13 @@
 			},
 			{
 				"below" : "1.4.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2010-2275"},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-2275/"]
 			},
 			{
 				"below" : "1.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": "CVE-2008-6681"},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
 			}
@@ -513,32 +543,51 @@
 			{
 				"below" : "1.2.0",
 				"severity": "high",
+				"identifiers": {
+					"summary": [
+						"execution of arbitrary javascript",
+						"sandboxing fails",
+						"possible cross-site scripting vulnerabilities"
+					]
+				},
 				"info" : [ "https://code.google.com/p/mustache-security/wiki/AngularJS" ]
 			},
 			{
 				"below" : "1.2.19",
-				"severity": "high",
-				"identifiers": {"release": "1.3.0-beta.14"},
+				"severity": "medium",
+				"identifiers": {
+					"release": "1.3.0-beta.14",
+					"summary": "execution of arbitrary javascript"
+				},
 				"info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ]
 			},
 			{
 				"below" : "1.2.24",
-				"severity": "high",
-				"identifier": {"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8"},
+				"severity": "medium",
+				"identifier": {
+					"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8",
+					"summary": "execution of arbitrary javascript"
+				},
 				"info" : [ "http://avlidienbrunn.se/angular.txt", "https://github.com/angular/angular.js/commit/b39e1d47b9a1b39a9fe34c847a81f589fba522f8"]
 			},
 			{
 				"atOrAbove" : "1.3.0-beta.1",
 				"below" : "1.3.0-beta.14",
-				"severity": "high",
-				"identifier": {"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8"},
+				"severity": "medium",
+				"identifier": {
+					"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8",
+					"summary": "execution of arbitrary javascript"
+				},
 				"info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ]
 			},
 			{
 				"atOrAbove" : "1.3.0-beta.1",
 				"below" : "1.3.0-rc.1",
-				"severity": "high",
-				"identifier": {"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8"},
+				"severity": "medium",
+				"identifier": {
+					"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8",
+					"summary": "execution of arbitrary javascript"
+				},
 				"info" : [ "http://avlidienbrunn.se/angular.txt", "https://github.com/angular/angular.js/commit/b39e1d47b9a1b39a9fe34c847a81f589fba522f8"]
 			}
 
@@ -555,8 +604,11 @@
 		"vulnerabilities" : [
 			{
 				"below" : "0.5.0",
-				"severity": "high",
-				"identifiers": {"release": "0.5.0"},
+				"severity": "medium",
+				"identifiers": {
+					"release": "0.5.0",
+					"summary": "cross-site scripting vulnerability"
+				},
 				"info" : [ "http://backbonejs.org/#changelog" ]
 			}
 		],
@@ -573,7 +625,10 @@
 			{
 				"below" : "0.3.1",
 				"severity": "high",
-				"identifiers": {"bug": "112"},
+				"identifiers": {
+					"bug": "112",
+					"summary": "execution of arbitrary javascript"
+				},
 				"info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ],
 		"extractors" : {
 			"func"			: [ "Mustache.version" ],
@@ -590,7 +645,10 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.0.0.beta.3",
-				"severity": "high",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "poorly sanitized input passed to eval()"
+				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } ],
 		"extractors" : {
 			"func"			: [ "Handlebars.VERSION" ],
