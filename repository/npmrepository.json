@@ -63,9 +63,9 @@
 		"vulnerabilities" : [
 			{
 				"below" : "0.2.5",
-				"severity": "low",
+				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2914-3744",
+					"CVE": "CVE-2014-3744",
 					"advisory": "st_directory_traversal"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/st_directory_traversal" ]
