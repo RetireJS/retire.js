@@ -29,6 +29,9 @@
 			{
 				"below" : "1.0.0.beta.3",
 				"severity": "high",
+				"identifiers": {
+					"summary": "poorly sanitized input passed to eval()"
+				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ]
 			}
 		]
@@ -99,11 +102,17 @@
 		"vulnerabilities" : [
 			{ "below" : "1.1.0",
 				"severity": "high",
+				"identifiers": {
+					"summary": "Cross-site scripting filter bypass"
+				},
 				"info" : [ "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/" ]
 			},
 			{
 				"below" : "2.0.0",
 				"severity": "low",
+				"identifiers": {
+					"summary": "Remove cross-site scripting filter"
+				},
 				"info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ]
 			}
 		]
@@ -128,6 +137,9 @@
 			{
 				"below" : "1.0.0.beta.3",
 				"severity": "high",
+				"identifiers": {
+					"summary": "poorly sanitized input passed to eval()"
+				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] }
 		]
 	},
@@ -228,6 +240,10 @@
 			{
 				"below" : "0.9.7",
 				"severity": "medium",
+				"identifiers": {
+					"bug": "699",
+					"summary": "Bound attributes aren't escaped properly"
+				},
 				"info" : [ "https://github.com/emberjs/ember.js/issues/699" ]
 			}
 		]
@@ -295,7 +311,10 @@
 			{
 				"below" : "0.5.0",
 				"severity": "medium",
-				"identifiers": {"release": "0.5.0"},
+				"identifiers": {
+					"release": "0.5.0",
+					"summary": "cross-site scripting vulnerability"
+				},
 				"info" : [ "http://backbonejs.org/#changelog" ]
 			}
 		]
@@ -305,7 +324,10 @@
 			{
 				"below" : "0.3.1",
 				"severity": "medium",
-				"identifiers": {"bug": "112"},
+				"identifiers": {
+					"bug": "112",
+					"summary": "execution of arbitrary javascript"
+				},
 				"info" : [ "https://github.com/janl/mustache.js/issues/112" ]
 			}
 		]
@@ -423,6 +445,9 @@
 			{
 				"below" : "1.4.3",
 				"severity": "medium",
+				"identifiers": {
+					"summary": "Sanitization not applied recursively"
+				},
 				"info" : [ "https://github.com/punkave/sanitize-html/issues/29" ]
 			}
 		]
