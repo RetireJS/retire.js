@@ -564,7 +564,7 @@
 			{
 				"below" : "1.2.24",
 				"severity": "medium",
-				"identifier": {
+				"identifiers": {
 					"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8",
 					"summary": "execution of arbitrary javascript"
 				},
@@ -574,7 +574,7 @@
 				"atOrAbove" : "1.3.0-beta.1",
 				"below" : "1.3.0-beta.14",
 				"severity": "medium",
-				"identifier": {
+				"identifiers": {
 					"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8",
 					"summary": "execution of arbitrary javascript"
 				},
@@ -584,7 +584,7 @@
 				"atOrAbove" : "1.3.0-beta.1",
 				"below" : "1.3.0-rc.1",
 				"severity": "medium",
-				"identifier": {
+				"identifiers": {
 					"commit": "b39e1d47b9a1b39a9fe34c847a81f589fba522f8",
 					"summary": "execution of arbitrary javascript"
 				},
