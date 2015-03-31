@@ -66,7 +66,18 @@ function check(results, repo) {
 				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
 					continue;
 				}
-				result.vulnerabilities = unique((result.vulnerabilities || []).concat(vulns[i].info));
+				var vulnerability = {};
+				if (vulns[i].info) {
+					vulnerability.info = vulns[i].info;
+				}
+				if (vulns[i].severity) {
+					vulnerability.severity = vulns[i].severity;
+				}
+				if (vulns[i].identifiers) {
+					vulnerability.identifiers = vulns[i].identifiers;
+				}
+				result.vulnerabilities = result.vulnerabilities || [];
+				result.vulnerabilities.push(vulnerability);
 			}
 		}
 	}

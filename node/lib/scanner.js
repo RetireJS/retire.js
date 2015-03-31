@@ -33,13 +33,39 @@ function printResults(file, results, options) {
       var key = elm.component + ' ' + elm.version;
       if (printed[key]) return;
       if (retire.isVulnerable([elm])) {
-        vuln = ' has known vulnerabilities: ' + elm.vulnerabilities.join(' ');
+        vuln = ' has known vulnerabilities: ' + printVulnerability(elm);
       }
       logger(' ' + String.fromCharCode(8627) + ' ' + key + vuln);
       printed[key] = true;
     });
   }
 }
+
+function printVulnerability(component) {
+    var string = "";
+    component.vulnerabilities.forEach(function(vulnerability){
+        if (vulnerability.severity) {
+            string += vulnerability.severity + " severity; ";
+        }
+        if (vulnerability.identifiers) {
+            for (var id in vulnerability.identifiers) {
+                if (vulnerability.identifiers.hasOwnProperty(id)) {
+                    if (typeof vulnerability.identifiers[id] === "string") {
+                        string += id + ': ' + vulnerability.identifiers[id] + ', ';
+                    } else if (Array.isArray(vulnerability.identifiers[id])) {
+                        string += id + ': ' + vulnerability.identifiers[id].join(' ') + ' ';
+                    }
+                }
+            }
+
+        }
+        if (vulnerability.info) {
+            string += vulnerability.info.join(' ');
+        }
+    });
+    return string;
+}
+
 function shouldIgnore(file, ignores) {
   return _.detect(ignores, function(i) { return file.indexOf(i) === 0 || file.indexOf(path.resolve(i)) === 0; });
 }
@@ -70,7 +96,7 @@ function scanDependencies(dependencies, nodeRepo, options) {
 		if (retire.isVulnerable(results)) {
 			events.emit('vulnerable-dependency-found', {results: results});
 			var result = results[0]; //Only single scan here
-			log(options).warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + result.vulnerabilities.join(' '));
+			log(options).warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + printVulnerability(result));
 			if (result.parent) {
 				printParent(result, options);
 			}
