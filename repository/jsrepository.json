@@ -710,7 +710,21 @@
 		}
 	},
 
-
+	"DOMPurify" : {
+		"vulnerabilities" : [ 
+			{
+				"below" : "0.6.1",
+				"severity": "medium",
+				"identifiers": { },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.6.1" ]
+			}
+		],
+		"extractors" : {
+			"func"			: [ "DOMPurify.version" ],
+			"filecontent"	: [ "DOMPurify.version = '§§version§§';" ],
+			"hashes"		: {}
+		}
+	},
 
 	"dont check" : {
 		"extractors" : { 
