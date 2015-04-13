@@ -84,15 +84,15 @@ function scanDependencies(dependencies, nodeRepo, options) {
     if (options.ignore && shouldIgnore(dependencies[i].component, options.ignore)) {
       continue;
     }
-		results = retire.scanNodeDependency(dependencies[i], nodeRepo);
-		if (retire.isVulnerable(results)) {
-			events.emit('vulnerable-dependency-found', {results: results});
-			var result = results[0]; //Only single scan here
-			log(options).warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + printVulnerability(result));
-			if (result.parent) {
-				printParent(result, options);
-			}
-		} else {
+    results = retire.scanNodeDependency(dependencies[i], nodeRepo);
+    if (retire.isVulnerable(results)) {
+      events.emit('vulnerable-dependency-found', {results: results});
+      var result = results[0]; //Only single scan here
+      log(options).warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + printVulnerability(result, options));
+      if (result.parent) {
+        printParent(result, options);
+      }
+    } else {
       events.emit('dependency-found', results);
     }
   }
