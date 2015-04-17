@@ -744,6 +744,7 @@
 			}
 		],
 		"extractors" : {
+			"func"			: [ "dwr.version" ],
 			"filecontent"	: [ 
 				"This file is extreacted from dwr-§§version§§.jar",
 				"The file engine.js in dwr-§§version§§.jar"
