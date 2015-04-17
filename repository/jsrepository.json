@@ -730,6 +730,12 @@
 	"DWR" : {
 		"vulnerabilities" : [ 
 			{
+				"below" : "1.1.4",
+				"severity": "high",
+				"identifiers": { "CVE" : "CVE-2007-01-09" },
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2014-5326/", "http://www.cvedetails.com/cve/CVE-2014-5326/" ]
+			},
+			{
 				"below" : "2.0.11",
 				"severity": "medium",
 				"identifiers": { "CVE" : ["CVE-2014-5326", "CVE-2014-5325"] },
@@ -746,8 +752,7 @@
 		"extractors" : {
 			"func"			: [ "dwr.version" ],
 			"filecontent"	: [ 
-				"This file is extreacted from dwr-§§version§§.jar",
-				"The file engine.js in dwr-§§version§§.jar"
+				" dwr-§§version§§.jar"
 			]
 		}
 	},
