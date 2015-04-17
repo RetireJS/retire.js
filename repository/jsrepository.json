@@ -726,6 +726,31 @@
 		}
 	},
 
+
+	"DWR" : {
+		"vulnerabilities" : [ 
+			{
+				"below" : "2.0.11",
+				"severity": "medium",
+				"identifiers": { "CVE" : ["CVE-2014-5326", "CVE-2014-5325"] },
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2014-5326/", "http://www.cvedetails.com/cve/CVE-2014-5326/" ]
+			},
+			{
+				"above" : "3",
+				"below" : "3.0.RC3",
+				"severity": "medium",
+				"identifiers": { "CVE" : ["CVE-2014-5326", "CVE-2014-5325"] },
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2014-5326/", "http://www.cvedetails.com/cve/CVE-2014-5326/" ]
+			}
+		],
+		"extractors" : {
+			"filecontent"	: [ 
+				"This file is extreacted from dwr-§§version§§.jar",
+				"The file engine.js in dwr-§§version§§.jar"
+			]
+		}
+	},
+
 	"dont check" : {
 		"extractors" : { 
 			"uri" : [ 
