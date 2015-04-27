@@ -315,7 +315,7 @@
 		"extractors" : {
 			"func"    		: [ "YUI.Version" ],		
 			"filename"		: [ "yui-(§§version§§)(.min)?\\.js"],
-			"filecontent"	: [ "YUI (§§version§§)", "/yui/license.(?:html|txt)\nversion: (§§version§§)"],
+			"filecontent"	: [ "/*\nYUI (§§version§§)", "/yui/license.(?:html|txt)\nversion: (§§version§§)"],
 			"hashes"		: {}
 		}
 	},
