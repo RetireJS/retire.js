@@ -11,7 +11,7 @@
 	},
 	"connect": {
 		"vulnerabilities" : [
-			{ "below" : "2.8.1", "info" : [ "https://nodesecurity.io/advisories/51d0d6abf196582611000001" ] }
+			{ "below" : "2.8.1", "info" : [ "https://nodesecurity.io/advisories/methodOverride_Middleware_Reflected_Cross-Site_Scripting" ] }
 		]
 	},
 	"libnotify": {
