@@ -46,6 +46,23 @@
 					"advisory": "marked_multiple_content_injection_vulnerabilities"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/marked_multiple_content_injection_vulnerabilities" ]
+			},
+			{
+				"below" : "0.3.3",
+				"severity": "medium",
+				"identifiers": {
+					"advisory": "marked_redos"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/marked_redos" ]
+			},
+			{
+				"below" : "0.3.3",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": ["CVE-2015-1370"],
+					"advisory": "marked_vbscript_injection"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/marked_vbscript_injection" ]
 			}
 		]
 	},
@@ -455,6 +472,16 @@
 	"sequelize-restful": {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/sequelize/sequelize-restful/issues/16" ] } ]
 	},
+	"sequelize" : {
+		"vulnerabilities" : [ 
+			{
+				"below" : "2.0.0-rc8",
+				"severity" : "high",
+				"identifiers" : { "CVE":[ "CVE-2015-1369" ] }, 
+				"info" : [ "https://nodesecurity.io/advisories/sequelize-sql-injection-order", "https://github.com/sequelize/sequelize/issues/2906" ] 
+			} 
+		]	
+	},
 	"paypal-ipn": {
 		"vulnerabilities" : [
 			{
@@ -527,5 +554,62 @@
 				},
 				"info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
 		]	
+	},
+	"semver": {
+		"vulnerabilities" : [
+			{
+				"below" : "4.3.2",
+				"severity": "medium",
+				"identifiers": {"advisory": "semver_dos"},
+				"info" : [ "http://nodesecurity.io/advisories/semver_dos" ]
+			}
+		]
+	},
+	"jsonwebtoken": {
+		"vulnerabilities" : [
+			{
+				"below" : "4.2.2",
+				"severity": "medium",
+				"identifiers": {"advisory": "jsonwebtoken_verification_bypass"},
+				"info" : [ "http://nodesecurity.io/advisories/jsonwebtoken_verification_bypass" ]
+			}
+		]
+	},
+	"serve-static": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.6.5",
+				"severity": "medium",
+				"identifiers": {"advisory": "serve-static-open-redirect", "CVE":["CVE-2015-1164"]},
+				"info" : [ "http://nodesecurity.io/advisories/serve-static-open-redirect" ]
+			},
+			{
+				"below" : "1.7.2",
+				"atOrAbove" : "1.7.0",
+				"severity": "medium",
+				"identifiers": {"advisory": "serve-static-open-redirect", "CVE":["CVE-2015-1164"]},
+				"info" : [ "http://nodesecurity.io/advisories/serve-static-open-redirect" ]
+			}
+		]
+	},
+	"serve-index": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.6.3",
+				"severity": "medium",
+				"identifiers": {"advisory": "serve-static-xss"},
+				"info" : [ "http://nodesecurity.io/advisories/serve-static-xss" ]
+			}
+		]
+	},
+	"inert": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.1.1",
+				"severity": "high",
+				"identifiers": {"advisory": "inert_hidden_directories_always_served"},
+				"info" : [ "http://nodesecurity.io/advisories/inert_hidden_directories_always_served" ]
+			}
+		]
 	}
 }
