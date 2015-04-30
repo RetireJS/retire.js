@@ -97,8 +97,8 @@ $(function() {
         var tr = $("<tr>").appendTo($("#" + id));
         if (j==0) tr.append($("<td>").text(i).attr("rowspan", data[i].vulnerabilities.length).css("font-weight", "bold"));
 
-        tr.append($("<td>").text(data[i].vulnerabilities[j].atOrAbove || "<--"))
-          .append($("<td>").text(data[i].vulnerabilities[j].below || "-->"));
+        tr.append($("<td>").text(data[i].vulnerabilities[j].atOrAbove || "←"))
+          .append($("<td>").text(data[i].vulnerabilities[j].below || "→"));
         var td = $("<td>").appendTo(tr);
         var breaker = "";
         for (var k in data[i].vulnerabilities[j].info) {
