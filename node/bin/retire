@@ -134,7 +134,13 @@ events.on('scan-done', function() {
   if (config.outputformat === 'json') {
     (vulnsFound ? console.warn : console.log)(JSON.stringify(finalResults));
   }
-  process.exit(vulnsFound ? (config.exitwith || 13) : 0);
+    var exit = function() {
+        process.exit(vulnsFound ? (config.exitwith || 13) : 0);
+    }
+    var stream = (vulnsFound ? process.stderr : process.stdout);
+    if (! stream.write('', exit)) {
+        stream.on('drain', exit);
+    }
 });
 
 process.on('uncaughtException', function (err) {
@@ -158,4 +164,3 @@ if (config.node) {
 } else {
   events.emit('load-js-repo');
 }
-
