@@ -1,13 +1,22 @@
 {
 	"retire-example": {
 		"vulnerabilities" : [
-			{ "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
+			{
+				"below" : "0.0.2",
+				"severity" : "low",
+				"identifiers" : {
+					"CVE" : [ "CVE-XXXX-XXXX" ],
+					"bug" : "1234",
+					"summary" : "bug summary"
+				},
+				"info" : [ "http://github.com/eoftedal/retire.js/" ]
+			}
 		],
 		"extractors" : {
-			"func"			: [ "retire.VERSION" ],
-			"filename"		: [ "retire-example-(§§version§§)(.min)?\\.js" ],
+			"func" : [ "retire.VERSION" ],
+			"filename" : [ "retire-example-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "/\\*!? Retire-example v(§§version§§)" ],
-			"hashes"		: { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" }
+			"hashes" : { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" }
 		}
 	},
 
@@ -15,8 +24,8 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.6.3",
-				"severity": "medium",
-				"identifiers": { "CVE": "CVE-2011-4969" },
+				"severity" : "medium",
+				"identifiers" : { "CVE": [ "CVE-2011-4969" ] },
 				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
@@ -32,8 +41,8 @@
 			"func"    		: [ "jQuery.fn.jquery" ],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
-			"filecontent"	: [ 
-								"/\\*!? jQuery v(§§version§§)", "\\* jQuery JavaScript Library v(§§version§§)", 
+			"filecontent"	: [
+								"/\\*!? jQuery v(§§version§§)", "\\* jQuery JavaScript Library v(§§version§§)",
 								"\\* jQuery (§§version§§) - New Wave Javascript", "// \\$Id: jquery.js,v (§§version§§)",
 								"/\\*! jQuery v(§§version§§)", "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
 								"[^a-z]jquery:[ ]?\"(§§version§§)\""
@@ -110,7 +119,7 @@
 			"filecontent"	: [ "/\\*!?(?:\n \\*)? jQuery Mobile(?: -)? v(§§version§§)" ],
 			"hashes"		: {}
 		}
-	},	
+	},
 	"jquery-ui-dialog" : {
 		"vulnerabilities" : [
 			{
@@ -126,10 +135,10 @@
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.dialog.version" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.dialog",
-				"/\\*!?[\n *]+jQuery UI Dialog (§§version§§)" 
+				"/\\*!?[\n *]+jQuery UI Dialog (§§version§§)"
 			],
 			"hashes"		: {}
 		}
@@ -138,10 +147,10 @@
 		"vulnerabilities" : [ ],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.autocomplete.version" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.autocomplete",
-				"/\\*!?[\n *]+jQuery UI Autocomplete (§§version§§)" 
+				"/\\*!?[\n *]+jQuery UI Autocomplete (§§version§§)"
 			],
 			"hashes"		: {}
 		}
@@ -161,10 +170,10 @@
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.tooltip.version" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.tooltip\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.tooltip",
-				"/\\*!?[\n *]+jQuery UI Tooltip (§§version§§)" 
+				"/\\*!?[\n *]+jQuery UI Tooltip (§§version§§)"
 			],
 			"hashes"		: {}
 		}
@@ -173,26 +182,26 @@
 		"vulnerabilities" : [
 			{
 				"below" : "3.1.5",
-				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-6837"},
+				"severity" : "high",
+				"identifiers" : { "CVE" : [ "CVE-2013-6837" ] },
 				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-6837&cid=3" ]
 			}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.prettyPhoto.version" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"/\\*(?:.*[\n\r]+){1,3}.*Class: prettyPhoto(?:.*[\n\r]+){1,3}.*Version: (§§version§§)",
 				"\\.prettyPhoto[ ]?=[ ]?\\{version:[ ]?(?:'|\")(§§version§§)(?:'|\")\\}"
 			],
 			"hashes"		: {}
 		}
-	},	
+	},
 	"jPlayer" : {
 		"vulnerabilities" : [
 			{
 				"below" : "2.4.0",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-2023"},
+				"identifiers": {"CVE": [ "CVE-2013-2023" ]},
 				"info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2023" ]
 			},
 			{
@@ -213,7 +222,7 @@
 		],
 		"extractors" : {
 			"func"    		: [ "new jQuery.jPlayer().version.script" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"/\\*(?:.*[\n\r]+){1,3}.*jPlayer Plugin for jQuery(?:.*[\n\r]+){1,10}.*Version: (§§version§§)"
 			],
 			"hashes"		: {}
@@ -240,80 +249,80 @@
 				"atOrAbove" : "3.5.0" ,
 				"below" : "3.9.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-4942"},
+				"identifiers": {"CVE": [ "CVE-2013-4942" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4942/" ]
 			},
 			{
 				"atOrAbove" : "3.2.0" ,
 				"below" : "3.9.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-4941"},
+				"identifiers": {"CVE": [ "CVE-2013-4941" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4941/" ]
 			},
 			{
 				"below" : "3.10.3",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-4940"},
+				"identifiers": {"CVE": [ "CVE-2013-4940" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4940/" ]
 			},
 			{
 				"atOrAbove" : "3.0.0" ,
 				"below" : "3.9.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-4939"},
+				"identifiers": {"CVE": [ "CVE-2013-4939" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4939/" ]
 			},
 			{
 				"atOrAbove" : "2.8.0" ,
 				"below" : "2.9.1",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE_2012-5883"},
+				"identifiers": {"CVE": [ "CVE_2012-5883" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5883/" ]
 			},
 			{
 				"atOrAbove" : "2.5.0" ,
 				"below" : "2.9.1",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2012-5882"},
+				"identifiers": {"CVE": [ "CVE-2012-5882" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5882/" ]
 			},
 			{
 				"atOrAbove" : "2.4.0" ,
 				"below" : "2.9.1",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2012-5881"},
+				"identifiers": {"CVE": [ "CVE-2012-5881" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5881/" ]
 			},
 			{
 				"below" : "2.9.0",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2010-4710"},
+				"identifiers": {"CVE": [ "CVE-2010-4710" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4710/" ]
 			},
 			{
 				"atOrAbove" : "2.8.0" ,
 				"below" : "2.8.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2010-4209"},
+				"identifiers": {"CVE": [ "CVE-2010-4209" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4209/" ]
 			},
 			{
 				"atOrAbove" : "2.5.0" ,
 				"below" : "2.8.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2010-4208"},
+				"identifiers": {"CVE": [ "CVE-2010-4208" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4208/" ]
 			},
 			{
 				"atOrAbove" : "2.4.0" ,
 				"below" : "2.8.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2010-4207"},
+				"identifiers": {"CVE": [ "CVE-2010-4207" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4207/" ]
 			}
 		],
 		"extractors" : {
-			"func"    		: [ "YUI.Version" ],		
+			"func"    		: [ "YUI.Version" ],
 			"filename"		: [ "yui-(§§version§§)(.min)?\\.js"],
 			"filecontent"	: [ "/*\nYUI (§§version§§)", "/yui/license.(?:html|txt)\nversion: (§§version§§)"],
 			"hashes"		: {}
@@ -325,18 +334,18 @@
 				"atOrAbove" : "1.6.0",
 				"below" : "1.6.0.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2008-7220"},
+				"identifiers": {"CVE": [ "CVE-2008-7220" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] },
 			{
 				"below" : "1.5.1.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2008-7220"},
+				"identifiers": {"CVE": [ "CVE-2008-7220" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
 		],
 		"extractors" : {
 			"func"    		: [ "Prototype.Version" ],
 			"uri"			: [ "/(§§version§§)/prototype(\\.min)?\\.js" ],
-			"filename"		: [ "prototype-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "prototype-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "Prototype JavaScript framework, version (§§version§§)",
 								"Prototype[ ]?=[ ]?\\{[ \r\n\t]*Version:[ ]?(?:'|\")(§§version§§)(?:'|\")" ],
 			"hashes"		: {}
@@ -348,14 +357,14 @@
 				"atOrAbove" : "1.3.0-*",
 				"below" : "1.3.2",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2014-0046"},
+				"identifiers": {"CVE": [ "CVE-2014-0046" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
 			},
 			{
 				"atOrAbove" : "1.2.0-*",
 				"below" : "1.2.2",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2014-0046"},
+				"identifiers": {"CVE": [ "CVE-2014-0046" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },
 			{
 				"atOrAbove" : "1.4.0-*",
@@ -396,42 +405,42 @@
 				"atOrAbove" : "1.0.0-rc.1",
 				"below" : "1.0.0-rc.1.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": [ "CVE-2013-4170" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.2",
 				"below" : "1.0.0-rc.2.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": [ "CVE-2013-4170" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.3",
 				"below" : "1.0.0-rc.3.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": [ "CVE-2013-4170" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.4",
 				"below" : "1.0.0-rc.4.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": [ "CVE-2013-4170" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.5",
 				"below" : "1.0.0-rc.5.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": [ "CVE-2013-4170" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.6",
 				"below" : "1.0.0-rc.6.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": [ "CVE-2013-4170" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
@@ -449,10 +458,10 @@
 			}
 		],
 		"extractors" : {
-			"func"			: [ "Ember.VERSION" ],			
+			"func"			: [ "Ember.VERSION" ],
 			"uri"			: [ "/(?:v)?(§§version§§)/ember(\\.min)?\\.js" ],
-			"filename"		: [ "ember-(§§version§§)(\\.min)?\\.js" ], 
-			"filecontent"	: [ 
+			"filename"		: [ "ember-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
 				"Project:   Ember -(?:.*\n){9,11}// Version: v(§§version§§)",
 				"// Version: v(§§version§§)(.*\n){10,15}(Ember Debug|@module ember|@class ember)",
 				"Ember.VERSION[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")"
@@ -507,17 +516,17 @@
 			{
 				"below" : "1.4.2",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2010-2275"},
+				"identifiers": {"CVE": [ "CVE-2010-2275" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-2275/"]
 			},
 			{
 				"below" : "1.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2008-6681"},
+				"identifiers": {"CVE": [ "CVE-2008-6681" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
 			}
 
-			
+
 		],
 		"extractors" : {
 			"func"				 : [ "dojo.version.toString()" ],
@@ -539,7 +548,7 @@
 		}
 	},
 	"angularjs" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "1.2.0",
 				"severity": "high",
@@ -595,7 +604,7 @@
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
 			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
-			"filename"		: [ "angular(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "angular(?:js)?-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "/\\*[ \n]+AngularJS v(§§version§§)" ],
 			"hashes"		: {}
 		}
@@ -615,7 +624,7 @@
 		"extractors" : {
 			"func"			: [ "Backbone.VERSION" ],
 			"uri"			: [ "/(§§version§§)/backbone(\\.min)?\\.js" ],
-			"filename"		: [ "backbone(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "backbone(?:js)?-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "//[ ]+Backbone.js (§§version§§)", "a=t.Backbone={}}a.VERSION=\"(§§version§§)\"" ],
 			"hashes"		: {}
 		}
@@ -633,7 +642,7 @@
 		"extractors" : {
 			"func"			: [ "Mustache.version" ],
 			"uri"			: [ "/(§§version§§)/mustache(\\.min)?\\.js" ],
-			"filename"		: [ "mustache(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "mustache(?:js)?-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "name:\"mustache.js\",version:\"(§§version§§)\"",
 								"[^a-z]mustache.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")",
 								"exports.name[ ]?=[ ]?\"mustache.js\";[\n ]*exports.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\");"
@@ -653,7 +662,7 @@
 		"extractors" : {
 			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
-			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
 								"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")"
 								],
@@ -661,23 +670,23 @@
 		}
 	},
 	"easyXDM" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "2.4.18",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-5212"},
+				"identifiers": {"CVE": [ "CVE-2013-5212" ] },
 				"info" : [ "http://blog.kotowicz.net/2013/09/exploiting-easyxdm-part-1-not-usual.html", "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5212" ]
 			},
 			{
 				"below" : "2.4.19",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2014-1403"},
+				"identifiers": {"CVE": [ "CVE-2014-1403" ] },
 				"info" : [ "http://blog.kotowicz.net/2014/01/xssing-with-shakespeare-name-calling.html", "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1403" ]
 			}
 		],
 		"extractors" : {
 			"uri"			: [ "/(easyXDM-)?(§§version§§)/easyXDM(\\.min)?\\.js" ],
-			"filename"		: [ "easyXDM-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "easyXDM-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ " \\* easyXDM\n \\* http://easyxdm.net/(?:\r|\n|.)+version:\"(§§version§§)\"",
 								"@class easyXDM(?:.|\r|\n)+@version (§§version§§)(\r|\n)" ],
 			"hashes"		: { "cf266e3bc2da372c4f0d6b2bd87bcbaa24d5a643" : "2.4.6"}
@@ -685,24 +694,24 @@
 	},
 
 	"plupload" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "1.5.4",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2012-2401"},
+				"identifiers": {"CVE": [ "CVE-2012-2401" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-2401/" ]
 			},
 			{
 				"below" : "1.5.5",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2013-0237"},
+				"identifiers": {"CVE": [ "CVE-2013-0237" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-0237/" ]
 			}
 		],
 		"extractors" : {
 			"func"			: [ "plupload.VERSION" ],
 			"uri"			: [ "/(§§version§§)/plupload(\\.min)?\\.js" ],
-			"filename"		: [ "plupload-(§§version§§)(.min)?\\.js" ], 
+			"filename"		: [ "plupload-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ "\\* Plupload - multi-runtime File Uploader(\r|\n)+ \\* v§§version§§",
 								"var g=\\{VERSION:\"§§version§§\",.*;window.plupload=g\\}"
 								],
@@ -711,7 +720,7 @@
 	},
 
 	"DOMPurify" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "0.6.1",
 				"severity": "medium",
@@ -728,7 +737,7 @@
 
 
 	"DWR" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "1.1.4",
 				"severity": "high",
@@ -751,19 +760,19 @@
 		],
 		"extractors" : {
 			"func"			: [ "dwr.version" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				" dwr-§§version§§.jar"
 			]
 		}
 	},
 
 	"dont check" : {
-		"extractors" : { 
-			"uri" : [ 
+		"extractors" : {
+			"uri" : [
 				"^http[s]?://(ssl|www).google-analytics.com/ga.js",
-				"^http[s]?://apis.google.com/js/plusone.js", 
-				"^http[s]?://cdn.cxense.com/cx.js" 
+				"^http[s]?://apis.google.com/js/plusone.js",
+				"^http[s]?://cdn.cxense.com/cx.js"
 			]
 		}
-	}	
+	}
 }
