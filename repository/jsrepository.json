@@ -185,7 +185,13 @@
 				"severity" : "high",
 				"identifiers" : { "CVE" : [ "CVE-2013-6837" ] },
 				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-6837&cid=3" ]
+			},
+			{
+				"below" : "3.1.6",
+				"severity" : "high",
+				"info" : [ "https://github.com/scaron/prettyphoto/issues/149", "https://blog.anantshri.info/forgotten_disclosure_dom_xss_prettyphoto" ]
 			}
+
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.prettyPhoto.version" ],
