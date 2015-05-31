@@ -360,6 +360,15 @@
 	"ember" : {
 		"vulnerabilities" : [
 			{
+				"below" : "1.5.0",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": [ "CVE-2014-0046" ],
+					"summary": "ember-routing-auto-location can be forced to redirect to another domain"
+				},
+				"info" : [ "https://github.com/emberjs/ember.js/blob/v1.5.0/CHANGELOG.md" ]
+			},
+			{
 				"atOrAbove" : "1.3.0-*",
 				"below" : "1.3.2",
 				"severity": "medium",
