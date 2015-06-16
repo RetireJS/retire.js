@@ -1,6 +1,6 @@
 /* global chrome, console, exports, CryptoJS, Emitter */
 
-var repoUrl = "https://raw.githubusercontent.com/RetireJS/retire.js/secdec-feature/identifiers/repository/jsrepository.json";
+var repoUrl = "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json";
 var updatedAt = Date.now();
 var repo;
 var repoFuncs;
