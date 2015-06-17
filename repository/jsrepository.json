@@ -249,6 +249,21 @@
 			"hashes"		: {}
 		}
 	},
+	"swfobject": {
+		"vulnerabilities" : [
+			{
+				"below" : "2.1",
+				"severity": "medium",
+				"identifiers": {"summary": "DOM-based XSS"},
+				"info" : [ "https://code.google.com/p/swfobject/wiki/release_notes", "https://code.google.com/p/swfobject/issues/detail?id=662" ]
+			}
+		],
+		"extractors" : {
+			"filename"		: [ "swfobject_(§§version§§)(.min)?\\.js"],
+			"filecontent"	: [ "SWFObject v(§§version§§) "],
+			"hashes"		: {}
+		}
+	},
 	"YUI" : {
 		"vulnerabilities" : [
 			{
