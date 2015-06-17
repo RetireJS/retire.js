@@ -255,7 +255,7 @@
 				"below" : "2.1",
 				"severity": "medium",
 				"identifiers": {"summary": "DOM-based XSS"},
-				"info" : [ "https://code.google.com/p/swfobject/wiki/release_notes", "https://code.google.com/p/swfobject/issues/detail?id=662" ]
+				"info" : [ "https://code.google.com/p/swfobject/wiki/release_notes", "https://code.google.com/p/swfobject/source/detail?r=181" ]
 			}
 		],
 		"extractors" : {
