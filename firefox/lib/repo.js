@@ -4,7 +4,7 @@ const retire = require("./retire");
 const promise = require("sdk/core/promise");
 const Request = require("sdk/request").Request;
 
-const REPO_URL = "https://raw.github.com/RetireJS/retire.js/master/repository/jsrepository.json";
+const REPO_URL = "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json";
 
 let updatedAt = Date.now();
 let repository;

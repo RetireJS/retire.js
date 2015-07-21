@@ -78,7 +78,7 @@ if(config.ignorefile) {
 events.on('load-js-repo', function() {
   (config.jsrepo
     ? repo.loadrepositoryFromFile(config.jsrepo, config)
-    : repo.loadrepository('https://raw.github.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
+    : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
   ).on('done', function(repo) {
       jsRepo = repo;
       events.emit('js-repo-loaded');
@@ -89,7 +89,7 @@ events.on('load-js-repo', function() {
 events.on('load-node-repo', function() {
   (config.noderepo
     ? repo.loadrepositoryFromFile(config.noderepo, config)
-    : repo.loadrepository('https://raw.github.com/RetireJS/retire.js/master/repository/npmrepository.json', config)
+    : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/npmrepository.json', config)
   ).on('done', function(repo) {
       nodeRepo = repo;
       events.emit('node-repo-loaded');
