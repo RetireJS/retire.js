@@ -150,8 +150,7 @@ events.on('scan-done', function() {
       }
     }
   }
-
-
+  exit();
 });
 
 process.on('uncaughtException', function (err) {
