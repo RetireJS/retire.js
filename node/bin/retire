@@ -134,12 +134,14 @@ events.on('scan-done', function() {
     exitCode = exitCode || 0;
     process.exit(vulnsFound ? (config.exitwith || 13) : exitCode);
   };
+  if (config.fileOutput) {
+    config.fileOutput.stream.on('finish', function() {
+      fs.close(config.fileOutput.fileDescriptor);
+      exit();
+    });
+  }
   if (config.outputformat === 'json') {
     if (config.fileOutput) {
-      config.fileOutput.stream.on('drain', function() {
-        fs.close(config.fileOutput.fileDescriptor);
-        exit();
-      });
       config.fileOutput.stream.write(JSON.stringify(finalResults));
       config.fileOutput.stream.end();
     } else {
@@ -149,8 +151,13 @@ events.on('scan-done', function() {
         stream.on('drain', exit);
       }
     }
+  } else {
+    if (config.fileOutput) {
+      config.fileOutput.stream.end();
+    } else {
+     exit();
+    }
   }
-  exit();
 });
 
 process.on('uncaughtException', function (err) {
