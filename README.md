@@ -10,13 +10,14 @@ but we need to stay up-to-date on security fixes. "Using Components with Known V
 [OWASP Top 10](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) and insecure libraries can pose a huge risk for your Web app. The goal of Retire.js is to help you detect the use of JS-library versions with 
 known vulnerabilities.
 
-Retire.js has these parts:
+Retire.js can be used in many ways:
 
 1. [A command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
 2. [A grunt plugin](https://github.com/bekk/grunt-retire)
+2. [With gulp](#user-content-gulp-task)
 3. [A Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
 4. [A Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox)
-4. [Burp and OWASP Zap plugin](https://github.com/h3xstream/burp-retire-js)
+5. [Burp and OWASP Zap plugin](https://github.com/h3xstream/burp-retire-js)
 
 Command line scanner
 --------------------
