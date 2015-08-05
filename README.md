@@ -12,12 +12,12 @@ known vulnerabilities.
 
 Retire.js can be used in many ways:
 
-1. [A command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
-2. [A grunt plugin](https://github.com/bekk/grunt-retire)
-2. [With gulp](#user-content-gulp-task)
-3. [A Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
-4. [A Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox)
-5. [Burp and OWASP Zap plugin](https://github.com/h3xstream/burp-retire-js)
+1. [As  command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
+2. [As a grunt plugin](https://github.com/bekk/grunt-retire)
+2. [As a gulp task](#user-content-gulp-task)
+3. [As a Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
+4. [As a Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox)
+5. [As a Burp and OWASP Zap plugin](https://github.com/h3xstream/burp-retire-js)
 
 Command line scanner
 --------------------
