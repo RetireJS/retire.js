@@ -26,6 +26,39 @@ Grunt plugin
 ------------
 A [Grunt task for running Retire.js](https://github.com/bekk/grunt-retire) as part of your application's build routine, or some other automated workflow.
 
+Gulp task
+---------
+An example of a Gulp task which can be used in your gulpfile to watch and scan your project files automatically. You can modify the watch patterns and (optional) Retire.js options as you like.
+
+```javascript
+var gulp = require('gulp');
+var spawn = require('child_process').spawn;
+var gutil = require('gulp-util');
+
+gulp.task('retire:watch', ['retire'], function (done) {
+    // Watch all javascript files an the package.json
+    gulp.watch(['js/**/*.js', 'package.json'], ['retire']);
+});
+
+gulp.task('retire', function() {
+    // Spawn Retire.js as a child process
+    // You can optionally add option parameters to the second argument (array)
+    var child = spawn('retire', [], {cwd: process.cwd()});
+    
+    child.stdout.setEncoding('utf8');
+    child.stdout.on('data', function (data) {
+        gutil.log(data);
+    });
+
+    child.stderr.setEncoding('utf8');
+    child.stderr.on('data', function (data) {
+        gutil.log(gutil.colors.red(data));
+        gutil.beep();
+    });
+});
+
+```
+
 Chrome and firefox extensions 
 -------------
 Scans visited sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicated if vulnerable libraries were loaded.
