@@ -643,7 +643,10 @@
 			"func"			: [ "angular.version.full" ],
 			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
 			"filename"		: [ "angular(?:js)?-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "/\\*[ \n]+AngularJS v(§§version§§)" ],
+			"filecontent"	: [ 
+				"/\\*[ \n]+AngularJS v(§§version§§)",
+				"http://errors.angularjs.org/(§§version§§)/"
+			],
 			"hashes"		: {}
 		}
 	},
