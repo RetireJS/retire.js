@@ -37,7 +37,7 @@ var spawn = require('child_process').spawn;
 var gutil = require('gulp-util');
 
 gulp.task('retire:watch', ['retire'], function (done) {
-    // Watch all javascript files an the package.json
+    // Watch all javascript files and package.json
     gulp.watch(['js/**/*.js', 'package.json'], ['retire']);
 });
 
