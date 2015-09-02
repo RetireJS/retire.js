@@ -38,7 +38,7 @@
 				"info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]}
 		],
 		"extractors" : {
-			"func"    		: [ "jQuery.fn.jquery" ],
+			"func"    		: [ "/[0-9.]+/.test(jQuery.fn.jquery) ? jQuery.fn.jquery : undefined" ],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
