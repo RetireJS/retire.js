@@ -8,7 +8,7 @@ ADD_ON_DIR=./firefox
 NODE_RETIRE_JS_FILE=./node/lib/retire.js
 FX_RETIRE_JS_FILE=$ADD_ON_DIR/lib/retire.js
 FX_PROFILE_DIR=""
-
+FX_PATH=""
 target=$1
 release=false
 
@@ -71,6 +71,10 @@ do
       shift
       FX_PROFILE_DIR=$2
       ;;
+    -b | --binarypath )
+      shift
+      FX_PATH=$2
+      ;;
     -release ) 
       shift
       release=true
@@ -92,12 +96,21 @@ function runTests {
 # ------------------------------------------------------------------------------
 
 function runBrowser {
-  if [ -z $FX_PROFILE_DIR ] 
+  PROG_ARG=""
+  if ! [ -z $FX_PROFILE_DIR ] 
   then
-    jpm run
-  else
-    jpm run -p $FX_PROFILE_DIR
+    PROG_ARG="$PROG_ARG -p $FX_PROFILE_DIR "
   fi
+  #jpm run -p $FX_PROFILE_DIR 
+  if ! [ -z $FX_PATH ]
+  then
+    PROG_ARG="$PROG_ARG -b $FX_PATH"
+    echo $PROG_ARG
+  fi
+  echo $PROG_ARG
+  echo "jpm run @@$PROG_ARG@@"
+  jpm run $PROG_ARG
+  echo $PROG_ARG
 }
 
 # ------------------------------------------------------------------------------
