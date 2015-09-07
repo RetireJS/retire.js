@@ -13,11 +13,11 @@ target=$1
 release=false
 
 # ------------------------------------------------------------------------------
-# check if the cfx tool exist
+# check if the jpm tool exist
 # ------------------------------------------------------------------------------
 
-if ! type cfx > /dev/null; then
-  echo "Aborting cfx command not found"
+if ! type jpm > /dev/null; then
+  echo "Aborting jpm command not found"
   exit 1
 fi
 
@@ -84,7 +84,7 @@ done
 # ------------------------------------------------------------------------------
 
 function runTests {
-  cfx test
+  jpm test
 }
 
 # ------------------------------------------------------------------------------
@@ -94,9 +94,9 @@ function runTests {
 function runBrowser {
   if [ -z $FX_PROFILE_DIR ] 
   then
-    cfx run
+    jpm run
   else
-    cfx run -p $FX_PROFILE_DIR
+    jpm run -p $FX_PROFILE_DIR
   fi
 }
 
@@ -114,7 +114,7 @@ function build {
     else
       filename="${addonName}-${version}_${now}.xpi"
   fi
-  cfx xpi
+  jpm xpi
   mv $addonName.xpi $filename
   echo "Add-on built: $filename"
 }
