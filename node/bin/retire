@@ -48,7 +48,7 @@ program
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
-  .option('--exitwith', 'Custom exit code (default: 13) when vulnerabilities are found')
+  .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .parse(process.argv);
 
 var config = _.extend({ path: '.' }, _.pick(program, [

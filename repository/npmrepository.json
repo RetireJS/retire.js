@@ -24,6 +24,12 @@
 			{ "below" : "0.0.6", "info" : [ "https://nodesecurity.io/advisories/5194039ed66d3fe501000001" ] }
 		]
 	},
+	"uglify-js" : {
+		"vulnerabilities" : [
+			{ "below" : "2.4.24", "info" : [ "https://github.com/mishoo/UglifyJS2/issues/751", "https://github.com/tmcw/mdast-uglify-bug" ] }
+		]
+
+	},
 	"handlebars" : {
 		"vulnerabilities" : [ 
 			{
