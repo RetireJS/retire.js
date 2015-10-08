@@ -699,7 +699,17 @@
 				"identifiers": {
 					"summary": "poorly sanitized input passed to eval()"
 				},
-				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] } ],
+				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] 
+			},
+			{
+				"below" : "4.0.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Quoteless attributes in templates can lead to XSS"
+				},
+				"info" : [ "https://github.com/wycats/handlebars.js/pull/1083" ] 
+			}
+		],
 		"extractors" : {
 			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
