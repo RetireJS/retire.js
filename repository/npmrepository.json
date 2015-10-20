@@ -30,6 +30,56 @@
 		]
 
 	},
+	
+	"datatables": {
+		"vulnerabilities": [
+			{
+					"below" : "1.10.9",
+					"info": [ "https://nodesecurity.io/advisories/datatables-CVE-2015-6584" ]
+			}
+		]
+	},
+	"geddy": {
+		"vulnerabilities": [
+			{
+					"below" : "13.0.8",
+					"info": [ "https://nodesecurity.io/advisories/geddy-directory-traversal" ]
+			}
+		]
+	},
+	"jquery-ujs": {
+		"vulnerabilities": [
+			{
+					"below" : "1.0.4", 
+					"info": [ "https://nodesecurity.io/advisories/jquery_ujs_csrf" ]
+			}
+		]
+	},
+	"ldapauth-fork": {
+		"vulnerabilities": [
+			{
+					"below" : "2.3.3",
+					"info": [ "https://nodesecurity.io/advisories/ldapauth-fork-ldap-injection" ]
+			}
+		]
+	},
+	"ldapauth": {
+		"vulnerabilities": [
+			{
+					"below" : "2.2.5",
+					"info": [ "https://nodesecurity.io/advisories/ldapauth-ldap-injection" ]
+			}
+		]
+	},
+	"ungit": {
+		"vulnerabilities": [
+			{
+					"below" : "0.9.0",
+					"info": [ "https://nodesecurity.io/advisories/ungit-command-injection" ]
+			}
+		]
+	},
+
 	"handlebars" : {
 		"vulnerabilities" : [ 
 			{
