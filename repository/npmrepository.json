@@ -4,9 +4,9 @@
 			{ "atOrAbove": "0.0.1", "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		]
 	},
-	"hutbot-scripts": {
+	"hubot-scripts": {
 		"vulnerabilities" : [
-			{ "below" : "2.4.4", "info" : [ "https://nodesecurity.io/advisories/519408ce5111ce9429000001" ] }
+			{ "below" : "2.4.4", "info" : [ "https://nodesecurity.io/advisories/Hubot_Potential_command_injection_in_email.coffee" ] }
 		]
 	},
 	"connect": {
