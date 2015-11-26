@@ -4,9 +4,9 @@
 			{ "atOrAbove": "0.0.1", "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		]
 	},
-	"hutbot-scripts": {
+	"hubot-scripts": {
 		"vulnerabilities" : [
-			{ "below" : "2.4.4", "info" : [ "https://nodesecurity.io/advisories/519408ce5111ce9429000001" ] }
+			{ "below" : "2.4.4", "info" : [ "https://nodesecurity.io/advisories/Hubot_Potential_command_injection_in_email.coffee" ] }
 		]
 	},
 	"connect": {
@@ -30,6 +30,56 @@
 		]
 
 	},
+	
+	"datatables": {
+		"vulnerabilities": [
+			{
+					"below" : "1.10.9",
+					"info": [ "https://nodesecurity.io/advisories/datatables-CVE-2015-6584" ]
+			}
+		]
+	},
+	"geddy": {
+		"vulnerabilities": [
+			{
+					"below" : "13.0.8",
+					"info": [ "https://nodesecurity.io/advisories/geddy-directory-traversal" ]
+			}
+		]
+	},
+	"jquery-ujs": {
+		"vulnerabilities": [
+			{
+					"below" : "1.0.4", 
+					"info": [ "https://nodesecurity.io/advisories/jquery_ujs_csrf" ]
+			}
+		]
+	},
+	"ldapauth-fork": {
+		"vulnerabilities": [
+			{
+					"below" : "2.3.3",
+					"info": [ "https://nodesecurity.io/advisories/ldapauth-fork-ldap-injection" ]
+			}
+		]
+	},
+	"ldapauth": {
+		"vulnerabilities": [
+			{
+					"below" : "2.2.5",
+					"info": [ "https://nodesecurity.io/advisories/ldapauth-ldap-injection" ]
+			}
+		]
+	},
+	"ungit": {
+		"vulnerabilities": [
+			{
+					"below" : "0.9.0",
+					"info": [ "https://nodesecurity.io/advisories/ungit-command-injection" ]
+			}
+		]
+	},
+
 	"handlebars" : {
 		"vulnerabilities" : [ 
 			{
@@ -567,7 +617,7 @@
 				"below" : "4.3.2",
 				"severity": "medium",
 				"identifiers": {"advisory": "semver_dos"},
-				"info" : [ "http://nodesecurity.io/advisories/semver_dos" ]
+				"info" : [ "http://nodesecurity.io/advisories/31" ]
 			}
 		]
 	},
