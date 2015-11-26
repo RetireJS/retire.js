@@ -44,8 +44,10 @@
 			"filecontent"	: [
 								"/\\*!? jQuery v(§§version§§)", "\\* jQuery JavaScript Library v(§§version§§)",
 								"\\* jQuery (§§version§§) - New Wave Javascript", "// \\$Id: jquery.js,v (§§version§§)",
-								"/\\*! jQuery v(§§version§§)", "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
-								"[^a-z]jquery:[ ]?\"(§§version§§)\""
+								"/\\*! jQuery v(§§version§§)",
+                                                                "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
+                                                                "[^a-z]m=\"(§§version§§)\",.*[^a-z]jquery:m,",
+                                                                "[^a-z.]jquery:[ ]?\"(§§version§§)\""
 								],
 			"hashes"		: {}
 		}
