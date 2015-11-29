@@ -12,7 +12,7 @@
   },
   "main": "./lib/retire.js",
   "dependencies": {
-    "underscore"     : "1.7.x",
+    "underscore"     : "1.7.x - 1.8.x",
     "commander"	     : "2.5.x",
     "read-installed" : "3.1.x",
     "walkdir"        : "0.0.7",
