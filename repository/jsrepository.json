@@ -299,7 +299,7 @@
 				"atOrAbove" : "2.8.0" ,
 				"below" : "2.9.1",
 				"severity": "high",
-				"identifiers": {"CVE": [ "CVE_2012-5883" ] },
+				"identifiers": {"CVE": [ "CVE-2012-5883" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5883/" ]
 			},
 			{
