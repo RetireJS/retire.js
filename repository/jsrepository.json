@@ -345,7 +345,7 @@
 			}
 		],
 		"extractors" : {
-			"func"    		: [ "YUI.Version" ],
+			"func"    		: [ "YUI.Version", "YAHOO.VERSION" ],
 			"filename"		: [ "yui-(§§version§§)(.min)?\\.js"],
 			"filecontent"	: [ "/*\nYUI (§§version§§)", "/yui/license.(?:html|txt)\nversion: (§§version§§)"],
 			"hashes"		: {}
