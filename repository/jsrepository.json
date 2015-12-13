@@ -681,7 +681,18 @@
 					"bug": "112",
 					"summary": "execution of arbitrary javascript"
 				},
-				"info" : [ "https://github.com/janl/mustache.js/issues/112" ] } ],
+				"info" : [ "https://github.com/janl/mustache.js/issues/112" ] 
+			},
+			{
+				"below" : "2.2.1",
+				"severity": "medium",
+				"identifiers": {
+					"bug": "pull request 530",
+					"summary": "weakness in HTML escaping"
+				},
+				"info" : [ "https://github.com/janl/mustache.js/releases/tag/v2.2.1", "https://github.com/janl/mustache.js/pull/530" ] 
+			} 
+		],
 		"extractors" : {
 			"func"			: [ "Mustache.version" ],
 			"uri"			: [ "/(§§version§§)/mustache(\\.min)?\\.js" ],
