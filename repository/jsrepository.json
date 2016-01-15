@@ -376,6 +376,48 @@
 	},
 	"ember" : {
 		"vulnerabilities" : [
+			{ 
+				"atOrAbove" : "1.8.0",
+				"below" :"1.11.4",
+				"severity" : "medium",
+				"identifiers": {"CVE": "CVE-2015-7565"},
+				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
+			},
+			{ 
+				"atOrAbove" : "1.12.0",
+				"below" :"1.12.2",
+				"severity" : "medium",
+				"identifiers": {"CVE": "CVE-2015-7565"},
+				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
+			},
+			{ 
+				"atOrAbove" : "1.13.0",
+				"below" : "1.13.12",
+				"severity" : "medium",
+				"identifiers": {"CVE": "CVE-2015-7565"},
+				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
+			},
+			{ 
+				"atOrAbove" : "2.0.0",
+				"below" : "2.0.3",
+				"severity" : "medium",
+				"identifiers": {"CVE": "CVE-2015-7565"},
+				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
+			},
+			{ 
+				"atOrAbove" : "2.1.0",
+				"below" : "2.1.2",
+				"severity" : "medium",
+				"identifiers": {"CVE": "CVE-2015-7565" },
+				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
+			},
+			{ 
+				"atOrAbove" : "2.2.0",
+				"below" : "2.2.1",
+				"severity" : "medium",
+				"identifiers": {"CVE": "CVE-2015-7565"},
+				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
+			},
 			{
 				"below" : "1.5.0",
 				"severity": "medium",
@@ -799,6 +841,20 @@
 		}
 	},
 
+	"flowplayer" : {
+		"vulnerabilities" : [
+			{
+				"below" : "5.4.3",
+				"severity": "medium",
+				"identifiers": { "summary" : "XSS vulnerability in Flash fallback" },
+				"info" : [ "https://github.com/flowplayer/flowplayer/issues/381" ]
+			}
+		],
+		"extractors" : {
+			"uri"			    : [ "flowplayer-(§§version§§)(\\.min)?\\.js" ],
+			"filename"		: [ "flowplayer-(§§version§§)(\\.min)?\\.js" ]
+		}
+	},
 
 	"DWR" : {
 		"vulnerabilities" : [
