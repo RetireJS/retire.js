@@ -886,6 +886,24 @@
 		}
 	},
 
+	"moment.js" : {
+		"vulnerabilities" : [
+			{
+				"below" : "2.11.2",
+				"severity": "low",
+				"identifiers": { "summary":"reDOS - regular expression denial of service" },
+				"info" : [ "https://github.com/moment/moment/issues/2936" ]
+			}
+		],
+		"extractors" : {
+			"func"			: [ "moment.version" ],
+			"filecontent"	: [ "//! moment.js([\n\r]+)//! version : (§§version§§)" ]
+		}
+	},
+
+
+
+
 	"dont check" : {
 		"extractors" : {
 			"uri" : [

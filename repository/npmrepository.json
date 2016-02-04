@@ -26,11 +26,69 @@
 	},
 	"uglify-js" : {
 		"vulnerabilities" : [
-			{ "below" : "2.4.24", "info" : [ "https://github.com/mishoo/UglifyJS2/issues/751", "https://github.com/tmcw/mdast-uglify-bug" ] }
+			{ "below" : "2.4.24", "info" : [ "https://github.com/mishoo/UglifyJS2/issues/751", "https://github.com/tmcw/mdast-uglify-bug" ] },
+			{ "below" : "2.6.0", "info" : [ "https://nodesecurity.io/advisories/48" ] }
 		]
-
 	},
-	
+	"ansi2html" : {
+		"vulnerabilities" : [
+			{ "below" : "100", "info" : [ "https://nodesecurity.io/advisories/51" ] }
+		]
+	},
+	"milliseconds" : {
+		"vulnerabilities" : [
+			{ "below" : "0.1.2", "info" : [ "https://nodesecurity.io/advisories/59" ] }
+		]
+	},
+	"keystone" : {
+		"vulnerabilities" : [
+			{ "below" : "0.3.16", "info" : [ "https://nodesecurity.io/advisories/60" ] }
+		]
+	},
+	"ecstatic" : {
+		"vulnerabilities" : [
+			{ "below" : "1.4.0", "info" : [ "https://nodesecurity.io/advisories/64" ] }
+		]
+	},
+
+	"mysql" : {
+		"vulnerabilities" : [
+			{ "below" : "2.0.0-alpha8", "identifiers": { "summary" : "SQL Injection due to unescaped object keys" } , "info" : [ "https://nodesecurity.io/advisories/66" ] }
+		]
+	},
+
+	"bittorrent-dht" : {
+		"vulnerabilities" : [
+			{ "below" : "5.1.3" , "info" : [ "https://nodesecurity.io/advisories/68" ] }
+		]
+	},
+
+	"jadedown" : {
+		"vulnerabilities" : [
+			{ "below" : "100" , "info" : [ "https://nodesecurity.io/advisories/52" ] }
+		]
+	},
+
+	"jshamcrest" : {
+		"vulnerabilities" : [
+			{ "below" : "100" , "info" : [ "https://nodesecurity.io/advisories/53" ] }
+		]
+	},
+
+
+	"ws" : {
+		"vulnerabilities" : [
+			{ "below" : "1.0.1", "info" : [ "https://nodesecurity.io/advisories/67" ] }
+		]
+	},
+
+
+	"gm" : {
+		"vulnerabilities" : [
+			{ "below" : "1.21.1", "info" : [ "https://nodesecurity.io/advisories/54", "https://github.com/aheckmann/gm/commit/5f5c77490aa84ed313405c88905eb4566135be31" ] }
+		]
+	},
+
 	"datatables": {
 		"vulnerabilities": [
 			{
@@ -89,7 +147,16 @@
 					"summary": "poorly sanitized input passed to eval()"
 				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ]
+			},
+			{
+				"below" : "4.0.0",
+				"severity": "low",
+				"identifiers": {
+					"summary": "Quoteless Attributes in Templates can lead to Content Injection"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/61" ]
 			}
+
 		]
 	},
 	"marked": {
@@ -168,6 +235,40 @@
 					"advisory": "hapijs-jsonp-CVE-2014-4671A"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/hapijs-jsonp-CVE-2014-4671A" ]
+			},
+			{
+				"below" : "11.0.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary" : "Could allow forbidden CORS headers"
+				},
+				"info" : [ 
+					"https://nodesecurity.io/advisories/45",
+					"https://github.com/hapijs/hapi/issues/2850",
+					"https://github.com/hapijs/hapi/issues/2840"
+				]
+			},
+			{
+				"below" : "11.1.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary" : "Denial of service - Potential socket exhaustion"
+				},
+				"info" : [ 
+					"https://nodesecurity.io/advisories/63",
+					"https://github.com/hapijs/hapi/commit/aab2496e930dce5ee1ab28eecec94e0e45f03580",
+					"https://github.com/jfhbrook/node-ecstatic/pull/179"
+				]
+			},
+			{
+				"below" : "11.1.4",
+				"severity": "medium",
+				"identifiers": {
+					"summary" : "Route level CORS config overrides connection level defaults"
+				},
+				"info" : [ 
+					"https://nodesecurity.io/advisories/65"
+				]
 			}
 		]
 	},
@@ -203,7 +304,17 @@
 			}
 		]		
 	},
-
+	"ms" : {
+		"vulnerabilities" : [ 
+			{
+				"below" : "0.7.1",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Regular expression denial of service"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/46" ] }
+		]
+	},
 
 	"handlebars-runtime" : {
 		"vulnerabilities" : [ 
@@ -402,6 +513,14 @@
 					"summary": "execution of arbitrary javascript"
 				},
 				"info" : [ "https://github.com/janl/mustache.js/issues/112" ]
+			},
+			{
+				"below" : "2.2.1",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Quoteless Attributes in Templates can lead to Content Injection"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/62" ]
 			}
 		]
 	},
@@ -471,6 +590,18 @@
 					"advisory": "send-directory-traversal"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/send-directory-traversal" ]
+			},
+			{
+				"below" : "0.11.1",
+				"severity": "low",
+				"identifiers": {
+					"summary": "discloses root path"
+				},
+				"info" : [ 
+					"https://nodesecurity.io/advisories/56", 
+					"https://github.com/pillarjs/send/pull/70",
+					"https://github.com/expressjs/serve-static/blob/master/HISTORY.md#181--2015-01-20"
+				]
 			}
 		]
 	},
@@ -581,6 +712,141 @@
 			}
 		]
 	},
+	"bleach": {
+		"vulnerabilities" : [
+			{
+				"below" : "100",
+				"severity": "high",
+				"identifiers": { "CVE": "CVE-2014-8881" , "summary" : "Regular expression denial of service - no fix available" },
+				"info" : [ "https://nodesecurity.io/advisories/47" ]
+			}
+		]
+	},
+
+
+	"mqtt-packet": {
+		"vulnerabilities" : [
+			{
+				"below" : "3.4.6",
+				"severity": "high",
+				"identifiers": { "summary" : "Denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/75" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.0.5",
+				"severity": "high",
+				"identifiers": { "summary" : "Denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/75" ]
+			}
+		]
+	},
+
+	"is-my-json-valid": {
+		"vulnerabilities" : [
+			{
+				"below" : "2.12.4",
+				"severity": "medium",
+				"identifiers": { "summary" : "Regex denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/49" ]
+			}
+		]
+	},
+
+	"i18n-node-angular": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.4.0",
+				"severity": "medium",
+				"identifiers": { "summary" : "Denial of Service and Content Injection" },
+				"info" : [ "https://nodesecurity.io/advisories/80" ]
+			}
+		]
+	},
+
+	"hapi-auth-jwt2": {
+		"vulnerabilities" : [
+			{
+				"below" : "5.1.2",
+				"severity": "medium",
+				"identifiers": { "summary" : "Regex denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/81", "https://github.com/dwyl/hapi-auth-jwt2/issues/111", "https://github.com/dwyl/hapi-auth-jwt2/pull/112" ]
+			}
+		]
+	},
+
+	"moment": {
+		"vulnerabilities" : [
+			{
+				"below" : "2.11.2",
+				"severity": "medium",
+				"identifiers": { "summary" : "Regex denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/55" ]
+			}
+		]
+	},
+
+	"hawk": {
+		"vulnerabilities" : [
+			{
+				"below" : "3.1.3",
+				"severity": "medium",
+				"identifiers": { "summary" : "Regex denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/77" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.1.1",
+				"severity": "medium",
+				"identifiers": { "summary" : "Regex denial of service" },
+				"info" : [ "https://nodesecurity.io/advisories/77" ]
+			}
+		]
+	},
+
+
+	"mapbox.js": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.6.5",
+				"severity": "high",
+				"identifiers": { "summary" : "XSS" },
+				"info" : [ "https://nodesecurity.io/advisories/49" ]
+			},
+			{
+				"atOrAbove" : "2.0.0",
+				"below" : "2.1.7",
+				"severity": "high",
+				"identifiers": { "summary" : "XSS" },
+				"info" : [ "https://nodesecurity.io/advisories/49" ]
+			},
+			{
+				"below" : "1.6.6",
+				"severity": "high",
+				"identifiers": { "summary" : "XSS" },
+				"info" : [ "https://nodesecurity.io/advisories/74" ]
+			},
+			{
+				"atOrAbove" : "2.0.0",
+				"below" : "2.2.4",
+				"severity": "high",
+				"identifiers": { "summary" : "XSS" },
+				"info" : [ "https://nodesecurity.io/advisories/74" ]
+			}
+		]
+	},
+
+	"secure-compare": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "3.0.0",
+				"below" : "3.0.1",
+				"severity": "medium",
+				"identifiers": { "summary": "do not actually compare two strings properly" },
+				"info" : [ "https://nodesecurity.io/advisories/50", "https://github.com/vdemedes/secure-compare/pull/1" ]
+			}
+		]
+	},	
 	"remarkable": {
 		"vulnerabilities" : [
 			{
