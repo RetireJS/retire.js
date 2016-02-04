@@ -748,7 +748,7 @@
 				"below" : "2.12.4",
 				"severity": "medium",
 				"identifiers": { "summary" : "Regex denial of service" },
-				"info" : [ "https://nodesecurity.io/advisories/49" ]
+				"info" : [ "https://nodesecurity.io/advisories/76" ]
 			}
 		]
 	},
