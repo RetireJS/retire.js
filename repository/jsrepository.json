@@ -897,7 +897,7 @@
 		],
 		"extractors" : {
 			"func"			: [ "moment.version" ],
-			"filecontent"	: [ "//! moment.js([\n\r]+)//! version : (§§version§§)" ]
+			"filecontent"	: [ "//! moment.js(?:[\n\r]+)//! version : (§§version§§)" ]
 		}
 	},
 
