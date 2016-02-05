@@ -266,6 +266,40 @@
 			"hashes"		: {}
 		}
 	},
+
+	"tinyMCE" : {
+		"vulnerabilities" : [
+			{
+				"below" : "1.4.2",
+				"serverity" : "high",
+				"identifiers" : {
+					"summary" : "Static code injection vulnerability in inc/function.base.php", 
+					"CVE" : "CVE-2011-4825"
+				},
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2011-4825/" ]
+			},
+			{
+				"below" : "4.2.4",
+				"serverity" : "medium",
+				"identifiers" : { "summary" : "xss issues with media plugin not properly filtering out some script attributes." },
+				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
+
+			},
+			{
+				"below" : "4.2.0",
+				"serverity" : "medium",
+				"identifiers" : { "summary" : "FIXED so script elements gets removed by default to prevent possible XSS issues in default config implementations" },
+				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
+
+			}
+		],
+		"extractors" : {
+			"filecontent"	       : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
+			"filecontentreplace" : [ "/tinyMCEPreInit.*majorVersion:.([0-9]+).,minorVersion:.([0-9.]+)./$1.$2/" ],
+			"func" 				       : [ "tinyMCE.majorVersion + '.'+ tinyMCE.minorVersion" ]
+		}
+	},
+
 	"YUI" : {
 		"vulnerabilities" : [
 			{
@@ -791,7 +825,7 @@
 			}
 		],
 		"extractors" : {
-			"uri"			: [ "/(easyXDM-)?(§§version§§)/easyXDM(\\.min)?\\.js" ],
+			"uri"			: [ "/(?:easyXDM-)?(§§version§§)/easyXDM(\\.min)?\\.js" ],
 			"filename"		: [ "easyXDM-(§§version§§)(.min)?\\.js" ],
 			"filecontent"	: [ " \\* easyXDM\n \\* http://easyxdm.net/(?:\r|\n|.)+version:\"(§§version§§)\"",
 								"@class easyXDM(?:.|\r|\n)+@version (§§version§§)(\r|\n)" ],
@@ -818,8 +852,8 @@
 			"func"			: [ "plupload.VERSION" ],
 			"uri"			: [ "/(§§version§§)/plupload(\\.min)?\\.js" ],
 			"filename"		: [ "plupload-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "\\* Plupload - multi-runtime File Uploader(\r|\n)+ \\* v§§version§§",
-								"var g=\\{VERSION:\"§§version§§\",.*;window.plupload=g\\}"
+			"filecontent"	: [ "\\* Plupload - multi-runtime File Uploader(?:\r|\n)+ \\* v(§§version§§)",
+								"var g=\\{VERSION:\"(§§version§§)\",.*;window.plupload=g\\}"
 								],
 			"hashes"		: {}
 		}
@@ -836,7 +870,7 @@
 		],
 		"extractors" : {
 			"func"			: [ "DOMPurify.version" ],
-			"filecontent"	: [ "DOMPurify.version = '§§version§§';" ],
+			"filecontent"	: [ "DOMPurify.version = '(§§version§§)';" ],
 			"hashes"		: {}
 		}
 	},
@@ -881,7 +915,7 @@
 		"extractors" : {
 			"func"			: [ "dwr.version" ],
 			"filecontent"	: [
-				" dwr-§§version§§.jar"
+				" dwr-(§§version§§).jar"
 			]
 		}
 	},
@@ -900,9 +934,6 @@
 			"filecontent"	: [ "//! moment.js(?:[\n\r]+)//! version : (§§version§§)" ]
 		}
 	},
-
-
-
 
 	"dont check" : {
 		"extractors" : {

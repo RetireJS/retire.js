@@ -24,6 +24,13 @@ for (var i in jsRepo) {
 					restring = ar[1];
 				}
 				var r = new RegExp(restring);
+				//console.log(restring);
+				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
+				if (i != "dont check" && types[j] !== "filecontentreplace" && cre.indexOf("§§version§§") !== 0) {
+					throw new Error("First capture must be §§version§§ for " + i + ": " + restring);
+				}
+
+
 			} catch(e) {
 				console.warn("RegExp error ", i, types[j], k);
 				throw e;
