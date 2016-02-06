@@ -73,7 +73,6 @@ if(config.ignorefile) {
   var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
   ignored = _.map(lines, function(e) { return e[0] === '@' ? e.slice(1) : path.resolve(e); });
   config.ignore = config.ignore.concat(ignored);
-  console.log(config.ignore);
 }
 
 events.on('load-js-repo', function() {
