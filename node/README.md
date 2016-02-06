@@ -40,8 +40,8 @@ Options:
 .retireignore 
 -------------
 ````
-@qs       																											# ignore this module regardless of location
-node_modules/connect/node_modules/body-parser/node_modules/qs		# ignore specific path
+@qs                                                             # ignore this module regardless of location
+node_modules/connect/node_modules/body-parser/node_modules/qs   # ignore specific path
 ````
 Due to a bug in ignore resolving, please upgrade to >= 1.1.3
 
