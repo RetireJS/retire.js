@@ -1,8 +1,8 @@
 var retire = require('./retire'),
-    _      = require('underscore'),
     fs     = require('fs'),
     crypto = require('crypto'),
     path   = require('path'),
+    _      = require('underscore'),
     log    = require('./utils').log,
     emitter   = new require('events').EventEmitter;
 
@@ -58,13 +58,17 @@ function printVulnerability(component, options) {
   return string;
 }
 
-function shouldIgnore(file, ignores) {
-  return _.detect(ignores, function(i) { return file.indexOf(i) === 0 || file.indexOf(path.resolve(i)) === 0; });
+function shouldIgnore(fileSpecs, ignores) {
+  return _.detect(ignores, function(i) {
+    return _.detect(fileSpecs, function(j) {
+      return j.indexOf(i) === 0 || j.indexOf(path.resolve(i)) === 0 ; 
+    })
+  });
 }
 
 
 function scanJsFile(file, repo, options) {
-  if (options.ignore && shouldIgnore(file, options.ignore)) {
+  if (options.ignore && shouldIgnore([file], options.ignore)) {
     return;
   }
   var results = retire.scanFileName(file, repo);
@@ -81,7 +85,7 @@ function printParent(comp, options) {
 
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
-    if (options.ignore && shouldIgnore(dependencies[i].component, options.ignore)) {
+    if (options.ignore && shouldIgnore([dependencies[i].component, toModulePath(dependencies[i])], options.ignore)) {
       continue;
     }
     results = retire.scanNodeDependency(dependencies[i], nodeRepo);
@@ -97,6 +101,16 @@ function scanDependencies(dependencies, nodeRepo, options) {
     }
   }
 }
+
+function toModulePath(dep) {
+  function f(d) {
+    if (d.parent != null) return f(d.parent) + "/node_modules/" + d.component;
+    return "";
+  }
+  return path.resolve(f(dep).substring(1));
+}
+
+
 
 function scanBowerFile(file, repo, options) {
   try {
