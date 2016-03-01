@@ -714,6 +714,14 @@
 					"summary": "server-side xss can bypass CSP"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below" : "1.5.0-rc.2",
+				"severity": "low",
+				"identifiers": {
+					"summary": "server-side xss can bypass CSP"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
 			}
 
 		],
