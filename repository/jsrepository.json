@@ -43,7 +43,7 @@
 					"summary": "3rd party CORS request may execute"
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/" ]
 			}
 		],
 		"extractors" : {
