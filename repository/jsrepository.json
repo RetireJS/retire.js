@@ -751,8 +751,23 @@
 					"summary": "server-side xss can bypass CSP"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below" : "1.5.0-beta.2",
+				"severity": "low",
+				"identifiers": {
+					"summary": "UI Redress Attack Through Improper Sanitization of SVG Elements"
+				},
+				"info" : [ "https://srcclr.com/security/ui-redress-attack-through-improper/javascript/s-2252" ]			
+			},
+			{
+				"below" : "1.5.0-beta.2",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Arbitrary Code Execution Through SVG Animation Functionality"
+				},
+				"info" : [ "https://srcclr.com/security/arbitrary-code-execution-through-svg/javascript/s-2253" ]
 			}
-
 		],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
