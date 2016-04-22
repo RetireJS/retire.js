@@ -708,6 +708,7 @@
 				"info" : [ "https://github.com/angular/angular.js/blob/b3b5015cb7919708ce179dc3d6f0d7d7f43ef621/CHANGELOG.md" ]
 			},
 			{
+				"atOrAbove" : "1.2.19",
 				"below" : "1.2.24",
 				"severity": "medium",
 				"identifiers": {
