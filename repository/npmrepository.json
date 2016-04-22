@@ -244,7 +244,7 @@
 				"info" : [ "https://nodesecurity.io/advisories/marked_vbscript_injection" ]
 			},
 			{
-				"below" : "0.3.5",
+				"below" : "0.3.6",
 				"severity": "medium",
 				"identifiers": {
 					"advisory": "Cross-Site Scripting (XSS) Due To Sanitization Bypass Using HTML Entities"
