@@ -50,6 +50,62 @@
 			{ "below" : "1.4.0", "info" : [ "https://nodesecurity.io/advisories/64" ] }
 		]
 	},
+	"grunt-gh-pages" : {
+		"vulnerabilities" : [
+			{ "below" : "1.0.0", "info" : [ "https://nodesecurity.io/advisories/85" ] }
+		]
+	},
+	"riot-compiler" : {
+		"vulnerabilities" : [
+			{ "below" : "2.3.22", "info" : [ "https://nodesecurity.io/advisories/86" ] }
+		]
+	},
+	"node-uuid" : {
+		"vulnerabilities" : [
+			{ "below" : "1.4.4", "info" : [ "https://nodesecurity.io/advisories/93" ] }
+		]
+	},
+	"restafary" : {
+		"vulnerabilities" : [
+			{ "below" : "1.6.1", "info" : [ "https://nodesecurity.io/advisories/89" ] }
+		]
+	},
+	"droppy" : {
+		"vulnerabilities" : [
+			{ "below" : "3.5.0", "info" : [ "https://nodesecurity.io/advisories/91" ] }
+		]
+	},
+	"airbrake" : {
+		"vulnerabilities" : [
+			{ "below" : "0.4.0", "info" : [ "https://nodesecurity.io/advisories/96" ] }
+		]
+	},
+	"jsrender" : {
+		"vulnerabilities" : [
+			{ "below" : "0.9.74", "info" : [ "https://nodesecurity.io/advisories/97" ] }
+		]
+	},
+	"npm" : {
+		"vulnerabilities" : [
+			{ "below" : "3.8.2 ", "atOrabove": "3.0.0", "info" : [ "https://nodesecurity.io/advisories/98" ] },
+			{ "below" : "2.15.1", "info" : [ "https://nodesecurity.io/advisories/98" ] }
+		]
+	},
+	"console-io" : {
+		"vulnerabilities" : [
+			{ "below" : "2.7.0", "info" : [ "https://nodesecurity.io/advisories/90" ] }
+		]
+	},
+	"express-restify-mongoose" : {
+		"vulnerabilities" : [
+			{ "below" : "2.5.0", "info" : [ "https://nodesecurity.io/advisories/92" ] },
+			{ "below" : "3.1.0", "atOrAbove":"3.0.0",  "info" : [ "https://nodesecurity.io/advisories/92" ] }
+		]
+	},
+
+
+
+
 
 	"mysql" : {
 		"vulnerabilities" : [
