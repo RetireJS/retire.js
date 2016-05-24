@@ -5,10 +5,7 @@ Retire.js
 
 #### What you require you must also retire
 
-There is a plethora of JavaScript libraries for use on the Web and in Node.JS apps out there. This greatly simplifies development,
-but we need to stay up-to-date on security fixes. "Using Components with Known Vulnerabilities" is now a part of the 
-[OWASP Top 10](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) list of security vulnerabilities and insecure libraries can pose a huge risk to your Web app. The goal of Retire.js is to help you detect the use of JS-library versions with 
-known vulnerabilities.
+There is a plethora of JavaScript libraries for use on the Web and in Node.JS apps out there. This greatly simplifies development,but we need to stay up-to-date on security fixes. "Using Components with Known Vulnerabilities" is now a part of the [OWASP Top 10](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) list of security risks and insecure libraries can pose a huge risk to your Web app. The goal of Retire.js is to help you detect the use of JS-library versions with known vulnerabilities.
 
 Retire.js can be used in many ways:
 
@@ -62,7 +59,7 @@ gulp.task('retire', function() {
 
 Chrome and firefox extensions 
 -------------
-Scans visited sites for references to insecure libraries, and puts warnings in the developer console. A icon on the address bar displays will also indicate if vulnerable libraries were loaded.
+Scans visited sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicate if vulnerable libraries were loaded.
 
 
 Burp and OWASP ZAP plugin
