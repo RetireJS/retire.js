@@ -2,7 +2,7 @@ var retire = require('./retire'),
     fs     = require('fs'),
     crypto = require('crypto'),
     path   = require('path'),
-    _      = require('underscore'),
+    _      = require('lodash'),
     log    = require('./utils').log,
     emitter   = new require('events').EventEmitter;
 
@@ -59,8 +59,8 @@ function printVulnerability(component, options) {
 }
 
 function shouldIgnore(fileSpecs, ignores) {
-  return _.detect(ignores, function(i) {
-    return _.detect(fileSpecs, function(j) {
+  return _.find(ignores, function(i) {
+    return _.find(fileSpecs, function(j) {
       return j.indexOf(i) === 0 || j.indexOf(path.resolve(i)) === 0 ; 
     });
   });

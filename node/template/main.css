@@ -1,0 +1,86 @@
+body, ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1em;
+}
+
+.retire-library {
+    margin: 0 0 1px 0;
+    padding: 15px;
+    font-size: .9em;
+    background-color: #eee;
+}
+
+.retire-results {
+    margin: 15px 0 0 0;
+}
+
+.retire-result {
+    overflow: auto;
+    margin: 0 0 5px 0;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.15);
+}
+
+.retire-resultInfo {
+    overflow: auto;
+    padding: 0 0 5px 0;
+}
+
+.retire-component,
+.retire-version,
+.retire-detection {
+    display: block;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.retire-vulnerabilities {
+    clear: both;
+    margin: 5px 0 0 0;
+    overflow: auto;
+    color: #444;
+}
+
+.retire-vulnerability {
+    padding: 10px 10px 0 10px;
+    margin: 0 0 5px 0;
+    border-top: 1px solid #eee;
+}
+
+.retire-label {
+    padding: 3px 7px;
+    font-size: .7em;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.2);
+}
+
+.retire-low {
+    background-color: #FFFBDF;
+}
+
+.retire-medium {
+    background-color: #FFD588;
+}
+
+.retire-high {
+    background-color: #FFAEAE;
+}
+
+.retire-info {
+    margin: 5px 0 0 0;
+    font-size: .8em;
+}
+
+.retire-info a {
+    color: darkcyan;
+    text-decoration: none;
+}
+
+.retire-info a:hover {
+    text-decoration: underline;
+}

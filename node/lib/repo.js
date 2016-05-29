@@ -1,7 +1,7 @@
 /* global require, console, exports */
-var _       = require('underscore')._,
+var _       = require('lodash'),
     fs      = require('fs'),
-    req     = require('request'),
+    https     = require('https'),
     path    = require('path'),
     log     = require('./utils').log,
     forward   = require('../lib/utils').forwardEvent,
@@ -11,20 +11,18 @@ var emitter = require('events').EventEmitter;
 
 function loadJson(url, options) {
 	var events = new emitter();
-    var request = req;
     var logger = log(options);
 	logger.info('Downloading ' + url + ' ...');
-	if (options.proxy) {
-        request = request.defaults({'proxy' : options.proxy});
-    }
-    request.get(url, function (error, r, data) {
-        if (error) {
-            events.emit('stop', 'Error downloading: ' + url, error);
-        } else {
-            data = options.process ? options.process(data) : data;
-            var obj = JSON.parse(data);
-            events.emit('done', obj);
-        }
+    https.get(url, function (res) {
+        var json = '';
+        res.on('data', function (data) {
+            json += data.toString();
+        });
+        res.on('end', function () {
+            events.emit('done', JSON.parse(options.process ? options.process(json) : json));
+        });
+    }).on('error', function (error) {
+        events.emit('stop', 'Error downloading: ' + url, error);
     });
 	return events;
 }

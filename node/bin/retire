@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var _         = require('underscore')._,
+var _         = require('lodash'),
     program   = require('commander'),
     retire    = require('../lib/retire'),
     repo      = require('../lib/repo'),
@@ -10,6 +10,7 @@ var _         = require('underscore')._,
     os        = require('os'),
     path      = require('path'),
     fs        = require('fs'),
+    ncp       = require('ncp').ncp,
     emitter   = new require('events').EventEmitter;
 
 var events = new emitter();
@@ -23,7 +24,6 @@ scanner.on('vulnerable-dependency-found', function(results) {
   vulnsFound = true;
   finalResults.push(results);
 });
-
 
 /*
  * Parse command line flags.
@@ -46,6 +46,7 @@ program
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
   .option('--outputformat <format>', 'Valid formats: text, json')
   .option('--outputpath <path>', 'File to which output should be written')
+  .option('--htmlreport [path]', 'Folder to which HTML report should be written (defaults to \'RetireJS\')')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
@@ -53,7 +54,7 @@ program
 
 var config = _.extend({ path: '.' }, _.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'exitwith'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'htmlreport', 'exitwith'
 ]));
 
 if (!config.nocache) {
@@ -154,7 +155,23 @@ events.on('scan-done', function() {
       if (! stream.write('', exit)) {
         stream.on('drain', exit);
       }
-    }
+    } 
+  } else if (config.htmlreport) {
+    config.htmlreport = typeof config.htmlreport === 'string' ? config.htmlreport : 'RetireJS';
+    ncp(__dirname + '/../template', config.htmlreport, function (err) {
+      if (err) {
+        return console.error(err);
+      } else {
+        finalResults.forEach(function (file) {
+            file.results = _.uniqWith(file.results, _.isEqual);
+        });
+        fs.writeFile(config.htmlreport + '/retire-data.js', 'var retireJSON = ' + JSON.stringify(finalResults) + ';', function (err) {
+          if (err) {
+            return console.error(err);
+          }
+        });
+      }
+    });
   } else {
     if (config.fileOutput) {
       config.fileOutput.stream.end();

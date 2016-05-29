@@ -32,6 +32,7 @@ Options:
 --proxy <url>           Proxy url (http://some.sever:8080)
 --outputformat <format> Valid formats: text, json
 --outputpath <path>     File to which output should be written
+--htmlreport [path]     Folder to which HTML report should be written (defaults to 'RetireJS')
 --ignore <paths>        Comma delimited list of paths to ignore
 --ignorefile <path>     Custom .retireignore file, defaults to .retireignore
 --exitwith <code>       Custom exit code (default: 13) when vulnerabilities are found

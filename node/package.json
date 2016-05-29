@@ -2,7 +2,7 @@
   "author": "Erlend Oftedal <erlend@oftedal.no>",
   "name": "retire",
   "description": "Retire is a tool for detecting use of vulnerable libraries",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/RetireJS/retire.js.git"
@@ -14,8 +14,8 @@
   "dependencies": {
     "commander": "2.5.x",
     "read-installed": "^4.0.3",
-    "request": "~2.x.x",
-    "underscore": "1.7.x - 1.8.x",
+    "lodash": "^4.13.1",
+    "ncp": "2.0.0",
     "walkdir": "0.0.7"
   },
   "devDependencies": {
