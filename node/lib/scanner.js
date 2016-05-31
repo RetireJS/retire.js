@@ -62,7 +62,7 @@ function shouldIgnore(fileSpecs, ignores) {
   return _.detect(ignores, function(i) {
     return _.detect(fileSpecs, function(j) {
       return j.indexOf(i) === 0 || j.indexOf(path.resolve(i)) === 0 ; 
-    })
+    });
   });
 }
 
@@ -104,7 +104,7 @@ function scanDependencies(dependencies, nodeRepo, options) {
 
 function toModulePath(dep) {
   function f(d) {
-    if (d.parent != null) return f(d.parent) + "/node_modules/" + d.component;
+    if (d.parent) return f(d.parent) + "/node_modules/" + d.component;
     return "";
   }
   return path.resolve(f(dep).substring(1));
