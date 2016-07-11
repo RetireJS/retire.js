@@ -346,6 +346,7 @@
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4941/" ]
 			},
 			{
+				"atOrAbove" : "3.0.0",
 				"below" : "3.10.3",
 				"severity": "high",
 				"identifiers": {"CVE": [ "CVE-2013-4940" ] },
