@@ -761,7 +761,18 @@
 					"summary": "Arbitrary Code Execution Through SVG Animation Functionality"
 				},
 				"info" : [ "https://srcclr.com/security/arbitrary-code-execution-through-svg/javascript/s-2253" ]
+			},
+			{
+				"atOrAbove" : "1.3.3",
+				"below" : "2.0.0.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Arbitrary Code Execution Through access to constructors"
+				},
+				"info" : [ "https://srcclr.com/security/arbitrary-code-execution-via-constructor-access/javascript/sid-2589/summary" ]
 			}
+
+
 		],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
