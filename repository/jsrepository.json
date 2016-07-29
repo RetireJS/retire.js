@@ -769,7 +769,10 @@
 				"identifiers": {
 					"summary": "Arbitrary Code Execution Through access to constructors"
 				},
-				"info" : [ "https://srcclr.com/security/arbitrary-code-execution-via-constructor-access/javascript/sid-2589/summary" ]
+				"info" : [ 
+					"https://github.com/angular/angular.js/issues/14939",
+					"https://srcclr.com/security/arbitrary-code-execution-via-constructor-access/javascript/sid-2589/summary" 
+				]
 			}
 
 
