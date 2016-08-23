@@ -120,7 +120,7 @@ exports.check = function(component, version, repo) {
 };
 
 exports.replaceVersion = function(jsRepoJsonAsText) {
-	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z_\\\\-]+');
+	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z_\\\\-]+?');
 };
 
 exports.isVulnerable = function(results) {
