@@ -113,8 +113,11 @@ function toModulePath(dep) {
 
 
 function scanBowerFile(file, repo, options) {
+  if (options.ignore && shouldIgnore([file], options.ignore)) {
+    return;
+  }
   try {
-  var bower = JSON.parse(fs.readFileSync(file));
+    var bower = JSON.parse(fs.readFileSync(file));
     if (bower.version) {
       var results = retire.check(bower.name, bower.version, repo);
       printResults(file, results, options);
