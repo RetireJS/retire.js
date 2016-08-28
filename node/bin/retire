@@ -84,7 +84,7 @@ if(config.ignorefile) {
   } else {
     var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
     ignored = _.map(lines, function(e) { return e[0] === '@' ? e.slice(1) : path.resolve(e); });
-    config.ignore.paths = config.ignore.concat(ignored);
+    config.ignore.paths = config.ignore.paths.concat(ignored);
   }
 }
 

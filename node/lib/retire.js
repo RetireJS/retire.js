@@ -5,7 +5,7 @@
 
 
 var exports = exports || {};
-exports.version = '1.2.0';
+exports.version = '1.2.1';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -120,7 +120,7 @@ exports.check = function(component, version, repo) {
 };
 
 exports.replaceVersion = function(jsRepoJsonAsText) {
-	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z_\\\\-]+?');
+	return jsRepoJsonAsText.replace(/§§version§§/g, '[0-9][0-9.a-z_\\\\-]+');
 };
 
 exports.isVulnerable = function(results) {
