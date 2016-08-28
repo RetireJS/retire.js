@@ -41,6 +41,7 @@
 				"atOrAbove" : "1.4.0",
 				"below" : "1.12.0",
 				"identifiers": {
+					"issue" : "2432",
 					"summary": "3rd party CORS request may execute"
 				},
 				"severity": "medium",
@@ -50,6 +51,7 @@
 				"atOrAbove" : "1.12.3",
 				"below" : "3.0.0-beta1",
 				"identifiers": {
+					"issue" : "2432",
 					"summary": "3rd party CORS request may execute"
 				},
 				"severity": "medium",

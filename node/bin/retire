@@ -16,7 +16,7 @@ var events = new emitter();
 var jsRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
-var defaultIgnoreFile = '.retireignore';
+var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 var finalResults = [];
 
 scanner.on('vulnerable-dependency-found', function(results) {
@@ -47,7 +47,7 @@ program
   .option('--outputformat <format>', 'Valid formats: text, json')
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
-  .option('--ignorefile <path>', 'Custom .retireignore file, defaults to .retireignore')
+  .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .parse(process.argv);
 
@@ -60,9 +60,10 @@ if (!config.nocache) {
   config.cachedir = path.resolve(os.tmpdir(), '.retire-cache/');
 }
 config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
+config.ignore = { paths : config.ignore, descriptors: [] };
 
-if (!config.ignorefile && fs.existsSync(defaultIgnoreFile)) {
-  config.ignorefile = defaultIgnoreFile;
+if (!config.ignorefile) {
+  config.ignorefile = defaultIgnoreFiles.find(x=>fs.existsSync(x));
 }
 
 if(config.ignorefile) {
@@ -70,9 +71,21 @@ if(config.ignorefile) {
     console.warn('Error: Could not read ignore file: ' + config.ignorefile);
     process.exit(1);
   }
-  var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
-  ignored = _.map(lines, function(e) { return e[0] === '@' ? e.slice(1) : path.resolve(e); });
-  config.ignore = config.ignore.concat(ignored);
+  if (config.ignorefile.substr(-5) === ".json") {
+    try {
+      var ignored = JSON.parse(fs.readFileSync(config.ignorefile).toString())
+    } catch(e) {
+      console.warn('Error: Invalid ignore file: ' + config.ignorefile, e);
+      process.exit(1);
+    }
+    config.ignore.descriptors = ignored;
+    var ignoredPaths = ignored.map(x=>x.path).filter(x=>x);
+    config.ignore.paths = config.ignore.paths.concat(ignoredPaths);
+  } else {
+    var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
+    ignored = _.map(lines, function(e) { return e[0] === '@' ? e.slice(1) : path.resolve(e); });
+    config.ignore.paths = config.ignore.concat(ignored);
+  }
 }
 
 events.on('load-js-repo', function() {

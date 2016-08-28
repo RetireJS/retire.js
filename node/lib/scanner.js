@@ -17,6 +17,7 @@ var hash = {
 };
 
 function printResults(file, results, options) {
+  removeIgnored(results, options.ignore);
   if (!retire.isVulnerable(results) && !options.verbose) return;
   var logger = log(options).info;
   if (retire.isVulnerable(results)) {
@@ -58,17 +59,37 @@ function printVulnerability(component, options) {
   return string;
 }
 
-function shouldIgnore(fileSpecs, ignores) {
-  return _.detect(ignores, function(i) {
+function shouldIgnorePath(fileSpecs, ignores) {
+  return _.detect(ignores.paths, function(i) {
     return _.detect(fileSpecs, function(j) {
       return j.indexOf(i) === 0 || j.indexOf(path.resolve(i)) === 0 ; 
     });
   });
 }
 
+function removeIgnored(results, ignores) {
+  results.forEach(r => {
+    if (!r.hasOwnProperty("vulnerabilities")) return;
+    ignores.descriptors.forEach(i => {
+      if (r.component !== i.component) return;
+      if (i.version && r.version !== i.version) return;
+      if (i.identifiers) {
+        r.vulnerabilities = r.vulnerabilities.filter(v => {
+          var matches = _.map(i.identifiers, (value, key) => {
+            return v.hasOwnProperty("identifiers") && v.identifiers.hasOwnProperty(key) && v.identifiers[key] === value;
+          });
+          return !matches.every(x => x === true);
+        });
+        return;
+      }
+      r.vulnerabilities = [];
+    });
+    if (r.vulnerabilities.length == 0) delete r.vulnerabilities;
+  });
+}
 
 function scanJsFile(file, repo, options) {
-  if (options.ignore && shouldIgnore([file], options.ignore)) {
+  if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
   var results = retire.scanFileName(file, repo);
@@ -85,7 +106,7 @@ function printParent(comp, options) {
 
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
-    if (options.ignore && shouldIgnore([dependencies[i].component, toModulePath(dependencies[i])], options.ignore)) {
+    if (options.ignore && shouldIgnorePath([dependencies[i].component, toModulePath(dependencies[i])], options.ignore)) {
       continue;
     }
     results = retire.scanNodeDependency(dependencies[i], nodeRepo);
@@ -113,7 +134,7 @@ function toModulePath(dep) {
 
 
 function scanBowerFile(file, repo, options) {
-  if (options.ignore && shouldIgnore([file], options.ignore)) {
+  if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
   try {
@@ -124,6 +145,7 @@ function scanBowerFile(file, repo, options) {
     }
   } catch (e) {
     log(options).warn('Could not parse file: ' + file);
+    throw e;
   }
 }
 

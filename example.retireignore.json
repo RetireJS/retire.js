@@ -1,0 +1,14 @@
+[
+	{ 
+		"component": "jquery",
+		"identifiers" : { "issue": "2432"}
+	},
+	{ 
+		"component": "jquery",
+		"version" : "2.1.4"
+	},
+	{
+		"path" : "node_modules"
+	}
+
+]
