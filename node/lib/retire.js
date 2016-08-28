@@ -5,7 +5,7 @@
 
 
 var exports = exports || {};
-exports.version = '1.2.1';
+exports.version = '1.2.2';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -19,7 +19,9 @@ function scan(data, extractor, repo, matcher) {
 		if (!isDefined(extractors)) continue;
 		for (var i in extractors) {
 			var match = matcher(extractors[i], data);
-			if (match) detected.push({ version: match, component: component, detection: extractor });
+			if (match) {
+				detected.push({ version: match, component: component, detection: extractor });
+			}
 		}
 	}
 	return detected;

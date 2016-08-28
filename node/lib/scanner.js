@@ -68,6 +68,7 @@ function shouldIgnorePath(fileSpecs, ignores) {
 }
 
 function removeIgnored(results, ignores) {
+  if (!ignores.hasOwnProperty("descriptors")) return;
   results.forEach(r => {
     if (!r.hasOwnProperty("vulnerabilities")) return;
     ignores.descriptors.forEach(i => {
