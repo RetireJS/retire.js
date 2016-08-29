@@ -75,12 +75,7 @@ function removeIgnored(results, ignores) {
       if (r.component !== i.component) return;
       if (i.version && r.version !== i.version) return;
       if (i.identifiers) {
-        r.vulnerabilities = r.vulnerabilities.filter(v => {
-          var matches = _.map(i.identifiers, (value, key) => {
-            return v.hasOwnProperty("identifiers") && v.identifiers.hasOwnProperty(key) && v.identifiers[key] === value;
-          });
-          return !matches.every(x => x === true);
-        });
+        removeIgnoredVulnerabilitiesByIdentifier(i.identifiers, r);
         return;
       }
       r.vulnerabilities = [];
@@ -88,6 +83,19 @@ function removeIgnored(results, ignores) {
     if (r.vulnerabilities.length == 0) delete r.vulnerabilities;
   });
 }
+
+function removeIgnoredVulnerabilitiesByIdentifier(identifiers, result) {
+  result.vulnerabilities = result.vulnerabilities.filter(v => {
+    if (!v.hasOwnProperty("identifiers")) return true;
+    return !_.every(identifiers, (value, key) => hasIdentifier(v, key, value));
+  });
+}
+function hasIdentifier(vulnerability, key, value) {
+  if (!vulnerability.identifiers.hasOwnProperty(key)) return false;
+  var identifier = vulnerability.identifiers[key];
+  return Array.isArray(identifier) ? identifier.some(x => x === value) : identifier === value;
+}
+
 
 function scanJsFile(file, repo, options) {
   if (options.ignore && shouldIgnorePath([file], options.ignore)) {

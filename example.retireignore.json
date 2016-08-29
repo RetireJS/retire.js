@@ -1,14 +1,17 @@
 [
 	{ 
 		"component": "jquery",
-		"identifiers" : { "issue": "2432"}
+		"identifiers" : { "issue": "2432"},
+		"justification" : "We dont call external resources with jQuery"
 	},
 	{ 
 		"component": "jquery",
-		"version" : "2.1.4"
+		"version" : "2.1.4",
+		"justification" : "We dont call external resources with jQuery"
 	},
 	{
-		"path" : "node_modules"
+		"path" : "node_modules",
+		"justification" : "The node modules are only used for building - client side dependencies are using bower"
 	}
 
 ]
