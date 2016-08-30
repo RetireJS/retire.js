@@ -2,13 +2,23 @@
  * This file is used by the browser plugins and the Cli scanner and thus 
  * cannot have any external dependencies (no require)	
  */
-
+/*jshint esversion:6 */
 
 var exports = exports || {};
-exports.version = '1.2.3';
+exports.version = '1.2.4';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
+}
+
+function uniq(results){
+	var keys = {};
+	return results.filter(r => {
+		let k = r.component + ' ' + r.version;
+		console.log(k);
+		keys[k] = keys[k] || 0;
+		return keys[k]++ === 0;
+	});
 }
 
 function scan(data, extractor, repo, matcher) {
@@ -24,7 +34,7 @@ function scan(data, extractor, repo, matcher) {
 			}
 		}
 	}
-	return detected;
+	return uniq(detected);
 }
 
 function simpleMatch(regex, data) {

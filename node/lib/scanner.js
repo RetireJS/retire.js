@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 var retire = require('./retire'),
     fs     = require('fs'),
     crypto = require('crypto'),
@@ -80,7 +81,7 @@ function removeIgnored(results, ignores) {
       }
       r.vulnerabilities = [];
     });
-    if (r.vulnerabilities.length == 0) delete r.vulnerabilities;
+    if (r.vulnerabilities.length === 0) delete r.vulnerabilities;
   });
 }
 
