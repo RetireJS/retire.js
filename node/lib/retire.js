@@ -5,7 +5,7 @@
 /*jshint esversion:6 */
 
 var exports = exports || {};
-exports.version = '1.2.4';
+exports.version = '1.2.5';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -15,7 +15,6 @@ function uniq(results){
 	var keys = {};
 	return results.filter(r => {
 		let k = r.component + ' ' + r.version;
-		console.log(k);
 		keys[k] = keys[k] || 0;
 		return keys[k]++ === 0;
 	});
