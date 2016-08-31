@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/*jshint esversion: 6 */
 
 var _         = require('underscore')._,
     program   = require('commander'),
@@ -73,7 +74,7 @@ if(config.ignorefile) {
   }
   if (config.ignorefile.substr(-5) === ".json") {
     try {
-      var ignored = JSON.parse(fs.readFileSync(config.ignorefile).toString())
+      var ignored = JSON.parse(fs.readFileSync(config.ignorefile).toString());
     } catch(e) {
       console.warn('Error: Invalid ignore file: ' + config.ignorefile, e);
       process.exit(1);
@@ -179,7 +180,7 @@ events.on('scan-done', function() {
 
 process.on('uncaughtException', function (err) {
   console.warn('Exception caught: ', arguments);
-  console.warn(err.stack)
+  console.warn(err.stack);
   process.exit(1);
 });
 

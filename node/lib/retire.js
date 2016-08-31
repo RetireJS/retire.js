@@ -5,7 +5,7 @@
 /*jshint esversion:6 */
 
 var exports = exports || {};
-exports.version = '1.2.6';
+exports.version = '1.2.7';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
