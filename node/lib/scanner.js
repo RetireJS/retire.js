@@ -155,7 +155,6 @@ function scanBowerFile(file, repo, options) {
     }
   } catch (e) {
     log(options).warn('Could not parse file: ' + file);
-    throw e;
   }
 }
 
