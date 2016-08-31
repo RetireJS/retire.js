@@ -2,10 +2,9 @@
  * This file is used by the browser plugins and the Cli scanner and thus 
  * cannot have any external dependencies (no require)	
  */
-/*jshint esversion:6 */
 
 var exports = exports || {};
-exports.version = '1.2.7';
+exports.version = '1.2.8';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -13,7 +12,7 @@ function isDefined(o) {
 
 function uniq(results){
 	var keys = {};
-	return results.filter(r => {
+	return results.filter(function(r) {
 		var k = r.component + ' ' + r.version;
 		keys[k] = keys[k] || 0;
 		return keys[k]++ === 0;

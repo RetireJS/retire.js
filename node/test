@@ -2,7 +2,7 @@
 
 set -e
 
-node_modules/.bin/jshint lib bin spec/tests
+node_modules/.bin/jshint lib bin/retire spec/tests
 
 rm   -rf spec/out
 mkdir -p spec/out

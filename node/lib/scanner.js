@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 var retire = require('./retire'),
     fs     = require('fs'),
     crypto = require('crypto'),
@@ -70,9 +70,9 @@ function shouldIgnorePath(fileSpecs, ignores) {
 
 function removeIgnored(results, ignores) {
   if (!ignores.hasOwnProperty("descriptors")) return;
-  results.forEach(r => {
+  results.forEach(function(r) {
     if (!r.hasOwnProperty("vulnerabilities")) return;
-    ignores.descriptors.forEach(i => {
+    ignores.descriptors.forEach(function(i) {
       if (r.component !== i.component) return;
       if (i.version && r.version !== i.version) return;
       if (i.identifiers) {
@@ -86,15 +86,15 @@ function removeIgnored(results, ignores) {
 }
 
 function removeIgnoredVulnerabilitiesByIdentifier(identifiers, result) {
-  result.vulnerabilities = result.vulnerabilities.filter(v => {
+  result.vulnerabilities = result.vulnerabilities.filter(function(v) {
     if (!v.hasOwnProperty("identifiers")) return true;
-    return !_.every(identifiers, (value, key) => hasIdentifier(v, key, value));
+    return !_.every(identifiers, function(value, key) { return hasIdentifier(v, key, value); });
   });
 }
 function hasIdentifier(vulnerability, key, value) {
   if (!vulnerability.identifiers.hasOwnProperty(key)) return false;
   var identifier = vulnerability.identifiers[key];
-  return Array.isArray(identifier) ? identifier.some(x => x === value) : identifier === value;
+  return Array.isArray(identifier) ? identifier.some(function(x) { return x === value; }) : identifier === value;
 }
 
 

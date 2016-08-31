@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/*jshint esversion: 6 */
 
 var _         = require('underscore')._,
     program   = require('commander'),
@@ -64,7 +63,7 @@ config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { re
 config.ignore = { paths : config.ignore, descriptors: [] };
 
 if (!config.ignorefile) {
-  config.ignorefile = defaultIgnoreFiles.find(x=>fs.existsSync(x));
+  config.ignorefile = defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];
 }
 
 if(config.ignorefile) {
@@ -80,7 +79,9 @@ if(config.ignorefile) {
       process.exit(1);
     }
     config.ignore.descriptors = ignored;
-    var ignoredPaths = ignored.map(x=>x.path).filter(x=>x);
+    var ignoredPaths = ignored
+      .map(function(x) { return x.path; })
+      .filter(function(x) { return x; });
     config.ignore.paths = config.ignore.paths.concat(ignoredPaths);
   } else {
     var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
