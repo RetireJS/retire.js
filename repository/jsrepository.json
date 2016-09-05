@@ -947,7 +947,26 @@
 	},
 
 	"react" : {
-		"vulnerabilities" : [],
+		"vulnerabilities" : [
+			{ 
+				"atOrAbove" : "0.4.0", "below" : "0.4.2",
+				"severity" : "low", 
+				"identifiers" : { "CVE": "CVE-2013-7035", "summary":"potential XSS vulnerability can arise when using user data as a key" },
+				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
+			},
+			{ 
+				"atOrAbove" : "0.5.0", "below" : "0.5.2",
+				"severity" : "low", 
+				"identifiers" : { "CVE": "CVE-2013-7035", "summary":"potential XSS vulnerability can arise when using user data as a key" },
+				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
+			},
+			{ 
+				"below" : "0.14.0",
+				"severity" : "low", 
+				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
+				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
+			}
+		],
 		"extractors" : {
 			"func" : [ 
 				"react.version",
