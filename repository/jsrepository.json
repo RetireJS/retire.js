@@ -68,10 +68,13 @@
 								"/\\*!? jQuery v(§§version§§)", "\\* jQuery JavaScript Library v(§§version§§)",
 								"\\* jQuery (§§version§§) - New Wave Javascript", "// \\$Id: jquery.js,v (§§version§§)",
 								"/\\*! jQuery v(§§version§§)",
-                                                                "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
-                                                                "[^a-z]m=\"(§§version§§)\",.*[^a-z]jquery:m,",
-                                                                "[^a-z.]jquery:[ ]?\"(§§version§§)\""
-								],
+                "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
+                "[^a-z]m=\"(§§version§§)\",.*[^a-z]jquery:m,",
+                "[^a-z.]jquery:[ ]?\"(§§version§§)\""
+			],
+			"filecontentreplace" : [
+				"/var [a-z]=[a-z]\\.document,([a-z])=\"(§§version§§)\",([a-z])=.{130,160};\\3\\.fn=\\3\\.prototype=\\{jquery:\\1/$2/"
+			],
 			"hashes"		: {}
 		}
 	},

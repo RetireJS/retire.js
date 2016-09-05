@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '1.2.9';
+exports.version = '1.2.10';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -42,11 +42,11 @@ function simpleMatch(regex, data) {
 }
 function replacementMatch(regex, data) {
 	var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(regex);
-	var re = new RegExp("(" + ar[1] + ")");
+	var re = new RegExp(ar[1]);
 	var match = re.exec(data);
 	var ver = null;
 	if (match) {
-		ver = match[1].replace(new RegExp(ar[1]), ar[2]);
+		ver = match[0].replace(new RegExp(ar[1]), ar[2]);
 		return ver;
 	}
 	return null;
