@@ -61,7 +61,10 @@
 
 		],
 		"extractors" : {
-			"func"    		: [ "/[0-9.]+/.test(jQuery.fn.jquery) ? jQuery.fn.jquery : undefined" ],
+			"func"    		: [ 
+								"/[0-9.]+/.test(jQuery.fn.jquery) ? jQuery.fn.jquery : undefined", 
+								"require('jquery').fn.jquery" 
+			],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
@@ -937,6 +940,20 @@
 			"func"			: [ "DOMPurify.version" ],
 			"filecontent"	: [ "DOMPurify.version = '(§§version§§)';" ],
 			"hashes"		: {}
+		}
+	},
+
+	"react" : {
+		"vulnerabilities" : [],
+		"extractors" : {
+			"func" : [ 
+				"react.version",
+				"require('react').version"
+			],
+			"filecontent" : [
+				"/\\*\\*\n +\\* React \\(with addons\\) ?v(§§version§§)",
+				"/\\*\\*\n +\\* React v(§§version§§)"
+			]
 		}
 	},
 
