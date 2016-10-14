@@ -772,7 +772,7 @@
 			},
 			{
 				"atOrAbove" : "1.3.3",
-				"below" : "2.0.0.0",
+				"below" : "1.5.9",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "Arbitrary Code Execution Through access to constructors"
