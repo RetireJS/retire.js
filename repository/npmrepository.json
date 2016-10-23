@@ -1227,10 +1227,10 @@
   "fuelux": {
     "vulnerabilities": [
       {
-				"below":"100.0.0",
+				"below":"3.15.7",
         "atOrAbove": "0.0.0",
         "identifiers": { "advisory": "XSS in Pillbox" },
-        "info": [ "https://nodesecurity.io/advisories133" ]
+        "info": [ "https://nodesecurity.io/advisories/133" ]
       }
     ]
   },
