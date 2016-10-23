@@ -41,6 +41,13 @@ console.log(count + " regexes validated.")
 
 
 console.log("Checking that npmrepository is valid json...");
-JSON.parse(fs.readFileSync(__dirname + "/npmrepository.json"));
+var npmRepo = JSON.parse(fs.readFileSync(__dirname + "/npmrepository.json"));
+for (var i in npmRepo) {
+	for (var v in npmRepo[i].vulnerabilities) {
+		if (!npmRepo[i].vulnerabilities[v].below) {
+			throw new Error(i + " is missing below");
+		}
+	}
+}
 
 console.log("Success");

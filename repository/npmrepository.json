@@ -781,6 +781,7 @@
 	"nhouston": {
 		"vulnerabilities" : [
 			{
+				"below":"100.0.0",
 				"atOrAbove" : "0.0.0",
 				"severity": "high",
 				"identifiers": {
@@ -1197,6 +1198,7 @@
   "node-krb5": {
     "vulnerabilities": [
       {
+				"below":"100.0.0",
         "atOrAbove": "0.0.0",
         "identifiers": { "advisory": "Spoofing attack due to unvalidated KDC" },
         "info": [ "https://nodesecurity.io/advisories/136" ]
@@ -1225,6 +1227,7 @@
   "fuelux": {
     "vulnerabilities": [
       {
+				"below":"100.0.0",
         "atOrAbove": "0.0.0",
         "identifiers": { "advisory": "XSS in Pillbox" },
         "info": [ "https://nodesecurity.io/advisories133" ]
@@ -1281,6 +1284,7 @@
   "gmail-js": {
     "vulnerabilities": [
       {
+ 				"below":"100.0.0",     	
         "atOrAbove": "0.0.0",
         "identifiers": { "advisory": "DOM-based XSS" },
         "info": [ "https://nodesecurity.io/advisories/125" ]
@@ -1290,6 +1294,7 @@
   "bootstrap-tagsinput": {
     "vulnerabilities": [
       {
+				"below":"100.0.0",
         "atOrAbove": "0.0.0",
         "identifiers": { "advisory": "XSS in itemTitle parameter" },
         "info": [ "https://nodesecurity.io/advisories/124" ]
