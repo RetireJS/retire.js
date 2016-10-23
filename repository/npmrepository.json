@@ -1050,7 +1050,7 @@
 	"cli": {
 		"vulnerabilities" : [
 			{
-				"atOrAbove" : "0.0.0",
+				"below" : "1.0.0",
 				"severity": "low",
 				"identifiers": {"advisory": "Arbitrary File Write"},
 				"info" : [ "https://nodesecurity.io/advisories/95" ]
