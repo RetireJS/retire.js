@@ -3,7 +3,7 @@ var retire = require('./retire'),
     fs     = require('fs'),
     crypto = require('crypto'),
     path   = require('path'),
-    _      = require('underscore'),
+    utils  = require('./utils'),
     log    = require('./utils').log,
     emitter   = new require('events').EventEmitter;
 
@@ -51,8 +51,8 @@ function printVulnerability(component, options) {
       string += 'severity: ' + vulnerability.severity + '; ';
     }
     if (vulnerability.identifiers) {
-      string += _.map(vulnerability.identifiers, function(id, name) {
-        return name + ': ' + _.flatten([id]).join(' ');
+      string += utils.map(vulnerability.identifiers, function(id, name) {
+        return name + ': ' + utils.flatten([id]).join(' ');
       }).join(', ') + '; ';
     }
     string += vulnerability.info.join(options.outputformat === 'clean' ? '\n' : ' ');
@@ -61,8 +61,8 @@ function printVulnerability(component, options) {
 }
 
 function shouldIgnorePath(fileSpecs, ignores) {
-  return _.detect(ignores.paths, function(i) {
-    return _.detect(fileSpecs, function(j) {
+  return utils.detect(ignores.paths, function(i) {
+    return utils.detect(fileSpecs, function(j) {
       return j.indexOf(i) === 0 || j.indexOf(path.resolve(i)) === 0 ; 
     });
   });
@@ -88,7 +88,7 @@ function removeIgnored(results, ignores) {
 function removeIgnoredVulnerabilitiesByIdentifier(identifiers, result) {
   result.vulnerabilities = result.vulnerabilities.filter(function(v) {
     if (!v.hasOwnProperty("identifiers")) return true;
-    return !_.every(identifiers, function(value, key) { return hasIdentifier(v, key, value); });
+    return !utils.every(identifiers, function(value, key) { return hasIdentifier(v, key, value); });
   });
 }
 function hasIdentifier(vulnerability, key, value) {

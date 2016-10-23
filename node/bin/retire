@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var _         = require('underscore')._,
+var utils     = require('../lib/utils'),
     program   = require('commander'),
     retire    = require('../lib/retire'),
     repo      = require('../lib/repo'),
@@ -51,7 +51,7 @@ program
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .parse(process.argv);
 
-var config = _.extend({ path: '.' }, _.pick(program, [
+var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
   'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'exitwith'
 ]));
@@ -59,7 +59,7 @@ var config = _.extend({ path: '.' }, _.pick(program, [
 if (!config.nocache) {
   config.cachedir = path.resolve(os.tmpdir(), '.retire-cache/');
 }
-config.ignore = config.ignore ? _.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
+config.ignore = config.ignore ? utils.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
 config.ignore = { paths : config.ignore, descriptors: [] };
 
 if (!config.ignorefile) {
@@ -85,7 +85,7 @@ if(config.ignorefile) {
     config.ignore.paths = config.ignore.paths.concat(ignoredPaths);
   } else {
     var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
-    ignored = _.map(lines, function(e) { return e[0] === '@' ? e.slice(1) : path.resolve(e); });
+    ignored = utils.map(lines, function(e) { return e[0] === '@' ? e.slice(1) : path.resolve(e); });
     config.ignore.paths = config.ignore.paths.concat(ignored);
   }
 }

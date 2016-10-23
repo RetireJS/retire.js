@@ -1,5 +1,5 @@
 /* global require, console, exports */
-var _       = require('underscore')._,
+var utils   = require('./utils'),
     fs      = require('fs'),
     req     = require('request'),
     path    = require('path'),
@@ -64,7 +64,7 @@ function loadFromCache(url, cachedir, options) {
 }
 
 exports.loadrepository = function(repoUrl, options) {
-    options = _.extend(options, { process : retire.replaceVersion });
+    options = utils.extend(options, { process : retire.replaceVersion });
     if (options.nocache) {
         return loadJson(repoUrl, options);
     }
@@ -72,6 +72,6 @@ exports.loadrepository = function(repoUrl, options) {
 };
 
 exports.loadrepositoryFromFile = function(filepath, options) {
-    options = _.extend(options, { process : retire.replaceVersion });
+    options = utils.extend(options, { process : retire.replaceVersion });
 	return loadJsonFromFile(filepath, options);
 };
