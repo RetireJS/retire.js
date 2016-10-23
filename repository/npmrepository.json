@@ -87,7 +87,7 @@
 	},
 	"npm" : {
 		"vulnerabilities" : [
-			{ "below" : "3.8.2 ", "atOrabove": "3.0.0", "info" : [ "https://nodesecurity.io/advisories/98" ] },
+			{ "below" : "3.8.2 ", "atOrAbove": "3.0.0", "info" : [ "https://nodesecurity.io/advisories/98" ] },
 			{ "below" : "2.15.1", "info" : [ "https://nodesecurity.io/advisories/98" ] }
 		]
 	},
@@ -134,7 +134,12 @@
 
 	"ws" : {
 		"vulnerabilities" : [
-			{ "below" : "1.0.1", "info" : [ "https://nodesecurity.io/advisories/67" ] }
+			{ "below" : "1.0.1", "info" : [ "https://nodesecurity.io/advisories/67" ] },
+			{
+        "below": "1.1.1",
+        "identifiers": { "advisory": "DoS due to excessively large websocket message" },
+        "info": [ "https://nodesecurity.io/advisories/120" ]
+      }
 		]
 	},
 
@@ -717,7 +722,12 @@
 					"summary": "Sanitization not applied recursively"
 				},
 				"info" : [ "https://github.com/punkave/sanitize-html/issues/29" ]
-			}
+			},
+			{
+        "below": "1.4.3",
+        "identifiers": { "advisory": "XSS - Sanitization not applied recursively" },
+        "info": [ "https://nodesecurity.io/advisories/135" ]
+      }
 		]
 	},	
 	"sequelize-restful": {
@@ -730,7 +740,12 @@
 				"severity" : "high",
 				"identifiers" : { "CVE":[ "CVE-2015-1369" ] }, 
 				"info" : [ "https://nodesecurity.io/advisories/sequelize-sql-injection-order", "https://github.com/sequelize/sequelize/issues/2906" ] 
-			} 
+			},
+      {
+        "below": "3.23.6",
+        "identifiers": { "advisory": "SQL Injection via GeoJSON" },
+        "info": [ "https://nodesecurity.io/advisories/122" ]
+      } 
 		]	
 	},
 	"paypal-ipn": {
@@ -997,5 +1012,310 @@
 				"info" : [ "http://nodesecurity.io/advisories/inert_hidden_directories_always_served" ]
 			}
 		]
-	}
+	},
+
+	"electron-packager": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "5.1.2",
+				"below" : "7.0.0",
+				"severity": "low",
+				"identifiers": {"advisory": "SSL Validation Defaults to False"},
+				"info" : [ "https://nodesecurity.io/advisories/104" ]
+			}
+		]
+	},
+	"csrf-lite": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove":"0.1.1",
+				"below" : "0.1.2",
+				"severity": "low",
+				"identifiers": {"advisory": "Non-Constant Time String Comparison"},
+				"info" : [ "https://nodesecurity.io/advisories/94" ]
+			}
+		]
+	},
+	"engine.io-client": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove":"1.6.8",
+				"below" : "1.6.9",
+				"severity": "medium",
+				"identifiers": {"advisory": "Insecure Defaults Allow MITM Over TLS"},
+				"info" : [ "https://nodesecurity.io/advisories/99" ]
+			}
+		]
+	},
+	"cli": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "0.0.0",
+				"severity": "low",
+				"identifiers": {"advisory": "Arbitrary File Write"},
+				"info" : [ "https://nodesecurity.io/advisories/95" ]
+			}
+		]
+	},
+	"negotiator": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove":"0.6.0",
+				"below" : "0.6.1",
+				"severity": "high",
+				"identifiers": {"advisory": "Regular Expression Denial of Service"},
+				"info" : [ "https://nodesecurity.io/advisories/106" ]
+			}
+		]
+	},
+	"minimatch": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove":"3.0.1",
+				"below" : "3.0.2",
+				"severity": "high",
+				"identifiers": {"advisory": "Regular Expression Denial of Service"},
+				"info" : [ "https://nodesecurity.io/advisories/118" ]
+			}
+		]
+	},
+
+
+
+
+
+  "sails": {
+    "vulnerabilities": [
+      {
+        "below": "0.12.8",
+        "identifiers": { "advisory": "Broken CORS" },
+        "info": [ "https://nodesecurity.io/advisories/148" ]
+      }
+    ]
+  },
+  "reduce-css-calc": {
+    "vulnerabilities": [
+      {
+        "below": "1.2.5",
+        "identifiers": { "advisory": "Arbitrary Code Injection" },
+        "info": [ "https://nodesecurity.io/advisories/144" ]
+      }
+    ]
+  },
+  "nunjucks": {
+    "vulnerabilities": [
+      {
+        "below": "2.4.3",
+        "identifiers": { "advisory": "XSS in autoescape mode" },
+        "info": [ "https://nodesecurity.io/advisories/147" ]
+      }
+    ]
+  },
+  "pouchdb": {
+    "vulnerabilities": [
+      {
+        "below": "6.0.5",
+        "identifiers": { "advisory": "Arbitrary Code Injection" },
+        "info": [ "https://nodesecurity.io/advisories/143" ]
+      }
+    ]
+  },
+  "plotly.js": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "1.10.4",
+        "below": "1.16.0",
+        "identifiers": { "advisory": "Cross Site Scripting (XSS)" },
+        "info": [ "https://nodesecurity.io/advisories/145" ]
+      }
+    ]
+  },
+  "uws": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.10.0",
+        "below": "0.10.9",
+        "identifiers": { "advisory": "Denial of Service" },
+        "info": [ "https://nodesecurity.io/advisories/149" ]
+      }
+    ]
+  },
+  "cookie-signature": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.6",
+        "identifiers": { "advisory": "Timing attack vulnerability" },
+        "info": [ "https://nodesecurity.io/advisories/134" ]
+      }
+    ]
+  },
+  "mqtt": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.0",
+        "identifiers": { "advisory": "Denial of Service" },
+        "info": [ "https://nodesecurity.io/advisories/140" ]
+      }
+    ]
+  },
+  "pivottable": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "1.4.0",
+        "below": "2.0.0",
+        "identifiers": { "advisory": "XSS" },
+        "info": [ "https://nodesecurity.io/advisories/139" ]
+      }
+    ]
+  },
+  "c3": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.11",
+        "identifiers": { "advisory": "XSS via tooltips" },
+        "info": [ "https://nodesecurity.io/advisories/138" ]
+      }
+    ]
+  },
+
+  "swagger-ui": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "2.1.4",
+        "below": "2.1.5",
+        "identifiers": { "advisory": "XSS via Content-type header" },
+        "info": [ "https://nodesecurity.io/advisories/131" ]
+      },
+      {
+        "atOrAbove": "2.1.4",
+        "below": "2.1.5",
+        "identifiers": { "advisory": "XSS in Consumes/Produces Parameter" },
+        "info": [ "https://nodesecurity.io/advisories/123" ]
+      }
+    ]
+  },
+  "node-krb5": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.0.0",
+        "identifiers": { "advisory": "Spoofing attack due to unvalidated KDC" },
+        "info": [ "https://nodesecurity.io/advisories/136" ]
+      }
+    ]
+  },
+  "ezseed-transmission": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.0.10",
+        "below": "0.0.15",
+        "identifiers": { "advisory": "Insecure Defaults Leads to Potential MITM" },
+        "info": [ "https://nodesecurity.io/advisories/114" ]
+      }
+    ]
+  },
+  "jws": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.0",
+        "identifiers": { "advisory": "Forgeable Public/Private Tokens" },
+        "info": [ "https://nodesecurity.io/advisories/88" ]
+      }
+    ]
+  },
+  "fuelux": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.0.0",
+        "identifiers": { "advisory": "XSS in Pillbox" },
+        "info": [ "https://nodesecurity.io/advisories133" ]
+      }
+    ]
+  },
+  "jqtree": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.4",
+        "identifiers": { "advisory": "XSS in drag and drop node" },
+        "info": [ "https://nodesecurity.io/advisories/132" ]
+      }
+    ]
+  },
+  "emojione": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.1",
+        "identifiers": { "advisory": "XSS in primary functions" },
+        "info": [ "https://nodesecurity.io/advisories/129" ]
+      }
+    ]
+  },
+  "rendr": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.4",
+        "identifiers": { "advisory": "XSS in client rendered block templates" },
+        "info": [ "https://nodesecurity.io/advisories/128" ]
+      }
+    ]
+  },
+
+  "tough-cookie": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.9.7",
+        "below": "2.3.0",
+        "identifiers": { "advisory": "ReDoS via long string of semicolons" },
+        "info": [ "https://nodesecurity.io/advisories/130" ]
+      }
+    ]
+  },
+  "jquery-ui": {
+    "vulnerabilities": [
+      {
+        "below": "1.12.0",
+        "identifiers": { "advisory": "XSS in dialog closeText" },
+        "info": [ "https://nodesecurity.io/advisories/127" ]
+      }
+    ]
+  },
+  "gmail-js": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.0.0",
+        "identifiers": { "advisory": "DOM-based XSS" },
+        "info": [ "https://nodesecurity.io/advisories/125" ]
+      }
+    ]
+  },
+  "bootstrap-tagsinput": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.0.0",
+        "identifiers": { "advisory": "XSS in itemTitle parameter" },
+        "info": [ "https://nodesecurity.io/advisories/124" ]
+      }
+    ]
+  },
+  "call": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "2.0.1",
+        "below": "3.0.2",
+        "identifiers": { "advisory": "Invalid input to route validation rules" },
+        "info": [ "https://nodesecurity.io/advisories/121" ]
+      }
+    ]
+  },
+  "shell-quote": {
+    "vulnerabilities": [
+      {
+        "below": "1.6.1",
+        "identifiers": { "advisory": "Potential Command Injection" },
+        "info": [ "https://nodesecurity.io/advisories/117" ]
+       }
+    ]
+  }
+
+
+
 }
