@@ -1007,7 +1007,8 @@
 			"filecontent" : [
 				"/\\*\\*\n +\\* React \\(with addons\\) ?v(§§version§§)",
 				"/\\*\\*\n +\\* React v(§§version§§)",
-				"\"\\./ReactReconciler\":[0-9]+,\"\\./Transaction\":[0-9]+,\"fbjs/lib/invariant\":[0-9]+\\}\\],[0-9]+:\\[function\\(require,module,exports\\)\\{\"use strict\";module\\.exports=\"(§§version§§)\"\\}"
+				"\"\\./ReactReconciler\":[0-9]+,\"\\./Transaction\":[0-9]+,\"fbjs/lib/invariant\":[0-9]+\\}\\],[0-9]+:\\[function\\(require,module,exports\\)\\{\"use strict\";module\\.exports=\"(§§version§§)\"\\}",
+				"ReactVersion\\.js[\\*! \\\\/\n\r]{0,100}function\\(e,t\\){\"use strict\";e\\.exports=\"(§§version§§)\""
 			]
 		}
 	},
