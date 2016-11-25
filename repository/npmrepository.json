@@ -1319,7 +1319,17 @@
         "info": [ "https://nodesecurity.io/advisories/117" ]
        }
     ]
+  },
+  "gitbook": {
+    "vulnerabilities": [
+      {
+        "below": "3.2.2",
+        "identifiers": { "advisory": "XSS in online reader" },
+        "info": [ "https://github.com/GitbookIO/gitbook/issues/1609" ]
+       }
+    ]
   }
+
 
 
 
