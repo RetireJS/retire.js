@@ -65,3 +65,10 @@ Scans visited sites for references to insecure libraries, and puts warnings in t
 Burp and OWASP ZAP plugin
 -------------------------
 [@h3xstream](https://github.com/h3xstream) has adapted Retire.js as a [plugin](https://github.com/h3xstream/burp-retire-js) for the penetration testing tools [Burp](http://portswigger.net/burp/) and [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project). An alternative OWASP ZAP plugin exists at https://github.com/nikmmy/retire/
+
+Donate
+------
+<a href="https://www.paypal.me/eoftedal"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"></a>
+<a href="https://flattr.com/submit/auto?fid=g3q3vw&url=https%3A%2F%2Fgithub.com%2FRetireJS%2Fretire.js%2F" target="_blank"><img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+
+
