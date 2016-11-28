@@ -69,6 +69,7 @@ Burp and OWASP ZAP plugin
 Donate
 ------
 <a href="https://www.paypal.me/eoftedal"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"></a>
-<a href="https://flattr.com/submit/auto?fid=g3q3vw&url=https%3A%2F%2Fgithub.com%2FRetireJS%2Fretire.js%2F" target="_blank"><img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
+<a href="https://flattr.com/submit/auto?fid=g3q3vw&url=https%3A%2F%2Fgithub.com%2FRetireJS%2Fretire.js%2F" target="_blank"><img src="https://button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>
 
+Donations will be used to fund the maintainance of the tool and vulnerability repo.
 
