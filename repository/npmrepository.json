@@ -745,7 +745,28 @@
         "below": "3.23.6",
         "identifiers": { "advisory": "SQL Injection via GeoJSON" },
         "info": [ "https://nodesecurity.io/advisories/122" ]
-      } 
+      },
+      {
+        "below": "3.17.0",
+        "identifiers": { "advisory": "SQL injection" },
+        "info": [ "https://nodesecurity.io/advisories/112" ]
+      },
+      {
+        "below": "3.0.0",
+        "identifiers": { "advisory": "Potential SQL Injection" },
+        "info": [ "https://nodesecurity.io/advisories/109" ]
+      },
+      {
+        "below": "1.7.0-alpha3",
+        "identifiers": { "advisory": "SQL injection" },
+        "info": [ "https://nodesecurity.io/advisories/113" ]
+      },
+      {
+        "below": "3.20.0",
+        "identifiers": { "advisory": "Improper Escaping of Bound Arrays" },
+        "info": [ "https://nodesecurity.io/advisories/102" ]
+      }
+
 		]	
 	},
 	"paypal-ipn": {
@@ -1326,9 +1347,99 @@
         "below": "3.2.2",
         "identifiers": { "advisory": "XSS in online reader" },
         "info": [ "https://github.com/GitbookIO/gitbook/issues/1609" ]
+      }
+    ]
+  },
+  "waterline-sequel": {
+    "vulnerabilities": [
+      {
+      	"atOrAbove" : "0.5.0",
+        "below": "0.5.1",
+        "identifiers": { "advisory": "SQL injection" },
+        "info": [ "https://nodesecurity.io/advisories/115" ]
+       }
+    ]
+  },
+  "igniteui": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.6",
+        "identifiers": { "advisory": "Resources Downloaded over Insecure Protocol" },
+        "info": [ "https://nodesecurity.io/advisories/116" ]
+       }
+    ]
+  },
+  "jwt-simple": {
+    "vulnerabilities": [
+      {
+        "below": "0.3.0",
+        "identifiers": { "advisory": "Forgeable Public/Private Tokens" },
+        "info": [ "https://nodesecurity.io/advisories/87" ]
+       }
+    ]
+  },
+  "appium-chromedriver": {
+    "vulnerabilities": [
+      {
+        "below": "2.9.4",
+        "identifiers": { "advisory": "Downloads Resources over HTTP" },
+        "info": [ "https://nodesecurity.io/advisories/162" ]
+       }
+    ]
+  },
+  "aerospike": {
+    "vulnerabilities": [
+      {
+        "below": "2.4.2",
+        "identifiers": { "advisory": "Downloads Resources over HTTP" },
+        "info": [ "https://nodesecurity.io/advisories/167" ]
+       }
+    ]
+  },
+  "selenium-download": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.7",
+        "identifiers": { "advisory": "Downloads Resources over HTTP" },
+        "info": [ "https://nodesecurity.io/advisories/164" ]
+       }
+    ]
+  },
+  "galenframework-cli": {
+    "vulnerabilities": [
+      {
+        "below": "2.3.1",
+        "identifiers": { "advisory": "Downloads Resources over HTTP" },
+        "info": [ "https://nodesecurity.io/advisories/170" ]
+       }
+    ]
+  },
+  "passport-azure-ad": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "1.0.0",
+        "below" : "1.4.6",
+        "identifiers": { "advisory": "Authentication bypass" },
+        "info": [ "https://nodesecurity.io/advisories/151" ]
+      },
+      {
+        "atOrAbove": "2.0.0",
+        "below" : "2.0.1",
+        "identifiers": { "advisory": "Authentication bypass" },
+        "info": [ "https://nodesecurity.io/advisories/151" ]
+      }
+    ]
+  },
+  "bitty": {
+    "vulnerabilities": [
+      {
+        "below": "100.0.0",
+        "identifiers": { "advisory": "Directory Traversal" },
+        "info": [ "https://nodesecurity.io/advisories/150" ]
        }
     ]
   }
+
 
 
 
