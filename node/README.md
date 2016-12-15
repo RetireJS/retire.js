@@ -45,6 +45,28 @@ node_modules/connect/node_modules/body-parser/node_modules/qs   # ignore specifi
 ````
 Due to a bug in ignore resolving, please upgrade to >= 1.1.3
 
+.retireignore.json
+------------------
+````
+[
+	{ 
+		"component": "jquery",
+		"identifiers" : { "issue": "2432"},
+		"justification" : "We dont call external resources with jQuery"
+	},
+	{ 
+		"component": "jquery",
+		"version" : "2.1.4",
+		"justification" : "We dont call external resources with jQuery"
+	},
+	{
+		"path" : "node_modules",
+		"justification" : "The node modules are only used for building - client side dependencies are using bower"
+	}
+
+]
+````
+
 Source code / Reporting an issue
 --------------------------------
 The source code and issue tracker can be found at [https://github.com/RetireJS/retire.js](https://github.com/RetireJS/retire.js)
