@@ -17,7 +17,7 @@ Options:
 -h, --help              output usage information
 -V, --version           output the version number
 
--p, --package           limit node scan to packages where parent is mentioned in package.json (ignore node_modules)
+-p, --package           limit node scan to packages where parent is a dependency mentioned in package.json (ignore node_modules and devDependencies)
 -n, --node              Run node dependency scan only
 -j, --js                Run scan of JavaScript files only
 -v, --verbose           Show identified files (by default only vulnerable files are shown)
@@ -29,7 +29,7 @@ Options:
 --path <path>           Folder to scan for both
 --jsrepo <path|url>     Local or internal version of repo
 --noderepo <path|url>   Local or internal version of repo
---proxy <url>           Proxy url (http://some.sever:8080)
+--proxy <url>           Proxy url (http://some.server:8080)
 --outputformat <format> Valid formats: text, json
 --outputpath <path>     File to which output should be written
 --ignore <paths>        Comma delimited list of paths to ignore

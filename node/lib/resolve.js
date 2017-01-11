@@ -6,14 +6,11 @@ var walkdir			= require('walkdir'),
 	emitter				= require('events').EventEmitter;
 
 
-function listdep(parent, filter, dep, level, deps) {
+function listdep(parent, dep, level, deps) {
 	var stack = [];
-	stack.push({parent: parent, filter: filter, dep: dep, level: level}); 
+	stack.push({parent: parent, dep: dep, level: level}); 
 	while (typeof (o = stack.pop()) !== 'undefined') {
 		for (var i in o.dep.dependencies) {
-			if (o.filter !== null && o.filter.indexOf(i) == -1) {
-				continue;
-			}
 			cyclic = false;
 			dep_parent = o.parent;
 			while (typeof dep_parent !== 'undefined') {
@@ -29,7 +26,7 @@ function listdep(parent, filter, dep, level, deps) {
 			}
 			var d = { component: i, version: o.dep.dependencies[i].version, parent: o.parent, level: o.level };
 			deps.push(d);
-			stack.push({parent: d, filter: null, dep: o.dep.dependencies[i], level: o.level + 1}); 
+			stack.push({parent: d, dep: o.dep.dependencies[i], level: o.level + 1}); 
 		}
 	}
 }
@@ -38,13 +35,16 @@ function getNodeDependencies(path, limit) {
 	var events = new emitter();
 	readInstalled(path, {}, function (er, pkginfo) {
 		var deps = [];
-		var filter = null;
 		if (limit) {
 			var packages = JSON.parse(fs.readFileSync(path +'/package.json'));
-			filter = [];
-			for(var k in packages.dependencies) filter.push(k);
+			filter = [];			
+
+			var filter = Object.keys(packages.dependencies);
+			Object.keys(pkginfo.dependencies)
+				.filter(function(d) { return filter.indexOf(d) == -1; })
+				.forEach(function(d) { delete pkginfo.dependencies[d]; });
 		}
-		listdep({component: pkginfo.name, version: pkginfo.version}, filter, pkginfo, 1, deps);
+		listdep({component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
 		events.emit('done', deps);				
 	});
 	return events;

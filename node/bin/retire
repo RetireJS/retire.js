@@ -23,7 +23,9 @@ scanner.on('vulnerable-dependency-found', function(results) {
   vulnsFound = true;
   finalResults.push(results);
 });
-
+scanner.on('dependency-found', function(results) {
+  finalResults.push(results);
+});
 
 /*
  * Parse command line flags.
@@ -91,9 +93,9 @@ if(config.ignorefile) {
 }
 
 events.on('load-js-repo', function() {
-  (config.jsrepo
-    ? (config.jsrepo.match(/^https?:\/\//)
-      ? repo.loadrepository(config.jsrepo, config)
+  (config.jsrepo ? 
+    (config.jsrepo.match(/^https?:\/\//) ?
+      repo.loadrepository(config.jsrepo, config) 
       : repo.loadrepositoryFromFile(config.jsrepo, config))
     : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
   ).on('done', function(repo) {
@@ -104,9 +106,9 @@ events.on('load-js-repo', function() {
 
 
 events.on('load-node-repo', function() {
-  (config.noderepo
-    ? (config.noderepo.match(/^https?:\/\//)
-      ? repo.loadrepository(config.noderepo, config)
+  (config.noderepo ? 
+    (config.noderepo.match(/^https?:\/\//) ?
+      repo.loadrepository(config.noderepo, config)
       : repo.loadrepositoryFromFile(config.noderepo, config))
     : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/npmrepository.json', config)
   ).on('done', function(repo) {

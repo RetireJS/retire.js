@@ -25,7 +25,7 @@ function printResults(file, results, options) {
     logger = log(options).warn;
     events.emit('vulnerable-dependency-found', {file: file, results: results});
   } else {
-    events.emit('dependency-found', results);
+    events.emit('dependency-found', {file: file, results: results});
   }
   if (results.length > 0) {
     logger(file);
@@ -103,7 +103,7 @@ function scanJsFile(file, repo, options) {
     return;
   }
   var results = retire.scanFileName(file, repo);
-  if (!retire.isVulnerable(results)) {
+  if (!results || results.length === 0) {
     results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
   }
   printResults(file, results, options);
