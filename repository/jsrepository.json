@@ -141,6 +141,14 @@
 					"summary": "location.href cross-site scripting"
 				},
 				"info": [ "http://jquerymobile.com/changelog/1.2.0/", "https://github.com/jquery/jquery-mobile/issues/4787" ]
+			},
+			{
+				"below" : "100.0.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "open redirect leads to cross site scripting"
+				},
+				"info": [ "http://sirdarckcat.blogspot.no/2017/02/unpatched-0day-jquery-mobile-xss.html" ]
 			}
 		],
 		"extractors" : {
