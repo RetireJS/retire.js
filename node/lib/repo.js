@@ -50,7 +50,9 @@ function loadFromCache(url, cachedir, options) {
             log(options).info("Loading from cache: " + url);
             return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
         } else {
-            fs.unlink(path.resolve(cachedir, cache[url].date + '.json'));
+	    if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {
+            	fs.unlink(path.resolve(cachedir, cache[url].date + '.json'));
+	    }	    
         }
     }
     var events = new emitter();
