@@ -88,7 +88,7 @@ function removeIgnored(results, ignores) {
 function removeIgnoredVulnerabilitiesByIdentifier(identifiers, result) {
   result.vulnerabilities = result.vulnerabilities.filter(function(v) {
     if (!v.hasOwnProperty("identifiers")) return true;
-    return !utils.every(identifiers, function(value, key) { return hasIdentifier(v, key, value); });
+    return !utils.every(identifiers, function(key, value) { return hasIdentifier(v, key, value); });
   });
 }
 function hasIdentifier(vulnerability, key, value) {

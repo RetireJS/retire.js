@@ -56,3 +56,9 @@ exports.forwardEvent = function(emitter, event) {
 		emitter.emit([event].concat(arguments));
 	};
 };
+
+exports.every = function(things, predicate){
+	return Object.keys(things)
+		.map(function(k) { return predicate(k, things[k]) })
+		.reduce(function(x,y) { return x && y }, true);
+}
