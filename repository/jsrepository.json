@@ -108,6 +108,17 @@
 			"hashes"		: {}
 		}
 	},
+	"jquery.validator" : {
+		"vulnerabilities" : [
+		],
+		"extractors" : {
+			"func"    		: [ "jQuery.validation.version" ],
+			"filename"		: [ "jquery.validation-(§§version§§)(.min)?\\.js" ],
+			"uri"			: [ "/(§§version§§)/jquery.validation(\\.min)?\\.js" ],
+			"filecontent"	: [ "/\\*!?(?:\n \\*)? jQuery Validation Plugin v(§§version§§)" ],
+			"hashes"		: {}
+		}
+	},
 	"jquery-mobile" : {
 		"vulnerabilities" : [
 			{
@@ -712,7 +723,24 @@
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below" : "1.6.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Universal CSP bypass via add-on in Firefox"
+				},
+				"info" : [ "https://github.com/mozilla/addons-linter/issues/1000#issuecomment-282083435", "http://pastebin.com/raw/kGrdaypP" ]
+			},
+			{
+				"below" : "1.6.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "DOS in $sanitize"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
 			}
+
 		],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
