@@ -62,7 +62,7 @@
 		],
 		"extractors" : {
 			"func"    		: [ 
-								"/[0-9.]+/.test(jQuery.fn.jquery) ? jQuery.fn.jquery : undefined", 
+								"(jQuery || $ || $jq || $j).fn.jquery", 
 								"require('jquery').fn.jquery" 
 			],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
