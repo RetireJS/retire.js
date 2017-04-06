@@ -264,7 +264,7 @@
 				"below" : "2.0.5",
 				"severity": "medium",
 				"identifiers": {
-					"CVE": "CVE-2013-4660",
+					"CVE": ["CVE-2013-4660"],
 					"advisory": "JS-YAML_Deserialization_Code_Execution"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/JS-YAML_Deserialization_Code_Execution" ]
@@ -277,7 +277,7 @@
 				"below" : "0.2.5",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2014-3744",
+					"CVE": ["CVE-2014-3744"],
 					"advisory": "st_directory_traversal"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/st_directory_traversal" ]
@@ -291,7 +291,7 @@
 				"below" : "2.2",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2014-3742",
+					"CVE": ["CVE-2014-3742"],
 					"advisory": "hapi_File_descriptor_leak_DoS_vulnerability"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/hapi_File_descriptor_leak_DoS_vulnerability", "https://github.com/spumko/hapi/issues/1427" ]
@@ -300,7 +300,7 @@
 				"below" : "6.1.0",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2014-4671",
+					"CVE": ["CVE-2014-4671"],
 					"advisory": "hapijs-jsonp-CVE-2014-4671A"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/hapijs-jsonp-CVE-2014-4671A" ]
@@ -366,7 +366,7 @@
 				"below" : "0.0.2",
 				"severity": "medium",
 				"identifiers": {
-					"CVE": "CVE-2014-3741",
+					"CVE": ["CVE-2014-3741"],
 					"advisory": "printer_potential_command_injection"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/printer_potential_command_injection" ]
@@ -402,14 +402,14 @@
 				"atOrAbove" : "1.3.0-*",
 				"below" : "1.3.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2014-0046"},
+				"identifiers": {"CVE": ["CVE-2014-0046"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
 			},
 			{
 				"atOrAbove" : "1.2.0-*",
 				"below" : "1.2.2",
 				"severity": "high",
-				"identifiers": {"CVE": "CVE-2014-0046"},
+				"identifiers": {"CVE": ["CVE-2014-0046"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
 			},
 			{
@@ -451,42 +451,42 @@
 				"atOrAbove" : "1.0.0-rc.1",
 				"below" : "1.0.0-rc.1.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": ["CVE-2013-4170"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.2",
 				"below" : "1.0.0-rc.2.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": ["CVE-2013-4170"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.3",
 				"below" : "1.0.0-rc.3.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": ["CVE-2013-4170"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.4",
 				"below" : "1.0.0-rc.4.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": ["CVE-2013-4170"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.5",
 				"below" : "1.0.0-rc.5.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": ["CVE-2013-4170"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-rc.6",
 				"below" : "1.0.0-rc.6.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2013-4170"},
+				"identifiers": {"CVE": ["CVE-2013-4170"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/dokLVwwxAdM" ]
 			},
 			{ "below" : "0.9.7.1", "info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG" ] },
@@ -548,13 +548,13 @@
 			{
 				"below" : "1.4.2",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2010-2275"},
+				"identifiers": {"CVE": ["CVE-2010-2275"]},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-2275/"]
 			},
 			{
 				"below" : "1.1",
 				"severity": "medium",
-				"identifiers": {"CVE": "CVE-2008-6681"},
+				"identifiers": {"CVE": ["CVE-2008-6681"]},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
 			}
 		]
@@ -629,7 +629,7 @@
 				"below" : "1.5.2",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2014-7205",
+					"CVE": ["CVE-2014-7205"],
 					"advisory": "bassmaster_js_injection"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/bassmaster_js_injection" ]
@@ -642,7 +642,7 @@
 				"below" : "0.2.3",
 				"severity": "medium",
 				"identifiers": {
-					"CVE": "CVE-2013-6393",
+					"CVE": ["CVE-2013-6393"],
 					"advisory": "libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags" ]
@@ -655,7 +655,7 @@
 				"below" : "0.8.4",
 				"severity": "low",
 				"identifiers": {
-					"CVE": "CVE-2014-6394",
+					"CVE": ["CVE-2014-6394"],
 					"advisory": "send-directory-traversal"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/send-directory-traversal" ]
@@ -680,7 +680,7 @@
 				"below" : "2.2.0",
 				"severity": "medium",
 				"identifiers": {
-					"CVE": "CVE-2014-4179",
+					"CVE": ["CVE-2014-4179"],
 					"advisory": "yar-DoS"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/yar-DoS" ]
@@ -693,7 +693,7 @@
 				"below" : "0.5.0",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2013-7377",
+					"CVE": ["CVE-2013-7377"],
 					"advisory": "codem-transcode_command_injection"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/codem-transcode_command_injection" ]
@@ -706,7 +706,7 @@
 				"below" : "0.0.3",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2013-3364",
+					"CVE": ["CVE-2013-3364"],
 					"advisory": "ep_imageconvert_command_injection"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ]
@@ -806,7 +806,7 @@
 				"atOrAbove" : "0.0.0",
 				"severity": "high",
 				"identifiers": {
-					"CVE": "CVE-2014-8883",
+					"CVE": ["CVE-2014-8883"],
 					"advisory": "nhouston-directory-traversal"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/nhouston-directory-traversal" ]
@@ -818,7 +818,7 @@
 			{
 				"below" : "100",
 				"severity": "high",
-				"identifiers": { "CVE": "CVE-2014-8881" , "summary" : "Regular expression denial of service - no fix available" },
+				"identifiers": { "CVE": ["CVE-2014-8881"] , "summary" : "Regular expression denial of service - no fix available" },
 				"info" : [ "https://nodesecurity.io/advisories/47" ]
 			}
 		]
@@ -964,7 +964,7 @@
 				"below" : "3.22.1",
 				"severity": "medium",
 				"identifiers": {
-					"CVE": "CVE-2014-8882",
+					"CVE": ["CVE-2014-8882"],
 					"advisory": "validator-isurl-denial-of-service"
 				},
 				"info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ]
