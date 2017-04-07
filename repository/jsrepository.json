@@ -130,7 +130,7 @@
 			{
 				"below" : "1.0.1",
 				"severity": "high",
-				"identifiers": {"osvdb": "94317"},
+				"identifiers": {"osvdb": ["94317"]},
 				"info": [ "http://osvdb.org/show/osvdb/94317" ]
 			},
 			{
@@ -322,7 +322,7 @@
 				"serverity" : "high",
 				"identifiers" : {
 					"summary" : "Static code injection vulnerability in inc/function.base.php", 
-					"CVE" : "CVE-2011-4825"
+					"CVE" : [ "CVE-2011-4825" ]
 				},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2011-4825/" ]
 			},
@@ -463,42 +463,42 @@
 				"atOrAbove" : "1.8.0",
 				"below" :"1.11.4",
 				"severity" : "medium",
-				"identifiers": {"CVE": "CVE-2015-7565"},
+				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
 			{ 
 				"atOrAbove" : "1.12.0",
 				"below" :"1.12.2",
 				"severity" : "medium",
-				"identifiers": {"CVE": "CVE-2015-7565"},
+				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
 			{ 
 				"atOrAbove" : "1.13.0",
 				"below" : "1.13.12",
 				"severity" : "medium",
-				"identifiers": {"CVE": "CVE-2015-7565"},
+				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
 			{ 
 				"atOrAbove" : "2.0.0",
 				"below" : "2.0.3",
 				"severity" : "medium",
-				"identifiers": {"CVE": "CVE-2015-7565"},
+				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
 			{ 
 				"atOrAbove" : "2.1.0",
 				"below" : "2.1.2",
 				"severity" : "medium",
-				"identifiers": {"CVE": "CVE-2015-7565" },
+				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
 			{ 
 				"atOrAbove" : "2.2.0",
 				"below" : "2.2.1",
 				"severity" : "medium",
-				"identifiers": {"CVE": "CVE-2015-7565"},
+				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
 			{
@@ -908,13 +908,19 @@
 			{ 
 				"atOrAbove" : "0.4.0", "below" : "0.4.2",
 				"severity" : "low", 
-				"identifiers" : { "CVE": "CVE-2013-7035", "summary":"potential XSS vulnerability can arise when using user data as a key" },
+				"identifiers" : { 
+					"CVE": [ "CVE-2013-7035" ] ,
+					"summary":"potential XSS vulnerability can arise when using user data as a key"
+				},
 				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
 			},
 			{ 
 				"atOrAbove" : "0.5.0", "below" : "0.5.2",
 				"severity" : "low", 
-				"identifiers" : { "CVE": "CVE-2013-7035", "summary":"potential XSS vulnerability can arise when using user data as a key" },
+				"identifiers" : { 
+					"CVE": [ "CVE-2013-7035" ],
+					"summary":"potential XSS vulnerability can arise when using user data as a key"
+				},
 				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
 			},
 			{ 
@@ -958,7 +964,7 @@
 			{
 				"below" : "1.1.4",
 				"severity": "high",
-				"identifiers": { "CVE" : "CVE-2007-01-09" },
+				"identifiers": { "CVE" : [ "CVE-2007-01-09" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2014-5326/", "http://www.cvedetails.com/cve/CVE-2014-5326/" ]
 			},
 			{
