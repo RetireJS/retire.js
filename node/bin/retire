@@ -19,13 +19,7 @@ var vulnsFound = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 var finalResults = [];
 
-scanner.on('vulnerable-dependency-found', function(results) {
-  vulnsFound = true;
-  finalResults.push(results);
-});
-scanner.on('dependency-found', function(results) {
-  finalResults.push(results);
-});
+
 
 /*
  * Parse command line flags.
@@ -91,6 +85,16 @@ if(config.ignorefile) {
     config.ignore.paths = config.ignore.paths.concat(ignored);
   }
 }
+
+scanner.on('vulnerable-dependency-found', function(results) {
+  vulnsFound = true;
+  finalResults.push(results);
+});
+
+scanner.on('dependency-found', function(results) {
+  if (config.verbose) finalResults.push(results);
+});
+
 
 events.on('load-js-repo', function() {
   (config.jsrepo ? 

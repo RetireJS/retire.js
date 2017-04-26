@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '1.2.12';
+exports.version = '1.2.13';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -166,7 +166,7 @@ exports.scanNodeDependency = function(dependency, npmrepo) {
 		console.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
 		return [];
 	}
-	if (!isDefined(npmrepo[dependency.component])) return [];
+	if (!isDefined(npmrepo[dependency.component])) return [{component: dependency.component, version: dependency.version}];
 	return check([dependency], npmrepo);
 };
 
