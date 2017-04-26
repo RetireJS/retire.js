@@ -617,7 +617,7 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.0.0",
-				"severity": "low",
+				"severity": "medium",
 				"identifiers": {"advisory": "qs_dos_extended_event_loop_blocking"},
 				"info" : [ "https://nodesecurity.io/advisories/qs_dos_extended_event_loop_blocking" ]
 			}
