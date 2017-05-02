@@ -891,6 +891,12 @@
 				"severity": "medium",
 				"identifiers": { },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.6.1" ]
+			},
+			{
+				"below" : "0.8.6",
+				"severity": "medium",
+				"identifiers": { },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.8.6" ]
 			}
 		],
 		"extractors" : {
