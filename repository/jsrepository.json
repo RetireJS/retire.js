@@ -903,7 +903,8 @@
 			"func"			: [ "DOMPurify.version" ],
 			"filecontent"	: [ 
 				"DOMPurify.version = '(§§version§§)';", 
-				"DOMPurify.version=\"(§§version§§)\""
+				"DOMPurify.version=\"(§§version§§)\"",
+				"DOMPurify=.*.version=\"(§§version§§)\""
 			],
 			"hashes"		: {}
 		}
