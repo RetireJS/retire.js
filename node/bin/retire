@@ -45,12 +45,15 @@ program
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
+  .option('--includemeta', 'Include version and scan time in JSON result')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'exitwith'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'exitwith',
+  'includemeta'
 ]));
+var scanStart = Date.now();
 
 if (!config.nocache) {
   config.cachedir = path.resolve(os.tmpdir(), '.retire-cache/');
@@ -166,6 +169,9 @@ events.on('scan-done', function() {
     });
   }
   if (config.outputformat === 'json') {
+    if (config.includemeta) {
+      finalResults = { version: retire.version, time: (Date.now() - scanStart)/1000, data: finalResults }
+    }
     if (config.fileOutput) {
       config.fileOutput.stream.write(JSON.stringify(finalResults));
       config.fileOutput.stream.end();
