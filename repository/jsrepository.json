@@ -871,6 +871,12 @@
 				"severity": "high",
 				"identifiers": {"CVE": [ "CVE-2013-0237" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-0237/" ]
+			},
+			{
+				"below" : "2.1.9",
+				"severity": "medium",
+				"identifiers": {"CVE": [ "CVE-2016-4566" ] },
+				"info" : [ "https://github.com/moxiecode/plupload/releases" ]
 			}
 		],
 		"extractors" : {
