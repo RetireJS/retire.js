@@ -906,9 +906,15 @@
 			},
 			{
 				"below" : "0.8.9",
-				"severity": "medium",
-				"identifiers": { },
+				"severity": "low",
+				"identifiers": { "summary": "safari UXSS" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.8.9", "https://lists.ruhr-uni-bochum.de/pipermail/dompurify-security/2017-May/000006.html" ]
+			},
+			{
+				"below" : "0.9.0",
+				"severity": "low",
+				"identifiers": { "summary": "safari UXSS" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.9.0" ]
 			}
 		],
 		"extractors" : {
