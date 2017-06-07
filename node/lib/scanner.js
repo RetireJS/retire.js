@@ -120,6 +120,7 @@ function scanDependencies(dependencies, nodeRepo, options) {
       continue;
     }
     results = retire.scanNodeDependency(dependencies[i], nodeRepo);
+    removeIgnored(results, options.ignore);
     if (retire.isVulnerable(results)) {
       events.emit('vulnerable-dependency-found', {results: results});
       var result = results[0]; //Only single scan here
