@@ -441,12 +441,12 @@
 				"below" : "1.6.0.2",
 				"severity": "high",
 				"identifiers": {"CVE": [ "CVE-2008-7220" ] },
-				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] },
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/", "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/" ] },
 			{
 				"below" : "1.5.1.2",
 				"severity": "high",
 				"identifiers": {"CVE": [ "CVE-2008-7220" ] },
-				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/" ] }
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/", "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/" ] }
 		],
 		"extractors" : {
 			"func"    		: [ "Prototype.Version" ],
