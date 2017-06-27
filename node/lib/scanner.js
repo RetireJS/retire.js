@@ -75,6 +75,7 @@ function removeIgnored(results, ignores) {
     ignores.descriptors.forEach(function(i) {
       if (r.component !== i.component) return;
       if (i.version && r.version !== i.version) return;
+      if (i.severity && r.severity !== i.severity) return;
       if (i.identifiers) {
         removeIgnoredVulnerabilitiesByIdentifier(i.identifiers, r);
         return;
