@@ -181,6 +181,15 @@
 					"summary": "Title cross-site scripting vulnerability"
 				},
 				"info" : [ "http://bugs.jqueryui.com/ticket/6016" ]
+			}, 
+			{
+				"below" : "1.12.0",
+				"severity": "high",
+				"identifiers": {
+					"bug": "281",
+					"summary": "XSS Vulnerability on closeText option"
+				},
+				"info" : [ "https://github.com/jquery/api.jqueryui.com/issues/281", "https://snyk.io/vuln/npm:jquery-ui:20160721" ]
 			}
 		],
 		"extractors" : {
