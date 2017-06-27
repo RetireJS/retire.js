@@ -183,9 +183,8 @@
 				"info" : [ "http://bugs.jqueryui.com/ticket/6016" ]
 			}, 
 			{
-				"atOrAbove": "1.11.4",
 				"below" : "1.12.0",
-				"severity": "medium",
+				"severity": "high",
 				"identifiers": {
 					"bug": "281",
 					"summary": "XSS Vulnerability on closeText option"
