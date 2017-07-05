@@ -328,7 +328,7 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.4.2",
-				"serverity" : "high",
+				"severity" : "high",
 				"identifiers" : {
 					"summary" : "Static code injection vulnerability in inc/function.base.php", 
 					"CVE" : [ "CVE-2011-4825" ]
@@ -337,14 +337,14 @@
 			},
 			{
 				"below" : "4.2.4",
-				"serverity" : "medium",
+				"severity" : "medium",
 				"identifiers" : { "summary" : "xss issues with media plugin not properly filtering out some script attributes." },
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
 			},
 			{
 				"below" : "4.2.0",
-				"serverity" : "medium",
+				"severity" : "medium",
 				"identifiers" : { "summary" : "FIXED so script elements gets removed by default to prevent possible XSS issues in default config implementations" },
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
