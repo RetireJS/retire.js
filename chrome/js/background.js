@@ -4,7 +4,7 @@ var repoUrl = "https://raw.githubusercontent.com/RetireJS/retire.js/master/repos
 var updatedAt = Date.now();
 var repo;
 var repoFuncs;
-var cache = [];
+
 var vulnerable = {};
 var events = new Emitter();
 var sandboxWin;
@@ -40,7 +40,6 @@ function downloadRepo() {
 	download(repoUrl + "?" + updatedAt).on('success', function(repoData) {
 		repo = JSON.parse(retire.replaceVersion(repoData));
 		console.log("Done");
-		cache = [];
 		vulnerable = {};
 		setFuncs();
 		events.emit('success');
@@ -72,13 +71,6 @@ events.on('scan', function(details) {
 		downloadRepo().on('success', function() { events.emit('scan', details); });
 		return;
 	}
-	if (cache.indexOf(details.url) > -1) {
-		if (vulnerable.hasOwnProperty(details.url)) {
-			events.emit('result-ready', details, vulnerable[details.url]);
-		}
-		return;
-	}
-	cache.push(details.url);
 	console.log("Scanning " + details.url + " ...");
 	var results = retire.scanUri(details.url, repo);
 	if (results.length > 0) {
