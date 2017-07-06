@@ -748,8 +748,15 @@
 					"summary": "DOS in $sanitize"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below" : "1.6.5",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS in $sanitize in Safari/Firefox"
+				},
+				"info" : [ "https://github.com/angular/angular.js/commit/8f31f1ff43b673a24f84422d5c13d6312b2c4d94" ]
 			}
-
 		],
 		"extractors" : {
 			"func"			: [ "angular.version.full" ],
