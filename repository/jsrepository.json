@@ -197,7 +197,8 @@
 			"filecontent"	: [
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.dialog\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.dialog",
-				"/\\*!?[\n *]+jQuery UI Dialog (§§version§§)"
+				"/\\*!?[\n *]+jQuery UI Dialog (§§version§§)",
+				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}\\* Includes: .* dialog\\.js"
 			],
 			"hashes"		: {}
 		}
@@ -209,7 +210,8 @@
 			"filecontent"	: [
 				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.autocomplete",
-				"/\\*!?[\n *]+jQuery UI Autocomplete (§§version§§)"
+				"/\\*!?[\n *]+jQuery UI Autocomplete (§§version§§)",
+				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}\\* Includes: .* autocomplete\\.js"
 			],
 			"hashes"		: {}
 		}
