@@ -18,7 +18,11 @@ Retire.js can be used in many ways:
 
 Command line scanner
 --------------------
-Scan a web app or node app for use of vulnerable JavaScript libraries and/or Node.JS modules.
+Scan a web app or node app for use of vulnerable JavaScript libraries and/or Node.JS modules. In the source code folder of the application folder run:
+```
+$ npm install -g retire
+$ retire
+```
 
 Grunt plugin
 ------------
