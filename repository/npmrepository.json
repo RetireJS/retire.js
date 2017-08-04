@@ -361,7 +361,7 @@
 		"vulnerabilities" : [
 		  {
         "below": "16.1.1",
-        "atOrAfter": "15.0.0",
+        "atOrAbove": "15.0.0",
         "severity": "medium",
         "identifiers": {
           "summary": "hapi_denial-of-service-via-malformed-accept-encoding-header"
@@ -819,7 +819,7 @@
 			},
 			      {
         "below": "1.2.3",
-        "atOrAfter": "1.2.2",
+        "atOrAbove": "1.2.2",
         "severity": "medium",
         "identifiers": {
           "summary": "sanitize-html_cross-site-scripting"
@@ -830,7 +830,7 @@
       },
       {
         "below": "1.11.4",
-        "atOrAfter": "1.11.1",
+        "atOrAbove": "1.11.1",
         "severity": "medium",
         "identifiers": {
           "summary": "sanitize-html_cross-site-scripting"
@@ -1606,7 +1606,7 @@
     "vulnerabilities": [
       {
         "below": "0.50.0",
-        "atOrAfter": "0.44.0",
+        "atOrAbove": "0.44.0",
         "severity": "medium",
         "identifiers": {
           "summary": "shout_html-injection"
@@ -1690,8 +1690,7 @@
   "gomeplus-h5-proxy": {
     "vulnerabilities": [
       {
-        "below": "<0.0.0",
-        "atOrAfter": "<=99.999.99999",
+        "below": "99.999.99999",
         "severity": "high",
         "identifiers": {
           "summary": "gomeplus-h5-proxy_directory-traversal"
@@ -1854,7 +1853,7 @@
       },
       {
         "below": "1.9.0",
-        "atOrAfter": "1.7.1",
+        "atOrAbove": "1.7.1",
         "severity": "high",
         "identifiers": {
           "summary": "jquery_xss-via-improper-selector-detection"
@@ -1869,7 +1868,7 @@
     "vulnerabilities": [
       {
         "below": "2.68.0",
-        "atOrAfter": "2.2.6",
+        "atOrAbove": "2.2.6",
         "severity": "medium",
         "identifiers": {
           "summary": "request_remote-memory-exposure"
@@ -1912,7 +1911,7 @@
     "vulnerabilities": [
       {
         "below": "1.1.2",
-        "atOrAfter": "1.1.0",
+        "atOrAbove": "1.1.0",
         "severity": "low",
         "identifiers": {
           "summary": "decamelize_regular-expression-denial-of-service"
@@ -1927,7 +1926,7 @@
     "vulnerabilities": [
       {
         "below": "99.999.99999",
-        "atOrAfter": "0.5.0",
+        "atOrAbove": "0.5.0",
         "severity": "medium",
         "identifiers": {
           "summary": "morrisjs_morrisjs"
@@ -1942,7 +1941,7 @@
     "vulnerabilities": [
       {
         "below": "3.0.0",
-        "atOrAfter": "2.1.1",
+        "atOrAbove": "2.1.1",
         "severity": "high",
         "identifiers": {
           "summary": "uri-js_regular-expression-denial-of-service"
@@ -1957,7 +1956,7 @@
     "vulnerabilities": [
       {
         "below": "99.99.9999",
-        "atOrAfter": "0.1.0",
+        "atOrAbove": "0.1.0",
         "severity": "medium",
         "identifiers": {
           "summary": "summit_unsafe-eval"
@@ -1986,7 +1985,7 @@
     "vulnerabilities": [
       {
         "below": "4.1.0",
-        "atOrAfter": "2.0.0",
+        "atOrAbove": "2.0.0",
         "severity": "medium",
         "identifiers": {
           "summary": "restify_xss"
@@ -2060,7 +2059,7 @@
     "vulnerabilities": [
       {
         "below": "3.4.4",
-        "atOrAfter": "2.0.0",
+        "atOrAbove": "2.0.0",
         "severity": "medium",
         "identifiers": {
           "summary": "i18next_cross-site-scripting"
@@ -2179,7 +2178,7 @@
     "vulnerabilities": [
       {
         "below": "0.9.7",
-        "atOrAfter": "0.2.0",
+        "atOrAbove": "0.2.0",
         "severity": "high",
         "identifiers": {
           "summary": "fury-adapter-swagger_arbitrary-file-read"
@@ -4213,7 +4212,7 @@
     "vulnerabilities": [
       {
         "below": "1.7.2",
-        "atOrAfter": "1.7.0",
+        "atOrAbove": "1.7.0",
         "severity": "medium",
         "identifiers": {
           "summary": "serve-static_open-redirect"
@@ -4342,7 +4341,7 @@
     "vulnerabilities": [
       {
         "below": "4.5",
-        "atOrAfter": "4.0",
+        "atOrAbove": "4.0",
         "severity": "medium",
         "identifiers": {
           "summary": "express_no-charset-in-content-type-header"
