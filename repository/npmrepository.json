@@ -4,6 +4,53 @@
 			{ "atOrAbove": "0.0.1", "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		]
 	},
+
+	"angular" : {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "1.3.0",
+				"below" : "1.5.0-rc2",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "The attribute usemap can be used as a security exploit"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"atOrAbove" : "1.0.0",
+				"below" : "1.2.30",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "The attribute usemap can be used as a security exploit"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below" : "1.6.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Universal CSP bypass via add-on in Firefox"
+				},
+				"info" : [ "https://github.com/mozilla/addons-linter/issues/1000#issuecomment-282083435", "http://pastebin.com/raw/kGrdaypP" ]
+			},
+			{
+				"below" : "1.6.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "DOS in $sanitize"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below" : "1.6.5",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS in $sanitize in Safari/Firefox"
+				},
+				"info" : [ "https://github.com/angular/angular.js/commit/8f31f1ff43b673a24f84422d5c13d6312b2c4d94" ]
+			}
+		]
+	},
 	"hubot-scripts": {
 		"vulnerabilities" : [
 			{ "below" : "2.4.4", "severity" : "medium", "info" : [ "https://nodesecurity.io/advisories/13" ] }

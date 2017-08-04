@@ -81,13 +81,8 @@ Object.prototype.mapOwnProperty = function(f) {
 	}
 	return results;
 };
-Array.prototype.flatten = function(){
-	var result = [];
-	this.forEach(function(x) {
-		result = result.concat(x);
-	});
-	return result;
-};
+
+Array.prototype.flatten = function() { return this.reduce((a,b) => a.concat(b), []) }
 
 function sendMessage(message, data, callback) {
 	chrome.extension.sendRequest({ to: 'background', message: message, data: data }, function(response) { callback && callback(response) });
