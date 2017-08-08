@@ -170,7 +170,7 @@
 			"hashes"		: {}
 		}
 	},
-	"jquery-ui-dialog" : {
+	"jquery-ui" : {
 		"vulnerabilities" : [
 			{
 				"atOrAbove": "1.8.9",
