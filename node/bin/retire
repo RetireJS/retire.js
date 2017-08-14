@@ -14,6 +14,7 @@ var utils     = require('../lib/utils'),
 
 var events = new emitter();
 var jsRepo = null;
+var bowerRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
@@ -139,7 +140,8 @@ events.on('scan-js', function() {
       scanner.scanJsFile(file, jsRepo, config);
     })
     .on('bowerfile', function(bowerfile) {
-      scanner.scanBowerFile(bowerfile, jsRepo, config);
+      bowerRepo = bowerRepo || repo.asbowerrepo(jsRepo);
+      scanner.scanBowerFile(bowerfile, bowerRepo, config);
     })
     .on('end', function() {
       events.emit('js-scanned');
@@ -170,7 +172,7 @@ events.on('scan-done', function() {
   }
   if (config.outputformat === 'json') {
     if (config.includemeta) {
-      finalResults = { version: retire.version, time: (Date.now() - scanStart)/1000, data: finalResults }
+      finalResults = { version: retire.version, time: (Date.now() - scanStart)/1000, data: finalResults };
     }
     if (config.fileOutput) {
       config.fileOutput.stream.write(JSON.stringify(finalResults));

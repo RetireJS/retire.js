@@ -65,6 +65,17 @@ function loadFromCache(url, cachedir, options) {
     return events;
 }
 
+exports.asbowerrepo = function(jsRepo) {
+    var result = {};
+    Object.keys(jsRepo).map(function(k) { 
+        (jsRepo[k].bowername || [k]).map(function(b) {
+            result[b] = result[b] || { vulnerabilities: [] };
+            result[b].vulnerabilities = result[b].vulnerabilities.concat(jsRepo[k].vulnerabilities);
+        });
+    });
+    return result;
+};
+
 exports.loadrepository = function(repoUrl, options) {
     options = utils.extend(options, { process : retire.replaceVersion });
     if (options.nocache) {
