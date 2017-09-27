@@ -14,7 +14,7 @@
 				"identifiers": {
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
 			{
 				"atOrAbove" : "1.0.0",
@@ -23,7 +23,7 @@
 				"identifiers": {
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
 			{
 				"below" : "1.6.3",
