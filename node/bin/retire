@@ -7,6 +7,7 @@ var utils     = require('../lib/utils'),
     resolve   = require('../lib/resolve'),
     scanner   = require('../lib/scanner'),
     forward   = require('../lib/utils').forwardEvent,
+    _         = require('underscore'),
     os        = require('os'),
     path      = require('path'),
     fs        = require('fs'),
@@ -17,9 +18,9 @@ var jsRepo = null;
 var bowerRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
+var failBuild = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 var finalResults = [];
-
 
 
 /*
@@ -45,14 +46,15 @@ program
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
+  .option('--severity <level>', 'Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .option('--includemeta', 'Include version and scan time in JSON result')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'exitwith',
-  'includemeta'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
+  'severity', 'exitwith', 'includemeta'
 ]));
 var scanStart = Date.now();
 
@@ -64,6 +66,10 @@ config.ignore = { paths : config.ignore, descriptors: [] };
 
 if (!config.ignorefile) {
   config.ignorefile = defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];
+}
+
+if(!config.severity) {
+  config.severity = 'none';
 }
 
 if(config.ignorefile) {
@@ -92,6 +98,24 @@ if(config.ignorefile) {
 
 scanner.on('vulnerable-dependency-found', function(results) {
   vulnsFound = true;
+
+  var severityLevels = {
+    none: 0,
+    low: 1,
+    medium: 2,
+    high: 3,
+    critical: 4
+  };
+  var depsSeverity = results.results[0].vulnerabilities[0].severity;
+
+  if(depsSeverity in severityLevels){
+    if(severityLevels[depsSeverity] >= severityLevels[config.severity]){
+      failBuild = true;
+    }
+  } else {
+    failBuild = true;
+  }
+
   finalResults.push(results);
 });
 
@@ -162,7 +186,7 @@ events.on('js-scanned', function() {
 events.on('scan-done', function() {
   var exit = function(exitCode) {
     exitCode = exitCode || 0;
-    process.exit(vulnsFound ? (config.exitwith || 13) : exitCode);
+    process.exit(failBuild ? (config.exitwith || 13) : exitCode);
   };
   if (config.fileOutput) {
     config.fileOutput.stream.on('finish', function() {
@@ -170,6 +194,7 @@ events.on('scan-done', function() {
       exit();
     });
   }
+
   if (config.outputformat === 'json') {
     if (config.includemeta) {
       finalResults = { version: retire.version, time: (Date.now() - scanStart)/1000, data: finalResults };

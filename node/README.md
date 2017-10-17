@@ -34,6 +34,7 @@ Options:
 --outputpath <path>     File to which output should be written
 --ignore <paths>        Comma delimited list of paths to ignore
 --ignorefile <path>     Custom .retireignore file, defaults to .retireignore
+--severity <level>      Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none
 --exitwith <code>       Custom exit code (default: 13) when vulnerabilities are found
 ````
 
