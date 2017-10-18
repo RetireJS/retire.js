@@ -17,7 +17,7 @@ var jsRepo = null;
 var bowerRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
-var failBuild = false;
+var failProcess = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 var finalResults = [];
 
@@ -68,7 +68,7 @@ if (!config.ignorefile) {
 }
 
 if(!config.severity) {
-  config.severity = 'none';
+  config.severity = 'low';
 }
 
 if(config.ignorefile) {
@@ -108,11 +108,11 @@ scanner.on('vulnerable-dependency-found', function(results) {
   var depsSeverity = results.results[0].vulnerabilities[0].severity;
 
   if(depsSeverity in severityLevels){
-    if(severityLevels[depsSeverity] >= severityLevels[config.severity]){
-      failBuild = true;
+    if(severityLevels[depsSeverity] >= severityLevels[config.severity] && severityLevels[config.severity] !== 0){
+      failProcess = true;
     }
   } else {
-    failBuild = true;
+    failProcess = true;
   }
 
   finalResults.push(results);
@@ -185,7 +185,7 @@ events.on('js-scanned', function() {
 events.on('scan-done', function() {
   var exit = function(exitCode) {
     exitCode = exitCode || 0;
-    process.exit(failBuild ? (config.exitwith || 13) : exitCode);
+    process.exit(failProcess ? (config.exitwith || 13) : exitCode);
   };
   if (config.fileOutput) {
     config.fileOutput.stream.on('finish', function() {
