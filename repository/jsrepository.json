@@ -74,7 +74,8 @@
 								"/\\*! jQuery v(§§version§§)",
                 "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
                 "[^a-z]m=\"(§§version§§)\",.*[^a-z]jquery:m,",
-                "[^a-z.]jquery:[ ]?\"(§§version§§)\""
+                "[^a-z.]jquery:[ ]?\"(§§version§§)\"",
+                "\\$\\.documentElement,Q=e.jQuery,Z=e\\.\\$,ee=\\{\\},te=\\[\\],ne=\"(§§version§§)\""
 			],
 			"filecontentreplace" : [
 				"/var [a-z]=[a-z]\\.document,([a-z])=\"(§§version§§)\",([a-z])=.{130,160};\\3\\.fn=\\3\\.prototype=\\{jquery:\\1/$2/"
