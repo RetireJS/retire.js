@@ -1091,6 +1091,53 @@
 		}
 	},
 
+	"ckeditor" : {
+		"vulnerabilities": [
+			{
+				"below" : "4.4.3",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-443" ]
+			},
+			{
+				"below" : "4.4.6",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-446" ]
+			},
+			{
+				"below" : "4.4.8",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-448" ]
+			},
+			{
+				"below" : "4.5.11",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-4511" ]
+			}
+		],
+		"extractors" : {
+			"uri"			: [ "/(§§version§§)/ckeditor(\\.min)?\\.js" ],
+			"filename"		: [ "ckeditor-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
+								"ckeditor..js.{4,20}=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)",
+								"window.CKEDITOR=function\\(\\)\\{var [a-z]=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)"
+			],
+			"hashes"		: {},
+			"func"			: [ "CKEDITOR.version" ]
+		}
+	},
+
 	"dont check" : {
 		"extractors" : {
 			"uri" : [
