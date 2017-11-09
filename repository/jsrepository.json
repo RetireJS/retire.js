@@ -1070,7 +1070,7 @@
 	"bootstrap": {
 		"vulnerabilities" : [
 			{
-				"below" : "4.0.0",
+				"below" : "4.0.0-beta.2",
 				"identifiers": {
 					"issue" : "20184",
 					"summary": "XSS in data-target attribute"
