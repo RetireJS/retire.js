@@ -21,6 +21,14 @@ var failProcess = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 var finalResults = [];
 
+var severityLevels = {
+  none: 0,
+  low: 1,
+  medium: 2,
+  high: 3,
+  critical: 4
+};
+
 
 /*
  * Parse command line flags.
@@ -67,21 +75,27 @@ if (!config.ignorefile) {
   config.ignorefile = defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];
 }
 
+function exitWithError(msg) {
+  console.warn(msg);
+  process.exit(1);
+}
+
+
 if(!config.severity) {
-  config.severity = 'low';
+  config.severity = 'none';
+} else if (!severityLevels.hasOwnProperty(config.severity)) {
+  exitWithError('Error: Invalid severity level (' + config.severity + '). Valid levels are: ' + Object.keys(severityLevels).join(', '));
 }
 
 if(config.ignorefile) {
   if (!fs.existsSync(config.ignorefile)) {
-    console.warn('Error: Could not read ignore file: ' + config.ignorefile);
-    process.exit(1);
+    exitWithError('Error: Could not read ignore file: ' + config.ignorefile);
   }
   if (config.ignorefile.substr(-5) === ".json") {
     try {
       var ignored = JSON.parse(fs.readFileSync(config.ignorefile).toString());
     } catch(e) {
-      console.warn('Error: Invalid ignore file: ' + config.ignorefile, e);
-      process.exit(1);
+      exitWithError('Error: Invalid ignore file: ' + config.ignorefile, e);
     }
     config.ignore.descriptors = ignored;
     var ignoredPaths = ignored
@@ -95,27 +109,14 @@ if(config.ignorefile) {
   }
 }
 
-scanner.on('vulnerable-dependency-found', function(results) {
+scanner.on('vulnerable-dependency-found', function(result) {
   vulnsFound = true;
-
-  var severityLevels = {
-    none: 0,
-    low: 1,
-    medium: 2,
-    high: 3,
-    critical: 4
-  };
-  var depsSeverity = results.results[0].vulnerabilities[0].severity;
-
-  if(depsSeverity in severityLevels){
-    if(severityLevels[depsSeverity] >= severityLevels[config.severity] && severityLevels[config.severity] !== 0){
-      failProcess = true;
-    }
-  } else {
+  var levels = result.results.map(function(r) { return r.vulnerabilities ? r.vulnerabilities.map(function(v) { return severityLevels[v.severity || 'critical'] })  : [] });
+  var severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y});
+  if(severity >= severityLevels[config.severity]) {
     failProcess = true;
   }
-
-  finalResults.push(results);
+  finalResults.push(result);
 });
 
 scanner.on('dependency-found', function(results) {
