@@ -1067,30 +1067,6 @@
 		}
 	},
 
-	"bootstrap": {
-		"vulnerabilities" : [
-			{
-				"below" : "4.0.0",
-				"identifiers": {
-					"issue" : "20184",
-					"summary": "XSS in data-target attribute"
-				},
-				"severity" : "medium",
-				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
-			}
-		],
-		"extractors" : {
-			"uri"			: [ "/(§§version§§)/bootstrap(\\.min)?\\.js" ],
-			"filename"		: [ "bootstrap-(§§version§§)(\\.min)?\\.js" ],
-			"filecontent"	: [
-								"/\\*!? Bootstrap v(§§version§§)", 
-								"\\* Bootstrap v(§§version§§)",
-								"/\\*! Bootstrap v(§§version§§)"
-			],
-			"hashes"		: {}
-		}
-	},
-
 	"ckeditor" : {
 		"vulnerabilities": [
 			{
