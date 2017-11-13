@@ -46,7 +46,7 @@
 					"summary": "3rd party CORS request may execute"
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.12.3",
@@ -56,8 +56,39 @@
 					"summary": "3rd party CORS request may execute"
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "1.8.0",
+				"below" : "1.12.0",
+				"identifiers": {
+					"issue" : "11974",
+					"summary": "parseHTML() executes scripts in event handlers"
+				},
+				"severity": "medium",
+				"info" : [ "https://github.com/jquery/jquery/issues/11974", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "1.12.2",
+				"below" : "2.2.0",
+				"identifiers": {
+					"issue" : "11974",
+					"summary": "parseHTML() executes scripts in event handlers"
+				},
+				"severity": "medium",
+				"info" : [ "https://github.com/jquery/jquery/issues/11974", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "2.2.2",
+				"below" : "3.0.0",
+				"identifiers": {
+					"issue" : "11974",
+					"summary": "parseHTML() executes scripts in event handlers"
+				},
+				"severity": "medium",
+				"info" : [ "https://github.com/jquery/jquery/issues/11974", "http://research.insecurelabs.org/jquery/test/" ]
 			}
+
 
 
 		],
