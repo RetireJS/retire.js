@@ -66,7 +66,7 @@
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/11974", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.12.2",
@@ -76,7 +76,7 @@
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/11974", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "2.2.2",
@@ -86,7 +86,7 @@
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/11974", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
 			}
 
 
