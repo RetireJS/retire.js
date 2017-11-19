@@ -4,7 +4,6 @@ var retire = require('./retire'),
     crypto = require('crypto'),
     path   = require('path'),
     utils  = require('./utils'),
-    log    = require('./utils').log,
     emitter   = new require('events').EventEmitter;
 
 var events = new emitter();
@@ -17,47 +16,14 @@ var hash = {
   }
 };
 
-function printResults(file, results, options) {
-  removeIgnored(results, options.ignore);
-  if (!retire.isVulnerable(results) && !options.verbose) return;
-  var logger = log(options).info;
-  if (retire.isVulnerable(results)) {
-    logger = log(options).warn;
-    events.emit('vulnerable-dependency-found', {file: file, results: results});
+function emitResults(finding, options) {
+  removeIgnored(finding.results, options.ignore);
+  if (retire.isVulnerable(finding.results)) {
+    events.emit('vulnerable-dependency-found', finding);
   } else {
-    events.emit('dependency-found', {file: file, results: results});
+    events.emit('dependency-found', finding);
   }
-  if (results.length > 0) {
-    logger(file);
-    var printed = {};
-    results.forEach(function(elm) {
-      var vuln = '';
-      var key = elm.component + ' ' + elm.version;
-      if (printed[key]) return;
-      if (retire.isVulnerable([elm])) {
-        vuln = ' has known vulnerabilities:' + printVulnerability(elm, options);
-      }
-      logger(' ' + String.fromCharCode(8627) + ' ' + key + vuln);
-      printed[key] = true;
-    });
-  }
-}
 
-function printVulnerability(component, options) {
-  var string = '';
-  component.vulnerabilities.forEach(function(vulnerability){
-    string += options.outputformat === 'clean' ? '\n   ' : ' ';
-    if (vulnerability.severity) {
-      string += 'severity: ' + vulnerability.severity + '; ';
-    }
-    if (vulnerability.identifiers) {
-      string += utils.map(vulnerability.identifiers, function(id, name) {
-        return name + ': ' + utils.flatten([id]).join(' ');
-      }).join(', ') + '; ';
-    }
-    string += vulnerability.info.join(options.outputformat === 'clean' ? '\n' : ' ');
-  });
-  return string;
 }
 
 function shouldIgnorePath(fileSpecs, ignores) {
@@ -69,9 +35,9 @@ function shouldIgnorePath(fileSpecs, ignores) {
 }
 
 function removeIgnored(results, ignores) {
-  if (!ignores.hasOwnProperty("descriptors")) return;
+  if (!ignores.hasOwnProperty('descriptors')) return;
   results.forEach(function(r) {
-    if (!r.hasOwnProperty("vulnerabilities")) return;
+    if (!r.hasOwnProperty('vulnerabilities')) return;
     ignores.descriptors.forEach(function(i) {
       if (r.component !== i.component) return;
       if (i.version && r.version !== i.version) return;
@@ -107,13 +73,9 @@ function scanJsFile(file, repo, options) {
   if (!results || results.length === 0) {
     results = retire.scanFileContent(fs.readFileSync(file), repo, hash);
   }
-  printResults(file, results, options);
+  emitResults({file: file, results: results}, options);
 }
 
-function printParent(comp, options) {
-  if ('parent' in comp) printParent(comp.parent, options);
-  log(options).info(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
-}
 
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
@@ -121,24 +83,16 @@ function scanDependencies(dependencies, nodeRepo, options) {
       continue;
     }
     results = retire.scanNodeDependency(dependencies[i], nodeRepo);
-    removeIgnored(results, options.ignore);
     if (retire.isVulnerable(results)) {
-      events.emit('vulnerable-dependency-found', {results: results});
-      var result = results[0]; //Only single scan here
-      log(options).warn(result.component + ' ' + result.version + ' has known vulnerabilities: ' + printVulnerability(result, options));
-      if (result.parent) {
-        printParent(result, options);
-      }
-    } else {
-      events.emit('dependency-found', results);
+      emitResults({results: results}, options);
     }
   }
 }
 
 function toModulePath(dep) {
   function f(d) {
-    if (d.parent) return f(d.parent) + "/node_modules/" + d.component;
-    return "";
+    if (d.parent) return f(d.parent) + '/node_modules/' + d.component;
+    return '';
   }
   return path.resolve(f(dep).substring(1));
 }
@@ -153,10 +107,10 @@ function scanBowerFile(file, repo, options) {
     var bower = JSON.parse(fs.readFileSync(file));
     if (bower.version) {
       var results = retire.check(bower.name, bower.version, repo);
-      printResults(file, results, options);
+      emitResults({file: file, results: results}, options);
     }
   } catch (e) {
-    log(options).warn('Could not parse file: ' + file);
+    options.log.warn('Could not parse file: ' + file);
   }
 }
 

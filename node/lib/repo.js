@@ -1,9 +1,8 @@
-/* global require, console, exports */
+/* global require, exports */
 var utils   = require('./utils'),
     fs      = require('fs'),
     req     = require('request'),
     path    = require('path'),
-    log     = require('./utils').log,
     forward   = require('../lib/utils').forwardEvent,
 	retire  = require('./retire');
 var emitter = require('events').EventEmitter;
@@ -12,8 +11,7 @@ var emitter = require('events').EventEmitter;
 function loadJson(url, options) {
 	var events = new emitter();
     var request = req;
-    var logger = log(options);
-	logger.info('Downloading ' + url + ' ...');
+    options.log.info('Downloading ' + url + ' ...');
 	if (options.proxy) {
         request = request.defaults({'proxy' : options.proxy});
     }
@@ -30,9 +28,10 @@ function loadJson(url, options) {
 }
 
 function loadJsonFromFile(file, options) {
-    log(options).verbose('Reading ' + file + ' ...');
+    options.log.debug('Reading ' + file + ' ...');
 	var events = new emitter();
     fs.readFile(file, { encoding : 'utf8'}, function(err, data) {
+        if (err) { return events.emit('stop', err.toString()); }
         data = options.process ? options.process(data) : data;
         var obj = JSON.parse(data);
         events.emit('done', obj);
@@ -47,7 +46,7 @@ function loadFromCache(url, cachedir, options) {
     var now = new Date().getTime();
     if (cache[url]) {
         if (now - cache[url].date < 60*60*1000) {
-            log(options).info("Loading from cache: " + url);
+            options.log.info('Loading from cache: ' + url);
             return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
         } else {
             if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {

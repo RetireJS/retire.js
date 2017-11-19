@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '1.4.0';
+exports.version = '2.0.0';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -161,9 +161,9 @@ exports.scanFileContent = function(content, repo, hasher) {
 	return check(result, repo);
 };
 
-exports.scanNodeDependency = function(dependency, npmrepo) {
+exports.scanNodeDependency = function(dependency, npmrepo, options) {
 	if (!isDefined(dependency.version)) {
-		console.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
+		if (options.log) options.log.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
 		return [];
 	}
 	if (!isDefined(npmrepo[dependency.component])) return [{component: dependency.component, version: dependency.version}];
