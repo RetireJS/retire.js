@@ -6,7 +6,7 @@ var verbose = false;
 var outputformat = "normal";
 var scanStart = Date.now();
 
-var colorwarn = function(x) { return x; }
+var colorwarn = function(x) { return x; };
 
 var writer = {
 	out: console.log,

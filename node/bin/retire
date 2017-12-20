@@ -75,7 +75,7 @@ if (!config.nocache) {
 }
 config.ignore = config.ignore ? utils.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
 config.ignore = { paths : config.ignore, descriptors: [] };
-config.colorwarn = config.nocolors ? function(x) { return x } : colors.warn;
+config.colorwarn = config.nocolors ? function(x) { return x; } : colors.warn;
 
 if (!config.ignorefile) {
   config.ignorefile = defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];

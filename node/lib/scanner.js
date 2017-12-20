@@ -82,7 +82,7 @@ function scanDependencies(dependencies, nodeRepo, options) {
     if (options.ignore && shouldIgnorePath([dependencies[i].component, toModulePath(dependencies[i])], options.ignore)) {
       continue;
     }
-    results = retire.scanNodeDependency(dependencies[i], nodeRepo);
+    results = retire.scanNodeDependency(dependencies[i], nodeRepo, options);
     if (retire.isVulnerable(results)) {
       emitResults({results: results}, options);
     }
