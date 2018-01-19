@@ -1108,6 +1108,14 @@
 				},
 				"severity" : "medium",
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "2.1.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "cross-site scripting vulnerability"
+				},
+				"info" : [ "https://github.com/twbs/bootstrap/pull/3421" ]
 			}
 		],
 		"extractors" : {
