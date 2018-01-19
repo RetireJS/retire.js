@@ -1843,6 +1843,17 @@
       },
       {
         "below": "3.0.0",
+        "atOrAbove" : "1.12.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "jquery_xss"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/328"
+        ]
+      },
+      {
+        "below": "1.12.0",
         "severity": "high",
         "identifiers": {
           "summary": "jquery_xss"
