@@ -357,7 +357,7 @@
 				"below" : "2.1",
 				"severity": "medium",
 				"identifiers": {"summary": "DOM-based XSS"},
-				"info" : [ "https://code.google.com/p/swfobject/wiki/release_notes", "https://code.google.com/p/swfobject/source/detail?r=181" ]
+				"info" : [ "https://github.com/swfobject/swfobject/wiki/SWFObject-Release-Notes#swfobject-v21-beta7-june-6th-2008" ]
 			}
 		],
 		"extractors" : {
