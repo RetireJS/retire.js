@@ -1151,7 +1151,30 @@
 			}
 		]
 	},
-
+	"electron": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.6.16",
+				"severity": "high",
+				"identifiers": {"advisory": "Update electron to a version that is not vulnerable."},
+				"info" : [ "https://nodesecurity.io/advisories/563" ]
+			},
+			{
+				"atOrAbove" : "1.7.0",
+				"below" : "1.7.11",
+				"severity": "high",
+				"identifiers": {"advisory": "Update electron to a version that is not vulnerable."},
+				"info" : [ "https://nodesecurity.io/advisories/563" ]
+			},
+			{
+				"atOrAbove" : "1.8.0",
+				"below" : "1.8.2-beta.4",
+				"severity": "high",
+				"identifiers": {"advisory": "Update electron to a version that is not vulnerable."},
+				"info" : [ "https://nodesecurity.io/advisories/563" ]
+			}
+		]
+	},
 	"electron-packager": {
 		"vulnerabilities" : [
 			{
