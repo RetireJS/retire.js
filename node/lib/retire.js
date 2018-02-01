@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '1.5.0';
+exports.version = '1.5.1';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
