@@ -51,7 +51,7 @@ function loadFromCache(url, cachedir, options) {
             return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
         } else {
             if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {
-                fs.unlink(path.resolve(cachedir, cache[url].date + '.json'));
+                fs.unlinkSync(path.resolve(cachedir, cache[url].date + '.json'));
             }
         }
     }
