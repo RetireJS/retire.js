@@ -8,6 +8,15 @@
 	"angular" : {
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "1.5.0",
+				"below" : "1.6.9",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS through SVG if enableSvg is set"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#169-fiery-basilisk-2018-02-02", "https://vulnerabledoma.in/ngSanitize1.6.8_bypass.html" ]
+			},
+			{
 				"atOrAbove" : "1.3.0",
 				"below" : "1.5.0-rc2",
 				"severity": "medium",
