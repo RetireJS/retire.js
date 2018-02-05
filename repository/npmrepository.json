@@ -4461,15 +4461,111 @@
         ]
       }
     ]
+  },
+  "fastify": {
+    "vulnerabilities": [
+      {
+        "below": "0.38.0",
+        "severity": "critical",
+        "identifiers": {
+          "CVE": [
+            "CVE-2018-3711"
+          ],
+          "summary": "denial-of-service vulnerability with large JSON payloads"
+        },
+        "info": [
+          "https://hackerone.com/reports/303632"
+        ]
+      }
+    ]
+  },
+  "serve": {
+    "vulnerabilities": [
+      {
+        "below": "6.4.9",
+        "severity": "critical",
+        "identifiers": {
+          "CVE": [
+            "CVE-2018-3712"
+          ],
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/307666"
+        ]
+      }
+    ]
+  },
+  "augustine": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.4",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296282"
+        ]
+      }
+    ]
+  },
+  "lactate": {
+    "vulnerabilities": [
+      {
+        "below": "0.13.13",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296645"
+        ]
+      }
+    ]
+  },
+  "redis-commander": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.6",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Reflected XSS"
+        },
+        "info": [
+          "https://hackerone.com/reports/296377"
+        ]
+      }
+    ]
+  },
+  "featurebook": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.33",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296305"
+        ]
+      }
+    ]
+  },
+  "serve-here": {
+    "vulnerabilities": [
+      {
+        "below": "3.2.2",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296254"
+        ]
+      }
+    ]
   }
-
-
-
-
-
-
-
-
 
 
 
