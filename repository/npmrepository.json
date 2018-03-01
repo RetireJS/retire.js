@@ -1092,17 +1092,7 @@
 				"info" : [ "http://nodesecurity.io/advisories/31" ]
 			}
 		]
-	},
-	"jsonwebtoken": {
-		"vulnerabilities" : [
-			{
-				"below" : "4.2.2",
-				"severity": "medium",
-				"identifiers": {"advisory": "jsonwebtoken_verification_bypass"},
-				"info" : [ "http://nodesecurity.io/advisories/jsonwebtoken_verification_bypass" ]
-			}
-		]
-	},
+	},	
 	"serve-static": {
 		"vulnerabilities" : [
 			{
@@ -4187,6 +4177,7 @@
         "below": "4.2.2",
         "severity": "high",
         "identifiers": {
+	  "advisory": "jsonwebtoken_verification_bypass",	
           "summary": "jsonwebtoken_verification-bypass"
         },
         "info": [
