@@ -609,7 +609,7 @@
 				"severity": "high",
 				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
 				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
-			},
+			},			
 			{
 				"atOrAbove" : "1.1",
 				"below" : "1.1.2",
@@ -649,7 +649,17 @@
 				"severity": "medium",
 				"identifiers": {"CVE": ["CVE-2008-6681"]},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
-			}
+			},
+			{
+        			"below": "1.1",
+        			"severity": "medium",
+        			"identifiers": {
+          			"summary": "dojo_cross-site-scripting"
+        			},
+        			"info": [
+          			"https://nodesecurity.io/advisories/107"
+        			]
+                        }
 		]
 	},	
 	"mustache" : {
@@ -4148,20 +4158,6 @@
         },
         "info": [
           "https://nodesecurity.io/advisories/108"
-        ]
-      }
-    ]
-  },
-  "dojo": {
-    "vulnerabilities": [
-      {
-        "below": "1.1",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "dojo_cross-site-scripting"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/107"
         ]
       }
     ]
