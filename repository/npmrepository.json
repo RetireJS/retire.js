@@ -1059,26 +1059,6 @@
 				"info" : [ "https://nodesecurity.io/advisories/50", "https://github.com/vdemedes/secure-compare/pull/1" ]
 			}
 		]
-	},		
-	"validator" : {
-		"vulnerabilities" : [ 
-			{
-				"below" : "3.22.1",
-				"severity": "medium",
-				"identifiers": {
-					"CVE": ["CVE-2014-8882"],
-					"advisory": "validator-isurl-denial-of-service"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ]
-			},
-			{
-				"below" : "2.0.0",
-				"severity": "medium",
-				"identifiers": {
-					"advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
-		]	
 	},
 	"semver": {
 		"vulnerabilities" : [
@@ -4198,6 +4178,8 @@
         "below": "3.22.1",
         "severity": "high",
         "identifiers": {
+	  "CVE": ["CVE-2014-8882"],
+	  "advisory": "validator-isurl-denial-of-service",	
           "summary": "validator_regular-expression-denial-of-service"
         },
         "info": [
@@ -4208,6 +4190,7 @@
         "below": "2.0.0",
         "severity": "medium",
         "identifiers": {
+	  "advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL",	
           "summary": "validator_xss-filter-bypass-via-encoded-url"
         },
         "info": [
