@@ -905,7 +905,7 @@
 		"vulnerabilities" : [
 			{
 				"below" : "0.1.4",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"advisory": "fancy-server-directory-traversal"},
 				"info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ]
 			}
@@ -4192,20 +4192,6 @@
       }
     ]
   },  
-  "fancy-server": {
-    "vulnerabilities": [
-      {
-        "below": "0.1.4",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "fancy-server_directory-traversal"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/9"
-        ]
-      }
-    ]
-  },
   "nhouston": {
     "vulnerabilities": [
       {
