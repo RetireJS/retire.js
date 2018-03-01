@@ -4188,32 +4188,7 @@
         ]
       }
     ]
-  },  
-  "serve-static": {
-    "vulnerabilities": [
-      {
-        "below": "1.7.2",
-        "atOrAbove": "1.7.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-static_open-redirect"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/35"
-        ]
-      },
-      {
-        "below": "1.6.5",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-static_open-redirect"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/35"
-        ]
-      }
-    ]
-  },
+  },    
   "inert": {
     "vulnerabilities": [
       {
