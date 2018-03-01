@@ -1062,17 +1062,7 @@
 				"info" : [ "https://nodesecurity.io/advisories/50", "https://github.com/vdemedes/secure-compare/pull/1" ]
 			}
 		]
-	},	
-	"remarkable": {
-		"vulnerabilities" : [
-			{
-				"below" : "1.4.1",
-				"severity": "high",
-				"identifiers": {"advisory": "remarkable_content_injection"},
-				"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
-			}
-		]
-	},
+	},		
 	"validator" : {
 		"vulnerabilities" : [ 
 			{
@@ -2143,6 +2133,12 @@
   },
   "remarkable": {
     "vulnerabilities": [
+      {
+	"below" : "1.4.1",
+	"severity": "high",
+	"identifiers": {"advisory": "remarkable_content_injection"},
+	"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
+      },
       {
         "below": "1.7.0",
         "severity": "medium",
