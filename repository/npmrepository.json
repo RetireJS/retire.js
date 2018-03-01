@@ -609,7 +609,7 @@
 				"severity": "high",
 				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
 				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
-			},
+			},			
 			{
 				"atOrAbove" : "1.1",
 				"below" : "1.1.2",
@@ -649,22 +649,19 @@
 				"severity": "medium",
 				"identifiers": {"CVE": ["CVE-2008-6681"]},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
-			}
-		]
-	},
-	"backbone" : {
-		"vulnerabilities" : [
+			},
 			{
-				"below" : "0.5.0",
-				"severity": "medium",
-				"identifiers": {
-					"release": "0.5.0",
-					"summary": "cross-site scripting vulnerability"
-				},
-				"info" : [ "http://backbonejs.org/#changelog" ]
-			}
+        			"below": "1.1",
+        			"severity": "medium",
+        			"identifiers": {
+          			"summary": "dojo_cross-site-scripting"
+        			},
+        			"info": [
+          			"https://nodesecurity.io/advisories/107"
+        			]
+                        }
 		]
-	},
+	},	
 	"mustache" : {
 		"vulnerabilities" : [
 			{
@@ -908,28 +905,18 @@
 		"vulnerabilities" : [
 			{
 				"below" : "0.1.4",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"advisory": "fancy-server-directory-traversal"},
 				"info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ]
 			}
 		]
-	},
-	"dns-sync": {
-		"vulnerabilities" : [
-			{
-				"below" : "0.1.1",
-				"severity": "high",
-				"identifiers": {"advisory": "dns-sync-command-injection"},
-				"info" : [ "http://nodesecurity.io/advisories/dns-sync-command-injection" ]
-			}
-		]
-	},
+	},	
 	"nhouston": {
 		"vulnerabilities" : [
 			{
 				"below":"100.0.0",
 				"atOrAbove" : "0.0.0",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": ["CVE-2014-8883"],
 					"advisory": "nhouston-directory-traversal"
@@ -1072,57 +1059,20 @@
 				"info" : [ "https://nodesecurity.io/advisories/50", "https://github.com/vdemedes/secure-compare/pull/1" ]
 			}
 		]
-	},	
-	"remarkable": {
-		"vulnerabilities" : [
-			{
-				"below" : "1.4.1",
-				"severity": "high",
-				"identifiers": {"advisory": "remarkable_content_injection"},
-				"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
-			}
-		]
-	},
-	"validator" : {
-		"vulnerabilities" : [ 
-			{
-				"below" : "3.22.1",
-				"severity": "medium",
-				"identifiers": {
-					"CVE": ["CVE-2014-8882"],
-					"advisory": "validator-isurl-denial-of-service"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ]
-			},
-			{
-				"below" : "2.0.0",
-				"severity": "medium",
-				"identifiers": {
-					"advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
-		]	
 	},
 	"semver": {
 		"vulnerabilities" : [
 			{
 				"below" : "4.3.2",
 				"severity": "medium",
-				"identifiers": {"advisory": "semver_dos"},
+				"identifiers": {
+					"advisory": "semver_dos",
+					"summary": "semver_regular-expression-denial-of-service"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/31" ]
 			}
 		]
-	},
-	"jsonwebtoken": {
-		"vulnerabilities" : [
-			{
-				"below" : "4.2.2",
-				"severity": "medium",
-				"identifiers": {"advisory": "jsonwebtoken_verification_bypass"},
-				"info" : [ "http://nodesecurity.io/advisories/jsonwebtoken_verification_bypass" ]
-			}
-		]
-	},
+	},	
 	"serve-static": {
 		"vulnerabilities" : [
 			{
@@ -1145,7 +1095,10 @@
 			{
 				"below" : "1.6.3",
 				"severity": "medium",
-				"identifiers": {"advisory": "serve-static-xss"},
+				"identifiers": {
+					"advisory": "serve-static-xss",
+					"summary": "serve-index_cross-site-scripting"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/serve-static-xss" ]
 			}
 		]
@@ -1154,8 +1107,11 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.1.1",
-				"severity": "high",
-				"identifiers": {"advisory": "inert_hidden_directories_always_served"},
+				"severity": "medium",
+				"identifiers": {
+					"advisory": "inert_hidden_directories_always_served",
+					"summary": "inert_hidden-directories-always-served"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/inert_hidden_directories_always_served" ]
 			}
 		]
@@ -2153,6 +2109,12 @@
   },
   "remarkable": {
     "vulnerabilities": [
+      {
+	"below" : "1.4.1",
+	"severity": "high",
+	"identifiers": {"advisory": "remarkable_content_injection"},
+	"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
+      },
       {
         "below": "1.7.0",
         "severity": "medium",
@@ -4179,20 +4141,6 @@
       }
     ]
   },
-  "dojo": {
-    "vulnerabilities": [
-      {
-        "below": "1.1",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "dojo_cross-site-scripting"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/107"
-        ]
-      }
-    ]
-  },
 
   "tar": {
     "vulnerabilities": [
@@ -4209,26 +4157,13 @@
     ]
   },
 
-  "semver": {
-    "vulnerabilities": [
-      {
-        "below": "4.3.2",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "semver_regular-expression-denial-of-service"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/31"
-        ]
-      }
-    ]
-  },
   "jsonwebtoken": {
     "vulnerabilities": [
       {
         "below": "4.2.2",
         "severity": "high",
         "identifiers": {
+	  "advisory": "jsonwebtoken_verification_bypass",	
           "summary": "jsonwebtoken_verification-bypass"
         },
         "info": [
@@ -4236,108 +4171,15 @@
         ]
       }
     ]
-  },
-  "serve-index": {
-    "vulnerabilities": [
-      {
-        "below": "1.6.3",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-index_cross-site-scripting"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/34"
-        ]
-      }
-    ]
-  },
-  "serve-static": {
-    "vulnerabilities": [
-      {
-        "below": "1.7.2",
-        "atOrAbove": "1.7.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-static_open-redirect"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/35"
-        ]
-      },
-      {
-        "below": "1.6.5",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-static_open-redirect"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/35"
-        ]
-      }
-    ]
-  },
-  "inert": {
-    "vulnerabilities": [
-      {
-        "below": "1.1.1",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "inert_hidden-directories-always-served"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/14"
-        ]
-      }
-    ]
-  },
-  "paypal-ipn": {
-    "vulnerabilities": [
-      {
-        "below": "3.0.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "paypal-ipn_validation-bypass"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/26"
-        ]
-      }
-    ]
-  },
-  "fancy-server": {
-    "vulnerabilities": [
-      {
-        "below": "0.1.4",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "fancy-server_directory-traversal"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/9"
-        ]
-      }
-    ]
-  },
-  "nhouston": {
-    "vulnerabilities": [
-      {
-        "below": "99.999.99999",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "nhouston_directory-traversal"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/25"
-        ]
-      }
-    ]
-  },
+  },  
   "validator": {
     "vulnerabilities": [
       {
         "below": "3.22.1",
         "severity": "high",
         "identifiers": {
+	  "CVE": ["CVE-2014-8882"],
+	  "advisory": "validator-isurl-denial-of-service",	
           "summary": "validator_regular-expression-denial-of-service"
         },
         "info": [
@@ -4348,6 +4190,7 @@
         "below": "2.0.0",
         "severity": "medium",
         "identifiers": {
+	  "advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL",	
           "summary": "validator_xss-filter-bypass-via-encoded-url"
         },
         "info": [
