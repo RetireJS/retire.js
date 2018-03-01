@@ -916,7 +916,7 @@
 			{
 				"below":"100.0.0",
 				"atOrAbove" : "0.0.0",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": ["CVE-2014-8883"],
 					"advisory": "nhouston-directory-traversal"
@@ -4192,20 +4192,6 @@
       }
     ]
   },  
-  "nhouston": {
-    "vulnerabilities": [
-      {
-        "below": "99.999.99999",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "nhouston_directory-traversal"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/25"
-        ]
-      }
-    ]
-  },
   "validator": {
     "vulnerabilities": [
       {
