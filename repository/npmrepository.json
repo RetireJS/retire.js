@@ -913,17 +913,7 @@
 				"info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ]
 			}
 		]
-	},
-	"dns-sync": {
-		"vulnerabilities" : [
-			{
-				"below" : "0.1.1",
-				"severity": "high",
-				"identifiers": {"advisory": "dns-sync-command-injection"},
-				"info" : [ "http://nodesecurity.io/advisories/dns-sync-command-injection" ]
-			}
-		]
-	},
+	},	
 	"nhouston": {
 		"vulnerabilities" : [
 			{
