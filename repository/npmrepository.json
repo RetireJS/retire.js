@@ -4191,20 +4191,6 @@
         ]
       }
     ]
-  },    
-  "inert": {
-    "vulnerabilities": [
-      {
-        "below": "1.1.1",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "inert_hidden-directories-always-served"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/14"
-        ]
-      }
-    ]
   },
   "paypal-ipn": {
     "vulnerabilities": [
