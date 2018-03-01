@@ -4191,21 +4191,7 @@
         ]
       }
     ]
-  },
-  "paypal-ipn": {
-    "vulnerabilities": [
-      {
-        "below": "3.0.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "paypal-ipn_validation-bypass"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/26"
-        ]
-      }
-    ]
-  },
+  },  
   "fancy-server": {
     "vulnerabilities": [
       {
