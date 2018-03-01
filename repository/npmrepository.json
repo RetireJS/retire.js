@@ -651,20 +651,7 @@
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
 			}
 		]
-	},
-	"backbone" : {
-		"vulnerabilities" : [
-			{
-				"below" : "0.5.0",
-				"severity": "medium",
-				"identifiers": {
-					"release": "0.5.0",
-					"summary": "cross-site scripting vulnerability"
-				},
-				"info" : [ "http://backbonejs.org/#changelog" ]
-			}
-		]
-	},
+	},	
 	"mustache" : {
 		"vulnerabilities" : [
 			{
