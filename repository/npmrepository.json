@@ -4565,8 +4565,225 @@
         ]
       }
     ]
+  },
+  "html-janitor": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Bypassing sanitization using DOM clobbering"
+        },
+        "info": [
+          "https://hackerone.com/reports/308158"
+        ]
+      },
+      {
+        "below": "2.0.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - DOM"
+        },
+        "info": [
+          "https://hackerone.com/reports/308155"
+        ]
+      }
+    ]
+  },
+  "lodash": {
+    "vulnerabilities": [
+      {
+        "below": "4.0.0",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310443"
+        ]
+      }
+    ]
+  },
+  "hoek": {
+    "vulnerabilities": [
+      {
+        "below": "5.0.3",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310439"
+        ]
+      }
+    ]
+  },
+  "mixin-deep": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/311236"
+        ]
+      }
+    ]
+  },
+  "assign-deep": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.7",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310707"
+        ]
+      }
+    ]
+  },
+  "merge-deep": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310708"
+        ]
+      }
+    ]
+  },
+  "defaults-deep": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.4",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310514"
+        ]
+      }
+    ]
+  },
+  "public": {
+    "vulnerabilities": [
+      {
+        "below": "0.1.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/312918"
+        ]
+      }
+    ]
+  },
+  "crud-file-server": {
+    "vulnerabilities": [
+      {
+        "below": "0.7.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/311101"
+        ]
+      }
+    ]
+  },
+  "resolve-path": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/315760"
+        ]
+      }
+    ]
+  },
+  "localhost-now": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/312889"
+        ]
+      }
+    ]
+  },
+  "626": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/311216"
+        ]
+      }
+    ]
+  },
+  "anywhere": {
+    "vulnerabilities": [
+      {
+        "below": "1.5.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/309394"
+        ]
+      }
+    ]
+  },
+  "simplehttpserver": {
+    "vulnerabilities": [
+      {
+        "below": "1.5.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/309648"
+        ]
+      }
+    ]
+  },
+  "hekto": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/311218"
+        ]
+      }
+    ]
   }
-
-
-
 }
