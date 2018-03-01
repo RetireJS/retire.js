@@ -723,32 +723,21 @@
       }
 		]
 	},
-	"bassmaster" : {
-		"vulnerabilities" : [
-			{
-				"below" : "1.5.2",
-				"severity": "high",
-				"identifiers": {
-					"CVE": ["CVE-2014-7205"],
-					"advisory": "bassmaster_js_injection"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/bassmaster_js_injection" ]
-			}
-		]
-	},
-	"libyaml" : {
-		"vulnerabilities" : [
-			{
-				"below" : "0.2.3",
-				"severity": "medium",
-				"identifiers": {
-					"CVE": ["CVE-2013-6393"],
-					"advisory": "libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags" ]
-			}
-		]
-	},
+	"bassmaster": {
+    "vulnerabilities": [
+      {
+        "below": "1.5.2",
+        "severity": "medium",
+        "identifiers": {
+        	"CVE" : "CVE-2014-7205",
+          "summary": "bassmaster_arbitrary-javascript-execution"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/1"
+        ]
+      }
+    ]
+  },
 	"send" : {
 		"vulnerabilities" : [
 			{
@@ -783,23 +772,27 @@
 					"CVE": ["CVE-2014-4179"],
 					"advisory": "yar-DoS"
 				},
-				"info" : [ "http://nodesecurity.io/advisories/yar-DoS" ]
+        "info": [
+          "https://nodesecurity.io/advisories/44"
+        ]
 			}
 		]
 	},
-	"codem-transcode" : {
-		"vulnerabilities" : [
-			{
-				"below" : "0.5.0",
-				"severity": "high",
-				"identifiers": {
+  "codem-transcode": {
+    "vulnerabilities": [
+      {
+        "below": "0.5.0",
+        "severity": "medium",
+        "identifiers": {
 					"CVE": ["CVE-2013-7377"],
-					"advisory": "codem-transcode_command_injection"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/codem-transcode_command_injection" ]
-			}
-		]
-	},
+          "summary": "codem-transcode_potential-command-injection"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/2"
+        ]
+      }
+    ]
+  },	
 	"ep_imageconvert" : {
 		"vulnerabilities" : [
 			{
@@ -809,10 +802,12 @@
 					"CVE": ["CVE-2013-3364"],
 					"advisory": "ep_imageconvert_command_injection"
 				},
-				"info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ]
+				"info" : [ 
+          "https://nodesecurity.io/advisories/7"
+				]
 			}
 		]
-	},
+	},	
 	"sanitize-html": {
 		"vulnerabilities" : [
 			{
@@ -4209,20 +4204,6 @@
       }
     ]
   },
-  "bassmaster": {
-    "vulnerabilities": [
-      {
-        "below": "1.5.2",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "bassmaster_arbitrary-javascript-execution"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/1"
-        ]
-      }
-    ]
-  },
   "express": {
     "vulnerabilities": [
       {
@@ -4248,27 +4229,13 @@
       }
     ]
   },
-
-  "yar": {
-    "vulnerabilities": [
-      {
-        "below": "2.2.0",
-        "severity": "high",
-        "identifiers": {
-          "summary": "yar_denial-of-service"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/44"
-        ]
-      }
-    ]
-  },
   "libyaml": {
     "vulnerabilities": [
       {
         "below": "0.2.3",
         "severity": "high",
         "identifiers": {
+					"CVE": ["CVE-2013-6393"],
           "summary": "libyaml_heap-based-buffer-overflow"
         },
         "info": [
@@ -4276,35 +4243,7 @@
         ]
       }
     ]
-  },
-  "codem-transcode": {
-    "vulnerabilities": [
-      {
-        "below": "0.5.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "codem-transcode_potential-command-injection"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/2"
-        ]
-      }
-    ]
-  },
-  "ep_imageconvert": {
-    "vulnerabilities": [
-      {
-        "below": "0.0.3",
-        "severity": "high",
-        "identifiers": {
-          "summary": "ep_imageconvert_unauthenticated-remote-command-injection"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/7"
-        ]
-      }
-    ]
-  },
+  },  
   "fastify": {
     "vulnerabilities": [
       {
