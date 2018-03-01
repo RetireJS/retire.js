@@ -1127,8 +1127,11 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.1.1",
-				"severity": "high",
-				"identifiers": {"advisory": "inert_hidden_directories_always_served"},
+				"severity": "medium",
+				"identifiers": {
+					"advisory": "inert_hidden_directories_always_served",
+					"summary": "inert_hidden-directories-always-served"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/inert_hidden_directories_always_served" ]
 			}
 		]
