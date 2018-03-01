@@ -1115,7 +1115,10 @@
 			{
 				"below" : "1.6.3",
 				"severity": "medium",
-				"identifiers": {"advisory": "serve-static-xss"},
+				"identifiers": {
+					"advisory": "serve-static-xss",
+					"summary": "serve-index_cross-site-scripting"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/serve-static-xss" ]
 			}
 		]
@@ -4185,21 +4188,7 @@
         ]
       }
     ]
-  },
-  "serve-index": {
-    "vulnerabilities": [
-      {
-        "below": "1.6.3",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-index_cross-site-scripting"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/34"
-        ]
-      }
-    ]
-  },
+  },  
   "serve-static": {
     "vulnerabilities": [
       {
