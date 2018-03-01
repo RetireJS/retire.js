@@ -1085,7 +1085,10 @@
 			{
 				"below" : "4.3.2",
 				"severity": "medium",
-				"identifiers": {"advisory": "semver_dos"},
+				"identifiers": {
+					"advisory": "semver_dos",
+					"summary": "semver_regular-expression-denial-of-service"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/31" ]
 			}
 		]
@@ -4178,20 +4181,6 @@
     ]
   },
 
-  "semver": {
-    "vulnerabilities": [
-      {
-        "below": "4.3.2",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "semver_regular-expression-denial-of-service"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/31"
-        ]
-      }
-    ]
-  },
   "jsonwebtoken": {
     "vulnerabilities": [
       {
