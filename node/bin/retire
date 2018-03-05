@@ -48,6 +48,7 @@ program
   .option('--path <path>', 'Folder to scan for both')
   .option('--jsrepo <path|url>', 'Local or internal version of repo')
   .option('--noderepo <path|url>', 'Local or internal version of repo')
+  .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
   .option('--outputformat <format>', 'Valid formats: text, json')
   .option('--outputpath <path>', 'File to which output should be written')
@@ -61,13 +62,14 @@ program
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
   'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
-  'severity', 'exitwith', 'includemeta'
+  'severity', 'exitwith', 'includemeta', 'cachedir'
 ]));
 var scanStart = Date.now();
 
-if (!config.nocache) {
+if (!config.nocache && !config.cachedir) {
   config.cachedir = path.resolve(os.tmpdir(), '.retire-cache/');
 }
+
 config.ignore = config.ignore ? utils.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
 config.ignore = { paths : config.ignore, descriptors: [] };
 
