@@ -32,6 +32,7 @@
 			{
 				"below" : "1.9.0b1",
 				"identifiers": {
+					"CVE" : [ "CVE-2012-6708" ],					
 					"bug": "11290",
 					"summary": "Selector interpreted as HTML"
 				},
@@ -72,6 +73,7 @@
 				"atOrAbove" : "1.12.2",
 				"below" : "2.2.0",
 				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
 					"issue" : "11974",
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
@@ -82,6 +84,7 @@
 				"atOrAbove" : "2.2.2",
 				"below" : "3.0.0",
 				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
 					"issue" : "11974",
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
@@ -357,7 +360,7 @@
 				"below" : "2.1",
 				"severity": "medium",
 				"identifiers": {"summary": "DOM-based XSS"},
-				"info" : [ "https://code.google.com/p/swfobject/wiki/release_notes", "https://code.google.com/p/swfobject/source/detail?r=181" ]
+				"info" : [ "https://github.com/swfobject/swfobject/wiki/SWFObject-Release-Notes#swfobject-v21-beta7-june-6th-2008" ]
 			}
 		],
 		"extractors" : {
@@ -763,6 +766,15 @@
 		"bowername": [ "angularjs", "angular.js" ],
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "1.5.0",
+				"below" : "1.6.9",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS through SVG if enableSvg is set"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#169-fiery-basilisk-2018-02-02", "https://vulnerabledoma.in/ngSanitize1.6.8_bypass.html" ]
+			},
+			{
 				"atOrAbove" : "1.3.0",
 				"below" : "1.5.0-rc2",
 				"severity": "medium",
@@ -1108,6 +1120,14 @@
 				},
 				"severity" : "medium",
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "2.1.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "cross-site scripting vulnerability"
+				},
+				"info" : [ "https://github.com/twbs/bootstrap/pull/3421" ]
 			}
 		],
 		"extractors" : {
