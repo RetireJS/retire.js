@@ -176,6 +176,7 @@ function configureDepCheckLogger(config) {
 				var id = [v.identifiers && v.identifiers.CVE && v.identifiers.CVE[0], v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]	
 					.filter(n => n != null)[0];
 				console.log(v);
+				//TODO: Fix CVSS stuff - add to repo? add id to every bug in repo?
 				return `
         <vulnerability source="retire">
           <name>${id}</name>
@@ -233,6 +234,8 @@ function configureCycloneDXLogger(config) {
 		var write = vulnsFound ? writer.err : writer.out;
 		finalResults.start = finalResults.start.toISOString().replace("Z", "+0000");
 		var components = finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
+			//TODO: Temporary fix untill dep-track relaxes version requirements
+			dep.version = dep.version.split(".").length >= 3 ? dep.version : dep.version + ".0";
 			var filepath = r.file || dep.file;
 			var filename = filepath.split("/").slice(-1);
 			var file = fs.readFileSync(filepath);
@@ -246,7 +249,9 @@ function configureCycloneDXLogger(config) {
         <hash alg="SHA-256">${sha256Hash(file)}</hash>
         <hash alg="SHA-512">${sha512Hash(file)}</hash>
       </hashes>
+      <licenses><license></license></licenses>
       <purl>pkg:npm/${dep.component}@${dep.version}</purl>
+      <modified>false</modified>
     </component>`
     }).join("")).join("");
 		write(`<?xml version="1.0"?>
