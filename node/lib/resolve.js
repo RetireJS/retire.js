@@ -39,7 +39,7 @@ function getNodeDependencies(path, limit) {
 			var packages = JSON.parse(fs.readFileSync(path +'/package.json'));
 			filter = [];			
 
-			var filter = Object.keys(packages.dependencies);
+			var filter = packages.dependencies ? Object.keys(packages.dependencies) : [];
 			Object.keys(pkginfo.dependencies)
 				.filter(function(d) { return filter.indexOf(d) == -1; })
 				.forEach(function(d) { delete pkginfo.dependencies[d]; });
