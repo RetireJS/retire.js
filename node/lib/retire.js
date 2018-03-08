@@ -76,7 +76,7 @@ function check(results, repo) {
 				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
 					continue;
 				}
-				var vulnerability = { info : vulns[i].info };
+				var vulnerability = { info : vulns[i].info, below: vulns[i].below, atOrAbove: vulns[i].atOrAbove };
 				if (vulns[i].severity) {
 					vulnerability.severity = vulns[i].severity;
 				}

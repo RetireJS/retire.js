@@ -9,16 +9,17 @@ var scanStart = Date.now();
 
 var colorwarn = function(x) { return x; };
 
-function md5Hash(file) {
-	var h = crypto.createHash('md5');
-	h.update(file);
-	return h.digest('hex');
+
+function hashContent(hash, content) {
+	var h = crypto.createHash(hash);
+	h.update(content);
+	return h.digest('hex');	
 }
-function sha1Hash(file) {
-	var s = crypto.createHash('sha1');
-	s.update(file);
-	return s.digest('hex');
-}
+
+md5Hash = (file) => hashContent('md5', file);
+sha1Hash = (file) => hashContent('sha1', file);
+sha256Hash = (file) => hashContent('sha256', file);
+sha512Hash = (file) => hashContent('sha512', file);
 
 var writer = {
 	out: console.log,
@@ -150,11 +151,6 @@ function configureDepCheckLogger(config) {
 			var md5 = md5Hash(file);
 			var sha1 = sha1Hash(file);
 			var evidence = `
-        <evidence type="vendor" confidence="HIGH">
-          <source>file</source>
-          <name>name</name>
-          <value>${dep.component}</value>
-        </evidence>
         <evidence type="product" confidence="HIGH">
           <source>file</source>
           <name>name</name>
@@ -166,8 +162,8 @@ function configureDepCheckLogger(config) {
           <value>${dep.version}</value>
         </evidence>`;
 			var identifiers = `
-        <identifier type="cpe" confidence="HIGH">
-           <name>(cpe:/a:${dep.component}:${dep.component}:${dep.version})</name>
+        <identifier type="npm" confidence="HIGH">
+           <name>(${dep.component}:${dep.version})</name>
         </identifier>`;
 			var vulns = dep.vulnerabilities && dep.vulnerabilities.length > 0 ? dep.vulnerabilities.map(v => {
 				let references = v.info.map(i => `
@@ -179,6 +175,7 @@ function configureDepCheckLogger(config) {
 //				console.log(v.identifiers, [v.identifiers && v.identifiers.CVE, v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]);
 				var id = [v.identifiers && v.identifiers.CVE && v.identifiers.CVE[0], v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]	
 					.filter(n => n != null)[0];
+				console.log(v);
 				return `
         <vulnerability source="retire">
           <name>${id}</name>
@@ -193,9 +190,9 @@ function configureDepCheckLogger(config) {
           <description>${v.identifiers && v.identifiers.summary || "None"}</description>
           <references>${references}
           </references>
-                     <vulnerableSoftware>
-                        <software>cpe:/a:${dep.component}:${dep.component}:${dep.version}</software>
-                    </vulnerableSoftware>
+          <vulnerableSoftware>
+              <software>${ v.atOrAbove ? "&gt;= " + v.atOrAbove: "" } &lt; ${v.below}</software>
+          </vulnerableSoftware>
         </vulnerability>`}).join('') : "";
 
 			return `    <dependency>
@@ -215,6 +212,55 @@ function configureDepCheckLogger(config) {
 		writer.close(callback); 
 	};
 }
+
+function configureCycloneDXLogger(config) {
+	var vulnsFound = false;
+	var finalResults = { version: retire.version, start: new Date(scanStart), data: [], messages: [], errors: [] };
+	logger.info = finalResults.messages.push;
+	logger.debug = config.verbose ? finalResults.messages.push : function() {};
+	logger.warn = logger.error = finalResults.errors.push;
+	logger.logVulnerableDependency = function(finding) {
+		vulnsFound = true;
+		finalResults.data.push(finding);
+	};
+	logger.logDependency = function(finding) { 
+		if (verbose) { 
+			finalResults.data.push(finding); 
+		} 
+	};
+
+	logger.close = function(callback) {
+		var write = vulnsFound ? writer.err : writer.out;
+		finalResults.start = finalResults.start.toISOString().replace("Z", "+0000");
+		var components = finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
+			var filepath = r.file || dep.file;
+			var filename = filepath.split("/").slice(-1);
+			var file = fs.readFileSync(filepath);
+			return `
+    <component type="framework">
+      <name>${dep.component}</name>
+      <version>${dep.version}</version>
+      <hashes>
+        <hash alg="MD5">${md5Hash(file)}</hash>
+        <hash alg="SHA-1">${sha1Hash(file)}</hash>
+        <hash alg="SHA-256">${sha256Hash(file)}</hash>
+        <hash alg="SHA-512">${sha512Hash(file)}</hash>
+      </hashes>
+      <purl>pkg:npm/${dep.component}@${dep.version}</purl>
+    </component>`
+    }).join("")).join("");
+		write(`<?xml version="1.0"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.0" version="1">
+  <components>${components}
+  </components>
+</bom>`)
+		writer.close(callback); 
+	};
+}
+
+
+
+
 
 function configureFileWriter(config) {
   var fileOutput = {
@@ -239,6 +285,10 @@ function configureFileWriter(config) {
   };
 }
 
+
+
+
+
 exports.open = function(config) {
 	verbose = config.verbose;
 	if (!config.nocolors) colorwarn = config.colorwarn;
@@ -248,6 +298,9 @@ exports.open = function(config) {
   }
   if (config.outputformat === 'depcheck') {
   	configureDepCheckLogger(config);
+  }
+  if (config.outputformat === 'cyclonedx') {
+  	configureCycloneDXLogger(config);
   }
 	if (typeof config.outputpath === 'string') { 
 		configureFileWriter(config); 
