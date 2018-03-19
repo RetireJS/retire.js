@@ -43,7 +43,8 @@
 				"below" : "1.12.0",
 				"identifiers": {
 					"issue" : "2432",
-					"summary": "3rd party CORS request may execute"
+					"summary": "3rd party CORS request may execute",
+				        "CVE": [ "CVE-2015-2951" ] 
 				},
 				"severity": "medium",
 				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "http://research.insecurelabs.org/jquery/test/" ]
@@ -53,7 +54,8 @@
 				"below" : "3.0.0-beta1",
 				"identifiers": {
 					"issue" : "2432",
-					"summary": "3rd party CORS request may execute"
+					"summary": "3rd party CORS request may execute",
+				        "CVE": [ "CVE-2015-9251" ] 
 				},
 				"severity": "medium",
 				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "http://research.insecurelabs.org/jquery/test/" ]
