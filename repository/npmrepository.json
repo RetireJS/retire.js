@@ -434,25 +434,6 @@
 			}
 		]
 	},
-	"node-validator": {
-		"vulnerabilities" : [
-			{ "below" : "1.1.0",
-				"severity": "high",
-				"identifiers": {
-					"summary": "Cross-site scripting filter bypass"
-				},
-				"info" : [ "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/" ]
-			},
-			{
-				"below" : "2.0.0",
-				"severity": "low",
-				"identifiers": {
-					"summary": "Remove cross-site scripting filter"
-				},
-				"info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ]
-			}
-		]
-	},
 	"printer" : {
 		"vulnerabilities" : [
 			{
@@ -4189,7 +4170,8 @@
           "summary": "validator_xss-filter-bypass-via-encoded-url"
         },
         "info": [
-          "https://nodesecurity.io/advisories/43"
+          "https://nodesecurity.io/advisories/43",
+          "https://github.com/chriso/validator.js/issues/181"
         ]
       },
       {
@@ -4199,7 +4181,8 @@
           "summary": "validator_multiple-xss-filter-bypasses"
         },
         "info": [
-          "https://nodesecurity.io/advisories/41"
+          "https://nodesecurity.io/advisories/41",
+          "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/"
         ]
       }
     ]
