@@ -108,7 +108,7 @@
 	},
 	"grunt-gh-pages" : {
 		"vulnerabilities" : [
-			{ "below" : "1.0.0", "severity" : "medium", "info" : [ "https://nodesecurity.io/advisories/85" ] }
+			{ "below" : "0.10.0", "severity" : "medium", "info" : [ "https://nodesecurity.io/advisories/85" ] }
 		]
 	},
 	"riot-compiler" : {
