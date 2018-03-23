@@ -336,7 +336,7 @@
 				"identifiers": {
 					"advisory": "Cross-Site Scripting (XSS) Due To Sanitization Bypass Using HTML Entities"
 				},
-				"info" : [ "https://srcclr.com/security/cross-site-scripting-xss-due-to/javascript/s-2309" ]
+				"info" : [ "https://srcclr.com/security/cross-site-scripting-xss-due-to/javascript/s-2309", "https://github.com/markedjs/marked/pull/592" ]
 			}
 		]
 	},
