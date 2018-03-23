@@ -146,7 +146,7 @@
 	},
 	"npm" : {
 		"vulnerabilities" : [
-			{ "below" : "3.8.2 ", "atOrAbove": "3.0.0", "severity" : "high", "info" : [ "https://nodesecurity.io/advisories/98" ] },
+			{ "below" : "3.8.2", "atOrAbove": "3.0.0", "severity" : "high", "info" : [ "https://nodesecurity.io/advisories/98" ] },
 			{ "below" : "2.15.1", "severity" : "high", "info" : [ "https://nodesecurity.io/advisories/98" ] },
 			{
         "below": "1.3.3",
