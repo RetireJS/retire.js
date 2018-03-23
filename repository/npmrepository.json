@@ -1797,8 +1797,10 @@
     "vulnerabilities": [
       {
         "below": "3.0.0",
+        "atOrAbove": "3.0.0-rc1",
         "severity": "medium",
         "identifiers": {
+          "CVE": ["CVE-2016-10707"],
           "summary": "jquery_exceeding-stack-call-limit-dos"
         },
         "info": [
