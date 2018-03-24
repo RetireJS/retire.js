@@ -1845,8 +1845,19 @@
   "request": {
     "vulnerabilities": [
       {
-        "below": "2.68.0",
+        "below": "2.47.0",
         "atOrAbove": "2.2.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "request_remote-memory-exposure"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/309"
+        ]
+      },
+      {
+        "below": "2.68.0",
+        "atOrAbove": "2.52.0",
         "severity": "medium",
         "identifiers": {
           "summary": "request_remote-memory-exposure"
