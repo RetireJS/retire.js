@@ -32,6 +32,7 @@
 			{
 				"below" : "1.9.0b1",
 				"identifiers": {
+					"CVE" : [ "CVE-2012-6708" ],					
 					"bug": "11290",
 					"summary": "Selector interpreted as HTML"
 				},
@@ -74,6 +75,7 @@
 				"atOrAbove" : "1.12.2",
 				"below" : "2.2.0",
 				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
 					"issue" : "11974",
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
@@ -84,6 +86,7 @@
 				"atOrAbove" : "2.2.2",
 				"below" : "3.0.0",
 				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
 					"issue" : "11974",
 					"summary": "parseHTML() executes scripts in event handlers"
 				},

@@ -83,9 +83,7 @@ function scanDependencies(dependencies, nodeRepo, options) {
       continue;
     }
     results = retire.scanNodeDependency(dependencies[i], nodeRepo, options);
-    if (retire.isVulnerable(results)) {
-      emitResults({results: results}, options);
-    }
+    emitResults({results: results}, options);
   }
 }
 

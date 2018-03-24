@@ -24,7 +24,7 @@ function listdep(parent, dep, level, deps) {
 			if (cyclic) {
 				continue;
 			}
-			var d = { component: i, version: o.dep.dependencies[i].version, parent: o.parent, level: o.level };
+			var d = { file: 'node_modules/' + i + '/package.json',component: i, version: o.dep.dependencies[i].version, parent: o.parent, level: o.level };
 			deps.push(d);
 			stack.push({parent: d, dep: o.dep.dependencies[i], level: o.level + 1}); 
 		}
@@ -44,7 +44,7 @@ function getNodeDependencies(path, limit) {
 				.filter(function(d) { return filter.indexOf(d) == -1; })
 				.forEach(function(d) { delete pkginfo.dependencies[d]; });
 		}
-		listdep({component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
+		listdep({file: 'package.json',component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
 		events.emit('done', deps);				
 	});
 	return events;

@@ -56,7 +56,7 @@ program
   .option('--noderepo <path|url>', 'Local or internal version of repo')
   .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
-  .option('--outputformat <format>', 'Valid formats: text, json')
+  .option('--outputformat <format>', 'Valid formats: text, json, depcheck, cyclonedx')
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
