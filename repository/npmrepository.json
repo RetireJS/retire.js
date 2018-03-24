@@ -956,9 +956,10 @@
 	"hapi-auth-jwt2": {
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "5.1.1",
 				"below" : "5.1.2",
 				"severity": "high",
-				"identifiers": { "summary" : "Regex denial of service" },
+				"identifiers": { "summary" : "Authentication Bypass" },
 				"info" : [ "https://nodesecurity.io/advisories/81", "https://github.com/dwyl/hapi-auth-jwt2/issues/111", "https://github.com/dwyl/hapi-auth-jwt2/pull/112" ]
 			}
 		]
