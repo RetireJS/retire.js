@@ -82,8 +82,8 @@ function scanDependencies(dependencies, nodeRepo, options) {
     if (options.ignore && shouldIgnorePath([dependencies[i].component, toModulePath(dependencies[i])], options.ignore)) {
       continue;
     }
-    results = retire.scanNodeDependency(dependencies[i], nodeRepo, options);
-    emitResults({results: results}, options);
+    results = retire.scanNodeDependency(dependencies[i].module, nodeRepo, options);
+    emitResults({file: dependencies[i].file, results: results}, options);
   }
 }
 

@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '2.0.0-beta.5';
+exports.version = '2.0.0-beta.7';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -166,7 +166,7 @@ exports.scanNodeDependency = function(dependency, npmrepo, options) {
 		if (options.log) options.log.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
 		return [];
 	}
-	if (!isDefined(npmrepo[dependency.component])) return [{component: dependency.component, version: dependency.version}];
+	if (!isDefined(npmrepo[dependency.component])) return [{component: dependency.component, version: dependency.version, file: dependency.file}];
 	return check([dependency], npmrepo);
 };
 

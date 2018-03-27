@@ -52,12 +52,8 @@ function printResults(finding) {
     var printed = {};
     finding.results.forEach(function(elm) {
       var key = elm.component + ' ' + elm.version;
-    	if (finding.file) {
-    		logFunc(finding.file);
-	      logFunc(' ' + String.fromCharCode(8627) + ' ' + key);
-	  	} else {
-	  		printParent(elm, logFunc);
-	  	}
+  		logFunc(finding.file);
+      logFunc(' ' + String.fromCharCode(8627) + ' ' + key);
       if (printed[key]) return;
       if (retire.isVulnerable([elm])) {
         logFunc(key + ' has known vulnerabilities:' + printVulnerability(elm));
@@ -84,10 +80,6 @@ function printVulnerability(component) {
   return string;
 }
 
-function printParent(comp, logFunc) {
-  if ('parent' in comp) printParent(comp.parent, logFunc);
-  logFunc(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
-}
 
 function configureJsonLogger(config) {
 	var vulnsFound = false;
@@ -100,7 +92,7 @@ function configureJsonLogger(config) {
 		finalResults.data.push(finding);
 	};
 	logger.logDependency = function(finding) { 
-		if (verbose) { 
+		if (verbose && finding.results.length > 0) { 
 			finalResults.data.push(finding); 
 		} 
 	};
@@ -123,7 +115,7 @@ function configureDepCheckLogger(config) {
 		finalResults.data.push(finding);
 	};
 	logger.logDependency = function(finding) { 
-		if (verbose) { 
+		if (verbose && finding.results.length > 0) { 
 			finalResults.data.push(finding); 
 		} 
 	};
@@ -166,7 +158,7 @@ function configureDepCheckLogger(config) {
            <name>(${dep.component}:${dep.version})</name>
         </identifier>`;
 			var vulns = dep.vulnerabilities && dep.vulnerabilities.length > 0 ? dep.vulnerabilities.map(v => {
-				let references = v.info.map(i => `
+				var references = v.info.map(i => `
             <reference>
               <source>Retire.js</source>
               <url>${i}</url>
@@ -175,7 +167,6 @@ function configureDepCheckLogger(config) {
 //				console.log(v.identifiers, [v.identifiers && v.identifiers.CVE, v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]);
 				var id = [v.identifiers && v.identifiers.CVE && v.identifiers.CVE[0], v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]	
 					.filter(n => n != null)[0];
-				console.log(v);
 				//TODO: Fix CVSS stuff - add to repo? add id to every bug in repo?
 				return `
         <vulnerability source="retire">
@@ -198,7 +189,7 @@ function configureDepCheckLogger(config) {
 
 			return `    <dependency>
       <fileName>${filename}</fileName>
-      <filePath>${dep.file}</filePath>
+      <filePath>${filepath}</filePath>
       <md5>${md5}</md5>
       <sha1>${sha1}</sha1>
       <evidenceCollected>${evidence}
@@ -224,23 +215,27 @@ function configureCycloneDXLogger(config) {
 		vulnsFound = true;
 		finalResults.data.push(finding);
 	};
-	logger.logDependency = function(finding) { 
-		if (verbose) { 
-			finalResults.data.push(finding); 
-		} 
+	logger.logDependency = function(finding) {
+    if (finding.results.length > 0) {
+		  finalResults.data.push(finding); 
+    }
 	};
 
 	logger.close = function(callback) {
 		var write = vulnsFound ? writer.err : writer.out;
 		finalResults.start = finalResults.start.toISOString().replace("Z", "+0000");
+    var seen = {};
 		var components = finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
 			//TODO: Temporary fix untill dep-track relaxes version requirements
 			dep.version = dep.version.split(".").length >= 3 ? dep.version : dep.version + ".0";
 			var filepath = r.file || dep.file;
 			var filename = filepath.split("/").slice(-1);
 			var file = fs.readFileSync(filepath);
-			return `
-    <component type="framework">
+      var purl = `pkg:npm/${dep.component}@${dep.version}`
+      if (seen[purl]) return '';
+      seen[purl] = true;
+      return `
+    <component type="library">
       <name>${dep.component}</name>
       <version>${dep.version}</version>
       <hashes>
@@ -250,7 +245,7 @@ function configureCycloneDXLogger(config) {
         <hash alg="SHA-512">${sha512Hash(file)}</hash>
       </hashes>
       <licenses><license></license></licenses>
-      <purl>pkg:npm/${dep.component}@${dep.version}</purl>
+      <purl>${purl}</purl>
       <modified>false</modified>
     </component>`
     }).join("")).join("");
