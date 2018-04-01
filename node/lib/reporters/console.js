@@ -38,5 +38,5 @@ function printVulnerability(logger, component, config) {
 
 exports.configure = function(logger, writer, config, hash) {
     logger.logDependency = function(finding) { if (config.verbose) printResults(logger, finding, config); };
-    logger.logVulnerableDependency = function(component) { printResults(logger, component, config); }
+    logger.logVulnerableDependency = function(component) { printResults(logger, component, config); };
 };

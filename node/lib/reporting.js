@@ -10,7 +10,7 @@ var loggers = {
   json     : require("./reporters/json"),
   depcheck : require("./reporters/depcheck"),
   cyclonedx: require("./reporters/cyclonedx")
-}
+};
 
 
 

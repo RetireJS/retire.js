@@ -19,8 +19,8 @@
     "walkdir": "0.0.7"
   },
   "devDependencies": {
-    "nodeunit": "",
-    "jshint": ""
+    "jshint": "^2.9.5",
+    "nodeunit": "^0.11.2"
   },
   "scripts": {
     "test": "./test"
