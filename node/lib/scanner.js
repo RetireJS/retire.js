@@ -115,16 +115,16 @@ function scanBowerFile(file, repo, options) {
 
 
 exports.scanDependencies = function(dependencies, nodeRepo, options) {
-	return scanDependencies(dependencies, nodeRepo, options);
+  return scanDependencies(dependencies, nodeRepo, options);
 };
 exports.scanJsFile = function(file, repo, options) {
-	return scanJsFile(file, repo, options);
+  return scanJsFile(file, repo, options);
 };
 exports.scanBowerFile = function(file, repo, options) {
   return scanBowerFile(file, repo, options);
 };
 exports.on = function(name, listener) {
-	events.on(name, listener);
+  events.on(name, listener);
 };
 
 

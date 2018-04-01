@@ -48,7 +48,7 @@ function getNodeDependencies(path, limit) {
 
 			var filter = packages.dependencies ? Object.keys(packages.dependencies) : [];
 			Object.keys(pkginfo.dependencies)
-				.filter(function(d) { return pkginfo.dependencies[d]._requiredBy == null || pkginfo.dependencies[d]._requiredBy.indexOf("/") > -1  })
+				.filter(function(d) { return !pkginfo.dependencies[d]._requiredBy || pkginfo.dependencies[d]._requiredBy.indexOf("/") > -1;  })
 				.filter(function(d) { return filter.indexOf(d) == -1; })
 				.forEach(function(d) { delete pkginfo.dependencies[d]; });
 		}
