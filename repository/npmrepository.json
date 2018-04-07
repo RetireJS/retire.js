@@ -4272,6 +4272,19 @@
         "info": [
           "https://hackerone.com/reports/307666"
         ]
+      },
+      {
+        "below": "6.5.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Information Exposure Through Directory Listing",
+          "CVE": [
+            "CVE-2018-3718"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/308721"
+        ]
       }
     ]
   },
@@ -4473,10 +4486,26 @@
         "below": "0.7.1",
         "severity": "critical",
         "identifiers": {
-          "summary": "Path Traversal"
+          "summary": "Cross-site Scripting (XSS)",
+          "CVE": [
+            "CVE-2018-3726"
+          ]
         },
         "info": [
           "https://hackerone.com/reports/311101"
+        ]
+      },
+      {
+        "below": "0.7.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3733"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310690"
         ]
       }
     ]
@@ -4561,6 +4590,206 @@
         },
         "info": [
           "https://hackerone.com/reports/311218"
+        ]
+      }
+    ]
+  },
+  "uppy": {
+    "vulnerabilities": [
+      {
+        "below": "0.22.3",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Stored XSS"
+        },
+        "info": [
+          "https://hackerone.com/reports/311998"
+        ]
+      }
+    ]
+  },
+  "angular-http-server": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3713"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/309120"
+        ]
+      }
+    ]
+  },
+  "simple-server": {
+    "vulnerabilities": [
+      {
+        "below": "~",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Stored XSS",
+          "CVE": [
+            "CVE-2018-3717"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/309641"
+        ]
+      }
+    ]
+  },
+  "glance": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3715"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310106"
+        ]
+      }
+    ]
+  },
+  "stattic": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3734"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/319003"
+        ]
+      }
+    ]
+  },
+  "node-srv": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3714"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/309124"
+        ]
+      }
+    ]
+  },
+  "general-file-server": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.9",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3724"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310943"
+        ]
+      }
+    ]
+  },
+  "metascraper": {
+    "vulnerabilities": [
+      {
+        "below": "3.9.3",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Stored XSS"
+        },
+        "info": [
+          "https://hackerone.com/reports/309367"
+        ]
+      }
+    ]
+  },
+  "whereis": {
+    "vulnerabilities": [
+      {
+        "below": "3.9.3",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/319476"
+        ]
+      }
+    ]
+  },
+  "protobufjs": {
+    "vulnerabilities": [
+      {
+        "below": "6.8.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319576"
+        ]
+      }
+    ]
+  },
+  "https-proxy-agent": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319532"
+        ]
+      }
+    ]
+  },
+  "sshpk": {
+    "vulnerabilities": [
+      {
+        "below": "1.13.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319593"
+        ]
+      }
+    ]
+  },
+  "http-proxy-agent": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/321631"
         ]
       }
     ]
