@@ -52,6 +52,11 @@ function getNodeDependencies(path, limit) {
 				.filter(function(d) { return filter.indexOf(d) == -1; })
 				.forEach(function(d) { delete pkginfo.dependencies[d]; });
 		}
+		var notInstalled = Object.keys(pkginfo.dependencies).filter(d => !pkginfo.dependencies[d].path);
+		if (notInstalled.length > 0) {
+			return events.emit('error', 'Could not find dependencies: ' + notInstalled.join(', ') + '. You may need to run npm install');
+		}
+
 		listdep({file: 'package.json',component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
 		events.emit('done', deps);				
 	});

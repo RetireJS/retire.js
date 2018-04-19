@@ -11,7 +11,8 @@ var loggers = {
   depcheck : require("./reporters/depcheck"),
   cyclonedx: require("./reporters/cyclonedx")
 };
-
+loggers.clean = loggers.console;
+loggers.jsonsimple = loggers.json;
 
 
 var colorwarn = function(x) { return x; };
@@ -80,9 +81,6 @@ function configureFileWriter(config) {
     fileOutput.stream.end();
   };
 }
-
-
-
 
 exports.open = function(config) {
   verbose = config.verbose;

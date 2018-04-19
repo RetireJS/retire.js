@@ -57,7 +57,7 @@ program
   .option('--noderepo <path|url>', 'Local or internal version of repo')
   .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
-  .option('--outputformat <format>', 'Valid formats: text, json, depcheck, cyclonedx')
+  .option('--outputformat <format>', 'Valid formats: text, json, jsonsimple, depcheck (experimental) and cyclonedx')
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
@@ -191,6 +191,9 @@ events.on('scan-node', function() {
   resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
     scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
+  }).on('error', function(err) {
+    console.warn("ERROR: " + err);
+    process.exit(1);
   });
 });
 

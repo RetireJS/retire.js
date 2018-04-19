@@ -25,8 +25,7 @@ function configureCycloneDXLogger(logger, writer, config, hash) {
 		finalResults.start = finalResults.start.toISOString().replace("Z", "+0000");
 		var seen = {};
 		var components = finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
-			//TODO: Temporary fix untill dep-track relaxes version requirements
-			dep.version = dep.version.split(".").length >= 3 ? dep.version : dep.version + ".0";
+			dep.version = (dep.version.split(".").length >= 3 ? dep.version : dep.version + ".0").replace(/-/g, ".");
 			var filepath = r.file || dep.file;
 			var filename = filepath.split("/").slice(-1);
 			var file = fs.readFileSync(filepath);
