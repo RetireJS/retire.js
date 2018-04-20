@@ -1178,6 +1178,15 @@
 				},
 				"severity" : "medium",
 				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-4511" ]
+			},
+			{
+				"below" : "4.9.2",
+				"atOrAbove" : "4.5.11",
+				"identifiers" : {
+					"summary" : "XSS if the enhanced image plugin is installed"
+				},
+				"severity" : "medium",
+				"info": [ "https://ckeditor.com/blog/CKEditor-4.9.2-with-a-security-patch-released/", "https://ckeditor.com/cke4/release-notes" ]
 			}
 		],
 		"extractors" : {
