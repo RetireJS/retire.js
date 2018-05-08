@@ -4477,6 +4477,19 @@
         "info": [
           "https://hackerone.com/reports/312918"
         ]
+      },
+      {
+        "below": "0.1.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored",
+          "CVE": [
+            "CVE-2018-3747"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/316346"
+        ]
       }
     ]
   },
@@ -4611,7 +4624,7 @@
   "angular-http-server": {
     "vulnerabilities": [
       {
-        "below": "1.4.3",
+        "below": "1.4.4",
         "severity": "high",
         "identifiers": {
           "summary": "Path Traversal",
@@ -4620,7 +4633,8 @@
           ]
         },
         "info": [
-          "https://hackerone.com/reports/309120"
+          "https://hackerone.com/reports/309120",
+          "https://hackerone.com/reports/330349"
         ]
       }
     ]
@@ -4655,6 +4669,19 @@
         },
         "info": [
           "https://hackerone.com/reports/310106"
+        ]
+      },
+      {
+        "below": "3.0.4",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored",
+          "CVE": [
+            "CVE-2018-3748"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310133"
         ]
       }
     ]
@@ -4790,6 +4817,212 @@
         },
         "info": [
           "https://hackerone.com/reports/321631"
+        ]
+      }
+    ]
+  },
+  "atob": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.4",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Out-of-bounds Read",
+          "CVE" : [
+            "CVE-2018-3745"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/321686"
+        ]
+      }
+    ]
+  },
+  "bracket-template": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Reflected"
+        },
+        "info": [
+          "https://hackerone.com/reports/317125"
+        ]
+      }
+    ]
+  },
+  "deap": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3749"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310446"
+        ]
+      }
+    ]
+  },
+  "deep-extend": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3750"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311333"
+        ]
+      }
+    ]
+  },
+  "merge-recursive": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3751"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311337"
+        ]
+      }
+    ]
+  },
+  "merge-options": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3752"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311336"
+        ]
+      }
+    ]
+  },
+  "merge-objects": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3753"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310706"
+        ]
+      }
+    ]
+  },
+  "pdfinfojs": {
+    "vulnerabilities": [
+      {
+        "below": "0.3.7",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic",
+          "CVE": [
+            "CVE-2018-3746"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/330957"
+        ]
+      }
+    ]
+  },
+  "mcstatic": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.21",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3730"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/312907"
+        ]
+      }
+    ]
+  },
+  "cloudcmd": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.21",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/341044"
+        ]
+      }
+    ]
+  },
+  "foreman": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/320586"
+        ]
+      }
+    ]
+  },
+  "concat-with-sourcemaps": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/320166"
+        ]
+      }
+    ]
+  },
+  "superstatic": {
+    "vulnerabilities": [
+      {
+        "below": "5.0.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal (Windows only)"
+        },
+        "info": [
+          "https://hackerone.com/reports/319951"
         ]
       }
     ]
