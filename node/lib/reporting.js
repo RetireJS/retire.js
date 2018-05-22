@@ -38,11 +38,7 @@ var writer = {
   out: console.log,
   err: function(x) { console.warn(colorwarn(x)); },
   close : function(callback) { 
-    process.stderr.on('drain', function() {
-      process.stderr.on('drain', function() {
-        callback();
-      });
-    });
+    callback();
   }
 };
 
