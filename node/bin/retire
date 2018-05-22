@@ -202,12 +202,10 @@ events.on('js-scanned', function() {
 });
 
 events.on('scan-done', function() {
-  var exit = function(exitCode) {
-    exitCode = exitCode || 0;
-    process.exit(failProcess ? (config.exitwith || 13) : exitCode);
-  };
-  log.close(exit);
+  process.exitCode = failProcess ? (config.exitwith || 13) : 0;
+  log.close();
 });
+
 
 process.on('uncaughtException', function (err) {
   console.warn('Exception caught: ', arguments);
