@@ -4824,7 +4824,7 @@
   "atob": {
     "vulnerabilities": [
       {
-        "below": "2.0.4",
+        "below": "2.1.0",
         "severity": "medium",
         "identifiers": {
           "summary": "Out-of-bounds Read",
@@ -4872,7 +4872,7 @@
   "deep-extend": {
     "vulnerabilities": [
       {
-        "below": "1.0.1",
+        "below": "0.5.1",
         "severity": "low",
         "identifiers": {
           "summary": "Prototype pollution attack",
@@ -4889,7 +4889,7 @@
   "merge-recursive": {
     "vulnerabilities": [
       {
-        "below": "1.0.1",
+        "below": "0.0.4",
         "severity": "low",
         "identifiers": {
           "summary": "Prototype pollution attack",
@@ -4906,7 +4906,7 @@
   "merge-options": {
     "vulnerabilities": [
       {
-        "below": "1.0.1",
+        "below": "1.0.2",
         "severity": "low",
         "identifiers": {
           "summary": "Prototype pollution attack",
@@ -4923,7 +4923,7 @@
   "merge-objects": {
     "vulnerabilities": [
       {
-        "below": "1.0.1",
+        "below": "1.0.6",
         "severity": "low",
         "identifiers": {
           "summary": "Prototype pollution attack",
@@ -4974,7 +4974,7 @@
   "cloudcmd": {
     "vulnerabilities": [
       {
-        "below": "0.0.21",
+        "below": "9.1.6",
         "severity": "high",
         "identifiers": {
           "summary": "Cross-site Scripting (XSS) - Generic"
@@ -4988,7 +4988,7 @@
   "foreman": {
     "vulnerabilities": [
       {
-        "below": "2.0.1",
+        "below": "3.0.0",
         "severity": "high",
         "identifiers": {
           "summary": "Denial of Service"
