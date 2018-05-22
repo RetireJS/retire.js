@@ -397,6 +397,13 @@
 				"identifiers" : { "summary" : "FIXED so script elements gets removed by default to prevent possible XSS issues in default config implementations" },
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
+			},
+			{
+				"below" : "4.7.12",
+				"severity" : "medium",
+				"identifiers" : { "summary" : "FIXED so links with xlink:href attributes are filtered correctly to prevent XSS." },
+				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
+
 			}
 		],
 		"extractors" : {
