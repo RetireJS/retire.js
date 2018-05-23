@@ -26,8 +26,11 @@
 			{
 				"below" : "1.6.3",
 				"severity" : "medium",
-				"identifiers" : { "CVE": [ "CVE-2011-4969" ] },
-				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/" ]
+				"identifiers" : {
+					"CVE": [ "CVE-2011-4969" ],
+					"summary": "XSS with location.hash"
+				},
+				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/", "https://bugs.jquery.com/ticket/9521" ]
 			},
 			{
 				"below" : "1.9.0b1",
