@@ -89,7 +89,8 @@ log.info("retire.js v" + retire.version);
 
 function exitWithError(msg) {
   log.error(config.colorwarn(msg));
-  log.close(function() { process.exit(1); });
+  process.exitCode = 1;
+  log.close();
 }
 
 
