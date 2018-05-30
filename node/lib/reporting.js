@@ -37,9 +37,7 @@ var hash = {
 var writer = {
   out: console.log,
   err: function(x) { console.warn(colorwarn(x)); },
-  close : function(callback) { 
-    callback();
-  }
+  close : function() { }
 };
 
 var logger = {
@@ -50,7 +48,7 @@ var logger = {
 
   logDependency : function(finding) { },
   logVulnerableDependency: function(finding) { },
-  close: function(callback) { writer.close(callback); }
+  close: function() { writer.close(); }
 };
 
 
@@ -69,10 +67,9 @@ function configureFileWriter(config) {
     fileOutput.stream.write('\n');
   };
   writer.out = writer.err = writeToFile;
-  writer.close = function(callback) {
+  writer.close = function() {
     fileOutput.stream.on('finish', function() {
       fs.close(fileOutput.fileDescriptor);
-      callback();
     });
     fileOutput.stream.end();
   };
