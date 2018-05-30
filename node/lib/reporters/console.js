@@ -8,15 +8,21 @@ function printResults(logger, finding, config) {
     var printed = {};
     finding.results.forEach(function(elm) {
       var key = elm.component + ' ' + elm.version;
-      logFunc(finding.file);
-      logFunc(' ' + String.fromCharCode(8627) + ' ' + key);
       if (printed[key]) return;
       if (retire.isVulnerable([elm])) {
         logFunc(key + ' has known vulnerabilities:' + printVulnerability(logger, elm, config));
+        if (elm.parent) {
+          printParent(logFunc, elm, config);
+        }
       }
       printed[key] = true;
     });
   }
+}
+
+function printParent(logFunc, comp, options) {
+  if ('parent' in comp) printParent(logFunc, comp.parent, options);
+  logFunc(new Array(comp.level).join(' ') + (comp.parent ? String.fromCharCode(8627) + ' ' : '') + comp.component + ' ' + comp.version);
 }
 
 function printVulnerability(logger, component, config) {

@@ -30,7 +30,10 @@ function listdep(parent, dep, level, deps) {
 			dedup[id] = true;
 			var d = { 
 				file: "node_modules" + o.dep.dependencies[i].path.split("node_modules").slice(1).join("node_modules") + '/package.json',
-				module: { component: i, version: o.dep.dependencies[i].version }
+				component: i,
+				version: o.dep.dependencies[i].version,
+				parent: o.parent,
+				level: o.level,
 			};
 			deps.push(d);
 			stack.push({parent: d, dep: o.dep.dependencies[i], level: o.level + 1}); 
