@@ -46,14 +46,22 @@ function loadFromCache(url, cachedir, options) {
     var cache = fs.existsSync(cacheIndex) ? JSON.parse(fs.readFileSync(cacheIndex)) : {};
     var now = new Date().getTime();
     if (cache[url]) {
-        if (now - cache[url].date < 60*60*1000) {
-            log(options).info("Loading from cache: " + url);
-            return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
-        } else {
-            if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {
-                fs.unlinkSync(path.resolve(cachedir, cache[url].date + '.json'));
+      if (now - cache[url].date < 60*60*1000) {
+        log(options).info("Loading from cache: " + url);
+        return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
+      } else {
+        if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {
+          try {
+            fs.unlinkSync(path.resolve(cachedir, cache[url].date + '.json'));
+          } catch (error) {
+            if (error.code !== 'ENOENT') {
+              throw error;
+            } else {
+              console.warn("Could not delete cache. Ignore this error if you are running multiple retire.js in parallel");
             }
+          }
         }
+      }
     }
     var events = new emitter();
     loadJson(url, options).on('done', function(data) {
