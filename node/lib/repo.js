@@ -49,8 +49,12 @@ function loadFromCache(url, cachedir, options) {
       options.log.info('Loading from cache: ' + url);
       return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
     } else {
-      if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {
+      try {
         fs.unlinkSync(path.resolve(cachedir, cache[url].date + '.json'));
+      } catch (error) {
+        if (error.code !== 'ENOENT') {
+          throw error;
+        }
       }
     }
   }
@@ -66,7 +70,7 @@ function loadFromCache(url, cachedir, options) {
 
 exports.asbowerrepo = function(jsRepo) {
   var result = {};
-  Object.keys(jsRepo).map(function(k) { 
+  Object.keys(jsRepo).map(function(k) {
     (jsRepo[k].bowername || [k]).map(function(b) {
       result[b] = result[b] || { vulnerabilities: [] };
       result[b].vulnerabilities = result[b].vulnerabilities.concat(jsRepo[k].vulnerabilities);
