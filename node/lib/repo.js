@@ -49,11 +49,15 @@ function loadFromCache(url, cachedir, options) {
       options.log.info('Loading from cache: ' + url);
       return loadJsonFromFile(path.resolve(cachedir, cache[url].file), options);
     } else {
-      try {
-        fs.unlinkSync(path.resolve(cachedir, cache[url].date + '.json'));
-      } catch (error) {
-        if (error.code !== 'ENOENT') {
-          throw error;
+      if (fs.existsSync(path.resolve(cachedir, cache[url].date + '.json'))) {
+        try {
+          fs.unlinkSync(path.resolve(cachedir, cache[url].date + '.json'));
+        } catch (error) {
+          if (error.code !== 'ENOENT') {
+            throw error;
+          } else {
+            console.warn("Could not delete cache. Ignore this error if you are running multiple retire.js in parallel");
+          }
         }
       }
     }
