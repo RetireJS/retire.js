@@ -4501,6 +4501,16 @@
         "info": [
           "https://hackerone.com/reports/316346"
         ]
+      },
+      {
+        "below": "0.1.4",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/329950"
+        ]
       }
     ]
   },
@@ -5001,7 +5011,8 @@
           ]
         },
         "info": [
-          "https://hackerone.com/reports/312907"
+          "https://hackerone.com/reports/312907",
+          "https://hackerone.com/reports/330285"
         ]
       }
     ]
@@ -5100,6 +5111,19 @@
         },
         "info": [
           "https://hackerone.com/reports/331032"
+        ]
+      },
+      {
+        "below": "99.999.99999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3766"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/358112"
         ]
       }
     ]
@@ -5248,6 +5272,16 @@
         "info": [
           "https://hackerone.com/reports/306607"
         ]
+      },
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/330356"
+        ]
       }
     ]
   },
@@ -5298,6 +5332,121 @@
         },
         "info": [
           "https://hackerone.com/reports/343726"
+        ]
+      }
+    ]
+  },
+  "put": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321702"
+        ]
+      }
+    ]
+  },
+  "utile": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321701"
+        ]
+      }
+    ]
+  },
+  "file-static-server": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/310671"
+        ]
+      }
+    ]
+  },
+  "pullit": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/315773"
+        ]
+      }
+    ]
+  },
+  "njwt": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321704"
+        ]
+      }
+    ]
+  },
+  "funcster": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/350401"
+        ]
+      }
+    ]
+  },
+  "cryo": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/350418"
+        ]
+      }
+    ]
+  },
+  "memjs": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Denial of Service",
+          "CVE":[
+            "CVE-2018-3767" 
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/319809"
         ]
       }
     ]
