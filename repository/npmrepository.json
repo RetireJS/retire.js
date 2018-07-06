@@ -5121,13 +5121,14 @@
   "macaddress": {
     "vulnerabilities": [
       {
-        "below": "99.999.99999",
+        "below": "0.2.9",
         "severity": "critical",
         "identifiers": {
           "summary": "Command Injection"
         },
         "info": [
-          "https://hackerone.com/reports/319467"
+          "https://hackerone.com/reports/319467",
+          "https://nodesecurity.io/advisories/654"
         ]
       }
     ]
