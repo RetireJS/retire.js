@@ -113,8 +113,8 @@ if(config.ignorefile) {
 
 scanner.on('vulnerable-dependency-found', function(result) {
   vulnsFound = true;
-  var levels = result.results.map(function(r) { return r.vulnerabilities ? r.vulnerabilities.map(function(v) { return severityLevels[v.severity || 'critical'] })  : [] });
-  var severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y});
+  var levels = result.results.map(function(r) { return r.vulnerabilities ? r.vulnerabilities.map(function(v) { return severityLevels[v.severity || 'critical']; })  : []; });
+  var severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y; });
   if(severity >= severityLevels[config.severity]) {
     failProcess = true;
   }
