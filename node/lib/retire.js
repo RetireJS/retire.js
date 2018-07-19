@@ -52,6 +52,14 @@ function replacementMatch(regex, data) {
 	return null;
 }
 
+function splitAndMatchAll(tokenizer) {
+  return function(regex, data) {
+		var elm = data.split(tokenizer).pop();
+		return simpleMatch('^' + regex + '$', elm);
+  };
+}
+
+
 
 function scanhash(hash, repo) {
 	for (var component in repo) {
@@ -146,7 +154,7 @@ exports.scanUri = function(uri, repo) {
 };
 
 exports.scanFileName = function(fileName, repo) {
-	var result = scan(fileName, 'filename', repo);
+	var result = scan(fileName, 'filename', repo, splitAndMatchAll('/'));
 	return check(result, repo);
 };
 
