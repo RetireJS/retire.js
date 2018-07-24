@@ -33,9 +33,12 @@ Gulp task
 An example of a Gulp task which can be used in your gulpfile to watch and scan your project files automatically. You can modify the watch patterns and (optional) Retire.js options as you like.
 
 ```javascript
+const c = require('ansi-colors');
+
 var gulp = require('gulp');
+var beeper = require('beeper');
+var log = require('fancy-log');
 var spawn = require('child_process').spawn;
-var gutil = require('gulp-util');
 
 gulp.task('retire:watch', ['retire'], function (done) {
     // Watch all javascript files and package.json
@@ -49,13 +52,13 @@ gulp.task('retire', function() {
     
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', function (data) {
-        gutil.log(data);
+        log(data);
     });
 
     child.stderr.setEncoding('utf8');
     child.stderr.on('data', function (data) {
-        gutil.log(gutil.colors.red(data));
-        gutil.beep();
+        log(c.red(data));
+        beeper();
     });
 });
 
