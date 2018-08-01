@@ -30,7 +30,7 @@
 					"CVE": [ "CVE-2011-4969" ],
 					"summary": "XSS with location.hash"
 				},
-				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/", "https://bugs.jquery.com/ticket/9521" ]
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/", "https://bugs.jquery.com/ticket/9521" ]
 			},
 			{
 				"below" : "1.9.0b1",
@@ -40,7 +40,7 @@
 					"summary": "Selector interpreted as HTML"
 				},
 				"severity": "medium",
-				"info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "http://bugs.jquery.com/ticket/11290" , "https://nvd.nist.gov/vuln/detail/CVE-2012-6708", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.4.0",
@@ -51,7 +51,7 @@
 				        "CVE": [ "CVE-2015-9251" ] 
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.12.3",
@@ -62,17 +62,18 @@
 				        "CVE": [ "CVE-2015-9251" ] 
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.8.0",
 				"below" : "1.12.0",
 				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
 					"issue" : "11974",
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
 				"severity": "medium",
-				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.12.2",
@@ -83,7 +84,7 @@
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
 				"severity": "medium",
-				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "2.2.2",
@@ -94,7 +95,7 @@
 					"summary": "parseHTML() executes scripts in event handlers"
 				},
 				"severity": "medium",
-				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			}
 
 
@@ -221,19 +222,21 @@
 				"below" : "1.10.0",
 				"severity": "medium",
 				"identifiers": {
+					"CVE": [ "CVE-2010-5312" ],
 					"bug": "6016",
 					"summary": "Title cross-site scripting vulnerability"
 				},
-				"info" : [ "http://bugs.jqueryui.com/ticket/6016" ]
+				"info" : [ "http://bugs.jqueryui.com/ticket/6016", "https://nvd.nist.gov/vuln/detail/CVE-2010-5312" ]
 			}, 
 			{
 				"below" : "1.12.0",
 				"severity": "high",
 				"identifiers": {
+					"CVE": [ "CVE-2016-7103" ],
 					"bug": "281",
 					"summary": "XSS Vulnerability on closeText option"
 				},
-				"info" : [ "https://github.com/jquery/api.jqueryui.com/issues/281", "https://snyk.io/vuln/npm:jquery-ui:20160721" ]
+				"info" : [ "https://github.com/jquery/api.jqueryui.com/issues/281", "https://nvd.nist.gov/vuln/detail/CVE-2016-7103", "https://snyk.io/vuln/npm:jquery-ui:20160721" ]
 			}
 		],
 		"extractors" : {
@@ -269,10 +272,11 @@
 				"below" : "1.10.0",
 				"severity": "high",
 				"identifiers": {
+					"CVE" : [ "CVE-2012-6662" ],
 					"bug": "8859",
 					"summary": "Autocomplete cross-site scripting vulnerability"
 				},
-				"info" : [ "http://bugs.jqueryui.com/ticket/8859" ]
+				"info" : [ "http://bugs.jqueryui.com/ticket/8859", "https://nvd.nist.gov/vuln/detail/CVE-2012-6662" ]
 			}
 		],
 		"extractors" : {
@@ -292,7 +296,7 @@
 				"below" : "3.1.5",
 				"severity" : "high",
 				"identifiers" : { "CVE" : [ "CVE-2013-6837" ] },
-				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-6837&cid=3" ]
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2013-6837" ]
 			},
 			{
 				"below" : "3.1.6",
@@ -314,25 +318,33 @@
 		"bowername": [ "jPlayer" ],
 		"vulnerabilities" : [
 			{
-				"below" : "2.4.0",
-				"severity": "high",
-				"identifiers": {"CVE": [ "CVE-2013-2023" ]},
-				"info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2023" ]
-			},
-			{
-				"below" : "2.3.0",
-				"severity": "high",
-				"identifiers": {"CVE": ["CVE-2013-1942", "CVE-2013-2022"]},
-				"info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1942", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2022" ]
-			},
-			{
-				"below" : "2.2.0",
+				"below" : "2.3.1",
 				"severity": "high",
 				"identifiers": {
-					"release": "2.2.0",
-					"summary": "Flash SWF vulnerability"
+					"CVE": [ "CVE-2013-2023" ],
+					"release" : "2.3.1",
+					"summary" : "XSS vulnerability in actionscript/Jplayer.as in the Flash SWF component" },
+				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-2023" ]
+			},
+			{
+				"below" : "2.3.23",
+				"severity": "high",
+				"identifiers": {
+					"CVE": [ "CVE-2013-2022" ],
+					"release": "2.3.23",
+					"summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component"}
 				},
-				"info" : [ "http://jplayer.org/latest/release-notes/" ]
+				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-2022" ]
+			},
+			{
+				"below" : "2.2.20",
+				"severity": "high",
+				"identifiers": {
+					"CVE": [ "CVE-2013-1942" ],
+					"release": "2.2.20",
+					"summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component"
+				},
+				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-1942" ]
 			}
 		],
 		"extractors" : {
