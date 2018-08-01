@@ -332,7 +332,7 @@
 				"identifiers": {
 					"CVE": [ "CVE-2013-2022" ],
 					"release": "2.3.23",
-					"summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component"}
+					"summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component"
 				},
 				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-2022" ]
 			},
