@@ -912,6 +912,60 @@
 		]
 	},
 
+	"react-dom": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "16.0.0",
+				"below" : "16.0.1",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.1.0",
+				"below" : "16.1.2",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.2.0",
+				"below" : "16.2.1",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.3.0",
+				"below" : "16.3.3",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.4.0",
+				"below" : "16.4.2",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			}
+		]
+	},
 
 	"mqtt-packet": {
 		"vulnerabilities" : [
