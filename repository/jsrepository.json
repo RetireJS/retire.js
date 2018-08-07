@@ -1223,6 +1223,41 @@
 		}
 	},
 
+
+	"vue" : {
+		"vulnerabilities" : [
+			{
+				"below" : "2.5.17",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "potential xss in ssr when using v-bind"
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.5.17" ]
+			},
+			{
+				"below" : "2.4.3",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "possible xss vector "
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.4.3" ]
+			}
+		],
+		"extractors" : {
+			"uri"			: [
+				"/vue@(§§version§§)/dist/vue\\.js"
+			],
+			"filename"		: [ "vue-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
+				"/\\*!\\n * Vue.js v(§§version§§)",
+				"Vue.version = '(§§version§§)';",
+				"'(§§version§§)'[^\\n]{0,8000}Vue compiler"
+			],
+			"func"			: [ "Vue.version" ]
+		}
+	},
+
+
 	"dont check" : {
 		"extractors" : {
 			"uri" : [
