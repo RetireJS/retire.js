@@ -4427,6 +4427,16 @@
           "https://hackerone.com/reports/330724",
           "https://hackerone.com/reports/330650"
         ]
+      },
+      {
+        "below": "7.3.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/358645"
+        ]
       }
     ]
   },
@@ -5256,6 +5266,16 @@
         "info": [
           "https://hackerone.com/reports/358112"
         ]
+      },
+      {
+        "below": "99.999.99999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/331110"
+        ]
       }
     ]
   },
@@ -5457,12 +5477,22 @@
         "severity": "critical",
         "identifiers": {
           "summary": "Path Traversal",
-          "CVE":[
+          "CVE": [
             "CVE-2018-3758"
           ]
         },
         "info": [
           "https://hackerone.com/reports/343726"
+        ]
+      },
+      {
+        "below": "1.1.7",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Privilege Escalation"
+        },
+        "info": [
+          "https://hackerone.com/reports/343626"
         ]
       }
     ]
@@ -5578,6 +5608,137 @@
         },
         "info": [
           "https://hackerone.com/reports/319809"
+        ]
+      }
+    ]
+  },
+  "url-parse": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Open Redirect",
+          "CVE":[
+            "CVE-2018-3774" 
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/384029"
+        ]
+      }
+    ]
+  },
+  "markdown-pdf": {
+    "vulnerabilities": [
+      {
+        "below": "9.0.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3770" 
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/360727"
+        ]
+      }
+    ]
+  },
+  "ponse": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/383112"
+        ]
+      }
+    ]
+  },
+  "node-red": {
+    "vulnerabilities": [
+      {
+        "below": "0.18.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/349146"
+        ]
+      }
+    ]
+  },
+  "entitlements": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/341869"
+        ]
+      }
+    ]
+  },
+  "statics-server": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic",
+          "CVE": [
+            "CVE-2018-3771"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/355458"
+        ]
+      }
+    ]
+  },
+  "m-server": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.2",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/319794"
+        ]
+      },
+      {
+        "below": "1.4.1",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/319795"
+        ]
+      }
+    ]
+  },
+  "bruteser": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/342066"
         ]
       }
     ]
