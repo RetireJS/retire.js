@@ -516,7 +516,7 @@
 		}
 	},
 	"prototypejs" : {
-		"bowername": [ "prototype.js", "prototypejs", "prototypejs-bower" ],
+		"bowername": [ "prototypejs", "prototype.js", "prototypejs-bower" ],
 		"vulnerabilities" : [
 			{
 				"atOrAbove" : "1.6.0",
@@ -1120,7 +1120,7 @@
 	},
 
 	"moment.js" : {
-		"bowername": [ "momentjs", "moment" ],
+		"bowername": [ "moment", "momentjs" ],
 		"vulnerabilities" : [
 			{
 				"below" : "2.11.2",
