@@ -1257,6 +1257,64 @@
 		}
 	},
 
+	"ExtJS" : {
+		"vulnerabilities" : [
+			{
+				"below"       : "6.6.0",
+				"atOrAbove"   : "4.0.0",
+				"severity"    : "high",
+				"identifiers" : {
+					"CVE"     : [
+						"CVE-2018-8046"
+					],
+					"summary" : "XSS in Sencha Ext JS 4 to 6 via getTip() method of Action Columns"
+				},
+				"info"        : [
+					"http://seclists.org/fulldisclosure/2018/Jul/8",
+					"https://nvd.nist.gov/vuln/detail/CVE-2018-8046"
+				]
+			},
+			{
+				"below"       : "4.0.0",
+				"atOrAbove"   : "3.0.0",
+				"severity"    : "high",
+				"identifiers" : {
+					"CVE"     : [
+						"CVE-2010-4207",
+						"CVE-2012-5881"
+					],
+					"summary" : "XSS vulnerability in ExtJS charts.swf"
+				},
+				"info"        : [
+					"https://www.acunetix.com/vulnerabilities/web/extjs-charts-swf-cross-site-scripting",
+					"https://typo3.org/security/advisory/typo3-core-sa-2014-001/",
+					"https://www.akawebdesign.com/2018/08/14/should-js-frameworks-prevent-xss/"
+				]
+			}
+		],
+		"extractors" : {
+			"uri" : [
+				"/extjs/(§§version§§)/.*\\.js"
+			],
+			"filename" : [
+				"/ext-all-(§§version§§)(\\.min)?\\.js",
+				"/ext-all-debug-(§§version§§)(\\.min)?\\.js",
+				"/ext-base-(§§version§§)(\\.min)?\\.js"
+			],
+			"filecontent" : [
+				"/*!\n * Ext JS Library (§§version§§)"
+			],
+			"func"     : [
+				"Ext && Ext.versions && Ext.versions.extjs.version",
+				"Ext && Ext.version"
+			]
+		}
+	},
+
+
+
+
+
 
 	"dont check" : {
 		"extractors" : {
