@@ -1275,6 +1275,21 @@
 				]
 			},
 			{
+				"below"       : "6.0.0",
+				"severity"    : "high",
+				"identifiers" : {
+					"CVE"     : [
+						"CVE-2007-2285"
+					],
+					"summary" : "Directory traversal and arbitrary file read"
+				},
+				"info"        : [
+					"https://www.cvedetails.com/cve/CVE-2007-2285/",
+					"https://packetstormsecurity.com/files/132052/extjs-Arbitrary-File-Read.html",
+					"https://www.akawebdesign.com/2018/08/14/should-js-frameworks-prevent-xss/"
+				]
+			},
+			{
 				"below"       : "4.0.0",
 				"atOrAbove"   : "3.0.0",
 				"severity"    : "high",
