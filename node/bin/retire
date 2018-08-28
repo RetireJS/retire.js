@@ -64,12 +64,13 @@ program
   .option('--severity <level>', 'Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .option('--colors', 'Enable color output (console output only)')
+  .option('--lockfile <type>', 'Use lockfile instead of package scan. Allowed types npm, yarn, yarn-workspace. Default: npm')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
   'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
-  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir'
+  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir', 'lockfile'
 ]));
 
 if (!config.nocache && !config.cachedir) {
@@ -189,7 +190,7 @@ events.on('scan-js', function() {
 });
 
 events.on('scan-node', function() {
-  resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
+  resolve.getNodeDependencies(config.nodepath || config.path, config.package, config.lockfile).on('done', function(dependencies) {
     scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
   }).on('error', function(err) {

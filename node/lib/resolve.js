@@ -2,6 +2,8 @@
 
 var walkdir			= require('walkdir'),
 	fs						= require('fs'),
+	findYarnWorkspaceRoot = require('find-yarn-workspace-root'),
+	lockfile			= require('@yarnpkg/lockfile'),
 	readInstalled	= require('read-installed'),
 	emitter				= require('events').EventEmitter;
 
@@ -40,8 +42,7 @@ function listdep(parent, dep, level, deps) {
 	}
 }
 
-function getNodeDependencies(path, limit) {
-	var events = new emitter();
+function fetchChildDependencies(path, limit, events) {
 	readInstalled(path, {}, function (er, pkginfo) {
 		var deps = [];
 		if (limit) {
@@ -62,6 +63,71 @@ function getNodeDependencies(path, limit) {
 		listdep({file: 'package.json',component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
 		events.emit('done', deps);				
 	});
+}
+
+function fetchYarnLockDependencies(lockFileName, events) {
+	if (!fs.existsSync(lockFileName)) {
+		return events.emit('error', 'Could not find lockfile ' + lockFileName);
+	}
+
+	var file = fs.readFileSync(lockFileName, 'utf8');
+	var json = lockfile.parse(file);
+
+	if (json.type !== 'success') {
+		return events.emit('error', 'Could not parse lockfile ' + lockFileName);
+	}
+
+	var result = json.object;
+	var deps = Object.keys(result).map(function (key) {
+		return {
+			module: {
+				component: key.split('@')[0],
+				version: result[key].version
+			},
+		};
+	});
+
+	events.emit('done', deps);				
+}
+
+function fetchPackageLockDependencies(lockFileName, events) {
+	if (!fs.existsSync(lockFileName)) {
+		return events.emit('error', 'Could not find lockfile ' + lockFileName);
+	}
+
+	var file = fs.readFileSync(lockFileName, 'utf8');
+	var json = JSON.parse(file);
+
+	var result = json.dependencies;
+	var deps = Object.keys(result).map(function (key) {
+		return {
+			module: {
+				component: key,
+				version: result[key].version
+			},
+		};
+	});
+
+	events.emit('done', deps);				
+}
+
+function getNodeDependencies(path, limit, lockfile) {
+	var events = new emitter();
+
+	if (lockfile) {
+		if (lockfile === 'npm') {
+			fetchPackageLockDependencies(path + '/package-lock.json', events);
+		} else if (lockfile === 'yarn') {
+			fetchYarnLockDependencies('./yarn.lock', events);
+		} else if (lockfile === 'yarn-workspace') {
+			var yarnWorkspaceRoot = findYarnWorkspaceRoot();
+			var lockFileName = yarnWorkspaceRoot + '/yarn.lock';
+			fetchYarnLockDependencies(lockFileName, events);
+		}
+	} else {
+		fetchChildDependencies(path, limit, events);
+	}
+
 	return events;
 }
 
@@ -82,7 +148,7 @@ exports.scanJsFiles = function(path) {
 	return scanJsFiles(path);
 };
 
-exports.getNodeDependencies = function(path, limit) {
-	return getNodeDependencies(path, limit);
+exports.getNodeDependencies = function(path, limit, lockfile) {
+	return getNodeDependencies(path, limit, lockfile);
 };
 
