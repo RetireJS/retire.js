@@ -64,7 +64,7 @@ program
   .option('--severity <level>', 'Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .option('--colors', 'Enable color output (console output only)')
-  .option('--lockfile <type>', 'Use lockfile instead of package scan. Allowed types npm, yarn, yarn-workspace. Default: npm')
+  .option('--lockfile <type>', 'Use lockfile instead of package scan. Allowed types npm, yarn, yarn-workspace')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [

@@ -114,15 +114,17 @@ function fetchPackageLockDependencies(lockFileName, events) {
 function getNodeDependencies(path, limit, lockfile) {
 	var events = new emitter();
 
-	if (lockfile) {
-		if (lockfile === 'npm') {
-			fetchPackageLockDependencies(path + '/package-lock.json', events);
-		} else if (lockfile === 'yarn') {
+	if (lockfile !== undefined) {
+		if (lockfile === 'yarn') {
 			fetchYarnLockDependencies('./yarn.lock', events);
 		} else if (lockfile === 'yarn-workspace') {
 			var yarnWorkspaceRoot = findYarnWorkspaceRoot();
 			var lockFileName = yarnWorkspaceRoot + '/yarn.lock';
 			fetchYarnLockDependencies(lockFileName, events);
+		} else if (lockfile === 'npm') {
+			fetchPackageLockDependencies(path + '/package-lock.json', events);
+		} else {
+			events.emit('error', 'Invalid lockfile type ' + lockfile);
 		}
 	} else {
 		fetchChildDependencies(path, limit, events);
