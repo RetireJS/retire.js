@@ -763,9 +763,34 @@
 				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2008-6681" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
+			},
+			{
+				"below" : "1.10.10",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
+			},
+			{
+				"atOrAbove" : "1.11.0",
+				"below" : "1.11.6",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
+			},
+			{
+				"atOrAbove" : "1.12.0",
+				"below" : "1.12.4",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
+			},
+			{
+				"atOrAbove" : "1.13.0",
+				"below" : "1.13.1",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
 			}
-
-
 		],
 		"extractors" : {
 			"func"				 : [ "dojo.version.toString()" ],
@@ -1057,6 +1082,51 @@
 				"severity" : "low", 
 				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
 				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
+			},
+			{ 
+				"below" : "16.0.1",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.1.0", "below" : "16.1.2",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.2.0", "below" : "16.2.1",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.3.0", "below" : "16.3.3",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.4.0", "below" : "16.4.2",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			}
 		],
 		"extractors" : {
