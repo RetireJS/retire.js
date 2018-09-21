@@ -1084,7 +1084,7 @@
 				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
 			},
 			{ 
-				"below" : "16.0.1",
+				"atOrAbove" : "16.0.0", "below" : "16.0.1",
 				"severity" : "low", 
 				"identifiers" : { 
 					"CVE": [ "CVE-2018-6341" ],
