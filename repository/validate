@@ -25,7 +25,7 @@ for (var i in jsRepo) {
 				}
 				var r = new RegExp(restring);
 				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
-				if (i != "dont check" && types[j] !== "filecontentreplace" && cre.indexOf("§§version§§") !== 0) {
+				if (i != "dont check" && types[j] !== "filecontentreplace" && (!cre || cre.indexOf("§§version§§") !== 0)) {
 					throw new Error("First capture must be §§version§§ for " + i + ": " + restring);
 				}
 

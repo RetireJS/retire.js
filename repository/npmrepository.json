@@ -4763,6 +4763,19 @@
         "info": [
           "https://hackerone.com/reports/309648"
         ]
+      },
+      {
+        "below": "0.2.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3787"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/357109"
+        ]
       }
     ]
   },
@@ -5739,6 +5752,82 @@
         },
         "info": [
           "https://hackerone.com/reports/342066"
+        ]
+      }
+    ]
+  },
+  "extend": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.2",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/381185"
+        ]
+      }
+    ]
+  },
+  "egg-scripts": {
+    "vulnerabilities": [
+      {
+        "below": "2.9.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/388936"
+        ]
+      }
+    ]
+  },
+  "flintcms": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.10",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Privilege Escalation",
+          "CVE": [
+            "CVE-2018-3783"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/386807"
+        ]
+      }
+    ]
+  },
+  "unzipper": {
+    "vulnerabilities": [
+      {
+        "below": "0.8.13",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-1002203"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/362119"
+        ]
+      }
+    ]
+  },
+  "adm-zip": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.9",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/362118"
         ]
       }
     ]
