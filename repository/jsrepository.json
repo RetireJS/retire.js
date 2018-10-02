@@ -1234,7 +1234,7 @@
 				"below" : "4.1.2",
 				"identifiers": {
 					"issue" : "20184",
-					"summary": "XSS in data-container property of tooltip"
+					"summary": "XSS in data-container property of tooltip",
 					"CVE" : ["CVE-2018-14042"]
 				},
 				"severity" : "medium",
