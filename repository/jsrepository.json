@@ -958,9 +958,11 @@
 			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
 			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
-								"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")"
-								],
+			"filecontent"	: [ 
+				"Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
+				"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
+				"/\\*![\n\r \t]+handlebars v(§§version§§)"
+			],
 			"hashes"		: {}
 		}
 	},
