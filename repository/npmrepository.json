@@ -4613,7 +4613,8 @@
           "summary": "Prototype pollution attack"
         },
         "info": [
-          "https://hackerone.com/reports/310514"
+          "https://hackerone.com/reports/310514",
+          "https://hackerone.com/reports/380878"
         ]
       }
     ]
@@ -5507,6 +5508,16 @@
         "info": [
           "https://hackerone.com/reports/343626"
         ]
+      },
+      {
+        "below": "1.1.8",
+        "severity": "high",
+        "identifiers": {
+          "summary": "SQL Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/397445"
+        ]
       }
     ]
   },
@@ -5828,6 +5839,90 @@
         },
         "info": [
           "https://hackerone.com/reports/362118"
+        ]
+      }
+    ]
+  },
+  "exceljs": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/356809"
+        ]
+      }
+    ]
+  },
+  "samsung-remote": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.5",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/394294"
+        ]
+      }
+    ]
+  },
+  "ps": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/390848"
+        ]
+      }
+    ]
+  },
+  "ascii-art": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/390631"
+        ]
+      }
+    ]
+  },
+  "http-live-simulator": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/384939"
+        ]
+      }
+    ]
+  },
+  "merge": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/381194"
         ]
       }
     ]
