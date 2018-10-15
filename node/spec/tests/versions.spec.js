@@ -61,5 +61,3 @@ exports.should_not_be_vulnerable_when_is_rc_and_lower_beta= function(test) {
 	assert.isNotVulnerable(test, result);
 	test.done();
 };
-
-
