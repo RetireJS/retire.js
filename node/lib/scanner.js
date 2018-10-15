@@ -79,7 +79,13 @@ function scanJsFile(file, repo, options) {
 
 function scanDependencies(dependencies, nodeRepo, options) {
   for (var i in dependencies) {
-    if (options.ignore && shouldIgnorePath([dependencies[i].component, toModulePath(dependencies[i])], options.ignore)) {
+    var dependency = dependencies[i];
+    var fileSpecs = [toModulePath(dependency)];
+    if (dependency.component) {
+      fileSpecs.push(dependency.component);
+    }
+
+    if (options.ignore && shouldIgnorePath(fileSpecs, options.ignore)) {
       continue;
     }
     results = retire.scanNodeDependency(dependencies[i].module, nodeRepo, options);
