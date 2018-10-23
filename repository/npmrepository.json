@@ -5926,5 +5926,19 @@
         ]
       }
     ]
+  },
+  "samlify": {
+    "vulnerabilities": [
+      {
+        "below": "2.4.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Signature wrapping allows SAML token forgery"
+        },
+        "info": [
+          "https://hackerone.com/reports/356284"
+        ]
+      }
+    ]
   }
 }
