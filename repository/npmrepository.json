@@ -5916,7 +5916,7 @@
   "merge": {
     "vulnerabilities": [
       {
-        "below": "99.999.9999",
+        "below": "1.2.1",
         "severity": "high",
         "identifiers": {
           "summary": "Denial of Service"
