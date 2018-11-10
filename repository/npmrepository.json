@@ -4437,6 +4437,17 @@
         "info": [
           "https://hackerone.com/reports/358645"
         ]
+      },
+      {
+        "below": "10.0.2",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/398285",
+          "https://hackerone.com/reports/358641"
+        ]
       }
     ]
   },
@@ -4544,6 +4555,16 @@
         },
         "info": [
           "https://hackerone.com/reports/310443"
+        ]
+      },
+      {
+        "below": "4.17.11",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/380873"
         ]
       }
     ]
@@ -5937,6 +5958,54 @@
         },
         "info": [
           "https://hackerone.com/reports/356284"
+        ]
+      }
+    ]
+  },
+  "libnmap": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.16",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Command Injection - Generic",
+          "CVE": [
+            "CVE-2018-16461"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/390865"
+        ]
+      }
+    ]
+  },
+  "apex-publish-static-files": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection - Generic",
+          "CVE": [
+            "CVE-2018-16462"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/405694"
+        ]
+      }
+    ]
+  },
+  "morgan": {
+    "vulnerabilities": [
+      {
+        "below": "1.9.1",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/390881"
         ]
       }
     ]
