@@ -575,6 +575,17 @@
 			}
 		]
 	},
+	"event-stream" : {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "3.3.6",
+				"severity": "high",
+				"identifiers": {
+					"summary": "Project compromised, malicious version published"
+				},
+				"info" : [ "https://github.com/indexzero/ps-tree/pull/34" ] }
+		]
+	},
 	"dojo" : {
 		"vulnerabilities" : [
 			{
