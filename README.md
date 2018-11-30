@@ -71,7 +71,7 @@ Scans visited sites for references to insecure libraries, and puts warnings in t
 
 Burp and OWASP ZAP plugin
 -------------------------
-[@h3xstream](https://github.com/h3xstream) has adapted Retire.js as a [plugin](https://github.com/h3xstream/burp-retire-js) for the penetration testing tools [Burp](http://portswigger.net/burp/) and [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project). An alternative OWASP ZAP plugin exists at https://github.com/nikmmy/retire/
+[@h3xstream](https://github.com/h3xstream) has adapted Retire.js as a [plugin](https://github.com/h3xstream/burp-retire-js) for the penetration testing tools [Burp](https://portswigger.net/burp/) and [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project). An alternative OWASP ZAP plugin exists at https://github.com/nikmmy/retire/
 
 Donate
 ------
