@@ -1305,6 +1305,18 @@
 				},
 				"severity" : "medium",
 				"info": [ "https://ckeditor.com/blog/CKEditor-4.9.2-with-a-security-patch-released/", "https://ckeditor.com/cke4/release-notes" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.11.0",
+				"identifiers" : {
+					"summary" : "XSS vulnerability in the HTML parser"
+				},
+				"severity" : "medium",
+				"info" : [
+					"https://ckeditor.com/blog/CKEditor-4.11-with-emoji-dropdown-and-auto-link-on-typing-released/",
+					"https://snyk.io/vuln/SNYK-JS-CKEDITOR-72618"
+				]
 			}
 		],
 		"extractors" : {
