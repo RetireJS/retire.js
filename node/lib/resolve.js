@@ -49,8 +49,9 @@ function getNodeDependencies(path, limit) {
 			filter = [];			
 
 			var filter = packages.dependencies ? Object.keys(packages.dependencies) : [];
+
 			Object.keys(pkginfo.dependencies)
-				.filter(function(d) { return !pkginfo.dependencies[d]._requiredBy || pkginfo.dependencies[d]._requiredBy.indexOf("/") > -1;  })
+				.filter(function(d) { return !pkginfo.dependencies[d]._requiredBy || pkginfo.dependencies[d]._requiredBy.indexOf("/") > -1 || pkginfo.dependencies[d]._requiredBy.indexOf("#DEV:/") > -1;  })
 				.filter(function(d) { return filter.indexOf(d) == -1; })
 				.forEach(function(d) { delete pkginfo.dependencies[d]; });
 		}
@@ -60,7 +61,6 @@ function getNodeDependencies(path, limit) {
 		if (notInstalled.length > 0) {
 			return events.emit('error', 'Could not find dependencies: ' + notInstalled.join(', ') + '. You may need to run npm install');
 		}
-
 		listdep({file: 'package.json',component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
 		events.emit('done', deps);				
 	});
