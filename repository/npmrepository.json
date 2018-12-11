@@ -578,7 +578,7 @@
 	"event-stream" : {
 		"vulnerabilities" : [
 			{
-        "below":"3.3.6",
+        "below":"3.3.7",
 				"atOrAbove" : "3.3.6",
 				"severity": "high",
 				"identifiers": {
