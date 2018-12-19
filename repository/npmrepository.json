@@ -5014,6 +5014,17 @@
   "protobufjs": {
     "vulnerabilities": [
       {
+        "below": "5.0.3",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319576"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
         "below": "6.8.6",
         "severity": "medium",
         "identifiers": {
