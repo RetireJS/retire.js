@@ -8,13 +8,22 @@
 	"angular" : {
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "1.5.0",
+				"below" : "1.6.9",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS through SVG if enableSvg is set"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#169-fiery-basilisk-2018-02-02", "https://vulnerabledoma.in/ngSanitize1.6.8_bypass.html" ]
+			},
+			{
 				"atOrAbove" : "1.3.0",
 				"below" : "1.5.0-rc2",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
 			{
 				"atOrAbove" : "1.0.0",
@@ -23,7 +32,7 @@
 				"identifiers": {
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
 			{
 				"below" : "1.6.3",
@@ -99,7 +108,7 @@
 	},
 	"grunt-gh-pages" : {
 		"vulnerabilities" : [
-			{ "below" : "1.0.0", "severity" : "medium", "info" : [ "https://nodesecurity.io/advisories/85" ] }
+			{ "below" : "0.10.0", "severity" : "medium", "info" : [ "https://nodesecurity.io/advisories/85" ] }
 		]
 	},
 	"riot-compiler" : {
@@ -137,7 +146,7 @@
 	},
 	"npm" : {
 		"vulnerabilities" : [
-			{ "below" : "3.8.2 ", "atOrAbove": "3.0.0", "severity" : "high", "info" : [ "https://nodesecurity.io/advisories/98" ] },
+			{ "below" : "3.8.2", "atOrAbove": "3.0.0", "severity" : "high", "info" : [ "https://nodesecurity.io/advisories/98" ] },
 			{ "below" : "2.15.1", "severity" : "high", "info" : [ "https://nodesecurity.io/advisories/98" ] },
 			{
         "below": "1.3.3",
@@ -327,7 +336,7 @@
 				"identifiers": {
 					"advisory": "Cross-Site Scripting (XSS) Due To Sanitization Bypass Using HTML Entities"
 				},
-				"info" : [ "https://srcclr.com/security/cross-site-scripting-xss-due-to/javascript/s-2309" ]
+				"info" : [ "https://srcclr.com/security/cross-site-scripting-xss-due-to/javascript/s-2309", "https://github.com/markedjs/marked/pull/592" ]
 			}
 		]
 	},
@@ -422,25 +431,6 @@
 				"info" : [ 
 					"https://nodesecurity.io/advisories/65"
 				]
-			}
-		]
-	},
-	"node-validator": {
-		"vulnerabilities" : [
-			{ "below" : "1.1.0",
-				"severity": "high",
-				"identifiers": {
-					"summary": "Cross-site scripting filter bypass"
-				},
-				"info" : [ "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/" ]
-			},
-			{
-				"below" : "2.0.0",
-				"severity": "low",
-				"identifiers": {
-					"summary": "Remove cross-site scripting filter"
-				},
-				"info" : [ "https://github.com/chriso/validator.js/commit/2d5d6999541add350fb396ef02dc42ca3215049e" ]
 			}
 		]
 	},
@@ -585,6 +575,18 @@
 			}
 		]
 	},
+	"event-stream" : {
+		"vulnerabilities" : [
+			{
+        "below":"3.3.7",
+				"atOrAbove" : "3.3.6",
+				"severity": "high",
+				"identifiers": {
+					"summary": "Project compromised, malicious version published"
+				},
+				"info" : [ "https://github.com/indexzero/ps-tree/pull/34" ] }
+		]
+	},
 	"dojo" : {
 		"vulnerabilities" : [
 			{
@@ -600,7 +602,7 @@
 				"severity": "high",
 				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
 				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
-			},
+			},			
 			{
 				"atOrAbove" : "1.1",
 				"below" : "1.1.2",
@@ -640,22 +642,19 @@
 				"severity": "medium",
 				"identifiers": {"CVE": ["CVE-2008-6681"]},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
-			}
-		]
-	},
-	"backbone" : {
-		"vulnerabilities" : [
+			},
 			{
-				"below" : "0.5.0",
-				"severity": "medium",
-				"identifiers": {
-					"release": "0.5.0",
-					"summary": "cross-site scripting vulnerability"
-				},
-				"info" : [ "http://backbonejs.org/#changelog" ]
-			}
+        			"below": "1.1",
+        			"severity": "medium",
+        			"identifiers": {
+          			"summary": "dojo_cross-site-scripting"
+        			},
+        			"info": [
+          			"https://nodesecurity.io/advisories/107"
+        			]
+                        }
 		]
-	},
+	},	
 	"mustache" : {
 		"vulnerabilities" : [
 			{
@@ -717,32 +716,21 @@
       }
 		]
 	},
-	"bassmaster" : {
-		"vulnerabilities" : [
-			{
-				"below" : "1.5.2",
-				"severity": "high",
-				"identifiers": {
-					"CVE": ["CVE-2014-7205"],
-					"advisory": "bassmaster_js_injection"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/bassmaster_js_injection" ]
-			}
-		]
-	},
-	"libyaml" : {
-		"vulnerabilities" : [
-			{
-				"below" : "0.2.3",
-				"severity": "medium",
-				"identifiers": {
-					"CVE": ["CVE-2013-6393"],
-					"advisory": "libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/libyaml_heap-based_buffer_overflow_when_parsing_YAML_tags" ]
-			}
-		]
-	},
+	"bassmaster": {
+    "vulnerabilities": [
+      {
+        "below": "1.5.2",
+        "severity": "medium",
+        "identifiers": {
+        	"CVE" : "CVE-2014-7205",
+          "summary": "bassmaster_arbitrary-javascript-execution"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/1"
+        ]
+      }
+    ]
+  },
 	"send" : {
 		"vulnerabilities" : [
 			{
@@ -777,23 +765,27 @@
 					"CVE": ["CVE-2014-4179"],
 					"advisory": "yar-DoS"
 				},
-				"info" : [ "http://nodesecurity.io/advisories/yar-DoS" ]
+        "info": [
+          "https://nodesecurity.io/advisories/44"
+        ]
 			}
 		]
 	},
-	"codem-transcode" : {
-		"vulnerabilities" : [
-			{
-				"below" : "0.5.0",
-				"severity": "high",
-				"identifiers": {
+  "codem-transcode": {
+    "vulnerabilities": [
+      {
+        "below": "0.5.0",
+        "severity": "medium",
+        "identifiers": {
 					"CVE": ["CVE-2013-7377"],
-					"advisory": "codem-transcode_command_injection"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/codem-transcode_command_injection" ]
-			}
-		]
-	},
+          "summary": "codem-transcode_potential-command-injection"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/2"
+        ]
+      }
+    ]
+  },	
 	"ep_imageconvert" : {
 		"vulnerabilities" : [
 			{
@@ -803,10 +795,12 @@
 					"CVE": ["CVE-2013-3364"],
 					"advisory": "ep_imageconvert_command_injection"
 				},
-				"info" : [ "http://nodesecurity.io/advisories/ep_imageconvert_command_injection" ]
+				"info" : [ 
+          "https://nodesecurity.io/advisories/7"
+				]
 			}
 		]
-	},
+	},	
 	"sanitize-html": {
 		"vulnerabilities" : [
 			{
@@ -899,28 +893,18 @@
 		"vulnerabilities" : [
 			{
 				"below" : "0.1.4",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"advisory": "fancy-server-directory-traversal"},
 				"info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ]
 			}
 		]
-	},
-	"dns-sync": {
-		"vulnerabilities" : [
-			{
-				"below" : "0.1.1",
-				"severity": "high",
-				"identifiers": {"advisory": "dns-sync-command-injection"},
-				"info" : [ "http://nodesecurity.io/advisories/dns-sync-command-injection" ]
-			}
-		]
-	},
+	},	
 	"nhouston": {
 		"vulnerabilities" : [
 			{
 				"below":"100.0.0",
 				"atOrAbove" : "0.0.0",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": ["CVE-2014-8883"],
 					"advisory": "nhouston-directory-traversal"
@@ -940,6 +924,82 @@
 		]
 	},
 
+	"vue" : {
+		"vulnerabilities" : [
+			{
+				"below" : "2.5.17",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "potential xss in ssr when using v-bind"
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.5.17" ]
+			},
+			{
+				"below" : "2.4.3",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "possible xss vector "
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.4.3" ]
+			}
+		]
+	},
+
+
+	"react-dom": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "16.0.0",
+				"below" : "16.0.1",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.1.0",
+				"below" : "16.1.2",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.2.0",
+				"below" : "16.2.1",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.3.0",
+				"below" : "16.3.3",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{
+				"atOrAbove" : "16.4.0",
+				"below" : "16.4.2",
+				"severity": "high",
+				"identifiers": { 
+					"CVE": ["CVE-2018-6341"],
+					"summary" : "RCE affecting some server-rendered React apps" 
+				},
+				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			}
+		]
+	},
 
 	"mqtt-packet": {
 		"vulnerabilities" : [
@@ -984,9 +1044,10 @@
 	"hapi-auth-jwt2": {
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "5.1.1",
 				"below" : "5.1.2",
 				"severity": "high",
-				"identifiers": { "summary" : "Regex denial of service" },
+				"identifiers": { "summary" : "Authentication Bypass" },
 				"info" : [ "https://nodesecurity.io/advisories/81", "https://github.com/dwyl/hapi-auth-jwt2/issues/111", "https://github.com/dwyl/hapi-auth-jwt2/pull/112" ]
 			}
 		]
@@ -1063,57 +1124,20 @@
 				"info" : [ "https://nodesecurity.io/advisories/50", "https://github.com/vdemedes/secure-compare/pull/1" ]
 			}
 		]
-	},	
-	"remarkable": {
-		"vulnerabilities" : [
-			{
-				"below" : "1.4.1",
-				"severity": "high",
-				"identifiers": {"advisory": "remarkable_content_injection"},
-				"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
-			}
-		]
-	},
-	"validator" : {
-		"vulnerabilities" : [ 
-			{
-				"below" : "3.22.1",
-				"severity": "medium",
-				"identifiers": {
-					"CVE": ["CVE-2014-8882"],
-					"advisory": "validator-isurl-denial-of-service"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/validator-isurl-denial-of-service" ]
-			},
-			{
-				"below" : "2.0.0",
-				"severity": "medium",
-				"identifiers": {
-					"advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL"
-				},
-				"info" : [ "http://nodesecurity.io/advisories/validator_XSS_Filter_Bypass_via_Encoded_URL" ] }
-		]	
 	},
 	"semver": {
 		"vulnerabilities" : [
 			{
 				"below" : "4.3.2",
 				"severity": "medium",
-				"identifiers": {"advisory": "semver_dos"},
+				"identifiers": {
+					"advisory": "semver_dos",
+					"summary": "semver_regular-expression-denial-of-service"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/31" ]
 			}
 		]
-	},
-	"jsonwebtoken": {
-		"vulnerabilities" : [
-			{
-				"below" : "4.2.2",
-				"severity": "medium",
-				"identifiers": {"advisory": "jsonwebtoken_verification_bypass"},
-				"info" : [ "http://nodesecurity.io/advisories/jsonwebtoken_verification_bypass" ]
-			}
-		]
-	},
+	},	
 	"serve-static": {
 		"vulnerabilities" : [
 			{
@@ -1136,7 +1160,10 @@
 			{
 				"below" : "1.6.3",
 				"severity": "medium",
-				"identifiers": {"advisory": "serve-static-xss"},
+				"identifiers": {
+					"advisory": "serve-static-xss",
+					"summary": "serve-index_cross-site-scripting"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/serve-static-xss" ]
 			}
 		]
@@ -1145,13 +1172,94 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.1.1",
-				"severity": "high",
-				"identifiers": {"advisory": "inert_hidden_directories_always_served"},
+				"severity": "medium",
+				"identifiers": {
+					"advisory": "inert_hidden_directories_always_served",
+					"summary": "inert_hidden-directories-always-served"
+				},
 				"info" : [ "http://nodesecurity.io/advisories/inert_hidden_directories_always_served" ]
 			}
 		]
 	},
-
+	"electron": {
+		"vulnerabilities" : [
+			{
+				"below" : "1.6.16",
+				"severity": "high",
+				"identifiers": {
+					"advisory": "Update electron to a version that is not vulnerable.",
+					"CVE" : ["CVE-2018-1000006"]
+				},
+				"info" : [ "https://nodesecurity.io/advisories/563" ]
+			},
+			{
+				"atOrAbove" : "1.7.0",
+				"below" : "1.7.11",
+				"severity": "high",
+				"identifiers": {
+					"advisory": "Update electron to a version that is not vulnerable.",
+					"CVE" : ["CVE-2018-1000006"]
+				},
+				"info" : [ "https://nodesecurity.io/advisories/563" ]
+			},
+			{
+				"atOrAbove" : "1.8.0",
+				"below" : "1.8.2-beta.4",
+				"severity": "high",
+				"identifiers": {
+					"advisory": "Update electron to a version that is not vulnerable.",
+					"CVE" : ["CVE-2018-1000006"]
+				},
+				"info" : [ "https://nodesecurity.io/advisories/563" ]
+			},
+			{
+				"below" : "1.6.14",
+				"severity": "high",
+				"identifiers": {
+					"summary": "Remote code execution"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/539" ]
+			},
+			{
+				"atOrAbove" : "1.7.0",
+				"below" : "1.7.8",	
+				"severity": "high",
+				"identifiers": {
+					"summary": "Remote code execution"
+				},
+				"info" : [ "https://nodesecurity.io/advisories/539" ]
+			},
+			{
+				"below" : "1.7.13",	
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Remote code execution",
+					"CVE" : ["CVE-2018-1000136"]
+				},
+				"info" : [ "https://nodesecurity.io/advisories/574" ]
+			},
+			{
+				"atOrAbove" : "1.8.4",
+				"below" : "1.8.0",	
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Remote code execution",
+					"CVE" : ["CVE-2018-1000136"]
+				},
+				"info" : [ "https://nodesecurity.io/advisories/574" ]
+			},
+			{
+				"atOrAbove" : "2.0.0-beta.5",
+				"below" : "2.0.0-beta.1",	
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Remote code execution",
+					"CVE" : ["CVE-2018-1000136"]
+				},
+				"info" : [ "https://nodesecurity.io/advisories/574" ]
+			}
+		]
+	},
 	"electron-packager": {
 		"vulnerabilities" : [
 			{
@@ -1833,8 +1941,10 @@
     "vulnerabilities": [
       {
         "below": "3.0.0",
+        "atOrAbove": "3.0.0-rc1",
         "severity": "medium",
         "identifiers": {
+          "CVE": ["CVE-2016-10707"],
           "summary": "jquery_exceeding-stack-call-limit-dos"
         },
         "info": [
@@ -1843,6 +1953,17 @@
       },
       {
         "below": "3.0.0",
+        "atOrAbove" : "1.12.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "jquery_xss"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/328"
+        ]
+      },
+      {
+        "below": "1.12.0",
         "severity": "high",
         "identifiers": {
           "summary": "jquery_xss"
@@ -1867,8 +1988,19 @@
   "request": {
     "vulnerabilities": [
       {
-        "below": "2.68.0",
+        "below": "2.47.0",
         "atOrAbove": "2.2.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "request_remote-memory-exposure"
+        },
+        "info": [
+          "https://nodesecurity.io/advisories/309"
+        ]
+      },
+      {
+        "below": "2.68.0",
+        "atOrAbove": "2.52.0",
         "severity": "medium",
         "identifiers": {
           "summary": "request_remote-memory-exposure"
@@ -2110,6 +2242,12 @@
   },
   "remarkable": {
     "vulnerabilities": [
+      {
+	"below" : "1.4.1",
+	"severity": "high",
+	"identifiers": {"advisory": "remarkable_content_injection"},
+	"info" : [ "http://nodesecurity.io/advisories/remarkable_content_injection" ]
+      },
       {
         "below": "1.7.0",
         "severity": "medium",
@@ -4136,20 +4274,6 @@
       }
     ]
   },
-  "dojo": {
-    "vulnerabilities": [
-      {
-        "below": "1.1",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "dojo_cross-site-scripting"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/107"
-        ]
-      }
-    ]
-  },
 
   "tar": {
     "vulnerabilities": [
@@ -4166,26 +4290,13 @@
     ]
   },
 
-  "semver": {
-    "vulnerabilities": [
-      {
-        "below": "4.3.2",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "semver_regular-expression-denial-of-service"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/31"
-        ]
-      }
-    ]
-  },
   "jsonwebtoken": {
     "vulnerabilities": [
       {
         "below": "4.2.2",
         "severity": "high",
         "identifiers": {
+	  "advisory": "jsonwebtoken_verification_bypass",	
           "summary": "jsonwebtoken_verification-bypass"
         },
         "info": [
@@ -4193,108 +4304,15 @@
         ]
       }
     ]
-  },
-  "serve-index": {
-    "vulnerabilities": [
-      {
-        "below": "1.6.3",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-index_cross-site-scripting"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/34"
-        ]
-      }
-    ]
-  },
-  "serve-static": {
-    "vulnerabilities": [
-      {
-        "below": "1.7.2",
-        "atOrAbove": "1.7.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-static_open-redirect"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/35"
-        ]
-      },
-      {
-        "below": "1.6.5",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "serve-static_open-redirect"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/35"
-        ]
-      }
-    ]
-  },
-  "inert": {
-    "vulnerabilities": [
-      {
-        "below": "1.1.1",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "inert_hidden-directories-always-served"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/14"
-        ]
-      }
-    ]
-  },
-  "paypal-ipn": {
-    "vulnerabilities": [
-      {
-        "below": "3.0.0",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "paypal-ipn_validation-bypass"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/26"
-        ]
-      }
-    ]
-  },
-  "fancy-server": {
-    "vulnerabilities": [
-      {
-        "below": "0.1.4",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "fancy-server_directory-traversal"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/9"
-        ]
-      }
-    ]
-  },
-  "nhouston": {
-    "vulnerabilities": [
-      {
-        "below": "99.999.99999",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "nhouston_directory-traversal"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/25"
-        ]
-      }
-    ]
-  },
+  },  
   "validator": {
     "vulnerabilities": [
       {
         "below": "3.22.1",
         "severity": "high",
         "identifiers": {
+	  "CVE": ["CVE-2014-8882"],
+	  "advisory": "validator-isurl-denial-of-service",	
           "summary": "validator_regular-expression-denial-of-service"
         },
         "info": [
@@ -4305,10 +4323,12 @@
         "below": "2.0.0",
         "severity": "medium",
         "identifiers": {
+	  "advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL",	
           "summary": "validator_xss-filter-bypass-via-encoded-url"
         },
         "info": [
-          "https://nodesecurity.io/advisories/43"
+          "https://nodesecurity.io/advisories/43",
+          "https://github.com/chriso/validator.js/issues/181"
         ]
       },
       {
@@ -4318,21 +4338,8 @@
           "summary": "validator_multiple-xss-filter-bypasses"
         },
         "info": [
-          "https://nodesecurity.io/advisories/41"
-        ]
-      }
-    ]
-  },
-  "bassmaster": {
-    "vulnerabilities": [
-      {
-        "below": "1.5.2",
-        "severity": "medium",
-        "identifiers": {
-          "summary": "bassmaster_arbitrary-javascript-execution"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/1"
+          "https://nodesecurity.io/advisories/41",
+          "https://nealpoole.com/blog/2013/07/xss-filter-bypass-in-validator-nodejs-module/"
         ]
       }
     ]
@@ -4362,27 +4369,13 @@
       }
     ]
   },
-
-  "yar": {
-    "vulnerabilities": [
-      {
-        "below": "2.2.0",
-        "severity": "high",
-        "identifiers": {
-          "summary": "yar_denial-of-service"
-        },
-        "info": [
-          "https://nodesecurity.io/advisories/44"
-        ]
-      }
-    ]
-  },
   "libyaml": {
     "vulnerabilities": [
       {
         "below": "0.2.3",
         "severity": "high",
         "identifiers": {
+					"CVE": ["CVE-2013-6393"],
           "summary": "libyaml_heap-based-buffer-overflow"
         },
         "info": [
@@ -4390,44 +4383,1820 @@
         ]
       }
     ]
-  },
-  "codem-transcode": {
+  },  
+  "fastify": {
     "vulnerabilities": [
       {
-        "below": "0.5.0",
-        "severity": "medium",
+        "below": "0.38.0",
+        "severity": "critical",
         "identifiers": {
-          "summary": "codem-transcode_potential-command-injection"
+          "CVE": [
+            "CVE-2018-3711"
+          ],
+          "summary": "denial-of-service vulnerability with large JSON payloads"
         },
         "info": [
-          "https://nodesecurity.io/advisories/2"
+          "https://hackerone.com/reports/303632"
         ]
       }
     ]
   },
-  "ep_imageconvert": {
+  "serve": {
     "vulnerabilities": [
       {
-        "below": "0.0.3",
-        "severity": "high",
+        "below": "6.4.9",
+        "severity": "critical",
         "identifiers": {
-          "summary": "ep_imageconvert_unauthenticated-remote-command-injection"
+          "CVE": [
+            "CVE-2018-3712"
+          ],
+          "summary": "Path Traversal"
         },
         "info": [
-          "https://nodesecurity.io/advisories/7"
+          "https://hackerone.com/reports/307666"
+        ]
+      },
+      {
+        "below": "6.5.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Information Exposure Through Directory Listing",
+          "CVE": [
+            "CVE-2018-3718"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/308721"
+        ]
+      },
+      {
+        "below": "7.0.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Information Exposure Through Directory Listing"
+        },
+        "info": [
+          "https://hackerone.com/reports/330724",
+          "https://hackerone.com/reports/330650"
+        ]
+      },
+      {
+        "below": "7.3.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/358645"
+        ]
+      },
+      {
+        "below": "10.0.2",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/398285",
+          "https://hackerone.com/reports/358641"
+        ]
+      }
+    ]
+  },
+  "augustine": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.4",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296282"
+        ]
+      }
+    ]
+  },
+  "lactate": {
+    "vulnerabilities": [
+      {
+        "below": "0.13.13",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296645"
+        ]
+      }
+    ]
+  },
+  "redis-commander": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.6",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Reflected XSS"
+        },
+        "info": [
+          "https://hackerone.com/reports/296377"
+        ]
+      }
+    ]
+  },
+  "featurebook": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.33",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296305"
+        ]
+      }
+    ]
+  },
+  "serve-here": {
+    "vulnerabilities": [
+      {
+        "below": "3.2.2",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/296254"
+        ]
+      }
+    ]
+  },
+  "html-janitor": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Bypassing sanitization using DOM clobbering"
+        },
+        "info": [
+          "https://hackerone.com/reports/308158"
+        ]
+      },
+      {
+        "below": "2.0.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - DOM"
+        },
+        "info": [
+          "https://hackerone.com/reports/308155"
+        ]
+      }
+    ]
+  },
+  "lodash": {
+    "vulnerabilities": [
+      {
+        "below": "4.0.0",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310443"
+        ]
+      },
+      {
+        "below": "4.17.11",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/380873"
+        ]
+      }
+    ]
+  },
+  "hoek": {
+    "vulnerabilities": [
+      {
+        "below": "4.2.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310439"
+        ]
+      }
+    ]
+  },
+  "mixin-deep": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/311236"
+        ]
+      }
+    ]
+  },
+  "assign-deep": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.7",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310707"
+        ]
+      }
+    ]
+  },
+  "merge-deep": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310708"
+        ]
+      }
+    ]
+  },
+  "defaults-deep": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.4",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/310514",
+          "https://hackerone.com/reports/380878"
+        ]
+      }
+    ]
+  },
+  "public": {
+    "vulnerabilities": [
+      {
+        "below": "0.1.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/312918"
+        ]
+      },
+      {
+        "below": "0.1.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored",
+          "CVE": [
+            "CVE-2018-3747"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/316346"
+        ]
+      },
+      {
+        "below": "0.1.4",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/329950"
+        ]
+      }
+    ]
+  },
+  "crud-file-server": {
+    "vulnerabilities": [
+      {
+        "below": "0.7.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS)",
+          "CVE": [
+            "CVE-2018-3726"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311101"
+        ]
+      },
+      {
+        "below": "0.7.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3733"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310690"
+        ]
+      }
+    ]
+  },
+  "resolve-path": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/315760"
+        ]
+      }
+    ]
+  },
+  "localhost-now": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/312889",
+          "https://hackerone.com/reports/329837"
+        ]
+      },
+      {
+        "below": "99.999.99999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/334837"
+        ]
+      }
+    ]
+  },
+  "626": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/311216"
+        ]
+      }
+    ]
+  },
+  "anywhere": {
+    "vulnerabilities": [
+      {
+        "below": "1.5.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/309394"
+        ]
+      }
+    ]
+  },
+  "simplehttpserver": {
+    "vulnerabilities": [
+      {
+        "below": "1.5.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/309648"
+        ]
+      },
+      {
+        "below": "0.2.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3787"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/357109"
+        ]
+      },
+      {
+        "below": "0.3.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-16478"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/403703"
+        ]
+      }
+    ]
+  },
+  "hekto": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/311218"
+        ]
+      },
+      {
+        "below": "0.2.4",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Open Redirect",
+          "CVE":[
+            "CVE-2018-3743"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/320693"
+        ]
+      }
+    ]
+  },
+  "uppy": {
+    "vulnerabilities": [
+      {
+        "below": "0.22.3",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Stored XSS"
+        },
+        "info": [
+          "https://hackerone.com/reports/311998"
+        ]
+      }
+    ]
+  },
+  "angular-http-server": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3713"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/309120",
+          "https://hackerone.com/reports/330349"
+        ]
+      }
+    ]
+  },
+  "simple-server": {
+    "vulnerabilities": [
+      {
+        "below": "~",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Stored XSS",
+          "CVE": [
+            "CVE-2018-3717"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/309641"
+        ]
+      }
+    ]
+  },
+  "glance": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3715"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310106"
+        ]
+      },
+      {
+        "below": "3.0.4",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored",
+          "CVE": [
+            "CVE-2018-3748"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310133"
+        ]
+      }
+    ]
+  },
+  "stattic": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3734"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/319003"
+        ]
+      }
+    ]
+  },
+  "node-srv": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3714"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/309124"
+        ]
+      }
+    ]
+  },
+  "general-file-server": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.9",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3724"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310943"
+        ]
+      }
+    ]
+  },
+  "metascraper": {
+    "vulnerabilities": [
+      {
+        "below": "3.9.3",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Stored XSS"
+        },
+        "info": [
+          "https://hackerone.com/reports/309367"
+        ]
+      }
+    ]
+  },
+  "whereis": {
+    "vulnerabilities": [
+      {
+        "below": "3.9.3",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/319476"
+        ]
+      }
+    ]
+  },
+  "protobufjs": {
+    "vulnerabilities": [
+      {
+        "below": "5.0.3",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319576"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "6.8.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319576"
+        ]
+      }
+    ]
+  },
+  "https-proxy-agent": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319532"
+        ]
+      }
+    ]
+  },
+  "sshpk": {
+    "vulnerabilities": [
+      {
+        "below": "1.13.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/319593"
+        ]
+      }
+    ]
+  },
+  "http-proxy-agent": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/321631"
+        ]
+      }
+    ]
+  },
+  "atob": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Out-of-bounds Read",
+          "CVE" : [
+            "CVE-2018-3745"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/321686"
+        ]
+      }
+    ]
+  },
+  "bracket-template": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Reflected"
+        },
+        "info": [
+          "https://hackerone.com/reports/317125"
+        ]
+      }
+    ]
+  },
+  "deap": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3749"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310446"
+        ]
+      }
+    ]
+  },
+  "deep-extend": {
+    "vulnerabilities": [
+      {
+        "below": "0.5.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3750"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311333"
+        ]
+      }
+    ]
+  },
+  "merge-recursive": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.4",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3751"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311337"
+        ]
+      }
+    ]
+  },
+  "merge-options": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.2",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3752"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311336"
+        ]
+      }
+    ]
+  },
+  "merge-objects": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.6",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2018-3753"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/310706"
+        ]
+      }
+    ]
+  },
+  "pdfinfojs": {
+    "vulnerabilities": [
+      {
+        "below": "0.3.7",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic",
+          "CVE": [
+            "CVE-2018-3746"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/330957"
+        ]
+      }
+    ]
+  },
+  "mcstatic": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.21",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3730"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/312907",
+          "https://hackerone.com/reports/330285"
+        ]
+      }
+    ]
+  },
+  "cloudcmd": {
+    "vulnerabilities": [
+      {
+        "below": "9.1.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/341044"
+        ]
+      }
+    ]
+  },
+  "foreman": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/320586"
+        ]
+      }
+    ]
+  },
+  "concat-with-sourcemaps": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/320166"
+        ]
+      }
+    ]
+  },
+  "superstatic": {
+    "vulnerabilities": [
+      {
+        "below": "5.0.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal (Windows only)"
+        },
+        "info": [
+          "https://hackerone.com/reports/319951"
+        ]
+      }
+    ]
+  },
+  "stringstream": {
+    "vulnerabilities": [
+      {
+        "below": "0.0.6",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321670"
+        ]
+      }
+    ]
+  },
+  "fs-path": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.99999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/324491"
+        ]
+      }
+    ]
+  },
+  "buttle": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.99999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "OS Command Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/331032"
+        ]
+      },
+      {
+        "below": "99.999.99999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3766"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/358112"
+        ]
+      },
+      {
+        "below": "99.999.99999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/331110"
+        ]
+      }
+    ]
+  },
+  "command-exists": {
+    "vulnerabilities": [
+      {
+        "below": "1.2.4",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/324453"
+        ]
+      }
+    ]
+  },
+  "macaddress": {
+    "vulnerabilities": [
+      {
+        "below": "0.2.9",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/319467",
+          "https://nodesecurity.io/advisories/654"
+        ]
+      }
+    ]
+  },
+  "base64url": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.99999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321687"
+        ]
+      }
+    ]
+  },
+  "byte": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.1",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/330351"
+        ]
+      }
+    ]
+  },
+  "npmconf": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/320269"
+        ]
+      }
+    ]
+  },
+  "sql": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.99999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "SQL Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/319465"
+        ]
+      }
+    ]
+  },
+  "base64-url": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321692"
+        ]
+      }
+    ]
+  },
+  "react-marked-markdown": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.6",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS)"
+        },
+        "info": [
+          "https://hackerone.com/reports/344069"
+        ]
+      }
+    ]
+  },
+  "query-mysql": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.99999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "SQL Injection",
+          "CVE":[
+            "CVE-2018-3754"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/311244"
+        ]
+      }
+    ]
+  },
+  "html-pages": {
+    "vulnerabilities": [
+      {
+        "below": "2.1.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3744"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/306607"
+        ]
+      },
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/330356"
+        ]
+      }
+    ]
+  },
+  "sexstatic": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.99999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS)",
+          "CVE":[
+            "CVE-2018-3755"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/328210"
+        ]
+      }
+    ]
+  },
+  "pdf-image": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Command Injection",
+          "CVE":[
+            "CVE-2018-3757"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/340208"
+        ]
+      }
+    ]
+  },
+  "express-cart": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.6",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-3758"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/343726"
+        ]
+      },
+      {
+        "below": "1.1.7",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Privilege Escalation"
+        },
+        "info": [
+          "https://hackerone.com/reports/343626"
+        ]
+      },
+      {
+        "below": "1.1.8",
+        "severity": "high",
+        "identifiers": {
+          "summary": "SQL Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/397445"
+        ]
+      }
+    ]
+  },
+  "put": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321702"
+        ]
+      }
+    ]
+  },
+  "utile": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321701"
+        ]
+      }
+    ]
+  },
+  "file-static-server": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/310671"
+        ]
+      }
+    ]
+  },
+  "pullit": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.0",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/315773"
+        ]
+      }
+    ]
+  },
+  "njwt": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Out-of-bounds Read"
+        },
+        "info": [
+          "https://hackerone.com/reports/321704"
+        ]
+      }
+    ]
+  },
+  "funcster": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/350401"
+        ]
+      }
+    ]
+  },
+  "cryo": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/350418"
+        ]
+      }
+    ]
+  },
+  "memjs": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Denial of Service",
+          "CVE":[
+            "CVE-2018-3767" 
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/319809"
+        ]
+      }
+    ]
+  },
+  "url-parse": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Open Redirect",
+          "CVE":[
+            "CVE-2018-3774" 
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/384029"
+        ]
+      }
+    ]
+  },
+  "markdown-pdf": {
+    "vulnerabilities": [
+      {
+        "below": "9.0.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE":[
+            "CVE-2018-3770" 
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/360727"
+        ]
+      }
+    ]
+  },
+  "ponse": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/383112"
+        ]
+      }
+    ]
+  },
+  "node-red": {
+    "vulnerabilities": [
+      {
+        "below": "0.18.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/349146"
+        ]
+      }
+    ]
+  },
+  "entitlements": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/341869"
+        ]
+      }
+    ]
+  },
+  "statics-server": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic",
+          "CVE": [
+            "CVE-2018-3771"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/355458"
+        ]
+      }
+    ]
+  },
+  "m-server": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.2",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/319794"
+        ]
+      },
+      {
+        "below": "1.4.1",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/319795"
+        ]
+      }
+    ]
+  },
+  "bruteser": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/342066"
+        ]
+      }
+    ]
+  },
+  "extend": {
+    "vulnerabilities": [
+      {
+        "below": "3.0.2",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://hackerone.com/reports/381185"
+        ]
+      }
+    ]
+  },
+  "egg-scripts": {
+    "vulnerabilities": [
+      {
+        "below": "2.9.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/388936"
+        ]
+      }
+    ]
+  },
+  "flintcms": {
+    "vulnerabilities": [
+      {
+        "below": "1.1.10",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Privilege Escalation",
+          "CVE": [
+            "CVE-2018-3783"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/386807"
+        ]
+      }
+    ]
+  },
+  "unzipper": {
+    "vulnerabilities": [
+      {
+        "below": "0.8.13",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-1002203"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/362119"
+        ]
+      }
+    ]
+  },
+  "adm-zip": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.9",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/362118"
+        ]
+      }
+    ]
+  },
+  "exceljs": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/356809"
+        ]
+      }
+    ]
+  },
+  "samsung-remote": {
+    "vulnerabilities": [
+      {
+        "below": "1.3.5",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/394294"
+        ]
+      }
+    ]
+  },
+  "ps": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.0",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/390848"
+        ]
+      }
+    ]
+  },
+  "ascii-art": {
+    "vulnerabilities": [
+      {
+        "below": "1.4.4",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection - Generic"
+        },
+        "info": [
+          "https://hackerone.com/reports/390631"
+        ]
+      }
+    ]
+  },
+  "http-live-simulator": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.6",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/384939"
+        ]
+      }
+    ]
+  },
+  "merge": {
+    "vulnerabilities": [
+      {
+        "below": "1.2.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/381194"
+        ]
+      }
+    ]
+  },
+  "samlify": {
+    "vulnerabilities": [
+      {
+        "below": "2.4.0",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Signature wrapping allows SAML token forgery"
+        },
+        "info": [
+          "https://hackerone.com/reports/356284"
+        ]
+      }
+    ]
+  },
+  "libnmap": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.16",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Command Injection - Generic",
+          "CVE": [
+            "CVE-2018-16461"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/390865"
+        ]
+      }
+    ]
+  },
+  "apex-publish-static-files": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.1",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Command Injection - Generic",
+          "CVE": [
+            "CVE-2018-16462"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/405694"
+        ]
+      }
+    ]
+  },
+  "morgan": {
+    "vulnerabilities": [
+      {
+        "below": "1.9.1",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/390881"
+        ]
+      }
+    ]
+  },
+  "flatmap-stream@": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0.1.1",
+        "below": "0.1.2",
+        "severity": "critical",
+        "identifiers": {
+          "summary": "Malicious package"
+        },
+        "info": [
+          "https://github.com/dominictarr/event-stream/issues/116"
+        ]
+      }
+    ]
+  },
+  "knightjs": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "CVE":[
+            "CVE-2018-16475"
+          ],
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/403707"
+        ]
+      }
+    ]
+  },
+  "takeapeek": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "CVE":[
+            "CVE-2018-16473"
+          ],
+          "summary": "Path Traversal"
+        },
+        "info": [
+          "https://hackerone.com/reports/403736"
+        ]
+      }
+    ]
+  },
+  "tianma-static": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "high",
+        "identifiers": {
+          "CVE":[
+            "CVE-2018-16474"
+          ],
+          "summary": "Cross-site Scripting (XSS) - Stored"
+        },
+        "info": [
+          "https://hackerone.com/reports/403692"
+        ]
+      }
+    ]
+  },
+  "cached-path-relative": {
+    "vulnerabilities": [
+      {
+        "below": "1.0.2",
+        "severity": "high",
+        "identifiers": {
+          "CVE":[
+            "CVE-2018-16472"
+          ],
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/390847"
+        ]
+      }
+    ]
+  },
+  "mergify": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Prototype pollution"
+        },
+        "info": [
+          "https://hackerone.com/reports/439098"
+        ]
+      }
+    ]
+  },
+  "zombie": {
+    "vulnerabilities": [
+      {
+        "below": "6.1.3",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Code Injection"
+        },
+        "info": [
+          "https://hackerone.com/reports/389583"
+        ]
+      }
+    ]
+  },
+  "just-extend": {
+    "vulnerabilities": [
+      {
+        "below": "4.0.0",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/430291"
+        ]
+      }
+    ]
+  },
+  "mpath": {
+    "vulnerabilities": [
+      {
+        "below": "0.5.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Prototype Pollution"
+        },
+        "info": [
+          "https://hackerone.com/reports/390860"
+        ]
+      }
+    ]
+  },
+  "node.extend": {
+    "vulnerabilities": [
+      {
+        "below": "2.0.1",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Denial of Service"
+        },
+        "info": [
+          "https://hackerone.com/reports/430831"
         ]
       }
     ]
   }
-
-
-
-
-
-
-
-
-
-
-
 }

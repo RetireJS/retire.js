@@ -8,6 +8,7 @@ var walkdir			= require('walkdir'),
 
 function listdep(parent, dep, level, deps) {
 	var stack = [];
+	var dedup = {};
 	stack.push({parent: parent, dep: dep, level: level}); 
 	while (typeof (o = stack.pop()) !== 'undefined') {
 		for (var i in o.dep.dependencies) {
@@ -24,7 +25,15 @@ function listdep(parent, dep, level, deps) {
 			if (cyclic) {
 				continue;
 			}
-			var d = { component: i, version: o.dep.dependencies[i].version, parent: o.parent, level: o.level };
+			var id = i + "@" + o.dep.dependencies[i].version;
+			if (dedup[id]) continue;
+			dedup[id] = true;
+			var d = { 
+				module: { component: i, version: o.dep.dependencies[i].version }
+			};
+			if (o.dep.dependencies[i].path) {
+				d.file = "node_modules" + o.dep.dependencies[i].path.split("node_modules").slice(1).join("node_modules") + '/package.json';
+			}
 			deps.push(d);
 			stack.push({parent: d, dep: o.dep.dependencies[i], level: o.level + 1}); 
 		}
@@ -39,12 +48,20 @@ function getNodeDependencies(path, limit) {
 			var packages = JSON.parse(fs.readFileSync(path +'/package.json'));
 			filter = [];			
 
-			var filter = Object.keys(packages.dependencies);
+			var filter = packages.dependencies ? Object.keys(packages.dependencies) : [];
+
 			Object.keys(pkginfo.dependencies)
+				.filter(function(d) { return !pkginfo.dependencies[d]._requiredBy || pkginfo.dependencies[d]._requiredBy.indexOf("/") > -1 || pkginfo.dependencies[d]._requiredBy.indexOf("#DEV:/") > -1;  })
 				.filter(function(d) { return filter.indexOf(d) == -1; })
 				.forEach(function(d) { delete pkginfo.dependencies[d]; });
 		}
-		listdep({component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
+		var notInstalled = Object.keys(pkginfo.dependencies).filter(function (d) {
+			return !pkginfo.dependencies[d].path;
+		});
+		if (notInstalled.length > 0) {
+			return events.emit('error', 'Could not find dependencies: ' + notInstalled.join(', ') + '. You may need to run npm install');
+		}
+		listdep({file: 'package.json',component: pkginfo.name, version: pkginfo.version}, pkginfo, 1, deps);
 		events.emit('done', deps);				
 	});
 	return events;

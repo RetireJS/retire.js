@@ -44,16 +44,9 @@ exports.flatten = function(e) {
 	return e.reduce(function(x,y) { return x.concat(y); }, []);
 };
 
-exports.log = function(options) {
-	return { 
-		info : info(options),
-		warn : warn(options),
-		verbose : options.verbose ? info(options) : function() {}
-	};
-};
-exports.forwardEvent = function(emitter, event) {
+exports.forwardEvent = function(emitter, evt) {
 	return function() {
-		emitter.emit([event].concat(arguments));
+		emitter.emit(evt, arguments[0]);
 	};
 };
 

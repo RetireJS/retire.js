@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '1.3.3';
+exports.version = '2.0.2';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -52,13 +52,21 @@ function replacementMatch(regex, data) {
 	return null;
 }
 
+function splitAndMatchAll(tokenizer) {
+  return function(regex, data) {
+		var elm = data.split(tokenizer).pop();
+		return simpleMatch('^' + regex + '$', elm);
+  };
+}
+
+
 
 function scanhash(hash, repo) {
 	for (var component in repo) {
 		var hashes = repo[component].extractors.hashes;
 		if (!isDefined(hashes)) continue;
-		for (var i in hashes) {
-			if (i === hash) return [{ version: hashes[i], component: component, detection: 'hash' }];
+		if (hashes.hasOwnProperty(hash)) {
+			return [{ version: hashes[hash], component: component, detection: 'hash' }];
 		}
 	}
 	return [];
@@ -76,7 +84,7 @@ function check(results, repo) {
 				if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {
 					continue;
 				}
-				var vulnerability = { info : vulns[i].info };
+				var vulnerability = { info : vulns[i].info, below: vulns[i].below, atOrAbove: vulns[i].atOrAbove };
 				if (vulns[i].severity) {
 					vulnerability.severity = vulns[i].severity;
 				}
@@ -146,27 +154,28 @@ exports.scanUri = function(uri, repo) {
 };
 
 exports.scanFileName = function(fileName, repo) {
-	var result = scan(fileName, 'filename', repo);
+	var result = scan(fileName, 'filename', repo, splitAndMatchAll('/'));
 	return check(result, repo);
 };
 
 exports.scanFileContent = function(content, repo, hasher) {
-	var result = scan(content, 'filecontent', repo);
+	var normalizedContent = content.toString().replace(/(\r\n|\r)/g, "\n");
+	var result = scan(normalizedContent, 'filecontent', repo);
 	if (result.length === 0) {
-		result = scan(content, 'filecontentreplace', repo, replacementMatch);
+		result = scan(normalizedContent, 'filecontentreplace', repo, replacementMatch);
 	}
 	if (result.length === 0) {
-		result = scanhash(hasher.sha1(content), repo);
+		result = scanhash(hasher.sha1(normalizedContent), repo);
 	}
 	return check(result, repo);
 };
 
-exports.scanNodeDependency = function(dependency, npmrepo) {
+exports.scanNodeDependency = function(dependency, npmrepo, options) {
 	if (!isDefined(dependency.version)) {
-		console.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
+		if (options.log) options.log.warn('Missing version for ' + dependency.component + '. Need to run npm install ?');
 		return [];
 	}
-	if (!isDefined(npmrepo[dependency.component])) return [{component: dependency.component, version: dependency.version}];
+	if (!isDefined(npmrepo[dependency.component])) return [{component: dependency.component, version: dependency.version, file: dependency.file}];
 	return check([dependency], npmrepo);
 };
 

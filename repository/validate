@@ -25,7 +25,7 @@ for (var i in jsRepo) {
 				}
 				var r = new RegExp(restring);
 				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
-				if (i != "dont check" && types[j] !== "filecontentreplace" && cre.indexOf("§§version§§") !== 0) {
+				if (i != "dont check" && types[j] !== "filecontentreplace" && (!cre || cre.indexOf("§§version§§") !== 0)) {
 					throw new Error("First capture must be §§version§§ for " + i + ": " + restring);
 				}
 
@@ -41,7 +41,16 @@ console.log(count + " regexes validated.")
 
 
 console.log("Checking that npmrepository is valid json...");
-var npmRepo = JSON.parse(fs.readFileSync(__dirname + "/npmrepository.json"));
+var npmData = fs.readFileSync(__dirname + "/npmrepository.json", "utf-8");
+var npmRepo = JSON.parse(npmData);
 var k = Object.keys(npmRepo).filter(component => npmRepo[component].vulnerabilities.some(v => !v.below))
 if (k.length > 0) throw new Error('Components ' + k.map(c => '"' + c + '"').join(', ') + ' are missing "below"');
+
+console.log("Looking for duplicate keys...");
+Object.keys(npmRepo).map(k => {
+	if (npmData.split('"' + k + '"').length > 2) {
+		throw new Error("Duplicate key for " + k);
+	}
+})
+
 console.log("Success");

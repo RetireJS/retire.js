@@ -33,9 +33,12 @@ Gulp task
 An example of a Gulp task which can be used in your gulpfile to watch and scan your project files automatically. You can modify the watch patterns and (optional) Retire.js options as you like.
 
 ```javascript
+const c = require('ansi-colors');
+
 var gulp = require('gulp');
+var beeper = require('beeper');
+var log = require('fancy-log');
 var spawn = require('child_process').spawn;
-var gutil = require('gulp-util');
 
 gulp.task('retire:watch', ['retire'], function (done) {
     // Watch all javascript files and package.json
@@ -49,13 +52,13 @@ gulp.task('retire', function() {
     
     child.stdout.setEncoding('utf8');
     child.stdout.on('data', function (data) {
-        gutil.log(data);
+        log(data);
     });
 
     child.stderr.setEncoding('utf8');
     child.stderr.on('data', function (data) {
-        gutil.log(gutil.colors.red(data));
-        gutil.beep();
+        log(c.red(data));
+        beeper();
     });
 });
 
@@ -68,7 +71,7 @@ Scans visited sites for references to insecure libraries, and puts warnings in t
 
 Burp and OWASP ZAP plugin
 -------------------------
-[@h3xstream](https://github.com/h3xstream) has adapted Retire.js as a [plugin](https://github.com/h3xstream/burp-retire-js) for the penetration testing tools [Burp](http://portswigger.net/burp/) and [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project). An alternative OWASP ZAP plugin exists at https://github.com/nikmmy/retire/
+[@h3xstream](https://github.com/h3xstream) has adapted Retire.js as a [plugin](https://github.com/h3xstream/burp-retire-js) for the penetration testing tools [Burp](https://portswigger.net/burp/) and [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project). An alternative OWASP ZAP plugin exists at https://github.com/nikmmy/retire/
 
 Donate
 ------

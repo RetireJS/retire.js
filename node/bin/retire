@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/*jshint esversion: 6 */
 
 var utils     = require('../lib/utils'),
     program   = require('commander'),
@@ -6,10 +7,12 @@ var utils     = require('../lib/utils'),
     repo      = require('../lib/repo'),
     resolve   = require('../lib/resolve'),
     scanner   = require('../lib/scanner'),
+    reporting = require('../lib/reporting'),
     forward   = require('../lib/utils').forwardEvent,
     os        = require('os'),
     path      = require('path'),
     fs        = require('fs'),
+    colors    = require('colors/safe'),
     emitter   = new require('events').EventEmitter;
 
 var events = new emitter();
@@ -17,9 +20,21 @@ var jsRepo = null;
 var bowerRepo = null;
 var nodeRepo = null;
 var vulnsFound = false;
+var failProcess = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 var finalResults = [];
 
+var severityLevels = {
+  none: 0,
+  low: 1,
+  medium: 2,
+  high: 3,
+  critical: 4
+};
+
+colors.setTheme({
+  warn: 'red'
+});
 
 
 /*
@@ -40,43 +55,60 @@ program
   .option('--path <path>', 'Folder to scan for both')
   .option('--jsrepo <path|url>', 'Local or internal version of repo')
   .option('--noderepo <path|url>', 'Local or internal version of repo')
+  .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
-  .option('--outputformat <format>', 'Valid formats: text, json')
+  .option('--outputformat <format>', 'Valid formats: text, json, jsonsimple, depcheck (experimental) and cyclonedx')
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
+  .option('--severity <level>', 'Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
-  .option('--includemeta', 'Include version and scan time in JSON result')
+  .option('--colors', 'Enable color output (console output only)')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
-  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath', 'exitwith',
-  'includemeta'
+  'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
+  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir'
 ]));
-var scanStart = Date.now();
 
-if (!config.nocache) {
+if (!config.nocache && !config.cachedir) {
   config.cachedir = path.resolve(os.tmpdir(), '.retire-cache/');
 }
+
 config.ignore = config.ignore ? utils.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
 config.ignore = { paths : config.ignore, descriptors: [] };
+config.colorwarn = config.colors ? colors.warn : x => x;
 
 if (!config.ignorefile) {
   config.ignorefile = defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];
 }
+var log = reporting.open(config);
+config.log = log;
+log.info("retire.js v" + retire.version);
+
+function exitWithError(msg) {
+  log.error(config.colorwarn(msg));
+  process.exitCode = 1;
+  log.close();
+}
+
+
+if(!config.severity) {
+  config.severity = 'none';
+} else if (!severityLevels.hasOwnProperty(config.severity)) {
+  exitWithError('Error: Invalid severity level (' + config.severity + '). Valid levels are: ' + Object.keys(severityLevels).join(', '));
+}
 
 if(config.ignorefile) {
   if (!fs.existsSync(config.ignorefile)) {
-    console.warn('Error: Could not read ignore file: ' + config.ignorefile);
-    process.exit(1);
+    exitWithError('Error: Could not read ignore file: ' + config.ignorefile);
   }
   if (config.ignorefile.substr(-5) === ".json") {
     try {
       var ignored = JSON.parse(fs.readFileSync(config.ignorefile).toString());
     } catch(e) {
-      console.warn('Error: Invalid ignore file: ' + config.ignorefile, e);
-      process.exit(1);
+      exitWithError('Error: Invalid ignore file: ' + config.ignorefile, e);
     }
     config.ignore.descriptors = ignored;
     var ignoredPaths = ignored
@@ -90,14 +122,21 @@ if(config.ignorefile) {
   }
 }
 
-scanner.on('vulnerable-dependency-found', function(results) {
+scanner.on('vulnerable-dependency-found', function(result) {
   vulnsFound = true;
-  finalResults.push(results);
+  var levels = result.results
+    .map(function(r) {
+      return r.vulnerabilities ? r.vulnerabilities.map(function(v) {
+        return severityLevels[v.severity || 'critical']; 
+      }) : []; });
+  var severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y; });
+  if(severity >= severityLevels[config.severity]) {
+    failProcess = true;
+  }
 });
 
-scanner.on('dependency-found', function(results) {
-  if (config.verbose) finalResults.push(results);
-});
+scanner.on('vulnerable-dependency-found', log.logVulnerableDependency);
+scanner.on('dependency-found', log.logDependency);
 
 
 events.on('load-js-repo', function() {
@@ -106,10 +145,11 @@ events.on('load-js-repo', function() {
       repo.loadrepository(config.jsrepo, config) 
       : repo.loadrepositoryFromFile(config.jsrepo, config))
     : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
-  ).on('done', function(repo) {
+  ).on('stop', forward(events, 'stop'))
+  .on('done', function(repo) {
       jsRepo = repo;
       events.emit('js-repo-loaded');
-  }).on('stop', forward(events, 'stop'));
+  });
 });
 
 
@@ -152,6 +192,9 @@ events.on('scan-node', function() {
   resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
     scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
+  }).on('error', function(err) {
+    console.warn("ERROR: " + err);
+    process.exit(1);
   });
 });
 
@@ -160,38 +203,10 @@ events.on('js-scanned', function() {
 });
 
 events.on('scan-done', function() {
-  var exit = function(exitCode) {
-    exitCode = exitCode || 0;
-    process.exit(vulnsFound ? (config.exitwith || 13) : exitCode);
-  };
-  if (config.fileOutput) {
-    config.fileOutput.stream.on('finish', function() {
-      fs.close(config.fileOutput.fileDescriptor);
-      exit();
-    });
-  }
-  if (config.outputformat === 'json') {
-    if (config.includemeta) {
-      finalResults = { version: retire.version, time: (Date.now() - scanStart)/1000, data: finalResults };
-    }
-    if (config.fileOutput) {
-      config.fileOutput.stream.write(JSON.stringify(finalResults));
-      config.fileOutput.stream.end();
-    } else {
-      (vulnsFound ? console.warn : console.log)(JSON.stringify(finalResults));
-      var stream = (vulnsFound ? process.stderr : process.stdout);
-      if (! stream.write('', exit)) {
-        stream.on('drain', exit);
-      }
-    }
-  } else {
-    if (config.fileOutput) {
-      config.fileOutput.stream.end();
-    } else {
-     exit();
-    }
-  }
+  process.exitCode = failProcess ? (config.exitwith || 13) : 0;
+  log.close();
 });
+
 
 process.on('uncaughtException', function (err) {
   console.warn('Exception caught: ', arguments);
@@ -200,31 +215,8 @@ process.on('uncaughtException', function (err) {
 });
 
 events.on('stop', function() {
-  console.warn('Error:', arguments);
-  process.exit(1);
+  exitWithError.apply(null, arguments);
 });
-
-if (typeof config.outputpath === 'string') {
-  config.fileOutput = {
-    fileDescriptor: fs.openSync(config.outputpath, "w")
-  };
-  if (config.fileOutput.fileDescriptor < 0) {
-    console.error("Could not open " + config.outputpath + " for writing");
-    process.exit(9);
-  } else {
-    config.fileOutput.stream = fs.createWriteStream('', {fd: config.fileOutput.fileDescriptor});
-    config.writeToFile = function(message) {
-      config.fileOutput.stream.write(message);
-      config.fileOutput.stream.write('\n');
-    };
-    config.logger = config.writeToFile;
-  }
-}
-
-if (config.outputformat === 'json') {
-  config.logger = function () {};
-  config.warnlogger = function () {};
-}
 
 if (config.node) {
   events.emit('load-node-repo');

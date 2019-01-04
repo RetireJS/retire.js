@@ -26,38 +26,78 @@
 			{
 				"below" : "1.6.3",
 				"severity" : "medium",
-				"identifiers" : { "CVE": [ "CVE-2011-4969" ] },
-				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/" ]
+				"identifiers" : {
+					"CVE": [ "CVE-2011-4969" ],
+					"summary": "XSS with location.hash"
+				},
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2011-4969" , "http://research.insecurelabs.org/jquery/test/", "https://bugs.jquery.com/ticket/9521" ]
 			},
 			{
 				"below" : "1.9.0b1",
 				"identifiers": {
+					"CVE" : [ "CVE-2012-6708" ],					
 					"bug": "11290",
 					"summary": "Selector interpreted as HTML"
 				},
 				"severity": "medium",
-				"info" : [ "http://bugs.jquery.com/ticket/11290" , "http://research.insecurelabs.org/jquery/test/" ]
+				"info" : [ "http://bugs.jquery.com/ticket/11290" , "https://nvd.nist.gov/vuln/detail/CVE-2012-6708", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.4.0",
 				"below" : "1.12.0",
 				"identifiers": {
 					"issue" : "2432",
-					"summary": "3rd party CORS request may execute"
+					"summary": "3rd party CORS request may execute",
+				        "CVE": [ "CVE-2015-9251" ] 
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			},
 			{
 				"atOrAbove" : "1.12.3",
 				"below" : "3.0.0-beta1",
 				"identifiers": {
 					"issue" : "2432",
-					"summary": "3rd party CORS request may execute"
+					"summary": "3rd party CORS request may execute",
+				        "CVE": [ "CVE-2015-9251" ] 
 				},
 				"severity": "medium",
-				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/" ]
+				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "1.8.0",
+				"below" : "1.12.0",
+				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
+					"issue" : "11974",
+					"summary": "parseHTML() executes scripts in event handlers"
+				},
+				"severity": "medium",
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "1.12.2",
+				"below" : "2.2.0",
+				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
+					"issue" : "11974",
+					"summary": "parseHTML() executes scripts in event handlers"
+				},
+				"severity": "medium",
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "2.2.2",
+				"below" : "3.0.0",
+				"identifiers": {
+					"CVE" : [ "CVE-2015-9251" ],
+					"issue" : "11974",
+					"summary": "parseHTML() executes scripts in event handlers"
+				},
+				"severity": "medium",
+				"info" : [ "https://bugs.jquery.com/ticket/11974", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
 			}
+
 
 
 		],
@@ -74,7 +114,8 @@
 								"/\\*! jQuery v(§§version§§)",
                 "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",
                 "[^a-z]m=\"(§§version§§)\",.*[^a-z]jquery:m,",
-                "[^a-z.]jquery:[ ]?\"(§§version§§)\""
+                "[^a-z.]jquery:[ ]?\"(§§version§§)\"",
+                "\\$\\.documentElement,Q=e.jQuery,Z=e\\.\\$,ee=\\{\\},te=\\[\\],ne=\"(§§version§§)\""
 			],
 			"filecontentreplace" : [
 				"/var [a-z]=[a-z]\\.document,([a-z])=\"(§§version§§)\",([a-z])=.{130,160};\\3\\.fn=\\3\\.prototype=\\{jquery:\\1/$2/"
@@ -181,19 +222,21 @@
 				"below" : "1.10.0",
 				"severity": "medium",
 				"identifiers": {
+					"CVE": [ "CVE-2010-5312" ],
 					"bug": "6016",
 					"summary": "Title cross-site scripting vulnerability"
 				},
-				"info" : [ "http://bugs.jqueryui.com/ticket/6016" ]
+				"info" : [ "http://bugs.jqueryui.com/ticket/6016", "https://nvd.nist.gov/vuln/detail/CVE-2010-5312" ]
 			}, 
 			{
 				"below" : "1.12.0",
 				"severity": "high",
 				"identifiers": {
+					"CVE": [ "CVE-2016-7103" ],
 					"bug": "281",
 					"summary": "XSS Vulnerability on closeText option"
 				},
-				"info" : [ "https://github.com/jquery/api.jqueryui.com/issues/281", "https://snyk.io/vuln/npm:jquery-ui:20160721" ]
+				"info" : [ "https://github.com/jquery/api.jqueryui.com/issues/281", "https://nvd.nist.gov/vuln/detail/CVE-2016-7103", "https://snyk.io/vuln/npm:jquery-ui:20160721" ]
 			}
 		],
 		"extractors" : {
@@ -229,10 +272,11 @@
 				"below" : "1.10.0",
 				"severity": "high",
 				"identifiers": {
+					"CVE" : [ "CVE-2012-6662" ],
 					"bug": "8859",
 					"summary": "Autocomplete cross-site scripting vulnerability"
 				},
-				"info" : [ "http://bugs.jqueryui.com/ticket/8859" ]
+				"info" : [ "http://bugs.jqueryui.com/ticket/8859", "https://nvd.nist.gov/vuln/detail/CVE-2012-6662" ]
 			}
 		],
 		"extractors" : {
@@ -252,7 +296,7 @@
 				"below" : "3.1.5",
 				"severity" : "high",
 				"identifiers" : { "CVE" : [ "CVE-2013-6837" ] },
-				"info" : [ "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-6837&cid=3" ]
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2013-6837" ]
 			},
 			{
 				"below" : "3.1.6",
@@ -274,25 +318,33 @@
 		"bowername": [ "jPlayer" ],
 		"vulnerabilities" : [
 			{
-				"below" : "2.4.0",
-				"severity": "high",
-				"identifiers": {"CVE": [ "CVE-2013-2023" ]},
-				"info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2023" ]
-			},
-			{
-				"below" : "2.3.0",
-				"severity": "high",
-				"identifiers": {"CVE": ["CVE-2013-1942", "CVE-2013-2022"]},
-				"info" : [ "http://jplayer.org/latest/release-notes/", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-1942", "http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2022" ]
-			},
-			{
-				"below" : "2.2.0",
+				"below" : "2.3.1",
 				"severity": "high",
 				"identifiers": {
-					"release": "2.2.0",
-					"summary": "Flash SWF vulnerability"
+					"CVE": [ "CVE-2013-2023" ],
+					"release" : "2.3.1",
+					"summary" : "XSS vulnerability in actionscript/Jplayer.as in the Flash SWF component" },
+				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-2023" ]
+			},
+			{
+				"below" : "2.3.23",
+				"severity": "high",
+				"identifiers": {
+					"CVE": [ "CVE-2013-2022" ],
+					"release": "2.3.23",
+					"summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component"
 				},
-				"info" : [ "http://jplayer.org/latest/release-notes/" ]
+				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-2022" ]
+			},
+			{
+				"below" : "2.2.20",
+				"severity": "high",
+				"identifiers": {
+					"CVE": [ "CVE-2013-1942" ],
+					"release": "2.2.20",
+					"summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component"
+				},
+				"info" : [ "http://jplayer.org/latest/release-notes/", "https://nvd.nist.gov/vuln/detail/CVE-2013-1942" ]
 			}
 		],
 		"extractors" : {
@@ -325,7 +377,7 @@
 				"below" : "2.1",
 				"severity": "medium",
 				"identifiers": {"summary": "DOM-based XSS"},
-				"info" : [ "https://code.google.com/p/swfobject/wiki/release_notes", "https://code.google.com/p/swfobject/source/detail?r=181" ]
+				"info" : [ "https://github.com/swfobject/swfobject/wiki/SWFObject-Release-Notes#swfobject-v21-beta7-june-6th-2008" ]
 			}
 		],
 		"extractors" : {
@@ -360,12 +412,22 @@
 				"identifiers" : { "summary" : "FIXED so script elements gets removed by default to prevent possible XSS issues in default config implementations" },
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
+			},
+			{
+				"below" : "4.7.12",
+				"severity" : "medium",
+				"identifiers" : { "summary" : "FIXED so links with xlink:href attributes are filtered correctly to prevent XSS." },
+				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
+
 			}
 		],
 		"extractors" : {
-			"filecontent"	       : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
-			"filecontentreplace" : [ "/tinyMCEPreInit.*majorVersion:.([0-9]+).,minorVersion:.([0-9.]+)./$1.$2/" ],
-			"func" 				       : [ "tinyMCE.majorVersion + '.'+ tinyMCE.minorVersion" ]
+			"filecontent"	     : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
+			"filecontentreplace" : [ 	
+										"/tinyMCEPreInit.*majorVersion:.([0-9]+).,minorVersion:.([0-9.]+)./$1.$2/",
+										"/majorVersion:.([0-9]+).,minorVersion:.([0-9.]+).,.*tinyMCEPreInit/$1.$2/" 
+								   ],
+			"func" 				 : [ "tinyMCE.majorVersion + '.'+ tinyMCE.minorVersion" ]
 		}
 	},
 
@@ -457,7 +519,7 @@
 		}
 	},
 	"prototypejs" : {
-		"bowername": [ "prototype.js", "prototypejs", "prototypejs-bower" ],
+		"bowername": [ "prototypejs", "prototype.js", "prototypejs-bower" ],
 		"vulnerabilities" : [
 			{
 				"atOrAbove" : "1.6.0",
@@ -704,9 +766,34 @@
 				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2008-6681" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
+			},
+			{
+				"below" : "1.10.10",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
+			},
+			{
+				"atOrAbove" : "1.11.0",
+				"below" : "1.11.6",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
+			},
+			{
+				"atOrAbove" : "1.12.0",
+				"below" : "1.12.4",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
+			},
+			{
+				"atOrAbove" : "1.13.0",
+				"below" : "1.13.1",
+				"severity": "medium",
+				"identifiers": { "PR" : "307" },
+				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
 			}
-
-
 		],
 		"extractors" : {
 			"func"				 : [ "dojo.version.toString()" ],
@@ -731,13 +818,22 @@
 		"bowername": [ "angularjs", "angular.js" ],
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "1.5.0",
+				"below" : "1.6.9",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS through SVG if enableSvg is set"
+				},
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#169-fiery-basilisk-2018-02-02", "https://vulnerabledoma.in/ngSanitize1.6.8_bypass.html" ]
+			},
+			{
 				"atOrAbove" : "1.3.0",
 				"below" : "1.5.0-rc2",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
 			{
 				"atOrAbove" : "1.0.0",
@@ -746,7 +842,7 @@
 				"identifiers": {
 					"summary": "The attribute usemap can be used as a security exploit"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
 			{
 				"below" : "1.6.3",
@@ -862,9 +958,11 @@
 			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
 			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
-								"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")"
-								],
+			"filecontent"	: [ 
+				"Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
+				"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
+				"/\\*![\n\r \t]+handlebars v(§§version§§)"
+			],
 			"hashes"		: {}
 		}
 	},
@@ -957,7 +1055,8 @@
 			"func"			: [ "DOMPurify.version" ],
 			"filecontent"	: [ 
 				"DOMPurify.version = '(§§version§§)';", 
-				"DOMPurify.version=\"(§§version§§)\""
+				"DOMPurify.version=\"(§§version§§)\"",
+				"DOMPurify=.[^\\r\\n]{10,500}\\.version=\"(§§version§§)\""
 			],
 			"hashes"		: {}
 		}
@@ -988,6 +1087,51 @@
 				"severity" : "low", 
 				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
 				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.0.0", "below" : "16.0.1",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.1.0", "below" : "16.1.2",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.2.0", "below" : "16.2.1",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.3.0", "below" : "16.3.3",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
+			},
+			{ 
+				"atOrAbove" : "16.4.0", "below" : "16.4.2",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2018-6341" ],
+					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
+				},
+				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			}
 		],
 		"extractors" : {
@@ -999,7 +1143,8 @@
 				"/\\*\\*\n +\\* React \\(with addons\\) ?v(§§version§§)",
 				"/\\*\\*\n +\\* React v(§§version§§)",
 				"\"\\./ReactReconciler\":[0-9]+,\"\\./Transaction\":[0-9]+,\"fbjs/lib/invariant\":[0-9]+\\}\\],[0-9]+:\\[function\\(require,module,exports\\)\\{\"use strict\";module\\.exports=\"(§§version§§)\"\\}",
-				"ReactVersion\\.js[\\*! \\\\/\n\r]{0,100}function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\""
+				"ReactVersion\\.js[\\*! \\\\/\n\r]{0,100}function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\"",
+				"expected a ReactNode.[\\s\\S]{0,1800}?function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\""
 			]
 		}
 	},
@@ -1050,7 +1195,7 @@
 	},
 
 	"moment.js" : {
-		"bowername": [ "momentjs", "moment" ],
+		"bowername": [ "moment", "momentjs" ],
 		"vulnerabilities" : [
 			{
 				"below" : "2.11.2",
@@ -1068,13 +1213,42 @@
 	"bootstrap": {
 		"vulnerabilities" : [
 			{
-				"below" : "4.0.0",
+				"below" : "4.1.2",
 				"identifiers": {
 					"issue" : "20184",
-					"summary": "XSS in data-target attribute"
+					"summary": "XSS in data-target property of scrollspy",
+					"CVE" : ["CVE-2018-14041"]
 				},
 				"severity" : "medium",
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "4.1.2",
+				"identifiers": {
+					"issue" : "20184",
+					"summary": "XSS in collapse data-parent attribute",
+					"CVE" : ["CVE-2018-14040"]
+				},
+				"severity" : "medium",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "4.1.2",
+				"identifiers": {
+					"issue" : "20184",
+					"summary": "XSS in data-container property of tooltip",
+					"CVE" : ["CVE-2018-14042"]
+				},
+				"severity" : "medium",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "2.1.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "cross-site scripting vulnerability"
+				},
+				"info" : [ "https://github.com/twbs/bootstrap/pull/3421" ]
 			}
 		],
 		"extractors" : {
@@ -1088,6 +1262,182 @@
 			"hashes"		: {}
 		}
 	},
+
+	"ckeditor" : {
+		"vulnerabilities": [
+			{
+				"below" : "4.4.3",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-443" ]
+			},
+			{
+				"below" : "4.4.6",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-446" ]
+			},
+			{
+				"below" : "4.4.8",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-448" ]
+			},
+			{
+				"below" : "4.5.11",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-4511" ]
+			},
+			{
+				"below" : "4.9.2",
+				"atOrAbove" : "4.5.11",
+				"identifiers" : {
+					"summary" : "XSS if the enhanced image plugin is installed"
+				},
+				"severity" : "medium",
+				"info": [ "https://ckeditor.com/blog/CKEditor-4.9.2-with-a-security-patch-released/", "https://ckeditor.com/cke4/release-notes" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.11.0",
+				"identifiers" : {
+					"summary" : "XSS vulnerability in the HTML parser"
+				},
+				"severity" : "medium",
+				"info" : [
+					"https://ckeditor.com/blog/CKEditor-4.11-with-emoji-dropdown-and-auto-link-on-typing-released/",
+					"https://snyk.io/vuln/SNYK-JS-CKEDITOR-72618"
+				]
+			}
+		],
+		"extractors" : {
+			"uri"			: [ "/(§§version§§)/ckeditor(\\.min)?\\.js" ],
+			"filename"		: [ "ckeditor-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
+								"ckeditor..js.{4,20}=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)",
+								"window.CKEDITOR=function\\(\\)\\{var [a-z]=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)"
+			],
+			"hashes"		: {},
+			"func"			: [ "CKEDITOR.version" ]
+		}
+	},
+
+
+	"vue" : {
+		"vulnerabilities" : [
+			{
+				"below" : "2.5.17",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "potential xss in ssr when using v-bind"
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.5.17" ]
+			},
+			{
+				"below" : "2.4.3",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "possible xss vector "
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.4.3" ]
+			}
+		],
+		"extractors" : {
+			"uri"			: [
+				"/vue@(§§version§§)/dist/vue\\.js"
+			],
+			"filename"		: [ "vue-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
+				"/\\*!\\n * Vue.js v(§§version§§)",
+				"Vue.version = '(§§version§§)';",
+				"'(§§version§§)'[^\\n]{0,8000}Vue compiler"
+			],
+			"func"			: [ "Vue.version" ]
+		}
+	},
+
+	"ExtJS" : {
+		"vulnerabilities" : [
+			{
+				"below"       : "6.6.0",
+				"atOrAbove"   : "4.0.0",
+				"severity"    : "high",
+				"identifiers" : {
+					"CVE"     : [
+						"CVE-2018-8046"
+					],
+					"summary" : "XSS in Sencha Ext JS 4 to 6 via getTip() method of Action Columns"
+				},
+				"info"        : [
+					"http://seclists.org/fulldisclosure/2018/Jul/8",
+					"https://nvd.nist.gov/vuln/detail/CVE-2018-8046"
+				]
+			},
+			{
+				"below"       : "6.0.0",
+				"severity"    : "high",
+				"identifiers" : {
+					"CVE"     : [
+						"CVE-2007-2285"
+					],
+					"summary" : "Directory traversal and arbitrary file read"
+				},
+				"info"        : [
+					"https://www.cvedetails.com/cve/CVE-2007-2285/",
+					"https://packetstormsecurity.com/files/132052/extjs-Arbitrary-File-Read.html",
+					"https://www.akawebdesign.com/2018/08/14/should-js-frameworks-prevent-xss/"
+				]
+			},
+			{
+				"below"       : "4.0.0",
+				"atOrAbove"   : "3.0.0",
+				"severity"    : "high",
+				"identifiers" : {
+					"CVE"     : [
+						"CVE-2010-4207",
+						"CVE-2012-5881"
+					],
+					"summary" : "XSS vulnerability in ExtJS charts.swf"
+				},
+				"info"        : [
+					"https://www.acunetix.com/vulnerabilities/web/extjs-charts-swf-cross-site-scripting",
+					"https://typo3.org/security/advisory/typo3-core-sa-2014-001/",
+					"https://www.akawebdesign.com/2018/08/14/should-js-frameworks-prevent-xss/"
+				]
+			}
+		],
+		"extractors" : {
+			"uri" : [
+				"/extjs/(§§version§§)/.*\\.js"
+			],
+			"filename" : [
+				"/ext-all-(§§version§§)(\\.min)?\\.js",
+				"/ext-all-debug-(§§version§§)(\\.min)?\\.js",
+				"/ext-base-(§§version§§)(\\.min)?\\.js"
+			],
+			"filecontent" : [
+				"/*!\n * Ext JS Library (§§version§§)"
+			],
+			"func"     : [
+				"Ext && Ext.versions && Ext.versions.extjs.version",
+				"Ext && Ext.version"
+			]
+		}
+	},
+
+
+
+
+
 
 	"dont check" : {
 		"extractors" : {
