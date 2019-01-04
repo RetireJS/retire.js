@@ -1213,7 +1213,8 @@
 	"bootstrap": {
 		"vulnerabilities" : [
 			{
-				"below" : "3.4.0",
+				"below" : "4.1.2",
+				"atOrAbove" : "4.0.0",
 				"identifiers": {
 					"issue" : "20184",
 					"summary": "XSS in data-target property of scrollspy",
@@ -1226,8 +1227,40 @@
 				"below" : "3.4.0",
 				"identifiers": {
 					"issue" : "20184",
+					"summary": "XSS in data-target property of scrollspy",
+					"CVE" : ["CVE-2018-14041"]
+				},
+				"severity" : "medium",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "4.1.2",
+				"atOrAbove" : "4.0.0",
+				"identifiers": {
+					"issue" : "20184",
 					"summary": "XSS in collapse data-parent attribute",
 					"CVE" : ["CVE-2018-14040"]
+				},
+				"severity" : "medium",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "3.4.0",
+				"identifiers": {
+					"issue" : "20184",
+					"summary": "XSS in collapse data-parent attribute",
+					"CVE" : ["CVE-2018-14040"]
+				},
+				"severity" : "medium",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
+			},
+			{
+				"below" : "4.1.2",
+				"atOrAbove" : "4.0.0",
+				"identifiers": {
+					"issue" : "20184",
+					"summary": "XSS in data-container property of tooltip",
+					"CVE" : ["CVE-2018-14042"]
 				},
 				"severity" : "medium",
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
