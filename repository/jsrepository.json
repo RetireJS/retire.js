@@ -1213,7 +1213,7 @@
 	"bootstrap": {
 		"vulnerabilities" : [
 			{
-				"below" : "4.1.2",
+				"below" : "3.4.0",
 				"identifiers": {
 					"issue" : "20184",
 					"summary": "XSS in data-target property of scrollspy",
@@ -1223,7 +1223,7 @@
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
 			},
 			{
-				"below" : "4.1.2",
+				"below" : "3.4.0",
 				"identifiers": {
 					"issue" : "20184",
 					"summary": "XSS in collapse data-parent attribute",
@@ -1233,7 +1233,7 @@
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
 			},
 			{
-				"below" : "4.1.2",
+				"below" : "3.4.0",
 				"identifiers": {
 					"issue" : "20184",
 					"summary": "XSS in data-container property of tooltip",
