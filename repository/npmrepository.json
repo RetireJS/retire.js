@@ -5382,7 +5382,7 @@
   "base64url": {
     "vulnerabilities": [
       {
-        "below": "99.999.99999",
+        "below": "3.0.1",
         "severity": "high",
         "identifiers": {
           "summary": "Out-of-bounds Read"
