@@ -5163,7 +5163,7 @@
   "merge-options": {
     "vulnerabilities": [
       {
-        "below": "1.0.2",
+        "below": "1.0.1",
         "severity": "low",
         "identifiers": {
           "summary": "Prototype pollution attack",
