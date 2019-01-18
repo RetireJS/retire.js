@@ -5967,6 +5967,19 @@
         "info": [
           "https://hackerone.com/reports/384939"
         ]
+      },
+      {
+        "below": "1.0.7",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Path Traversal",
+          "CVE": [
+            "CVE-2018-16479"
+          ]
+        },
+        "info": [
+          "https://hackerone.com/reports/411405"
+        ]
       }
     ]
   },
@@ -6195,6 +6208,20 @@
         },
         "info": [
           "https://hackerone.com/reports/430831"
+        ]
+      }
+    ]
+  },
+  "lutils-merge": {
+    "vulnerabilities": [
+      {
+        "below": "99.999.9999",
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Prototype pollution"
+        },
+        "info": [
+          "https://hackerone.com/reports/439107"
         ]
       }
     ]
