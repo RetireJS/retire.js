@@ -5903,7 +5903,7 @@
   "exceljs": {
     "vulnerabilities": [
       {
-        "below": "99.999.9999",
+        "below": "1.6.0",
         "severity": "medium",
         "identifiers": {
           "summary": "Cross-site Scripting (XSS) - Generic"
