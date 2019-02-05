@@ -368,7 +368,7 @@
 			"func"    		: [ "ko.version" ],
 			"filename"		: [ "knockout-(§§version§§)(.min)?\\.js"],
 			"filecontent"	: [
-				"\\* Knockout JavaScript library v v(§§version§§)"
+				"\\* Knockout JavaScript library v(§§version§§)"
 			],
 			"hashes"		: {}
 		}	
