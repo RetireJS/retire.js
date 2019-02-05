@@ -355,6 +355,24 @@
 			"hashes"		: {}
 		}
 	},
+	"knockout": {
+		"vulnerabilities" : [
+			{
+				"below" : "3.5.0-beta",
+				"severity": "medium",
+				"identifiers": {"summary": "XSS injection point in attr name binding for browser IE7 and older"},
+				"info" : [ "https://github.com/knockout/knockout/issues/1244" ]
+			}
+		],
+		"extractors" : {
+			"func"    		: [ "ko.version" ],
+			"filename"		: [ "knockout-(§§version§§)(.min)?\\.js"],
+			"filecontent"	: [
+				"\\* Knockout JavaScript library v v(§§version§§)"
+			],
+			"hashes"		: {}
+		}	
+	},
 	"sessvars": {
 		"vulnerabilities" : [
 			{
