@@ -1231,6 +1231,27 @@
 	"bootstrap": {
 		"vulnerabilities" : [
 			{
+				"below" : "4.3.1",
+				"atOrAbove" : "4.0.0",
+				"identifiers": {
+					"issue" : "28236",
+					"summary": "XSS in data-template, data-content and data-title properties of tooltip/popover",
+					"CVE" : ["CVE-2019-8331"]
+				},
+				"severity" : "high",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/28236" ]
+			},
+			{
+				"below" : "3.4.1",
+				"identifiers": {
+					"issue" : "28236",
+					"summary": "XSS in data-template, data-content and data-title properties of tooltip/popover",
+					"CVE" : ["CVE-2019-8331"]
+				},
+				"severity" : "high",
+				"info" : [ "https://github.com/twbs/bootstrap/issues/28236" ]
+			},
+			{
 				"below" : "4.1.2",
 				"atOrAbove" : "4.0.0",
 				"identifiers": {
