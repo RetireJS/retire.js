@@ -876,7 +876,7 @@
 				"identifiers": {
 					"summary": "DOS in $sanitize"
 				},
-				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md" ]
+				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md", "https://github.com/angular/angular.js/pull/15699" ]
 			},
 			{
 				"below" : "1.6.5",
