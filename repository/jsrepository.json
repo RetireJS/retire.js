@@ -35,7 +35,7 @@
 			{
 				"below" : "1.9.0b1",
 				"identifiers": {
-					"CVE" : [ "CVE-2012-6708" ],					
+					"CVE" : [ "CVE-2012-6708" ],
 					"bug": "11290",
 					"summary": "Selector interpreted as HTML"
 				},
@@ -48,7 +48,7 @@
 				"identifiers": {
 					"issue" : "2432",
 					"summary": "3rd party CORS request may execute",
-				        "CVE": [ "CVE-2015-9251" ] 
+				        "CVE": [ "CVE-2015-9251" ]
 				},
 				"severity": "medium",
 				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
@@ -59,7 +59,7 @@
 				"identifiers": {
 					"issue" : "2432",
 					"summary": "3rd party CORS request may execute",
-				        "CVE": [ "CVE-2015-9251" ] 
+				        "CVE": [ "CVE-2015-9251" ]
 				},
 				"severity": "medium",
 				"info" : [ "https://github.com/jquery/jquery/issues/2432", "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/", "https://nvd.nist.gov/vuln/detail/CVE-2015-9251", "http://research.insecurelabs.org/jquery/test/" ]
@@ -102,9 +102,9 @@
 
 		],
 		"extractors" : {
-			"func"    		: [ 
-								"(jQuery || $ || $jq || $j).fn.jquery", 
-								"require('jquery').fn.jquery" 
+			"func"    		: [
+								"(jQuery || $ || $jq || $j).fn.jquery",
+								"require('jquery').fn.jquery"
 			],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
 			"filename"		: [ "jquery-(§§version§§)(\\.min)?\\.js" ],
@@ -227,7 +227,7 @@
 					"summary": "Title cross-site scripting vulnerability"
 				},
 				"info" : [ "http://bugs.jqueryui.com/ticket/6016", "https://nvd.nist.gov/vuln/detail/CVE-2010-5312" ]
-			}, 
+			},
 			{
 				"below" : "1.12.0",
 				"severity": "high",
@@ -371,7 +371,7 @@
 				"\\* Knockout JavaScript library v(§§version§§)"
 			],
 			"hashes"		: {}
-		}	
+		}
 	},
 	"sessvars": {
 		"vulnerabilities" : [
@@ -412,7 +412,7 @@
 				"below" : "1.4.2",
 				"severity" : "high",
 				"identifiers" : {
-					"summary" : "Static code injection vulnerability in inc/function.base.php", 
+					"summary" : "Static code injection vulnerability in inc/function.base.php",
 					"CVE" : [ "CVE-2011-4825" ]
 				},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2011-4825/" ]
@@ -441,9 +441,9 @@
 		],
 		"extractors" : {
 			"filecontent"	     : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
-			"filecontentreplace" : [ 	
+			"filecontentreplace" : [
 										"/tinyMCEPreInit.*majorVersion:.([0-9]+).,minorVersion:.([0-9.]+)./$1.$2/",
-										"/majorVersion:.([0-9]+).,minorVersion:.([0-9.]+).,.*tinyMCEPreInit/$1.$2/" 
+										"/majorVersion:.([0-9]+).,minorVersion:.([0-9.]+).,.*tinyMCEPreInit/$1.$2/"
 								   ],
 			"func" 				 : [ "tinyMCE.majorVersion + '.'+ tinyMCE.minorVersion" ]
 		}
@@ -562,42 +562,42 @@
 	},
 	"ember" : {
 		"vulnerabilities" : [
-			{ 
+			{
 				"atOrAbove" : "1.8.0",
 				"below" :"1.11.4",
 				"severity" : "medium",
 				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "1.12.0",
 				"below" :"1.12.2",
 				"severity" : "medium",
 				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "1.13.0",
 				"below" : "1.13.12",
 				"severity" : "medium",
 				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "2.0.0",
 				"below" : "2.0.3",
 				"severity" : "medium",
 				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "2.1.0",
 				"below" : "2.1.2",
 				"severity" : "medium",
 				"identifiers": {"CVE": [ "CVE-2015-7565" ] },
 				"info": [ "https://groups.google.com/forum/#!topic/ember-security/OfyQkoSuppY" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "2.2.0",
 				"below" : "2.2.1",
 				"severity" : "medium",
@@ -891,7 +891,7 @@
 			"func"			: [ "angular.version.full" ],
 			"uri"			: [ "/(§§version§§)/angular(\\.min)?\\.js" ],
 			"filename"		: [ "angular(?:js)?-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"/\\*[ \n]+AngularJS v(§§version§§)",
 				"http://errors\\.angularjs\\.org/(§§version§§)/"
 			],
@@ -929,7 +929,7 @@
 					"bug": "112",
 					"summary": "execution of arbitrary javascript"
 				},
-				"info" : [ "https://github.com/janl/mustache.js/issues/112" ] 
+				"info" : [ "https://github.com/janl/mustache.js/issues/112" ]
 			},
 			{
 				"below" : "2.2.1",
@@ -938,8 +938,8 @@
 					"bug": "pull request 530",
 					"summary": "weakness in HTML escaping"
 				},
-				"info" : [ "https://github.com/janl/mustache.js/releases/tag/v2.2.1", "https://github.com/janl/mustache.js/pull/530" ] 
-			} 
+				"info" : [ "https://github.com/janl/mustache.js/releases/tag/v2.2.1", "https://github.com/janl/mustache.js/pull/530" ]
+			}
 		],
 		"extractors" : {
 			"func"			: [ "Mustache.version" ],
@@ -961,7 +961,7 @@
 				"identifiers": {
 					"summary": "poorly sanitized input passed to eval()"
 				},
-				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ] 
+				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ]
 			},
 			{
 				"below" : "4.0.0",
@@ -969,14 +969,52 @@
 				"identifiers": {
 					"summary": "Quoteless attributes in templates can lead to XSS"
 				},
-				"info" : [ "https://github.com/wycats/handlebars.js/pull/1083" ] 
+				"info" : [ "https://github.com/wycats/handlebars.js/pull/1083" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.0.13",
+				"severity": "high",
+				"identifiers": {
+					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template"
+				},
+				"info" : [
+					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-173692",
+					"https://github.com/wycats/handlebars.js/commit/7372d4e9dffc9d70c09671aa28b9392a1577fd86"
+				]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.0.14",
+				"severity": "high",
+				"identifiers": {
+					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template"
+				},
+				"info" : [
+					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
+					"https://github.com/wycats/handlebars.js/issues/1495",
+					"https://github.com/wycats/handlebars.js/commit/cd38583216dce3252831916323202749431c773e"
+				]
+			},
+			{
+				"atOrAbove" : "4.1.0",
+				"below" : "4.1.2",
+				"severity": "high",
+				"identifiers": {
+					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template"
+				},
+				"info" : [
+					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
+					"https://github.com/wycats/handlebars.js/issues/1495",
+					"https://github.com/wycats/handlebars.js/commit/cd38583216dce3252831916323202749431c773e"
+				]
 			}
 		],
 		"extractors" : {
 			"func"			: [ "Handlebars.VERSION" ],
 			"uri"			: [ "/(§§version§§)/handlebars(\\.min)?\\.js" ],
 			"filename"		: [ "handlebars(?:js)?-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ 
+			"filecontent"	: [
 				"Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
 				"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
 				"/\\*![\n\r \t]+handlebars v(§§version§§)"
@@ -1071,8 +1109,8 @@
 		],
 		"extractors" : {
 			"func"			: [ "DOMPurify.version" ],
-			"filecontent"	: [ 
-				"DOMPurify.version = '(§§version§§)';", 
+			"filecontent"	: [
+				"DOMPurify.version = '(§§version§§)';",
 				"DOMPurify.version=\"(§§version§§)\"",
 				"DOMPurify=.[^\\r\\n]{10,500}\\.version=\"(§§version§§)\""
 			],
@@ -1082,70 +1120,70 @@
 
 	"react" : {
 		"vulnerabilities" : [
-			{ 
+			{
 				"atOrAbove" : "0.4.0", "below" : "0.4.2",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2013-7035" ] ,
 					"summary":"potential XSS vulnerability can arise when using user data as a key"
 				},
 				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "0.5.0", "below" : "0.5.2",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2013-7035" ],
 					"summary":"potential XSS vulnerability can arise when using user data as a key"
 				},
 				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
 			},
-			{ 
+			{
 				"below" : "0.14.0",
-				"severity" : "low", 
+				"severity" : "low",
 				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
 				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "16.0.0", "below" : "16.0.1",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
 				},
 				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "16.1.0", "below" : "16.1.2",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
 				},
 				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "16.2.0", "below" : "16.2.1",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
 				},
 				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "16.3.0", "below" : "16.3.3",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
 				},
 				"info": [ "https://github.com/facebook/react/blob/master/CHANGELOG.md", "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
-			{ 
+			{
 				"atOrAbove" : "16.4.0", "below" : "16.4.2",
-				"severity" : "low", 
-				"identifiers" : { 
+				"severity" : "low",
+				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
 				},
@@ -1153,7 +1191,7 @@
 			}
 		],
 		"extractors" : {
-			"func" : [ 
+			"func" : [
 				"react.version",
 				"require('react').version"
 			],
@@ -1327,7 +1365,7 @@
 			"uri"			: [ "/(§§version§§)/bootstrap(\\.min)?\\.js" ],
 			"filename"		: [ "bootstrap-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
-								"/\\*!? Bootstrap v(§§version§§)", 
+								"/\\*!? Bootstrap v(§§version§§)",
 								"\\* Bootstrap v(§§version§§)",
 								"/\\*! Bootstrap v(§§version§§)"
 			],

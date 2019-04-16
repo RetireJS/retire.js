@@ -133,9 +133,9 @@
 	},
 	"airbrake" : {
 		"vulnerabilities" : [
-			{ "below" : "0.4.0", 
+			{ "below" : "0.4.0",
 				"severity" : "medium",
-				"info" : [ "https://nodesecurity.io/advisories/96" ] 
+				"info" : [ "https://nodesecurity.io/advisories/96" ]
 			}
 		]
 	},
@@ -272,7 +272,7 @@
 	},
 
 	"handlebars" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "1.0.0.beta.3",
 				"severity": "medium",
@@ -288,6 +288,44 @@
 					"summary": "Quoteless Attributes in Templates can lead to Content Injection"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/61" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.0.13",
+				"severity": "high",
+				"identifiers": {
+					"summary": "A prototype pollution vulnerability in handlebars may lead to remote code execution if an attacker can control the template"
+				},
+				"info" : [
+					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-173692",
+					"https://github.com/wycats/handlebars.js/commit/7372d4e9dffc9d70c09671aa28b9392a1577fd86"
+				]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" : "4.0.14",
+				"severity": "high",
+				"identifiers": {
+					"summary": "A prototype pollution vulnerability in handlebars may lead to remote code execution if an attacker can control the template"
+				},
+				"info" : [
+					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
+					"https://github.com/wycats/handlebars.js/issues/1495",
+					"https://github.com/wycats/handlebars.js/commit/cd38583216dce3252831916323202749431c773e"
+				]
+			},
+			{
+				"atOrAbove" : "4.1.0",
+				"below" : "4.1.2",
+				"severity": "high",
+				"identifiers": {
+					"summary": "A prototype pollution vulnerability in handlebars may lead to remote code execution if an attacker can control the template"
+				},
+				"info" : [
+					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
+					"https://github.com/wycats/handlebars.js/issues/1495",
+					"https://github.com/wycats/handlebars.js/commit/cd38583216dce3252831916323202749431c773e"
+				]
 			}
 
 		]
@@ -365,7 +403,7 @@
 				"info" : [ "https://nodesecurity.io/advisories/36" ]
 			}
 		]
-	},	
+	},
 	"hapi": {
 		"vulnerabilities" : [
 		  {
@@ -404,7 +442,7 @@
 				"identifiers": {
 					"summary" : "Could allow forbidden CORS headers"
 				},
-				"info" : [ 
+				"info" : [
 					"https://nodesecurity.io/advisories/45",
 					"https://github.com/hapijs/hapi/issues/2850",
 					"https://github.com/hapijs/hapi/issues/2840"
@@ -416,7 +454,7 @@
 				"identifiers": {
 					"summary" : "Denial of service - Potential socket exhaustion"
 				},
-				"info" : [ 
+				"info" : [
 					"https://nodesecurity.io/advisories/63",
 					"https://github.com/hapijs/hapi/commit/aab2496e930dce5ee1ab28eecec94e0e45f03580",
 					"https://github.com/jfhbrook/node-ecstatic/pull/179"
@@ -428,7 +466,7 @@
 				"identifiers": {
 					"summary" : "Route level CORS config overrides connection level defaults"
 				},
-				"info" : [ 
+				"info" : [
 					"https://nodesecurity.io/advisories/65"
 				]
 			}
@@ -445,10 +483,10 @@
 				},
 				"info" : [ "https://nodesecurity.io/advisories/27" ]
 			}
-		]		
+		]
 	},
 	"ms" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "0.7.1",
 				"severity": "medium",
@@ -460,7 +498,7 @@
 	},
 
 	"handlebars-runtime" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "1.0.0.beta.3",
 				"severity": "high",
@@ -602,7 +640,7 @@
 				"severity": "high",
 				"identifiers": {"CVE": ["CVE-2010-2276", "CVE-2010-2272", "CVE-2010-2273"]},
 				"info" : [ "http://dojotoolkit.org/blog/dojo-security-advisory", "http://www.cvedetails.com/cve/CVE-2010-2276/", "http://www.cvedetails.com/cve/CVE-2010-2274/", "http://www.cvedetails.com/cve/CVE-2010-2273/" ]
-			},			
+			},
 			{
 				"atOrAbove" : "1.1",
 				"below" : "1.1.2",
@@ -654,7 +692,7 @@
         			]
                         }
 		]
-	},	
+	},
 	"mustache" : {
 		"vulnerabilities" : [
 			{
@@ -748,8 +786,8 @@
 				"identifiers": {
 					"summary": "discloses root path"
 				},
-				"info" : [ 
-					"https://nodesecurity.io/advisories/56", 
+				"info" : [
+					"https://nodesecurity.io/advisories/56",
 					"https://github.com/pillarjs/send/pull/70",
 					"https://github.com/expressjs/serve-static/blob/master/HISTORY.md#181--2015-01-20"
 				]
@@ -785,7 +823,7 @@
         ]
       }
     ]
-  },	
+  },
 	"ep_imageconvert" : {
 		"vulnerabilities" : [
 			{
@@ -795,12 +833,12 @@
 					"CVE": ["CVE-2013-3364"],
 					"advisory": "ep_imageconvert_command_injection"
 				},
-				"info" : [ 
+				"info" : [
           "https://nodesecurity.io/advisories/7"
 				]
 			}
 		]
-	},	
+	},
 	"sanitize-html": {
 		"vulnerabilities" : [
 			{
@@ -834,17 +872,17 @@
         ]
       }
 		]
-	},	
+	},
 	"sequelize-restful": {
 		"vulnerabilities" : [ { "below" : "0.3.1", "info" : [ "https://github.com/sequelize/sequelize-restful/issues/16" ] } ]
 	},
 	"sequelize" : {
-		"vulnerabilities" : [ 
+		"vulnerabilities" : [
 			{
 				"below" : "2.0.0-rc8",
 				"severity" : "medium",
-				"identifiers" : { "CVE":[ "CVE-2015-1369" ] }, 
-				"info" : [ "https://nodesecurity.io/advisories/33", "https://github.com/sequelize/sequelize/issues/2906" ] 
+				"identifiers" : { "CVE":[ "CVE-2015-1369" ] },
+				"info" : [ "https://nodesecurity.io/advisories/33", "https://github.com/sequelize/sequelize/issues/2906" ]
 			},
       {
         "below": "3.23.6",
@@ -877,7 +915,7 @@
         "info": [ "https://nodesecurity.io/advisories/102" ]
       }
 
-		]	
+		]
 	},
 	"paypal-ipn": {
 		"vulnerabilities" : [
@@ -898,7 +936,7 @@
 				"info" : [ "http://nodesecurity.io/advisories/fancy-server-directory-traversal" ]
 			}
 		]
-	},	
+	},
 	"nhouston": {
 		"vulnerabilities" : [
 			{
@@ -952,9 +990,9 @@
 				"atOrAbove" : "16.0.0",
 				"below" : "16.0.1",
 				"severity": "high",
-				"identifiers": { 
+				"identifiers": {
 					"CVE": ["CVE-2018-6341"],
-					"summary" : "RCE affecting some server-rendered React apps" 
+					"summary" : "RCE affecting some server-rendered React apps"
 				},
 				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
@@ -962,9 +1000,9 @@
 				"atOrAbove" : "16.1.0",
 				"below" : "16.1.2",
 				"severity": "high",
-				"identifiers": { 
+				"identifiers": {
 					"CVE": ["CVE-2018-6341"],
-					"summary" : "RCE affecting some server-rendered React apps" 
+					"summary" : "RCE affecting some server-rendered React apps"
 				},
 				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
@@ -972,9 +1010,9 @@
 				"atOrAbove" : "16.2.0",
 				"below" : "16.2.1",
 				"severity": "high",
-				"identifiers": { 
+				"identifiers": {
 					"CVE": ["CVE-2018-6341"],
-					"summary" : "RCE affecting some server-rendered React apps" 
+					"summary" : "RCE affecting some server-rendered React apps"
 				},
 				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
@@ -982,9 +1020,9 @@
 				"atOrAbove" : "16.3.0",
 				"below" : "16.3.3",
 				"severity": "high",
-				"identifiers": { 
+				"identifiers": {
 					"CVE": ["CVE-2018-6341"],
-					"summary" : "RCE affecting some server-rendered React apps" 
+					"summary" : "RCE affecting some server-rendered React apps"
 				},
 				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			},
@@ -992,9 +1030,9 @@
 				"atOrAbove" : "16.4.0",
 				"below" : "16.4.2",
 				"severity": "high",
-				"identifiers": { 
+				"identifiers": {
 					"CVE": ["CVE-2018-6341"],
-					"summary" : "RCE affecting some server-rendered React apps" 
+					"summary" : "RCE affecting some server-rendered React apps"
 				},
 				"info" : [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]
 			}
@@ -1137,7 +1175,7 @@
 				"info" : [ "http://nodesecurity.io/advisories/31" ]
 			}
 		]
-	},	
+	},
 	"serve-static": {
 		"vulnerabilities" : [
 			{
@@ -1222,7 +1260,7 @@
 			},
 			{
 				"atOrAbove" : "1.7.0",
-				"below" : "1.7.8",	
+				"below" : "1.7.8",
 				"severity": "high",
 				"identifiers": {
 					"summary": "Remote code execution"
@@ -1230,7 +1268,7 @@
 				"info" : [ "https://nodesecurity.io/advisories/539" ]
 			},
 			{
-				"below" : "1.7.13",	
+				"below" : "1.7.13",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "Remote code execution",
@@ -1240,7 +1278,7 @@
 			},
 			{
 				"atOrAbove" : "1.8.4",
-				"below" : "1.8.0",	
+				"below" : "1.8.0",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "Remote code execution",
@@ -1250,7 +1288,7 @@
 			},
 			{
 				"atOrAbove" : "2.0.0-beta.5",
-				"below" : "2.0.0-beta.1",	
+				"below" : "2.0.0-beta.1",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "Remote code execution",
@@ -1571,7 +1609,7 @@
   "gmail-js": {
     "vulnerabilities": [
       {
- 				"below":"100.0.0",     	
+ 				"below":"100.0.0",
         "atOrAbove": "0.0.0",
         "severity" : "high",
         "identifiers": { "advisory": "DOM-based XSS" },
@@ -4296,7 +4334,7 @@
         "below": "4.2.2",
         "severity": "high",
         "identifiers": {
-	  "advisory": "jsonwebtoken_verification_bypass",	
+	  "advisory": "jsonwebtoken_verification_bypass",
           "summary": "jsonwebtoken_verification-bypass"
         },
         "info": [
@@ -4304,7 +4342,7 @@
         ]
       }
     ]
-  },  
+  },
   "validator": {
     "vulnerabilities": [
       {
@@ -4312,7 +4350,7 @@
         "severity": "high",
         "identifiers": {
 	  "CVE": ["CVE-2014-8882"],
-	  "advisory": "validator-isurl-denial-of-service",	
+	  "advisory": "validator-isurl-denial-of-service",
           "summary": "validator_regular-expression-denial-of-service"
         },
         "info": [
@@ -4323,7 +4361,7 @@
         "below": "2.0.0",
         "severity": "medium",
         "identifiers": {
-	  "advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL",	
+	  "advisory": "validator_XSS_Filter_Bypass_via_Encoded_URL",
           "summary": "validator_xss-filter-bypass-via-encoded-url"
         },
         "info": [
@@ -4383,7 +4421,7 @@
         ]
       }
     ]
-  },  
+  },
   "fastify": {
     "vulnerabilities": [
       {
@@ -5724,7 +5762,7 @@
         "identifiers": {
           "summary": "Denial of Service",
           "CVE":[
-            "CVE-2018-3767" 
+            "CVE-2018-3767"
           ]
         },
         "info": [
@@ -5741,7 +5779,7 @@
         "identifiers": {
           "summary": "Open Redirect",
           "CVE":[
-            "CVE-2018-3774" 
+            "CVE-2018-3774"
           ]
         },
         "info": [
@@ -5758,7 +5796,7 @@
         "identifiers": {
           "summary": "Path Traversal",
           "CVE":[
-            "CVE-2018-3770" 
+            "CVE-2018-3770"
           ]
         },
         "info": [
