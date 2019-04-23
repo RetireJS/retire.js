@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '1.6.2';
+exports.version = '1.6.3';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -28,6 +28,7 @@ function scan(data, extractor, repo, matcher) {
 		for (var i in extractors) {
 			var match = matcher(extractors[i], data);
 			if (match) {
+				match = match.replace(/(\.|-)min$/, "");
 				detected.push({ version: match, component: component, detection: extractor });
 			}
 		}
