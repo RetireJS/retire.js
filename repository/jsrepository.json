@@ -210,6 +210,14 @@
 					"summary": "open redirect leads to cross site scripting"
 				},
 				"info": [ "http://sirdarckcat.blogspot.no/2017/02/unpatched-0day-jquery-mobile-xss.html" ]
+			},
+			{
+				"below" : "1.3.0",
+				"severity": "high",
+				"identifiers": {
+					"summary": "Endpoint that reflect user input leads to cross site scripting"
+				},
+				"info": [ "https://gist.github.com/jupenur/e5d0c6f9b58aa81860bf74e010cf1685" ]
 			}
 		],
 		"extractors" : {
