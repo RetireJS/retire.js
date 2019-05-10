@@ -6,7 +6,7 @@ function configureJsonLogger(logger, writer, config) {
 	var finalResults = { version: retire.version, start: new Date(), data: [], messages: [], errors: [] };
 	logger.info = finalResults.messages.push;
 	logger.debug = config.verbose ? finalResults.messages.push : function() {};
-	logger.warn = logger.error = finalResults.errors.push;
+	logger.warn = logger.error = (message) => finalResults.errors.push(message);
 	logger.logVulnerableDependency = function(finding) {
 		vulnsFound = true;
 		finalResults.data.push(finding);
