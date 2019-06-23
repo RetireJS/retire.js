@@ -825,7 +825,13 @@
 				"severity": "medium",
 				"identifiers": { "PR" : "307" },
 				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
-			}
+			},
+      {
+        "below" : "1.14",
+        "severity": "medium",
+        "identifiers": { "CVE": ["CVE-2018-15494"] },
+        "info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
+      }
 		],
 		"extractors" : {
 			"func"				 : [ "dojo.version.toString()" ],

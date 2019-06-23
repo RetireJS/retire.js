@@ -46,7 +46,7 @@ var npmRepo = JSON.parse(npmData);
 var k = Object.keys(npmRepo).filter(component => npmRepo[component].vulnerabilities.some(v => !v.below))
 if (k.length > 0) throw new Error('Components ' + k.map(c => '"' + c + '"').join(', ') + ' are missing "below"');
 
-console.log("Looking for duplicate keys...");
+console.log("Looking for duplicate keys in npmrepo ...");
 Object.keys(npmRepo).map(k => {
 	if (npmData.split('"' + k + '"').length > 2) {
 		throw new Error("Duplicate key for " + k);
