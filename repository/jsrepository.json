@@ -89,10 +89,16 @@
 				},
 				"severity": "medium",
 				"info" : [ "https://bugs.jquery.com/ticket/11974", "http://research.insecurelabs.org/jquery/test/" ]
+			},
+			{
+				"atOrAbove" : "3.0.0",
+				"below" : "3.4.0",
+				"identifiers": {
+					"summary": "prototype pollution"
+				},
+				"severity": "low",
+				"info" : [ "https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/" ]
 			}
-
-
-
 		],
 		"extractors" : {
 			"func"    		: [ 
@@ -686,6 +692,12 @@
 	"dojo" : {
 		"vulnerabilities" : [
 			{
+				"below" : "1.14",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2018-15494"]},
+				"info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
+			},
+			{
 				"atOrAbove" : "0.4",
 				"below" : "0.4.4",
 				"severity": "high",
@@ -899,6 +911,14 @@
 					"summary": "Quoteless attributes in templates can lead to XSS"
 				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/1083" ] 
+			},
+			{
+				"below" : "4.1.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "disallow access to the constructor in templates to prevent RCE"
+				},
+				"info" : [ "https://github.com/wycats/handlebars.js/blob/master/release-notes.md" ] 
 			}
 		],
 		"extractors" : {
@@ -1031,6 +1051,41 @@
 				"severity" : "low", 
 				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
 				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
+			},
+			{
+				"atOrAbove" : "16.4.0",
+				"below" : "16.4.2",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.3.0",
+				"below" : "16.3.3",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.2.0",
+				"below" : "16.2.1",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.1.0",
+				"below" : "16.1.2",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.0.0",
+				"below" : "16.0.1",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
 			}
 		],
 		"extractors" : {
@@ -1141,8 +1196,38 @@
 		}
 	},
 
+	"vue" : {
+		"vulnerabilities": [
+			{
+				"below" : "2.5.17",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/vuejs/vue/commit/c28f79290d57240c607d8cec3b3413b49702e1fb" ]
+			}
+		],
+		"extractors" : {
+			"uri"			    : [ "/(§§version§§)/vue(\\.min)?\\.js", "vue@(§§version§§)/dist/vue\\.js" ],
+			"filename"		: [ "vue-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
+								"\\* Vue.js v(§§version§§)"
+			],
+			"hashes"		  : {},
+			"func"			  : [ "Vue.version" ]
+		}
+	},
+
 	"ckeditor" : {
 		"vulnerabilities": [
+			{
+				"below" : "4.11.0",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "low",
+				"info": [ "https://ckeditor.com/cke4/release/CKEditor-4.11.0" ]
+			},
 			{
 				"below" : "4.4.3",
 				"identifiers" : {

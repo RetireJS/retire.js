@@ -288,8 +288,15 @@
 					"summary": "Quoteless Attributes in Templates can lead to Content Injection"
 				},
 				"info" : [ "https://nodesecurity.io/advisories/61" ]
+			},
+			{
+				"below" : "4.1.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "disallow access to the constructor in templates to prevent RCE"
+				},
+				"info" : [ "https://github.com/wycats/handlebars.js/blob/master/release-notes.md" ]
 			}
-
 		]
 	},
 	"marked": {
@@ -632,15 +639,21 @@
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-6681/"]
 			},
 			{
-        			"below": "1.1",
-        			"severity": "medium",
-        			"identifiers": {
-          			"summary": "dojo_cross-site-scripting"
-        			},
-        			"info": [
-          			"https://nodesecurity.io/advisories/107"
-        			]
-                        }
+  			"below": "1.1",
+  			"severity": "medium",
+  			"identifiers": {
+    			"summary": "dojo_cross-site-scripting"
+  			},
+  			"info": [
+    			"https://nodesecurity.io/advisories/107"
+  			]
+      },
+			{
+				"below" : "1.14",
+				"severity": "medium",
+				"identifiers": {"CVE": ["CVE-2018-15494"]},
+				"info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
+			}
 		]
 	},	
 	"mustache" : {
@@ -1796,6 +1809,15 @@
   },
   "jquery": {
     "vulnerabilities": [
+			{
+				"atOrAbove" : "3.0.0",
+				"below" : "3.4.0",
+				"identifiers": {
+					"summary": "prototype pollution"
+				},
+				"severity": "low",
+				"info" : [ "https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/" ]
+			},
       {
         "below": "3.0.0",
         "atOrAbove": "3.0.0-rc1",
@@ -4564,5 +4586,80 @@
         ]
       }
     ]
-  }
+  },
+  "vue" : {
+		"vulnerabilities": [
+			{
+				"below" : "2.5.17",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/vuejs/vue/commit/c28f79290d57240c607d8cec3b3413b49702e1fb" ]
+			}
+		]
+	},
+	"react" : {
+		"vulnerabilities" : [
+			{ 
+				"atOrAbove" : "0.4.0", "below" : "0.4.2",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2013-7035" ] ,
+					"summary":"potential XSS vulnerability can arise when using user data as a key"
+				},
+				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
+			},
+			{ 
+				"atOrAbove" : "0.5.0", "below" : "0.5.2",
+				"severity" : "low", 
+				"identifiers" : { 
+					"CVE": [ "CVE-2013-7035" ],
+					"summary":"potential XSS vulnerability can arise when using user data as a key"
+				},
+				"info": [ "https://facebook.github.io/react/blog/2013/12/18/react-v0.5.2-v0.4.2.html" ]
+			},
+			{ 
+				"below" : "0.14.0",
+				"severity" : "low", 
+				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
+				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
+			},
+			{
+				"atOrAbove" : "16.4.0",
+				"below" : "16.4.2",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.3.0",
+				"below" : "16.3.3",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.2.0",
+				"below" : "16.2.1",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.1.0",
+				"below" : "16.1.2",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			},
+			{
+				"atOrAbove" : "16.0.0",
+				"below" : "16.0.1",
+				"severity" : "low", 
+				"identifiers" : { "summary":"Potential XSS in react DOM server" },
+				"info": [ "https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html" ]				
+			}
+		]
+	}
 }
