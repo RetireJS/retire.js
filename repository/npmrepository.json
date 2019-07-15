@@ -4676,7 +4676,7 @@
         "identifiers": {
           "summary": "Prototype pollution attack",
           "CVE": [
-            "CVE-2018-3747"
+            "CVE-2019-10746"
           ]
         },
         "info": [
@@ -4690,7 +4690,7 @@
         "identifiers": {
           "summary": "Prototype pollution attack",
           "CVE": [
-            "CVE-2018-3747"
+            "CVE-2019-10746"
           ]
         },
         "info": [
