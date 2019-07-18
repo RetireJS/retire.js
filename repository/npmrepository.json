@@ -4669,6 +4669,33 @@
         "info": [
           "https://hackerone.com/reports/311236"
         ]
+      },
+      {
+        "below": "1.3.2",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2019-10746"
+          ]
+        },
+        "info": [
+          "https://snyk.io/vuln/SNYK-JS-MIXINDEEP-450212"
+        ]
+      },
+      {
+        "atOrAbove": "2.0.0",
+        "below": "2.0.1",
+        "severity": "high",
+        "identifiers": {
+          "summary": "Prototype pollution attack",
+          "CVE": [
+            "CVE-2019-10746"
+          ]
+        },
+        "info": [
+          "https://snyk.io/vuln/SNYK-JS-MIXINDEEP-450212"
+        ]
       }
     ]
   },
