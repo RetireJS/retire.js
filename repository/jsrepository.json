@@ -1382,7 +1382,7 @@
 			}
 		],
 		"extractors" : {
-			"uri"			: [ "/(§§version§§)/bootstrap(\\.min)?\\.js" ],
+			"uri"			: [ "/(§§version§§)/bootstrap(\\.min)?\\.js", "/(§§version§§)/js/bootstrap(\\.min)?\\.js" ],
 			"filename"		: [ "bootstrap-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
 								"/\\*!? Bootstrap v(§§version§§)",
