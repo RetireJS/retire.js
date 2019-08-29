@@ -4,7 +4,19 @@
 			{ "atOrAbove": "0.0.1", "below" : "0.0.2", "info" : [ "http://github.com/eoftedal/retire.js/" ] }
 		]
 	},
-
+	"eslint-utils": {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "1.3.0",
+				"below": "1.4.1",
+				"severity": "high",
+				"identifiers": {
+					"summary": "Arbitrary Code Execution"
+				},
+				"info": ["https://www.npmjs.com/advisories/1118"]
+			}
+		]
+	},
 	"angular" : {
 		"vulnerabilities" : [
 			{
