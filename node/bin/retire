@@ -64,12 +64,13 @@ program
   .option('--severity <level>', 'Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .option('--colors', 'Enable color output (console output only)')
+	.option('--lockfile <type>', 'Use lockfile instead of package scan. Allowed types npm, yarn, yarn-workspace')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
   'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
-  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir'
+  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir', 'lockfile'
 ]));
 
 if (!config.nocache && !config.cachedir) {
@@ -127,7 +128,7 @@ scanner.on('vulnerable-dependency-found', function(result) {
   var levels = result.results
     .map(function(r) {
       return r.vulnerabilities ? r.vulnerabilities.map(function(v) {
-        return severityLevels[v.severity || 'critical']; 
+        return severityLevels[v.severity || 'critical'];
       }) : []; });
   var severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y; });
   if(severity >= severityLevels[config.severity]) {
@@ -140,9 +141,9 @@ scanner.on('dependency-found', log.logDependency);
 
 
 events.on('load-js-repo', function() {
-  (config.jsrepo ? 
+  (config.jsrepo ?
     (config.jsrepo.match(/^https?:\/\//) ?
-      repo.loadrepository(config.jsrepo, config) 
+      repo.loadrepository(config.jsrepo, config)
       : repo.loadrepositoryFromFile(config.jsrepo, config))
     : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
   ).on('stop', forward(events, 'stop'))
@@ -154,7 +155,7 @@ events.on('load-js-repo', function() {
 
 
 events.on('load-node-repo', function() {
-  (config.noderepo ? 
+  (config.noderepo ?
     (config.noderepo.match(/^https?:\/\//) ?
       repo.loadrepository(config.noderepo, config)
       : repo.loadrepositoryFromFile(config.noderepo, config))
@@ -189,7 +190,7 @@ events.on('scan-js', function() {
 });
 
 events.on('scan-node', function() {
-  resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
+  resolve.getNodeDependencies(config.nodepath || config.path, config.package, config.lockfile).on('done', function(dependencies) {
     scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
   }).on('error', function(err) {
