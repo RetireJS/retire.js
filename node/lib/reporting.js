@@ -7,6 +7,7 @@ var crypto = require('crypto');
 
 var loggers = {
   console  : require("./reporters/console"),
+  text     : require("./reporters/console"),
   json     : require("./reporters/json"),
   depcheck : require("./reporters/depcheck"),
   cyclonedx: require("./reporters/cyclonedx")
