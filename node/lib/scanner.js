@@ -113,6 +113,12 @@ function scanBowerFile(file, repo, options) {
       var results = retire.check(bower.name, bower.version, repo);
       emitResults({file: file, results: results}, options);
     }
+    if(bower.dependencies){
+      for (dependencyName in bower.dependencies) {
+        var results = retire.check(dependencyName, bower.dependencies[dependencyName], repo);
+        emitResults({file: file, results: results}, options);
+      }
+    }
   } catch (e) {
     options.log.warn('Could not parse file: ' + file);
   }
