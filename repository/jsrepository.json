@@ -856,6 +856,14 @@
 		"bowername": [ "angularjs", "angular.js" ],
 		"vulnerabilities" : [
 			{
+				"below" : "1.7.9",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Prototype pollution"
+				},
+				"info" : [ "https://github.com/angular/angular.js/commit/726f49dcf6c23106ddaf5cfd5e2e592841db743a", "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#179-pollution-eradication-2019-11-19" ]
+			},
+			{
 				"atOrAbove" : "1.5.0",
 				"below" : "1.6.9",
 				"severity": "low",
@@ -1027,6 +1035,26 @@
 					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
 					"https://github.com/wycats/handlebars.js/issues/1495",
 					"https://github.com/wycats/handlebars.js/commit/cd38583216dce3252831916323202749431c773e"
+				]
+			},
+			{
+				"below" : "4.3.0",
+				"severity": "low",
+				"identifiers": {
+					"summary": "Disallow calling helperMissing and blockHelperMissing directly"
+				},
+				"info" : [
+					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v430---september-24th-2019"
+				]
+			},
+			{
+				"below" : "4.5.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Prototype pollution"
+				},
+				"info" : [
+					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v453---november-18th-2019"
 				]
 			}
 		],
