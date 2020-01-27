@@ -9,6 +9,8 @@
 	.vulnerable { color: #f00;}
 	.vulnerable a:before { content: "["; margin-left: 0.5em; }
 	.vulnerable a:after { content: "]"; }
+	.hideunknown .unknown { display: none;}
+	.unknown { color: #999; }
 	td { vertical-align: top; padding: 0.5em; }
 	td td { vertical-align: top; padding: 0em; }
 	tr:nth-child(2n+1) { background: #f0f0f0; }
@@ -19,10 +21,11 @@
 </head>
 <body>
 <div class="enabler">
-<input type="checkbox">Enabled</input>
+<input type="checkbox" id="enabled">Enabled</input>
+<input type="checkbox" id="unknown">Show unknown</input>
 </div>
 <h1>Retire.js</h1>
-<table id="results">
+<table id="results" class="hideunknown">
 </table>
 </body>
 </html>

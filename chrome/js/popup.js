@@ -1,12 +1,19 @@
 window.addEventListener('load', function() {
 	sendMessage('enabled?', null, function(response) { 
-		document.querySelector("input[type=checkbox]").checked = response.enabled;
+		document.querySelector("input[type=checkbox]#enabled").checked = response.enabled;
 	});
-	document.querySelector("input[type=checkbox]").addEventListener('click', function() {
+
+	document.querySelector("input[type=checkbox]#enabled").addEventListener('click', function() {
 		console.log(this.checked);
 		chrome.browserAction.setIcon({ path: this.checked ? "icons/icon48.png" : "icons/icon_bw48.png" });
 		sendMessage('enable', this.checked, null);
 	}, false);
+
+	document.querySelector("input[type=checkbox]#unknown").addEventListener('click', function() {
+		console.log(this.checked);
+		document.getElementById("results").className = this.checked ? "" : "hideunknown";
+	}, false);
+
 	queryForResults();
 	setInterval(queryForResults, 5000);
 
@@ -21,27 +28,45 @@ function queryForResults() {
 	});	
 }
 
-function show(results) {
+function show(totalResults) {
 	document.getElementById("results").innerHTML="";
-	console.log(results);
+	console.log(totalResults);
+	var merged = {};
+	totalResults.forEach(rs => {
+		merged[rs.url] = merged[rs.url] || { url: rs.url, results: [] };
+		merged[rs.url].results = merged[rs.url].results.concat(rs.results);
+	});
+
+	var results = Object.keys(merged).map(k => merged[k]);
 	results.forEach(function(rs) {
 		rs.results.forEach(function(r) {
 			r.url = rs.url;
 			r.vulnerable = r.vulnerabilities && r.vulnerabilities.length > 0;
 		});
+		if (rs.results.length == 0) {
+			rs.results = [{ url: rs.url, unknown: true, component: "unknown" }]
+		}
 	});
 	var res = results.reduce(function(x, y) { return x.concat(y.results); }, []);
 	res.sort(function(x, y) {
 		if (x.vulnerable != y.vulnerable) { return x.vulnerable ? -1 : 1 }
+		if (x.unknown != y.unknown) { return x.unknown ? 1 : -1 }
 		return (x.component + x.version).localeCompare(y.component + y.version);
 	});
 	res.forEach(function(r) {
 		var tr = document.createElement("tr");
 		document.getElementById("results").appendChild(tr);				
-		td(tr).innerText = r.component;
-		td(tr).innerText = r.version;
-		var vulns = td(tr);
-		vulns.innerHTML = "Found in " + r.url;
+		if (r.unknown) {
+			tr.className = "unknown";
+			td(tr).innerText = "-";
+			td(tr).innerText = "-";
+			td(tr).innerHTML = "Did not recognize " + r.url;
+		} else {
+			td(tr).innerText = r.component;
+			td(tr).innerText = r.version;
+			var vulns = td(tr);
+			vulns.innerHTML = "Found in " + r.url;
+		}
 		if (r.vulnerabilities && r.vulnerabilities.length > 0) {
 			tr.className = "vulnerable";
 			vulns.innerHTML += "<br>Vulnerability info: ";

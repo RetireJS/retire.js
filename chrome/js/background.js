@@ -71,6 +71,7 @@ events.on('scan', function(details) {
 		downloadRepo().on('success', function() { events.emit('scan', details); });
 		return;
 	}
+	events.emit('result-ready', details, []);
 	console.log("Scanning " + details.url + " ...");
 	var results = retire.scanUri(details.url, repo);
 	if (results.length > 0) {
