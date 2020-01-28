@@ -51,7 +51,7 @@ function show(totalResults) {
 	res.sort(function(x, y) {
 		if (x.unknown != y.unknown) { return x.unknown ? 1 : -1 }
 		if (x.vulnerable != y.vulnerable) { return x.vulnerable ? -1 : 1 }
-		return (x.component + x.version).localeCompare(y.component + y.version);
+		return (x.component + x.version + x.url).localeCompare(y.component + y.version + y.url);
 	});
 	res.forEach(function(r) {
 		var tr = document.createElement("tr");
