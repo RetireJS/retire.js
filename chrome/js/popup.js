@@ -49,8 +49,8 @@ function show(totalResults) {
 	});
 	var res = results.reduce(function(x, y) { return x.concat(y.results); }, []);
 	res.sort(function(x, y) {
-		if (x.vulnerable != y.vulnerable) { return x.vulnerable ? -1 : 1 }
 		if (x.unknown != y.unknown) { return x.unknown ? 1 : -1 }
+		if (x.vulnerable != y.vulnerable) { return x.vulnerable ? -1 : 1 }
 		return (x.component + x.version).localeCompare(y.component + y.version);
 	});
 	res.forEach(function(r) {
