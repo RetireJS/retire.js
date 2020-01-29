@@ -1065,7 +1065,7 @@
 			"filecontent"	: [
 				"Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
 				"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
-				"/\\*![\n\r \t]+handlebars v(§§version§§)"
+				"/\\*+![\\s]+(?:@license)?[\\s]+handlebars v(§§version§§)"
 			],
 			"hashes"		: {}
 		}
