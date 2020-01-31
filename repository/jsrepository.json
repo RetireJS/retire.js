@@ -980,7 +980,7 @@
 			"hashes"		: {}
 		}
 	},
-	"handlebars.js" : {
+	"handlebars" : {
 		"bowername": [ "handlebars", "handlebars.js" ],
 		"vulnerabilities" : [
 			{
