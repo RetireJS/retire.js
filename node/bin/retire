@@ -121,6 +121,11 @@ if(config.ignorefile) {
     config.ignore.paths = config.ignore.paths.concat(ignored);
   }
 }
+config.ignore.paths = config.ignore.paths
+  .map(p => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
+  .map(p => p.replace(/[*]{1,2}/g, (a) => a.length == 2 ? ".*" : "[^/]*")) 
+  .map(s => new RegExp(s)
+);
 
 scanner.on('vulnerable-dependency-found', function(result) {
   vulnsFound = true;

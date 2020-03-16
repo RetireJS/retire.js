@@ -29,7 +29,7 @@ function emitResults(finding, options) {
 function shouldIgnorePath(fileSpecs, ignores) {
   return utils.detect(ignores.paths, function(i) {
     return utils.detect(fileSpecs, function(j) {
-      return j.indexOf(i) === 0 || j.indexOf(path.resolve(i)) === 0 ; 
+      return i.test(j) || i.test(path.resolve(j)); 
     });
   });
 }

@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 var retire = require('../retire');
 
 function configureJsonLogger(logger, writer, config) {
