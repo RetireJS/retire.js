@@ -1,29 +1,34 @@
 /* global require, exports */
 var utils   = require('./utils'),
-    fs    = require('fs'),
-    req   = require('request'),
-    path  = require('path'),
-    forward   = require('../lib/utils').forwardEvent,
-    retire  = require('./retire');
+    fs      = require('fs'),
+    path    = require('path'),
+    forward = require('../lib/utils').forwardEvent,
+    http    = require('http'),
+    https   = require('https'),
+    retire  = require('./retire'),
+    HttpsProxyAgent = require('https-proxy-agent');
+
 var emitter = require('events').EventEmitter;
 
 
 function loadJson(url, options) {
   var events = new emitter();
-  var request = req;
   options.log.info('Downloading ' + url + ' ...');
+  var reqOptions = {};
   if (options.proxy) {
-    request = request.defaults({'proxy' : options.proxy});
+    reqOptions.agent = new HttpsProxyAgent(options.proxy);
   }
-  request.get(url, function (error, r, data) {
-    if (error) {
-      events.emit('stop', 'Error downloading: ' + url, error);
-    } else {
-      data = options.process ? options.process(data) : data;
-      var obj = JSON.parse(data);
-      events.emit('done', obj);
-    }
-  });
+  (url.startsWith("http:") ? http : https).get(url, reqOptions, function (res) {
+    if (res.statusCode != 200) return events.emit('stop', 'Error downloading: ' + url + ": HTTP " + res.statusCode + " " + res.statusText);
+    var data = [];
+    res.on('data', c => data.push(c));
+    res.on('end', () => {
+        var d = Buffer.concat(data).toString();
+        d = options.process ? options.process(d) : d;
+        events.emit('done', JSON.parse(d));
+    });
+
+  }).on('error', e => events.emit('stop', 'Error downloading: ' + url + ": " + e.toString()));
   return events;
 }
 
