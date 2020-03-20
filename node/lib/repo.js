@@ -6,6 +6,7 @@ var utils   = require('./utils'),
     http    = require('http'),
     https   = require('https'),
     retire  = require('./retire'),
+    URL     = require('url'),
     HttpsProxyAgent = require('https-proxy-agent');
 
 var emitter = require('events').EventEmitter;
@@ -14,11 +15,11 @@ var emitter = require('events').EventEmitter;
 function loadJson(url, options) {
   var events = new emitter();
   options.log.info('Downloading ' + url + ' ...');
-  var reqOptions = {};
+  var reqOptions = Object.assign({}, URL.parse(url), { method: 'GET' });
   if (options.proxy) {
     reqOptions.agent = new HttpsProxyAgent(options.proxy);
   }
-  (url.startsWith("http:") ? http : https).get(url, reqOptions, function (res) {
+  var req = (url.startsWith("http:") ? http : https).request(reqOptions, function (res) {
     if (res.statusCode != 200) return events.emit('stop', 'Error downloading: ' + url + ": HTTP " + res.statusCode + " " + res.statusText);
     var data = [];
     res.on('data', c => data.push(c));
@@ -27,8 +28,9 @@ function loadJson(url, options) {
         d = options.process ? options.process(d) : d;
         events.emit('done', JSON.parse(d));
     });
-
-  }).on('error', e => events.emit('stop', 'Error downloading: ' + url + ": " + e.toString()));
+  });
+  req.on('error', e => events.emit('stop', 'Error downloading: ' + url + ": " + e.toString()));
+  req.end();
   return events;
 }
 
