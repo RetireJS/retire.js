@@ -64,12 +64,14 @@ program
   .option('--severity <level>', 'Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none')
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .option('--colors', 'Enable color output (console output only)')
+  .option('--insecure', 'Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate')
+  .option('--cacert <path>', 'Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
   'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
-  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir'
+  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir', 'insecure', 'cacert'
 ]));
 
 if (!config.nocache && !config.cachedir) {
@@ -100,6 +102,13 @@ if(!config.severity) {
   exitWithError('Error: Invalid severity level (' + config.severity + '). Valid levels are: ' + Object.keys(severityLevels).join(', '));
 }
 
+if(config.cacert) {
+  if (!fs.existsSync(config.cacert)) {
+    exitWithError('Error: Could not read cacert file: ' + config.cacert);
+  }
+  config.cacertbuf = fs.readFileSync(config.cacert);
+}
+
 if(config.ignorefile) {
   if (!fs.existsSync(config.ignorefile)) {
     exitWithError('Error: Could not read ignore file: ' + config.ignorefile);
@@ -123,7 +132,7 @@ if(config.ignorefile) {
 }
 config.ignore.paths = config.ignore.paths
   .map(p => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
-  .map(p => p.replace(/[*]{1,2}/g, (a) => a.length == 2 ? ".*" : "[^/]*")) 
+  .map(p => p.replace(/[*]{1,2}/g, (a) => a.length == 2 ? ".*" : "[^/]*"))
   .map(s => new RegExp(s)
 );
 
@@ -132,7 +141,7 @@ scanner.on('vulnerable-dependency-found', function(result) {
   var levels = result.results
     .map(function(r) {
       return r.vulnerabilities ? r.vulnerabilities.map(function(v) {
-        return severityLevels[v.severity || 'critical']; 
+        return severityLevels[v.severity || 'critical'];
       }) : []; });
   var severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y; });
   if(severity >= severityLevels[config.severity]) {
@@ -145,9 +154,9 @@ scanner.on('dependency-found', log.logDependency);
 
 
 events.on('load-js-repo', function() {
-  (config.jsrepo ? 
+  (config.jsrepo ?
     (config.jsrepo.match(/^https?:\/\//) ?
-      repo.loadrepository(config.jsrepo, config) 
+      repo.loadrepository(config.jsrepo, config)
       : repo.loadrepositoryFromFile(config.jsrepo, config))
     : repo.loadrepository('https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json', config)
   ).on('stop', forward(events, 'stop'))
@@ -159,7 +168,7 @@ events.on('load-js-repo', function() {
 
 
 events.on('load-node-repo', function() {
-  (config.noderepo ? 
+  (config.noderepo ?
     (config.noderepo.match(/^https?:\/\//) ?
       repo.loadrepository(config.noderepo, config)
       : repo.loadrepositoryFromFile(config.noderepo, config))
