@@ -38,12 +38,14 @@ Options:
   --severity <level>       Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none
   --exitwith <code>        Custom exit code (default: 13) when vulnerabilities are found
   --colors                 Enable color output (console output only)
+  --insecure               Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate
+  --cacert <path>          Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files
 ````
 
 The `depcheck` output format mimics the output of OWASP Dependency Check, but lacks some information compared to OWASP Dependency Check, because that information is not in the repo.
 The `cyclonedx` output format is based on based on the https://github.com/CycloneDX spec.
 
-.retireignore 
+.retireignore
 -------------
 ````
 @qs                                                             # ignore this module regardless of location
@@ -55,12 +57,12 @@ Due to a bug in ignore resolving, please upgrade to >= 1.1.3
 ------------------
 ````
 [
-	{ 
+	{
 		"component": "jquery",
 		"identifiers" : { "issue": "2432"},
 		"justification" : "We dont call external resources with jQuery"
 	},
-	{ 
+	{
 		"component": "jquery",
 		"version" : "2.1.4",
 		"justification" : "We dont call external resources with jQuery"

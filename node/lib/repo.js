@@ -19,6 +19,12 @@ function loadJson(url, options) {
   if (options.proxy) {
     reqOptions.agent = new HttpsProxyAgent(options.proxy);
   }
+  if (options.insecure) {
+    reqOptions.rejectUnauthorized = false;
+  }
+  if (options.cacertbuf) {
+    reqOptions.ca = [ options.cacertbuf ];
+  }
   var req = (url.startsWith("http:") ? http : https).request(reqOptions, function (res) {
     if (res.statusCode != 200) return events.emit('stop', 'Error downloading: ' + url + ": HTTP " + res.statusCode + " " + res.statusText);
     var data = [];
