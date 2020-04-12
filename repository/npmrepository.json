@@ -1998,6 +1998,14 @@
   "jquery": {
     "vulnerabilities": [
 			{
+				"below" : "3.5.0",
+				"identifiers": {
+					"summary": "Regex in its jQuery.htmlPrefilter  sometimes may introduce XSS"
+				},
+				"severity" : "medium",
+				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
+			},
+			{
 				"below" : "3.4.0",
 				"identifiers": {
 					"CVE" : [ "CVE-2019-11358" ],
