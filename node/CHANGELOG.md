@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.2.1]
+
+### Bugfix
+- Fixes [#321](https://github.com/RetireJS/retire.js/issues/321) where write output to file did not always work as expected
+
 ## [2.2.0] 
 
 ### Added
