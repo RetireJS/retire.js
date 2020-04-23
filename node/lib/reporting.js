@@ -62,7 +62,7 @@ function configureFileWriter(config) {
     console.error("Could not open " + config.outputpath + " for writing");
     process.exit(9);
   } 
-  fileOutput.stream = fs.createWriteStream('', {fd: fileOutput.fileDescriptor});
+  fileOutput.stream = fs.createWriteStream('', {fd: fileOutput.fileDescriptor, autoClose: false});
   var writeToFile = function(message) {
     fileOutput.stream.write(message);
     fileOutput.stream.write('\n');
@@ -70,7 +70,7 @@ function configureFileWriter(config) {
   writer.out = writer.err = writeToFile;
   writer.close = function() {
     fileOutput.stream.on('finish', function() {
-      fs.close(fileOutput.fileDescriptor);
+      fs.closeSync(fileOutput.fileDescriptor);
     });
     fileOutput.stream.end();
   };
