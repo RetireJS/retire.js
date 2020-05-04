@@ -1,4 +1,5 @@
 /* global require, exports */
+/*jshint esversion: 6 */
 var utils   = require('./utils'),
     fs      = require('fs'),
     path    = require('path'),

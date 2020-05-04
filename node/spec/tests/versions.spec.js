@@ -61,3 +61,9 @@ exports.should_not_be_vulnerable_when_is_rc_and_lower_beta= function(test) {
 	assert.isNotVulnerable(test, result);
 	test.done();
 };
+exports.should_see_min_as_at_or_above_non_min_below = function(test) {
+	repo.jquery.vulnerabilities = [{"below":"3.5.0"}];
+	var result = retire.scanUri("https://ajax.googleapis.com/lib/jquery-3.5.0.min.js", repo);
+	assert.isNotVulnerable(test, result);
+	test.done();
+};
