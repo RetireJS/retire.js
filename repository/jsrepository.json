@@ -864,6 +864,12 @@
 		"bowername": [ "angularjs", "angular.js" ],
 		"vulnerabilities" : [
 			{
+				"below" : "1.8.0",
+				"severity": "medium",
+				"identifiers": {"CVE": [ "CVE-2020-7676" ] },
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2020-7676" ]	
+			},	
+			{
 				"below" : "1.7.9",
 				"severity": "medium",
 				"identifiers": {
