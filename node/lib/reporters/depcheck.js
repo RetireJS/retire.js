@@ -24,7 +24,7 @@ function configureDepCheckLogger(logger, writer, config, hash) {
 		var write = vulnsFound ? writer.err : writer.out;
 		finalResults.start = finalResults.start.toISOString().replace("Z", "+0000");
 		write(`<?xml version="1.0"?>
-<analysis xmlns="https://jeremylong.github.io/DependencyCheck/dependency-check.1.3.xsd">
+<analysis xmlns="https://jeremylong.github.io/DependencyCheck/dependency-check.2.3.xsd">
   <scanInfo>
     <engineVersion>${retire.version}</engineVersion>
     <dataSource><name>${config.jsRepo || "Retire.js github js repo"}</name><timestamp>${finalResults.start}</timestamp></dataSource>
@@ -36,12 +36,13 @@ function configureDepCheckLogger(logger, writer, config, hash) {
     <credits>retire.js</credits>
    </projectInfo>
    <dependencies>`);
-		write(finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
+		write(finalResults.data.filter(d => d.results).map(r => r.results.map((dep, i) => {
 			var filepath = r.file || dep.file;
 			var filename = filepath.split("/").slice(-1);
 			var file = fs.readFileSync(filepath);
 			var md5 = hash.md5(file);
 			var sha1 = hash.sha1(file);
+			var sha256 = hash.sha256(file);
 			var evidence = `
         <evidence type="product" confidence="HIGH">
           <source>file</source>
@@ -54,9 +55,10 @@ function configureDepCheckLogger(logger, writer, config, hash) {
           <value>${dep.version}</value>
         </evidence>`;
 			var identifiers = `
-        <identifier type="npm" confidence="HIGH">
-           <name>(${dep.component}:${dep.version})</name>
-        </identifier>`;
+        <package confidence="HIGH">
+          <description>(${dep.component}:${dep.version})</description>
+          <id>${i}</id>
+        </package>`;
 			var vulns = dep.vulnerabilities && dep.vulnerabilities.length > 0 ? dep.vulnerabilities.map(v => {
 				var references = v.info.map(i => `
             <reference>
@@ -69,15 +71,17 @@ function configureDepCheckLogger(logger, writer, config, hash) {
 				//TODO: Fix CVSS stuff - add to repo? add id to every bug in repo?
 				return `
         <vulnerability source="retire">
-          <name>${id}</name>
-          <cvssScore>7.5</cvssScore>
-          <cvssAccessVector>NETWORK</cvssAccessVector>
-          <cvssAccessComplexity>LOW</cvssAccessComplexity>
-          <cvssAuthenticationr>NONE</cvssAuthenticationr>
-          <cvssConfidentialImpact>PARTIAL</cvssConfidentialImpact>
-          <cvssIntegrityImpact>PARTIAL</cvssIntegrityImpact>
-          <cvssAvailabilityImpact>PARTIAL</cvssAvailabilityImpact>
-          <severity>${v.severity || "Medium"}</severity>
+          <name>${dep.component}:${dep.version}</name>
+          <cvssV2>
+            <score>7.5</score>
+            <accessVector>NETWORK</accessVector>
+            <accessComplexity>LOW</accessComplexity>
+            <authenticationr>NONE</authenticationr>
+            <confidentialImpact>PARTIAL</confidentialImpact>
+            <integrityImpact>PARTIAL</integrityImpact>
+            <availabilityImpact>PARTIAL</availabilityImpact>
+            <severity>${v.severity || "medium"}</severity>
+          </cvssV2>
           <description>${v.identifiers && v.identifiers.summary || "None"}</description>
           <references>${references}
           </references>
@@ -91,6 +95,7 @@ function configureDepCheckLogger(logger, writer, config, hash) {
       <filePath>${filepath}</filePath>
       <md5>${md5}</md5>
       <sha1>${sha1}</sha1>
+      <sha256>${sha256}</sha256>
       <evidenceCollected>${evidence}
       </evidenceCollected>
       <identifiers>${identifiers}
