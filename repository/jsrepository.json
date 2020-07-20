@@ -1221,6 +1221,14 @@
 	"ckeditor" : {
 		"vulnerabilities": [
 			{
+				"below" : "4.14.0",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "low",
+				"info": [ "https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-414" ]
+			},
+			{
 				"below" : "4.11.0",
 				"identifiers" : {
 					"summary" : "XSS"
