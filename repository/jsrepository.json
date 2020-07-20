@@ -1492,6 +1492,14 @@
 					"https://ckeditor.com/blog/CKEditor-4.11-with-emoji-dropdown-and-auto-link-on-typing-released/",
 					"https://snyk.io/vuln/SNYK-JS-CKEDITOR-72618"
 				]
+			},
+			{
+				"below" : "4.14.0",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "low",
+				"info": [ "https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-414" ]
 			}
 		],
 		"extractors" : {
