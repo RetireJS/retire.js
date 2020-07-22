@@ -109,7 +109,17 @@
 			{
 				"below" : "3.5.0",
 				"identifiers": {
-					"summary": "Regex in its jQuery.htmlPrefilter  sometimes may introduce XSS"
+					"CVE": [ "CVE-2020-11022" ],
+					"summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS"
+				},
+				"severity" : "medium",
+				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
+			},
+			{
+				"below" : "3.5.0",
+				"identifiers": {
+					"CVE": [ "CVE-2020-11023" ],
+					"summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS"
 				},
 				"severity" : "medium",
 				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
