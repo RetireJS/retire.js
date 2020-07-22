@@ -117,7 +117,7 @@
 		],
 		"extractors" : {
 			"func"    		: [
-								"(jQuery || $ || $jq || $j).fn.jquery",
+								"(window.jQuery || window.$ || window.$jq || window.$j).fn.jquery",
 								"require('jquery').fn.jquery"
 			],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
