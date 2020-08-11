@@ -282,20 +282,6 @@
 			"hashes"		: {}
 		}
 	},
-	"jquery-ui-autocomplete" : {
-		"bowername": [ "jquery-ui", "jquery.ui" ],
-		"vulnerabilities" : [ ],
-		"extractors" : {
-			"func"    		: [ "jQuery.ui.autocomplete.version" ],
-			"filecontent"	: [
-				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}.*jquery\\.ui\\.autocomplete\\.js",
-				"/\\*!?[\n *]+jQuery UI (§§version§§)(.*\n)*.*\\.ui\\.autocomplete",
-				"/\\*!?[\n *]+jQuery UI Autocomplete (§§version§§)",
-				"/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}\\* Includes: .* autocomplete\\.js"
-			],
-			"hashes"		: {}
-		}
-	},
 	"jquery-ui-tooltip" : {
 		"bowername": [ "jquery-ui", "jquery.ui" ],
 		"vulnerabilities" : [
