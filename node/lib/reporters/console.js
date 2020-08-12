@@ -7,6 +7,7 @@ function printResults(logger, finding, config) {
     var logFunc = retire.isVulnerable(finding.results) ? logger.warn : logger.info;
     var printed = {};
     finding.results.forEach(function(elm) {
+      if (!config.verbose && !retire.isVulnerable([elm])) return;
       var key = elm.component + ' ' + elm.version;
       logFunc(finding.file);
       logFunc(' ' + String.fromCharCode(8627) + ' ' + key);

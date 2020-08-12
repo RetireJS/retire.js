@@ -306,7 +306,7 @@
 				"identifiers": {
 					"CVE" : [ "CVE-2012-6662" ],
 					"bug": "8859",
-					"summary": "Autocomplete cross-site scripting vulnerability"
+					"summary": "Cross-site scripting (XSS) vulnerability in the default content option in jquery.ui.tooltip"
 				},
 				"info" : [ "http://bugs.jqueryui.com/ticket/8859", "https://nvd.nist.gov/vuln/detail/CVE-2012-6662" ]
 			}

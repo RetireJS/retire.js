@@ -104,22 +104,24 @@ events.on('sandbox', function(details, content) {
 window.addEventListener("message", function(evt) {
 	if (evt.data.version) {
 		var results = retire.check(evt.data.component, evt.data.version, repo);
-		console.log("SANDBOX", results);
+		console.log("SANDBOX", stringifyResults(results));
 		events.emit('result-ready', { url : evt.data.original.url, tabId : evt.data.original.tabId }, results);
 	}
 });
 
+function stringifyResults(results) {
+	return results.map(x => "\n" + x.component + ":" + x.version).reduce((a,b) => a + b);
+}
 
 events.on('result-ready', function(details, results) {
 	var vulnerable = retire.isVulnerable(results);
 	if (vulnerable) {
-		console.warn(details.url, results);
+		console.warn(details.url, stringifyResults(results));
 		chrome.browserAction.setBadgeText({text : "!", tabId : details.tabId });
 	}
-	if (!vulnerable) console.log(details.url, results);
+	if (!vulnerable) console.log(details.url, stringifyResults(results));
 
 	vulnerable[details.url] = results;
-	console.warn(details.url, results);
 	
 	var result = { vulnerable: vulnerable, results: results, url: details.url };
 	setTimeout(function() {

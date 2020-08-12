@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.2]
+
+### Bugfix
+- Fixes [#334](https://github.com/RetireJS/retire.js/issues/334) where detected libraries without vulnerabilities show in output even when verbose is not specified
+
+
 ## [2.2.1]
 
 ### Bugfix

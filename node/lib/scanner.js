@@ -18,6 +18,8 @@ var hash = {
 
 function emitResults(finding, options) {
   removeIgnored(finding.results, options.ignore);
+  if (!options.verbose) finding.results = finding.results.filter(f => retire.isVulnerable([f]));
+  if (finding.results.length == 0) return;
   if (retire.isVulnerable(finding.results)) {
     events.emit('vulnerable-dependency-found', finding);
   } else {
