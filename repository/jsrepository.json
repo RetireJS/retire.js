@@ -469,7 +469,42 @@
 				"identifiers" : { "summary" : "FIXED so links with xlink:href attributes are filtered correctly to prevent XSS." },
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
+			},
+			{
+				"below" : "5.1.4",
+				"atOrAbove" : "5.0.0",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor via the clipboard or APIs",
+					"githubID" : "GHSA-27gm-ghr9-4v95"
+				},
+				"info" : [ "https://github.com/tinymce/tinymce/security/advisories/GHSA-27gm-ghr9-4v95" ]
+			},
+			{
+				"below" : "5.1.6",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "CDATA parsing and sanitization has been improved to address a cross-site scripting (XSS) vulnerability."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes516/" ]
+			},
+			{
+				"below" : "5.5.2",
+				"severity" : "low",
+				"identifiers" : { 
+					"summary" : "media embed content not processing safely in some cases."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes522/" ]
+			},
+			{
+				"below" : "5.4.0",
+				"severity" : "low",
+				"identifiers" : { 
+					"summary" : "content in an iframe element parsing as DOM elements instead of text content."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes54/" ]
 			}
+
 		],
 		"extractors" : {
 			"filecontent"	     : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
@@ -844,12 +879,53 @@
 				"identifiers": { "PR" : "307" },
 				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
 			},
-      {
-        "below" : "1.14",
-        "severity": "medium",
-        "identifiers": { "CVE": ["CVE-2018-15494"] },
-        "info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
-      }
+		    {
+		        "below" : "1.14",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2018-15494"] },
+		        "info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
+		    },
+		    {
+		        "below" : "1.11.10",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.12.8",
+				"atOrAbove" : "1.12.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.13.7",
+				"atOrAbove" : "1.13.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.14.6",
+				"atOrAbove" : "1.14.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.15.3",
+				"atOrAbove" : "1.15.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.16.2",
+				"atOrAbove" : "1.16.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    }
 		],
 		"extractors" : {
 			"func"				 : [ "dojo.version.toString()" ],
@@ -873,6 +949,15 @@
 	"angularjs" : {
 		"bowername": [ "angularjs", "angular.js" ],
 		"vulnerabilities" : [
+			{
+				"below" : "1.8.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "XSS may be triggered in AngularJS applications that sanitize user-controlled HTML snippets before passing them to JQLite methods like JQLite.prepend, JQLite.after, JQLite.append, JQLite.replaceWith, JQLite.append, new JQLite and angular.element.",
+					"CVE": [ "CVE-2020-7676" ] 
+				},
+				"info" : [ "https://github.com/advisories/GHSA-5cp4-xmrw-59wf" ]	
+			},	
 			{
 				"below" : "1.8.0",
 				"severity": "medium",
@@ -1180,6 +1265,24 @@
 				"severity": "low",
 				"identifiers": { "summary": "safari UXSS" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.9.0" ]
+			},
+			{
+				"below" : "2.0.16",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS-based bypass caused by nested forms inside MathML" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.0.17",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed another bypass causing mXSS by using MathML" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.1.1",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			}
 		],
 		"extractors" : {
