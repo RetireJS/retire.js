@@ -1,11 +1,13 @@
 /* global exports, require */
 
 var retire = require("../lib/retire");
+var chai = require('chai');
+chai.should();
 
-exports.isVulnerable = function(test, results) {
-	test.equal(true, retire.isVulnerable(results));
+exports.isVulnerable = function(results) {
+	retire.isVulnerable(results).should.equal(true);
 };
 
-exports.isNotVulnerable = function(test, results) {
-	test.equal(false, retire.isVulnerable(results));
+exports.isNotVulnerable = function(results) {
+	retire.isVulnerable(results).should.equal(false);
 };

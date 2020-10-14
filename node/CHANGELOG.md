@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.3]
+
+### Bugfix
+- Fixes [#337](https://github.com/RetireJS/retire.js/issues/337) where symlinks are not read
+
+
 ## [2.2.2]
 
 ### Bugfix

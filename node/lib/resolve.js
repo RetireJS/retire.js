@@ -68,13 +68,20 @@ function getNodeDependencies(path, limit) {
 }
 
 function scanJsFiles(path) {
-	var finder = walkdir.find(path);
-	finder.on('file', function (file) {
+	var finder = walkdir.find(path, { "follow_symlinks" : false, "no_return": true });
+	function onFile(file){
 		if (file.match(/\.js$/)) {
 			finder.emit('jsfile', file);
 		}
 		if (file.match(/\/bower.json$/)) {
 			finder.emit('bowerfile', file);
+		}
+	}
+	finder.on('file', onFile);
+	finder.on('link', function(link) {
+		var file = fs.realpathSync(link);
+		if (fs.lstatSync(file).isFile()) {
+			onFile(link);
 		}
 	});
 	return finder;

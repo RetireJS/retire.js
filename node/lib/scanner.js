@@ -1,4 +1,4 @@
-
+/*jshint esversion: 6 */
 var retire = require('./retire'),
     fs     = require('fs'),
     crypto = require('crypto'),
