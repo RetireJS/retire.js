@@ -489,7 +489,7 @@
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes516/" ]
 			},
 			{
-				"below" : "5.5.2",
+				"below" : "5.2.2",
 				"severity" : "low",
 				"identifiers" : { 
 					"summary" : "media embed content not processing safely in some cases."
