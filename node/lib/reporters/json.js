@@ -25,6 +25,11 @@ function configureJsonLogger(logger, writer, config) {
 		write(JSON.stringify(res));
 		writer.close(callback); 
 	};
+	var consoleError = logger.consoleError;
+	logger.consoleError = function(msg) {
+		if (config.outputformat !== "jsonsimple") return;
+		consoleError(msg);
+	}
 }
 
 exports.configure = configureJsonLogger;

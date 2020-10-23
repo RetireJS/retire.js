@@ -84,6 +84,7 @@ exports.open = function(config) {
     console.warn("Invalid outputformat: " + format);
     process.exit(1);
   }
+  logger.consoleError = console.error;
   loggers[format].configure(logger, writer, config, hash);
 
   if (typeof config.outputpath === 'string') { 
