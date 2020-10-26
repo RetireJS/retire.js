@@ -1545,7 +1545,8 @@
 			"filecontent"	: [
 								"/\\*!? Bootstrap v(§§version§§)",
 								"\\* Bootstrap v(§§version§§)",
-								"/\\*! Bootstrap v(§§version§§)"
+								"/\\*! Bootstrap v(§§version§§)",
+								"this\\.close\\)};.\\.VERSION=\"(§§version§§)\"(?:,.\\.TRANSITION_DURATION=150)?,.\\.prototype\\.close"
 			],
 			"hashes"		: {}
 		}
