@@ -84,6 +84,8 @@ function scanJsFiles(path) {
 			if (fs.lstatSync(file).isFile()) {
 				onFile(link);
 			}
+		} else {
+			console.log('Could not follow symlink: ' + link);
 		}
 	});
 	return finder;
