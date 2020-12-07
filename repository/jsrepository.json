@@ -1608,6 +1608,16 @@
 				]
 			},
 			{
+				"below" : "4.15.1",
+				"identifiers" : {
+					"summary" : "XSS-type attack inside CKEditor 4 by persuading a victim to paste a specially crafted HTML code into the Color Button dialog"
+				},
+				"severity" : "medium",
+				"info" : [
+					"https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-4151"
+				]
+			},
+			{
 				"below" : "4.14.0",
 				"identifiers" : {
 					"summary" : "XSS"

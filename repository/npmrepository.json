@@ -4672,6 +4672,16 @@
         "info": [
           "https://hackerone.com/reports/380873"
         ]
+      },
+      {
+        "below": "4.17.20",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://snyk.io/vuln/SNYK-JS-LODASH-590103"
+        ]
       }
     ]
   },
