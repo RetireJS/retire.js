@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.2.4]
+
+### Bugfix
+- Fixes [#343](https://github.com/RetireJS/retire.js/pull/343) where symlink to nonexistent file causes it to crash with exception. Now it will log it as warn instead.
+
 ## [2.2.3]
 
 ### Bugfix
