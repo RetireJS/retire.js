@@ -78,10 +78,14 @@ function scanJsFiles(path) {
 		}
 	}
 	finder.on('file', onFile);
-	finder.on('link', function(link) {
-		var file = fs.realpathSync(link);
-		if (fs.lstatSync(file).isFile()) {
-			onFile(link);
+	finder.on('link', function(link) {		
+		if (fs.existsSync(link)) {
+			var file = fs.realpathSync(link);
+			if (fs.lstatSync(file).isFile()) {
+				onFile(link);
+			}
+		} else {
+			console.log('Could not follow symlink: ' + link);
 		}
 	});
 	return finder;
