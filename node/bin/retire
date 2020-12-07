@@ -189,7 +189,7 @@ events.on('node-repo-loaded', function() {
 
 
 events.on('scan-js', function() {
-  resolve.scanJsFiles(config.jspath || config.path)
+  resolve.scanJsFiles(config.jspath || config.path, config)
     .on('jsfile', function(file) {
       scanner.scanJsFile(file, jsRepo, config);
     })

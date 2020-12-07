@@ -67,7 +67,7 @@ function getNodeDependencies(path, limit) {
 	return events;
 }
 
-function scanJsFiles(path, logger) {
+function scanJsFiles(path, options) {
 	var finder = walkdir.find(path, { "follow_symlinks" : false, "no_return": true });
 	function onFile(file){
 		if (file.match(/\.js$/)) {
@@ -85,14 +85,14 @@ function scanJsFiles(path, logger) {
 				onFile(link);
 			}
 		} else {
-			logger.warn('Could not follow symlink: ' + link);
+			options.log.warn('Could not follow symlink: ' + link);
 		}
 	});
 	return finder;
 }
 
-exports.scanJsFiles = function(path, logger) {
-	return scanJsFiles(path, logger);
+exports.scanJsFiles = function(path, options) {
+	return scanJsFiles(path, options);
 };
 
 exports.getNodeDependencies = function(path, limit) {
