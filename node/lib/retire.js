@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '2.0.3-GuardRails';
+exports.version = '2.0.3-GuardRails-141220';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';

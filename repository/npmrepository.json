@@ -7,6 +7,15 @@
 	"angular" : {
 		"vulnerabilities" : [
 			{
+				"below" : "1.8.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "angular.js prior to 1.8.0 allows cross site scripting. The regex-based input HTML replacement may turn sanitized code into unsanitized one.",
+					"CVE": [ "CVE-2020-7676" ] 
+				},
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2020-7676" ]	
+			},
+			{
 				"atOrAbove" : "1.5.0",
 				"below" : "1.6.9",
 				"severity": "low",
@@ -1997,6 +2006,14 @@
   },
   "jquery": {
     "vulnerabilities": [
+			{
+				"below" : "3.5.0",
+				"identifiers": {
+					"summary": "Regex in its jQuery.htmlPrefilter  sometimes may introduce XSS"
+				},
+				"severity" : "medium",
+				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
+			},
 			{
 				"below" : "3.4.0",
 				"identifiers": {
@@ -4654,6 +4671,16 @@
         },
         "info": [
           "https://hackerone.com/reports/380873"
+        ]
+      },
+      {
+        "below": "4.17.20",
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype pollution attack"
+        },
+        "info": [
+          "https://snyk.io/vuln/SNYK-JS-LODASH-590103"
         ]
       }
     ]

@@ -105,11 +105,29 @@
 				},
 				"severity" : "low",
 				"info" : [ "https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/", "https://nvd.nist.gov/vuln/detail/CVE-2019-11358", "https://github.com/jquery/jquery/commit/753d591aea698e57d6db58c9f722cd0808619b1b" ]
-			}
+			},
+			{
+				"below" : "3.5.0",
+				"identifiers": {
+					"CVE": [ "CVE-2020-11022" ],
+					"summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS"
+				},
+				"severity" : "medium",
+				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
+			},
+			{
+				"below" : "3.5.0",
+				"identifiers": {
+					"CVE": [ "CVE-2020-11023" ],
+					"summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS"
+				},
+				"severity" : "medium",
+				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
+			}	
 		],
 		"extractors" : {
 			"func"    		: [
-								"(jQuery || $ || $jq || $j).fn.jquery",
+								"(window.jQuery || window.$ || window.$jq || window.$j).fn.jquery",
 								"require('jquery').fn.jquery"
 			],
 			"uri"			: [ "/(§§version§§)/jquery(\\.min)?\\.js" ],
@@ -288,7 +306,7 @@
 				"identifiers": {
 					"CVE" : [ "CVE-2012-6662" ],
 					"bug": "8859",
-					"summary": "Autocomplete cross-site scripting vulnerability"
+					"summary": "Cross-site scripting (XSS) vulnerability in the default content option in jquery.ui.tooltip"
 				},
 				"info" : [ "http://bugs.jqueryui.com/ticket/8859", "https://nvd.nist.gov/vuln/detail/CVE-2012-6662" ]
 			}
@@ -451,7 +469,42 @@
 				"identifiers" : { "summary" : "FIXED so links with xlink:href attributes are filtered correctly to prevent XSS." },
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
+			},
+			{
+				"below" : "5.1.4",
+				"atOrAbove" : "5.0.0",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor via the clipboard or APIs",
+					"githubID" : "GHSA-27gm-ghr9-4v95"
+				},
+				"info" : [ "https://github.com/tinymce/tinymce/security/advisories/GHSA-27gm-ghr9-4v95" ]
+			},
+			{
+				"below" : "5.1.6",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "CDATA parsing and sanitization has been improved to address a cross-site scripting (XSS) vulnerability."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes516/" ]
+			},
+			{
+				"below" : "5.2.2",
+				"severity" : "low",
+				"identifiers" : { 
+					"summary" : "media embed content not processing safely in some cases."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes522/" ]
+			},
+			{
+				"below" : "5.4.0",
+				"severity" : "low",
+				"identifiers" : { 
+					"summary" : "content in an iframe element parsing as DOM elements instead of text content."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes54/" ]
 			}
+
 		],
 		"extractors" : {
 			"filecontent"	     : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
@@ -826,12 +879,53 @@
 				"identifiers": { "PR" : "307" },
 				"info" : [ "https://github.com/dojo/dojo/pull/307" , "https://dojotoolkit.org/blog/dojo-1-14-released"]
 			},
-      {
-        "below" : "1.14",
-        "severity": "medium",
-        "identifiers": { "CVE": ["CVE-2018-15494"] },
-        "info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
-      }
+		    {
+		        "below" : "1.14",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2018-15494"] },
+		        "info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
+		    },
+		    {
+		        "below" : "1.11.10",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.12.8",
+				"atOrAbove" : "1.12.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.13.7",
+				"atOrAbove" : "1.13.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.14.6",
+				"atOrAbove" : "1.14.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.15.3",
+				"atOrAbove" : "1.15.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.16.2",
+				"atOrAbove" : "1.16.0",
+		        "severity": "medium",
+		        "identifiers": { "CVE": ["CVE-2020-5258"] },
+		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    }
 		],
 		"extractors" : {
 			"func"				 : [ "dojo.version.toString()" ],
@@ -855,6 +949,32 @@
 	"angularjs" : {
 		"bowername": [ "angularjs", "angular.js" ],
 		"vulnerabilities" : [
+			{
+				"below" : "1.8.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "XSS may be triggered in AngularJS applications that sanitize user-controlled HTML snippets before passing them to JQLite methods like JQLite.prepend, JQLite.after, JQLite.append, JQLite.replaceWith, JQLite.append, new JQLite and angular.element.",
+					"CVE": [ "CVE-2020-7676" ] 
+				},
+				"info" : [ "https://github.com/advisories/GHSA-5cp4-xmrw-59wf" ]	
+			},	
+			{
+				"below" : "1.8.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "angular.js prior to 1.8.0 allows cross site scripting. The regex-based input HTML replacement may turn sanitized code into unsanitized one.",
+					"CVE": [ "CVE-2020-7676" ] 
+				},
+				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2020-7676" ]	
+			},	
+			{
+				"below" : "1.7.9",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Prototype pollution"
+				},
+				"info" : [ "https://github.com/angular/angular.js/commit/726f49dcf6c23106ddaf5cfd5e2e592841db743a", "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#179-pollution-eradication-2019-11-19" ]
+			},
 			{
 				"atOrAbove" : "1.5.0",
 				"below" : "1.6.9",
@@ -972,7 +1092,7 @@
 			"hashes"		: {}
 		}
 	},
-	"handlebars.js" : {
+	"handlebars" : {
 		"bowername": [ "handlebars", "handlebars.js" ],
 		"vulnerabilities" : [
 			{
@@ -1028,6 +1148,26 @@
 					"https://github.com/wycats/handlebars.js/issues/1495",
 					"https://github.com/wycats/handlebars.js/commit/cd38583216dce3252831916323202749431c773e"
 				]
+			},
+			{
+				"below" : "4.3.0",
+				"severity": "low",
+				"identifiers": {
+					"summary": "Disallow calling helperMissing and blockHelperMissing directly"
+				},
+				"info" : [
+					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v430---september-24th-2019"
+				]
+			},
+			{
+				"below" : "4.5.3",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Prototype pollution"
+				},
+				"info" : [
+					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v453---november-18th-2019"
+				]
 			}
 		],
 		"extractors" : {
@@ -1037,7 +1177,7 @@
 			"filecontent"	: [
 				"Handlebars.VERSION = \"(§§version§§)\";", "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
 				"this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
-				"/\\*![\n\r \t]+handlebars v(§§version§§)"
+				"/\\*+![\\s]+(?:@license)?[\\s]+handlebars v(§§version§§)"
 			],
 			"hashes"		: {}
 		}
@@ -1125,6 +1265,24 @@
 				"severity": "low",
 				"identifiers": { "summary": "safari UXSS" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.9.0" ]
+			},
+			{
+				"below" : "2.0.16",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS-based bypass caused by nested forms inside MathML" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.0.17",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed another bypass causing mXSS by using MathML" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.1.1",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			}
 		],
 		"extractors" : {
@@ -1387,7 +1545,8 @@
 			"filecontent"	: [
 								"/\\*!? Bootstrap v(§§version§§)",
 								"\\* Bootstrap v(§§version§§)",
-								"/\\*! Bootstrap v(§§version§§)"
+								"/\\*! Bootstrap v(§§version§§)",
+								"this\\.close\\)};.\\.VERSION=\"(§§version§§)\"(?:,.\\.TRANSITION_DURATION=150)?,.\\.prototype\\.close"
 			],
 			"hashes"		: {}
 		}
@@ -1447,6 +1606,24 @@
 					"https://ckeditor.com/blog/CKEditor-4.11-with-emoji-dropdown-and-auto-link-on-typing-released/",
 					"https://snyk.io/vuln/SNYK-JS-CKEDITOR-72618"
 				]
+			},
+			{
+				"below" : "4.15.1",
+				"identifiers" : {
+					"summary" : "XSS-type attack inside CKEditor 4 by persuading a victim to paste a specially crafted HTML code into the Color Button dialog"
+				},
+				"severity" : "medium",
+				"info" : [
+					"https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-4151"
+				]
+			},
+			{
+				"below" : "4.14.0",
+				"identifiers" : {
+					"summary" : "XSS"
+				},
+				"severity" : "low",
+				"info": [ "https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-414" ]
 			}
 		],
 		"extractors" : {
