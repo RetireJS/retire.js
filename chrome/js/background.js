@@ -110,7 +110,7 @@ window.addEventListener("message", function(evt) {
 });
 
 function stringifyResults(results) {
-	return results.map(x => "\n" + x.component + ":" + x.version).reduce((a,b) => a + b);
+	return results.map(x => "\n" + x.component + ":" + x.version).reduce((a,b) => a + b, "");
 }
 
 events.on('result-ready', function(details, results) {
