@@ -125,11 +125,15 @@ events.on('result-ready', function(details, results) {
 	
 	var result = { vulnerable: vulnerable, results: results, url: details.url };
 	setTimeout(function() {
-		chrome.tabs.sendMessage(details.tabId, {
-			message : JSON.stringify(result)
-		}, function(response) {
-			chrome.browserAction.setBadgeText({text : "" + response.count, tabId : details.tabId });
-		});
+		if (details.tabId >= 0) {
+			chrome.tabs.sendMessage(details.tabId, {
+				message : JSON.stringify(result)
+			}, function(response) {
+				if (response != null) { // per https://medium.com/javascript-in-plain-english/how-to-check-for-null-in-javascript-dffab64d8ed5
+					chrome.browserAction.setBadgeText({text : "" + response.count, tabId : details.tabId });
+				}
+			});
+		}
 	}, 3000);
 });
 
