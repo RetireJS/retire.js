@@ -14,7 +14,7 @@ Retire.js can be used in many ways:
 2. [As a gulp task](#user-content-gulp-task)
 3. [As a Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
 4. [As a Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox)
-5. [As a Burp and OWASP Zap plugin](https://github.com/h3xstream/burp-retire-js)
+5. [As a Burp Extension](https://github.com/h3xstream/burp-retire-js) or [OWASP ZAP Add-on](https://www.zaproxy.org/docs/desktop/addons/retire.js/)
 
 Command line scanner
 --------------------
@@ -69,11 +69,11 @@ Chrome and firefox extensions
 Scans visited sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicate if vulnerable libraries were loaded.
 
 
-Burp and OWASP ZAP plugin
+Burp Extension and OWASP ZAP Add-on
 -------------------------
 [@h3xstream](https://github.com/h3xstream) has adapted Retire.js as a [plugin](https://github.com/h3xstream/burp-retire-js) for the penetration testing tools [Burp](https://portswigger.net/burp/) and [OWASP ZAP](https://www.zaproxy.org). 
 
-The [OWASP ZAP](https://www.zaproxy.org) team officially supports a Retire.js plugin which is available via the ZAP Marketplace and is included by default in the ZAP weekly releases: https://www.zaproxy.org/docs/desktop/addons/retire.js/
+The [OWASP ZAP](https://www.zaproxy.org) team officially supports a Retire.js add-on which is available via the ZAP Marketplace and is included by default in the ZAP weekly releases: https://www.zaproxy.org/docs/desktop/addons/retire.js/
 
 Donate
 ------
