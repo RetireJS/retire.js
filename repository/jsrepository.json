@@ -1283,6 +1283,30 @@
 				"severity": "low",
 				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.0",
+				"severity": "low",
+				"identifiers": { "summary": "Fix a possible XSS in Chrome that is hidden behind #enable-experimental-web-platform-features" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.2",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS bypass dropped on us publicly via" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.3",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS issue reported" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.4",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed a new MathML-based bypass submitted by PewGrand. Fixed a new SVG-related bypass submitted by SecurityMB" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			}
 		],
 		"extractors" : {
@@ -1624,6 +1648,14 @@
 				},
 				"severity" : "low",
 				"info": [ "https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-414" ]
+			},
+			{
+				"below" : "4.16.0",
+				"identifiers" : {
+					"summary" : "ReDoS vulnerability in Autolink plugin and Advanced Tab for Dialogs plugin"
+				},
+				"severity" : "low",
+				"info": [ "https://ckeditor.com/cke4/release/CKEditor-4.16.0" ]
 			}
 		],
 		"extractors" : {

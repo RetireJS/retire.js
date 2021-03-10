@@ -6431,5 +6431,75 @@
         ]
       }
     ]
-  }
+  },
+  "dompurify" : {
+		"vulnerabilities" : [
+			{
+				"below" : "0.6.1",
+				"severity": "medium",
+				"identifiers": { },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.6.1" ]
+			},
+			{
+				"below" : "0.8.6",
+				"severity": "medium",
+				"identifiers": { },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.8.6" ]
+			},
+			{
+				"below" : "0.8.9",
+				"severity": "low",
+				"identifiers": { "summary": "safari UXSS" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.8.9", "https://lists.ruhr-uni-bochum.de/pipermail/dompurify-security/2017-May/000006.html" ]
+			},
+			{
+				"below" : "0.9.0",
+				"severity": "low",
+				"identifiers": { "summary": "safari UXSS" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.9.0" ]
+			},
+			{
+				"below" : "2.0.16",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS-based bypass caused by nested forms inside MathML" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.0.17",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed another bypass causing mXSS by using MathML" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.1.1",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.0",
+				"severity": "low",
+				"identifiers": { "summary": "Fix a possible XSS in Chrome that is hidden behind #enable-experimental-web-platform-features" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.2",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS bypass dropped on us publicly via" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.3",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS issue reported" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.4",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed a new MathML-based bypass submitted by PewGrand. Fixed a new SVG-related bypass submitted by SecurityMB" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			}
+		]
+	}
 }
