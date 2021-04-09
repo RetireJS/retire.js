@@ -82,10 +82,19 @@ These are the vulnerabilities currently detected by Retire.js
 </table>
 
 
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
 <script>
-$(function() {
-  function doIt(id, data) {
+
+
+function c(e,p,t) {
+  var elm = document.createElement(e);
+  p.appendChild(elm);
+  if (t) elm.textContent = t;
+  return elm;
+}
+function g(id) { return document.getElementById(id); }
+
+function doIt(id, data) {
     var keys = [];
     for (var i in data) keys.push(i);
     keys.sort(function(x,y) { return x.toLowerCase() < y.toLowerCase() ? -1 : 1;  });
@@ -94,25 +103,34 @@ $(function() {
       var i = keys[n];
       if (i == "retire-example") continue;
       for (var j in data[i].vulnerabilities) {
-        var tr = $("<tr>").appendTo($("#" + id));
-        if (j==0) tr.append($("<td>").text(i).attr("rowspan", data[i].vulnerabilities.length).css("font-weight", "bold"));
+        var tr = c("tr", g(id));
 
-        tr.append($("<td>").text(data[i].vulnerabilities[j].atOrAbove || "←"))
-          .append($("<td>").text(data[i].vulnerabilities[j].below || "→"));
-        var td = $("<td>").appendTo(tr);
-        var breaker = "";
-        for (var k in data[i].vulnerabilities[j].info) {
-          var url = data[i].vulnerabilities[j].info[k];
-          td.append(breaker).append($("<a>").attr("href", url).text(url));
-          breaker = "<br>";
+        if (j==0) {
+          var td = c("td", tr, i);
+          td.setAttribute("rowspan", data[i].vulnerabilities.length);
+          td.style.fontWeight = "bold"
         }
+
+        c("td", tr, data[i].vulnerabilities[j].atOrAbove || "←");
+        c("td", tr, data[i].vulnerabilities[j].below || "→");
+
+        var td = c("td", tr);
+
+        data[i].vulnerabilities[j].info.map((url, i) => {
+          if (i > 0) c("br", td);
+          var a = c("a", td, url)
+          a.href = url;
+        });
       }
     }
   }
-  $.getJSON("//rawgit.com/RetireJS/retire.js/master/repository/jsrepository.json", function(data) { doIt("vulnsjs", data); });
-  $.getJSON("//rawgit.com/RetireJS/retire.js/master/repository/npmrepository.json", function(data) { doIt("vulnsnode", data); });
 
-});
+
+
+
+fetch("//rawgit.com/RetireJS/retire.js/master/repository/jsrepository.json").then(r => r.json()).then(d => doIt("vulnsjs", d));
+fetch("//rawgit.com/RetireJS/retire.js/master/repository/npmrepository.json").then(r => r.json()).then(d => doIt("vulnsjs", d));
+
 </script>
 
 
