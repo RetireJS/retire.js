@@ -27,6 +27,7 @@ function download(url) {
 				console.log("Got " + xhr.status + " when trying to download " + url);
 			}
 		}
+		return true;
 	};
 	xhr.open("GET", url, true);
 	xhr.send();
@@ -43,6 +44,7 @@ function downloadRepo() {
 		vulnerable = {};
 		setFuncs();
 		events.emit('success');
+		return true;
 	});
 	return events;
 }
@@ -65,40 +67,45 @@ function getFileName(url) {
 
 
 events.on('scan', function(details) {
-	if (details.url.indexOf('chrome-extension://') === 0) return;
+	if (details.url.indexOf('chrome-extension://') === 0) return true;
 
 	if ((Date.now() - updatedAt) > 1000*60*60*6) {
 		downloadRepo().on('success', function() { events.emit('scan', details); });
-		return;
+		return true;
 	}
 	events.emit('result-ready', details, []);
 	console.log("Scanning " + details.url + " ...");
 	var results = retire.scanUri(details.url, repo);
 	if (results.length > 0) {
 		events.emit('result-ready', details, results);
-		return;
+		return true;
 	}
 	results = retire.scanFileName(getFileName(details.url), repo);
 	if (results.length > 0) {
 		events.emit('result-ready', details, results);
-		return;
+		return true;
 	}
-	download(details.url).on('success', function(content) { events.emit('script-downloaded', details, content); });
-	return;
+	download(details.url).on('success', function(content) { 
+		events.emit('script-downloaded', details, content); 
+		return true;
+	});
+	return true;
 });
 
 events.on('script-downloaded', function(details, content) {
 	var results = retire.scanFileContent(content, repo, hasher);
 	if (results.length > 0) {
 		events.emit('result-ready', details, results);
-		return;
+		return true;
 	}
 	events.emit('sandbox', details, content);
 	console.log(hasher.sha1(content) + " : " + details.url);
+	return true;
 });
 
 events.on('sandbox', function(details, content) {
 	sandboxWin.postMessage({ tabId: details.tabId, script : content, url: details.url, repoFuncs: repoFuncs }, "*");
+	return true;
 });
 
 window.addEventListener("message", function(evt) {
@@ -107,6 +114,7 @@ window.addEventListener("message", function(evt) {
 		console.log("SANDBOX", stringifyResults(results));
 		events.emit('result-ready', { url : evt.data.original.url, tabId : evt.data.original.tabId }, results);
 	}
+	return true;
 });
 
 function stringifyResults(results) {
@@ -129,11 +137,16 @@ events.on('result-ready', function(details, results) {
 			chrome.tabs.sendMessage(details.tabId, {
 				message : JSON.stringify(result)
 			}, function(response) {
+				let e = chrome.runtime.lastError
+				if (e) console.log("Failed to send message:" + e);
+				console.log(details.tabId);
 				if (response) {
 					chrome.browserAction.setBadgeText({text : "" + response.count, tabId : details.tabId });
 				}
+				return true;
 			});
 		}
+		return true;
 	}, 3000);
 });
 
@@ -142,14 +155,16 @@ chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 	if (request.to !== 'background') {
-		return;
+		return true;
 	}
 	if (request.message === 'enabled?') {
-		return sendResponse({ enabled : scanEnabled });
+		sendResponse({ enabled : scanEnabled });
+		return true;
 	}
 	if (request.message === 'enable') {
 		scanEnabled = request.data;
 	}
+	return true;
 });
 
 
@@ -162,9 +177,10 @@ downloadRepo().on('success', function() {
 		if (details.method === "GET" && scanEnabled) {
 			events.emit('scan', details);
 		}
-		return;
+		return true;
 	}
 	chrome.webRequest.onCompleted.addListener(scan, filter, []);
+	return true;
 });
 
 sandboxWin = window.document.getElementById("sandboxframe").contentWindow;
