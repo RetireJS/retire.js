@@ -16,7 +16,7 @@
 					out.push(r.component + " " + r.version + " - Info: " +
 						r.vulnerabilities.map(function(i) { return i.info }).flatten().join(" "));
 				})
-				console.log("Loaded script with known vulnerabilities: " + result.url + "\n - " + out.join("\n - "));
+				console.warn("Loaded script with known vulnerabilities: " + result.url + "\n - " + out.join("\n - "));
 			}
 		} else if (request.getDetected) {
 			sendResponse(totalResults);
