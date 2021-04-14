@@ -24,7 +24,7 @@ function download(url) {
 			if (xhr.status == 200) {
 				events.emit('success', xhr.responseText);
 			} else {
-				console.warn("Got " + xhr.status + " when trying to download " + url);
+				console.log("Got " + xhr.status + " when trying to download " + url);
 			}
 		}
 	};
@@ -116,7 +116,7 @@ function stringifyResults(results) {
 events.on('result-ready', function(details, results) {
 	var vulnerable = retire.isVulnerable(results);
 	if (vulnerable) {
-		console.warn(details.url, stringifyResults(results));
+		console.log(details.url, stringifyResults(results));
 		chrome.browserAction.setBadgeText({text : "!", tabId : details.tabId });
 	}
 	if (!vulnerable) console.log(details.url, stringifyResults(results));
