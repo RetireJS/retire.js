@@ -129,7 +129,7 @@ events.on('result-ready', function(details, results) {
 			chrome.tabs.sendMessage(details.tabId, {
 				message : JSON.stringify(result)
 			}, function(response) {
-				if (response != null) { // per https://medium.com/javascript-in-plain-english/how-to-check-for-null-in-javascript-dffab64d8ed5
+				if (response) {
 					chrome.browserAction.setBadgeText({text : "" + response.count, tabId : details.tabId });
 				}
 			});
