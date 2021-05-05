@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.2.5]
+
+### Dependency update
+- y18n had a vulnerability and was updated
+
 ## [2.2.4]
 
 ### Bugfix
