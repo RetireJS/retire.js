@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.0]
+
+### Deprecation notice
+- The node scanner is deprecated: https://github.com/RetireJS/retire.js/wiki/Deprecating-the-node.js-scanner
+
 ## [2.2.5]
 
 ### Dependency update

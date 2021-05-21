@@ -203,6 +203,7 @@ events.on('scan-js', function() {
 });
 
 events.on('scan-node', function() {
+  console.warn('DEPRECATION NOTICE: The node scanning is depreacated and will be removed soon. See https://github.com/RetireJS/retire.js/wiki/Deprecating-the-node.js-scanner ')
   resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
     scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
