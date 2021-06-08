@@ -103,7 +103,7 @@
 					"CVE" : [ "CVE-2019-11358" ],
 					"summary": "jQuery before 3.4.0, as used in Drupal, Backdrop CMS, and other products, mishandles jQuery.extend(true, {}, ...) because of Object.prototype pollution"
 				},
-				"severity" : "low",
+				"severity" : "medium",
 				"info" : [ "https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/", "https://nvd.nist.gov/vuln/detail/CVE-2019-11358", "https://github.com/jquery/jquery/commit/753d591aea698e57d6db58c9f722cd0808619b1b" ]
 			},
 			{
@@ -262,7 +262,7 @@
 			},
 			{
 				"below" : "1.12.0",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": [ "CVE-2016-7103" ],
 					"bug": "281",
@@ -302,7 +302,7 @@
 			{
 				"atOrAbove": "1.9.2",
 				"below" : "1.10.0",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE" : [ "CVE-2012-6662" ],
 					"bug": "8859",
@@ -326,7 +326,7 @@
 		"vulnerabilities" : [
 			{
 				"below" : "3.1.5",
-				"severity" : "high",
+				"severity" : "medium",
 				"identifiers" : { "CVE" : [ "CVE-2013-6837" ] },
 				"info" : [ "https://nvd.nist.gov/vuln/detail/CVE-2013-6837" ]
 			},
@@ -340,7 +340,7 @@
 		"extractors" : {
 			"func"    		: [ "jQuery.prettyPhoto.version" ],
 			"filecontent"	: [
-				"/\\*(?:.*[\n\r]+){1,3}.*Class: prettyPhoto(?:.*[\n\r]+){1,3}.*Version: (§§version§§)",
+				"/\\*[\r\n -]+Class: prettyPhoto(?:.*\n){1,3}[ ]*Version: (§§version§§)",
 				"\\.prettyPhoto[ ]?=[ ]?\\{version:[ ]?(?:'|\")(§§version§§)(?:'|\")\\}"
 			],
 			"hashes"		: {}
@@ -351,7 +351,7 @@
 		"vulnerabilities" : [
 			{
 				"below" : "2.3.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": [ "CVE-2013-2023" ],
 					"release" : "2.3.1",
@@ -360,7 +360,7 @@
 			},
 			{
 				"below" : "2.3.23",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": [ "CVE-2013-2022" ],
 					"release": "2.3.23",
@@ -370,7 +370,7 @@
 			},
 			{
 				"below" : "2.2.20",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {
 					"CVE": [ "CVE-2013-1942" ],
 					"release": "2.2.20",
@@ -382,7 +382,8 @@
 		"extractors" : {
 			"func"    		: [ "new jQuery.jPlayer().version.script" ],
 			"filecontent"	: [
-				"/\\*(?:.*[\n\r]+){1,3}.*jPlayer Plugin for jQuery(?:.*[\n\r]+){1,10}.*Version: (§§version§§)"
+				"/\\*!?[\n *]+jPlayer Plugin for jQuery (?:.*\n){1,10}[ *]+Version: (§§version§§)",
+				"/\\*!? jPlayer (§§version§§) for jQuery"
 			],
 			"hashes"		: {}
 		}
@@ -522,49 +523,49 @@
 			{
 				"atOrAbove" : "3.5.0" ,
 				"below" : "3.9.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2013-4942" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4942/" ]
 			},
 			{
 				"atOrAbove" : "3.2.0" ,
 				"below" : "3.9.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2013-4941" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4941/" ]
 			},
 			{
 				"atOrAbove" : "3.0.0",
 				"below" : "3.10.3",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2013-4940" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4940/" ]
 			},
 			{
 				"atOrAbove" : "3.0.0" ,
 				"below" : "3.9.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2013-4939" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-4939/" ]
 			},
 			{
 				"atOrAbove" : "2.8.0" ,
 				"below" : "2.9.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2012-5883" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5883/" ]
 			},
 			{
 				"atOrAbove" : "2.5.0" ,
 				"below" : "2.9.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2012-5882" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5882/" ]
 			},
 			{
 				"atOrAbove" : "2.4.0" ,
 				"below" : "2.9.1",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2012-5881" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-5881/" ]
 			},
@@ -577,21 +578,21 @@
 			{
 				"atOrAbove" : "2.8.0" ,
 				"below" : "2.8.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2010-4209" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4209/" ]
 			},
 			{
 				"atOrAbove" : "2.5.0" ,
 				"below" : "2.8.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2010-4208" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4208/" ]
 			},
 			{
 				"atOrAbove" : "2.4.0" ,
 				"below" : "2.8.2",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2010-4207" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2010-4207/" ]
 			}
@@ -673,7 +674,7 @@
 			},
 			{
 				"below" : "1.5.0",
-				"severity": "medium",
+				"severity": "low",
 				"identifiers": {
 					"CVE": [ "CVE-2014-0046" ],
 					"summary": "ember-routing-auto-location can be forced to redirect to another domain"
@@ -683,48 +684,48 @@
 			{
 				"atOrAbove" : "1.3.0-*",
 				"below" : "1.3.2",
-				"severity": "medium",
+				"severity": "low",
 				"identifiers": {"CVE": [ "CVE-2014-0046" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ]
 			},
 			{
 				"atOrAbove" : "1.2.0-*",
 				"below" : "1.2.2",
-				"severity": "medium",
+				"severity": "low",
 				"identifiers": {"CVE": [ "CVE-2014-0046" ] },
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/1h6FRgr8lXQ" ] },
 			{
 				"atOrAbove" : "1.4.0-*",
 				"below" : "1.4.0-beta.2",
-				"severity": "high",
+				"severity": "low",
 				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
 			},
 			{
 				"atOrAbove" : "1.3.0-*",
 				"below" : "1.3.1",
-				"severity": "high",
+				"severity": "low",
 				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
 			},
 			{
 				"atOrAbove" : "1.2.0-*",
 				"below" : "1.2.1",
-				"severity": "high",
+				"severity": "low",
 				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
 			},
 			{
 				"atOrAbove" : "1.1.0-*",
 				"below" : "1.1.3",
-				"severity": "high",
+				"severity": "low",
 				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
 			},
 			{
 				"atOrAbove" : "1.0.0-*",
 				"below" : "1.0.1",
-				"severity": "high",
+				"severity": "low",
 				"identifiers": {"CVE": ["CVE-2014-0013", "CVE-2014-0014"]},
 				"info" : [ "https://groups.google.com/forum/#!topic/ember-security/2kpXXCxISS4", "https://groups.google.com/forum/#!topic/ember-security/PSE4RzTi6l4" ]
 			},
@@ -881,7 +882,7 @@
 			},
 		    {
 		        "below" : "1.14",
-		        "severity": "medium",
+		        "severity": "high",
 		        "identifiers": { "CVE": ["CVE-2018-15494"] },
 		        "info" : [ "https://dojotoolkit.org/blog/dojo-1-14-released" ]
 		    },
@@ -960,7 +961,7 @@
 			},	
 			{
 				"below" : "1.8.0",
-				"severity": "medium",
+				"severity": "low",
 				"identifiers": {
 					"summary": "angular.js prior to 1.8.0 allows cross site scripting. The regex-based input HTML replacement may turn sanitized code into unsanitized one.",
 					"CVE": [ "CVE-2020-7676" ] 
@@ -1186,13 +1187,13 @@
 		"vulnerabilities" : [
 			{
 				"below" : "2.4.18",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2013-5212" ] },
 				"info" : [ "http://blog.kotowicz.net/2013/09/exploiting-easyxdm-part-1-not-usual.html", "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-5212" ]
 			},
 			{
 				"below" : "2.4.19",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2014-1403" ] },
 				"info" : [ "http://blog.kotowicz.net/2014/01/xssing-with-shakespeare-name-calling.html", "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1403" ]
 			}
@@ -1211,13 +1212,13 @@
 		"vulnerabilities" : [
 			{
 				"below" : "1.5.4",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2012-2401" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-2401/" ]
 			},
 			{
 				"below" : "1.5.5",
-				"severity": "high",
+				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2013-0237" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-0237/" ]
 			},
@@ -1226,6 +1227,19 @@
 				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2016-4566" ] },
 				"info" : [ "https://github.com/moxiecode/plupload/releases" ]
+			},
+			{
+				"below" : "2.3.7",
+				"severity": "medium",
+				"identifiers": { "summary": "Fixed security vulnerability by adding die calls to all php files to prevent them from being executed unless modified." },
+				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v2.3.7" ]
+			},
+			{
+				"below" : "3.1.3",
+				"atOrAbove" : "3.0.0",
+				"severity": "medium",
+				"identifiers": { "summary": "Fixed security vulnerability by adding die calls to all php files to prevent them from being executed unless modified." },
+				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v3.1.3" ]
 			}
 		],
 		"extractors" : {
@@ -1283,6 +1297,30 @@
 				"severity": "low",
 				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.0",
+				"severity": "low",
+				"identifiers": { "summary": "Fix a possible XSS in Chrome that is hidden behind #enable-experimental-web-platform-features" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.2",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS bypass dropped on us publicly via" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.3",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed an mXSS issue reported" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
+			},
+			{
+				"below" : "2.2.4",
+				"severity": "low",
+				"identifiers": { "summary": "Fixed a new MathML-based bypass submitted by PewGrand. Fixed a new SVG-related bypass submitted by SecurityMB" },
+				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			}
 		],
 		"extractors" : {
@@ -1324,7 +1362,7 @@
 			},
 			{
 				"atOrAbove" : "16.0.0", "below" : "16.0.1",
-				"severity" : "low",
+				"severity" : "medium",
 				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
@@ -1333,7 +1371,7 @@
 			},
 			{
 				"atOrAbove" : "16.1.0", "below" : "16.1.2",
-				"severity" : "low",
+				"severity" : "medium",
 				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
@@ -1342,7 +1380,7 @@
 			},
 			{
 				"atOrAbove" : "16.2.0", "below" : "16.2.1",
-				"severity" : "low",
+				"severity" : "medium",
 				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
@@ -1351,7 +1389,7 @@
 			},
 			{
 				"atOrAbove" : "16.3.0", "below" : "16.3.3",
-				"severity" : "low",
+				"severity" : "medium",
 				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
@@ -1360,7 +1398,7 @@
 			},
 			{
 				"atOrAbove" : "16.4.0", "below" : "16.4.2",
-				"severity" : "low",
+				"severity" : "medium",
 				"identifiers" : {
 					"CVE": [ "CVE-2018-6341" ],
 					"summary":"potential XSS vulnerability when the attacker controls an attribute name"
@@ -1454,7 +1492,7 @@
 					"summary": "XSS in data-template, data-content and data-title properties of tooltip/popover",
 					"CVE" : ["CVE-2019-8331"]
 				},
-				"severity" : "high",
+				"severity" : "medium",
 				"info" : [ "https://github.com/twbs/bootstrap/issues/28236" ]
 			},
 			{
@@ -1464,7 +1502,7 @@
 					"summary": "XSS in data-template, data-content and data-title properties of tooltip/popover",
 					"CVE" : ["CVE-2019-8331"]
 				},
-				"severity" : "high",
+				"severity" : "medium",
 				"info" : [ "https://github.com/twbs/bootstrap/issues/28236" ]
 			},
 			{
@@ -1624,6 +1662,14 @@
 				},
 				"severity" : "low",
 				"info": [ "https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-414" ]
+			},
+			{
+				"below" : "4.16.0",
+				"identifiers" : {
+					"summary" : "ReDoS vulnerability in Autolink plugin and Advanced Tab for Dialogs plugin"
+				},
+				"severity" : "low",
+				"info": [ "https://ckeditor.com/cke4/release/CKEditor-4.16.0" ]
 			}
 		],
 		"extractors" : {
@@ -1641,6 +1687,14 @@
 
 	"vue" : {
 		"vulnerabilities" : [
+			{
+				"below" : "2.6.11",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "Bump vue-server-renderer's dependency of serialize-javascript to 2.1.2"
+				},
+				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.6.11" ]
+			},
 			{
 				"below" : "2.5.17",
 				"severity" : "medium",
@@ -1664,7 +1718,7 @@
 			],
 			"filename"		: [ "vue-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
-				"/\\*!\\n * Vue.js v(§§version§§)",
+				"/\\*!\\n \\* Vue.js v(§§version§§)",
 				"Vue.version = '(§§version§§)';",
 				"'(§§version§§)'[^\\n]{0,8000}Vue compiler"
 			],
@@ -1677,7 +1731,7 @@
 			{
 				"below"       : "6.6.0",
 				"atOrAbove"   : "4.0.0",
-				"severity"    : "high",
+				"severity"    : "medium",
 				"identifiers" : {
 					"CVE"     : [
 						"CVE-2018-8046"
@@ -1707,7 +1761,7 @@
 			{
 				"below"       : "4.0.0",
 				"atOrAbove"   : "3.0.0",
-				"severity"    : "high",
+				"severity"    : "medium",
 				"identifiers" : {
 					"CVE"     : [
 						"CVE-2010-4207",
