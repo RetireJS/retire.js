@@ -1638,7 +1638,7 @@
   "gmail-js": {
     "vulnerabilities": [
       {
- 				"below":"100.0.0",
+        "below":"100.0.0",
         "atOrAbove": "0.0.0",
         "severity" : "high",
         "identifiers": { "advisory": "DOM-based XSS" },
@@ -1646,10 +1646,50 @@
       }
     ]
   },
+  "bootstrap-select": {
+    "vulnerabilities": [
+      {
+	"below":"1.13.6",
+        "severity" : "high",
+        "identifiers": {
+		"advisory": "XSS via title and data-content",
+	},
+        "info": [
+		"https://snyk.io/vuln/SNYK-JS-BOOTSTRAPSELECT-1014662",
+		"https://github.com/snapappointments/bootstrap-select/issues/2199#issuecomment-701806876"
+	]
+      },
+      {
+	"below":"1.13.6",
+        "severity" : "high",
+        "identifiers": {
+		"advisory": "XSS via the use of the data-subtext attribute, in cases where that content originates from a user-controlled input",
+	},
+        "info": [
+		"https://snyk.io/vuln/SNYK-JS-BOOTSTRAPSELECT-173741",
+		"https://github.com/snapappointments/bootstrap-select/commit/39c0078775a344078e308813ec838b23394a6764",
+		"https://github.com/snapappointments/bootstrap-select/issues/2199"
+	]
+      },
+      {
+	"below":"1.13.6",
+        "severity" : "medium",
+        "identifiers": {
+		"advisory": "XSS: the package does not escape title values on <option> tags",
+	},
+        "info": [
+		"https://snyk.io/vuln/SNYK-JS-BOOTSTRAPSELECT-570457",
+		"https://github.com/snapappointments/bootstrap-select/issues/2199",
+		"https://jsfiddle.net/b1dhf8ec/2/",
+		"https://github.com/dimpu/ngx-md/issues/129"
+	]
+      }
+    ]
+  },
   "bootstrap-tagsinput": {
     "vulnerabilities": [
       {
-				"below":"100.0.0",
+        "below":"100.0.0",
         "atOrAbove": "0.0.0",
         "severity" : "high",
         "identifiers": { "advisory": "XSS in itemTitle parameter" },
