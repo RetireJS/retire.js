@@ -1652,7 +1652,7 @@
 	"below":"1.13.6",
         "severity" : "high",
         "identifiers": {
-		"advisory": "XSS via title and data-content",
+		"advisory": "XSS via title and data-content"
 	},
         "info": [
 		"https://snyk.io/vuln/SNYK-JS-BOOTSTRAPSELECT-1014662",
@@ -1663,7 +1663,7 @@
 	"below":"1.13.6",
         "severity" : "high",
         "identifiers": {
-		"advisory": "XSS via the use of the data-subtext attribute, in cases where that content originates from a user-controlled input",
+		"advisory": "XSS via the use of the data-subtext attribute, in cases where that content originates from a user-controlled input"
 	},
         "info": [
 		"https://snyk.io/vuln/SNYK-JS-BOOTSTRAPSELECT-173741",
@@ -1675,7 +1675,7 @@
 	"below":"1.13.6",
         "severity" : "medium",
         "identifiers": {
-		"advisory": "XSS: the package does not escape title values on <option> tags",
+		"advisory": "XSS: the package does not escape title values on <option> tags"
 	},
         "info": [
 		"https://snyk.io/vuln/SNYK-JS-BOOTSTRAPSELECT-570457",
