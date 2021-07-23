@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.1]
+
+### Dependency update
+- glob-parent, lodash and hosted-git-info had vulnerabilities and was updated
+
 ## [3.0.0]
 
 ### Deprecation notice
