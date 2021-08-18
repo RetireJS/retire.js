@@ -1670,6 +1670,33 @@
 				},
 				"severity" : "low",
 				"info": [ "https://ckeditor.com/cke4/release/CKEditor-4.16.0" ]
+			},
+			{
+				"below" : "4.16.2",
+				"identifiers" : {
+					"summary" : "XSS vulnerability in the Clipboard plugin",
+					"CVE": [ "CVE-2021-32809" ]
+				},
+				"severity" : "low",
+				"info": [ "https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-7889-rm5j-hpgg" ]
+			},
+			{
+				"below" : "4.16.2",
+				"identifiers" : {
+					"summary" : "XSS vulnerability in the Widget plugin",
+					"CVE": [ "CVE-2021-32808" ]
+				},
+				"severity" : "low",
+				"info": [ "https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-6226-h7ff-ch6c" ]
+			},
+			{
+				"below" : "4.16.2",
+				"identifiers" : {
+					"summary" : "XSS vulnerability in the Fake Objects plugin",
+					"CVE": [ "CVE-2021-37695" ]
+				},
+				"severity" : "medium",
+				"info": [ "https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-m94c-37g6-cjhc" ]
 			}
 		],
 		"extractors" : {
