@@ -1684,7 +1684,7 @@
 				"below" : "4.16.2",
 				"identifiers" : {
 					"summary" : "XSS vulnerability in the Widget plugin",
-					"CVE": [ "CVE-2021-32808" ]
+					"CVE": [ "CVE-2021-32808" ]
 				},
 				"severity" : "low",
 				"info": [ "https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-6226-h7ff-ch6c" ]
