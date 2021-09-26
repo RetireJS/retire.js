@@ -20,9 +20,8 @@ function configureJsonLogger(logger, writer, config) {
 	};
 	logger.close = function(callback) {
 		finalResults.time = (Date.now() - scanStart)/1000;
-		var write = vulnsFound ? writer.err : writer.out;
 		var res = (config.outputformat === "jsonsimple") ? finalResults.data : finalResults;
-		write(JSON.stringify(res));
+		writer.out(JSON.stringify(res));
 		writer.close(callback); 
 	};
 }

@@ -3,6 +3,11 @@
 ## [3.0.1]
 
 ### Dependency update
+- always output JSON to stdout, to avoid conflict with deprecation warning
+
+## [3.0.1]
+
+### Dependency update
 - glob-parent, lodash and hosted-git-info had vulnerabilities and was updated
 
 ## [3.0.0]
