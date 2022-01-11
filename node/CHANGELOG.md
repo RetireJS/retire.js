@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.4]
+
+### Security
+
+- Pin colors dependency to avoid DOS from colors author
+
 ## [3.0.3]
 
 ### Bug
