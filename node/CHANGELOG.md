@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.6]
+
+### Security
+
+- Switch the `colors` package with `ansi-colors`
+
 ## [3.0.4] / [3.0.5]
 
 ### Security

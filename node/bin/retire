@@ -12,7 +12,7 @@ var utils     = require('../lib/utils'),
     os        = require('os'),
     path      = require('path'),
     fs        = require('fs'),
-    colors    = require('colors/safe'),
+    colors    = require('ansi-colors'),
     emitter   = new require('events').EventEmitter;
 
 var events = new emitter();
@@ -32,9 +32,6 @@ var severityLevels = {
   critical: 4
 };
 
-colors.setTheme({
-  warn: 'red'
-});
 
 
 /*
@@ -80,7 +77,7 @@ if (!config.nocache && !config.cachedir) {
 
 config.ignore = config.ignore ? utils.map(config.ignore.split(','), function(e) { return path.resolve(e); }) : [];
 config.ignore = { paths : config.ignore, descriptors: [] };
-config.colorwarn = config.colors ? colors.warn : x => x;
+config.colorwarn = config.colors ? colors.red : x => x;
 
 if (!config.ignorefile) {
   config.ignorefile = defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];
@@ -203,7 +200,7 @@ events.on('scan-js', function() {
 });
 
 events.on('scan-node', function() {
-  console.warn('DEPRECATION NOTICE: The node scanning is deprecated and will be removed soon. See https://github.com/RetireJS/retire.js/wiki/Deprecating-the-node.js-scanner ')
+  console.warn('DEPRECATION NOTICE: The node scanning is deprecated and will be removed soon. See https://github.com/RetireJS/retire.js/wiki/Deprecating-the-node.js-scanner ');
   resolve.getNodeDependencies(config.nodepath || config.path, config.package).on('done', function(dependencies) {
     scanner.scanDependencies(dependencies, nodeRepo, config);
     events.emit('scan-done');
