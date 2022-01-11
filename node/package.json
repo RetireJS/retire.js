@@ -13,7 +13,7 @@
   },
   "main": "./lib/retire.js",
   "dependencies": {
-    "colors": "^1.1.2",
+    "colors": "1.4.0",
     "commander": "2.5.x",
     "https-proxy-agent": "^5.0.0",
     "read-installed": "^4.0.3",
