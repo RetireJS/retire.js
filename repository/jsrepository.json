@@ -246,6 +246,47 @@
 			"hashes"		: {}
 		}
 	},
+	"jquery-ui" : {
+		"bowername": [ "jquery-ui", "jquery.ui" ],
+		"vulnerabilities" : [
+			{
+				"below" : "1.13.0",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": [ "CVE-2021-41184" ],
+					"summary": "XSS in the `of` option of the `.position()` util"
+				},
+				"info" : [ "https://github.com/jquery/jquery-ui/security/advisories/GHSA-gpqq-952q-5327", "https://nvd.nist.gov/vuln/detail/CVE-2021-41184" ]
+			},
+			{
+				"below" : "1.13.0",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": [ "CVE-2021-41183" ],
+					"bug": "15284",
+					"summary": "XSS Vulnerability on text options of jQuery UI datepicker"
+				},
+				"info" : [ "https://bugs.jqueryui.com/ticket/15284", "https://nvd.nist.gov/vuln/detail/CVE-2021-41183" ]
+			},
+			{
+				"below" : "1.13.0",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": [ "CVE-2021-41182" ],
+					"summary": "XSS in the `altField` option of the Datepicker widget"
+				},
+				"info" : [ "https://github.com/jquery/jquery-ui/security/advisories/GHSA-9gj3-hwp5-pmwc", "https://nvd.nist.gov/vuln/detail/CVE-2021-41182" ]
+			}
+		],
+		"extractors" : {
+			"func"    		: [ "jQuery.ui.version" ],
+			"filecontent"	: [
+				"/\\*!? jQuery UI - v(§§version§§)",
+				"/\\*!?[\n *]+jQuery UI (§§version§§)"
+			],
+			"hashes"		: {}
+		}
+	},
 	"jquery-ui-dialog" : {
 		"bowername": [ "jquery-ui", "jquery.ui" ],
 		"vulnerabilities" : [
