@@ -1569,6 +1569,26 @@
 				"info" : [ "https://github.com/twbs/bootstrap/issues/20184" ]
 			},
 			{
+				"atOrAbove" : "3.0.0",
+				"below" : "3.4.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "XSS is possible in the data-target attribute.",
+					"CVE" : [" CVE-2016-10735"]
+				},
+				"info" : [ "https://github.com/advisories/GHSA-4p24-vmcr-4gqj" ]
+			},
+			{
+				"atOrAbove" : "4.0.0-beta",
+				"below" : "4.0.0-beta.2",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "XSS is possible in the data-target attribute.",
+					"CVE" : [" CVE-2016-10735"]
+				},
+				"info" : [ "https://github.com/advisories/GHSA-4p24-vmcr-4gqj" ]
+			},
+			{
 				"below" : "2.1.0",
 				"severity": "medium",
 				"identifiers": {
