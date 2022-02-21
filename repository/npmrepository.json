@@ -1139,7 +1139,7 @@
 				"below" : "2.15.2",
 				"severity": "medium",
 				"identifiers": { 
-					"summary" : "Regular Expression Denial of Service (ReDoS)",
+					"summary" : "Regular Expression Denial of Service (ReDoS)"
 				},
 				"info" : [ 
 					"https://security.snyk.io/vuln/npm:moment:20161019"
