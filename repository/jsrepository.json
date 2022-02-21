@@ -1515,6 +1515,29 @@
 				"severity": "low",
 				"identifiers": { "summary":"reDOS - regular expression denial of service" },
 				"info" : [ "https://github.com/moment/moment/issues/2936" ]
+			},
+			{
+				"below" : "2.15.2",
+				"severity": "medium",
+				"identifiers": { 
+					"summary" : "Regular Expression Denial of Service (ReDoS)"
+				},
+				"info" : [ 
+					"https://security.snyk.io/vuln/npm:moment:20161019"
+				]
+			},
+			{
+				"below" : "2.19.3",
+				"severity": "low",
+				"identifiers": { 
+					"summary" : "Regular Expression Denial of Service (ReDoS)",
+					"CVE" : "CVE-2017-18214" 
+				},
+				"info" : [ 
+					"https://security.snyk.io/vuln/npm:moment:20170905",
+					"https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-18214",
+					"https://github.com/moment/moment/issues/4163"
+				]
 			}
 		],
 		"extractors" : {
