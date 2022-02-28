@@ -789,7 +789,7 @@
         "below": "1.5.2",
         "severity": "medium",
         "identifiers": {
-        	"CVE" : "CVE-2014-7205",
+          "CVE" : [ "CVE-2014-7205" ],
           "summary": "bassmaster_arbitrary-javascript-execution"
         },
         "info": [
@@ -1127,7 +1127,7 @@
 				"severity": "medium",
 				"identifiers": { 
 					"summary" : "Regular Expression Denial of Service (ReDoS)",
-					"CVE" : "CVE-2016-4055" 
+					"CVE" : [ "CVE-2016-4055" ]
 				},
 				"info" : [ 
 					"https://nodesecurity.io/advisories/55",
@@ -1150,7 +1150,7 @@
 				"severity": "low",
 				"identifiers": { 
 					"summary" : "Regular Expression Denial of Service (ReDoS)",
-					"CVE" : "CVE-2017-18214" 
+					"CVE" : [ "CVE-2017-18214" ]
 				},
 				"info" : [ 
 					"https://security.snyk.io/vuln/npm:moment:20170905",

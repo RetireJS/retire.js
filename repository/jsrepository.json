@@ -1531,7 +1531,7 @@
 				"severity": "low",
 				"identifiers": { 
 					"summary" : "Regular Expression Denial of Service (ReDoS)",
-					"CVE" : "CVE-2017-18214" 
+					"CVE" : [ "CVE-2017-18214" ] 
 				},
 				"info" : [ 
 					"https://security.snyk.io/vuln/npm:moment:20170905",
