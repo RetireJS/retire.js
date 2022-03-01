@@ -2,6 +2,36 @@
 
 var fs = require("fs");
 
+function checkRepoTypes(repo) {
+	let types = {}
+
+	Object.entries(repo).map(([key, obj]) => checkKeyTypes(key, obj, types, ""));
+	//console.log(types);
+}
+
+function checkKeyTypes(main, obj, types, path) {
+	//console.log(main, path, Array.isArray(obj) ? "[]" : typeof obj, types[path])
+	if (Array.isArray(obj)) {
+		if (types[path] && types[path] != "[]") {
+			throw new Error(`Unexpected type ${typeof obj} at path ${main}${path}. Expected type ${types[path]}`);
+		}
+		types[path] = "[]";
+		for (let o of obj) {
+			checkKeyTypes(main, o, types, path + "[]");
+		}
+		return;
+	}
+	if (types[path] && typeof obj != types[path]) {
+		throw new Error(`Unexpected type ${typeof o} at path ${main}${path}. Expected type ${types[path]}`);
+	}
+	types[path] = typeof obj;
+	if (typeof obj == "object") {
+		Object.entries(obj).map(([key, value]) => {
+			checkKeyTypes(main, value, types, `${path}.${key}`);
+		});
+	}
+}
+
 
 
 console.log("Checking that jsrepository is valid json...");
@@ -38,6 +68,11 @@ for (var i in jsRepo) {
 	}  
 }
 console.log(count + " regexes validated.")
+console.log("Check repo consistency for jsRepo...")
+checkRepoTypes(jsRepo);
+console.log("Done")
+
+
 
 
 console.log("Checking that npmrepository is valid json...");
@@ -53,4 +88,7 @@ Object.keys(npmRepo).map(k => {
 	}
 })
 
+console.log("Check repo consistency for npmRepo...")
+checkRepoTypes(npmRepo);
+console.log("Done")
 console.log("Success");
