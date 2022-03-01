@@ -1781,6 +1781,18 @@
 				},
 				"severity" : "medium",
 				"info": [ "https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-m94c-37g6-cjhc" ]
+			},
+			{
+				"below" : "4.17.0",
+				"identifiers" : {
+					"summary" : "XSS vulnerabilities in the core module",
+					"CVE": [ "CVE-2021-41164", "CVE-2021-41165" ]
+				},
+				"severity" : "medium",
+				"info": [ 
+					"https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-pvmx-g8h5-cprj",
+					"https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-7h26-63m7-qhf2"
+				]
 			}
 		],
 		"extractors" : {
