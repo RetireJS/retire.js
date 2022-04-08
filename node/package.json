@@ -2,7 +2,7 @@
   "author": "Erlend Oftedal <erlend@oftedal.no>",
   "name": "retire",
   "description": "Retire is a tool for detecting use of vulnerable libraries",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "dependencies": {
     "ansi-colors": "^4.1.1",
     "commander": "2.5.x",
-    "https-proxy-agent": "^5.0.0",
+    "proxy-agent": "^5.0.0",
     "read-installed": "^4.0.3",
     "walkdir": "0.4.1"
   },

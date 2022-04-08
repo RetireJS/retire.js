@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.7]
+
+### Fixes
+
+- Updating proxy library to fix proxy issues
+
+
 ## [3.0.6]
 
 ### Security
