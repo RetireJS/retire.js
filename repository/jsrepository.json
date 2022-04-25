@@ -1883,7 +1883,7 @@
 			"uri"			: [ "/(§§version§§)/ckeditor5(\\.min)?\\.js" ],
 			"filename"		: [ "ckeditor5-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
-								"const u=\"(§§version§§)\";.{0,140}?g.CKEDITOR_VERSION=u;",
+								"const .=\"(§§version§§)\";.{0,140}?\\.CKEDITOR_VERSION=.;",
 								"CKEDITOR_VERSION=\"(§§version§§)\""
 			],
 			"hashes"		: {},
