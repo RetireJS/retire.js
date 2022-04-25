@@ -1843,8 +1843,53 @@
 			"func"			: [ "CKEDITOR.version" ]
 		}
 	},
-
-
+	"ckeditor5" : {
+		"vulnerabilities": [
+			{
+				"below" : "10.0.1",
+				"identifiers" : {
+					"summary" : "XSS in the link package",
+					"CVE": [ "CVE-2018-11093" ]
+				},
+				"severity" : "low",
+				"info": [
+					"https://ckeditor.com/blog/CKEditor-5-v10.0.1-released/"
+				]
+			},
+			{
+				"below" : "25.0.0",
+				"identifiers" : {
+					"summary" : "ReDos in several packages",
+					"CVE": [ "CVE-2021-21254" ]
+				},
+				"severity" : "low",
+				"info": [
+					"https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-hgmg-hhc8-g5wr"
+				]
+			},
+			{
+				"below" : "27.0.0",
+				"identifiers" : {
+					"summary" : "ReDos in several packages",
+					"CVE": [ "CVE-2021-21391" ]
+				},
+				"severity" : "low",
+				"info": [
+					"https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-3rh3-wfr4-76mj"
+				]
+			}
+		],
+		"extractors" : {
+			"uri"			: [ "/(§§version§§)/ckeditor5(\\.min)?\\.js" ],
+			"filename"		: [ "ckeditor5-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [
+								"const u=\"(§§version§§)\";.{0,140}?g.CKEDITOR_VERSION=u;",
+								"CKEDITOR_VERSION=\"(§§version§§)\""
+			],
+			"hashes"		: {},
+			"func"			: [ "CKEDITOR_VERSION" ]
+		}
+	},
 	"vue" : {
 		"vulnerabilities" : [
 			{
