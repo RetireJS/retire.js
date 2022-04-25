@@ -1573,6 +1573,17 @@
 					"https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-18214",
 					"https://github.com/moment/moment/issues/4163"
 				]
+			},
+			{
+				"below" : "2.29.2",
+				"severity": "medium",
+				"identifiers": { 
+					"summary" : "This vulnerability impacts npm (server) users of moment.js, especially if user provided locale string, eg fr is directly used to switch moment locale.",
+					"CVE" : [ "CVE-2022-24785" ] 
+				},
+				"info" : [ 
+					"https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4"
+				]
 			}
 		],
 		"extractors" : {
