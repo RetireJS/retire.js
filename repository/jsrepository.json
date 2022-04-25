@@ -1819,6 +1819,17 @@
 					"https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-pvmx-g8h5-cprj",
 					"https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-7h26-63m7-qhf2"
 				]
+			},
+			{
+				"below" : "4.18.0",
+				"identifiers" : {
+					"summary" : "Inject malformed URL to bypass content sanitization for XSS",
+					"CVE": [ "CVE-2022-24728" ]
+				},
+				"severity" : "low",
+				"info": [
+					"https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-f6rf-9m92-x2hh"
+				]
 			}
 		],
 		"extractors" : {
@@ -1943,8 +1954,15 @@
 			]
 		}
 	},
+	
+	"svelte" : {
+		"vulnerabilities" : [
 
-
+		],
+		"extractors" : {
+			
+		}
+	},
 
 
 

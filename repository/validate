@@ -2,6 +2,11 @@
 
 var fs = require("fs");
 
+function exitWithError(...msg) {
+	console.warn(...msg);
+	process.exit(1);
+}
+
 function checkRepoTypes(repo) {
 	let types = {}
 
@@ -13,7 +18,7 @@ function checkKeyTypes(main, obj, types, path) {
 	//console.log(main, path, Array.isArray(obj) ? "[]" : typeof obj, types[path])
 	if (Array.isArray(obj)) {
 		if (types[path] && types[path] != "[]") {
-			throw new Error(`Unexpected type ${typeof obj} at path ${main}${path}. Expected type ${types[path]}`);
+			exitWithError(`Unexpected type ${typeof obj} at path ${main}${path}. Expected type ${types[path]}`);
 		}
 		types[path] = "[]";
 		for (let o of obj) {
@@ -22,7 +27,7 @@ function checkKeyTypes(main, obj, types, path) {
 		return;
 	}
 	if (types[path] && typeof obj != types[path]) {
-		throw new Error(`Unexpected type ${typeof o} at path ${main}${path}. Expected type ${types[path]}`);
+		exitWithError(`Unexpected type ${typeof o} at path ${main}${path}. Expected type ${types[path]}`);
 	}
 	types[path] = typeof obj;
 	if (typeof obj == "object") {
@@ -48,21 +53,19 @@ for (var i in jsRepo) {
 				if (types[j] == "filecontentreplace") {
 					var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(restring);
 					if (ar == null) {
-						console.warn("RegExp error - should be on format \"/search/replacement/\"", i, types[j], k);
-						process.exit(1);
+						exitWithError("RegExp error - should be on format \"/search/replacement/\"", `${i} ${types[j]}[${k}]`);
 					}
 					restring = ar[1];
 				}
 				var r = new RegExp(restring);
 				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
 				if (i != "dont check" && types[j] !== "filecontentreplace" && (!cre || cre.indexOf("§§version§§") !== 0)) {
-					throw new Error("First capture must be §§version§§ for " + i + ": " + restring);
+					exitWithError("First capture must be §§version§§ for " + i + ": " + restring);
 				}
 
 
 			} catch(e) {
-				console.warn("RegExp error ", i, types[j], k);
-				throw e;
+				exitWithError("RegExp error ", i, types[j], k);
 			}
 		}
 	}  
@@ -79,12 +82,12 @@ console.log("Checking that npmrepository is valid json...");
 var npmData = fs.readFileSync(__dirname + "/npmrepository.json", "utf-8");
 var npmRepo = JSON.parse(npmData);
 var k = Object.keys(npmRepo).filter(component => npmRepo[component].vulnerabilities.some(v => !v.below))
-if (k.length > 0) throw new Error('Components ' + k.map(c => '"' + c + '"').join(', ') + ' are missing "below"');
+if (k.length > 0) exitWithError('Components ' + k.map(c => '"' + c + '"').join(', ') + ' are missing "below"');
 
 console.log("Looking for duplicate keys in npmrepo ...");
 Object.keys(npmRepo).map(k => {
 	if (npmData.split('"' + k + '"').length > 2) {
-		throw new Error("Duplicate key for " + k);
+		exitWithError("Duplicate key for " + k);
 	}
 })
 
