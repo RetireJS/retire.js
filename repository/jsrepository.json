@@ -967,6 +967,15 @@
 		        "severity": "medium",
 		        "identifiers": { "CVE": ["CVE-2020-5258"] },
 		        "info" : [ "https://github.com/dojo/dojo/security/advisories/GHSA-jxfh-8wgv-vfr2" ]
+		    },
+		    {
+		        "below" : "1.17.0",
+		        "severity": "medium",
+		        "identifiers": {
+					"summary": "Prototype pollution",
+					"CVE": ["CVE-2021-23450"]
+				},
+		        "info" : [ "https://github.com/dojo/dojo/pull/418" ]
 		    }
 		],
 		"extractors" : {
