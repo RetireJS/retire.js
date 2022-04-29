@@ -6577,7 +6577,7 @@
 			{
 				"below" : "0.21.3",
 				"severity": "high",
-        "identifiers": {
+                                "identifiers": {
 					"summary": "Axios is vulnerable to Inefficient Regular Expression Complexity",
 					"CVE": [ "CVE-2021-3749" ]
 				},
@@ -6586,7 +6586,7 @@
       {
 				"below" : "0.21.1",
 				"severity": "medium",
-        "identifiers": {
+                                "identifiers": {
 					"summary": "Axios NPM package 0.21.0 contains a Server-Side Request Forgery (SSRF) vulnerability",
 					"CVE": [ "CVE-2020-28168" ]
 				},
@@ -6595,7 +6595,7 @@
       {
 				"below" : "0.18.1",
 				"severity": "medium",
-        "identifiers": {
+                                "identifiers": {
 					"summary": "Axios up to and including 0.18.0 allows attackers to cause a denial of service (application crash) by continuing to accepting content after maxContentLength is exceeded",
 					"CVE": [ "CVE-2019-10742" ]
 				},
