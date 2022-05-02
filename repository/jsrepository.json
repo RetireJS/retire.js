@@ -2025,11 +2025,61 @@
 
 		],
 		"extractors" : {
-			
+			"uri" : [
+			],
+			"filename" : [
+			],
+			"filecontent" : [
+			],
+			"func"     : []
 		}
 	},
 
-
+	"axois" : {
+		"vulnerabilities" : [
+			{
+				"below" : "0.21.3",
+				"severity": "high",
+				"identifiers": {
+					"summary": "Axios is vulnerable to Inefficient Regular Expression Complexity",
+					"CVE": [ "CVE-2021-3749" ]
+				},
+				"info" : [ "https://security.snyk.io/vuln/SNYK-JS-AXIOS-1579269", "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3749"]
+			},
+      		{
+				"below" : "0.21.1",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Axios NPM package 0.21.0 contains a Server-Side Request Forgery (SSRF) vulnerability",
+					"CVE": [ "CVE-2020-28168" ]
+				},
+				"info" : [ "https://security.snyk.io/vuln/SNYK-JS-AXIOS-1038255", "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-28168"]
+			},
+      		{
+				"below" : "0.18.1",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Axios up to and including 0.18.0 allows attackers to cause a denial of service (application crash) by continuing to accepting content after maxContentLength is exceeded",
+					"CVE": [ "CVE-2019-10742" ]
+				},
+				"info" : [ "https://security.snyk.io/vuln/SNYK-JS-AXIOS-174505", "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10742"]
+			}
+		],
+		"extractors" : {
+			"uri" : [
+				"/axois/(§§version§§)/.*\\.js"
+			],
+			"filename" : [
+				"axios-(§§version§§)(\\.min)?\\.js"
+			],
+			"filecontent" : [
+				"/\\* *axios v(§§version§§) "
+			],
+			"func" : [
+				"axios && axios.VERSION"
+			]
+		}
+	},
 
 
 	"dont check" : {
