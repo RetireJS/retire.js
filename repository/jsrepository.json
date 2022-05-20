@@ -2080,7 +2080,82 @@
 			]
 		}
 	},
-
+	"markdown-it": {
+		"vulnerabilities": [
+			{
+				"below": "12.3.2",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Regular Expression Denial of Service (ReDoS)",
+					"CVE": [ "CVE-2022-21670" ]
+				},
+				"info": [ "https://security.snyk.io/vuln/SNYK-JS-MARKDOWNIT-2331914", "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md", "https://nvd.nist.gov/vuln/detail/CVE-2022-21670" ]
+			},
+			{
+				"below": "10.0.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Regular Expression Denial of Service (ReDoS)"
+				},
+				"info": [ "https://security.snyk.io/vuln/SNYK-JS-MARKDOWNIT-459438", "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below": "4.3.1",
+				"atOrAbove": "4.0.0",
+				"severity":"medium",
+				"identifiers": {
+					"summary": "Cross-site Scripting (XSS)"
+				},
+				"info": [ "https://security.snyk.io/vuln/npm:markdown-it:20150702", "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md" ]
+			},
+			{
+				"below": "4.1.0",
+				"severity":"medium",
+				"identifiers": {
+					"summary": "Cross-site Scripting (XSS)",
+					"CVE": [ "CVE-2015-3295" ]
+				},
+				"info": [ "https://security.snyk.io/vuln/npm:markdown-it:20160912", "https://cve.mitre.org/cgi-bin/cvename.cgi?name=2015-3295", "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md" ]
+			}
+		],
+		"extractors": {
+			"uri": [
+				"/markdown-it/(§§version§§)/.*\\.js"
+			],
+			"filename": [
+				"markdown-it-(§§version§§)(\\.min)?\\.js"
+			],
+			"filecontent": [
+				"/\\*! markdown-it-ins (§§version§§)"
+			],
+			"func": [
+			]
+		}
+	},
+	"jszip": {
+		"vulnerabilities": [
+			{
+				"below": "3.7.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Denial of Service (DoS)",
+					"CVE": [ "CVE-2021-23413" ]
+				},
+				"info": [ "https://security.snyk.io/vuln/SNYK-JS-JSZIP-1251497", "https://nvd.nist.gov/vuln/detail/CVE-2021-23413" ]
+			}
+		],
+		"extractors": {
+			"uri": [
+				"/jszip/(§§version§§)/.*\\.js"
+			],
+			"filename": [
+			],
+			"filecontent": [
+			],
+			"func": [
+			]
+		}
+	},
 
 	"dont check" : {
 		"extractors" : {
