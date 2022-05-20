@@ -2129,7 +2129,6 @@
 				"/\\*! markdown-it-ins (§§version§§)"
 			],
 			"func": [
-				""
 			]
 		}
 	},
@@ -2150,13 +2149,10 @@
 				"/jszip/(§§version§§)/.*\\.js"
 			],
 			"filename": [
-				""
 			],
 			"filecontent": [
-				""
 			],
 			"func": [
-				""
 			]
 		}
 	},
