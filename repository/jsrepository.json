@@ -2120,13 +2120,13 @@
 		],
 		"extractors": {
 			"uri": [
-				"/markdown-it/(§§version§§)/.*\\.js"
+				"/markdown-it[/@](§§version§§)/?.*\\.js"
 			],
 			"filename": [
 				"markdown-it-(§§version§§)(\\.min)?\\.js"
 			],
 			"filecontent": [
-				"/\\*! markdown-it-ins (§§version§§)"
+				"/\\*! markdown-it(?:-ins)? (§§version§§)"
 			],
 			"func": [
 			]
@@ -2146,13 +2146,16 @@
 		],
 		"extractors": {
 			"uri": [
-				"/jszip/(§§version§§)/.*\\.js"
+				"/jszip[/@](§§version§§)/.*\\.js"
 			],
 			"filename": [
+				"jszip-(§§version§§)(\\.min)?\\.js"
 			],
 			"filecontent": [
+				"/\\*![ \n]+JSZip v(§§version§§) "
 			],
 			"func": [
+				"JSZip && JSZip.version"
 			]
 		}
 	},
