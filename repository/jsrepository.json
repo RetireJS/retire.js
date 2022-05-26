@@ -2160,6 +2160,28 @@
 		}
 	},
 
+	"AlaSQL": {
+		"vulnerabilities" : [
+			{
+				"below" : "0.7.0",
+				"severity" : "high",
+				"identifiers" : {
+					"CVE" : [ "CVE-XXXX-XXXX" ],
+					"bug" : "SNYK-JS-ALASQL-1082932",
+					"summary" : "An arbitrary code execution exists as AlaSQL doesn't sanitize input when characters are placed between square brackets [] or preceded with a backtik (accent grave) ` character. Versions older that 0.7.0 were deprecated in March of 2021 and should no longer be used."
+				},
+				"info" : [ "https://security.snyk.io/vuln/SNYK-JS-ALASQL-1082932" ]
+			}
+		],
+		"extractors" : {
+			"uri": [ "/alasql[/@](§§version§§)/.*\\.js" ],
+			"filename" : [ "alasql-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [ "/\\*!?[ \n]*AlaSQL v(§§version§§)" ],
+			"func" : [ "alasql && alasql.version" ]
+		}
+	},
+
+
 	"dont check" : {
 		"extractors" : {
 			"uri" : [
