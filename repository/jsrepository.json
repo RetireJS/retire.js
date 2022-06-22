@@ -174,14 +174,31 @@
 			"hashes"		: {}
 		}
 	},
-	"jquery.validator" : {
-		"bowername": [ "jquery-validator" ],
+	"jquery-validation" : {
+		"bowername": [ "jquery-validation" ],
 		"vulnerabilities" : [
+			{ 
+				"below": "1.19.4",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "ReDoS vulnerability in URL2 validation"
+				},
+				"info" : [ "https://github.com/jquery-validation/jquery-validation/blob/master/changelog.md#1194--2022-05-19" ]
+			},
+			{ 
+				"below": "1.19.3",
+				"severity" : "medium",
+				"identifiers" : {
+					"CVE" : [ "CVE-2021-21252" ],
+					"summary" : "Regular Expression Denial of Service vulnerability"
+				},
+				"info" : [ "https://github.com/jquery-validation/jquery-validation/blob/master/changelog.md#1193--2021-01-09" ]
+			}
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.validation.version" ],
-			"filename"		: [ "jquery.validation-(§§version§§)(.min)?\\.js" ],
-			"uri"			: [ "/(§§version§§)/jquery.validation(\\.min)?\\.js" ],
+			"filename"		: [ "jquery.validat(?:ion|e)-(§§version§§)(.min)?\\.js" ],
+			"uri"			: [ "/(§§version§§)/jquery.validat(ion|e)(\\.min)?\\.js" ],
 			"filecontent"	: [ "/\\*!?(?:\n \\*)? jQuery Validation Plugin v(§§version§§)" ],
 			"hashes"		: {}
 		}
