@@ -562,6 +562,38 @@
 					"summary" : "content in an iframe element parsing as DOM elements instead of text content."
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes54/" ]
+			},
+			{
+				"below" : "5.6.0",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "security issue where URLs in attributes weren’t correctly sanitized. security issue in the codesample plugin"
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes" ]
+			},
+			{
+				"below" : "5.7.1",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "URLs are not correctly filtered in some cases."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes571/#securityfixes" ]
+			},
+			{
+				"below" : "5.9.0",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "Inserting certain HTML content into the editor could result in invalid HTML once parsed. This caused a medium severity Cross Site Scripting (XSS) vulnerability"
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes" ]
+			},
+			{
+				"below" : "5.10.0",
+				"severity" : "medium",
+				"identifiers" : { 
+					"summary" : "URLs not cleaned correctly in some cases in the link and image plugins"
+				},
+				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes510/#securityfixes" ]
 			}
 
 		],
