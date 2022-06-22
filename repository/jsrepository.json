@@ -702,12 +702,14 @@
 				"below" : "1.6.0.2",
 				"severity": "high",
 				"identifiers": {"CVE": [ "CVE-2008-7220" ] },
-				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/", "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/" ] },
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/", "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/" ] 
+			},
 			{
 				"below" : "1.5.1.2",
 				"severity": "high",
 				"identifiers": {"CVE": [ "CVE-2008-7220" ] },
-				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/", "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/" ] }
+				"info" : [ "http://www.cvedetails.com/cve/CVE-2008-7220/", "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/" ] 
+			}
 		],
 		"extractors" : {
 			"func"    		: [ "Prototype.Version" ],
@@ -1267,6 +1269,26 @@
 				},
 				"info" : [
 					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v453---november-18th-2019"
+				]
+			},
+			{
+				"below" : "4.6.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Denial of service"
+				},
+				"info" : [
+					"https://github.com/handlebars-lang/handlebars.js/pull/1633"
+				]
+			},
+			{
+				"below" : "4.7.7",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Prototype pollution"
+				},
+				"info" : [
+					"https://github.com/handlebars-lang/handlebars.js/commit/f0589701698268578199be25285b2ebea1c1e427"
 				]
 			}
 		],
