@@ -2255,7 +2255,6 @@
 				"below" : "0.7.0",
 				"severity" : "high",
 				"identifiers" : {
-					"CVE" : [ "CVE-XXXX-XXXX" ],
 					"bug" : "SNYK-JS-ALASQL-1082932",
 					"summary" : "An arbitrary code execution exists as AlaSQL doesn't sanitize input when characters are placed between square brackets [] or preceded with a backtik (accent grave) ` character. Versions older that 0.7.0 were deprecated in March of 2021 and should no longer be used."
 				},
@@ -2269,6 +2268,34 @@
 			"func" : [ "alasql && alasql.version" ]
 		}
 	},
+
+	"jquery.datatables" : {
+		"vulnerabilities" : [
+			{	
+				"below" : "1.10.10",
+				"identifiers" : {
+					"summary" : "possible XSS"
+				},
+				"info" : [ "https://github.com/DataTables/DataTables/commit/6f67df2d21f9858ec40a6e9565c3a653cdb691a6" ]
+			},
+			{	
+				"below" : "1.10.8",
+				"identifiers" : {
+					"CVE" : [ "CVE-2015-6584" ],
+					"summary" : "XSS"
+				},
+				"info" : [ "https://github.com/DataTables/DataTablesSrc/commit/ccf86dc5982bd8e16d", "https://www.invicti.com/web-applications-advisories/cve-2015-6384-xss-vulnerability-identified-in-datatables/" ]
+			}
+
+		],
+		"extractors" : {
+			"uri": [ "/(§§version§§)/(js/)?jquery.dataTables.min.js" ],
+			"filename" : [ "jquery.dataTables-(§§version§§)(\\.min)?\\.js" ],
+			"filecontent"	: [ "http://www.datatables.net\n +DataTables (§§version§§)", "u.version=\"(§§version§§)\";u.settings=[];u.models={};u.models.oSearch" ],
+			"func" : [ "DataTable && DataTable.version" ]
+		}
+	},
+
 
 
 	"dont check" : {
