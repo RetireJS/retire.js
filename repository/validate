@@ -57,6 +57,12 @@ for (var i in jsRepo) {
 					}
 					restring = ar[1];
 				}
+				if (restring.includes("{}")) {
+					console.warn("This looks like an unescaped JS object. Should it have been escaped?", restring);
+				}
+				if (restring.includes("[]")) {
+					console.warn("This looks like an unescaped JS array. Should it have been escaped?", restring);
+				}
 				var r = new RegExp(restring);
 				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
 				if (i != "dont check" && types[j] !== "filecontentreplace" && (!cre || cre.indexOf("§§version§§") !== 0)) {

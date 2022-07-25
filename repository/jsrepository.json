@@ -1157,7 +1157,7 @@
 			"func"			: [ "Backbone.VERSION" ],
 			"uri"			: [ "/(§§version§§)/backbone(\\.min)?\\.js" ],
 			"filename"		: [ "backbone(?:js)?-(§§version§§)(.min)?\\.js" ],
-			"filecontent"	: [ "//[ ]+Backbone.js (§§version§§)", "a=t.Backbone={}}a.VERSION=\"(§§version§§)\"" ],
+			"filecontent"	: [ "//[ ]+Backbone.js (§§version§§)", "a=t.Backbone=\\{\\}\\}a.VERSION=\"(§§version§§)\"" ],
 			"hashes"		: {}
 		}
 	},
