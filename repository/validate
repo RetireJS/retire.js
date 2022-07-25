@@ -63,6 +63,10 @@ for (var i in jsRepo) {
 				if (restring.includes("[]")) {
 					console.warn("This looks like an unescaped JS array. Should it have been escaped?", restring);
 				}
+				if (/.*[^\\]\{[^0-9,\\]\}.*/.test(restring)) {
+					console.warn("There is something odd with this regex", restring);
+				}
+
 				var r = new RegExp(restring);
 				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
 				if (i != "dont check" && types[j] !== "filecontentreplace" && (!cre || cre.indexOf("§§version§§") !== 0)) {
