@@ -1,0 +1,20 @@
+{
+    "jquery" : {
+        "templates" : [ 
+            "https://code.jquery.com/jquery-§§version§§§§subversion§§.js"        ],
+        "versions" : {
+            "3.6.0"  : [ ".min", ".slim", ".slim.min" ], 
+            "2.2.4"  : [ ".min"], 
+            "1.12.4" : [ ".min"] 
+        }
+    },
+    "jquery.dataTables" : {
+        "templates" : [
+            "https://cdn.datatables.net/§§version§§/js/jquery.dataTables§§subversion§§.js"
+        ],
+        "versions" : {
+            "1.12.1"  : [ ".min" ]
+        }
+    }
+    
+}
