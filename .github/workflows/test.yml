@@ -23,5 +23,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: ./validate
         working-directory: repository
+      - run: npm install
+        working-directory: node
       - run: npm test
         working-directory: node
