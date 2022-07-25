@@ -57,6 +57,9 @@ async function runTests(jsRepo) {
                     if (results.length > 1) {
                         exitWithError(`Detect multiple components in ${name} using uri and filename on ${t} : ${results.map(a => a.name).join(", ")}` )
                     }
+                    if (results[0].component != name) {
+                        exitWithError(`Wrong component for ${version} of ${name} using uri or filename on ${t}: ${results[0].component}` )
+                    }
                     if (!results[0].version.startsWith(version)) {
                         exitWithError(`Wrong version for ${version} of ${name} using uri or filename on ${t}: ${results[0].version}` )
                     }
@@ -68,9 +71,13 @@ async function runTests(jsRepo) {
                     if (contentResults.length > 1) {
                         exitWithError(`Detect multiple components in ${name} using content on ${t} : ${results.map(a => a.name).join(", ")}` )
                     }
+                    if (contentResults[0].component != name) {
+                        exitWithError(`Wrong component for ${version} of ${name} using uri or filename on ${t}: ${contentResults[0].component}` )
+                    }
                     if (!contentResults[0].version.startsWith(version)) {
                         exitWithError(`Wrong version for ${version} of ${name} using content on ${t}: ${results[0].version}` )
                     }
+                    console.log(`  - ${contentResults[0].component} @ ${contentResults[0].version}`)
                 }
             }
         }
