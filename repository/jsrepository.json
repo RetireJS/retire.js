@@ -2291,7 +2291,7 @@
 		"extractors" : {
 			"uri": [ "/(§§version§§)/(js/)?jquery.dataTables.min.js" ],
 			"filename" : [ "jquery.dataTables-(§§version§§)(\\.min)?\\.js" ],
-			"filecontent"	: [ "http://www.datatables.net\n +DataTables (§§version§§)", "u.version=\"(§§version§§)\";u.settings=[];u.models={};u.models.oSearch" ],
+			"filecontent"	: [ "http://www.datatables.net\n +DataTables (§§version§§)", "u.version=\"(§§version§§)\";u.settings=\\[\\];u.models=\\{\\};u.models.oSearch" ],
 			"func" : [ "DataTable && DataTable.version" ]
 		}
 	},
