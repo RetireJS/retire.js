@@ -3,17 +3,17 @@
         "templates" : [ 
             "https://code.jquery.com/jquery-§§version§§§§subversion§§.js"        ],
         "versions" : {
-            "3.6.0"  : [ ".min", ".slim", ".slim.min" ], 
-            "2.2.4"  : [ ".min"], 
-            "1.12.4" : [ ".min"] 
+            "3.6.0"  : [ "", ".min", ".slim", ".slim.min" ], 
+            "2.2.4"  : [ "", ".min"], 
+            "1.12.4" : [ "", ".min"] 
         }
     },
     "jquery-migrate" : {
         "templates" : [ 
             "https://code.jquery.com/jquery-migrate-§§version§§§§subversion§§.js"        ],
         "versions" : {
-            "3.4.0"  : [ ".min" ],
-            "1.4.1" : [ ".min" ]
+            "3.4.0"  : [ "", ".min" ],
+            "1.4.1" :  [ "", ".min" ]
         }
     },
     "jquery.datatables" : {
@@ -21,7 +21,20 @@
             "https://cdn.datatables.net/§§version§§/js/jquery.dataTables§§subversion§§.js"
         ],
         "versions" : {
-            "1.12.1"  : [ ".min" ]
+            "1.12.1"  : [ "", ".min" ]
+        }
+    },
+
+    "vue" : {
+        "templates" : [
+            "https://cdn.jsdelivr.net/npm/vue@§§version§§",
+            "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue§§subversion§§.js"
+        ],
+        "versions" : {
+            "3.2.37" : [ ".global.prod.min" ],
+            "3.2.36" : [ ".global.prod.min" ],
+            "2.7.6"  : [ ".min" ],
+            "1.0.28"  : [ ".min" ]
         }
     }
     

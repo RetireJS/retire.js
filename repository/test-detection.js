@@ -8,6 +8,9 @@ const reporting = require("../node/lib/reporting.js")
 const options = {
     log : reporting.open({})
 }
+
+const limit = process.argv[2];
+
 var hash = {
     'sha1' : function(data) {
       shasum   = crypto.createHash('sha1');
@@ -17,16 +20,21 @@ var hash = {
 };
 
 const https = require("https");
+const dlCache = {};
 async function dl(uri) {
     console.log(`  Downloading ${uri}`);
     return new Promise((resolve, reject) => {
+        if (dlCache[uri]) return resolve(dlCache[uri]);
         let d = https.get(uri, (res) => {
             if (res.statusCode != 200) {
                 return reject("Failed to download " + uri + ": " + res.statusCode);                    
             }
             let d = [];
             res.on("data", data => d.push(data));
-            res.on("end", () => { resolve(Buffer.concat(d))});
+            res.on("end", () => { 
+                dlCache[uri] = Buffer.concat(d);
+                resolve(dlCache[uri]);
+            });
         });
         d.on("error", (err) => {
             console.warn(err);
@@ -42,10 +50,11 @@ function exitWithError(...msg) {
 
 async function runTests(jsRepo) {
     for (let [name, content] of Object.entries(testCases)) {
+        if (limit && limit != name) continue;
         console.log(`Testing ${name}`)
         const { templates, versions } = content;
         for (let [version, subVersions] of Object.entries(versions)) {
-            for (let sub of [""].concat(subVersions)) {
+            for (let sub of subVersions) {
                 for (let template of templates) {
                     let t = template.replace("§§version§§", version).replace("§§subversion§§", sub);
                     let resultsUri = retire.scanUri(t, jsRepo);
@@ -88,5 +97,7 @@ async function runTests(jsRepo) {
 
 
 repo.loadrepositoryFromFile("./jsrepository.json", options).on('done', (jsRepo) =>  {
-    runTests(jsRepo).then(() => console.log("Done!"));
-});
+    runTests(jsRepo)
+        .then(() => console.log("Done!"))
+        .catch(err => console.warn("Failed!", err));
+})
