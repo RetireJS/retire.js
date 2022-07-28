@@ -463,8 +463,9 @@
 		"extractors" : {
 			"func"    		: [ "ko.version" ],
 			"filename"		: [ "knockout-(§§version§§)(.min)?\\.js"],
+			"uri"			: [ "/knockout/(§§version§§)/knockout(-[a-z.]+)?\\.js" ],
 			"filecontent"	: [
-				"\\* Knockout JavaScript library v(§§version§§)"
+				"(?:\\*|//) Knockout JavaScript library v(§§version§§)"
 			],
 			"hashes"		: {}
 		}
