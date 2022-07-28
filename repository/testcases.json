@@ -69,6 +69,23 @@
             "subversions" : [ "", ".min" ]
         }
     },
+    "ember" : {
+        "https://cdnjs.cloudflare.com/ajax/libs/ember.js/§§version§§/ember-§§version§§.min.js" : {
+            "versions" : [ "0.9.7" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/ember.js/§§version§§/ember§§subversion§§.js" : {
+            "versions" : [ "1.0.0", "2.0.1", "2.16.4" ],
+            "subversions" : [ ".min" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/ember.js/§§version§§/ember.prod§§subversion§§.js" : {
+            "versions" : [ "3.1.0" ],
+            "subversions" : [ "", ".min" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/ember.js/§§version§§/ember-template-compiler.min.js" : {
+            "versions" : [ "4.1.0", "4.6.0" ],
+            "subversions" : [ "", ".min" ]
+        }
+    },
     "vue" : {
         "https://cdn.jsdelivr.net/npm/vue@§§version§§" : {
             "versions" : [ "3.2.37", "3.2.36", "2.7.6", "1.0.28" ]

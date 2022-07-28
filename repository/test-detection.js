@@ -57,7 +57,7 @@ async function runTests(jsRepo) {
             subversions = subversions || [ "" ];
             for (let version of versions) {
                 for (let sub of subversions) {
-                    let t = template.replace("§§version§§", version).replace("§§subversion§§", sub);
+                    let t = template.replace(/§§version§§/g, version).replace(/§§subversion§§/g, sub);
                     if (!contentOnly) {
                         let resultsUri = retire.scanUri(t, jsRepo);
                         let resultsFilename = retire.scanFileName(t.split("/").pop(), jsRepo);

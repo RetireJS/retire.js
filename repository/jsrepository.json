@@ -886,12 +886,16 @@
 		],
 		"extractors" : {
 			"func"			: [ "Ember.VERSION" ],
-			"uri"			: [ "/(?:v)?(§§version§§)/ember(\\.min)?\\.js" ],
+			"uri"			: [ "/(?:v)?(§§version§§)/ember(\\.min)?\\.js", "/ember\\.?js/(§§version§§)/ember((\\.|-)[a-z\\-.]+)?\\.js" ],
 			"filename"		: [ "ember-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
 				"Project:   Ember -(?:.*\n){9,11}// Version: v(§§version§§)",
 				"// Version: v(§§version§§)(.*\n){10,15}(Ember Debug|@module ember|@class ember)",
-				"Ember.VERSION[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")"
+				"Ember.VERSION[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")",
+				"meta\\.revision=\"Ember@(§§version§§)\"",
+				"e\\(\"ember/version\",\\[\"exports\"\\],function\\(e\\)\\{\"use strict\";?[\\s]*e(?:\\.|\\[\")default(?:\"\\])?=\"(§§version§§)\"",
+				"\\(\"ember/version\",\\[\"exports\"\\],function\\(e\\)\\{\"use strict\";.{1,70}\\.default=\"(§§version§§)\"",
+				"/\\*![\\s]+\\* @overview  Ember - JavaScript Application Framework[\\s\\S]{0,400}\\* @version   (§§version§§)"
 			],
 			"hashes"		: {}
 		}
@@ -1792,7 +1796,7 @@
 								"/\\*!? Bootstrap v(§§version§§)",
 								"\\* Bootstrap v(§§version§§)",
 								"/\\*! Bootstrap v(§§version§§)",
-								"this\\.close\\)};.\\.VERSION=\"(§§version§§)\"(?:,.\\.TRANSITION_DURATION=150)?,.\\.prototype\\.close"
+								"this\\.close\\)\\};.\\.VERSION=\"(§§version§§)\"(?:,.\\.TRANSITION_DURATION=150)?,.\\.prototype\\.close"
 			],
 			"hashes"		: {}
 		}
