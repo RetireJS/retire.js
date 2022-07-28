@@ -1,52 +1,61 @@
 {
     "jquery" : {
-        "templates" : [ 
-            "https://code.jquery.com/jquery-§§version§§§§subversion§§.js"
-        ],
-        "versions" : {
-            "3.6.0"  : [ "", ".min", ".slim", ".slim.min" ], 
-            "2.2.4"  : [ "", ".min"], 
-            "1.12.4" : [ "", ".min"] 
+        "https://code.jquery.com/jquery-§§version§§.slim§§subversion§§.js" : {
+            "versions" : [ "3.6.0" ],
+            "subversions" : [ "", ".min" ]
+        },
+        "https://code.jquery.com/jquery-§§version§§§§subversion§§.js" : {
+            "versions" : [ "3.6.0", "2.2.4", "1.12.4" ],
+            "subversions" : [ "", ".min" ]            
         }
     },
     "jquery-validation" : {
-        "templates" : [ 
-            "https://cdn.jsdelivr.net/npm/jquery-validation@§§version§§/dist/jquery.validate§§subversion§§.js",
-            "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/§§version§§/jquery.validate§§subversion§§.js"
-        ],
-        "versions" : {
-            "1.19.5"  : [ "", ".min" ],
-            "1.15.1"  : [ "", ".min" ]
+        "https://cdn.jsdelivr.net/npm/jquery-validation@§§version§§/dist/jquery.validate§§subversion§§.js" : {
+            "versions" : [ "1.19.5", "1.15.1" ],
+            "subversions" : [ "", ".min" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/§§version§§/jquery.validate§§subversion§§.js": {
+            "versions" : [ "1.19.5", "1.15.1" ],
+            "subversions" : [ "", ".min" ]
         }
     },
     "jquery-migrate" : {
-        "templates" : [ 
-            "https://code.jquery.com/jquery-migrate-§§version§§§§subversion§§.js" 
-        ],
-        "versions" : {
-            "3.4.0"  : [ "", ".min" ],
-            "1.4.1" :  [ "", ".min" ]
+        "https://code.jquery.com/jquery-migrate-§§version§§§§subversion§§.js" : {
+            "versions" : [ "3.4.0", "1.4.1" ],
+            "subversions" : ["", ".min"]
         }
     },
     "jquery.datatables" : {
-        "templates" : [
-            "https://cdn.datatables.net/§§version§§/js/jquery.dataTables§§subversion§§.js"
-        ],
-        "versions" : {
-            "1.12.1"  : [ "", ".min" ]
+        "https://cdn.datatables.net/§§version§§/js/jquery.dataTables§§subversion§§.js": {
+            "versions" : [ "1.12.1"  ],
+            "subversions" : [ "", ".min" ]    
+        }
+    },
+    "jquery.prettyPhoto" : {
+        "https://raw.githubusercontent.com/scaron/prettyphoto/4d1ab278553a9179a0ab90657ff8452505db4987/js/jquery.prettyPhoto.js" : {
+            "versions" : [ "3.1.4" ],
+            "contentOnly" : true
+        },
+        "https://raw.githubusercontent.com/scaron/prettyphoto/d0a7a048508f0c4e045a85a5964d45678e196f21/js/jquery.prettyPhoto.js" : {
+            "versions" : [ "3.1.5" ],
+            "contentOnly" : true
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/prettyPhoto/§§version§§/js/jquery.prettyPhoto.min.js": {
+            "versions" : [ "3.1.6" ]        
+        },
+        "https://cdn.jsdelivr.net/gh/scaron/prettyphoto@§§version§§/js/jquery.prettyPhoto.js" : {
+            "versions" : [ "3.1.6" ]        
         }
     },
     "vue" : {
-        "templates" : [
-            "https://cdn.jsdelivr.net/npm/vue@§§version§§",
-            "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue§§subversion§§.js"
-        ],
-        "versions" : {
-            "3.2.37" : [ ".global.prod.min" ],
-            "3.2.36" : [ ".global.prod.min" ],
-            "2.7.6"  : [ ".min" ],
-            "1.0.28"  : [ ".min" ]
+        "https://cdn.jsdelivr.net/npm/vue@§§version§§" : {
+            "versions" : [ "3.2.37", "3.2.36", "2.7.6", "1.0.28" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.global.prod.min.js" : {
+            "versions" : [ "3.2.37", "3.2.36" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.min.js" : {
+            "versions" : [ "2.7.6", "1.0.28" ]
         }
     }
-    
 }

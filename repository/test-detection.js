@@ -52,25 +52,28 @@ async function runTests(jsRepo) {
     for (let [name, content] of Object.entries(testCases)) {
         if (limit && limit != name) continue;
         console.log(`Testing ${name}`)
-        const { templates, versions } = content;
-        for (let [version, subVersions] of Object.entries(versions)) {
-            for (let sub of subVersions) {
-                for (let template of templates) {
+        for (let [template, tcontent] of Object.entries(content)) {
+            let { versions, subVersions, contentOnly } = tcontent;
+            subVersions = subVersions || [ "" ];
+            for (let version of versions) {
+                for (let sub of subVersions) {
                     let t = template.replace("§§version§§", version).replace("§§subversion§§", sub);
-                    let resultsUri = retire.scanUri(t, jsRepo);
-                    let resultsFilename = retire.scanFileName(t.split("/").pop(), jsRepo);
-                    let results = resultsUri.concat(resultsFilename);
-                    if (results.length == 0) {
-                        exitWithError(`Did not detect ${version} of ${name} using uri or filename on ${t}` )
-                    }
-                    if (results.length > 1) {
-                        exitWithError(`Detect multiple components in ${name} using uri and filename on ${t} : ${results.map(a => a.name).join(", ")}` )
-                    }
-                    if (results[0].component != name) {
-                        exitWithError(`Wrong component for ${version} of ${name} using uri or filename on ${t}: ${results[0].component}` )
-                    }
-                    if (!results[0].version.startsWith(version)) {
-                        exitWithError(`Wrong version for ${version} of ${name} using uri or filename on ${t}: ${results[0].version}` )
+                    if (!contentOnly) {
+                        let resultsUri = retire.scanUri(t, jsRepo);
+                        let resultsFilename = retire.scanFileName(t.split("/").pop(), jsRepo);
+                        let results = resultsUri.concat(resultsFilename);
+                        if (results.length == 0) {
+                            exitWithError(`Did not detect ${version} of ${name} using uri or filename on ${t}` )
+                        }
+                        if (results.length > 1) {
+                            exitWithError(`Detect multiple components in ${name} using uri and filename on ${t} : ${results.map(a => a.name).join(", ")}` )
+                        }
+                        if (results[0].component != name) {
+                            exitWithError(`Wrong component for ${version} of ${name} using uri or filename on ${t}: ${results[0].component}` )
+                        }
+                        if (!results[0].version.startsWith(version)) {
+                            exitWithError(`Wrong version for ${version} of ${name} using uri or filename on ${t}: ${results[0].version}` )
+                        }
                     }
                     let content = await dl(t);
                     let contentResults = retire.scanFileContent(content, jsRepo, hash);
