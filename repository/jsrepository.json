@@ -198,8 +198,8 @@
 		"extractors" : {
 			"func"    		: [ "jQuery.validation.version" ],
 			"filename"		: [ "jquery.validat(?:ion|e)-(§§version§§)(.min)?\\.js" ],
-			"uri"			: [ "/(§§version§§)/jquery.validat(ion|e)(\\.min)?\\.js" ],
-			"filecontent"	: [ "/\\*!?(?:\n \\*)? jQuery Validation Plugin v(§§version§§)" ],
+			"uri"			: [ "/(§§version§§)/jquery.validat(ion|e)(\\.min)?\\.js", "/jquery-validation@(§§version§§)/dist/.*\\.js" ],
+			"filecontent"	: [ "/\\*!?(?:\n \\*)?[\\s]*jQuery Validation Plugin -? ?v(§§version§§)", "Original file: /npm/jquery-validation@(§§version§§)/dist/jquery.validate.js" ],
 			"hashes"		: {}
 		}
 	},
@@ -397,6 +397,10 @@
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.prettyPhoto.version" ],
+			"uri"			: [ 
+				"/prettyPhoto/(§§version§§)/js/jquery\\.prettyPhoto(\\.min?)\\.js",
+				"/prettyphoto@(§§version§§)/js/jquery\\.prettyPhoto\\.js"
+			],
 			"filecontent"	: [
 				"/\\*[\r\n -]+Class: prettyPhoto(?:.*\n){1,3}[ ]*Version: (§§version§§)",
 				"\\.prettyPhoto[ ]?=[ ]?\\{version:[ ]?(?:'|\")(§§version§§)(?:'|\")\\}"
