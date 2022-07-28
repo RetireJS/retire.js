@@ -297,6 +297,7 @@
 		],
 		"extractors" : {
 			"func"    		: [ "jQuery.ui.version" ],
+			"uri" 			: [ "/(§§version§§)/jquery-ui(\\.min)?\\.js" ],
 			"filecontent"	: [
 				"/\\*!? jQuery UI - v(§§version§§)",
 				"/\\*!?[\n *]+jQuery UI (§§version§§)"

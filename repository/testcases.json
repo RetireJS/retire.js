@@ -25,6 +25,12 @@
             "subversions" : ["", ".min"]
         }
     },
+    "jquery-ui" : {
+        "https://code.jquery.com/ui/§§version§§/jquery-ui§§subversion§§.js" : {
+            "versions" : [ "1.13.1", "1.8.23", "1.7.1" ],
+            "subversions" : ["", ".min"]
+        }
+    },
     "jquery.datatables" : {
         "https://cdn.datatables.net/§§version§§/js/jquery.dataTables§§subversion§§.js": {
             "versions" : [ "1.12.1"  ],
