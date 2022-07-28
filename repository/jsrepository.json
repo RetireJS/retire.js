@@ -2312,8 +2312,94 @@
 		}
 	},
 
-
-
+	"nextjs" : {
+		"vulnerabilities" : [
+			{
+				"atOrAbove" : "10.0.0",
+				"below" 	: "12.1.0",
+				"severity"  : "medium",
+				"identifiers" : {
+					"summary" : "Improper CSP in Image Optimization API",
+					"CVE" : [ "CVE-2022-23646" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-fmvm-x8mv-47mj" ]
+			},
+			{
+				"atOrAbove" : "12.0.0",
+				"below" 	: "12.0.9",
+				"severity"  : "medium",
+				"identifiers" : {
+					"summary" : "DOS Vulnerability for self-hosted next.js apps",
+					"CVE" : [ "CVE-2022-21721" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-wr66-vrwm-5g5x" ]
+			},
+			{
+				"below" 	: "11.1.3",
+				"severity"  : "high",
+				"identifiers" : {
+					"summary" : "Unexpected server crash in Next.js versions",
+					"CVE" : [ "CVE-2021-43803" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-25mp-g6fv-mqxx" ]
+			},
+			{
+				"atOrAbove" : "12.0.0",
+				"below" 	: "12.0.5",
+				"severity"  : "high",
+				"identifiers" : {
+					"summary" : "Unexpected server crash in Next.js versions",
+					"CVE" : [ "CVE-2021-43803" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-25mp-g6fv-mqxx" ]
+			},
+			{
+				"atOrAbove" : "10.0.0",
+				"below" 	: "11.1.1",
+				"severity"  : "medium",
+				"identifiers" : {
+					"summary" : "XSS in Image Optimization API",
+					"CVE" : [ "CVE-2021-39178" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-9gr3-7897-pp7m" ]
+			},
+			{
+				"below" 	: "11.1.0",
+				"severity"  : "medium",
+				"identifiers" : {
+					"summary" : "Open Redirect in Next.js",
+					"CVE" : [ "CVE-2021-37699" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-vxf5-wxwp-m7g9" ]
+			},
+			{
+				"atOrAbove" : "9.5.0",
+				"below" 	: "9.5.4",
+				"severity"  : "medium",
+				"identifiers" : {
+					"summary" : "Open Redirect in Next.js",
+					"CVE" : [ "CVE-2020-15242" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-x56p-c8cg-q435" ]
+			},
+			{
+				"below" 	: "9.3.2",
+				"severity"  : "medium",
+				"identifiers" : {
+					"summary" : "Directory Traversal in Next.js",
+					"CVE" : [ "CVE-2020-5284" ]
+				},
+				"info" : [ "https://github.com/vercel/next.js/security/advisories/GHSA-fq77-7p7r-83rj" ]
+			}
+		],
+		"extractors" : {
+			"filecontent" : [ 
+				"version=\"(§§version§§)\".{1,1500}document\\.getElementById\\(\"__NEXT_DATA__\"\\)\\.textContent",
+				"document\\.getElementById\\(\"__NEXT_DATA__\"\\)\\.textContent\\);window\\.__NEXT_DATA__=.;.\\.version=\"(§§version§§)\""
+			],
+			"func" : [ "next && next.version" ]
+		}
+	},
 	"dont check" : {
 		"extractors" : {
 			"uri" : [

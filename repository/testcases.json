@@ -86,6 +86,20 @@
             "subversions" : [ "", ".min" ]
         }
     },
+    "nextjs" : {
+        "https://next-blog-wordpress.vercel.app/_next/static/chunks/main-d8b1ff545a609496.js" : {
+            "versions"    : [ "12.1.6" ],
+            "contentOnly" : true
+        },
+        "https://nextjs.org/_next/static/chunks/main-c4649a899de7396f.js" : {
+            "versions"    : [ "12.2.4-canary.0" ],
+            "contentOnly" : true
+        },
+        "https://demo.vercel.store/_next/static/chunks/main-42cf2f391f50f1e7.js" : {
+            "versions"    : [ "12.1.6" ],
+            "contentOnly" : true
+        }
+    },
     "vue" : {
         "https://cdn.jsdelivr.net/npm/vue@§§version§§" : {
             "versions" : [ "3.2.37", "3.2.36", "2.7.6", "1.0.28" ]
