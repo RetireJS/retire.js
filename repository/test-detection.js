@@ -53,10 +53,10 @@ async function runTests(jsRepo) {
         if (limit && limit != name) continue;
         console.log(`Testing ${name}`)
         for (let [template, tcontent] of Object.entries(content)) {
-            let { versions, subVersions, contentOnly } = tcontent;
-            subVersions = subVersions || [ "" ];
+            let { versions, subversions, contentOnly } = tcontent;
+            subversions = subversions || [ "" ];
             for (let version of versions) {
-                for (let sub of subVersions) {
+                for (let sub of subversions) {
                     let t = template.replace("§§version§§", version).replace("§§subversion§§", sub);
                     if (!contentOnly) {
                         let resultsUri = retire.scanUri(t, jsRepo);

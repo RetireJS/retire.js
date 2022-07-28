@@ -54,9 +54,20 @@
         }
     },
     "knockout" : {
-      "https://cdnjs.cloudflare.com/ajax/libs/knockout/§§version§§/knockout-min.js" : {
-        "versions" : [ "3.5.0", "3.0.0", "2.2.1", "1.2.1" ]
-      }  
+        "https://cdnjs.cloudflare.com/ajax/libs/knockout/§§version§§/knockout-min.js" : {
+            "versions" : [ "3.5.0", "3.0.0", "2.2.1", "1.2.1" ]
+        }  
+    },
+    "tinyMCE" : {
+        "https://cdnjs.cloudflare.com/ajax/libs/tinymce/§§version§§/tinymce.min.js" : {
+            "versions" : [ "6.1.1", "5.4.0", "4.0.20" ]
+        }
+    },
+    "prototypejs" : {
+        "https://cdnjs.cloudflare.com/ajax/libs/prototype/§§version§§/prototype§§subversion§§.js" : {
+            "versions" : [ "1.7.3", "1.5.0" ],
+            "subversions" : [ "", ".min" ]
+        }
     },
     "vue" : {
         "https://cdn.jsdelivr.net/npm/vue@§§version§§" : {

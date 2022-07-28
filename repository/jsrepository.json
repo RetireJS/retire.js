@@ -604,6 +604,7 @@
 
 		],
 		"extractors" : {
+			"uri" 				 : [ "/tinymce/(§§version§§)/tinymce(\\.min)?\\.js" ],
 			"filecontent"	     : [ "// (§§version§§) \\([0-9\\-]+\\)[\n\r]+.{0,1200}l=.tinymce/geom/Rect." ],
 			"filecontentreplace" : [
 										"/tinyMCEPreInit.*majorVersion:.([0-9]+).,minorVersion:.([0-9.]+)./$1.$2/",
