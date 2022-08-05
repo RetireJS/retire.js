@@ -54,9 +54,9 @@ async function runTests(jsRepo) {
         if (limit && limit != name) continue;
         console.log(`Testing ${name}`)
         for (let [template, tcontent] of Object.entries(content)) {
-            let { versions, subversions, contentOnly, additionalVersions } = tcontent;
+            let { versions, subversions, contentOnly, additionalVersions, allowedOtherComponents } = tcontent;
             if (limit) {
-                versions = Array.from(new Set(versions.concat(additionalVersions)))
+                versions = Array.from(new Set(versions.concat(additionalVersions || [])))
             }
             subversions = subversions || [ "" ];
             for (let version of versions) {
@@ -81,6 +81,7 @@ async function runTests(jsRepo) {
                     }
                     let content = await dl(t);
                     let contentResults = retire.scanFileContent(content, jsRepo, hash);
+                    if (allowedOtherComponents) contentResults = contentResults.filter(x => !allowedOtherComponents.includes(x.component));
                     if (contentResults.length == 0) {
                         exitWithError(`Did not detect ${version} of ${name} using content on ${t}` )
                     }

@@ -60,7 +60,8 @@
     },
     "tinyMCE" : {
         "https://cdnjs.cloudflare.com/ajax/libs/tinymce/§§version§§/tinymce.min.js" : {
-            "versions" : [ "6.1.1", "5.4.0", "4.0.20" ]
+            "versions" : [ "6.1.1", "5.4.0", "4.0.20" ],
+            "allowedOtherComponents" : "DOMPurify"
         }
     },
     "prototypejs" : {
