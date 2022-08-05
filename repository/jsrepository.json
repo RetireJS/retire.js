@@ -1098,7 +1098,7 @@
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#169-fiery-basilisk-2018-02-02", "https://vulnerabledoma.in/ngSanitize1.6.8_bypass.html" ]
 			},
 			{
-				"below" : "1.5.0-beta.0",
+				"below" : "1.5.0-beta.1",
 				"severity": "medium",
 				"identifiers": {
 					"summary": "XSS through xlink:href attributes",
