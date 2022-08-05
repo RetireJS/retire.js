@@ -1147,6 +1147,14 @@
 					"summary": "XSS in $sanitize in Safari/Firefox"
 				},
 				"info" : [ "https://github.com/angular/angular.js/commit/8f31f1ff43b673a24f84422d5c13d6312b2c4d94" ]
+			},
+			{
+				"below" : "1.999",
+				"severity": "low",
+				"identifiers": {
+					"summary": "End-of-Life: Long term support for AngularJS has been discontinued"
+				},
+				"info" : [ "https://blog.angular.io/discontinued-long-term-support-for-angularjs-cc066b82e65a?gi=9d3103b5445c" ]
 			}
 		],
 		"extractors" : {
@@ -1495,7 +1503,9 @@
 			"filecontent"	: [
 				"DOMPurify.version = '(§§version§§)';",
 				"DOMPurify.version=\"(§§version§§)\"",
-				"DOMPurify=.[^\\r\\n]{10,500}\\.version=\"(§§version§§)\""
+				"DOMPurify=.[^\\r\\n]{10,850}?\\.version=\"(§§version§§)\"",
+				"/\\*! @license DOMPurify (§§version§§)",
+				"var .=\"dompurify\"+.{10,550}?\\.version=\"(§§version§§)\""
 			],
 			"hashes"		: {}
 		}

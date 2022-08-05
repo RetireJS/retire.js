@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const crypto = require("crypto");
 const testCases = require("./testcases.json");
 
@@ -53,7 +54,10 @@ async function runTests(jsRepo) {
         if (limit && limit != name) continue;
         console.log(`Testing ${name}`)
         for (let [template, tcontent] of Object.entries(content)) {
-            let { versions, subversions, contentOnly } = tcontent;
+            let { versions, subversions, contentOnly, additionalVersions } = tcontent;
+            if (limit) {
+                versions = Array.from(new Set(versions.concat(additionalVersions)))
+            }
             subversions = subversions || [ "" ];
             for (let version of versions) {
                 for (let sub of subversions) {
@@ -103,4 +107,4 @@ repo.loadrepositoryFromFile("./jsrepository.json", options).on('done', (jsRepo) 
     runTests(jsRepo)
         .then(() => console.log("Done!"))
         .catch(err => console.warn("Failed!", err));
-})
+}).on('error', err => console.warn("Failed!", err));
