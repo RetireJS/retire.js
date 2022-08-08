@@ -293,6 +293,15 @@
 					"summary": "XSS in the `altField` option of the Datepicker widget"
 				},
 				"info" : [ "https://github.com/jquery/jquery-ui/security/advisories/GHSA-9gj3-hwp5-pmwc", "https://nvd.nist.gov/vuln/detail/CVE-2021-41182" ]
+			},
+			{
+				"below" : "1.13.2",
+				"severity": "medium",
+				"identifiers": {
+					"CVE": [ "CVE-2022-31160" ],
+					"summary": "XSS when refreshing a checkboxradio with an HTML-like initial text label "
+				},
+				"info" : [ "https://github.com/jquery/jquery-ui/security/advisories/GHSA-h6gj-6jjq-h8g9", "https://nvd.nist.gov/vuln/detail/CVE-2022-31160" ]
 			}
 		],
 		"extractors" : {
