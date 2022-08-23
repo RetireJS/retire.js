@@ -1697,7 +1697,19 @@
 				"info" : [ 
 					"https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4"
 				]
+			},
+			{
+				"below" : "2.29.4",
+				"severity": "medium",
+				"identifiers": { 
+					"summary" : "Regular Expression Denial of Service (ReDoS), Affecting moment package, versions >=2.18.0 <2.29.4",
+					"CVE" : [ "CVE-2022-31129" ] 
+				},
+				"info" : [ 
+					"https://security.snyk.io/vuln/SNYK-JS-MOMENT-2944238"
+				]
 			}
+			
 		],
 		"extractors" : {
 			"func"			: [ "moment.version" ],
