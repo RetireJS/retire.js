@@ -1697,11 +1697,25 @@
 				"info" : [ 
 					"https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4"
 				]
-			}
+			},
+			{
+				"below" : "2.29.4",
+	                        "atOrAbove" : "2.18.0"
+				"severity": "High",
+				"identifiers": { 
+					"summary" : "Regular Expression Denial of Service (ReDoS).",
+					"CVE" : [ "CVE-2022-31129" ] 
+				},
+				"info" : [ 
+					"https://security.snyk.io/package/npm/moment",
+                                        "https://github.com/primefaces/primefaces/issues/8708"
+				]
+}
 		],
 		"extractors" : {
 			"func"			: [ "moment.version" ],
-			"filecontent"	: [ "//! moment.js(?:[\n\r]+)//! version : (§§version§§)" ]
+			"filecontent"	: [ "//! moment.js(?:[\n\r]+)//! version : (§§version§§)",
+					    "/*! moment.js(?:[\n\r]+)//! version : (§§version§§)"]
 		}
 	},
 
