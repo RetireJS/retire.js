@@ -1700,6 +1700,7 @@
 			},
 			{
 				"below" : "2.29.4",
+				"atOrAbove" : "2.18.0",
 				"severity": "medium",
 				"identifiers": { 
 					"summary" : "Regular Expression Denial of Service (ReDoS), Affecting moment package, versions >=2.18.0 <2.29.4",
@@ -1713,8 +1714,12 @@
 			
 		],
 		"extractors" : {
+			"uri" 			: [ "/moment\\.js/(§§version§§)/moment(.min)?\\.js" ],
 			"func"			: [ "moment.version" ],
-			"filecontent"	: [ "//! moment.js(?:[\n\r]+)//! version : (§§version§§)" ]
+			"filecontent"	: [ 
+				"//! moment.js(?:[\n\r]+)//! version : (§§version§§)" ,
+				"\\.version=\"(§§version§§)\".{300,500}\\.isMoment="
+			]
 		}
 	},
 
