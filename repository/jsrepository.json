@@ -1706,7 +1706,8 @@
 					"CVE" : [ "CVE-2022-31129" ] 
 				},
 				"info" : [ 
-					"https://security.snyk.io/vuln/SNYK-JS-MOMENT-2944238"
+					"https://security.snyk.io/vuln/SNYK-JS-MOMENT-2944238",
+					"https://github.com/moment/moment/security/advisories/GHSA-wc69-rhjr-hc9g"
 				]
 			}
 			
