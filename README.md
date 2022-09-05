@@ -24,6 +24,14 @@ $ npm install -g retire
 $ retire
 ```
 
+SBOM generation
+---------------
+retire.js can generate SBOMs in the CycloneDX-format:
+```
+$ retire --outputformat cyclonedx
+```
+By default retire.js will exit with code 13 if it finds vulnerabilities. This can be overridden with `--exitcode 0`.
+
 Grunt plugin
 ------------
 A [Grunt task for running Retire.js](https://github.com/bekk/grunt-retire) as part of your application's build routine, or some other automated workflow.
