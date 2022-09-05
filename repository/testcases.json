@@ -120,5 +120,10 @@
         "https://cdnjs.cloudflare.com/ajax/libs/moment.js/§§version§§/moment.min.js" : {
             "versions" : [ "2.29.4", "2.18.0", "2.11.2" ]
         }
+    },
+    "underscore.js" : {
+        "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/§§version§§/underscore-min.js" : {
+            "versions" : [ "1.13.4", "1.10.1", "1.8.2", "1.3.1" ]
+        }
     }
 }
