@@ -1,4 +1,9 @@
 # Changelog
+## [3.1.0]
+
+- Adding support for cycloneDX JSON format
+- Updating CycloneDX XML format to version 1.4
+- Adding schema parsing tests for cyclonedx
 
 ## [3.0.7]
 

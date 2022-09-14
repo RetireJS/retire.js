@@ -18,7 +18,7 @@ then
     echo "Publishing to npm..."
     npm publish
     echo "Tagging..."
-    git tag $VERSION $COMMIT_ID
+    git tag $VERSION $COMMIT_ID -m "Release of version $VERSION"
     git push --tags
     echo "Done!"
 else
