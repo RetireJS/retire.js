@@ -54,7 +54,7 @@ program
   .option('--noderepo <path|url>', 'Local or internal version of repo')
   .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
   .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
-  .option('--outputformat <format>', 'Valid formats: text, json, jsonsimple, depcheck (experimental) and cyclonedx')
+  .option('--outputformat <format>', 'Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON')
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')
   .option('--ignorefile <path>', 'Custom ignore file, defaults to .retireignore / .retireignore.json')
@@ -113,13 +113,13 @@ if(config.ignorefile) {
   if (config.ignorefile.substr(-5) === ".json") {
     try {
       var ignored = JSON.parse(fs.readFileSync(config.ignorefile).toString());
-    } catch(e) {
+    } catch(e) {
       exitWithError('Error: Invalid ignore file: ' + config.ignorefile, e);
     }
     config.ignore.descriptors = ignored;
     var ignoredPaths = ignored
       .map(function(x) { return x.path; })
-      .filter(function(x) { return x; });
+      .filter(function(x) { return x; });
     config.ignore.paths = config.ignore.paths.concat(ignoredPaths);
   } else {
     var lines = fs.readFileSync(config.ignorefile).toString().split(/\r\n|\n/g).filter(function(e) { return e !== ''; });
@@ -191,7 +191,7 @@ events.on('scan-js', function() {
       scanner.scanJsFile(file, jsRepo, config);
     })
     .on('bowerfile', function(bowerfile) {
-      bowerRepo = bowerRepo || repo.asbowerrepo(jsRepo);
+      bowerRepo = bowerRepo || repo.asbowerrepo(jsRepo);
       scanner.scanBowerFile(bowerfile, bowerRepo, config);
     })
     .on('end', function() {

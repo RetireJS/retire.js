@@ -13,7 +13,7 @@ function configureJsonLogger(logger, writer, config) {
 		vulnsFound = true;
 		finalResults.data.push(finding);
 	};
-	logger.logDependency = function(finding) { 
+	logger.logDependency = function(finding) {
 		if (config.verbose && finding.results.length > 0) { 
 			finalResults.data.push(finding); 
 		} 

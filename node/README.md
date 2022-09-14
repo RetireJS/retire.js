@@ -31,7 +31,7 @@ Options:
   --noderepo <path|url>    Local or internal version of repo
   --cachedir <path>        Path to use for local cache instead of /tmp/.retire-cache
   --proxy <url>            Proxy url (http://some.sever:8080)
-  --outputformat <format>  Valid formats: text, json, jsonsimple, depcheck (experimental) and cyclonedx
+  --outputformat <format>  Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON
   --outputpath <path>      File to which output should be written
   --ignore <paths>         Comma delimited list of paths to ignore
   --ignorefile <path>      Custom ignore file, defaults to .retireignore / .retireignore.json

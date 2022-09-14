@@ -6,15 +6,16 @@ var fs = require('fs');
 var crypto = require('crypto');
 
 var loggers = {
-  console  : require("./reporters/console"),
-  text     : require("./reporters/console"),
-  json     : require("./reporters/json"),
-  depcheck : require("./reporters/depcheck"),
-  cyclonedx: require("./reporters/cyclonedx")
+  console       : require("./reporters/console"),
+  text          : require("./reporters/console"),
+  json          : require("./reporters/json"),
+  depcheck      : require("./reporters/depcheck"),
+  cyclonedx     : require("./reporters/cyclonedx"),
+  cyclonedxJSON : require("./reporters/cyclonedx-json")
 };
+
 loggers.clean = loggers.console;
 loggers.jsonsimple = loggers.json;
-
 
 var colorwarn = function(x) { return x; };
 
@@ -91,3 +92,5 @@ exports.open = function(config) {
   }
   return logger;
 };
+
+exports.hash = hash;

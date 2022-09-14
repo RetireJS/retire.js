@@ -31,8 +31,8 @@ exports.map = function(o, fn) {
 	return Object.keys(o).map(function(k) { return fn(o[k], k); });
 };
 
-exports.find = function(ar, fn) {
-	for(var i in ar) { 
+exports.find = function(ar, fn) {
+	for(var i in ar) {
 		if (fn(ar[i])) return ar[i];
 	}
 	return undefined;

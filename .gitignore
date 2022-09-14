@@ -8,4 +8,4 @@ firefox/js/retire.js
 firefox/lib/retire.js
 *.xpi
 
-.idea
+.ideatmp/

@@ -14,7 +14,7 @@ function configureDepCheckLogger(logger, writer, config, hash) {
 		vulnsFound = true;
 		finalResults.data.push(finding);
 	};
-	logger.logDependency = function(finding) { 
+	logger.logDependency = function(finding) {
 		if (config.verbose && finding.results.length > 0) { 
 			finalResults.data.push(finding); 
 		} 
@@ -28,7 +28,7 @@ function configureDepCheckLogger(logger, writer, config, hash) {
   <scanInfo>
     <engineVersion>${retire.version}</engineVersion>
     <dataSource><name>${config.jsRepo || "Retire.js github js repo"}</name><timestamp>${finalResults.start}</timestamp></dataSource>
-    <dataSource><name>${config.nodeRepo || "Retire.js github node repo"}</name><timestamp>${finalResults.start}</timestamp></dataSource>
+    <dataSource><name>${config.nodeRepo || "Retire.js github node repo"}</name><timestamp>${finalResults.start}</timestamp></dataSource>
    </scanInfo>
    <projectInfo>
    	<name>${config.path}</name>
@@ -37,7 +37,7 @@ function configureDepCheckLogger(logger, writer, config, hash) {
    </projectInfo>
    <dependencies>`);
 		write(finalResults.data.filter(d => d.results).map(r => r.results.map((dep, i) => {
-			var filepath = r.file || dep.file;
+			var filepath = r.file || dep.file;
 			var filename = filepath.split("/").slice(-1);
 			var file = fs.readFileSync(filepath);
 			var md5 = hash.md5(file);
@@ -82,7 +82,7 @@ function configureDepCheckLogger(logger, writer, config, hash) {
             <availabilityImpact>PARTIAL</availabilityImpact>
             <severity>${v.severity || "medium"}</severity>
           </cvssV2>
-          <description>${v.identifiers && v.identifiers.summary || "None"}</description>
+          <description>${v.identifiers && v.identifiers.summary || "None"}</description>
           <references>${references}
           </references>
           <vulnerableSoftware>
