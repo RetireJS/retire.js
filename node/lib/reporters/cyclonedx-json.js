@@ -49,7 +49,6 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
             specVersion  : "1.4",
             serialNumber : `urn:uuid:${ uuidv4() }`,
             version      : 1,
-            components   : components,
             metadata     : {
                 timestamp : finalResults.start,
                 tools     : [
@@ -59,7 +58,8 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
                         version : retire.version
                     }
                 ]
-            }
+            },
+            components   : components
         }, undefined, 2));
         writer.close(callback); 
     };
