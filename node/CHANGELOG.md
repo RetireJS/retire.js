@@ -1,4 +1,8 @@
 # Changelog
+## [3.1.1]
+
+- Update VM2 due to vuln in that library
+
 ## [3.1.0]
 
 - Adding support for cycloneDX JSON format
