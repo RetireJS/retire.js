@@ -19,10 +19,8 @@ var events = new emitter();
 var jsRepo = null;
 var bowerRepo = null;
 var nodeRepo = null;
-var vulnsFound = false;
 var failProcess = false;
 var defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
-var finalResults = [];
 
 var severityLevels = {
   none: 0,
