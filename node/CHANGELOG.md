@@ -1,4 +1,9 @@
 # Changelog
+
+## [3.1.2]
+
+- Remove some unused variables and tmp files
+
 ## [3.1.1]
 
 - Update VM2 due to vuln in that library
