@@ -51,7 +51,7 @@ program
   .option('--jsrepo <path|url>', 'Local or internal version of repo')
   .option('--noderepo <path|url>', 'Local or internal version of repo')
   .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
-  .option('--proxy <url>', 'Proxy url (http://some.sever:8080)')
+  .option('--proxy <url>', 'Proxy url (http://some.host:8080)')
   .option('--outputformat <format>', 'Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON')
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')

@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.3]
+
+- Fixes a typo
+
 ## [3.1.2]
 
 - Remove some unused variables and tmp files
