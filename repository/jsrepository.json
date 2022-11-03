@@ -742,6 +742,40 @@
 	"ember" : {
 		"vulnerabilities" : [
 			{
+				"atOrAbove" : "4.9.0-alpha.1",
+				"below" :"4.9.0-beta.3",
+				"severity" : "high",
+				"identifiers": { "summary" : "Prototype pollution" },
+				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
+			},
+			{
+				"atOrAbove" : "4.5.0",
+				"below" :"4.8.1",
+				"severity" : "high",
+				"identifiers": { "summary" : "Prototype pollution" },
+				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
+			},
+			{
+				"atOrAbove" : "4.0.0",
+				"below" :"4.4.4",
+				"severity" : "high",
+				"identifiers": { "summary" : "Prototype pollution" },
+				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
+			},
+			{
+				"atOrAbove" : "3.25.0",
+				"below" :"3.28.10",
+				"severity" : "high",
+				"identifiers": { "summary" : "Prototype pollution" },
+				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
+			},
+			{
+				"below" :"3.24.7",
+				"severity" : "high",
+				"identifiers": { "summary" : "Prototype pollution" },
+				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
+			},
+			{
 				"atOrAbove" : "1.8.0",
 				"below" :"1.11.4",
 				"severity" : "medium",
