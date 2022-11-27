@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.2.0]
+
+- Add `--ext` to allow specifying other file extensions
+
 ## [3.1.3]
 
 - Fixes a typo

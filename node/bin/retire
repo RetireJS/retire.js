@@ -60,13 +60,14 @@ program
   .option('--exitwith <code>', 'Custom exit code (default: 13) when vulnerabilities are found')
   .option('--colors', 'Enable color output (console output only)')
   .option('--insecure', 'Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate')
+  .option('--ext <extensions>', 'Comman separated list of file extensions for javascript files. The default is "js"')
   .option('--cacert <path>', 'Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files')
   .parse(process.argv);
 
 var config = utils.extend({ path: '.' }, utils.pick(program, [
   'package', 'node', 'js', 'jspath', 'verbose', 'nodepath', 'path', 'jsrepo', 'noderepo',
   'dropexternal', 'nocache', 'proxy', 'ignore', 'ignorefile', 'outputformat', 'outputpath',
-  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir', 'insecure', 'cacert'
+  'severity', 'exitwith', 'colors', 'includemeta', 'cachedir', 'insecure', 'cacert', 'ext'
 ]));
 
 if (!config.nocache && !config.cachedir) {
