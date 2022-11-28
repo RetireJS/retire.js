@@ -153,10 +153,14 @@
 				"below" : "1.2.0",
 				"severity": "medium",
 				"identifiers": {
+					"issue" : "36",
 					"release": "jQuery Migrate 1.2.0 Released",
 					"summary": "cross-site-scripting"
 				},
-				"info" : [ "http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/" ]
+				"info" : [ 
+					"http://blog.jquery.com/2013/05/01/jquery-migrate-1-2-0-released/",
+					"https://github.com/jquery/jquery-migrate/issues/36"
+				]
 			},
 			{
 				"below" : "1.2.2",
@@ -181,6 +185,7 @@
 				"below": "1.19.4",
 				"severity" : "medium",
 				"identifiers" : {
+					"issue": "2428",
 					"summary" : "ReDoS vulnerability in URL2 validation"
 				},
 				"info" : [ "https://github.com/jquery-validation/jquery-validation/blob/master/changelog.md#1194--2022-05-19" ]
@@ -242,6 +247,7 @@
 				"below" : "100.0.0",
 				"severity": "medium",
 				"identifiers": {
+					"blog" : "sirdarckcat/unpatched-0day-jquery-mobile-xss",
 					"summary": "open redirect leads to cross site scripting"
 				},
 				"info": [ "http://sirdarckcat.blogspot.no/2017/02/unpatched-0day-jquery-mobile-xss.html" ]
@@ -250,6 +256,7 @@
 				"below" : "1.3.0",
 				"severity": "high",
 				"identifiers": {
+					"gist" : "jupenur/e5d0c6f9b58aa81860bf74e010cf1685",
 					"summary": "Endpoint that reflect user input leads to cross site scripting"
 				},
 				"info": [ "https://gist.github.com/jupenur/e5d0c6f9b58aa81860bf74e010cf1685" ]
@@ -401,6 +408,7 @@
 			{
 				"below" : "3.1.6",
 				"severity" : "high",
+				"identifiers" : { "issue" : "149" },
 				"info" : [ "https://github.com/scaron/prettyphoto/issues/149", "https://blog.anantshri.info/forgotten_disclosure_dom_xss_prettyphoto" ]
 			}
 
@@ -465,7 +473,10 @@
 			{
 				"below" : "3.5.0-beta",
 				"severity": "medium",
-				"identifiers": {"summary": "XSS injection point in attr name binding for browser IE7 and older"},
+				"identifiers": {
+					"issue": "1244",
+					"summary": "XSS injection point in attr name binding for browser IE7 and older"
+				},
 				"info" : [ "https://github.com/knockout/knockout/issues/1244" ]
 			}
 		],
@@ -484,7 +495,10 @@
 			{
 				"below" : "1.01",
 				"severity": "low",
-				"identifiers": {"summary": "Unsanitized data passed to eval()"},
+				"identifiers": {
+					"tenable" : "98645",
+					"summary": "Unsanitized data passed to eval()"
+				},
 				"info" : [ "http://www.thomasfrank.se/sessionvars.html" ]
 			}
 		],

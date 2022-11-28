@@ -110,4 +110,23 @@ Object.keys(npmRepo).map(k => {
 console.log("Check repo consistency for npmRepo...")
 checkRepoTypes(npmRepo);
 console.log("Done")
+
+console.log("Checking for identifiers...");
+Object.entries(jsRepo).forEach(([k,val]) => {
+	(val.vulnerabilities || []).filter(v => {
+		let ids = v.identifiers;
+		if (!ids) return true;
+		if (ids.CVE && ids.CVE.length > 0) return false;
+		if (ids.bug) return false;
+		if (ids.blog) return false;
+		if (ids.gist) return false;
+		if (ids.issue) return false;
+		if (ids.tenable) return false;
+		if (ids.osvdb && ids.osvdb.length > 0) return false;
+		return true;
+	}).forEach(v => {
+		console.warn("WARN: " + k + " Missing identifiers for :" + JSON.stringify(v));
+	});
+});
+
 console.log("Success");

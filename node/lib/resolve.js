@@ -69,9 +69,9 @@ function getNodeDependencies(path, limit) {
 
 function scanJsFiles(path, options) {
 	var finder = walkdir.find(path, { "follow_symlinks" : false, "no_return": true });
-	var ext = (options.ext || "js").split(",").map(e => "." + e);
+	var ext = (options.ext || "js").split(",").map(function(e) { return  "." + e; });
 	function onFile(file){
-		if (ext.some(e => file.endsWith(e))) {
+		if (ext.some(function(e) { return file.endsWith(e); })) {
 			finder.emit('jsfile', file);
 		}
 		if (file.match(/\/bower.json$/)) {

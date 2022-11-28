@@ -2,6 +2,10 @@
 
 ## [3.2.0]
 
+- Remove unintended use of arrow functions
+
+## [3.2.0]
+
 - Add `--ext` to allow specifying other file extensions
 
 ## [3.1.3]
