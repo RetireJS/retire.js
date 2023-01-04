@@ -651,6 +651,15 @@
 					"summary" : "URLs not cleaned correctly in some cases in the link and image plugins"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes510/#securityfixes" ]
+			},
+			{
+				"below" : "5.10.7",
+				"severity" : "medium",
+				"identifiers" : {
+					"CVE" : [ "CVE-2022-23494" ],
+					"summary" : "A cross-site scripting (XSS) vulnerability in TinyMCE alerts which allowed arbitrary JavaScript execution was found and fixed."
+				},
+				"info" : [ "https://www.tiny.cloud/docs/changelog/#5107-2022-12-06", "https://www.cve.org/CVERecord?id=CVE-2022-23494" ]
 			}
 
 		],
