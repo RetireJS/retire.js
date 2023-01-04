@@ -181,10 +181,23 @@
 	"jquery-validation" : {
 		"bowername": [ "jquery-validation" ],
 		"vulnerabilities" : [
+			{
+				"below": "1.19.5",
+				"severity" : "medium",
+				"identifiers" : {
+					"CVE" : [ "CVE-2022-31147" ],
+					"summary" : "ReDoS vulnerability in url and URL2 validation"
+				},
+				"info" : [
+					"https://github.com/jquery-validation/jquery-validation/commit/5bbd80d27fc6b607d2f7f106c89522051a9fb0dd",
+					"https://github.com/advisories/GHSA-ffmh-x56j-9rc3"
+				]
+			},
 			{ 
 				"below": "1.19.4",
 				"severity" : "medium",
 				"identifiers" : {
+					"CVE" : [ "CVE-2021-43306" ],
 					"issue": "2428",
 					"summary" : "ReDoS vulnerability in URL2 validation"
 				},
@@ -273,6 +286,21 @@
 	"jquery-ui" : {
 		"bowername": [ "jquery-ui", "jquery.ui" ],
 		"vulnerabilities" : [
+			{
+				"below" : "1.13.2",
+				"severity": "low",
+				"identifiers": {
+					"summary": "XSS when refreshing checkboxes if usercontrolled data in labels",
+					"issue" : "2101",
+					"CVE" : [ "CVE-2022-31160" ]
+				},
+				"info" : [
+					"https://github.com/jquery/jquery-ui/issues/2101",
+					"https://github.com/jquery/jquery-ui/commit/8cc5bae1caa1fcf96bf5862c5646c787020ba3f9",
+					"https://github.com/advisories/GHSA-h6gj-6jjq-h8g9",
+					"https://nvd.nist.gov/vuln/detail/CVE-2022-31160"
+				]
+			},
 			{
 				"below" : "1.13.0",
 				"severity": "medium",
