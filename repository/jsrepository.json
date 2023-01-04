@@ -969,7 +969,8 @@
 			},
 			{
 				"below" : "0.9.7.1",
-				"info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG" ]
+				"severity" : "low",
+				"info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG.md" ]
 			},
 			{
 				"below" : "0.9.7",
@@ -1442,6 +1443,22 @@
 				"severity": "medium",
 				"identifiers": {"CVE": [ "CVE-2014-1403" ] },
 				"info" : [ "http://blog.kotowicz.net/2014/01/xssing-with-shakespeare-name-calling.html", "http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1403" ]
+			},
+			{
+				"below" : "2.4.20",
+				"severity": "medium",
+				"identifiers": {
+					"summary" : "This release fixes a potential XSS for IE running in compatibility mode."
+				},
+				"info" : [ "https://github.com/oyvindkinsey/easyXDM/releases/tag/2.4.20" ]
+			},
+			{
+				"below" : "2.5.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary" : "This tightens down the default origin whitelist in the CORS example."
+				},
+				"info" : [ "https://github.com/oyvindkinsey/easyXDM/releases/tag/2.5.0" ]
 			}
 		],
 		"extractors" : {
@@ -2135,6 +2152,18 @@
 				"info": [
 					"https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-3rh3-wfr4-76mj"
 				]
+			},
+			{
+				"below" : "35.0.0",
+				"identifiers" : {
+					"summary" : "security fix for the Markdown GFM, HTML support and HTML embed packages",
+					"CVE": [ "CVE-2022-31175" ]
+				},
+				"severity" : "low",
+				"info": [
+					"https://github.com/ckeditor/ckeditor5/compare/v34.2.0...v35.0.0",
+					"https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-42wq-rch8-6f6j"
+				]
 			}
 		],
 		"extractors" : {
@@ -2266,6 +2295,15 @@
 	"svelte" : {
 		"vulnerabilities" : [
 			{
+				"below" : "3.49.0",
+				"severity" : "medium",
+				"identifiers": {
+					"summary": "XSS",
+					"issue" : "7530"
+				},
+				"info" : [ "https://github.com/sveltejs/svelte/pull/7530" ]
+			},
+			{
 				"below" : "3.46.5",
 				"severity" : "medium",
 				"identifiers": {
@@ -2396,6 +2434,14 @@
 	"jszip": {
 		"vulnerabilities": [
 			{
+				"below": "3.8.0",
+				"severity": "medium",
+				"identifiers": {
+					"summary": "Santize filenames when files are loaded with loadAsync, to avoid “zip slip” attacks."
+				},
+				"info": [ "https://stuk.github.io/jszip/CHANGES.html" ]
+			},
+			{
 				"below": "3.7.0",
 				"severity": "medium",
 				"identifiers": {
@@ -2443,20 +2489,50 @@
 
 	"jquery.datatables" : {
 		"vulnerabilities" : [
-			{	
-				"below" : "1.10.10",
+			{
+				"below" : "1.11.3",
+				"severity" : "low",
 				"identifiers" : {
 					"summary" : "possible XSS"
 				},
-				"info" : [ "https://github.com/DataTables/DataTables/commit/6f67df2d21f9858ec40a6e9565c3a653cdb691a6" ]
+				"info" : [
+					"https://github.com/DataTables/Dist-DataTables/commit/59a8d3f8a3c1138ab08704e783bc52bfe88d7c9b",
+					"https://cdn.datatables.net/1.11.3/"
+				]
+			},
+			{
+				"below" : "1.10.23",
+				"severity" : "high",
+				"identifiers" : {
+					"summary" : "prototype pollution"
+				},
+				"info" : [
+					"https://github.com/DataTables/DataTablesSrc/commit/a51cbe99fd3d02aa5582f97d4af1615d11a1ea03",
+					"https://cdn.datatables.net/1.10.23/"
+				]
+			},
+			{
+				"below" : "1.10.22",
+				"severity" : "medium",
+				"identifiers" : {
+					"summary" : "prototype pollution"
+				},
+				"info" : [
+					"https://cdn.datatables.net/1.10.22/"
+				]
 			},
 			{	
-				"below" : "1.10.8",
+				"below" : "1.10.10",
+				"severity" : "high",
 				"identifiers" : {
 					"CVE" : [ "CVE-2015-6584" ],
 					"summary" : "XSS"
 				},
-				"info" : [ "https://github.com/DataTables/DataTablesSrc/commit/ccf86dc5982bd8e16d", "https://www.invicti.com/web-applications-advisories/cve-2015-6384-xss-vulnerability-identified-in-datatables/" ]
+				"info" : [
+					"https://github.com/DataTables/DataTablesSrc/commit/ccf86dc5982bd8e16d",
+					"https://www.invicti.com/web-applications-advisories/cve-2015-6384-xss-vulnerability-identified-in-datatables/",
+					"https://github.com/advisories/GHSA-4mv4-gmmf-q382"
+				]
 			}
 
 		],
