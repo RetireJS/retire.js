@@ -112,6 +112,8 @@ checkRepoTypes(npmRepo);
 console.log("Done")
 
 console.log("Checking for identifiers...");
+let maxRetId = "0";
+let seenRetId = {};
 Object.entries(jsRepo).forEach(([k,val]) => {
 	(val.vulnerabilities || []).filter(v => {
 		let ids = v.identifiers;
@@ -121,11 +123,28 @@ Object.entries(jsRepo).forEach(([k,val]) => {
 		if (ids.blog) return false;
 		if (ids.gist) return false;
 		if (ids.issue) return false;
+		if (ids.PR) return false;
 		if (ids.tenable) return false;
+		if (ids.githubID) return false;
 		if (ids.osvdb && ids.osvdb.length > 0) return false;
+		if (ids.retid) {
+			if (seenRetId[ids.retid]) console.warn("Already seen retid: " + ids.retid)
+			seenRetId[ids.retid] = true;
+			if (parseInt(ids.retid) > parseInt(maxRetId)) maxRetId = ids.retid
+			return false;
+		}
 		return true;
 	}).forEach(v => {
 		console.warn("WARN: " + k + " Missing identifiers for :" + JSON.stringify(v));
+	});
+});
+console.log("Max retId: " + maxRetId);
+
+Object.entries(jsRepo).forEach(([k, val]) => {
+	(val.vulnerabilities || []).forEach(v => {
+		if (!v.severity) {
+			console.warn(" * " + k + " - Missing severity: " + JSON.stringify(v))
+		}
 	});
 });
 

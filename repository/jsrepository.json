@@ -542,7 +542,7 @@
 			{
 				"below" : "2.1",
 				"severity": "medium",
-				"identifiers": {"summary": "DOM-based XSS"},
+				"identifiers": { "summary": "DOM-based XSS", "retid": "1" },
 				"info" : [ "https://github.com/swfobject/swfobject/wiki/SWFObject-Release-Notes#swfobject-v21-beta7-june-6th-2008" ]
 			}
 		],
@@ -568,21 +568,30 @@
 			{
 				"below" : "4.2.4",
 				"severity" : "medium",
-				"identifiers" : { "summary" : "xss issues with media plugin not properly filtering out some script attributes." },
+				"identifiers" : { 
+					"summary" : "xss issues with media plugin not properly filtering out some script attributes.",
+					"retid" : "61"
+				},
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
 			},
 			{
 				"below" : "4.2.0",
 				"severity" : "medium",
-				"identifiers" : { "summary" : "FIXED so script elements gets removed by default to prevent possible XSS issues in default config implementations" },
+				"identifiers" : {
+					"summary" : "FIXED so script elements gets removed by default to prevent possible XSS issues in default config implementations",
+					"retid" : "62"
+				},
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
 			},
 			{
 				"below" : "4.7.12",
 				"severity" : "medium",
-				"identifiers" : { "summary" : "FIXED so links with xlink:href attributes are filtered correctly to prevent XSS." },
+				"identifiers" : { 
+					"summary" : "FIXED so links with xlink:href attributes are filtered correctly to prevent XSS.",
+					"retid" : "63"
+				},
 				"info" : [ "https://www.tinymce.com/docs/changelog/" ]
 
 			},
@@ -600,7 +609,8 @@
 				"below" : "5.1.6",
 				"severity" : "medium",
 				"identifiers" : { 
-					"summary" : "CDATA parsing and sanitization has been improved to address a cross-site scripting (XSS) vulnerability."
+					"summary" : "CDATA parsing and sanitization has been improved to address a cross-site scripting (XSS) vulnerability.",
+					"retid": "64"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes516/" ]
 			},
@@ -608,7 +618,8 @@
 				"below" : "5.2.2",
 				"severity" : "low",
 				"identifiers" : { 
-					"summary" : "media embed content not processing safely in some cases."
+					"summary" : "media embed content not processing safely in some cases.",
+					"retid": "65"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes522/" ]
 			},
@@ -616,7 +627,8 @@
 				"below" : "5.4.0",
 				"severity" : "low",
 				"identifiers" : { 
-					"summary" : "content in an iframe element parsing as DOM elements instead of text content."
+					"summary" : "content in an iframe element parsing as DOM elements instead of text content.",
+					"retid": "66"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes54/" ]
 			},
@@ -624,7 +636,8 @@
 				"below" : "5.6.0",
 				"severity" : "medium",
 				"identifiers" : { 
-					"summary" : "security issue where URLs in attributes weren’t correctly sanitized. security issue in the codesample plugin"
+					"summary" : "security issue where URLs in attributes weren’t correctly sanitized. security issue in the codesample plugin",
+					"retid": "67"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes" ]
 			},
@@ -632,7 +645,8 @@
 				"below" : "5.7.1",
 				"severity" : "medium",
 				"identifiers" : { 
-					"summary" : "URLs are not correctly filtered in some cases."
+					"summary" : "URLs are not correctly filtered in some cases.",
+					"retid": "68"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes571/#securityfixes" ]
 			},
@@ -640,7 +654,8 @@
 				"below" : "5.9.0",
 				"severity" : "medium",
 				"identifiers" : { 
-					"summary" : "Inserting certain HTML content into the editor could result in invalid HTML once parsed. This caused a medium severity Cross Site Scripting (XSS) vulnerability"
+					"summary" : "Inserting certain HTML content into the editor could result in invalid HTML once parsed. This caused a medium severity Cross Site Scripting (XSS) vulnerability",
+					"retid": "69"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes" ]
 			},
@@ -648,7 +663,8 @@
 				"below" : "5.10.0",
 				"severity" : "medium",
 				"identifiers" : { 
-					"summary" : "URLs not cleaned correctly in some cases in the link and image plugins"
+					"summary" : "URLs not cleaned correctly in some cases in the link and image plugins",
+					"retid": "70"
 				},
 				"info" : [ "https://www.tiny.cloud/docs/release-notes/release-notes510/#securityfixes" ]
 			},
@@ -796,34 +812,49 @@
 				"atOrAbove" : "4.9.0-alpha.1",
 				"below" :"4.9.0-beta.3",
 				"severity" : "high",
-				"identifiers": { "summary" : "Prototype pollution" },
+				"identifiers": {
+					"summary" : "Prototype pollution",
+					"retid" : "55"
+				},
 				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
 			},
 			{
 				"atOrAbove" : "4.5.0",
 				"below" :"4.8.1",
 				"severity" : "high",
-				"identifiers": { "summary" : "Prototype pollution" },
+				"identifiers": {
+					"summary" : "Prototype pollution",
+					"retid" : "56"
+				},
 				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
 			},
 			{
 				"atOrAbove" : "4.0.0",
 				"below" :"4.4.4",
 				"severity" : "high",
-				"identifiers": { "summary" : "Prototype pollution" },
+				"identifiers": {
+					"summary" : "Prototype pollution",
+					"retid" : "57"
+				},
 				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
 			},
 			{
 				"atOrAbove" : "3.25.0",
 				"below" :"3.28.10",
 				"severity" : "high",
-				"identifiers": { "summary" : "Prototype pollution" },
+				"identifiers": { 
+					"summary" : "Prototype pollution",
+					"retid" : "58"
+				},
 				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
 			},
 			{
 				"below" :"3.24.7",
 				"severity" : "high",
-				"identifiers": { "summary" : "Prototype pollution" },
+				"identifiers": { 
+					"summary" : "Prototype pollution",
+					"retid" : "59"
+				},
 				"info": [ "https://blog.emberjs.com/ember-4-8-1-released/" ]
 			},
 			{
@@ -970,6 +1001,10 @@
 			{
 				"below" : "0.9.7.1",
 				"severity" : "low",
+				"identifiers": {
+					"retid" : "60",
+					"summary" : "More rigorous XSS escaping from bindAttr"
+				},
 				"info" : [ "https://github.com/emberjs/ember.js/blob/master/CHANGELOG.md" ]
 			},
 			{
@@ -1182,7 +1217,8 @@
 				"below" : "1.7.9",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Prototype pollution"
+					"summary": "Prototype pollution",
+					"retid" : "47"
 				},
 				"info" : [ "https://github.com/angular/angular.js/commit/726f49dcf6c23106ddaf5cfd5e2e592841db743a", "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#179-pollution-eradication-2019-11-19" ]
 			},
@@ -1191,7 +1227,8 @@
 				"below" : "1.6.9",
 				"severity": "low",
 				"identifiers": {
-					"summary": "XSS through SVG if enableSvg is set"
+					"summary": "XSS through SVG if enableSvg is set",
+					"retid" : "48"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#169-fiery-basilisk-2018-02-02", "https://vulnerabledoma.in/ngSanitize1.6.8_bypass.html" ]
 			},
@@ -1209,7 +1246,8 @@
 				"below" : "1.5.0-rc2",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "The attribute usemap can be used as a security exploit"
+					"summary": "The attribute usemap can be used as a security exploit",
+					"retid" : "49"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
@@ -1218,7 +1256,8 @@
 				"below" : "1.2.30",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "The attribute usemap can be used as a security exploit"
+					"summary": "The attribute usemap can be used as a security exploit",
+					"retid" : "50"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#1230-patronal-resurrection-2016-07-21" ]
 			},
@@ -1226,7 +1265,8 @@
 				"below" : "1.6.3",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Universal CSP bypass via add-on in Firefox"
+					"summary": "Universal CSP bypass via add-on in Firefox",
+					"retid" : "51"
 				},
 				"info" : [ "https://github.com/mozilla/addons-linter/issues/1000#issuecomment-282083435", "http://pastebin.com/raw/kGrdaypP" ]
 			},
@@ -1234,7 +1274,8 @@
 				"below" : "1.6.3",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "DOS in $sanitize"
+					"summary": "DOS in $sanitize",
+					"retid" : "52"
 				},
 				"info" : [ "https://github.com/angular/angular.js/blob/master/CHANGELOG.md", "https://github.com/angular/angular.js/pull/15699" ]
 			},
@@ -1242,7 +1283,8 @@
 				"below" : "1.6.5",
 				"severity": "low",
 				"identifiers": {
-					"summary": "XSS in $sanitize in Safari/Firefox"
+					"summary": "XSS in $sanitize in Safari/Firefox",
+					"retid" : "53"
 				},
 				"info" : [ "https://github.com/angular/angular.js/commit/8f31f1ff43b673a24f84422d5c13d6312b2c4d94" ]
 			},
@@ -1250,7 +1292,8 @@
 				"below" : "1.999",
 				"severity": "low",
 				"identifiers": {
-					"summary": "End-of-Life: Long term support for AngularJS has been discontinued"
+					"summary": "End-of-Life: Long term support for AngularJS has been discontinued",
+					"retid" : "54"
 				},
 				"info" : [ "https://blog.angular.io/discontinued-long-term-support-for-angularjs-cc066b82e65a?gi=9d3103b5445c" ]
 			}
@@ -1274,7 +1317,8 @@
 				"severity": "medium",
 				"identifiers": {
 					"release": "0.5.0",
-					"summary": "cross-site scripting vulnerability"
+					"summary": "cross-site scripting vulnerability",
+					"retid" : "46"
 				},
 				"info" : [ "http://backbonejs.org/#changelog" ]
 			}
@@ -1327,7 +1371,8 @@
 				"below" : "1.0.0.beta.3",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "poorly sanitized input passed to eval()"
+					"summary": "poorly sanitized input passed to eval()",
+					"issue" : "68"
 				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/68" ]
 			},
@@ -1335,7 +1380,8 @@
 				"below" : "4.0.0",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Quoteless attributes in templates can lead to XSS"
+					"summary": "Quoteless attributes in templates can lead to XSS",
+					"issue" : "1083"
 				},
 				"info" : [ "https://github.com/wycats/handlebars.js/pull/1083" ]
 			},
@@ -1344,7 +1390,8 @@
 				"below" : "4.0.13",
 				"severity": "high",
 				"identifiers": {
-					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template"
+					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template",
+					"retid" : "43"
 				},
 				"info" : [
 					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-173692",
@@ -1356,7 +1403,8 @@
 				"below" : "4.0.14",
 				"severity": "high",
 				"identifiers": {
-					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template"
+					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template",
+					"issue" : "1495"
 				},
 				"info" : [
 					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
@@ -1369,7 +1417,8 @@
 				"below" : "4.1.2",
 				"severity": "high",
 				"identifiers": {
-					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template"
+					"summary": "A prototype pollution vulnerability in handlebars is exploitable if an attacker can control the template",
+					"issue" : "1495"
 				},
 				"info" : [
 					"https://snyk.io/vuln/SNYK-JS-HANDLEBARS-174183",
@@ -1381,7 +1430,8 @@
 				"below" : "4.3.0",
 				"severity": "low",
 				"identifiers": {
-					"summary": "Disallow calling helperMissing and blockHelperMissing directly"
+					"summary": "Disallow calling helperMissing and blockHelperMissing directly",
+					"retid" : "44"
 				},
 				"info" : [
 					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v430---september-24th-2019"
@@ -1391,7 +1441,8 @@
 				"below" : "4.5.3",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Prototype pollution"
+					"summary": "Prototype pollution",
+					"retid" : "45"
 				},
 				"info" : [
 					"https://github.com/wycats/handlebars.js/blob/master/release-notes.md#v453---november-18th-2019"
@@ -1401,7 +1452,8 @@
 				"below" : "4.6.0",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Denial of service"
+					"summary": "Denial of service",
+					"issue" : "1633"
 				},
 				"info" : [
 					"https://github.com/handlebars-lang/handlebars.js/pull/1633"
@@ -1411,7 +1463,8 @@
 				"below" : "4.7.7",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Prototype pollution"
+					"summary": "Prototype pollution",
+					"retid" : "71"
 				},
 				"info" : [
 					"https://github.com/handlebars-lang/handlebars.js/commit/f0589701698268578199be25285b2ebea1c1e427"
@@ -1448,7 +1501,8 @@
 				"below" : "2.4.20",
 				"severity": "medium",
 				"identifiers": {
-					"summary" : "This release fixes a potential XSS for IE running in compatibility mode."
+					"summary" : "This release fixes a potential XSS for IE running in compatibility mode.",
+					"retid" : "39"
 				},
 				"info" : [ "https://github.com/oyvindkinsey/easyXDM/releases/tag/2.4.20" ]
 			},
@@ -1456,7 +1510,8 @@
 				"below" : "2.5.0",
 				"severity": "medium",
 				"identifiers": {
-					"summary" : "This tightens down the default origin whitelist in the CORS example."
+					"summary" : "This tightens down the default origin whitelist in the CORS example.",
+					"retid" : "40"
 				},
 				"info" : [ "https://github.com/oyvindkinsey/easyXDM/releases/tag/2.5.0" ]
 			}
@@ -1476,58 +1531,78 @@
 			{
 				"below" : "1.5.4",
 				"severity": "medium",
-				"identifiers": {"CVE": [ "CVE-2012-2401" ] },
+				"identifiers": {
+					"CVE": [ "CVE-2012-2401" ]
+				},
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2012-2401/" ]
 			},
 			{
 				"below" : "1.5.5",
 				"severity": "medium",
-				"identifiers": {"CVE": [ "CVE-2013-0237" ] },
+				"identifiers": { "CVE": [ "CVE-2013-0237" ] },
 				"info" : [ "http://www.cvedetails.com/cve/CVE-2013-0237/" ]
 			},
 			{
 				"below" : "2.1.9",
 				"severity": "medium",
-				"identifiers": {"CVE": [ "CVE-2016-4566" ] },
+				"identifiers": { "CVE": [ "CVE-2016-4566" ] },
 				"info" : [ "https://github.com/moxiecode/plupload/releases" ]
 			},
 			{
 				"below" : "2.3.7",
 				"severity": "medium",
-				"identifiers": { "summary": "Fixed security vulnerability by adding die calls to all php files to prevent them from being executed unless modified." },
+				"identifiers": { 
+					"summary": "Fixed security vulnerability by adding die calls to all php files to prevent them from being executed unless modified.",
+					"retid": "35"
+				},
 				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v2.3.7" ]
 			},
 			{
 				"below" : "3.1.3",
 				"atOrAbove" : "3.0.0",
 				"severity": "medium",
-				"identifiers": { "summary": "Fixed security vulnerability by adding die calls to all php files to prevent them from being executed unless modified." },
+				"identifiers": {
+					"summary": "Fixed security vulnerability by adding die calls to all php files to prevent them from being executed unless modified.",
+					"retid": "36"
+				},
 				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v3.1.3" ]
 			},
 			{
 				"below" : "3.1.4",
 				"atOrAbove" : "3.0.0",
 				"severity": "medium",
-				"identifiers": { "summary": "Fixed a potential security issue with not entity encoding the file names in the html in the queue/ui widgets." },
+				"identifiers": {
+					"summary": "Fixed a potential security issue with not entity encoding the file names in the html in the queue/ui widgets.",
+					"retid": "37"
+				},
 				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v3.1.4" ]
 			},
 			{
 				"below" : "2.3.8",
 				"severity": "medium",
-				"identifiers": { "summary": "Fixed a potential security issue with not entity encoding the file names in the html in the queue/ui widgets." },
+				"identifiers": {
+					"summary": "Fixed a potential security issue with not entity encoding the file names in the html in the queue/ui widgets.",
+					"retid": "38"
+				},
 				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v2.3.8" ]
 			},
 			{
 				"below" : "3.1.5",
 				"atOrAbove" : "3.0.0",
 				"severity": "medium",
-				"identifiers": { "summary": "Fixed another case of html entities not being encoded that could be exploded by uploading a file name with html in it." },
+				"identifiers": { 
+					"summary": "Fixed another case of html entities not being encoded that could be exploded by uploading a file name with html in it.",
+					"retid" : "41"
+				},
 				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v3.1.5" ]
 			},
 			{
 				"below" : "2.3.9",
 				"severity": "medium",
-				"identifiers": { "summary": "Fixed another case of html entities not being encoded that could be exploded by uploading a file name with html in it." },
+				"identifiers": { 
+					"summary": "Fixed another case of html entities not being encoded that could be exploded by uploading a file name with html in it.",
+					"retid" : "42"
+				},
 				"info" : [ "https://github.com/moxiecode/plupload/releases/tag/v2.3.9" ]
 			}
 		],
@@ -1548,67 +1623,79 @@
 			{
 				"below" : "0.6.1",
 				"severity": "medium",
-				"identifiers": { },
+				"identifiers": { "retid": "24" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.6.1" ]
 			},
 			{
 				"below" : "0.8.6",
 				"severity": "medium",
-				"identifiers": { },
+				"identifiers": { "retid": "25" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.8.6" ]
 			},
 			{
 				"below" : "0.8.9",
 				"severity": "low",
-				"identifiers": { "summary": "safari UXSS" },
+				"identifiers": { "summary": "safari UXSS", "retid": "26"},
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.8.9", "https://lists.ruhr-uni-bochum.de/pipermail/dompurify-security/2017-May/000006.html" ]
 			},
 			{
 				"below" : "0.9.0",
 				"severity": "low",
-				"identifiers": { "summary": "safari UXSS" },
+				"identifiers": { "summary": "safari UXSS", "retid": "27" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases/tag/0.9.0" ]
 			},
 			{
 				"below" : "2.0.16",
 				"severity": "low",
-				"identifiers": { "summary": "Fixed an mXSS-based bypass caused by nested forms inside MathML" },
+				"identifiers": { "summary": "Fixed an mXSS-based bypass caused by nested forms inside MathML", "retid": "28" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			},
 			{
 				"below" : "2.0.17",
 				"severity": "low",
-				"identifiers": { "summary": "Fixed another bypass causing mXSS by using MathML" },
+				"identifiers": { "summary": "Fixed another bypass causing mXSS by using MathML", "retid": "29" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			},
 			{
 				"below" : "2.1.1",
 				"severity": "low",
-				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor" },
+				"identifiers": { "summary": "Fixed several possible mXSS patterns, thanks @hackvertor", "retid": "30" },
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			},
 			{
 				"below" : "2.2.0",
 				"severity": "low",
-				"identifiers": { "summary": "Fix a possible XSS in Chrome that is hidden behind #enable-experimental-web-platform-features" },
+				"identifiers": { 
+					"summary": "Fix a possible XSS in Chrome that is hidden behind #enable-experimental-web-platform-features",
+					"retid": "31"
+				},
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			},
 			{
 				"below" : "2.2.2",
 				"severity": "low",
-				"identifiers": { "summary": "Fixed an mXSS bypass dropped on us publicly via" },
+				"identifiers": {
+					"summary": "Fixed an mXSS bypass dropped on us publicly via",
+					"retid": "32"
+				},
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			},
 			{
 				"below" : "2.2.3",
 				"severity": "low",
-				"identifiers": { "summary": "Fixed an mXSS issue reported" },
+				"identifiers": {
+					"summary": "Fixed an mXSS issue reported",
+					"retid": "33"
+				},
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			},
 			{
 				"below" : "2.2.4",
 				"severity": "low",
-				"identifiers": { "summary": "Fixed a new MathML-based bypass submitted by PewGrand. Fixed a new SVG-related bypass submitted by SecurityMB" },
+				"identifiers": {
+					"summary": "Fixed a new MathML-based bypass submitted by PewGrand. Fixed a new SVG-related bypass submitted by SecurityMB",
+					"retid": "34"
+				},
 				"info" : [ "https://github.com/cure53/DOMPurify/releases" ]
 			}
 		],
@@ -1648,7 +1735,10 @@
 			{
 				"below" : "0.14.0",
 				"severity" : "low",
-				"identifiers" : { "summary":" including untrusted objects as React children can result in an XSS security vulnerability" },
+				"identifiers" : {
+					"summary":" including untrusted objects as React children can result in an XSS security vulnerability",
+					"retid" : "23"
+				},
 				"info": [ "http://danlec.com/blog/xss-via-a-spoofed-react-element", "https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html" ]
 			},
 			{
@@ -1717,7 +1807,10 @@
 			{
 				"below" : "5.4.3",
 				"severity": "medium",
-				"identifiers": { "summary" : "XSS vulnerability in Flash fallback" },
+				"identifiers": { 
+					"summary" : "XSS vulnerability in Flash fallback",
+					"issue" : "381"
+				},
 				"info" : [ "https://github.com/flowplayer/flowplayer/issues/381" ]
 			}
 		],
@@ -1763,14 +1856,18 @@
 			{
 				"below" : "2.11.2",
 				"severity": "low",
-				"identifiers": { "summary":"reDOS - regular expression denial of service" },
+				"identifiers": { 
+					"summary":"reDOS - regular expression denial of service", 
+					"issue" : "2936" 
+				},
 				"info" : [ "https://github.com/moment/moment/issues/2936" ]
 			},
 			{
 				"below" : "2.15.2",
 				"severity": "medium",
 				"identifiers": { 
-					"summary" : "Regular Expression Denial of Service (ReDoS)"
+					"summary" : "Regular Expression Denial of Service (ReDoS)",
+					"retid" : "22"
 				},
 				"info" : [ 
 					"https://security.snyk.io/vuln/npm:moment:20161019"
@@ -1957,7 +2054,8 @@
 				"below" : "2.1.0",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "cross-site scripting vulnerability"
+					"summary": "cross-site scripting vulnerability",
+					"issue" : "3421"
 				},
 				"info" : [ "https://github.com/twbs/bootstrap/pull/3421" ]
 			}
@@ -1980,7 +2078,8 @@
 			{
 				"below" : "4.4.3",
 				"identifiers" : {
-					"summary" : "XSS"
+					"summary" : "XSS",
+					"retid" : "13"
 				},
 				"severity" : "medium",
 				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-443" ]
@@ -1988,7 +2087,8 @@
 			{
 				"below" : "4.4.6",
 				"identifiers" : {
-					"summary" : "XSS"
+					"summary" : "XSS",
+					"retid" : "14"
 				},
 				"severity" : "medium",
 				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-446" ]
@@ -1996,7 +2096,8 @@
 			{
 				"below" : "4.4.8",
 				"identifiers" : {
-					"summary" : "XSS"
+					"summary" : "XSS",
+					"retid" : "15"
 				},
 				"severity" : "medium",
 				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-448" ]
@@ -2004,7 +2105,8 @@
 			{
 				"below" : "4.5.11",
 				"identifiers" : {
-					"summary" : "XSS"
+					"summary" : "XSS",
+					"retid" : "16"
 				},
 				"severity" : "medium",
 				"info": [ "https://github.com/ckeditor/ckeditor-dev/blob/master/CHANGES.md#ckeditor-4511" ]
@@ -2013,7 +2115,8 @@
 				"below" : "4.9.2",
 				"atOrAbove" : "4.5.11",
 				"identifiers" : {
-					"summary" : "XSS if the enhanced image plugin is installed"
+					"summary" : "XSS if the enhanced image plugin is installed",
+					"retid" : "17"
 				},
 				"severity" : "medium",
 				"info": [ "https://ckeditor.com/blog/CKEditor-4.9.2-with-a-security-patch-released/", "https://ckeditor.com/cke4/release-notes" ]
@@ -2022,7 +2125,8 @@
 				"atOrAbove" : "4.0.0",
 				"below" : "4.11.0",
 				"identifiers" : {
-					"summary" : "XSS vulnerability in the HTML parser"
+					"summary" : "XSS vulnerability in the HTML parser",
+					"retid" : "18"
 				},
 				"severity" : "medium",
 				"info" : [
@@ -2033,7 +2137,8 @@
 			{
 				"below" : "4.15.1",
 				"identifiers" : {
-					"summary" : "XSS-type attack inside CKEditor 4 by persuading a victim to paste a specially crafted HTML code into the Color Button dialog"
+					"summary" : "XSS-type attack inside CKEditor 4 by persuading a victim to paste a specially crafted HTML code into the Color Button dialog",
+					"retid" : "19"
 				},
 				"severity" : "medium",
 				"info" : [
@@ -2043,7 +2148,8 @@
 			{
 				"below" : "4.14.0",
 				"identifiers" : {
-					"summary" : "XSS"
+					"summary" : "XSS",
+					"retid" : "20"
 				},
 				"severity" : "low",
 				"info": [ "https://github.com/ckeditor/ckeditor4/blob/major/CHANGES.md#ckeditor-414" ]
@@ -2051,7 +2157,8 @@
 			{
 				"below" : "4.16.0",
 				"identifiers" : {
-					"summary" : "ReDoS vulnerability in Autolink plugin and Advanced Tab for Dialogs plugin"
+					"summary" : "ReDoS vulnerability in Autolink plugin and Advanced Tab for Dialogs plugin",
+					"retid" : "21"
 				},
 				"severity" : "low",
 				"info": [ "https://ckeditor.com/cke4/release/CKEditor-4.16.0" ]
@@ -2183,7 +2290,8 @@
 				"below" : "2.6.11",
 				"severity" : "medium",
 				"identifiers" : {
-					"summary" : "Bump vue-server-renderer's dependency of serialize-javascript to 2.1.2"
+					"summary" : "Bump vue-server-renderer's dependency of serialize-javascript to 2.1.2",
+					"retid" : "10"
 				},
 				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.6.11" ]
 			},
@@ -2191,7 +2299,8 @@
 				"below" : "2.5.17",
 				"severity" : "medium",
 				"identifiers" : {
-					"summary" : "potential xss in ssr when using v-bind"
+					"summary" : "potential xss in ssr when using v-bind",
+					"retid" : "11"
 				},
 				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.5.17" ]
 			},
@@ -2199,7 +2308,8 @@
 				"below" : "2.4.3",
 				"severity" : "medium",
 				"identifiers" : {
-					"summary" : "possible xss vector "
+					"summary" : "possible xss vector",
+					"retid" : "12"
 				},
 				"info" : [ "https://github.com/vuejs/vue/releases/tag/v2.4.3" ]
 			}
@@ -2307,7 +2417,8 @@
 				"below" : "3.46.5",
 				"severity" : "medium",
 				"identifiers": {
-					"summary": "XSS"
+					"summary": "XSS",
+					"retid" : "8"
 				},
 				"info" : [ "https://github.com/sveltejs/svelte/pull/7333" ]
 			},
@@ -2315,7 +2426,8 @@
 				"below" : "2.9.8",
 				"severity" : "medium",
 				"identifiers": {
-					"summary": "XSS"
+					"summary": "XSS",
+					"retid" : "9"
 				},
 				"info" : [ "https://github.com/sveltejs/svelte/pull/1623" ]
 			}
@@ -2394,7 +2506,8 @@
 				"below": "10.0.0",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Regular Expression Denial of Service (ReDoS)"
+					"summary": "Regular Expression Denial of Service (ReDoS)",
+					"retid" : "6"
 				},
 				"info": [ "https://security.snyk.io/vuln/SNYK-JS-MARKDOWNIT-459438", "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md" ]
 			},
@@ -2403,7 +2516,8 @@
 				"atOrAbove": "4.0.0",
 				"severity":"medium",
 				"identifiers": {
-					"summary": "Cross-site Scripting (XSS)"
+					"summary": "Cross-site Scripting (XSS)",
+					"retid" : "7"
 				},
 				"info": [ "https://security.snyk.io/vuln/npm:markdown-it:20150702", "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md" ]
 			},
@@ -2437,7 +2551,8 @@
 				"below": "3.8.0",
 				"severity": "medium",
 				"identifiers": {
-					"summary": "Santize filenames when files are loaded with loadAsync, to avoid “zip slip” attacks."
+					"summary": "Santize filenames when files are loaded with loadAsync, to avoid “zip slip” attacks.",
+					"retid" : "5"
 				},
 				"info": [ "https://stuk.github.io/jszip/CHANGES.html" ]
 			},
@@ -2493,7 +2608,8 @@
 				"below" : "1.11.3",
 				"severity" : "low",
 				"identifiers" : {
-					"summary" : "possible XSS"
+					"summary" : "possible XSS",
+					"retid": "2"
 				},
 				"info" : [
 					"https://github.com/DataTables/Dist-DataTables/commit/59a8d3f8a3c1138ab08704e783bc52bfe88d7c9b",
@@ -2504,7 +2620,8 @@
 				"below" : "1.10.23",
 				"severity" : "high",
 				"identifiers" : {
-					"summary" : "prototype pollution"
+					"summary" : "prototype pollution",
+					"retid" : "3"
 				},
 				"info" : [
 					"https://github.com/DataTables/DataTablesSrc/commit/a51cbe99fd3d02aa5582f97d4af1615d11a1ea03",
@@ -2515,7 +2632,8 @@
 				"below" : "1.10.22",
 				"severity" : "medium",
 				"identifiers" : {
-					"summary" : "prototype pollution"
+					"summary" : "prototype pollution",
+					"retid" : "4"
 				},
 				"info" : [
 					"https://cdn.datatables.net/1.10.22/"
