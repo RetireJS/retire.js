@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+npm test
+
+
 VERSION=$(cat package.json  | jq -r .version)
 COMMIT_ID=$(git rev-parse HEAD)
 echo "Point $VERSION to $COMMIT_ID and publish (Y/N)?"

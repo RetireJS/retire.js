@@ -87,22 +87,12 @@
             "subversions" : [ "", ".min" ]
         }
     },
-    "nextjs" : {
-        "https://next-blog-wordpress.vercel.app/_next/static/chunks/main-d8b1ff545a609496.js" : {
-            "versions"    : [ "12.1.6" ],
-            "contentOnly" : true
-        },
-        "https://demo.vercel.store/_next/static/chunks/main-42cf2f391f50f1e7.js" : {
-            "versions"    : [ "12.1.6" ],
-            "contentOnly" : true
-        }
-    },
     "vue" : {
         "https://cdn.jsdelivr.net/npm/vue@§§version§§" : {
-            "versions" : [ "3.2.37", "3.2.36", "2.7.6", "1.0.28" ]
+            "versions" : [ "3.2.45", "3.2.37", "3.2.36", "2.7.6", "1.0.28" ]
         },
         "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.global.prod.min.js" : {
-            "versions" : [ "3.2.37", "3.2.36" ]
+            "versions" : [ "3.2.37", "3.2.36", "3.2.45" ]
         },
         "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.min.js" : {
             "versions" : [ "2.7.6", "1.0.28" ]
@@ -125,5 +115,16 @@
         "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/§§version§§/underscore-min.js" : {
             "versions" : [ "1.13.4", "1.10.1", "1.8.2", "1.3.1" ]
         }
+    },
+    "svelte": {
+       "https://unpkg.com/svelte@§§version§§/internal/index.mjs" : {
+        "versions" : [ "3.55.0" ]
+       },
+       "https://unpkg.com/svelte@§§version§§/compiler.js" : {
+        "versions" : [ "3.6.0" ]
+       },
+       "https://unpkg.com/svelte@§§version§§/compiler/svelte.js" : {
+        "versions" : [ "2.15.3", "2.6.0", "2.0.0", "1.64.1", "1.22.1" ]
+       }
     }
 }

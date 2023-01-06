@@ -38,16 +38,29 @@ async function dl(uri) {
             });
         });
         d.on("error", (err) => {
-            console.warn(err);
+            failure(err);
             return reject("Failed to download " + uri);
         })
     });
 }
 
 function exitWithError(...msg) {
-	console.warn(...msg);
+	failure(...msg);
 	process.exit(1);
 }
+const colors = {
+    Reset : "\x1b[0m",
+    Green : "\x1b[32m",
+    Red : "\x1b[31m"
+}
+
+function success(...msg) {
+    console.log(colors.Green, ...msg, colors.Reset);
+}
+function failure(...msg) {
+    console.warn(colors.Red, ...msg, colors.Reset);
+}
+
 
 async function runTests(jsRepo) {
     for (let [name, content] of Object.entries(testCases)) {
@@ -94,11 +107,11 @@ async function runTests(jsRepo) {
                     if (!contentResults[0].version.startsWith(version)) {
                         exitWithError(`Wrong version for ${version} of ${name} using content on ${t}: ${contentResults[0].version}` )
                     }
-                    console.log(`  - ${contentResults[0].component} @ ${contentResults[0].version}`)
+                    success(`  - ${contentResults[0].component} @ ${contentResults[0].version}`)
                 }
             }
         }
-        console.log(" Successfully tested uri/filename and content detection!")
+        success(" Successfully tested uri/filename and content detection!")
     }
 
 }
