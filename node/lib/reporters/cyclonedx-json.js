@@ -38,7 +38,7 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
                 ];
             }
             var purl = `pkg:npm/${dep.component}@${dep.version}`;
-            if (seen[purl]) return '';
+            if (seen[purl]) return undefined;
             seen[purl] = true;
             return {
                 type: "library",
@@ -47,7 +47,7 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
                 purl: purl,
                 hashes: hashes
             };
-        })).reduce((a,b) => a.concat(b));
+        }).filter(x => x != undefined)).reduce((a,b) => a.concat(b));
         write(JSON.stringify({
             bomFormat    : "CycloneDX",
             specVersion  : "1.4",

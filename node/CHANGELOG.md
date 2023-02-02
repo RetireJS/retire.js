@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.2.3]
+
+- Fix caching bug in CycloneDX JSON output
+
 ## [3.2.2]
 
 - Fix bug in CycloneDX JSON output (wrapped components array)
