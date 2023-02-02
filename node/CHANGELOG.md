@@ -1,6 +1,10 @@
 # Changelog
 
-## [3.2.0]
+## [3.2.2]
+
+- Fix bug in CycloneDX JSON output (wrapped components array)
+
+## [3.2.1]
 
 - Remove unintended use of arrow functions
 

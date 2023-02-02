@@ -26,8 +26,8 @@ describe('cyclonedx-json', () => {
         };
         let logger = reporting.open({});
         jsonLogger.configure(logger, writer, {}, hash);
-            let result = retire.scanFileContent("/*! jQuery v1.8.1 asdasd ", repo, hash);
-        logger.logVulnerableDependency(result);
+        let result = retire.scanFileContent("/*! jQuery v1.8.1 asdasd ", repo, hash);
+        logger.logVulnerableDependency({ results: result });
         logger.close();
         let validator = new Validator();
         validator.addSchema(jsfSchema, "jsf-0.82.schema.json#/definitions/signature");
