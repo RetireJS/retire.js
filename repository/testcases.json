@@ -126,5 +126,20 @@
        "https://unpkg.com/svelte@§§version§§/compiler/svelte.js" : {
         "versions" : [ "2.15.3", "2.6.0", "2.0.0", "1.64.1", "1.22.1" ]
        }
+    },
+    "chart.js": {
+        "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/§§version§§/chart.min.js" : {
+            "versions": [ "4.2.1", "3.6.1" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/§§version§§/chart.js" : {
+            "versions": [ "4.2.1", "3.6.1" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/§§version§§/Chart.bundle.min.js" : {
+            "versions": ["2.6.0" ]
+        },
+        "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/§§version§§/Chart.bundle.js" : {
+            "versions": ["2.6.0" ],
+            "allowedOtherComponents" : "moment.js"
+        }
     }
 }

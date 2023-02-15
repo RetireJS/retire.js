@@ -2753,6 +2753,30 @@
 			"func" : [ "next && next.version" ]
 		}
 	},
+	"chart.js" : {
+		"vulnerabilities" : [
+			{
+				"below": "2.9.4",
+				"severity" : "high",
+				"identifiers" : {
+					"summary" : "Prototype pollution in chart.js",
+					"CVE" : [ "CVE-2020-7746" ]
+				},
+				"info" : [ "https://github.com/advisories/GHSA-h68q-55jf-x68w" ]
+			}
+		],
+		"extractors" : {
+			"uri": [ 
+				"/Chart.js/(§§version§§)/chart(\\.min)?\\.js",
+				"/Chart.js/(§§version§§)/Chart.bundle(\\.min)?\\.js"  
+			],
+			"filecontent" : [
+				"var version=\"(§§version§§)\";const KNOWN_POSITIONS=\\[\"top\",\"bottom\",\"left\",\"right\",\"chartArea\"\\]",
+				"/\\*![\\s]+\\* Chart.js v(§§version§§)",
+				"/\\*![\\s]+\\* Chart.js[\\s]+\\* http://chartjs.org/[\\s]+\\* Version: (§§version§§)"
+			]
+		}
+	},
 	"dont check" : {
 		"extractors" : {
 			"uri" : [
