@@ -1,16 +1,25 @@
 /*jshint esversion: 6 */
 
-var retire = require('../retire');
-var fs = require('fs');
+import { ConfigurableLogger, Logger, Writer, Hasher, LoggerOptions } from "../reporting";
+
+import * as retire from "../retire";
+import * as fs from "fs";
+import { Finding } from "../types";
 
 
-function configureDepCheckLogger(logger, writer, config, hash) {
-	var vulnsFound = false;
-	var finalResults = { version: retire.version, start: new Date(), data: [], messages: [], errors: [] };
+function configureDepCheckLogger(logger: Logger, writer: Writer, config: LoggerOptions, hash: Hasher) {
+	let vulnsFound = false;
+	const finalResults = { 
+    version: retire.version, 
+    start: new Date().toISOString().replace("Z", "+0000"), 
+    data: [] as Finding[],
+    messages: [] as unknown[], 
+    errors: [] as unknown[]
+  };
 	logger.info = finalResults.messages.push;
-	logger.debug = config.verbose ? finalResults.messages.push : function() {};
+	logger.debug = config.verbose ? finalResults.messages.push : function() { return };
 	logger.warn = logger.error = finalResults.errors.push;
-	logger.logVulnerableDependency = function(finding) {
+	logger.logVulnerableDependency = (finding) => {
 		vulnsFound = true;
 		finalResults.data.push(finding);
 	};
@@ -21,14 +30,12 @@ function configureDepCheckLogger(logger, writer, config, hash) {
 	};
 
 	logger.close = function(callback) {
-		var write = vulnsFound ? writer.err : writer.out;
-		finalResults.start = finalResults.start.toISOString().replace("Z", "+0000");
+		const write = vulnsFound ? writer.err : writer.out;
 		write(`<?xml version="1.0"?>
 <analysis xmlns="https://jeremylong.github.io/DependencyCheck/dependency-check.2.3.xsd">
   <scanInfo>
     <engineVersion>${retire.version}</engineVersion>
     <dataSource><name>${config.jsRepo || "Retire.js github js repo"}</name><timestamp>${finalResults.start}</timestamp></dataSource>
-    <dataSource><name>${config.nodeRepo || "Retire.js github node repo"}</name><timestamp>${finalResults.start}</timestamp></dataSource>
    </scanInfo>
    <projectInfo>
    	<name>${config.path}</name>
@@ -37,13 +44,14 @@ function configureDepCheckLogger(logger, writer, config, hash) {
    </projectInfo>
    <dependencies>`);
 		write(finalResults.data.filter(d => d.results).map(r => r.results.map((dep, i) => {
-			var filepath = r.file || dep.file;
-			var filename = filepath.split("/").slice(-1);
-			var file = fs.readFileSync(filepath);
-			var md5 = hash.md5(file);
-			var sha1 = hash.sha1(file);
-			var sha256 = hash.sha256(file);
-			var evidence = `
+			const filepath = r.file;
+      if (!filepath) return;
+			const filename = filepath.split("/").slice(-1);
+			const file = fs.readFileSync(filepath);
+			const md5 = hash.md5(file);
+			const sha1 = hash.sha1(file);
+			const sha256 = hash.sha256(file);
+			const evidence = `
         <evidence type="product" confidence="HIGH">
           <source>file</source>
           <name>name</name>
@@ -54,20 +62,20 @@ function configureDepCheckLogger(logger, writer, config, hash) {
           <name>version</name>
           <value>${dep.version}</value>
         </evidence>`;
-			var identifiers = `
+        const identifiers = `
         <package confidence="HIGH">
           <description>(${dep.component}:${dep.version})</description>
           <id>${i}</id>
         </package>`;
-			var vulns = dep.vulnerabilities && dep.vulnerabilities.length > 0 ? dep.vulnerabilities.map(v => {
-				var references = v.info.map(i => `
+        const vulns = dep.vulnerabilities && dep.vulnerabilities.length > 0 ? dep.vulnerabilities.map(v => {
+          const references = v.info.map(i => `
             <reference>
               <source>Retire.js</source>
               <url>${i}</url>
               <name>${i}</name>
             </reference>`).join("");
-				var id = [v.identifiers && v.identifiers.CVE && v.identifiers.CVE[0], v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]	
-					.filter(n => n !== null)[0];
+            //  const id = [v.identifiers && v.identifiers.CVE && v.identifiers.CVE[0], v.identifiers && v.identifiers.issue, dep.component + '@' + v.info[0]]	
+					  //  .filter(n => n !== null)[0];
 				//TODO: Fix CVSS stuff - add to repo? add id to every bug in repo?
 				return `
         <vulnerability source="retire">
@@ -109,5 +117,6 @@ function configureDepCheckLogger(logger, writer, config, hash) {
 	};
 }
 
-
-exports.configure = configureDepCheckLogger;
+export default {
+  configure: configureDepCheckLogger
+} as  ConfigurableLogger;

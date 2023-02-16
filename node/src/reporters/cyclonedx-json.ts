@@ -1,14 +1,23 @@
 /*jshint esversion: 6 */
 
-var retire = require('../retire');
-var fs = require('fs');
-var uuidv4 = require('uuid').v4;
+import { ConfigurableLogger, Hasher, Logger, LoggerOptions, Writer } from "../reporting";
 
-function configureCycloneDXJSONLogger(logger, writer, config, hash) {
-    var vulnsFound = false;
-    var finalResults = { version: retire.version, start: new Date(), data: [], messages: [], errors: [] };
+import * as retire from "../retire";
+import * as fs from "fs";
+import { v4 as uuidv4 } from "uuid";
+import { Finding } from "../types";
+
+function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: LoggerOptions, hash: Hasher) {
+    let vulnsFound = false;
+    const finalResults = { 
+        version: retire.version, 
+        start: new Date().toISOString(), 
+        data: [] as Finding[], 
+        messages: [] as unknown[], 
+        errors: []  as unknown[]
+    };
     logger.info = finalResults.messages.push;
-    logger.debug = config.verbose ? finalResults.messages.push : function() {};
+    logger.debug = config.verbose ? finalResults.messages.push : function() { return };
     logger.warn = logger.error = finalResults.errors.push;
     logger.logVulnerableDependency = function(finding) {
         vulnsFound = true;
@@ -21,15 +30,14 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
     };
 
     logger.close = function(callback) {
-        var write = vulnsFound ? writer.err : writer.out;
-        finalResults.start = finalResults.start.toISOString();
-        var seen = {};
-        var components = finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
+        const write = vulnsFound ? writer.err : writer.out;
+        const seen = new Set<string>();
+        const components = finalResults.data.filter(d => d.results).map(r => r.results.map(dep => {
             dep.version = (dep.version.split(".").length >= 3 ? dep.version : dep.version + ".0").replace(/-/g, ".");
-            var hashes;
-            var filepath = r.file || dep.file;
+            let hashes;
+            const filepath = r.file;
             if (filepath) {
-                var file = fs.readFileSync(filepath);
+                const file = fs.readFileSync(filepath);
                 hashes = [
                     { "alg" : "MD5", "content" : hash.md5(file) },
                     { "alg" : "SHA-1", "content" : hash.sha1(file) },
@@ -37,9 +45,9 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
                     { "alg" : "SHA-512", "content" : hash.sha512(file) },
                 ];
             }
-            var purl = `pkg:npm/${dep.component}@${dep.version}`;
-            if (seen[purl]) return undefined;
-            seen[purl] = true;
+            const purl = `pkg:npm/${dep.component}@${dep.version}`;
+            if (seen.has(purl)) return undefined;
+            seen.add(purl);
             return {
                 type: "library",
                 name: dep.component,
@@ -69,4 +77,6 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
     };
 }
 
-exports.configure = configureCycloneDXJSONLogger;
+export default {
+    configure: configureCycloneDXJSONLogger
+} as  ConfigurableLogger;

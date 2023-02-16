@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+npm install
+
+if [[ `git status --porcelain` ]]; then
+  echo "ERROR: Changes found in git"
+  exit 1
+fi
+
+npm run lint
+npm run build
+
 npm test
 
 

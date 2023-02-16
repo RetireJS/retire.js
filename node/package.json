@@ -2,38 +2,55 @@
   "author": "Erlend Oftedal <erlend@oftedal.no>",
   "name": "retire",
   "description": "Retire is a tool for detecting use of vulnerable libraries",
-  "version": "3.2.3",
+  "version": "4.0.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/RetireJS/retire.js.git"
   },
   "bin": {
-    "retire": "./bin/retire"
+    "retire": "./lib/cli.js"
   },
   "main": "./lib/retire.js",
   "dependencies": {
     "ansi-colors": "^4.1.1",
-    "commander": "2.5.x",
+    "commander": "^10.0.0",
     "proxy-agent": "^5.0.0",
-    "read-installed": "^4.0.3",
     "uuid": "^8.3.2",
-    "walkdir": "0.4.1"
+    "walkdir": "0.4.1",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@types/node": "^18.13.0",
+    "@types/uuid": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "chai": "^4.3.4",
-    "jshint": "^2.13.4",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
     "jsonschema": "^1.4.1",
     "libxmljs": "^0.19.10",
-    "mocha": "^9.2.0"
+    "mocha": "^9.2.0",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
   },
   "scripts": {
-    "test": "./test"
+    "test": "./test",
+    "build": "tsc && chmod ugo+x lib/cli.js",
+    "watch": "tsc --watch ",
+    "lint": "eslint . --ext .ts --fix --ignore-path .gitignore",
+    "check": "npm run lint && npm run typecheck"
   },
   "engines": {
     "node": ">= 6.0.0"
   },
   "keywords": [
-    "sbom", "sbom-tool", "sbom-generator", "security", "cli", "software-composition-analysis", "sca"
+    "sbom",
+    "sbom-tool",
+    "sbom-generator",
+    "security",
+    "cli",
+    "software-composition-analysis",
+    "sca"
   ]
 }
