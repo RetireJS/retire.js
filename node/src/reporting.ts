@@ -7,7 +7,7 @@ import jsonLogger from "./reporters/json";
 import depcheckLogger from "./reporters/depcheck";
 import cyclonedxLogger from "./reporters/cyclonedx";
 import cyclonedxJSONLogger from "./reporters/cyclonedx-json";
-import { Finding, Options } from "./types";
+import { Finding } from "./types";
 
 const loggers = {
   console       : consoleLogger,

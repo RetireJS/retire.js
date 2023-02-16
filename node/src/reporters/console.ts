@@ -1,7 +1,7 @@
 import * as retire from "../retire";
 import * as utils from "../utils";
 import { Logger, LoggerOptions, type ConfigurableLogger } from "../reporting";
-import { Component, Finding, Options, Vulnerability } from "../types";
+import { Component, Finding, Vulnerability } from "../types";
 
 function printResults(logger: Logger, finding: Finding, config: LoggerOptions) {
   if (finding.results && finding.results.length > 0) {

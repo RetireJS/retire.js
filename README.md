@@ -1,6 +1,8 @@
 Retire.js
 =========
 
+Currently being rewritten to typescript. JS-version available on the v3 branch.
+
 
 
 #### What you require you must also retire
