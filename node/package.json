@@ -52,5 +52,9 @@
     "cli",
     "software-composition-analysis",
     "sca"
+  ],
+  "files" : [
+    "lib/**/*",
+    "CHANGELOG.md"
   ]
 }

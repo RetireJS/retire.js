@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
-var jsonLogger = require("../../lib/reporters/cyclonedx-json");
-var xmlLogger = require("../../lib/reporters/cyclonedx");
+var jsonLogger = require("../../lib/reporters/cyclonedx-json").default;
+var xmlLogger = require("../../lib/reporters/cyclonedx").default;
 var fs = require("fs");
 var Validator = require('jsonschema').Validator;
 var retire = require("../../lib/retire");

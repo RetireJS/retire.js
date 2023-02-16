@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.0.0]
+
+### Breaking changes
+- npm scanning no longer supported
+
+### Changes
+- Complete rewrite to typescript
+
+
 ## [3.2.3]
 
 - Fix caching bug in CycloneDX JSON output
