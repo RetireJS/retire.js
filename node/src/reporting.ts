@@ -29,7 +29,7 @@ export type LoggerOptions = {
   colorwarn: (s: string) => string;
 };
 
-let colorwarn = function(x: string) { return x; };
+let colorwarn = (x: string) => { return x; };
 
 let verbose = false;
 
@@ -55,35 +55,35 @@ export const hash: Hasher = {
 export type Writer = {
   out: (...args: Parameters<typeof console["log"]>) => void;
   err: (x: string) => void;
-  close : (callback?: () => void) => void;
+  close: (callback?: () => void) => void;
 }
 
 const writer: Writer = {
   out: console.log,
-  err: function(x: string) { console.warn(colorwarn(x)); },
-  close : function() { return; }
+  err: (x: string) => { console.warn(colorwarn(x)); },
+  close: () => { return; }
 };
 
 export type Logger = {
-  info : (x: string) => void;
-  debug : (x: string) => void;
-  warn : (x: string) => void;
-  error : (x: string) => void;
+  info: (x: string) => void;
+  debug: (x: string) => void;
+  warn: (x: string) => void;
+  error: (x: string) => void;
 
-  logDependency : (finding: Finding) => void;
+  logDependency: (finding: Finding) => void;
   logVulnerableDependency: (finding: Finding) => void;
   close: (callback?: () => void) => void;
 }
 
 const logger: Logger = {
-  info : function(x: string) { writer.out(x); },
-  debug : function(x: string) { if (verbose) writer.out(x); },
-  warn : function(x: string) { writer.err(x); },
-  error : function(x: string) { writer.err(x); },
+  info: (x: string) => { writer.out(x); },
+  debug: (x: string) => { if (verbose) writer.out(x); },
+  warn: (x: string) => { writer.err(x); },
+  error: (x: string) => { writer.err(x); },
 
-  logDependency : function() { return },
-  logVulnerableDependency: function() { return },
-  close: function() { writer.close(); }
+  logDependency : () => { return },
+  logVulnerableDependency: () => { return },
+  close: () => writer.close()
 };
 
 export interface ConfigurableLogger {
@@ -94,20 +94,20 @@ function configureFileWriter(config: LoggerOptions) {
   if (!config.outputpath) return;
   const fileDescriptor = fs.openSync(config.outputpath, "w")
   if (fileDescriptor < 0) {
-    console.error("Could not open " + config.outputpath + " for writing");
+    console.error(`Could not open ${config.outputpath} for writing`);
     process.exit(9);
   }
   const fileOutput = { 
     fileDescriptor,
     stream: fs.createWriteStream('', {fd: fileDescriptor, autoClose: false})
   }
-  const writeToFile = function<T>(message: T) {
+  const writeToFile = <T>(message: T) => {
     fileOutput.stream.write(message);
     fileOutput.stream.write('\n');
   };
   writer.out = writer.err = writeToFile;
-  writer.close = function() {
-    fileOutput.stream.on('finish', function() {
+  writer.close = () => {
+    fileOutput.stream.on('finish', () => {
       fs.closeSync(fileOutput.fileDescriptor);
     });
     fileOutput.stream.end();
@@ -119,7 +119,7 @@ export function open(config: LoggerOptions) {
   if (config.colors) colorwarn = config.colorwarn;
   const format = config.outputformat || "console";
   if (!(format in loggers)) {
-    console.warn("Invalid outputformat: " + format);
+    console.warn(`Invalid outputformat: ${format}`);
     process.exit(1);
   }
   loggers[format].configure(logger, writer, config, hash);

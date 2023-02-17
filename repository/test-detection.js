@@ -117,8 +117,7 @@ async function runTests(jsRepo) {
 }
 
 
-repo.loadrepositoryFromFile("./jsrepository.json", options).on('done', (jsRepo) =>  {
-    runTests(jsRepo)
-        .then(() => console.log("Done!"))
-        .catch(err => console.warn("Failed!", err));
-}).on('error', err => console.warn("Failed!", err));
+repo.loadrepositoryFromFile("./jsrepository.json", options)
+    .then((jsRepo) => runTests(jsRepo))
+    .then(() => console.log("Done!"))
+    .catch(err => console.warn("Failed!", err));

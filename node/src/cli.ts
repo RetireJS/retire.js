@@ -8,13 +8,12 @@ import * as repo      from './repo';
 import * as resolve   from './resolve';
 import * as scanner   from './scanner';
 import * as reporting from './reporting';
-import { forwardEvent as forward } from './utils';
 import os        from 'os';
 import path      from 'path';
 import fs        from 'fs';
 import colors    from 'ansi-colors';
 import { EventEmitter } from "events";
-import { Finding, Options, Repository, severityLevels } from "./types";
+import { Finding, Options, severityLevels } from "./types";
 import * as z from "zod";
 
 const events = new EventEmitter();
@@ -50,7 +49,7 @@ const prg = program
 const colorwarn = prg.colors ? colors.red : (x:string) => x;
 const jsrepolocation = prg.jsrepo ?? "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json";
 
-const ignorefile = prg.ignoreFile ?? defaultIgnoreFiles.filter(function(x){ return fs.existsSync(x); })[0];
+const ignorefile = prg.ignoreFile ?? defaultIgnoreFiles.filter((x) => fs.existsSync(x))[0];
 
 const scanpath = prg.path ?? ".";
 
@@ -66,7 +65,7 @@ const log = reporting.open({
 
 const severity = prg.severity ?? "none";
 if (!(severity in severityLevels)) {
-  exitWithError('Error: Invalid severity level (' + severity + '). Valid levels are: ' + Object.keys(severityLevels).join(', '));
+  exitWithError(`Error: Invalid severity level (${severity}). Valid levels are: ${Object.keys(severityLevels).join(', ')}`);
 }
 
 
@@ -85,7 +84,7 @@ const config: Options = {
   exitwith: prg.exitwith ?? 13
 };
 
-log.info("retire.js v" + retire.version);
+log.info(`retire.js v${retire.version}`);
 
 function exitWithError(msg: string) {
   log.error(config.colorwarn(msg));
@@ -95,7 +94,7 @@ function exitWithError(msg: string) {
 
 if(prg.cacert) {
   if (!fs.existsSync(prg.cacert)) {
-    exitWithError('Error: Could not read cacert file: ' + prg.cacert);
+    exitWithError(`Error: Could not read cacert file: ${prg.cacert}`);
   }
   config.cacertbuf = fs.readFileSync(prg.cacert);
 }
@@ -112,13 +111,13 @@ const ignoreFileParser = z.array(z.object({
 
 if(ignorefile) {
   if (!fs.existsSync(ignorefile)) {
-    exitWithError('Error: Could not read ignore file: ' + ignorefile);
+    exitWithError(`Error: Could not read ignore file: ${ignorefile}`);
   }
   if (ignorefile.substr(-5) === ".json") {
     try {
       config.ignore.descriptors = ignoreFileParser.parse(JSON.parse(fs.readFileSync(ignorefile, "utf-8")));
     } catch(e) {
-      exitWithError('Error: Invalid ignore file: ' + ignorefile);
+      exitWithError(`Error: Invalid ignore file: ${ignorefile}`);
     }
     const ignoredPaths = config.ignore.descriptors?.map((x) => "path" in x ? x.path : undefined)
       ?.filter((x): x is string => x != undefined) ?? [];
@@ -135,13 +134,13 @@ config.ignore.paths = config.ignore.pathsAsString
   .map(s => new RegExp(s)
 );
 
-scanner.on('vulnerable-dependency-found', function(result: Finding) {
+scanner.on('vulnerable-dependency-found', (result: Finding) => {
   const levels = result.results
-    .map(function(r) {
-      return r.vulnerabilities ? r.vulnerabilities.map(function(v) {
+    .map((r) => {
+      return r.vulnerabilities ? r.vulnerabilities.map((v) => {
         return severityLevels[v.severity ?? 'critical'];
       }) : []; });
-  const severity = utils.flatten(levels).reduce(function(x,y) { return x > y ? x : y; });
+  const severity = utils.flatten(levels).reduce((x,y) => x > y ? x : y);
   if(severity >= severityLevels[config.severity]) {
     failProcess = true;
   }
@@ -150,51 +149,35 @@ scanner.on('vulnerable-dependency-found', function(result: Finding) {
 scanner.on('vulnerable-dependency-found', log.logVulnerableDependency);
 scanner.on('dependency-found', log.logDependency);
 
-
-events.on('load-js-repo', function() {
-  const loader = jsrepolocation.match(/^https?:\/\//) 
-    ? repo.loadrepository(jsrepolocation, config)
-    : repo.loadrepositoryFromFile(jsrepolocation, config);
-  loader.on('stop', forward(events, 'stop'));
-  loader.on('done', (repo) => {
-    events.emit('scan-js', repo);
-  });
-});
-
-
-events.on('scan-js', (jsRepo: Repository) => {
-  resolve.scanJsFiles(config.path, config)
-    .on('jsfile', function(file) {
-      scanner.scanJsFile(file, jsRepo, config);
-    })
-    .on('bowerfile', function(bowerfile) {
-      const bowerRepo = repo.asbowerrepo(jsRepo);
-      scanner.scanBowerFile(bowerfile, bowerRepo, config);
-    })
-    .on('end', function() {
-      events.emit('js-scanned');
-    });
-});
-
-events.on('js-scanned', function() {
-  events.emit('scan-done');
-});
-
-events.on('scan-done', function() {
+events.on('scan-done', () => {
   process.exitCode = failProcess ? config.exitwith : 0;
   log.close();
 });
 
-
-process.on('uncaughtException', function (err, ...rest) {
+process.on('uncaughtException', (err, ...rest) => {
   console.warn('Exception caught: ', err, rest);
   console.warn(err.stack);
   process.exit(1);
 });
 
-events.on('stop', function(err) {
+events.on('stop', (err) => {
   exitWithError(err);
 });
 
-events.emit('load-js-repo');
+(jsrepolocation.match(/^https?:\/\//) 
+  ? repo.loadrepository(jsrepolocation, config)
+  : repo.loadrepositoryFromFile(jsrepolocation, config))
+.then((jsRepo) => {
+  resolve.scanJsFiles(config.path, config)
+    .on('jsfile', (file) => {
+      scanner.scanJsFile(file, jsRepo, config);
+    })
+    .on('bowerfile', (bowerfile) => {
+      const bowerRepo = repo.asbowerrepo(jsRepo);
+      scanner.scanBowerFile(bowerfile, bowerRepo, config);
+    })
+    .on('end', () => {
+      events.emit('scan-done');
+    });
+}).catch((e) => events.emit('stop', e))
 

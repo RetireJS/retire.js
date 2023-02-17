@@ -11,7 +11,7 @@ type Ignores = Required<Options>["ignore"];
 const events = new Emitter();
 
 const hash: Hasher = {
-  'sha1' : function(data) {
+  'sha1' : (data) => {
     const shasum = crypto.createHash('sha1');
     shasum.update(data);
     return shasum.digest('hex');
@@ -40,7 +40,7 @@ function removeIgnored(results: Component[], ignores: Ignores) {
   if (!("descriptors" in ignores)) return;
   results.forEach((r) => {
     if (!("vulnerabilities" in r)) return;
-    ignores.descriptors?.filter((d): d is ComponentDescriptor => "component" in d).forEach(function(i) {
+    ignores.descriptors?.filter((d): d is ComponentDescriptor => "component" in d).forEach((i) => {
       if (r.component !== i.component) return;
       if (i.version && r.version !== i.version) return;
       if (i.severity) { //Remove vulnerabilities with the severity we want to drop
@@ -66,7 +66,7 @@ function removeIgnoredVulnerabilitiesByIdentifier(identifiers: Record<string, st
 function hasIdentifier(identifiers: Record<string, string | string[]>, key: string, value: string | string[]) {
   if (!(key in identifiers)) return false;
   const identifier = identifiers[key];
-  return Array.isArray(identifier) ? identifier.some(function(x) { return x === value; }) : identifier === value;
+  return Array.isArray(identifier) ? identifier.some((x) => x === value) : identifier === value;
 }
 
 
@@ -92,10 +92,10 @@ export function scanBowerFile(file: string, repo: Repository, options: Options) 
       emitResults({file: file, results: results}, options);
     }
   } catch (e) {
-    options.log.warn('Could not parse file: ' + file);
+    options.log.warn(`Could not parse file: ${file}`);
   }
 }
 
-export function on(...args: Parameters<Emitter["on"]>) {
-  events.on(...args);
+export function on(event: 'vulnerable-dependency-found' | 'dependency-found', handler: (finding: Finding) => void) {
+  events.on(event, handler);
 };

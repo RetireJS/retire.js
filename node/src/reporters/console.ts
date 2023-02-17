@@ -9,12 +9,12 @@ function printResults(logger: Logger, finding: Finding, config: LoggerOptions) {
     const printed = new Set<string>();
     finding.results.forEach((elm) => {
       if (!config.verbose && !retire.isVulnerable([elm])) return;
-      const key = elm.component + ' ' + elm.version;
+      const key = `${elm.component} ${elm.version}`;
       logFunc(finding.file);
-      logFunc(' ' + String.fromCharCode(8627) + ' ' + key);
+      logFunc(` ${String.fromCharCode(8627)} ${key}`);
       if (printed.has(key)) return;
       if (retire.isVulnerable([elm])) {
-        logFunc(key + ' has known vulnerabilities:' + printVulnerability(elm, config));
+        logFunc(`${key} has known vulnerabilities:${printVulnerability(elm, config)}`);
       }
       printed.add(key);
     });
@@ -23,14 +23,14 @@ function printResults(logger: Logger, finding: Finding, config: LoggerOptions) {
 
 function printVulnerability(component: Component, config: LoggerOptions) {
   let string = '';
-  component.vulnerabilities?.forEach(function(vulnerability: Vulnerability){
+  component.vulnerabilities?.forEach((vulnerability: Vulnerability) => {
     string += config.outputformat === 'clean' ? '\n   ' : ' ';
     if (vulnerability.severity) {
-      string += 'severity: ' + vulnerability.severity + '; ';
+      string += `severity: ${vulnerability.severity}; `;
     }
     if (vulnerability.identifiers) {
       string += Object.entries(vulnerability.identifiers).map(([id, name]) => {
-        return name + ': ' + utils.flatten<string>([[id]]).join(' ');
+        return `${name}: ${utils.flatten<string>([[id]]).join(' ')}`;
       }).join(', ') + '; ';
     }
     string += vulnerability.info.join(config.outputformat === 'clean' ? '\n' : ' ');
@@ -39,8 +39,8 @@ function printVulnerability(component: Component, config: LoggerOptions) {
 }
 
 export default {
-  configure: function(logger, _, config) {
-    logger.logDependency = function(finding) { if (config.verbose) printResults(logger, finding, config); };
-    logger.logVulnerableDependency = function(component) { printResults(logger, component, config); };
+  configure: (logger, _, config) => {
+    logger.logDependency = (finding) => { if (config.verbose) printResults(logger, finding, config); };
+    logger.logVulnerableDependency = (component) => { printResults(logger, component, config); };
   }
 } as ConfigurableLogger;

@@ -25,9 +25,3 @@ export function pick(p: Record<string, unknown>, keys: string[]): Record<typeof 
 export function flatten<T>(e: T[][]): T[] {
 	return e.reduce((x,y) => x.concat(y), [] as T[]);
 };
-
-export function forwardEvent<T>(emitter: { emit: (e: T, ...a: unknown[]) => void}, evt: T) {
-	return function(...a: unknown[]) {
-		emitter.emit(evt, ...a);
-	};
-};

@@ -17,19 +17,19 @@ function configureDepCheckLogger(logger: Logger, writer: Writer, config: LoggerO
     errors: [] as unknown[]
   };
 	logger.info = finalResults.messages.push;
-	logger.debug = config.verbose ? finalResults.messages.push : function() { return };
+	logger.debug = config.verbose ? finalResults.messages.push : () => { return };
 	logger.warn = logger.error = finalResults.errors.push;
 	logger.logVulnerableDependency = (finding) => {
 		vulnsFound = true;
 		finalResults.data.push(finding);
 	};
-	logger.logDependency = function(finding) {
+	logger.logDependency = (finding) => {
 		if (config.verbose && finding.results.length > 0) { 
 			finalResults.data.push(finding); 
 		} 
 	};
 
-	logger.close = function(callback) {
+	logger.close = (callback) => {
 		const write = vulnsFound ? writer.err : writer.out;
 		write(`<?xml version="1.0"?>
 <analysis xmlns="https://jeremylong.github.io/DependencyCheck/dependency-check.2.3.xsd">
