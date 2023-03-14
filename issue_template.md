@@ -11,6 +11,6 @@ Bug/Feature/Question
 
 
 **If this is a false positive or false negative:**
-How did you run the tool? Command line? Browser extension?
-Can you provide a link to the file(s) containing the libraries?
-Are the libraries bundeled with a minifier? If so which one?
+* How did you run the tool? Command line? Browser extension?
+* Can you provide a link to the file(s) containing the libraries?
+* Are the libraries bundeled with a minifier? If so which one?
