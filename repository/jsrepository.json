@@ -1943,6 +1943,11 @@
 			]
 		}
 	},
+	
+	
+		
+	
+	
 
 	"bootstrap": {
 		"vulnerabilities" : [
@@ -2212,6 +2217,19 @@
 				"info": [
 					"https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-f6rf-9m92-x2hh"
 				]
+			},
+			{
+				"below" : "4.21.0",
+				"atOrAbove" : "4.19.1",
+				"severity": "Medium",
+				"identifiers": { 
+					"summary" : "cross-site scripting vulnerability has been discovered affecting Iframe Dialog and Media Embed packages. The vulnerability may trigger a JavaScript code",
+					"CVE" : [ "CVE-2023-28439" ] 
+			},
+				"info" : [ 
+					"https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-28439",
+					"https://nvd.nist.gov/vuln/detail/CVE-2023-28439"
+				] 	 
 			}
 		],
 		"extractors" : {
