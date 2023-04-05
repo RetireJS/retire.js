@@ -38,7 +38,7 @@ function configureCycloneDXJSONLogger(logger, writer, config, hash) {
                 ];
             }
             var purl = `pkg:npm/${dep.component}@${dep.version}`;
-            if (seen[purl]) return undefined;
+            if (seen[purl]) return;
             seen[purl] = true;
             return {
                 type: "library",
