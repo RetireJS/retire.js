@@ -13,22 +13,13 @@ Usage
 Usage: retire [options]
 
 Options:
-
-  -h, --help               output usage information
   -V, --version            output the version number
-
-  -p, --package            limit node scan to packages where parent is mentioned in package.json (ignore node_modules)
-  -n, --node               Run node dependency scan only
-  -j, --js                 Run scan of JavaScript files only
   -v, --verbose            Show identified files (by default only vulnerable files are shown)
   -x, --dropexternal       Don't include project provided vulnerability repository
   -c, --nocache            Don't use local cache
-
   --jspath <path>          Folder to scan for javascript files
-  --nodepath <path>        Folder to scan for node files
   --path <path>            Folder to scan for both
   --jsrepo <path|url>      Local or internal version of repo
-  --noderepo <path|url>    Local or internal version of repo
   --cachedir <path>        Path to use for local cache instead of /tmp/.retire-cache
   --proxy <url>            Proxy url (http://some.host:8080)
   --outputformat <format>  Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON
@@ -41,6 +32,7 @@ Options:
   --insecure               Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate
   --ext <extensions>       Comman separated list of file extensions for javascript files. The default is "js"
   --cacert <path>          Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files
+  -h, --help               display help for command
 ````
 
 The `depcheck` output format mimics the output of OWASP Dependency Check, but lacks some information compared to OWASP Dependency Check, because that information is not in the repo.

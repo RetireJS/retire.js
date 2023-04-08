@@ -20,6 +20,11 @@ const events = new EventEmitter();
 let failProcess = false;
 const defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 
+if (process.argv.includes("--node") || process.argv.includes("-n")) {
+  console.log("Error: retire.js no longer supports scanning node packages. Use npm audit instead.");
+  process.exit(1);
+}
+
 /*
  * Parse command line flags.
  */
