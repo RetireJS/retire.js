@@ -2230,8 +2230,8 @@
 			"uri"			: [ "/(§§version§§)/ckeditor(\\.min)?\\.js" ],
 			"filename"		: [ "ckeditor-(§§version§§)(\\.min)?\\.js" ],
 			"filecontent"	: [
-								"ckeditor..js.{4,20}=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)",
-								"window.CKEDITOR=function\\(\\)\\{var [a-z]=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)"
+								"ckeditor..js.{4,30}=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)",
+								"window\\.CKEDITOR=function\\(\\)\\{var [a-z]=\\{timestamp:\"[^\"]+\",version:\"(§§version§§)"
 			],
 			"hashes"		: {},
 			"func"			: [ "CKEDITOR.version" ]

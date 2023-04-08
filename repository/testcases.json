@@ -141,5 +141,11 @@
             "versions": ["2.6.0" ],
             "allowedOtherComponents" : "moment.js"
         }
+    },
+    "ckeditor" : {
+        "https://cdnjs.cloudflare.com/ajax/libs/ckeditor/§§version§§/ckeditor§§subversion§§.js" : {
+            "versions": [ "4.20.2", "4.0.1" ],
+            "subversions" : [ "", ".min" ]
+        }
     }
 }
