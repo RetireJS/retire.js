@@ -29,7 +29,7 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "jsonschema": "^1.4.1",
-    "libxmljs": "^0.19.10",
+    "libxmljs": "^1.0.8",
     "mocha": "^9.2.0",
     "prettier": "^2.8.4",
     "typescript": "^4.9.5"

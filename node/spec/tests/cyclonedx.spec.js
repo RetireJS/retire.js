@@ -50,7 +50,7 @@ describe('cyclonedx-json', () => {
         logger.logVulnerableDependency(result);
         logger.close();
         let xml = data.join("");
-        let xmlDoc = libxmljs.parseXmlString(xml);
+        let xmlDoc = libxmljs.parseXml(xml);
         let schemaS = fs.readFileSync("spec/schema/bom-1.4.xsd", "utf-8");
         let schema = libxmljs.parseXml(schemaS, { baseUrl: "spec/schema/" });
         let res = xmlDoc.validate(schema);
