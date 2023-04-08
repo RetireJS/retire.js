@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.2.4]
+
+- Bump vulnerable deps
+
 ## [3.2.3]
 
 - Fix caching bug in CycloneDX JSON output
