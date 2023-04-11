@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.1.1]
+
+### Bugfixes
+- Handle error if OSV does not have library or version
 
 ## [4.1.0]
 

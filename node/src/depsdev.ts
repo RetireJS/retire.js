@@ -41,10 +41,14 @@ type OsvAdvisory = {
   }>;
 }
 
-function loadJson<T>(url: string, options: Options) : Promise<T> {
+function loadJson<T>(url: string, options: Options) : Promise<T | undefined> {
   options.log.debug("Downloading " + url + " ...");
   return new Promise((resolve, reject) => {
     const req = https.request(url, res => {
+      if (res.statusCode == 404) return resolve(undefined);
+      if (res.statusCode != 200) {
+        return reject("HTTP " + res.statusCode + " " + res.statusMessage + " for " + url);
+      }
       const data: Buffer[] = [];
       res.on('data', c => data.push(c));
       res.on('end', () => {
@@ -59,7 +63,7 @@ function loadJson<T>(url: string, options: Options) : Promise<T> {
   });
 }
 
-function getVulnerabilities(packageName: string, version: string, options: Options): Promise<VersionInfo> {
+function getVulnerabilities(packageName: string, version: string, options: Options): Promise<VersionInfo | undefined> {
   return loadJson(`https://api.deps.dev/v3alpha/systems/npm/packages/${packageName}/versions/${version}`, options);
 }
 function scoreToSeverity(score: number): SeverityLevel {
@@ -71,6 +75,7 @@ function scoreToSeverity(score: number): SeverityLevel {
 async function loadAdvisory(packageName: string, version: string, id: string, options: Options): Promise<Component[]> {
   const osvAdvisory = await loadJson<OsvAdvisory>(`https://api.osv.dev/v1/vulns/${id}`, options);
   const advisory = await loadJson<Advisory>(`https://api.deps.dev/v3alpha/advisories/${id}`, options);
+  if (!advisory || !osvAdvisory) return [];
   const simplifiedRepo: Repository = {
     [packageName]: {
       vulnerabilities: osvAdvisory.affected.map(({ranges}) => 
@@ -93,9 +98,15 @@ async function loadAdvisory(packageName: string, version: string, id: string, op
 }
 
 export async function checkOSV(packageName: string, version: string, options: Options): Promise<Vulnerability[]> {
-  const versionInfo = await getVulnerabilities(packageName, version, options);
-  if (versionInfo.advisoryKeys.length == 0) return [];
-  const comps = await Promise.all(versionInfo.advisoryKeys.map(({id}) => loadAdvisory(packageName, version, id, options)));
-  const flattened =  comps.reduce((a, b) => a.concat(b), []);
-  return flattened.map(x => x.vulnerabilities ?? []).reduce((a, b) => a.concat(b), []);
+  try {
+    const versionInfo = await getVulnerabilities(packageName, version, options);
+    if (!versionInfo) return [];
+    if (versionInfo.advisoryKeys.length == 0) return [];
+    const comps = await Promise.all(versionInfo.advisoryKeys.map(({id}) => loadAdvisory(packageName, version, id, options)));
+    const flattened =  comps.reduce((a, b) => a.concat(b), []);
+    return flattened.map(x => x.vulnerabilities ?? []).reduce((a, b) => a.concat(b), []);
+  } catch (e) {
+    options.log.warn("Error checking OSV: " + e);
+    return [];
+  }
 }
