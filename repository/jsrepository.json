@@ -123,7 +123,16 @@
 				},
 				"severity" : "medium",
 				"info" : [ "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/" ]
-			}	
+			},
+			{
+				"below" : "2.999.999",
+				"identifiers": {
+					"retid" : "73", 
+					"summary": "jQuery 1.x and 2.x are End-of-Life and no longer receiving security updates"
+				},
+				"severity" : "low",
+				"info" : [ "https://github.com/jquery/jquery.com/issues/162" ]
+			}
 		],
 		"extractors" : {
 			"func"    		: [
@@ -2057,6 +2066,15 @@
 					"issue" : "3421"
 				},
 				"info" : [ "https://github.com/twbs/bootstrap/pull/3421" ]
+			},
+			{
+				"below" : "3.999.999",
+				"severity": "low",
+				"identifiers" : {
+					"retid" : "72",
+					"summary" : "Bootstrap before 4.0.0 is end-of-life and no longer maintained."
+				},
+				"info" : [ "https://github.com/twbs/bootstrap/issues/20631"]
 			}
 		],
 		"extractors" : {
