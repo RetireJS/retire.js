@@ -1,3 +1,8 @@
+Deprecated!
+=============
+As we don't have any active maintainers of it, we are deprecating the Firefox plugin.
+
+
 Development
 =============
 
