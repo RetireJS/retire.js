@@ -2,7 +2,7 @@
   "author": "Erlend Oftedal <erlend@oftedal.no>",
   "name": "retire",
   "description": "Retire is a tool for detecting use of vulnerable libraries",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
     "check": "npm run lint && npm run typecheck"
   },
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 14.0.0"
   },
   "keywords": [
     "sbom",

@@ -1,5 +1,10 @@
 # Changelog
 
+## [4.0.1]
+
+### Breaking changes
+- Not really a breaking change as the change was introduced in 4.0.0, but node.js >= 14.0.0 is required to run retire.js >= 4.0.0 going forward
+
 ## [4.0.0]
 
 ### Breaking changes
