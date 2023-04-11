@@ -31,11 +31,10 @@ if (process.argv.includes("--node") || process.argv.includes("-n")) {
 const prg = program
   .version(retire.version)
   .option('-v, --verbose', 'Show identified files (by default only vulnerable files are shown)')
-  .option('-x, --dropexternal', "Don't include project provided vulnerability repository")
   .option('-c, --nocache', "Don't use local cache")
   .option('--jspath <path>', 'Folder to scan for javascript files')
   .option('--path <path>', 'Folder to scan for both')
-  .option('--jsrepo <path|url>', 'Local or internal version of repo')
+  .option('--jsrepo <path|url>', 'Local or internal version of repo. Can be multiple comma separated. Default: \'central\')')
   .option('--cachedir <path>', 'Path to use for local cache instead of /tmp/.retire-cache')
   .option('--proxy <url>', 'Proxy url (http://some.host:8080)')
   .option('--outputformat <format>', 'Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON')
@@ -48,11 +47,15 @@ const prg = program
   .option('--insecure', 'Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate')
   .option('--ext <extensions>', 'Comman separated list of file extensions for javascript files. The default is "js"')
   .option('--cacert <path>', 'Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files')
+  .option('--includeOsv', 'Include OSV advisories in the output')
   .parse()
   .opts();
 
 const colorwarn = prg.colors ? colors.red : (x:string) => x;
-const jsrepolocation = prg.jsrepo ?? "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json";
+const jsrepolocation: string[] = (prg.jsrepo ?? "'central'").split(",")
+  .map((x: string) => 
+    x === "'central'" ? "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json" : x
+  );
 
 const ignorefile = prg.ignoreFile ?? defaultIgnoreFiles.filter((x) => fs.existsSync(x))[0];
 
@@ -61,11 +64,11 @@ const scanpath = prg.path ?? ".";
 const log = reporting.open({
   colors: !!prg.colors,
   colorwarn,
-  jsRepo: jsrepolocation,
+  jsRepo: jsrepolocation.join(", "),
   outputformat: prg.outputformat,
   outputpath: prg.outputpath,
   path: scanpath,
-  verbose: !!prg.verbose
+  verbose: !!prg.verbose,
 });
 
 const severity = prg.severity ?? "none";
@@ -86,7 +89,9 @@ const config: Options = {
   cachedir: prg.cachedir ?? path.resolve(os.tmpdir(), '.retire-cache/'),
   log: log,
   severity: severity,
-  exitwith: prg.exitwith ?? 13
+  exitwith: prg.exitwith ?? 13,
+  includeOsv: !!prg.includeOsv,
+  verbose: !!prg.verbose,
 };
 
 log.info(`retire.js v${retire.version}`);
@@ -169,17 +174,23 @@ events.on('stop', (err) => {
   exitWithError(err);
 });
 
-(jsrepolocation.match(/^https?:\/\//) 
-  ? repo.loadrepository(jsrepolocation, config)
-  : repo.loadrepositoryFromFile(jsrepolocation, config))
-.then((jsRepo) => {
+
+Promise.all(jsrepolocation.map((jsr) =>
+  (jsr.match(/^https?:\/\//) 
+    ? repo.loadrepository(jsr, config)
+    : repo.loadrepositoryFromFile(jsr, config))
+)).then((jsRepos) => {
   resolve.scanJsFiles(config.path, config)
     .on('jsfile', (file) => {
-      scanner.scanJsFile(file, jsRepo, config);
+      jsRepos.forEach((jsRepo) => {
+        scanner.scanJsFile(file, jsRepo, config);
+      });
     })
     .on('bowerfile', (bowerfile) => {
-      const bowerRepo = repo.asbowerrepo(jsRepo);
-      scanner.scanBowerFile(bowerfile, bowerRepo, config);
+      jsRepos.forEach((jsRepo) => {
+        const bowerRepo = repo.asbowerrepo(jsRepo);
+        scanner.scanBowerFile(bowerfile, bowerRepo, config);
+      });
     })
     .on('end', () => {
       events.emit('scan-done');

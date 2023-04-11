@@ -29,8 +29,8 @@ function printVulnerability(component: Component, config: LoggerOptions) {
       string += `severity: ${vulnerability.severity}; `;
     }
     if (vulnerability.identifiers) {
-      string += Object.entries(vulnerability.identifiers).map(([id, name]) => {
-        return `${name}: ${utils.flatten<string>([[id]]).join(' ')}`;
+      string += Object.entries(vulnerability.identifiers).map(([name, id]) => {
+        return `${name}: ${utils.flatten<string>([Array.isArray(id) ? id : [id]]).join(' ')}`;
       }).join(', ') + '; ';
     }
     string += vulnerability.info.join(config.outputformat === 'clean' ? '\n' : ' ');

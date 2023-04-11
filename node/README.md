@@ -15,23 +15,24 @@ Usage: retire [options]
 Options:
   -V, --version            output the version number
   -v, --verbose            Show identified files (by default only vulnerable files are shown)
-  -x, --dropexternal       Don't include project provided vulnerability repository
   -c, --nocache            Don't use local cache
   --jspath <path>          Folder to scan for javascript files
   --path <path>            Folder to scan for both
-  --jsrepo <path|url>      Local or internal version of repo
+  --jsrepo <path|url>      Local or internal version of repo. Can be multiple comma separated. Default: 'central')
   --cachedir <path>        Path to use for local cache instead of /tmp/.retire-cache
   --proxy <url>            Proxy url (http://some.host:8080)
   --outputformat <format>  Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON
   --outputpath <path>      File to which output should be written
   --ignore <paths>         Comma delimited list of paths to ignore
   --ignorefile <path>      Custom ignore file, defaults to .retireignore / .retireignore.json
-  --severity <level>       Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical. Default: none
+  --severity <level>       Specify the bug severity level from which the process fails. Allowed levels none, low, medium, high, critical.
+                           Default: none
   --exitwith <code>        Custom exit code (default: 13) when vulnerabilities are found
   --colors                 Enable color output (console output only)
   --insecure               Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate
   --ext <extensions>       Comman separated list of file extensions for javascript files. The default is "js"
   --cacert <path>          Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files
+  --includeOsv             Include OSV advisories in the output
   -h, --help               display help for command
 ````
 

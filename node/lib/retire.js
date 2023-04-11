@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '4.0.1';
+exports.version = '4.1.0';
 
 function isDefined(o) {
 	return typeof o !== 'undefined';
@@ -100,15 +100,6 @@ function check(results, repo) {
 	return results;
 }
 
-function unique(ar) {
-	var r = [];
-	ar.forEach(function(e) { 
-		if (r.indexOf(e) == -1) r.push(e);
-	});
-	return r;
-}
-
-
 function isAtOrAbove(version1, version2) {
 	var v1 = version1.split(/[\.\-]/g);
 	var v2 = version2.split(/[\.\-]/g);
@@ -144,7 +135,7 @@ exports.replaceVersion = function(jsRepoJsonAsText) {
 
 exports.isVulnerable = function(results) {
 	for (var r in results) {
-		if (results[r].hasOwnProperty('vulnerabilities')) return true;
+		if (results[r].hasOwnProperty('vulnerabilities') && results[r].vulnerabilities != undefined && results[r].vulnerabilities.length > 0) return true;
 	}
 	return false;
 };

@@ -1,5 +1,15 @@
 # Changelog
 
+
+## [4.1.0]
+
+### Additions
+- Option to check results for the component from OSV
+- Option to use more than one JS repository
+
+### Bugfixes
+- Remove dropexternal as it never worked
+
 ## [4.0.1]
 
 ### Breaking changes

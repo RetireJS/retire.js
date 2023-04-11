@@ -22,6 +22,7 @@ export type Vulnerability = {
         bug?: string;
         issue?: string;
         summary?: string;
+        githubID?: string;
     };
     info: string[];
 };
@@ -87,4 +88,5 @@ export type Options = {
     jsRepo?: string;
     path: string;
     exitwith: number;
+    includeOsv?: boolean;
 }

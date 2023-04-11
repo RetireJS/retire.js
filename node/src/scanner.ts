@@ -3,8 +3,9 @@ import * as retire from "./retire";
 import * as fs from "fs";
 import * as crypto from "crypto";
 import * as path from "path";
-import { ComponentDescriptor, Finding, Hasher, Options, Repository } from "./types";
+import { ComponentDescriptor, Finding, Hasher, Options, Repository, Vulnerability } from "./types";
 import { Component } from "./types";
+import { checkOSV } from "./depsdev";
 
 type Ignores = Required<Options>["ignore"];
 
@@ -19,6 +20,37 @@ const hash: Hasher = {
 };
 
 function emitResults(finding: Finding, options: Options) {
+  if (options.includeOsv === true) {
+    Promise
+      .all(finding.results.map((r) => 
+        checkOSV(r.component, r.version, options).then(v => r.vulnerabilities = (r.vulnerabilities ?? []).concat(v))
+      ))
+      .then(() => filterAndEmitResults(finding, options));
+  } else {
+    filterAndEmitResults(finding, options);
+  }
+}
+
+function getIdentifiers(v: Vulnerability) {
+  return (v.identifiers?.CVE ?? [])
+    .concat(v.identifiers?.bug ?? [])
+    .concat(v.identifiers?.issue ?? [])
+    .concat(v.identifiers?.githubID ?? []);
+}
+
+function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]) : Vulnerability[] | undefined {
+  if (!vulnerabilities) return undefined;
+  const unique: Vulnerability[] = [];
+  for(const v of vulnerabilities) {
+    if (!unique.some(u => getIdentifiers(u).some(i => getIdentifiers(v).includes(i)))) {
+      unique.push(v);
+    }
+  }
+  return unique;
+}
+
+function filterAndEmitResults(finding: Finding, options: Options) {
+  finding.results.forEach(r => r.vulnerabilities = uniqueVulnerabilities(r.vulnerabilities));
   if (options.ignore) removeIgnored(finding.results, options.ignore);
   if (!options.verbose) finding.results = finding.results.filter(f => retire.isVulnerable([f]));
   if (finding.results.length == 0) return;
@@ -27,7 +59,6 @@ function emitResults(finding: Finding, options: Options) {
   } else {
     events.emit('dependency-found', finding);
   }
-
 }
 
 function shouldIgnorePath(fileSpecs: string[], ignores: Ignores): boolean {

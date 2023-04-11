@@ -2439,7 +2439,9 @@
 				"severity" : "medium",
 				"identifiers": {
 					"summary": "XSS",
-					"issue" : "7530"
+					"issue" : "7530",
+					"githubID": "GHSA-wv8q-r932-8hc7",
+					"CVE": [ "CVE-2022-25875" ]
 				},
 				"info" : [ "https://github.com/sveltejs/svelte/pull/7530" ]
 			},
