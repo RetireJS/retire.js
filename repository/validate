@@ -148,4 +148,12 @@ Object.entries(jsRepo).forEach(([k, val]) => {
 	});
 });
 
+Object.entries(jsRepo).forEach(([k, val]) => {
+	(val.vulnerabilities || []).forEach(v => {
+		if (!v.cwe) {
+			console.warn(" * " + k + " - Missing cwe: " + JSON.stringify(v))
+		}
+	});
+});
+
 console.log("Success");
