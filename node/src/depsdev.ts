@@ -39,6 +39,9 @@ type OsvAdvisory = {
       }>;
     }>;
   }>;
+  database_specific?: {
+    cwe_ids?: string[];
+  }
 }
 
 function loadJson<T>(url: string, options: Options) : Promise<T | undefined> {
@@ -83,6 +86,7 @@ async function loadAdvisory(packageName: string, version: string, id: string, op
           atOrAbove: events[0].introduced,
           below: events[0].fixed,
           severity: scoreToSeverity(advisory.cvss3Score),
+          cwe: osvAdvisory.database_specific?.cwe_ids?.[0],
           identifiers: {
             githubID: id,
             CVE: osvAdvisory.aliases.filter(x => x.startsWith("CVE-")),
