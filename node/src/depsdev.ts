@@ -86,7 +86,7 @@ async function loadAdvisory(packageName: string, version: string, id: string, op
           atOrAbove: events[0].introduced,
           below: events[0].fixed,
           severity: scoreToSeverity(advisory.cvss3Score),
-          cwe: osvAdvisory.database_specific?.cwe_ids?.[0],
+          cwe: osvAdvisory.database_specific?.cwe_ids ?? [],
           identifiers: {
             githubID: id,
             CVE: osvAdvisory.aliases.filter(x => x.startsWith("CVE-")),

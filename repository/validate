@@ -150,9 +150,33 @@ Object.entries(jsRepo).forEach(([k, val]) => {
 
 Object.entries(jsRepo).forEach(([k, val]) => {
 	(val.vulnerabilities || []).forEach(v => {
-		if (!v.cwe) {
+		if (!v.cwe || v.cwe.length == 0) {
 			console.warn(" * " + k + " - Missing cwe: " + JSON.stringify(v))
+			process.exit(1);
 		}
+		if (v.cwe.some(x => x.trim() !== x)) {
+			console.warn("space in cwe", v.cwe)
+			process.exit(1);
+		}
+	});
+});
+Object.entries(jsRepo).forEach(([k, val]) => {
+	(val.vulnerabilities || []).forEach(v => {
+		if (v.identifiers.CVE && v.identifiers.CVE.some(x => x.trim() !== x)) {
+			console.warn("space in CVE", v.identifiers.CVE)
+			process.exit(1);
+		}
+		Object.entries(v.identifiers).filter(([k]) => k != "summary" && k != "CVE").forEach(([k, v]) => {
+			if (Array.isArray(v)) {
+				if (v.some(x => x.trim() != x)) {
+					console.warn("space in " + k, v);
+					process.exit(1);
+				}
+			} else if (v.trim() != v) {
+				console.warn("space in " + k, v);
+				process.exit(1);
+			}
+		});
 	});
 });
 
