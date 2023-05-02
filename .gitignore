@@ -12,3 +12,4 @@ node/lib/
 
 .idea
 tmp/
+.vscode
