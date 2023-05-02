@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.2.1]
+
+### Changes
+
+- Fix provenance settings
+
 ## [4.2.0]
 
 ### Changes
