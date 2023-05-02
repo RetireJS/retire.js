@@ -1,32 +1,48 @@
 # Changelog
 
+## [4.2.0]
+
+### Changes
+
+- Use prettier to get formatting of code
+- Add provenance
+
+## Security fixes
+
+- Upgrade dependencies
+
 ## [4.1.1]
 
 ### Bugfixes
+
 - Handle error if OSV does not have library or version
 
 ## [4.1.0]
 
 ### Additions
+
 - Option to check results for the component from OSV
 - Option to use more than one JS repository
 
 ### Bugfixes
+
 - Remove dropexternal as it never worked
 
 ## [4.0.1]
 
 ### Breaking changes
+
 - Not really a breaking change as the change was introduced in 4.0.0, but node.js >= 14.0.0 is required to run retire.js >= 4.0.0 going forward
 
 ## [4.0.0]
 
 ### Breaking changes
+
 - npm scanning no longer supported
 
 ### Changes
-- Complete rewrite to typescript
 
+- Complete rewrite to typescript
 
 ## [3.2.3]
 
@@ -67,7 +83,6 @@
 ### Fixes
 
 - Updating proxy library to fix proxy issues
-
 
 ## [3.0.6]
 

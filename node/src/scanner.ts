@@ -1,31 +1,33 @@
-import { EventEmitter as Emitter} from "events";
-import * as retire from "./retire";
-import * as fs from "fs";
-import * as crypto from "crypto";
-import * as path from "path";
-import { ComponentDescriptor, Finding, Hasher, Options, Repository, Vulnerability } from "./types";
-import { Component } from "./types";
-import { checkOSV } from "./depsdev";
+import { EventEmitter as Emitter } from 'events';
+import * as retire from './retire';
+import * as fs from 'fs';
+import * as crypto from 'crypto';
+import * as path from 'path';
+import { ComponentDescriptor, Finding, Hasher, Options, Repository, Vulnerability } from './types';
+import { Component } from './types';
+import { checkOSV } from './depsdev';
 
-type Ignores = Required<Options>["ignore"];
+type Ignores = Required<Options>['ignore'];
 
 const events = new Emitter();
 
 const hash: Hasher = {
-  'sha1' : (data) => {
+  sha1: (data) => {
     const shasum = crypto.createHash('sha1');
     shasum.update(data);
     return shasum.digest('hex');
-  }
+  },
 };
 
 function emitResults(finding: Finding, options: Options) {
   if (options.includeOsv === true) {
-    Promise
-      .all(finding.results.map((r) => 
-        checkOSV(r.component, r.version, options).then(v => r.vulnerabilities = (r.vulnerabilities ?? []).concat(v))
-      ))
-      .then(() => filterAndEmitResults(finding, options));
+    Promise.all(
+      finding.results.map((r) =>
+        checkOSV(r.component, r.version, options).then(
+          (v) => (r.vulnerabilities = (r.vulnerabilities ?? []).concat(v)),
+        ),
+      ),
+    ).then(() => filterAndEmitResults(finding, options));
   } else {
     filterAndEmitResults(finding, options);
   }
@@ -38,11 +40,11 @@ function getIdentifiers(v: Vulnerability) {
     .concat(v.identifiers?.githubID ?? []);
 }
 
-function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]) : Vulnerability[] | undefined {
+function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]): Vulnerability[] | undefined {
   if (!vulnerabilities) return undefined;
   const unique: Vulnerability[] = [];
-  for(const v of vulnerabilities) {
-    if (!unique.some(u => getIdentifiers(u).some(i => getIdentifiers(v).includes(i)))) {
+  for (const v of vulnerabilities) {
+    if (!unique.some((u) => getIdentifiers(u).some((i) => getIdentifiers(v).includes(i)))) {
       unique.push(v);
     }
   }
@@ -50,9 +52,9 @@ function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]) : Vulnerabilit
 }
 
 function filterAndEmitResults(finding: Finding, options: Options) {
-  finding.results.forEach(r => r.vulnerabilities = uniqueVulnerabilities(r.vulnerabilities));
+  finding.results.forEach((r) => (r.vulnerabilities = uniqueVulnerabilities(r.vulnerabilities)));
   if (options.ignore) removeIgnored(finding.results, options.ignore);
-  if (!options.verbose) finding.results = finding.results.filter(f => retire.isVulnerable([f]));
+  if (!options.verbose) finding.results = finding.results.filter((f) => retire.isVulnerable([f]));
   if (finding.results.length == 0) return;
   if (retire.isVulnerable(finding.results)) {
     events.emit('vulnerable-dependency-found', finding);
@@ -62,36 +64,41 @@ function filterAndEmitResults(finding: Finding, options: Options) {
 }
 
 function shouldIgnorePath(fileSpecs: string[], ignores: Ignores): boolean {
-  return ignores.paths?.some((i) => {
-    return fileSpecs.some((j) => i.test(j) || i.test(path.resolve(j)));
-  }) ?? false;
+  return (
+    ignores.paths?.some((i) => {
+      return fileSpecs.some((j) => i.test(j) || i.test(path.resolve(j)));
+    }) ?? false
+  );
 }
 
 function removeIgnored(results: Component[], ignores: Ignores) {
-  if (!("descriptors" in ignores)) return;
+  if (!('descriptors' in ignores)) return;
   results.forEach((r) => {
-    if (!("vulnerabilities" in r)) return;
-    ignores.descriptors?.filter((d): d is ComponentDescriptor => "component" in d).forEach((i) => {
-      if (r.component !== i.component) return;
-      if (i.version && r.version !== i.version) return;
-      if (i.severity) { //Remove vulnerabilities with the severity we want to drop
-        r.vulnerabilities = r.vulnerabilities?.filter(v => v.severity != i.severity);        
-        return;
-      }
-      if (i.identifiers) {
-        removeIgnoredVulnerabilitiesByIdentifier({...i.identifiers}, r);
-        return;
-      }
-      r.vulnerabilities = [];
-    });
+    if (!('vulnerabilities' in r)) return;
+    ignores.descriptors
+      ?.filter((d): d is ComponentDescriptor => 'component' in d)
+      .forEach((i) => {
+        if (r.component !== i.component) return;
+        if (i.version && r.version !== i.version) return;
+        if (i.severity) {
+          //Remove vulnerabilities with the severity we want to drop
+          r.vulnerabilities = r.vulnerabilities?.filter((v) => v.severity != i.severity);
+          return;
+        }
+        if (i.identifiers) {
+          removeIgnoredVulnerabilitiesByIdentifier({ ...i.identifiers }, r);
+          return;
+        }
+        r.vulnerabilities = [];
+      });
     if (r.vulnerabilities?.length === 0) delete r.vulnerabilities;
   });
 }
 
-function removeIgnoredVulnerabilitiesByIdentifier(identifiers: Record<string, string | string[]> , result: Component) {
+function removeIgnoredVulnerabilitiesByIdentifier(identifiers: Record<string, string | string[]>, result: Component) {
   result.vulnerabilities = result.vulnerabilities?.filter((v) => {
-    if (!("identifiers" in v)) return true;
-    return !Object.entries(identifiers || {}).every(([key, value]) => hasIdentifier({...v.identifiers}, key, value));
+    if (!('identifiers' in v)) return true;
+    return !Object.entries(identifiers || {}).every(([key, value]) => hasIdentifier({ ...v.identifiers }, key, value));
   });
 }
 function hasIdentifier(identifiers: Record<string, string | string[]>, key: string, value: string | string[]) {
@@ -100,16 +107,15 @@ function hasIdentifier(identifiers: Record<string, string | string[]>, key: stri
   return Array.isArray(identifier) ? identifier.some((x) => x === value) : identifier === value;
 }
 
-
 export function scanJsFile(file: string, repo: Repository, options: Options) {
   if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
   let results = retire.scanFileName(file, repo);
   if (!results || results.length === 0) {
-    results = retire.scanFileContent(fs.readFileSync(file, "utf-8"), repo, hash);
+    results = retire.scanFileContent(fs.readFileSync(file, 'utf-8'), repo, hash);
   }
-  emitResults({file: file, results: results}, options);
+  emitResults({ file: file, results: results }, options);
 }
 
 export function scanBowerFile(file: string, repo: Repository, options: Options) {
@@ -117,10 +123,10 @@ export function scanBowerFile(file: string, repo: Repository, options: Options) 
     return;
   }
   try {
-    const bower = JSON.parse(fs.readFileSync(file, "utf-8"));
+    const bower = JSON.parse(fs.readFileSync(file, 'utf-8'));
     if (bower.version) {
       const results = retire.check(bower.name, bower.version, repo);
-      emitResults({file: file, results: results}, options);
+      emitResults({ file: file, results: results }, options);
     }
   } catch (e) {
     options.log.warn(`Could not parse file: ${file}`);
@@ -129,4 +135,4 @@ export function scanBowerFile(file: string, repo: Repository, options: Options) 
 
 export function on(event: 'vulnerable-dependency-found' | 'dependency-found', handler: (finding: Finding) => void) {
   events.on(event, handler);
-};
+}

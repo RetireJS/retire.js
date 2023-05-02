@@ -8,7 +8,7 @@ if [[ `git status --porcelain` ]]; then
   exit 1
 fi
 
-npm run lint
+npm run check
 npm run build
 
 npm test
@@ -28,12 +28,11 @@ fi
 read -r -p "Are you sure? [y/N] " response
 if [[ "$response" =~ ^([yY])$ ]]
 then
-    echo "Publishing to npm..."
-    npm publish
     echo "Tagging..."
     git tag $VERSION $COMMIT_ID -m "Release of version $VERSION"
     git push --tags
     echo "Done!"
+    echo "Now create a release on Github!"
 else
     echo "Aborting"
 fi

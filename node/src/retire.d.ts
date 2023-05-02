@@ -1,6 +1,6 @@
-import { Repository, Component, Hasher } from "./types";
+import { Repository, Component, Hasher } from './types';
 
-export declare function check(component: string, version: string, repo: Repository) : Component[];
+export declare function check(component: string, version: string, repo: Repository): Component[];
 
 export declare function replaceVersion(jsRepoJsonAsText: string): string;
 

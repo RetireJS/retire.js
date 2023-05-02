@@ -1,7 +1,7 @@
-import * as retire from "../retire";
-import * as utils from "../utils";
-import { Logger, LoggerOptions, type ConfigurableLogger } from "../reporting";
-import { Component, Finding, Vulnerability } from "../types";
+import * as retire from '../retire';
+import * as utils from '../utils';
+import { Logger, LoggerOptions, type ConfigurableLogger } from '../reporting';
+import { Component, Finding, Vulnerability } from '../types';
 
 function printResults(logger: Logger, finding: Finding, config: LoggerOptions) {
   if (finding.results && finding.results.length > 0) {
@@ -29,9 +29,12 @@ function printVulnerability(component: Component, config: LoggerOptions) {
       string += `severity: ${vulnerability.severity}; `;
     }
     if (vulnerability.identifiers) {
-      string += Object.entries(vulnerability.identifiers).map(([name, id]) => {
-        return `${name}: ${utils.flatten<string>([Array.isArray(id) ? id : [id]]).join(' ')}`;
-      }).join(', ') + '; ';
+      string +=
+        Object.entries(vulnerability.identifiers)
+          .map(([name, id]) => {
+            return `${name}: ${utils.flatten<string>([Array.isArray(id) ? id : [id]]).join(' ')}`;
+          })
+          .join(', ') + '; ';
     }
     string += vulnerability.info.join(config.outputformat === 'clean' ? '\n' : ' ');
   });
@@ -40,7 +43,11 @@ function printVulnerability(component: Component, config: LoggerOptions) {
 
 export default {
   configure: (logger, _, config) => {
-    logger.logDependency = (finding) => { if (config.verbose) printResults(logger, finding, config); };
-    logger.logVulnerableDependency = (component) => { printResults(logger, component, config); };
-  }
+    logger.logDependency = (finding) => {
+      if (config.verbose) printResults(logger, finding, config);
+    };
+    logger.logVulnerableDependency = (component) => {
+      printResults(logger, component, config);
+    };
+  },
 } as ConfigurableLogger;
