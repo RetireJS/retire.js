@@ -38,6 +38,7 @@
     "test": "./test",
     "build": "tsc && chmod ugo+x lib/cli.js",
     "watch": "tsc --watch ",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts --fix --ignore-path ../.gitignore",
     "check": "npm run lint && npm run typecheck"
   },
