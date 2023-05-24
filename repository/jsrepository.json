@@ -3735,7 +3735,7 @@
       }
     ],
     "extractors": {
-      "uri": ["/froala-editor/(§§version§§)/js/froala_editor.min.js"],
+      "uri": ["/froala-editor/(§§version§§)/", "/froala-editor@(§§version§§)/"],
       "filecontent": [
         "/\\*![\\s]+\\* froala_editor v(§§version§§)",
         "VERSION:\"(§§version§§)\",INSTANCES:\\[\\],OPTS_MAPPING:\\{\\}"

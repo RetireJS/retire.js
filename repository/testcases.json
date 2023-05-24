@@ -194,6 +194,9 @@
   "froala": {
     "https://cdnjs.cloudflare.com/ajax/libs/froala-editor/§§version§§/js/froala_editor.min.js": {
       "versions": ["4.0.19", "2.0.0"]
+    },
+    "https://cdn.jsdelivr.net/npm/froala-editor@§§version§§/js/froala_editor.pkgd.min.js": {
+      "versions": ["4.0.19"]
     }
   },
   "ckeditor": {
