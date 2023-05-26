@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.2.2]
+
+### Bugfix
+
+- Proxy setting did not work
+
 ## [4.2.1]
 
 ### Changes

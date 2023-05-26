@@ -4,7 +4,7 @@ import * as http from 'http';
 import * as https from 'https';
 import * as retire from './retire';
 import * as URL from 'url';
-import ProxyAgent from 'proxy-agent';
+import { ProxyAgent } from 'proxy-agent';
 import { Options, Repository } from './types';
 
 async function loadJson<T>(url: string, options: Options): Promise<T> {
@@ -13,7 +13,9 @@ async function loadJson<T>(url: string, options: Options): Promise<T> {
     const reqOptions: https.RequestOptions = { ...URL.parse(url), method: 'GET' };
     const proxyUri = options.proxy || process.env.http_proxy;
     if (proxyUri) {
-      reqOptions.agent = new ProxyAgent(proxyUri);
+      reqOptions.agent = new ProxyAgent({
+        getProxyForUrl: () => proxyUri,
+      });
     }
     if (options.insecure) {
       reqOptions.rejectUnauthorized = false;

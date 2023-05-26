@@ -109,6 +109,7 @@ const config: Options = {
   exitwith: prg.exitwith ?? 13,
   includeOsv: !!prg.includeOsv,
   verbose: !!prg.verbose,
+  proxy: prg.proxy,
 };
 
 log.info(`retire.js v${retire.version}`);
