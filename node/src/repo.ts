@@ -85,7 +85,7 @@ async function loadFromCache<T>(url: string, cachedir: string, options: Options)
 export function asbowerrepo(jsRepo: Repository) {
   const result = {} as Repository;
   Object.keys(jsRepo).map((k) => {
-    [jsRepo[k].bowername || k].map((b: string) => {
+    (jsRepo[k].bowername || [k]).map((b: string) => {
       result[b] = result[b] || { vulnerabilities: [] };
       result[b].vulnerabilities = result[b].vulnerabilities.concat(jsRepo[k].vulnerabilities);
     });

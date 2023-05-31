@@ -59,7 +59,7 @@ function showResult(result, details) {
         },
         function (response) {
           let e = chrome.runtime.lastError;
-          if (e) console.log("Failed to send message:" + e);
+          if (e) console.log("Failed to send message:", e);
           console.log(details.tabId);
           if (response) {
             chrome.action.setBadgeText({

@@ -2588,6 +2588,7 @@
 
   "moment.js": {
     "bowername": ["moment", "momentjs"],
+    "npmname": "moment",
     "vulnerabilities": [
       {
         "below": "2.11.2",
@@ -2652,6 +2653,7 @@
     ],
     "extractors": {
       "uri": ["/moment\\.js/(§§version§§)/moment(.min)?\\.js"],
+      "filename": ["moment(?:-|\\.)(§§version§§)(?:-min)?\\.js"],
       "func": ["moment.version"],
       "filecontent": [
         "//! moment.js(?:[\n\r]+)//! version : (§§version§§)",

@@ -29,7 +29,7 @@ function scan(data, extractor, repo, matcher) {
       var match = matcher(extractors[i], data);
       if (match) {
         match = match.replace(/(\.|-)min$/, '');
-        detected.push({ version: match, component: component, detection: extractor });
+        detected.push({ version: match, component: component, npmname: repo[component].npmname, detection: extractor });
       }
     }
   }
@@ -65,7 +65,7 @@ function scanhash(hash, repo) {
     var hashes = repo[component].extractors.hashes;
     if (!isDefined(hashes)) continue;
     if (hashes.hasOwnProperty(hash)) {
-      return [{ version: hashes[hash], component: component, detection: 'hash' }];
+      return [{ version: hashes[hash], component: component, npmname: repo[component].npmname, detection: 'hash' }];
     }
   }
   return [];
@@ -76,6 +76,7 @@ function check(results, repo) {
     var result = results[r];
     if (!isDefined(repo[result.component])) continue;
     var vulns = repo[result.component].vulnerabilities;
+    result.npmname = repo[result.component].npmname;
     for (var i in vulns) {
       if (!isDefined(vulns[i].below) || !isAtOrAbove(result.version, vulns[i].below)) {
         if (isDefined(vulns[i].atOrAbove) && !isAtOrAbove(result.version, vulns[i].atOrAbove)) {

@@ -6,6 +6,7 @@ import * as retire from '../retire';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { Finding } from '../types';
+import { generatePURL } from './utils';
 
 function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: LoggerOptions, hash: Hasher) {
   let vulnsFound = false;
@@ -53,7 +54,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
                 { alg: 'SHA-512', content: hash.sha512(file) },
               ];
             }
-            const purl = `pkg:npm/${dep.component}@${dep.version}`;
+            const purl = generatePURL(dep);
             if (seen.has(purl)) return undefined;
             seen.add(purl);
             return {
@@ -66,7 +67,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
           })
           .filter((x) => x != undefined),
       )
-      .reduce((a, b) => a.concat(b));
+      .reduce((a, b) => a.concat(b), []);
     write(
       JSON.stringify(
         {

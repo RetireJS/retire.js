@@ -3,7 +3,8 @@ import { Logger } from './reporting';
 export type Repository = Record<
   string,
   {
-    bowername?: string;
+    bowername?: string[];
+    npmname?: string;
     vulnerabilities: Vulnerability[];
     extractors: {
       func?: string[];
@@ -33,6 +34,7 @@ export type Vulnerability = {
 
 export type Component = {
   component: string;
+  npmname?: string;
   version: string;
   vulnerabilities?: Vulnerability[];
 };

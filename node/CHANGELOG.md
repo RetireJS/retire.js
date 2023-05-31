@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.2.3]
+
+### Bugfix
+
+- Generate correct purl for moment.js
+
 ## [4.2.2]
 
 ### Bugfix
