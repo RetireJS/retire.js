@@ -4,6 +4,7 @@ export type Repository = Record<
   string,
   {
     bowername?: string[];
+    basePurl?: string;
     npmname?: string;
     vulnerabilities: Vulnerability[];
     extractors: {
@@ -34,6 +35,7 @@ export type Vulnerability = {
 
 export type Component = {
   component: string;
+  basePurl?: string;
   npmname?: string;
   version: string;
   vulnerabilities?: Vulnerability[];
