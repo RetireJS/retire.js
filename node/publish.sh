@@ -16,6 +16,9 @@ npm test
 
 VERSION=$(cat package.json  | jq -r .version)
 COMMIT_ID=$(git rev-parse HEAD)
+
+node -e "if (require('./lib/retire.js').version != require('./package.json').version) throw new Error('Wrong version in lib/retire.js')"
+
 echo "Point $VERSION to $COMMIT_ID and publish (Y/N)?"
 
 if [ $(git tag -l $VERSION) ]; then
