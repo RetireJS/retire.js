@@ -2656,7 +2656,7 @@
       "filename": ["moment(?:-|\\.)(§§version§§)(?:-min)?\\.js"],
       "func": ["moment.version"],
       "filecontent": [
-        "//! moment.js(?:[\n\r]+)//! version : (§§version§§)",
+        "//!? moment.js(?:[\n\r]+)//!? version : (§§version§§)",
         "\\.version=\"(§§version§§)\".{300,500}\\.isMoment="
       ]
     }
