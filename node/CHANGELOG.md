@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.3.0]
+
+### Changes
+
+- Support basePurl in repository to generate purls in SBOM
+
 ## [4.2.3]
 
 ### Bugfix

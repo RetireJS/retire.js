@@ -432,6 +432,7 @@
   },
   "jquery-ui": {
     "bowername": ["jquery-ui", "jquery.ui"],
+    "npmname": "jquery-ui",
     "vulnerabilities": [
       {
         "below": "1.13.2",
@@ -520,6 +521,7 @@
   },
   "jquery-ui-dialog": {
     "bowername": ["jquery-ui", "jquery.ui"],
+    "npmname": "jquery-ui",
     "vulnerabilities": [
       {
         "atOrAbove": "1.8.9",
@@ -567,6 +569,7 @@
   },
   "jquery-ui-autocomplete": {
     "bowername": ["jquery-ui", "jquery.ui"],
+    "npmname": "jquery-ui",
     "vulnerabilities": [],
     "extractors": {
       "func": ["jQuery.ui.autocomplete.version"],
@@ -581,6 +584,7 @@
   },
   "jquery-ui-tooltip": {
     "bowername": ["jquery-ui", "jquery.ui"],
+    "npmname": "jquery-ui",
     "vulnerabilities": [
       {
         "atOrAbove": "1.9.2",
@@ -611,6 +615,7 @@
   },
   "jquery.prettyPhoto": {
     "bowername": ["jquery-prettyPhoto"],
+    "basePurl": "pkg:github/scaron/prettyphoto",
     "vulnerabilities": [
       {
         "below": "3.1.5",
