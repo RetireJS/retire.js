@@ -645,6 +645,7 @@
   },
   "jPlayer": {
     "bowername": ["jPlayer"],
+    "npmname": "jplayer",
     "vulnerabilities": [
       {
         "below": "2.3.1",
@@ -762,6 +763,7 @@
 
   "tinyMCE": {
     "bowername": ["tinymce", "tinymce-dist"],
+    "npmname": "tinymce",
     "vulnerabilities": [
       {
         "below": "1.4.2",
@@ -924,6 +926,7 @@
 
   "YUI": {
     "bowername": ["yui", "yui3"],
+    "npmname": "yui",
     "vulnerabilities": [
       {
         "atOrAbove": "3.5.0",
@@ -1796,6 +1799,8 @@
   },
   "backbone.js": {
     "bowername": ["backbonejs", "backbone"],
+    "npmname": "backbone",
+    "basePurl": "npm:npm/backbone",
     "vulnerabilities": [
       {
         "below": "0.5.0",
@@ -1822,6 +1827,8 @@
   },
   "mustache.js": {
     "bowername": ["mustache.js", "mustache"],
+    "npmname": "mustache",
+    "basePurl": "npm:npm/mustache",
     "vulnerabilities": [
       {
         "below": "0.3.1",
@@ -2125,6 +2132,7 @@
     }
   },
   "easyXDM": {
+    "npmname": "easyxdm",
     "vulnerabilities": [
       {
         "below": "2.4.18",
@@ -2284,6 +2292,7 @@
 
   "DOMPurify": {
     "bowername": ["dompurify", "DOMPurify"],
+    "npmname": "dompurify",
     "vulnerabilities": [
       {
         "below": "0.6.1",
@@ -2547,6 +2556,7 @@
   },
 
   "DWR": {
+    "npmname": "dwr",
     "vulnerabilities": [
       {
         "below": "1.1.4",
@@ -2664,6 +2674,7 @@
   },
   "underscore.js": {
     "bowername": ["Underscore", "underscore"],
+    "npmname": "underscore",
     "vulnerabilities": [
       {
         "below": "1.12.1",
@@ -3457,6 +3468,7 @@
   },
 
   "AlaSQL": {
+    "npmname": "alasql",
     "vulnerabilities": [
       {
         "below": "0.7.0",
@@ -3681,6 +3693,7 @@
     }
   },
   "froala": {
+    "npmname": "froala-editor",
     "vulnerabilities": [
       {
         "below": "4.0.11",
