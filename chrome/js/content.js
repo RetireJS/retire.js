@@ -10,7 +10,6 @@ const totalResults = [];
       totalResults.push(result);
       if (result.vulnerable) {
         count++;
-        sendResponse({ count: count });
         const out = result.results.map((r) => {
           r.vulnerabilities = r.vulnerabilities || [];
           return `${r.component} ${r.version} - Info: ${r.vulnerabilities
@@ -23,8 +22,10 @@ const totalResults = [];
           }\n - ${out.join("\n - ")}`
         );
       }
+      sendResponse({ count: count });
     } else if (request.getDetected) {
       sendResponse(totalResults);
     }
+    return false;
   });
 })();

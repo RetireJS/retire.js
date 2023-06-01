@@ -134,6 +134,10 @@ events.on("result-ready", function (details, results) {
   chrome.runtime.sendMessage({ type: "result", result, details });
 });
 
+setInterval(() => {
+  chrome.runtime.sendMessage({ type: "ping" });
+}, 5000);
+
 downloadRepo().then(() => {
   chrome.runtime.sendMessage({ type: "repo-ready" });
   chrome.runtime.onMessage.addListener((msg) => {
@@ -142,6 +146,7 @@ downloadRepo().then(() => {
     } else {
       console.log("Background", msg);
     }
+    return false;
   });
 });
 

@@ -39,38 +39,43 @@ chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
     sendResponse({ enabled: scanEnabled });
   } else if (msg.message == "enabled") {
     scanEnabled = msg.data;
+  } else if (msg.type == "ping") {
+    //ignore
   } else {
     console.warn("worker", msg);
   }
 });
 
 function showResult(result, details) {
-  setTimeout(function () {
-    if (result.vulnerable) {
-      chrome.action.setBadgeTextColor({ color: "#fff", tabId: details.tabId });
-      chrome.action.setBadgeText({ text: "!", tabId: details.tabId });
-    }
-    if (details.tabId >= 0) {
-      console.log(details.tabId, result);
-      chrome.tabs.sendMessage(
-        details.tabId,
-        {
-          message: JSON.stringify(result),
-        },
-        function (response) {
-          let e = chrome.runtime.lastError;
-          if (e) console.log("Failed to send message:", e);
-          console.log(details.tabId);
-          if (response) {
-            chrome.action.setBadgeText({
-              text: "" + response.count,
-              tabId: details.tabId,
-            });
-          }
-          return true;
+  //setTimeout(function () {
+  if (result.vulnerable) {
+    chrome.action.setBadgeTextColor({ color: "#fff", tabId: details.tabId });
+    chrome.action.setBadgeText({ text: "!", tabId: details.tabId });
+  }
+  if (details.tabId >= 0) {
+    console.log(details.tabId, result);
+    chrome.tabs.sendMessage(
+      details.tabId,
+      {
+        message: JSON.stringify(result),
+      },
+      function (response) {
+        let e = chrome.runtime.lastError;
+        if (e) {
+          chrome.runtime.lastError = undefined;
+          console.warn("Failed to send message:", e, details);
         }
-      );
-    }
-    return true;
-  }, 3000);
+        console.log(details.tabId, response);
+        if (response && response.count > 0) {
+          chrome.action.setBadgeText({
+            text: "" + response.count,
+            tabId: details.tabId,
+          });
+        }
+        return false;
+      }
+    );
+  }
+  return true;
+  //}, 3000);
 }
