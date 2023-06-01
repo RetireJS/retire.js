@@ -2604,7 +2604,7 @@
   "moment.js": {
     "bowername": ["moment", "momentjs"],
     "npmname": "moment",
-    "basePurl": "npm:npm/moment",
+    "basePurl": "pkg:npm/moment",
     "vulnerabilities": [
       {
         "below": "2.11.2",
