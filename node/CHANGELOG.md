@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.3.1]
+
+### Bugfix
+
+- Should always include detected libraries in SBOM reports regardless of if they are vulnerable or not
+
 ## [4.3.0]
 
 ### Changes

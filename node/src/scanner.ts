@@ -54,7 +54,6 @@ function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]): Vulnerability
 function filterAndEmitResults(finding: Finding, options: Options) {
   finding.results.forEach((r) => (r.vulnerabilities = uniqueVulnerabilities(r.vulnerabilities)));
   if (options.ignore) removeIgnored(finding.results, options.ignore);
-  if (!options.verbose) finding.results = finding.results.filter((f) => retire.isVulnerable([f]));
   if (finding.results.length == 0) return;
   if (retire.isVulnerable(finding.results)) {
     events.emit('vulnerable-dependency-found', finding);
