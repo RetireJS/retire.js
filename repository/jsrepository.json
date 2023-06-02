@@ -20,7 +20,6 @@
       "hashes": { "07f8b94c8d601a24a1914a1a92bec0e4fafda964": "0.0.1" }
     }
   },
-
   "jquery": {
     "bowername": ["jQuery"],
     "vulnerabilities": [
@@ -765,7 +764,6 @@
       "hashes": {}
     }
   },
-
   "tinyMCE": {
     "bowername": ["tinymce", "tinymce-dist"],
     "npmname": "tinymce",
@@ -928,7 +926,6 @@
       "func": ["tinyMCE.majorVersion + '.'+ tinyMCE.minorVersion"]
     }
   },
-
   "YUI": {
     "bowername": ["yui", "yui3"],
     "npmname": "yui",
@@ -1653,6 +1650,7 @@
   },
   "angularjs": {
     "bowername": ["angularjs", "angular.js"],
+    "npmname": "angular",
     "vulnerabilities": [
       {
         "below": "1.8.0",
@@ -2190,7 +2188,6 @@
       "hashes": { "cf266e3bc2da372c4f0d6b2bd87bcbaa24d5a643": "2.4.6" }
     }
   },
-
   "plupload": {
     "bowername": ["Plupload", "plupload"],
     "vulnerabilities": [
@@ -2294,7 +2291,6 @@
       "hashes": {}
     }
   },
-
   "DOMPurify": {
     "bowername": ["dompurify", "DOMPurify"],
     "npmname": "dompurify",
@@ -2413,7 +2409,6 @@
       "hashes": {}
     }
   },
-
   "react": {
     "vulnerabilities": [
       {
@@ -2540,7 +2535,6 @@
       ]
     }
   },
-
   "flowplayer": {
     "vulnerabilities": [
       {
@@ -2559,7 +2553,6 @@
       "filename": ["flowplayer-(§§version§§)(\\.min)?\\.js"]
     }
   },
-
   "DWR": {
     "npmname": "dwr",
     "vulnerabilities": [
@@ -2600,7 +2593,6 @@
       "filecontent": [" dwr-(§§version§§).jar"]
     }
   },
-
   "moment.js": {
     "bowername": ["moment", "momentjs"],
     "npmname": "moment",
@@ -2882,7 +2874,6 @@
       "hashes": {}
     }
   },
-
   "ckeditor": {
     "vulnerabilities": [
       {
@@ -3196,7 +3187,6 @@
       "func": ["Vue.version"]
     }
   },
-
   "ExtJS": {
     "vulnerabilities": [
       {
@@ -3257,7 +3247,6 @@
       ]
     }
   },
-
   "svelte": {
     "vulnerabilities": [
       {
@@ -3305,7 +3294,6 @@
       "func": ["svelte.VERSION"]
     }
   },
-
   "axios": {
     "vulnerabilities": [
       {
@@ -3471,7 +3459,6 @@
       "func": ["JSZip && JSZip.version"]
     }
   },
-
   "AlaSQL": {
     "npmname": "alasql",
     "vulnerabilities": [
@@ -3493,8 +3480,8 @@
       "func": ["alasql && alasql.version"]
     }
   },
-
   "jquery.datatables": {
+    "npmname": "datatables",
     "vulnerabilities": [
       {
         "below": "1.11.3",
@@ -3558,7 +3545,6 @@
       "func": ["DataTable && DataTable.version"]
     }
   },
-
   "nextjs": {
     "vulnerabilities": [
       {
