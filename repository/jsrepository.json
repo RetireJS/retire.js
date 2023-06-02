@@ -3750,6 +3750,26 @@
       "func": ["FroalaEditor.VERSION"]
     }
   },
+  "pendo": {
+    "vulnerabilities": [
+      {
+        "below": "2.15.18",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Patched XSS vulnerability around script loading",
+          "retid": "74"
+        },
+        "info": ["https://developers.pendo.io/agent-version-2-15-18/"]
+      }
+    ],
+    "extractors": {
+      "filecontent": [
+        "// Pendo Agent Wrapper\n//[\\s]+Environment:[\\s]+[^\n]+\n// Agent Version:[\\s]+(§§version§§)"
+      ],
+      "func": ["pendo.VERSION.split('_')[0]"]
+    }
+  },
   "dont check": {
     "extractors": {
       "uri": [
