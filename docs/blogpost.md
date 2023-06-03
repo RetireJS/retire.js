@@ -22,7 +22,7 @@ Options:
 -p, --package      limit node scan to packages where parent is mentioned in package.json (ignore node_modules)
 -n, --node         Run node dependency scan only
 -j, --js           Run scan of JavaScript files only
--v, --verbose      Show identified files (by default only vulnerable files are shown)
+-v, --verbose      Show identified files (by default all files are shown)
 
 --jspath <path>    Folder to scan for javascript files
 --nodepath <path>  Folder to scan for node files
