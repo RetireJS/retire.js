@@ -3770,6 +3770,24 @@
       "func": ["pendo.VERSION.split('_')[0]"]
     }
   },
+    "highcharts": {
+    "vulnerabilities": [
+      {
+        "below": "9.0.0",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) and Prototype Pollution in Highcharts < 9.0.0"
+        },
+        "info": ["https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057"]
+      }
+    ],
+    "extractors": {
+      "filecontent": [
+        "product:\"Highcharts\",version:\"(§§version§§)\""
+      ]
+    }
+  },
   "dont check": {
     "extractors": {
       "uri": [
