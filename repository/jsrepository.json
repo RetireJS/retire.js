@@ -2875,6 +2875,29 @@
       "hashes": {}
     }
   },
+  "bootstrap-select": {
+    "vulnerabilities": [
+      {
+        "below": "1.13.6",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Cross-site Scripting (XSS) via title and data-content",
+          "CVE": ["CVE-2019-20921"]
+        },
+        "info": [
+          "https://github.com/snapappointments/bootstrap-select/issues/2199#issuecomment-701806876"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": ["/bootstrap-select/(§§version§§)/"],
+      "filecontent": [
+        "/\\*![\\s]+\\*[\\s]+Boxotstrap-select[\\s]+v(§§version§§)",
+        ".\\.data\\(\"selectpicker\",.=new .\\(this,.\\)\\)\\}\"string\"==typeof .&&\\(.=.\\[.\\]instanceof Function\\?.\\[.\\]\\.apply\\(.,.\\):.\\.options\\[.\\]\\)\\}\\}\\);return void 0!==.\\?.:.\\}.\\.VERSION=\"(§§version§§)\","
+      ]
+    }
+  },
   "ckeditor": {
     "vulnerabilities": [
       {
@@ -3778,7 +3801,8 @@
         "severity": "medium",
         "cwe": ["CWE-79"],
         "identifiers": {
-          "summary": "Cross-site Scripting (XSS) and Prototype Pollution in Highcharts < 9.0.0"
+          "summary": "Cross-site Scripting (XSS) and Prototype Pollution in Highcharts < 9.0.0",
+          "CVE": ["CVE-2021-29489"]
         },
         "info": ["https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057"]
       }

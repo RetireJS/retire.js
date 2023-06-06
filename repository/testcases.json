@@ -210,5 +210,11 @@
       "versions": ["11.0.1", "10.0.0", "4.2.4"],
       "subversions": [""]
     }
+  },
+  "bootstrap-select": {
+    "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/§§version§§/js/bootstrap-select.min.js": {
+      "versions": ["1.13.18"],
+      "subversions": [""]
+    }
   }
 }
