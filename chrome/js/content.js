@@ -9,7 +9,9 @@ const totalResults = [];
       const result = JSON.parse(request.message);
       totalResults.push(result);
       if (result.vulnerable) {
-        count++;
+        result.results
+          .filter((x) => x.vulnerabilities && x.vulnerabilities.length > 0)
+          .forEach(() => count++);
         const out = result.results.map((r) => {
           r.vulnerabilities = r.vulnerabilities || [];
           return `${r.component} ${r.version} - Info: ${r.vulnerabilities
