@@ -2893,7 +2893,7 @@
     "extractors": {
       "uri": ["/bootstrap-select/(§§version§§)/"],
       "filecontent": [
-        "/\\*![\\s]+\\*[\\s]+Boxotstrap-select[\\s]+v(§§version§§)",
+        "/\\*![\\s]+\\*[\\s]+Bootstrap-select[\\s]+v(§§version§§)",
         ".\\.data\\(\"selectpicker\",.=new .\\(this,.\\)\\)\\}\"string\"==typeof .&&\\(.=.\\[.\\]instanceof Function\\?.\\[.\\]\\.apply\\(.,.\\):.\\.options\\[.\\]\\)\\}\\}\\);return void 0!==.\\?.:.\\}.\\.VERSION=\"(§§version§§)\","
       ]
     }
