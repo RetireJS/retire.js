@@ -204,5 +204,11 @@
       "versions": ["4.20.2", "4.0.1"],
       "subversions": ["", ".min"]
     }
+  },
+  "highcharts": {
+    "https://cdnjs.cloudflare.com/ajax/libs/highcharts/§§version§§/highcharts.js": {
+      "versions": ["11.0.1", "10.0.0", "4.2.4"],
+      "subversions": [""]
+    }
   }
 }
