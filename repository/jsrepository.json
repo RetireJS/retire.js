@@ -3565,7 +3565,7 @@
       "filecontent": [
         "http://www.datatables.net\n +DataTables (§§version§§)",
         "/\\*! DataTables (§§version§§)",
-        "u.version=\"(§§version§§)\";u.settings=\\[\\];u.models=\\{\\};u.models.oSearch"
+        ".\\.version=\"(§§version§§)\";[\\s]*.\\.settings=\\[\\];[\\s]*.\\.models=\\{[\\s]*\\};[\\s]*.\\.models.oSearch"
       ],
       "func": ["DataTable && DataTable.version"]
     }
