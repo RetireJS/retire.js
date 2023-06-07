@@ -1863,6 +1863,7 @@
       "filename": ["mustache(?:js)?-(§§version§§)(.min)?\\.js"],
       "filecontent": [
         "name:\"mustache.js\",version:\"(§§version§§)\"",
+        "name=\"mustache.js\"[;,].\\.version=\"(§§version§§)\"",
         "[^a-z]mustache.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\")",
         "exports.name[ ]?=[ ]?\"mustache.js\";[\n ]*exports.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\");"
       ],
