@@ -3506,7 +3506,7 @@
     }
   },
   "jquery.datatables": {
-    "npmname": "datatables",
+    "npmname": "datatables.net",
     "vulnerabilities": [
       {
         "below": "1.11.3",
