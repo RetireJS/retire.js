@@ -3,181 +3,227 @@
 var fs = require("fs");
 
 function exitWithError(...msg) {
-	console.warn(...msg);
-	process.exit(1);
+  console.warn(...msg);
+  process.exit(1);
 }
 
 function checkRepoTypes(repo) {
-	let types = {}
+  let types = {};
 
-	Object.entries(repo).map(([key, obj]) => checkKeyTypes(key, obj, types, ""));
-	//console.log(types);
+  Object.entries(repo).map(([key, obj]) => checkKeyTypes(key, obj, types, ""));
+  //console.log(types);
 }
 
 function checkKeyTypes(main, obj, types, path) {
-	//console.log(main, path, Array.isArray(obj) ? "[]" : typeof obj, types[path])
-	if (Array.isArray(obj)) {
-		if (types[path] && types[path] != "[]") {
-			exitWithError(`Unexpected type ${typeof obj} at path ${main}${path}. Expected type ${types[path]}`);
-		}
-		types[path] = "[]";
-		for (let o of obj) {
-			checkKeyTypes(main, o, types, path + "[]");
-		}
-		return;
-	}
-	if (types[path] && typeof obj != types[path]) {
-		exitWithError(`Unexpected type ${typeof o} at path ${main}${path}. Expected type ${types[path]}`);
-	}
-	types[path] = typeof obj;
-	if (typeof obj == "object") {
-		Object.entries(obj).map(([key, value]) => {
-			checkKeyTypes(main, value, types, `${path}.${key}`);
-		});
-	}
+  //console.log(main, path, Array.isArray(obj) ? "[]" : typeof obj, types[path])
+  if (Array.isArray(obj)) {
+    if (types[path] && types[path] != "[]") {
+      exitWithError(
+        `Unexpected type ${typeof obj} at path ${main}${path}. Expected type ${
+          types[path]
+        }`
+      );
+    }
+    types[path] = "[]";
+    for (let o of obj) {
+      checkKeyTypes(main, o, types, path + "[]");
+    }
+    return;
+  }
+  if (types[path] && typeof obj != types[path]) {
+    exitWithError(
+      `Unexpected type ${typeof o} at path ${main}${path}. Expected type ${
+        types[path]
+      }`
+    );
+  }
+  types[path] = typeof obj;
+  if (typeof obj == "object") {
+    Object.entries(obj).map(([key, value]) => {
+      checkKeyTypes(main, value, types, `${path}.${key}`);
+    });
+  }
 }
-
-
 
 console.log("Checking that jsrepository is valid json...");
 var jsRepo = JSON.parse(fs.readFileSync(__dirname + "/jsrepository.json"));
-console.log("Validating regexes...")
+console.log("Validating regexes...");
 var count = 0;
 for (var i in jsRepo) {
-	var types = ["uri", "filecontent", "filename", "filecontentreplace"];
-	for (var j in types) {
-		for (var k in jsRepo[i].extractors[types[j]]) {
-			try {
-				var restring = jsRepo[i].extractors[types[j]][k];
-				count++;
-				if (types[j] == "filecontentreplace") {
-					var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(restring);
-					if (ar == null) {
-						exitWithError("RegExp error - should be on format \"/search/replacement/\"", `${i} ${types[j]}[${k}]`);
-					}
-					restring = ar[1];
-				}
-				if (restring.includes("{}")) {
-					exitWithError("This looks like an unescaped JS object. Should it have been escaped?", restring);
-				}
-				if (restring.includes("[]")) {
-					exitWithError("This looks like an unescaped JS array. Should it have been escaped?", restring);
-				}
-				if (/.*[^\\]\{[^0-9,\\]\}.*/.test(restring)) {
-					exitWithError("There is something odd with this regex", restring);
-				}
-				if (/[^,0-9\\]\}/.test(restring)) {
-					exitWithError("There is something odd with this regex", restring);
-				}
-				if (/[^\\]\{[^,0-9]/.test(restring)) {
-					exitWithError("There is something odd with this regex", restring);
-				}
+  var types = ["uri", "filecontent", "filename", "filecontentreplace"];
+  for (var j in types) {
+    for (var k in jsRepo[i].extractors[types[j]]) {
+      try {
+        var restring = jsRepo[i].extractors[types[j]][k];
+        count++;
+        if (types[j] == "filecontentreplace") {
+          var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(restring);
+          if (ar == null) {
+            exitWithError(
+              'RegExp error - should be on format "/search/replacement/"',
+              `${i} ${types[j]}[${k}]`
+            );
+          }
+          restring = ar[1];
+        }
+        if (restring.includes("{}")) {
+          exitWithError(
+            "This looks like an unescaped JS object. Should it have been escaped?",
+            restring
+          );
+        }
+        if (restring.includes("[]")) {
+          exitWithError(
+            "This looks like an unescaped JS array. Should it have been escaped?",
+            restring
+          );
+        }
+        if (/.*[^\\]\{[^0-9,\\]\}.*/.test(restring)) {
+          exitWithError("There is something odd with this regex", restring);
+        }
+        if (/[^,0-9\\]\}/.test(restring)) {
+          exitWithError("There is something odd with this regex", restring);
+        }
+        if (/[^\\]\{[^,0-9]/.test(restring)) {
+          exitWithError("There is something odd with this regex", restring);
+        }
 
-				var r = new RegExp(restring);
-				var cre = restring.replace(/\\\(/g, "").replace(/\(\?:/g, "").split("(")[1];
-				if (i != "dont check" && types[j] !== "filecontentreplace" && (!cre || cre.indexOf("§§version§§") !== 0)) {
-					exitWithError("First capture must be §§version§§ for " + i + ": " + restring);
-				}
-
-
-			} catch(e) {
-				exitWithError("RegExp error ", i, types[j], k);
-			}
-		}
-	}  
+        var r = new RegExp(restring);
+        var cre = restring
+          .replace(/\\\(/g, "")
+          .replace(/\(\?:/g, "")
+          .split("(")[1];
+        if (
+          i != "dont check" &&
+          types[j] !== "filecontentreplace" &&
+          (!cre || cre.indexOf("§§version§§") !== 0)
+        ) {
+          exitWithError(
+            "First capture must be §§version§§ for " + i + ": " + restring
+          );
+        }
+      } catch (e) {
+        exitWithError("RegExp error ", i, types[j], k);
+      }
+    }
+  }
 }
-console.log(count + " regexes validated.")
-console.log("Check repo consistency for jsRepo...")
+console.log(count + " regexes validated.");
+console.log("Check repo consistency for jsRepo...");
 checkRepoTypes(jsRepo);
-console.log("Done")
-
-
-
+console.log("Done");
 
 console.log("Checking that npmrepository is valid json...");
 var npmData = fs.readFileSync(__dirname + "/npmrepository.json", "utf-8");
 var npmRepo = JSON.parse(npmData);
-var k = Object.keys(npmRepo).filter(component => npmRepo[component].vulnerabilities.some(v => !v.below))
-if (k.length > 0) exitWithError('Components ' + k.map(c => '"' + c + '"').join(', ') + ' are missing "below"');
+var k = Object.keys(npmRepo).filter((component) =>
+  npmRepo[component].vulnerabilities.some((v) => !v.below)
+);
+if (k.length > 0)
+  exitWithError(
+    "Components " +
+      k.map((c) => '"' + c + '"').join(", ") +
+      ' are missing "below"'
+  );
 
 console.log("Looking for duplicate keys in npmrepo ...");
-Object.keys(npmRepo).map(k => {
-	if (npmData.split('"' + k + '"').length > 2) {
-		exitWithError("Duplicate key for " + k);
-	}
-})
+Object.keys(npmRepo).map((k) => {
+  if (npmData.split('"' + k + '"').length > 2) {
+    exitWithError("Duplicate key for " + k);
+  }
+});
 
-console.log("Check repo consistency for npmRepo...")
+console.log("Check repo consistency for npmRepo...");
 checkRepoTypes(npmRepo);
-console.log("Done")
+console.log("Done");
 
 console.log("Checking for identifiers...");
 let maxRetId = "0";
 let seenRetId = {};
-Object.entries(jsRepo).forEach(([k,val]) => {
-	(val.vulnerabilities || []).filter(v => {
-		let ids = v.identifiers;
-		if (!ids) return true;
-		if (ids.CVE && ids.CVE.length > 0) return false;
-		if (ids.bug) return false;
-		if (ids.blog) return false;
-		if (ids.gist) return false;
-		if (ids.issue) return false;
-		if (ids.PR) return false;
-		if (ids.tenable) return false;
-		if (ids.githubID) return false;
-		if (ids.osvdb && ids.osvdb.length > 0) return false;
-		if (ids.retid) {
-			if (seenRetId[ids.retid]) console.warn("Already seen retid: " + ids.retid)
-			seenRetId[ids.retid] = true;
-			if (parseInt(ids.retid) > parseInt(maxRetId)) maxRetId = ids.retid
-			return false;
-		}
-		return true;
-	}).forEach(v => {
-		console.warn("WARN: " + k + " Missing identifiers for :" + JSON.stringify(v));
-	});
+const retIdMapping = new Map();
+
+Object.entries(jsRepo).forEach(([k, val]) => {
+  (val.vulnerabilities || [])
+    .filter((v) => {
+      let ids = v.identifiers;
+      if (!ids) return true;
+      if (ids.CVE && ids.CVE.length > 0) return false;
+      if (ids.bug) return false;
+      if (ids.blog) return false;
+      if (ids.gist) return false;
+      if (ids.issue) return false;
+      if (ids.PR) return false;
+      if (ids.tenable) return false;
+      if (ids.githubID) return false;
+      if (ids.osvdb && ids.osvdb.length > 0) return false;
+      if (ids.retid) {
+        if (
+          retIdMapping.has(ids.retid) &&
+          retIdMapping.get(ids.retid) != ids.githubID
+        ) {
+          console.warn(
+            `retid ${ids.retid} is mapped to ${retIdMapping.get(
+              ids.retid
+            )} and ${ids.githubID}`
+          );
+        }
+        retIdMapping.set(ids.retid, ids.githubID);
+        if (seenRetId[ids.retid])
+          console.warn("Already seen retid: " + ids.retid);
+        seenRetId[ids.retid] = true;
+        if (parseInt(ids.retid) > parseInt(maxRetId)) maxRetId = ids.retid;
+        return false;
+      }
+      return true;
+    })
+    .forEach((v) => {
+      console.warn(
+        "WARN: " + k + " Missing identifiers for :" + JSON.stringify(v)
+      );
+    });
 });
 console.log("Max retId: " + maxRetId);
 
 Object.entries(jsRepo).forEach(([k, val]) => {
-	(val.vulnerabilities || []).forEach(v => {
-		if (!v.severity) {
-			console.warn(" * " + k + " - Missing severity: " + JSON.stringify(v))
-		}
-	});
+  (val.vulnerabilities || []).forEach((v) => {
+    if (!v.severity) {
+      console.warn(" * " + k + " - Missing severity: " + JSON.stringify(v));
+    }
+  });
 });
 
 Object.entries(jsRepo).forEach(([k, val]) => {
-	(val.vulnerabilities || []).forEach(v => {
-		if (!v.cwe || v.cwe.length == 0) {
-			console.warn(" * " + k + " - Missing cwe: " + JSON.stringify(v))
-			process.exit(1);
-		}
-		if (v.cwe.some(x => x.trim() !== x)) {
-			console.warn("space in cwe", v.cwe)
-			process.exit(1);
-		}
-	});
+  (val.vulnerabilities || []).forEach((v) => {
+    if (!v.cwe || v.cwe.length == 0) {
+      console.warn(" * " + k + " - Missing cwe: " + JSON.stringify(v));
+      process.exit(1);
+    }
+    if (v.cwe.some((x) => x.trim() !== x)) {
+      console.warn("space in cwe", v.cwe);
+      process.exit(1);
+    }
+  });
 });
 Object.entries(jsRepo).forEach(([k, val]) => {
-	(val.vulnerabilities || []).forEach(v => {
-		if (v.identifiers.CVE && v.identifiers.CVE.some(x => x.trim() !== x)) {
-			console.warn("space in CVE", v.identifiers.CVE)
-			process.exit(1);
-		}
-		Object.entries(v.identifiers).filter(([k]) => k != "summary" && k != "CVE").forEach(([k, v]) => {
-			if (Array.isArray(v)) {
-				if (v.some(x => x.trim() != x)) {
-					console.warn("space in " + k, v);
-					process.exit(1);
-				}
-			} else if (v.trim() != v) {
-				console.warn("space in " + k, v);
-				process.exit(1);
-			}
-		});
-	});
+  (val.vulnerabilities || []).forEach((v) => {
+    if (v.identifiers.CVE && v.identifiers.CVE.some((x) => x.trim() !== x)) {
+      console.warn("space in CVE", v.identifiers.CVE);
+      process.exit(1);
+    }
+    Object.entries(v.identifiers)
+      .filter(([k]) => k != "summary" && k != "CVE")
+      .forEach(([k, v]) => {
+        if (Array.isArray(v)) {
+          if (v.some((x) => x.trim() != x)) {
+            console.warn("space in " + k, v);
+            process.exit(1);
+          }
+        } else if (v.trim() != v) {
+          console.warn("space in " + k, v);
+          process.exit(1);
+        }
+      });
+  });
 });
 
 console.log("Success");
