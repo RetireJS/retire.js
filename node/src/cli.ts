@@ -57,7 +57,7 @@ const prg = program
     '--insecure',
     'Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate',
   )
-  .option('--ext <extensions>', 'Comman separated list of file extensions for javascript files. The default is "js"')
+  .option('--ext <extensions>', 'Comma separated list of file extensions for JavaScript files. The default is "js"')
   .option(
     '--cacert <path>',
     'Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files',

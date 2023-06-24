@@ -30,7 +30,7 @@ Options:
   --exitwith <code>        Custom exit code (default: 13) when vulnerabilities are found
   --colors                 Enable color output (console output only)
   --insecure               Enable fetching remote jsrepo/noderepo files from hosts using an insecure or self-signed SSL (TLS) certificate
-  --ext <extensions>       Comman separated list of file extensions for javascript files. The default is "js"
+  --ext <extensions>       Comma separated list of file extensions for JavaScript files. The default is "js"
   --cacert <path>          Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files
   --includeOsv             Include OSV advisories in the output
   -h, --help               display help for command
