@@ -140,18 +140,6 @@
         ]
       },
       {
-        "atOrAbove": "3.0.0-rc.1",
-        "below": "3.0.0",
-        "cwe": ["CWE-400"],
-        "identifiers": {
-          "CVE": ["CVE-2016-10707"],
-          "summary": "Denial of Service in jquery",
-          "githubID": "GHSA-mhpp-875w-9cpv"
-        },
-        "severity": "high",
-        "info": ["https://nvd.nist.gov/vuln/detail/CVE-2016-10707"]
-      },
-      {
         "atOrAbove": "2.2.2",
         "below": "3.0.0",
         "cwe": ["CWE-79"],
@@ -167,6 +155,18 @@
           "https://nvd.nist.gov/vuln/detail/CVE-2015-9251",
           "http://research.insecurelabs.org/jquery/test/"
         ]
+      },
+      {
+        "atOrAbove": "3.0.0-rc.1",
+        "below": "3.0.0",
+        "cwe": ["CWE-400"],
+        "identifiers": {
+          "CVE": ["CVE-2016-10707"],
+          "summary": "Denial of Service in jquery",
+          "githubID": "GHSA-mhpp-875w-9cpv"
+        },
+        "severity": "high",
+        "info": ["https://nvd.nist.gov/vuln/detail/CVE-2016-10707"]
       },
       {
         "below": "3.4.0",
@@ -189,6 +189,7 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "CVE": ["CVE-2020-11022"],
+          "issue": "4642",
           "summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS",
           "githubID": "GHSA-gxr4-xjj5-5px2"
         },
@@ -201,7 +202,8 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "CVE": ["CVE-2020-11023"],
-          "summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS",
+          "issue": "4647",
+          "summary": "passing HTML containing <option> elements from untrusted sources - even after sanitizing it - to one of jQuery's DOM manipulation methods (i.e. .html(), .append(), and others) may execute untrusted code.",
           "githubID": "GHSA-jpcq-cgw6-v4j6"
         },
         "severity": "medium",
