@@ -48,7 +48,7 @@
           "summary": "Selector interpreted as HTML",
           "githubID": "GHSA-2pqj-h3vj-pqgw"
         },
-        "severity": "high",
+        "severity": "medium",
         "info": [
           "http://bugs.jquery.com/ticket/11290",
           "https://nvd.nist.gov/vuln/detail/CVE-2012-6708",
@@ -203,7 +203,7 @@
         "atOrAbove": "1.0.3",
         "cwe": ["CWE-79"],
         "identifiers": {
-          "CVE": ["CVE-2020-11023"],
+          "CVE": ["CVE-2020-11023", "CVE-2020-23064"],
           "issue": "4647",
           "summary": "passing HTML containing <option> elements from untrusted sources - even after sanitizing it - to one of jQuery's DOM manipulation methods (i.e. .html(), .append(), and others) may execute untrusted code.",
           "githubID": "GHSA-jpcq-cgw6-v4j6"
@@ -817,12 +817,11 @@
       },
       {
         "below": "4.9.7",
-        "severity": "medium",
+        "severity": "high",
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "TinyMCE before 4.9.7 and 5.x before 5.1.4 allows XSS in the core parser, the paste plugin, and the visualchars plugin by using the clipboard or APIs to insert content into the editor.",
-          "githubID": "GHSA-p7j5-4mwm-hv86",
-          "CVE": ["CVE-2020-17480"]
+          "githubID": "GHSA-p7j5-4mwm-hv86"
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-p7j5-4mwm-hv86"
@@ -831,12 +830,11 @@
       {
         "below": "5.1.4",
         "atOrAbove": "5.0.0",
-        "severity": "medium",
+        "severity": "high",
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "TinyMCE before 4.9.7 and 5.x before 5.1.4 allows XSS in the core parser, the paste plugin, and the visualchars plugin by using the clipboard or APIs to insert content into the editor.",
-          "githubID": "GHSA-p7j5-4mwm-hv86",
-          "CVE": ["CVE-2020-17480"]
+          "githubID": "GHSA-p7j5-4mwm-hv86"
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-p7j5-4mwm-hv86"
@@ -875,8 +873,8 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "Cross-site scripting vulnerability in TinyMCE",
-          "retid": "63",
-          "githubID": "GHSA-vrv8-v4w8-f95h"
+          "githubID": "GHSA-vrv8-v4w8-f95h",
+          "CVE": ["CVE-2020-12648"]
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-vrv8-v4w8-f95h"
@@ -889,8 +887,8 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "Cross-site scripting vulnerability in TinyMCE",
-          "retid": "63",
-          "githubID": "GHSA-vrv8-v4w8-f95h"
+          "githubID": "GHSA-vrv8-v4w8-f95h",
+          "CVE": ["CVE-2020-12648"]
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-vrv8-v4w8-f95h"
@@ -903,7 +901,8 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor via the clipboard or APIs",
-          "githubID": "GHSA-27gm-ghr9-4v95"
+          "githubID": "GHSA-27gm-ghr9-4v95",
+          "CVE": ["CVE-2020-17480"]
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-27gm-ghr9-4v95"
@@ -915,7 +914,8 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor via the clipboard or APIs",
-          "githubID": "GHSA-27gm-ghr9-4v95"
+          "githubID": "GHSA-27gm-ghr9-4v95",
+          "CVE": ["CVE-2020-17480"]
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-27gm-ghr9-4v95"
