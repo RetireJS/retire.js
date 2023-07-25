@@ -692,6 +692,31 @@
       ]
     }
   },
+  "jquery-deparam": {
+    "vulnerabilities": [
+      {
+        "below": "999",
+        "severity": "high",
+        "cwe": ["CWE-1321"],
+        "identifiers": {
+          "githubID": "GHSA-xg68-chx2-253g",
+          "CVE": ["CVE-2021-20087"]
+        },
+        "info": ["https://nvd.nist.gov/vuln/detail/CVE-2021-20087"]
+      }
+    ],
+    "extractors": {
+      "hashes": {
+        "61c9d49ae64331402c3bde766c9dc504ed2ca509": "0.5.3",
+        "10a68e5048995351a01b0ad7f322bb755a576a02": "0.5.2",
+        "b8f063c860fa3aab266df06b290e7da648f9328d": "0.4.2",
+        "851bc74dc664aa55130ecc74dd6b1243becc3242": "0.4.1",
+        "2aae12841f4d00143ffc1effa59fbd058218c29f": "0.4.0",
+        "967942805137f9eb0ae26005d94e8285e2e288a0": "0.3.0",
+        "fbf2e115feae7ade26788e38ebf338af11a98bb2": "0.1.0"
+      }
+    }
+  },
   "jPlayer": {
     "bowername": ["jPlayer"],
     "npmname": "jplayer",
