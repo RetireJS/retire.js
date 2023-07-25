@@ -301,7 +301,7 @@
       },
       {
         "below": "1.19.4",
-        "severity": "low",
+        "severity": "medium",
         "cwe": ["CWE-1333"],
         "identifiers": {
           "CVE": ["CVE-2021-43306"],
@@ -652,6 +652,44 @@
         "\\.prettyPhoto[ ]?=[ ]?\\{version:[ ]?(?:'|\")(§§version§§)(?:'|\")\\}"
       ],
       "hashes": {}
+    }
+  },
+  "jquery.terminal": {
+    "vulnerabilities": [
+      {
+        "below": "1.21.0",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Reflected Cross-Site Scripting in jquery.terminal",
+          "githubID": "GHSA-2hwp-g4g7-mwwj"
+        },
+        "info": [
+          "https://github.com/jcubic/jquery.terminal/commit/c8b7727d21960031b62a4ef1ed52f3c634046211",
+          "https://www.npmjs.com/advisories/769"
+        ]
+      },
+      {
+        "below": "2.31.1",
+        "severity": "low",
+        "cwe": ["CWE-79", "CWE-80"],
+        "identifiers": {
+          "summary": "jquery.terminal self XSS on user input",
+          "githubID": "GHSA-x9r5-jxvq-4387",
+          "CVE": ["CVE-2021-43862"]
+        },
+        "info": [
+          "https://github.com/jcubic/jquery.terminal/security/advisories/GHSA-x9r5-jxvq-4387",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-43862"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": ["/jquery.terminal[@/](§§version§§)/"],
+      "filecontent": [
+        "version (§§version§§)[\\s]+\\*[\\s]+\\* This file is part of jQuery Terminal.",
+        "\\$\\.terminal=\\{version:\"(§§version§§)\""
+      ]
     }
   },
   "jPlayer": {

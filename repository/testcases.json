@@ -216,5 +216,11 @@
       "versions": ["1.13.18"],
       "subversions": [""]
     }
+  },
+  "jquery.terminal": {
+    "https://cdnjs.cloudflare.com/ajax/libs/jquery.terminal/§§version§§/js/jquery.terminal.min.js": {
+      "versions": ["2.36.0", "2.4.0", "1.0.6"],
+      "subversions": [""]
+    }
   }
 }
