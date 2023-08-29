@@ -3780,7 +3780,7 @@
     "extractors": {
       "uri": ["/jszip[/@](§§version§§)/.*\\.js"],
       "filename": ["jszip-(§§version§§)(\\.min)?\\.js"],
-      "filecontent": ["/\\*![ \n]+JSZip v(§§version§§) "],
+      "filecontent": ["/\\*![\\s]+JSZip v(§§version§§) "],
       "func": ["JSZip && JSZip.version"]
     }
   },

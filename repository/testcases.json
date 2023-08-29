@@ -227,5 +227,11 @@
       "versions": ["2.36.0", "2.4.0", "1.0.6"],
       "subversions": [""]
     }
+  },
+  "jszip": {
+    "https://cdnjs.cloudflare.com/ajax/libs/jszip/§§version§§/jszip.min.js": {
+      "versions": ["3.10.1"],
+      "subversions": [""]
+    }
   }
 }
