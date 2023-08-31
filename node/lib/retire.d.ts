@@ -1,1 +1,0 @@
-../src/retire.d.ts
