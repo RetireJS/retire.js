@@ -315,7 +315,7 @@
       },
       {
         "below": "1.19.3",
-        "severity": "medium",
+        "severity": "high",
         "cwe": ["CWE-400"],
         "identifiers": {
           "CVE": ["CVE-2021-21252"],
