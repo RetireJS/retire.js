@@ -97,8 +97,8 @@ if (!(severity in severityLevels)) {
 const config: Options = {
   path: scanpath,
   ignore: {
-    paths: prg.ignore?.split(',')?.map((x: string) => path.resolve(x)) ?? [],
-    pathsAsString: [],
+    paths: [],
+    pathsAsString: prg.ignore?.split(',')?.map((x: string) => path.resolve(x)) ?? [],
     descriptors: [],
   },
   colorwarn,
