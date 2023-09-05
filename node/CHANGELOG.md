@@ -4,6 +4,12 @@
 
 ### Bugfix
 
+- Fixes #420 where ignore was not honoured
+
+## [4.3.2]
+
+### Bugfix
+
 - Types did not work for `lib/retire.js` due to symlinked type file
 
 ## [4.3.1]
