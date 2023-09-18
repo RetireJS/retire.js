@@ -2052,7 +2052,7 @@
     "vulnerabilities": [
       {
         "below": "0.5.0",
-        "severity": "high",
+        "severity": "medium",
         "cwe": ["CWE-79"],
         "identifiers": {
           "release": "0.5.0",
@@ -2583,7 +2583,7 @@
       },
       {
         "below": "2.0.3",
-        "severity": "high",
+        "severity": "medium",
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "Fixed an mXSS-based bypass caused by nested forms inside MathML",
