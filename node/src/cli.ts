@@ -32,8 +32,8 @@ const prg = program
   .version(retire.version)
   .option('-v, --verbose', 'Show identified files (by default only vulnerable files are shown)')
   .option('-c, --nocache', "Don't use local cache")
-  .option('--jspath <path>', 'Folder to scan for javascript files')
-  .option('--path <path>', 'Folder to scan for both')
+  .option('--jspath <path>', 'Folder to scan for javascript files (deprecated)')
+  .option('--path <path>', 'Folder to scan for javascript files')
   .option(
     '--jsrepo <path|url>',
     "Local or internal version of repo. Can be multiple comma separated. Default: 'central')",
@@ -75,7 +75,7 @@ const jsrepolocation: string[] = (prg.jsrepo ?? "'central'")
 
 const ignorefile = prg.ignoreFile ?? defaultIgnoreFiles.filter((x) => fs.existsSync(x))[0];
 
-const scanpath = prg.path ?? '.';
+const scanpath = prg.path ?? prg.jspath ?? '.';
 
 const log = reporting.open({
   colors: !!prg.colors,
