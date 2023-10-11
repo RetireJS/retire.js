@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.3.4]
+
+### Bugfix
+
+- Bug: `--jspath` is not being honoured
+
 ## [4.3.3]
 
 ### Bugfix
