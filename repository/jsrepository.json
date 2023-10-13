@@ -1698,7 +1698,7 @@
         "info": ["http://www.cvedetails.com/cve/CVE-2010-2275/"]
       },
       {
-        "below": "1.1",
+        "below": "1.1.0",
         "severity": "medium",
         "cwe": ["CWE-79"],
         "identifiers": {
