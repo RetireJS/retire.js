@@ -162,7 +162,7 @@
   },
   "moment.js": {
     "https://cdnjs.cloudflare.com/ajax/libs/moment.js/§§version§§/moment.min.js": {
-      "versions": ["1.6.0", "2.29.4", "2.18.0", "2.11.2"]
+      "versions": ["1.6.0", "2.29.4", "2.17.0", "2.11.2", "2.1.0", "2.3.0"]
     }
   },
   "underscore.js": {
