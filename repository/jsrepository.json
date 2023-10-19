@@ -2949,8 +2949,9 @@
       "func": ["moment.version"],
       "filecontent": [
         "//!? moment.js(?:[\n\r]+)//!? version : (§§version§§)",
+        "/\\* Moment.js +\\| +version : (§§version§§) \\|",
         "\\.version=\"(§§version§§)\".{20,60}\"isBefore\".{20,60}\"isAfter\".{200,500}\\.isMoment=",
-        "\\.version=\"(§§version§§)\".{20,150}duration.{2,100}\\.isMoment=",
+        "\\.version=\"(§§version§§)\".{20,300}duration.{2,100}\\.isMoment=",
         "\\.isMoment\\(.{50,400}_isUTC.{50,400}=\"(§§version§§)\"",
         "=\"(§§version§§)\".{300,1000}Years:31536e6.{60,80}\\.isMoment"
       ]
