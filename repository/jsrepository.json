@@ -1951,28 +1951,42 @@
         "severity": "medium",
         "cwe": ["CWE-79"],
         "identifiers": {
-          "summary": "XSS may be triggered in AngularJS applications that sanitize user-controlled HTML snippets before passing them to JQLite methods like JQLite.prepend, JQLite.after, JQLite.append, JQLite.replaceWith, JQLite.append, new JQLite and angular.element.",
-          "CVE": ["CVE-2020-7676"]
+          "summary": "XSS via JQLite DOM manipulation functions in AngularJS",
+          "githubID": "GHSA-5cp4-xmrw-59wf"
         },
         "info": ["https://github.com/advisories/GHSA-5cp4-xmrw-59wf"]
       },
       {
         "below": "1.8.0",
-        "severity": "low",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "XSS may be triggered in AngularJS applications that sanitize user-controlled HTML snippets before passing them to JQLite methods like JQLite.prepend, JQLite.after, JQLite.append, JQLite.replaceWith, JQLite.append, new JQLite and angular.element.",
+          "CVE": ["CVE-2020-7676"],
+          "githubID": "GHSA-mhp6-pxh8-r675"
+        },
+        "info": ["https://github.com/advisories/GHSA-5cp4-xmrw-59wf"]
+      },
+      {
+        "below": "1.8.0",
+        "severity": "medium",
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "angular.js prior to 1.8.0 allows cross site scripting. The regex-based input HTML replacement may turn sanitized code into unsanitized one.",
-          "CVE": ["CVE-2020-7676"]
+          "CVE": ["CVE-2020-7676"],
+          "githubID": "GHSA-mhp6-pxh8-r675"
         },
         "info": ["https://nvd.nist.gov/vuln/detail/CVE-2020-7676"]
       },
       {
         "below": "1.7.9",
-        "severity": "medium",
-        "cwe": ["CWE-1321"],
+        "severity": "high",
+        "cwe": ["CWE-1321", "CWE-20", "CWE-915"],
         "identifiers": {
           "summary": "Prototype pollution",
-          "retid": "47"
+          "retid": "47",
+          "githubID": "GHSA-89mq-4x47-5v83",
+          "CVE": ["CVE-2019-10768"]
         },
         "info": [
           "https://github.com/angular/angular.js/commit/726f49dcf6c23106ddaf5cfd5e2e592841db743a",
@@ -1999,7 +2013,8 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "XSS through xlink:href attributes",
-          "CVE": ["CVE-2019-14863"]
+          "CVE": ["CVE-2019-14863"],
+          "githubID": "GHSA-r5fx-8r73-v86c"
         },
         "info": [
           "https://github.com/angular/angular.js/blob/master/CHANGELOG.md#150-beta1-dense-dispersion-2015-09-29",
@@ -2071,6 +2086,27 @@
         ]
       },
       {
+        "below": "1.6.0",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Cross-Site Scripting via JSONP",
+          "githubID": "GHSA-28hp-fgcr-2r4h"
+        },
+        "info": ["https://github.com/advisories/GHSA-28hp-fgcr-2r4h"]
+      },
+      {
+        "below": "999",
+        "severity": "medium",
+        "cwe": ["CWE-1333"],
+        "identifiers": {
+          "summary": "angular vulnerable to regular expression denial of service via the <input type=\"url\"> element",
+          "githubID": "GHSA-qwqh-hm9m-p5hr",
+          "CVE": ["CVE-2023-26118"]
+        },
+        "info": ["https://github.com/advisories/GHSA-qwqh-hm9m-p5hr"]
+      },
+      {
         "below": "1.999",
         "severity": "low",
         "cwe": ["CWE-1104"],
@@ -2081,6 +2117,51 @@
         "info": [
           "https://blog.angular.io/discontinued-long-term-support-for-angularjs-cc066b82e65a?gi=9d3103b5445c"
         ]
+      },
+      {
+        "below": "999",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Angular (deprecated package) Cross-site Scripting",
+          "CVE": ["CVE-2022-25869"],
+          "githubID": "GHSA-prc3-vjfx-vhm9"
+        },
+        "info": ["https://github.com/advisories/GHSA-prc3-vjfx-vhm9"]
+      },
+      {
+        "below": "999",
+        "atOrAbove": "1.7.0",
+        "severity": "medium",
+        "cwe": ["CWE-1333", "CWE-770"],
+        "identifiers": {
+          "summary": "angular vulnerable to regular expression denial of service (ReDoS)",
+          "CVE": ["CVE-2022-25844"],
+          "githubID": "GHSA-m2h2-264f-f486"
+        },
+        "info": ["https://github.com/advisories/GHSA-m2h2-264f-f486"]
+      },
+      {
+        "below": "999",
+        "severity": "medium",
+        "cwe": ["CWE-1333"],
+        "identifiers": {
+          "summary": "angular vulnerable to regular expression denial of service via the angular.copy() utility",
+          "CVE": ["CVE-2023-26116"],
+          "githubID": "GHSA-2vrf-hf26-jrp5"
+        },
+        "info": ["https://github.com/advisories/GHSA-2vrf-hf26-jrp5"]
+      },
+      {
+        "below": "999",
+        "severity": "medium",
+        "cwe": ["CWE-1333"],
+        "identifiers": {
+          "summary": "angular vulnerable to regular expression denial of service via the $resource service",
+          "CVE": ["CVE-2023-26117"],
+          "githubID": "GHSA-2qqx-w9hr-q5gx"
+        },
+        "info": ["https://github.com/advisories/GHSA-2qqx-w9hr-q5gx"]
       }
     ],
     "extractors": {
@@ -3863,6 +3944,28 @@
     "vulnerabilities": [
       {
         "below": "1.11.3",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "Cross site scripting in datatables.net",
+          "CVE": ["CVE-2021-23445"],
+          "githubID": "GHSA-h73q-5wmj-q8pj"
+        },
+        "info": ["https://github.com/advisories/GHSA-h73q-5wmj-q8pj"]
+      },
+      {
+        "below": "1.10.22",
+        "severity": "high",
+        "cwe": ["CWE-1321"],
+        "identifiers": {
+          "summary": "datatables.net vulnerable to Prototype Pollution due to incomplete fix",
+          "CVE": ["CVE-2020-28458"],
+          "githubID": "GHSA-m7j4-fhg6-xf5v"
+        },
+        "info": ["https://github.com/advisories/GHSA-m7j4-fhg6-xf5v"]
+      },
+      {
+        "below": "1.11.3",
         "severity": "low",
         "cwe": ["CWE-79"],
         "identifiers": {
@@ -3924,6 +4027,7 @@
     }
   },
   "nextjs": {
+    "npmname": "next",
     "vulnerabilities": [
       {
         "atOrAbove": "10.0.0",
@@ -3932,7 +4036,8 @@
         "cwe": ["CWE-451"],
         "identifiers": {
           "summary": "Improper CSP in Image Optimization API",
-          "CVE": ["CVE-2022-23646"]
+          "CVE": ["CVE-2022-23646"],
+          "githubID": "GHSA-fmvm-x8mv-47mj"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-fmvm-x8mv-47mj"
@@ -3942,22 +4047,25 @@
         "atOrAbove": "12.0.0",
         "below": "12.0.9",
         "severity": "medium",
-        "cwe": ["CWE-400"],
+        "cwe": ["CWE-20", "CWE-400"],
         "identifiers": {
           "summary": "DOS Vulnerability for self-hosted next.js apps",
-          "CVE": ["CVE-2022-21721"]
+          "CVE": ["CVE-2022-21721"],
+          "githubID": "GHSA-wr66-vrwm-5g5x"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-wr66-vrwm-5g5x"
         ]
       },
       {
+        "atOrAbove": "0.9.9",
         "below": "11.1.3",
         "severity": "high",
         "cwe": ["CWE-20"],
         "identifiers": {
           "summary": "Unexpected server crash in Next.js versions",
-          "CVE": ["CVE-2021-43803"]
+          "CVE": ["CVE-2021-43803"],
+          "githubID": "GHSA-25mp-g6fv-mqxx"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-25mp-g6fv-mqxx"
@@ -3970,7 +4078,8 @@
         "cwe": ["CWE-20"],
         "identifiers": {
           "summary": "Unexpected server crash in Next.js versions",
-          "CVE": ["CVE-2021-43803"]
+          "CVE": ["CVE-2021-43803"],
+          "githubID": "GHSA-25mp-g6fv-mqxx"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-25mp-g6fv-mqxx"
@@ -3979,11 +4088,12 @@
       {
         "atOrAbove": "10.0.0",
         "below": "11.1.1",
-        "severity": "medium",
+        "severity": "high",
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "XSS in Image Optimization API",
-          "CVE": ["CVE-2021-39178"]
+          "CVE": ["CVE-2021-39178"],
+          "githubID": "GHSA-9gr3-7897-pp7m"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-9gr3-7897-pp7m"
@@ -3991,11 +4101,13 @@
       },
       {
         "below": "11.1.0",
+        "atOrAbove": "0.9.9",
         "severity": "medium",
         "cwe": ["CWE-601"],
         "identifiers": {
           "summary": "Open Redirect in Next.js",
-          "CVE": ["CVE-2021-37699"]
+          "CVE": ["CVE-2021-37699"],
+          "githubID": "GHSA-vxf5-wxwp-m7g9"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-vxf5-wxwp-m7g9"
@@ -4008,7 +4120,8 @@
         "cwe": ["CWE-601"],
         "identifiers": {
           "summary": "Open Redirect in Next.js",
-          "CVE": ["CVE-2020-15242"]
+          "CVE": ["CVE-2020-15242"],
+          "githubID": "GHSA-x56p-c8cg-q435"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-x56p-c8cg-q435"
@@ -4017,13 +4130,83 @@
       {
         "below": "9.3.2",
         "severity": "medium",
-        "cwe": ["CWE-22"],
+        "cwe": ["CWE-23"],
         "identifiers": {
           "summary": "Directory Traversal in Next.js",
-          "CVE": ["CVE-2020-5284"]
+          "CVE": ["CVE-2020-5284"],
+          "githubID": "GHSA-fq77-7p7r-83rj"
         },
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-fq77-7p7r-83rj"
+        ]
+      },
+      {
+        "below": "12.2.4",
+        "atOrAbove": "12.2.3",
+        "cwe": ["CWE-248", "CWE-754"],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Unexpected server crash in Next.js",
+          "githubID": "GHSA-wff4-fpwg-qqv3",
+          "CVE": ["CVE-2022-36046"]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-wff4-fpwg-qqv3"
+        ]
+      },
+      {
+        "below": "7.0.2",
+        "atOrAbove": "7.0.0",
+        "cwe": ["CWE-79"],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Next.js has cross site scripting (XSS) vulnerability via the 404 or 500 /_error page",
+          "CVE": ["CVE-2018-18282"],
+          "githubID": "GHSA-qw96-mm2g-c8m7"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-qw96-mm2g-c8m7"
+        ]
+      },
+      {
+        "below": "4.2.3",
+        "atOrAbove": "1.0.0",
+        "cwe": ["CWE-22"],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Directory traversal vulnerability in Next.js",
+          "CVE": ["CVE-2018-6184"],
+          "githubID": "GHSA-m34x-wgrh-g897"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-m34x-wgrh-g897"
+        ]
+      },
+      {
+        "below": "5.1.0",
+        "atOrAbove": "0.9.9",
+        "cwe": ["CWE-20"],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Remote Code Execution in next",
+          "githubID": "GHSA-5vj8-3v2h-h38v"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5vj8-3v2h-h38v"
+        ]
+      },
+      {
+        "below": "2.4.1",
+        "atOrAbove": "1.0.0",
+        "severity": "high",
+        "cwe": ["CWE-22"],
+        "identifiers": {
+          "summary": "Next.js Directory Traversal Vulnerability",
+          "CVE": ["CVE-2017-16877"],
+          "githubID": "GHSA-3f5c-4qxj-vmpf"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-3f5c-4qxj-vmpf"
         ]
       }
     ],
@@ -4070,7 +4253,9 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "XSS vulnerability in [insert video]",
-          "issue": "3880"
+          "issue": "3880",
+          "githubID": "GHSA-97x5-cc53-cv4v",
+          "CVE": ["CVE-2020-22864"]
         },
         "info": [
           "https://github.com/froala/wysiwyg-editor/releases/tag/v4.0.11"
@@ -4092,11 +4277,23 @@
         "cwe": ["CWE-79"],
         "identifiers": {
           "summary": "Froala WYSIWYG Editor 3.2.6 is affected by Cross Site Scripting (XSS). Under certain conditions, a base64 crafted string leads to persistent XSS.",
-          "CVE": ["CVE-2021-30109"]
+          "CVE": ["CVE-2021-30109"],
+          "githubID": "GHSA-cq6w-w5rj-p9x8"
         },
         "info": [
           "https://github.com/froala/wysiwyg-editor/releases/tag/v4.0.11"
         ]
+      },
+      {
+        "below": "3.2.3",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "summary": "DOM-based cross-site scripting in Froala Editor",
+          "githubID": "GHSA-h236-g5gh-vq6c",
+          "CVE": ["CVE-2019-19935"]
+        },
+        "info": ["https://github.com/advisories/GHSA-h236-g5gh-vq6c"]
       },
       {
         "below": "3.2.2",
