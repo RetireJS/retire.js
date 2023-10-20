@@ -1133,6 +1133,55 @@
           "https://www.tiny.cloud/docs/changelog/#5107-2022-12-06",
           "https://www.cve.org/CVERecord?id=CVE-2022-23494"
         ]
+      },
+      {
+        "below": "6.7.1",
+        "atOrAbove": "6.0.0",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2023-45819"],
+          "summary": "TinyMCE XSS vulnerability in notificationManager.open API",
+          "githubID": "GHSA-hgqx-r2hp-jr38"
+        },
+        "info": [
+          "https://www.tiny.cloud/docs/changelog/#5107-2022-12-06",
+          "https://www.cve.org/CVERecord?id=CVE-2022-23494"
+        ]
+      },
+      {
+        "below": "5.10.8",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2023-45819"],
+          "summary": "TinyMCE XSS vulnerability in notificationManager.open API",
+          "githubID": "GHSA-hgqx-r2hp-jr38"
+        },
+        "info": ["https://github.com/advisories/GHSA-hgqx-r2hp-jr38"]
+      },
+      {
+        "below": "6.7.1",
+        "atOrAbove": "6.0.0",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2023-45818"],
+          "summary": "TinyMCE mXSS vulnerability in undo/redo, getContent API, resetContent API, and Autosave plugin",
+          "githubID": "GHSA-v65r-p3vv-jjfv"
+        },
+        "info": ["https://github.com/advisories/GHSA-v65r-p3vv-jjfv"]
+      },
+      {
+        "below": "5.10.8",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2023-45818"],
+          "summary": "TinyMCE mXSS vulnerability in undo/redo, getContent API, resetContent API, and Autosave plugin",
+          "githubID": "GHSA-v65r-p3vv-jjfv"
+        },
+        "info": ["https://github.com/advisories/GHSA-v65r-p3vv-jjfv"]
       }
     ],
     "extractors": {
