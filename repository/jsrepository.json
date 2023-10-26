@@ -278,7 +278,11 @@
     ],
     "extractors": {
       "filename": ["jquery-migrate-(§§version§§)(.min)?\\.js"],
-      "filecontent": ["/\\*!?(?:\n \\*)? jQuery Migrate(?: -)? v(§§version§§)"],
+      "filecontent": [
+        "/\\*!?(?:\n \\*)? jQuery Migrate(?: -)? v(§§version§§)",
+        "\\.migrateVersion ?= ?\"(§§version§§)\"[\\s\\S]{10,150}(migrateDisablePatches|migrateWarnings|JQMIGRATE)",
+        "jQuery\\.migrateVersion ?= ?\"(§§version§§)\""
+      ],
       "hashes": {}
     }
   },
