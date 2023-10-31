@@ -4034,6 +4034,16 @@
     "npmname": "next",
     "vulnerabilities": [
       {
+        "below": "13.4.20-canary.13",
+        "cwe": ["CWE-525"],
+        "severity": "low",
+        "identifiers": {
+          "summary": "Next.js missing cache-control header may lead to CDN caching empty reply",
+          "CVE": ["CVE-2023-46298"],
+          "githubID": "GHSA-c59h-r6p8-q9wc"
+        }
+      },
+      {
         "atOrAbove": "10.0.0",
         "below": "12.1.0",
         "severity": "medium",

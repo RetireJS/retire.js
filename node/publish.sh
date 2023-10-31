@@ -35,7 +35,10 @@ then
     git tag $VERSION $COMMIT_ID -m "Release of version $VERSION"
     git push --tags
     echo "Done!"
-    gh release create "$VERSION" -F CHANGELOG.md
+    TMP_CL_FILE=changelog-tmp.md
+    awk '/^## / {p=1; ++count} count == 2 {exit} p' CHANGELOG.md > $TMP_CL_FILE
+    gh release create "$VERSION" -F $TMP_CL_FILE
+    rm $TMP_CL_FILE
 else
     echo "Aborting"
 fi
