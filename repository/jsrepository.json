@@ -4041,7 +4041,10 @@
           "summary": "Next.js missing cache-control header may lead to CDN caching empty reply",
           "CVE": ["CVE-2023-46298"],
           "githubID": "GHSA-c59h-r6p8-q9wc"
-        }
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-c59h-r6p8-q9wc"
+        ]
       },
       {
         "atOrAbove": "10.0.0",
