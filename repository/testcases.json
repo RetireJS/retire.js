@@ -404,7 +404,7 @@
   },
   "react-dom": {
     "https://unpkg.com/react-dom@§§version§§/umd/react-dom.production.min.js": {
-      "versions": ["18.2.0", "18.1.0", "17.0.2", "16.14.0", "16.13.1"]
+      "versions": ["18.2.0", "18.1.0", "17.0.2", "16.14.0", "16.13.1", "16.0.0"]
     }
   }
 }
