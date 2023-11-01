@@ -2942,10 +2942,71 @@
       "filecontent": [
         "/\\*\\*\n +\\* React \\(with addons\\) ?v(§§version§§)",
         "/\\*\\*\n +\\* React v(§§version§§)",
-        "/\\*\\* @license React v(§§version§§)",
+        "/\\*\\* @license React v(§§version§§)[\\s]*\\* react\\.",
         "\"\\./ReactReconciler\":[0-9]+,\"\\./Transaction\":[0-9]+,\"fbjs/lib/invariant\":[0-9]+\\}\\],[0-9]+:\\[function\\(require,module,exports\\)\\{\"use strict\";module\\.exports=\"(§§version§§)\"\\}",
         "ReactVersion\\.js[\\*! \\\\/\n\r]{0,100}function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\"",
         "expected a ReactNode.[\\s\\S]{0,1800}?function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\""
+      ]
+    }
+  },
+  "react-dom": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.0.1",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2018-6341"],
+          "githubID": "GHSA-mvjj-gqq2-p4hw"
+        }
+      },
+      {
+        "atOrAbove": "16.1.0",
+        "below": "16.1.2",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2018-6341"],
+          "githubID": "GHSA-mvjj-gqq2-p4hw"
+        }
+      },
+      {
+        "atOrAbove": "16.2.0",
+        "below": "16.2.1",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2018-6341"],
+          "githubID": "GHSA-mvjj-gqq2-p4hw"
+        }
+      },
+      {
+        "atOrAbove": "16.3.0",
+        "below": "16.3.3",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2018-6341"],
+          "githubID": "GHSA-mvjj-gqq2-p4hw"
+        }
+      },
+      {
+        "atOrAbove": "16.4.0",
+        "below": "16.4.2",
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "identifiers": {
+          "CVE": ["CVE-2018-6341"],
+          "githubID": "GHSA-mvjj-gqq2-p4hw"
+        }
+      }
+    ],
+    "extractors": {
+      "uri": ["/react-dom@(§§version§§)/"],
+      "filecontent": [
+        "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
+        "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\."
       ]
     }
   },
