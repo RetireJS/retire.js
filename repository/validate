@@ -189,6 +189,9 @@ Object.entries(jsRepo).forEach(([k, val]) => {
     if (!v.severity) {
       console.warn(" * " + k + " - Missing severity: " + JSON.stringify(v));
     }
+    if (!v.info) {
+      console.warn(" * " + k + " - Missing info: " + JSON.stringify(v));
+    }
   });
 });
 
