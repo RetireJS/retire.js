@@ -9,7 +9,6 @@ Please always run validate before creating a pull request.
 ### jsrepository-master.json
 
 Lists vulnerable javascript libraries. §§version§§ is a placeholder for a regex capturing versions with numbers + alpha/beta/rc1 etc.
-Ranges are the vulnerable ranges. Just leave out "atOrAbove" if all version below a version are vulnerable. Set "below" to "999" if a fix will never be provided (e.g. the library is no longer maintained).
 
 ```
 		"retire-example": {  //user friendly name of library
@@ -43,5 +42,6 @@ Ranges are the vulnerable ranges. Just leave out "atOrAbove" if all version belo
   - Severity (align with CVE or GHSA if possible)
   - CWE
   - At least one identifier which is either `CVE`, `githubID`, `pr` or `issue` (see file for examples).
-- If no lower bound is known, then drop atOrAbove.
-- If no upper bound is known then insert "999.0.0".
+- Ranges are the vulnerable ranges.
+  - If no lower bound is known, then drop atOrAbove.
+  - If no upper bound is known then insert "999.0.0".
