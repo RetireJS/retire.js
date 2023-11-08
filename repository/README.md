@@ -22,8 +22,8 @@ Lists vulnerable javascript libraries. §§version§§ is a placeholder for a re
 					],
 					"severity": "high",
 					"cwe": ["CWE-79"],
+					"summary" : "vulnerable to xss"
 					"identifiers" : {
-						"summary" : "vulnerable to xss"
 						"CVE" : [ "CVE-2000-0000" ],
 						"githubID": "GHSA-1234-1234-1234"
 					}
