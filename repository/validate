@@ -7,6 +7,15 @@ function exitWithError(...msg) {
   process.exit(1);
 }
 
+if (
+  fs.statSync("jsrepository-master.json").mtime >
+  fs.statSync("jsrepository.json").mtime
+) {
+  exitWithError(
+    "jsrepository-master.json is newer than jsrepository.json. Please run ./convertToOldFormat"
+  );
+}
+
 function checkRepoTypes(repo) {
   let types = {};
 
