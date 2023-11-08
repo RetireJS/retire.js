@@ -4127,6 +4127,7 @@
     "vulnerabilities": [
       {
         "below": "13.4.20-canary.13",
+        "atOrAbove": "0.9.9",
         "cwe": ["CWE-525"],
         "severity": "low",
         "identifiers": {
