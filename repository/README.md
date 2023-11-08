@@ -1,33 +1,42 @@
-## Submitting to the repositories
+## Submitting to the repository
 
-Please always run validate before creating a pull request
+Do **not** submit to npmrepository.json (deprecated).
 
-### jsrepository.json
+Do **not** make changes directly to jsrepository.json (old format). Make changes in jsrepository-master.json, and run convertToOldFormat to update (jsrepository.json).
+
+Please always run validate before creating a pull request.
+
+### jsrepository-master.json
 
 Lists vulnerable javascript libraries. §§version§§ is a placeholder for a regex capturing versions with numbers + alpha/beta/rc1 etc.
+Ranges are the vulnerable ranges. Just leave out "atOrAbove" if all version below a version are vulnerable. Set "below" to "999" if a fix will never be provided (e.g. the library is no longer maintained).
 
 ```
-    "retire-example": {  //user friendly name of library
-    	"vulnerabilities" : [ //List of vulnerable versions and links to more info
-    		{
-    			"atOrAbove" : "0.0.1",
-    			"below" : "0.0.2",
-    			"severity": "high",
-        "cwe": ["CWE-79"],
-    			"identifiers" : {
-    				"summary" : "vulnerable to xss"
-    				"CVE" : [ "CVE-2000-0000" ],
-    				"githubID": "GHSA-1234-1234-1234"
-    			}
-    			"info" : [ "http://github.com/eoftedal/retire.js/" ]
-    		}
-    	],
-    	"extractors" : {  //how do we find out which library and version this is
-    		"filename"		: [ "retire-example-(§§version§§)(.min)?\\.js" ],	//regexes for filenames and uris
-    		"filecontent"	: [ "/\\*! Retire-example v(§§version§§)" ],		//regexes for content within file
-    		"hashes"		: { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" } //Hashes for specific versions (can be omitted)
-    	}
-    },
+		"retire-example": {  //user friendly name of library
+			"vulnerabilities" : [ //List of vulnerable versions and links to more info
+				{
+					"ranges" : [
+						{
+							"atOrAbove" : "0.0.1",
+							"below" : "0.0.2",
+						}
+					],
+					"severity": "high",
+					"cwe": ["CWE-79"],
+					"identifiers" : {
+						"summary" : "vulnerable to xss"
+						"CVE" : [ "CVE-2000-0000" ],
+						"githubID": "GHSA-1234-1234-1234"
+					}
+					"info" : [ "http://github.com/eoftedal/retire.js/" ]
+				}
+			],
+			"extractors" : {  //how do we find out which library and version this is
+				"filename"		: [ "retire-example-(§§version§§)(.min)?\\.js" ],	//regexes for filenames and uris
+				"filecontent"	: [ "/\\*! Retire-example v(§§version§§)" ],		//regexes for content within file
+				"hashes"		: { "07f8b94c8d601a24a1914a1a92bec0e4fafda964" : "0.0.1" } //Hashes for specific versions (can be omitted)
+			}
+		},
 ```
 
 - Must contain:
