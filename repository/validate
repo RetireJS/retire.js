@@ -7,14 +7,18 @@ function exitWithError(...msg) {
   process.exit(1);
 }
 
-if (
-  fs.statSync("jsrepository-master.json").mtime >
-  fs.statSync("jsrepository.json").mtime
-) {
-  exitWithError(
-    "jsrepository-master.json is newer than jsrepository.json. Please run ./convertToOldFormat"
-  );
+console.log(
+  "Checking that jsrepository-master and jsonrepository are synced..."
+);
+const convert = require("./convertFormat.js").convertToOldFormat;
+const data = require("./jsrepository-master.json");
+const current = require("./jsrepository.json");
+const converted = JSON.stringify(convert(data), null, 2);
+const currentString = JSON.stringify(current, null, 2);
+if (converted != currentString) {
+  exitWithError("jsrepository.json is not up to date");
 }
+console.log("Done");
 
 function checkRepoTypes(repo) {
   let types = {};

@@ -5455,6 +5455,31 @@
           "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3749",
           "https://security.snyk.io/vuln/SNYK-JS-AXIOS-1579269"
         ]
+      },
+      {
+        "atOrAbove": "0.8.1",
+        "below": "1.6.0",
+        "cwe": [
+          "CWE-352"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Axios Cross-Site Request Forgery Vulnerability",
+          "CVE": [
+            "CVE-2023-45857"
+          ],
+          "githubID": "GHSA-wf5p-g6vw-rhxx"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-wf5p-g6vw-rhxx",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-45857",
+          "https://github.com/axios/axios/issues/6006",
+          "https://github.com/axios/axios/issues/6022",
+          "https://github.com/axios/axios/pull/6028",
+          "https://github.com/axios/axios/commit/96ee232bd3ee4de2e657333d4d2191cd389e14d0",
+          "https://github.com/axios/axios/releases/tag/v1.6.0",
+          "https://security.snyk.io/vuln/SNYK-JS-AXIOS-6032459"
+        ]
       }
     ],
     "extractors": {
