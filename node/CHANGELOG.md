@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.4.0]
+
+### Added
+
+- Adding proper repository validation to ensure it's on the expected format
+
 ## [4.3.4]
 
 ### Bugfix

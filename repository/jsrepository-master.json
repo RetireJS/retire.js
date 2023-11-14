@@ -1645,11 +1645,11 @@
       {
         "ranges": [
           {
-            "atOrAbove": "1.2.0-*",
+            "atOrAbove": "1.2.0",
             "below": "1.2.2"
           },
           {
-            "atOrAbove": "1.3.0-*",
+            "atOrAbove": "1.3.0",
             "below": "1.3.2"
           },
           {
@@ -1670,23 +1670,23 @@
       {
         "ranges": [
           {
-            "atOrAbove": "1.0.0-*",
+            "atOrAbove": "1.0.0",
             "below": "1.0.1"
           },
           {
-            "atOrAbove": "1.1.0-*",
+            "atOrAbove": "1.1.0",
             "below": "1.1.3"
           },
           {
-            "atOrAbove": "1.2.0-*",
+            "atOrAbove": "1.2.0",
             "below": "1.2.1"
           },
           {
-            "atOrAbove": "1.3.0-*",
+            "atOrAbove": "1.3.0",
             "below": "1.3.1"
           },
           {
-            "atOrAbove": "1.4.0-*",
+            "atOrAbove": "1.4.0",
             "below": "1.4.0-beta.2"
           }
         ],
@@ -2270,7 +2270,7 @@
   "backbone.js": {
     "bowername": ["backbonejs", "backbone"],
     "npmname": "backbone",
-    "basePurl": "npm:npm/backbone",
+    "basePurl": "pkg:npm/backbone",
     "vulnerabilities": [
       {
         "ranges": [
@@ -2304,7 +2304,7 @@
   "mustache.js": {
     "bowername": ["mustache.js", "mustache"],
     "npmname": "mustache",
-    "basePurl": "npm:npm/mustache",
+    "basePurl": "pkg:npm/mustache",
     "vulnerabilities": [
       {
         "ranges": [
@@ -2328,7 +2328,7 @@
         ],
         "summary": "weakness in HTML escaping",
         "identifiers": {
-          "bug": "pull request 530",
+          "PR": "530",
           "githubID": "GHSA-w3w8-37jv-2c58",
           "CVE": ["CVE-2015-8862"]
         },
@@ -3851,7 +3851,7 @@
         "identifiers": {
           "CVE": ["CVE-2023-28439"]
         },
-        "severity": "Medium",
+        "severity": "medium",
         "cwe": ["CWE-79"],
         "info": [
           "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-28439",

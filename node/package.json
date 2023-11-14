@@ -2,7 +2,7 @@
   "author": "Erlend Oftedal <erlend@oftedal.no>",
   "name": "retire",
   "description": "Retire is a tool for detecting use of vulnerable libraries",
-  "version": "4.3.4",
+  "version": "4.4.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -23,15 +23,15 @@
   "devDependencies": {
     "@types/node": "^18.13.0",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.51.0",
-    "@typescript-eslint/parser": "^5.51.0",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "chai": "^4.3.4",
     "eslint": "^8.34.0",
-    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-prettier": "^9.0.0",
     "jsonschema": "^1.4.1",
     "libxmljs": "^1.0.8",
     "mocha": "^10.2.0",
-    "prettier": "^2.8.4",
+    "prettier": "^3.1.0",
     "typescript": "^5.0.4"
   },
   "scripts": {
@@ -43,7 +43,7 @@
     "check": "npm run lint && npm run typecheck"
   },
   "engines": {
-    "node": ">= 14.0.0"
+    "node": ">= 18.0.0"
   },
   "keywords": [
     "sbom",

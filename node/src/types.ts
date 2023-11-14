@@ -23,7 +23,7 @@ export type Vulnerability = {
   atOrAbove?: string;
   severity: SeverityLevel;
   cwe: string[];
-  identifiers?: {
+  identifiers: {
     CVE?: string[];
     bug?: string;
     issue?: string;

@@ -20,13 +20,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: ./validate
-        working-directory: repository
       - run: npm install
         working-directory: node
       - run: npm run build
         working-directory: node
       - run: npm test
         working-directory: node
+      - run: ./validate
+        working-directory: repository
       - run: ./test-detection.js
         working-directory: repository
