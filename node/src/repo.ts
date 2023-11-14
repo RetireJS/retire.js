@@ -8,7 +8,6 @@ import { ProxyAgent } from 'proxy-agent';
 import { Options, Repository } from './types';
 import * as z from 'zod';
 import { severityLevels } from './types';
-import { version } from 'os';
 
 export function validateRepository(
   repo: Repository,
