@@ -282,8 +282,7 @@
         "identifiers": {
           "summary": "passing HTML containing <option> elements from untrusted sources - even after sanitizing it - to one of jQuery's DOM manipulation methods (i.e. .html(), .append(), and others) may execute untrusted code.",
           "CVE": [
-            "CVE-2020-11023",
-            "CVE-2020-23064"
+            "CVE-2020-11023"
           ],
           "issue": "4647",
           "githubID": "GHSA-jpcq-cgw6-v4j6"
@@ -1210,7 +1209,8 @@
           "summary": "The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor via the clipboard or APIs",
           "githubID": "GHSA-27gm-ghr9-4v95",
           "CVE": [
-            "CVE-2020-17480"
+            "CVE-2020-17480",
+            "CVE-2020-23066"
           ]
         },
         "info": [
@@ -1280,7 +1280,8 @@
           "summary": "The vulnerability allowed arbitrary JavaScript execution when inserting a specially crafted piece of content into the editor via the clipboard or APIs",
           "githubID": "GHSA-27gm-ghr9-4v95",
           "CVE": [
-            "CVE-2020-17480"
+            "CVE-2020-17480",
+            "CVE-2020-23066"
           ]
         },
         "info": [
@@ -1515,6 +1516,31 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "5.10.9",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE vulnerable to mutation Cross-site Scripting via special characters in unescaped text nodes",
+          "CVE": [
+            "CVE-2023-48219"
+          ],
+          "githubID": "GHSA-v626-r774-j7f8"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-v626-r774-j7f8",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v626-r774-j7f8",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-48219",
+          "https://github.com/tinymce/tinymce",
+          "https://github.com/tinymce/tinymce/releases/tag/5.10.9",
+          "https://github.com/tinymce/tinymce/releases/tag/6.7.3",
+          "https://tiny.cloud/docs/release-notes/release-notes5109/",
+          "https://tiny.cloud/docs/tinymce/6/6.7.3-release-notes/"
+        ]
+      },
+      {
         "atOrAbove": "6.0.0",
         "below": "6.3.1",
         "severity": "medium",
@@ -1570,6 +1596,31 @@
         },
         "info": [
           "https://github.com/advisories/GHSA-v65r-p3vv-jjfv"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "6.7.3",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE vulnerable to mutation Cross-site Scripting via special characters in unescaped text nodes",
+          "CVE": [
+            "CVE-2023-48219"
+          ],
+          "githubID": "GHSA-v626-r774-j7f8"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-v626-r774-j7f8",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v626-r774-j7f8",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-48219",
+          "https://github.com/tinymce/tinymce",
+          "https://github.com/tinymce/tinymce/releases/tag/5.10.9",
+          "https://github.com/tinymce/tinymce/releases/tag/6.7.3",
+          "https://tiny.cloud/docs/release-notes/release-notes5109/",
+          "https://tiny.cloud/docs/tinymce/6/6.7.3-release-notes/"
         ]
       }
     ],
@@ -2323,8 +2374,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2350,8 +2399,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2393,8 +2440,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2420,8 +2465,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2447,8 +2490,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2489,8 +2530,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2532,8 +2571,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2559,8 +2596,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2605,8 +2640,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -2652,8 +2685,6 @@
         "identifiers": {
           "PR": "307",
           "CVE": [
-            "CVE-2010-2276",
-            "CVE-2010-2274",
             "CVE-2010-2273"
           ],
           "githubID": "GHSA-536q-8gxx-m782"
@@ -3884,6 +3915,29 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "1.0.11",
+        "cwe": [
+          "CWE-601"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "DOMPurify Open Redirect vulnerability",
+          "CVE": [
+            "CVE-2019-25155"
+          ],
+          "githubID": "GHSA-8hgg-xxm5-3873"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-8hgg-xxm5-3873",
+          "https://nvd.nist.gov/vuln/detail/CVE-2019-25155",
+          "https://github.com/cure53/DOMPurify/pull/337",
+          "https://github.com/cure53/DOMPurify/commit/7601c33a57e029cce51d910eda5179a3f1b51c83",
+          "https://github.com/cure53/DOMPurify",
+          "https://github.com/cure53/DOMPurify/compare/1.0.10...1.0.11"
+        ]
+      },
+      {
         "below": "2.0.3",
         "severity": "medium",
         "cwe": [
@@ -4484,7 +4538,8 @@
         "identifiers": {
           "summary": "Regular Expression Denial of Service (ReDoS), Affecting moment package, versions >=2.18.0 <2.29.4",
           "CVE": [
-            "CVE-2022-31129"
+            "CVE-2022-31129",
+            "CVE-2023-22467"
           ],
           "githubID": "GHSA-wc69-rhjr-hc9g"
         },
@@ -4831,7 +4886,10 @@
         ],
         "identifiers": {
           "summary": "Cross-Site Scripting in bootstrap-select",
-          "githubID": "GHSA-9r7h-6639-v5mw"
+          "githubID": "GHSA-9r7h-6639-v5mw",
+          "CVE": [
+            "CVE-2019-20921"
+          ]
         },
         "info": [
           "https://github.com/snapappointments/bootstrap-select/issues/2199"
