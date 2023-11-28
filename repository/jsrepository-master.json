@@ -2464,7 +2464,11 @@
       {
         "ranges": [
           {
+            "atOrAbove": "4.0.0",
             "below": "4.3.0"
+          },
+          {
+            "below": "3.0.8"
           }
         ],
         "summary": "Disallow calling helperMissing and blockHelperMissing directly",
