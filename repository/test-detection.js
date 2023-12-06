@@ -118,10 +118,15 @@ async function runTests(jsRepo) {
           try {
             content = await dl(t);
           } catch (e) {
+            if (e.message.includes("Failed to download")) {
+              console.log("Failed to download, ignoring");
+              continue;
+            }
             if (sub == ".min") {
               console.log("Ignoring missing minified version", e);
               continue;
             }
+            exitWithError(`Failed to download ${t}: ${e}`);
           }
           let contentResults = retire.scanFileContent(content, jsRepo, hash);
           if (allowedOtherComponents)
