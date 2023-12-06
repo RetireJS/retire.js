@@ -6534,7 +6534,11 @@
     ],
     "extractors": {
       "filecontent": [
-        "/\\*!(?:[\\s]+\\*)? Select2 (§§version§§)"
+        "/\\*!(?:[\\s]+\\*)? Select2 (§§version§§)",
+        "/\\*[\\s]+Copyright 20[0-9]{2} [I]gor V[a]ynberg[\\s]+Version: (§§version§§)[\\s\\S]{1,4000}(\\.attr\\(\"class\",\"select2-sizer\"|\\.data\\(document,\"select2-lastpos\"|document\\)\\.data\\(\"select2-lastpos\")"
+      ],
+      "uri": [
+        "(§§version§§)/(js/)?select2(.min)?\\.js"
       ]
     }
   },

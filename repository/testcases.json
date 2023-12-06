@@ -407,5 +407,17 @@
     "https://unpkg.com/react-dom@§§version§§/umd/react-dom.production.min.js": {
       "versions": ["18.2.0", "18.1.0", "17.0.2", "16.14.0", "16.13.1", "16.0.0"]
     }
+  },
+  "select2": {
+    "https://cdnjs.cloudflare.com/ajax/libs/select2/§§version§§/js/select2.min.js": {
+      "versions": ["4.0.13"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/select2/§§version§§/select2.min.js": {
+      "versions": ["3.5.4", "3.3.2"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/select2/§§version§§.0/select2.min.js": {
+      "versions": ["3.0", "2.1"],
+      "contentOnly": true
+    }
   }
 }
