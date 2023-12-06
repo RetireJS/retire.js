@@ -2296,6 +2296,49 @@
       "hashes": {}
     }
   },
+  "@angular/core": {
+    "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "11.0.0",
+            "below": "11.0.5"
+          },
+          {
+            "atOrAbove": "11.1.0-next.0",
+            "below": "11.1.0-next.3"
+          },
+          {
+            "atOrAbove": "0",
+            "below": "10.2.5"
+          }
+        ],
+        "summary": "Cross site scripting in Angular",
+        "cwe": ["CWE-79"],
+        "severity": "medium",
+        "identifiers": {
+          "CVE": ["CVE-2021-4231"],
+          "githubID": "GHSA-c75v-2vq8-878f"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-c75v-2vq8-878f",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-4231",
+          "https://github.com/angular/angular/issues/40136",
+          "https://github.com/angular/angular/commit/0aa220bc0000fc4d1651ec388975bbf5baa1da36",
+          "https://github.com/angular/angular/commit/47d9b6d72dab9d60c96bc1c3604219f6385649ea",
+          "https://github.com/angular/angular/commit/ba8da742e3b243e8f43d4c63aa842b44e14f2b09",
+          "https://github.com/angular/angular",
+          "https://security.snyk.io/vuln/SNYK-JS-ANGULARCORE-1070902",
+          "https://vuldb.com/?id.181356"
+        ]
+      }
+    ],
+    "extractors": {
+      "func": [
+        "document.querySelector('[ng-version]').getAttribute('ng-version')"
+      ]
+    }
+  },
   "backbone.js": {
     "bowername": ["backbonejs", "backbone"],
     "npmname": "backbone",
@@ -5036,6 +5079,36 @@
         "product:\"Highcharts\",version:\"(§§version§§)\"",
         "product=\"Highcharts\"[,;].\\.version=\"(§§version§§)\""
       ]
+    }
+  },
+  "select2": {
+    "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "4.0.6"
+          }
+        ],
+        "summary": "Improper Neutralization of Input During Web Page Generation in Select2",
+        "cwe": ["CWE-79"],
+        "severity": "medium",
+        "identifiers": {
+          "CVE": ["CVE-2016-10744"],
+          "githubID": "GHSA-rf66-hmqf-q3fc"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-rf66-hmqf-q3fc",
+          "https://nvd.nist.gov/vuln/detail/CVE-2016-10744",
+          "https://github.com/select2/select2/issues/4587",
+          "https://github.com/snipe/snipe-it/pull/6831",
+          "https://github.com/snipe/snipe-it/pull/6831/commits/5848d9a10c7d62c73ff6a3858edfae96a429402a",
+          "https://github.com/select2/select2"
+        ]
+      }
+    ],
+    "extractors": {
+      "filecontent": ["/\\*!(?:[\\s]+\\*)? Select2 (§§version§§)"]
     }
   },
   "dont check": {
