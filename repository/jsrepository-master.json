@@ -1169,7 +1169,8 @@
         "summary": "security issue where URLs in attributes weren’t correctly sanitized. security issue in the codesample plugin",
         "identifiers": {
           "retid": "67",
-          "githubID": "GHSA-w7jx-j77m-wp65"
+          "githubID": "GHSA-w7jx-j77m-wp65",
+          "CVE": ["CVE-2024-21911"]
         },
         "severity": "medium",
         "cwe": ["CWE-79"],
@@ -1219,7 +1220,8 @@
         "summary": "Inserting certain HTML content into the editor could result in invalid HTML once parsed. This caused a medium severity Cross Site Scripting (XSS) vulnerability",
         "identifiers": {
           "retid": "69",
-          "githubID": "GHSA-5h9g-x5rv-25wg"
+          "githubID": "GHSA-5h9g-x5rv-25wg",
+          "CVE": ["CVE-2024-21908"]
         },
         "severity": "medium",
         "cwe": ["CWE-79"],
@@ -1236,7 +1238,8 @@
         "summary": "URLs not cleaned correctly in some cases in the link and image plugins",
         "identifiers": {
           "retid": "70",
-          "githubID": "GHSA-r8hm-w5f7-wj39"
+          "githubID": "GHSA-r8hm-w5f7-wj39",
+          "CVE": ["CVE-2024-21910"]
         },
         "severity": "medium",
         "cwe": ["CWE-64", "CWE-79"],

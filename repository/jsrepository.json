@@ -1408,7 +1408,10 @@
         "identifiers": {
           "summary": "security issue where URLs in attributes weren’t correctly sanitized. security issue in the codesample plugin",
           "retid": "67",
-          "githubID": "GHSA-w7jx-j77m-wp65"
+          "githubID": "GHSA-w7jx-j77m-wp65",
+          "CVE": [
+            "CVE-2024-21911"
+          ]
         },
         "info": [
           "https://www.tiny.cloud/docs/release-notes/release-notes56/#securityfixes"
@@ -1438,7 +1441,10 @@
         "identifiers": {
           "summary": "Inserting certain HTML content into the editor could result in invalid HTML once parsed. This caused a medium severity Cross Site Scripting (XSS) vulnerability",
           "retid": "69",
-          "githubID": "GHSA-5h9g-x5rv-25wg"
+          "githubID": "GHSA-5h9g-x5rv-25wg",
+          "CVE": [
+            "CVE-2024-21908"
+          ]
         },
         "info": [
           "https://www.tiny.cloud/docs/release-notes/release-notes59/#securityfixes"
@@ -1454,7 +1460,10 @@
         "identifiers": {
           "summary": "URLs not cleaned correctly in some cases in the link and image plugins",
           "retid": "70",
-          "githubID": "GHSA-r8hm-w5f7-wj39"
+          "githubID": "GHSA-r8hm-w5f7-wj39",
+          "CVE": [
+            "CVE-2024-21910"
+          ]
         },
         "info": [
           "https://www.tiny.cloud/docs/release-notes/release-notes510/#securityfixes"
