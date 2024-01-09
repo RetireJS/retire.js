@@ -3143,7 +3143,7 @@
         "angular(?:js)?-(§§version§§)(.min)?\\.js"
       ],
       "filecontent": [
-        "/\\*[ \n]+AngularJS v(§§version§§)",
+        "/\\*[ \n]+(?:@license )?AngularJS v(§§version§§)",
         "http://errors\\.angularjs\\.org/(§§version§§)/"
       ],
       "hashes": {}
