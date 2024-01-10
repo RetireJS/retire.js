@@ -419,5 +419,11 @@
       "versions": ["3.0", "2.1"],
       "contentOnly": true
     }
+  },
+  "angularjs": {
+    "https://code.angularjs.org/§§version§§/angular§§subversion§§.js": {
+      "versions": ["1.5.0", "1.6.0", "1.7.0","1.8.0", "1.8.1", "1.8.2"],
+      "subversions": ["", ".min"]
+    }
   }
 }

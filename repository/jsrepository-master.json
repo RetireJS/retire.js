@@ -2293,7 +2293,7 @@
       "uri": ["/(§§version§§)/angular(\\.min)?\\.js"],
       "filename": ["angular(?:js)?-(§§version§§)(.min)?\\.js"],
       "filecontent": [
-        "/\\*[ \n]+(?:@license )?AngularJS v(§§version§§)",
+        "/[\\* \n]+(?:@license )?AngularJS v(§§version§§)",
         "http://errors\\.angularjs\\.org/(§§version§§)/"
       ],
       "hashes": {}
