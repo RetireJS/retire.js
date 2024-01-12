@@ -425,5 +425,11 @@
       "versions": ["1.5.0", "1.6.0", "1.7.0", "1.8.0", "1.8.1", "1.8.2"],
       "subversions": ["", ".min"]
     }
+  },
+  "lodash": {
+    "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/§§version§§/lodash§§subversion§§.js": {
+      "versions": ["4.17.21", "4.5.0", "3.9.3", "0.3.0"],
+      "subversions": ["", ".min"]
+    }
   }
 }

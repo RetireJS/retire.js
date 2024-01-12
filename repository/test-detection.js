@@ -23,13 +23,16 @@ var hash = {
 const https = require("https");
 const dlCache = {};
 async function dl(uri) {
-  console.log(`  Downloading ${uri}`);
+  const start = Date.now();
+  process.stdout.write(`  Downloading ${uri} `);
   return new Promise((resolve, reject) => {
     if (dlCache[uri]) return resolve(dlCache[uri]);
     let d = https.get(uri, (res) => {
       let d = [];
       res.on("data", (data) => d.push(data));
       res.on("end", () => {
+        const finish = Date.now();
+        console.log(`(${finish - start}ms)`);
         if (res.statusCode != 200) {
           return reject("Failed to download " + uri + ": " + res.statusCode);
         }

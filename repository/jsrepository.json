@@ -583,7 +583,8 @@
         "/(§§version§§)/jquery.mobile(\\.min)?\\.js"
       ],
       "filecontent": [
-        "/\\*!?(?:\n \\*)? jQuery Mobile(?: -)? v(§§version§§)"
+        "/\\*!?[\\s*]*jQuery Mobile(?: -)? v?(§§version§§)",
+        "// Version of the jQuery Mobile Framework[\\s]+version: *[\"'](§§version§§)[\"'],"
       ],
       "hashes": {}
     }
@@ -2366,7 +2367,8 @@
         "meta\\.revision=\"Ember@(§§version§§)\"",
         "e\\(\"ember/version\",\\[\"exports\"\\],function\\(e\\)\\{\"use strict\";?[\\s]*e(?:\\.|\\[\")default(?:\"\\])?=\"(§§version§§)\"",
         "\\(\"ember/version\",\\[\"exports\"\\],function\\(e\\)\\{\"use strict\";.{1,70}\\.default=\"(§§version§§)\"",
-        "/\\*![\\s]+\\* @overview  Ember - JavaScript Application Framework[\\s\\S]{0,400}\\* @version   (§§version§§)"
+        "/\\*![\\s]+\\* @overview  Ember - JavaScript Application Framework[\\s\\S]{0,400}\\* @version   (§§version§§)",
+        "// Version: (§§version§§)[\\s]+\\(function\\(\\) *\\{[\\s]*/\\*\\*[\\s]+@module ember[\\s]"
       ],
       "hashes": {}
     }
@@ -3276,7 +3278,8 @@
       ],
       "filecontent": [
         "//[ ]+Backbone.js (§§version§§)",
-        "a=t.Backbone=\\{\\}\\}a.VERSION=\"(§§version§§)\""
+        "a=t.Backbone=\\{\\}\\}a.VERSION=\"(§§version§§)\"",
+        "Backbone\\.VERSION *= *[\"'](§§version§§)[\"']"
       ],
       "hashes": {}
     }
@@ -3722,7 +3725,7 @@
         "Handlebars=\\{VERSION:(?:'|\")(§§version§§)(?:'|\")",
         "this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
         "exports.HandlebarsEnvironment=[\\s\\S]{70,120}exports.VERSION=(?:'|\")(§§version§§)(?:'|\")",
-        "/\\*+![\\s]+(?:@license)?[\\s]+handlebars v(§§version§§)"
+        "/\\*+![\\s]+(?:@license)?[\\s]+handlebars v+(§§version§§)"
       ],
       "hashes": {}
     }
@@ -4681,7 +4684,8 @@
         "\\.version=\"(§§version§§)\".{20,60}\"isBefore\".{20,60}\"isAfter\".{200,500}\\.isMoment=",
         "\\.version=\"(§§version§§)\".{20,300}duration.{2,100}\\.isMoment=",
         "\\.isMoment\\(.{50,400}_isUTC.{50,400}=\"(§§version§§)\"",
-        "=\"(§§version§§)\".{300,1000}Years:31536e6.{60,80}\\.isMoment"
+        "=\"(§§version§§)\".{300,1000}Years:31536e6.{60,80}\\.isMoment",
+        "// Moment.js is freely distributable under the terms of the MIT license.[\\s]+//[\\s]+// Version (§§version§§)"
       ]
     }
   },
@@ -4719,7 +4723,8 @@
         "underscore.version"
       ],
       "filecontent": [
-        "//[\\s]*Underscore.js (§§version§§)"
+        "//[\\s]*Underscore.js (§§version§§)",
+        "// *Underscore\\.js[\\s\\S]{1,2500}_\\.VERSION *= *['\"](§§version§§)['\"]"
       ]
     }
   },
@@ -5497,7 +5502,9 @@
         "/ext-base-(§§version§§)(\\.min)?\\.js"
       ],
       "filecontent": [
-        "/*!\n * Ext JS Library (§§version§§)"
+        "/*!\n * Ext JS Library (§§version§§)",
+        "Ext = \\{[\\s]*/\\*[^/]+/[\\s]*version *: *['\"](§§version§§)['\"]",
+        "var version *= *['\"](§§version§§)['\"], *Version;[\\s]*Ext.Version *= *Version *= *Ext.extend"
       ],
       "func": [
         "Ext && Ext.versions && Ext.versions.extjs.version",
@@ -6544,10 +6551,293 @@
     "extractors": {
       "filecontent": [
         "/\\*!(?:[\\s]+\\*)? Select2 (§§version§§)",
-        "/\\*[\\s]+Copyright 20[0-9]{2} [I]gor V[a]ynberg[\\s]+Version: (§§version§§)[\\s\\S]{1,4000}(\\.attr\\(\"class\",\"select2-sizer\"|\\.data\\(document,\"select2-lastpos\"|document\\)\\.data\\(\"select2-lastpos\")"
+        "/\\*[\\s]+Copyright 20[0-9]{2} [I]gor V[a]ynberg[\\s]+Version: (§§version§§)[\\s\\S]{1,5000}(\\.attr\\(\"class\",\"select2-sizer\"|\\.data\\(document, *\"select2-lastpos\"|document\\)\\.data\\(\"select2-lastpos\"|SingleSelect2, *MultiSelect2|window.Select2 *!== *undefined)"
       ],
       "uri": [
         "(§§version§§)/(js/)?select2(.min)?\\.js"
+      ]
+    }
+  },
+  "blueimp-file-upload": {
+    "vulnerabilities": [
+      {
+        "below": "9.22.1",
+        "cwe": [
+          "CWE-434"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Unrestricted Upload of File with Dangerous Type in blueimp-file-upload",
+          "CVE": [
+            "CVE-2018-9206"
+          ],
+          "githubID": "GHSA-4cj8-g9cp-v5wr"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-4cj8-g9cp-v5wr",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-9206",
+          "https://github.com/advisories/GHSA-4cj8-g9cp-v5wr",
+          "https://wpvulndb.com/vulnerabilities/9136",
+          "https://www.exploit-db.com/exploits/45790/",
+          "https://www.exploit-db.com/exploits/46182/",
+          "https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html",
+          "http://www.securityfocus.com/bid/105679",
+          "http://www.securityfocus.com/bid/106629",
+          "http://www.vapidlabs.com/advisory.php?v=204"
+        ]
+      }
+    ],
+    "extractors": {
+      "filecontent": [
+        "/\\*[\\s*]+jQuery File Upload User Interface Plugin (§§version§§)[\\s*]+https://github.com/blueimp"
+      ],
+      "uri": [
+        "/blueimp-file-upload/(§§version§§)/jquery.fileupload(-ui)?(\\.min)?\\.js"
+      ]
+    }
+  },
+  "c3": {
+    "vulnerabilities": [
+      {
+        "below": "0.4.11",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Cross-Site Scripting in c3",
+          "CVE": [
+            "CVE-2016-1000240"
+          ],
+          "githubID": "GHSA-gvg7-pp82-cff3"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-gvg7-pp82-cff3",
+          "https://nvd.nist.gov/vuln/detail/CVE-2016-1000240",
+          "https://github.com/c3js/c3/issues/1536",
+          "https://github.com/c3js/c3/pull/1675",
+          "https://github.com/c3js/c3/commit/de3864650300488a63d0541620e9828b00e94b42",
+          "https://github.com/c3js/c3",
+          "https://www.npmjs.com/advisories/138"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": [
+        "/(§§version§§)/c3(\\.min)?\\.js"
+      ],
+      "filecontent": [
+        "[\\s]+var c3 ?= ?\\{ ?version: ?['\"](§§version§§)['\"] ?\\};[\\s]+var c3_chart_fn,"
+      ]
+    }
+  },
+  "lodash": {
+    "vulnerabilities": [
+      {
+        "below": "4.17.5",
+        "cwe": [
+          "CWE-471"
+        ],
+        "severity": "low",
+        "identifiers": {
+          "summary": "Prototype Pollution in lodash",
+          "CVE": [
+            "CVE-2018-3721"
+          ],
+          "githubID": "GHSA-fvqr-27wr-82fm"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-fvqr-27wr-82fm",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-3721",
+          "https://github.com/lodash/lodash/commit/d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a",
+          "https://hackerone.com/reports/310443",
+          "https://github.com/advisories/GHSA-fvqr-27wr-82fm",
+          "https://security.netapp.com/advisory/ntap-20190919-0004/",
+          "https://www.npmjs.com/advisories/577"
+        ]
+      },
+      {
+        "below": "4.17.11",
+        "cwe": [
+          "CWE-400"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Prototype Pollution in lodash",
+          "CVE": [
+            "CVE-2018-16487"
+          ],
+          "githubID": "GHSA-4xc9-xhrj-v574"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-4xc9-xhrj-v574",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-16487",
+          "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad",
+          "https://hackerone.com/reports/380873",
+          "https://github.com/advisories/GHSA-4xc9-xhrj-v574",
+          "https://security.netapp.com/advisory/ntap-20190919-0004/",
+          "https://www.npmjs.com/advisories/782"
+        ]
+      },
+      {
+        "below": "4.17.11",
+        "cwe": [
+          "CWE-400"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+          "CVE": [
+            "CVE-2019-1010266"
+          ],
+          "githubID": "GHSA-x5rq-j2xg-h7qm"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-x5rq-j2xg-h7qm",
+          "https://nvd.nist.gov/vuln/detail/CVE-2019-1010266",
+          "https://github.com/lodash/lodash/issues/3359",
+          "https://github.com/lodash/lodash/commit/5c08f18d365b64063bfbfa686cbb97cdd6267347",
+          "https://github.com/lodash/lodash/wiki/Changelog",
+          "https://security.netapp.com/advisory/ntap-20190919-0004/",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-73639"
+        ]
+      },
+      {
+        "below": "4.17.12",
+        "cwe": [
+          "CWE-20"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Prototype Pollution in lodash",
+          "CVE": [
+            "CVE-2019-10744"
+          ],
+          "githubID": "GHSA-jf85-cpcp-j695"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-jf85-cpcp-j695",
+          "https://nvd.nist.gov/vuln/detail/CVE-2019-10744",
+          "https://github.com/lodash/lodash/pull/4336",
+          "https://access.redhat.com/errata/RHSA-2019:3024",
+          "https://security.netapp.com/advisory/ntap-20191004-0005/",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-450202",
+          "https://support.f5.com/csp/article/K47105354?utm_source=f5support&amp;utm_medium=RSS",
+          "https://www.npmjs.com/advisories/1065",
+          "https://www.oracle.com/security-alerts/cpujan2021.html",
+          "https://www.oracle.com/security-alerts/cpuoct2020.html"
+        ]
+      },
+      {
+        "atOrAbove": "3.7.0",
+        "below": "4.17.19",
+        "cwe": [
+          "CWE-1321",
+          "CWE-770"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Prototype Pollution in lodash",
+          "CVE": [
+            "CVE-2020-8203"
+          ],
+          "githubID": "GHSA-p6mc-m468-83gw"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-p6mc-m468-83gw",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-8203",
+          "https://github.com/lodash/lodash/issues/4744",
+          "https://github.com/lodash/lodash/issues/4874",
+          "https://github.com/github/advisory-database/pull/2884",
+          "https://github.com/lodash/lodash/commit/c84fe82760fb2d3e03a63379b297a1cc1a2fce12",
+          "https://hackerone.com/reports/712065",
+          "https://hackerone.com/reports/864701",
+          "https://github.com/lodash/lodash",
+          "https://github.com/lodash/lodash/wiki/Changelog#v41719",
+          "https://web.archive.org/web/20210914001339/https://github.com/lodash/lodash/issues/4744"
+        ]
+      },
+      {
+        "below": "4.17.21",
+        "cwe": [
+          "CWE-1333",
+          "CWE-400"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+          "CVE": [
+            "CVE-2020-28500"
+          ],
+          "githubID": "GHSA-29mw-wpgm-hmr9"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-29mw-wpgm-hmr9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-28500",
+          "https://github.com/lodash/lodash/pull/5065",
+          "https://github.com/lodash/lodash/pull/5065/commits/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+          "https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://github.com/lodash/lodash",
+          "https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074896",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074894",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074892",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html"
+        ]
+      },
+      {
+        "below": "4.17.21",
+        "cwe": [
+          "CWE-77",
+          "CWE-94"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection in lodash",
+          "CVE": [
+            "CVE-2021-23337"
+          ],
+          "githubID": "GHSA-35jh-r3h4-6jhm"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-23337",
+          "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://github.com/lodash/lodash",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html"
+        ]
+      }
+    ],
+    "extractors": {
+      "filecontent": [
+        "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§)",
+        "=\"(§§version§§)\"[\\s\\S]{1,300}__lodash_hash_undefined__",
+        "/\\*[\\s*]+@license[\\s*]+(?:Lo-Dash|lodhash|Lodash)[\\s\\S]{1,500}var VERSION *= *['\"](§§version§§)['\"]",
+        "var VERSION=\"(§§version§§)\";var BIND_FLAG=1,BIND_KEY_FLAG=2,CURRY_BOUND_FLAG=4,CURRY_FLAG=8"
+      ],
+      "uri": [
+        "/(§§version§§)/lodash(\\.min)?\\.js"
       ]
     }
   },
