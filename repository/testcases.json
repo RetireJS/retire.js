@@ -178,7 +178,8 @@
   },
   "ember": {
     "https://cdnjs.cloudflare.com/ajax/libs/ember.js/§§version§§/ember-§§version§§.min.js": {
-      "versions": ["0.9.7"]
+      "versions": ["0.9.7"],
+      "allowedOtherComponents": "handlebars"
     },
     "https://cdnjs.cloudflare.com/ajax/libs/ember.js/§§version§§/ember§§subversion§§.js": {
       "versions": ["1.0.0", "2.0.1", "2.16.4"],
