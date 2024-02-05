@@ -2614,7 +2614,7 @@
           "githubID": "GHSA-2cf5-4w76-r9qv"
         },
         "severity": "high",
-        "cwe": ["CWE-79"],
+        "cwe": ["CWE-94"],
         "info": [
           "https://github.com/advisories/GHSA-2cf5-4w76-r9qv",
           "https://www.npmjs.com/advisories/1316"
@@ -3593,7 +3593,8 @@
         "summary": "XSS in data-container property of tooltip",
         "identifiers": {
           "issue": "20184",
-          "CVE": ["CVE-2018-14042"]
+          "CVE": ["CVE-2018-14042"],
+          "githubID": "GHSA-7mvr-5x2g-wfc8"
         },
         "cwe": ["CWE-79"],
         "severity": "medium",
@@ -5408,6 +5409,174 @@
         "var VERSION=\"(§§version§§)\";var BIND_FLAG=1,BIND_KEY_FLAG=2,CURRY_BOUND_FLAG=4,CURRY_FLAG=8"
       ],
       "uri": ["/(§§version§§)/lodash(\\.min)?\\.js"]
+    }
+  },
+  "ua-parser-js": {
+    "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0.7.29",
+            "below": "0.7.30"
+          },
+          {
+            "atOrAbove": "0.8.0",
+            "below": "0.8.1"
+          },
+          {
+            "atOrAbove": "1.0.0",
+            "below": "1.0.1"
+          }
+        ],
+        "summary": "Embedded malware in ua-parser-js",
+        "cwe": ["CWE-829", "CWE-912"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": [],
+          "githubID": "GHSA-pjwm-rvh2-c87w"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-pjwm-rvh2-c87w",
+          "https://github.com/faisalman/ua-parser-js/issues/536",
+          "https://github.com/faisalman/ua-parser-js/issues/536#issuecomment-949772496",
+          "https://github.com/faisalman/ua-parser-js",
+          "https://www.npmjs.com/package/ua-parser-js"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "0.7.23"
+          }
+        ],
+        "summary": "ua-parser-js Regular Expression Denial of Service vulnerability",
+        "cwe": ["CWE-400"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2020-7793"],
+          "githubID": "GHSA-394c-5j6w-4xmx"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-394c-5j6w-4xmx",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-7793",
+          "https://github.com/faisalman/ua-parser-js/commit/6d1f26df051ba681463ef109d36c9cf0f7e32b18",
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBFAISALMAN-1050388",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1050387",
+          "https://snyk.io/vuln/SNYK-JS-UAPARSERJS-1023599"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "0.7.22"
+          }
+        ],
+        "summary": "Regular Expression Denial of Service in ua-parser-js",
+        "cwe": ["CWE-400"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2020-7733"],
+          "githubID": "GHSA-662x-fhqg-9p8v"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-662x-fhqg-9p8v",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-7733",
+          "https://github.com/faisalman/ua-parser-js/commit/233d3bae22a795153a7e6638887ce159c63e557d",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBFAISALMAN-674666",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-674665",
+          "https://snyk.io/vuln/SNYK-JS-UAPARSERJS-610226",
+          "https://www.oracle.com//security-alerts/cpujul2021.html"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "0.7.22"
+          }
+        ],
+        "summary": "Regular Expression Denial of Service in ua-parser-js",
+        "cwe": ["CWE-400"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2020-7733"],
+          "githubID": "GHSA-662x-fhqg-9p8v"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-662x-fhqg-9p8v",
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-7733",
+          "https://github.com/faisalman/ua-parser-js/commit/233d3bae22a795153a7e6638887ce159c63e557d",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBFAISALMAN-674666",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-674665",
+          "https://snyk.io/vuln/SNYK-JS-UAPARSERJS-610226",
+          "https://www.oracle.com//security-alerts/cpujul2021.html"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0.7.14",
+            "below": "0.7.24"
+          }
+        ],
+        "summary": "Regular Expression Denial of Service (ReDoS) in ua-parser-js",
+        "cwe": ["CWE-400"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2021-27292"],
+          "githubID": "GHSA-78cj-fxph-m83p"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-78cj-fxph-m83p",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-27292",
+          "https://github.com/faisalman/ua-parser-js/commit/809439e20e273ce0d25c1d04e111dcf6011eb566",
+          "https://github.com/pygments/pygments/commit/2e7e8c4a7b318f4032493773732754e418279a14",
+          "https://gist.github.com/b-c-ds/6941d80d6b4e694df4bc269493b7be76"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "0.7.33"
+          },
+          {
+            "atOrAbove": "0.8.0",
+            "below": "1.0.33"
+          }
+        ],
+        "summary": "ReDoS Vulnerability in ua-parser-js version",
+        "cwe": ["CWE-1333", "CWE-400"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2022-25927"],
+          "githubID": "GHSA-fhg7-m89q-25r3"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-fhg7-m89q-25r3",
+          "https://github.com/faisalman/ua-parser-js/security/advisories/GHSA-fhg7-m89q-25r3",
+          "https://nvd.nist.gov/vuln/detail/CVE-2022-25927",
+          "https://github.com/faisalman/ua-parser-js/commit/a6140a17dd0300a35cfc9cff999545f267889411",
+          "https://github.com/faisalman/ua-parser-js",
+          "https://security.snyk.io/vuln/SNYK-JS-UAPARSERJS-3244450"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": ["/(§§version§§)/ua-parser(.min)?.js"],
+      "filecontent": [
+        "/\\* UAParser.js v(§§version§§)",
+        "/\\*[*!](?:@license)?[\\s]+\\* UAParser.js v(§§version§§)",
+        "// UAParser.js v(§§version§§)",
+        ".\\.VERSION=\"(§§version§§)\",.\\.BROWSER=\\{NAME:.,MAJOR:\"major\",VERSION:.\\},.\\.CPU=\\{ARCHITECTURE:",
+        ".\\.VERSION=\"(§§version§§)\",.\\.BROWSER=.\\(\\[[^\\]]{1,20}\\]\\),.\\.CPU=",
+        "LIBVERSION=\"(§§version§§)\",EMPTY=\"\",UNKNOWN=\"\\?\",FUNC_TYPE=\"function\",UNDEF_TYPE=\"undefined\"",
+        ".=\"(§§version§§)\",.=\"\",.=\"\\?\",.=\"function\",.=\"undefined\",.=\"object\",(.=\"string\",)?.=\"major\",.=\"model\",.=\"name\",.=\"type\",.=\"vendor\""
+      ],
+      "func": ["UAParser.VERSION", "$.ua.version"]
     }
   },
   "dont check": {
