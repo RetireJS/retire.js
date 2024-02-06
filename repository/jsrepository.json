@@ -3726,7 +3726,8 @@
         "this.Handlebars=\\{\\};[\n\r \t]+\\(function\\([a-z]\\)\\{[a-z].VERSION=(?:'|\")(§§version§§)(?:'|\")",
         "exports.HandlebarsEnvironment=[\\s\\S]{70,120}exports.VERSION=(?:'|\")(§§version§§)(?:'|\")",
         "/\\*+![\\s]+(?:@license)?[\\s]+handlebars v+(§§version§§)",
-        "window\\.Handlebars=.,.\\.VERSION=\"(§§version§§)\""
+        "window\\.Handlebars=.,.\\.VERSION=\"(§§version§§)\"",
+        ".\\.HandlebarsEnvironment=.;var .=.\\(.\\),.=.\\(.\\),.=\"(§§version§§)\";.\\.VERSION="
       ],
       "hashes": {}
     }
