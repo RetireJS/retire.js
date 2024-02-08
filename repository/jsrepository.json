@@ -2383,6 +2383,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2408,6 +2409,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2432,6 +2434,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Affected versions of dojo are susceptible to a cross-site scripting vulnerability in the dijit.Editor and textarea components, which execute their contents as Javascript, even when sanitized.",
           "CVE": [
             "CVE-2008-6681"
           ],
@@ -2449,6 +2452,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2474,6 +2478,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2499,6 +2504,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2523,6 +2529,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Cross-site scripting (XSS) vulnerability in dijit/tests/_testCommon.js in Dojo Toolkit SDK before 1.4.2 allows remote attackers to inject arbitrary web script or HTML via the theme parameter, as demonstrated by an attack against dijit/tests/form/test_Button.html",
           "CVE": [
             "CVE-2010-2275"
           ]
@@ -2539,6 +2546,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2563,6 +2571,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.2.0 are vulnerable to Cross-Site Scripting (XSS). The package fails to sanitize HTML code in user-controlled input, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "CVE": [
             "CVE-2015-5654"
           ],
@@ -2580,6 +2589,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2605,6 +2615,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2631,6 +2642,7 @@
           "CWE-94"
         ],
         "identifiers": {
+          "summary": "Prototype pollution in dojo",
           "CVE": [
             "CVE-2020-5258"
           ],
@@ -2649,6 +2661,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2676,6 +2689,7 @@
           "CWE-94"
         ],
         "identifiers": {
+          "summary": "Prototype pollution in dojo",
           "CVE": [
             "CVE-2020-5258"
           ],
@@ -2694,6 +2708,7 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
           "PR": "307",
           "CVE": [
             "CVE-2010-2273"
@@ -2721,6 +2736,7 @@
           "CWE-94"
         ],
         "identifiers": {
+          "summary": "Prototype pollution in dojo",
           "CVE": [
             "CVE-2020-5258"
           ],
@@ -2738,9 +2754,11 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
           "CVE": [
             "CVE-2018-15494"
-          ]
+          ],
+          "githubID": "GHSA-84cm-x2q5-8225"
         },
         "info": [
           "https://dojotoolkit.org/blog/dojo-1-14-released"
@@ -2756,6 +2774,7 @@
           "CWE-94"
         ],
         "identifiers": {
+          "summary": "Prototype pollution in dojo",
           "CVE": [
             "CVE-2020-5258"
           ],
@@ -2776,6 +2795,7 @@
           "CWE-94"
         ],
         "identifiers": {
+          "summary": "Prototype pollution in dojo",
           "CVE": [
             "CVE-2020-5258"
           ],
@@ -2796,6 +2816,7 @@
           "CWE-94"
         ],
         "identifiers": {
+          "summary": "Prototype pollution in dojo",
           "CVE": [
             "CVE-2020-5258"
           ],
@@ -2829,13 +2850,14 @@
         "dojo.version.toString()"
       ],
       "uri": [
-        "/(?:dojo-)?(§§version§§)/dojo(\\.min)?\\.js"
+        "/(?:dojo-)?(§§version§§)(?:/dojo)?/dojo(\\.min)?\\.js"
       ],
       "filename": [
         "dojo-(§§version§§)(\\.min)?\\.js"
       ],
       "filecontentreplace": [
-        "/dojo.version=\\{major:([0-9]+),minor:([0-9]+),patch:([0-9]+)/$1.$2.$3/"
+        "/dojo.version=\\{major:([0-9]+),minor:([0-9]+),patch:([0-9]+)/$1.$2.$3/",
+        "/\"dojox\"[\\s\\S]{1,350}\\.version=\\{major:([0-9]+),minor:([0-9]+),patch:([0-9]+)/$1.$2.$3/"
       ],
       "hashes": {
         "73cdd262799aab850abbe694cd3bfb709ea23627": "1.4.1",
