@@ -3061,7 +3061,7 @@
           "CWE-1104"
         ],
         "identifiers": {
-          "summary": "End-of-Life: Long term support for AngularJS has been discontinued",
+          "summary": "End-of-Life: Long term support for AngularJS has been discontinued as of December 31, 2021",
           "retid": "54"
         },
         "info": [
