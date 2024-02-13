@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.4.1]
+
+### Chore
+
+- Dependency upgrades
+
 ## [4.4.0]
 
 ### Added
