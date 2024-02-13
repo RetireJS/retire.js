@@ -19,8 +19,8 @@ COMMIT_ID=$(git rev-parse HEAD)
 
 node -e "if (require('./lib/retire.js').version != require('./package.json').version) throw new Error('Wrong version in lib/retire.js')"
 
-if grep -q "$VERSION" CHANGELOG.md; then
-    echo "Version is missing in CHANGELOG.md"
+if ! grep -q "$VERSION" CHANGELOG.md; then
+    echo "ERROR: Version is missing in CHANGELOG.md"
     exit 1
 fi
 
