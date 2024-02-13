@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '4.4.1';
+exports.version = '4.4.2';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -19,15 +19,14 @@ function uniq(results) {
   });
 }
 
-function scan(data, extractor, repo, matcher) {
-  matcher = matcher || simpleMatch;
+function scan(data, extractor, repo, matcher = simpleMatch) {
   var detected = [];
   for (var component in repo) {
     var extractors = repo[component].extractors[extractor];
     if (!isDefined(extractors)) continue;
     for (var i in extractors) {
-      var match = matcher(extractors[i], data);
-      if (match) {
+      var matches = matcher(extractors[i], data);
+      matches.forEach(match => {
         match = match.replace(/(\.|-)min$/, '');
         detected.push({
           version: match,
@@ -36,27 +35,34 @@ function scan(data, extractor, repo, matcher) {
           basePurl: repo[component].basePurl,
           detection: extractor,
         });
-      }
+      });
     }
   }
   return uniq(detected);
 }
 
 function simpleMatch(regex, data) {
-  var re = new RegExp(regex);
-  var match = re.exec(data);
-  return match ? match[1] : null;
+  var re = new RegExp(regex, "g");
+  const result = [];
+  let match;
+  while (match = re.exec(data)) {
+    result.push(match[1]);
+  }
+  return result;
 }
 function replacementMatch(regex, data) {
   var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(regex);
-  var re = new RegExp(ar[1]);
-  var match = re.exec(data);
-  var ver = null;
-  if (match) {
-    ver = match[0].replace(new RegExp(ar[1]), ar[2]);
-    return ver;
+  var re = new RegExp(ar[1], "g");
+  const result = [];
+  let match;
+  while(match = re.exec(data)) {
+    var ver = null;
+    if (match) {
+      ver = match[0].replace(new RegExp(ar[1]), ar[2]);
+      result.push(ver);
+    }
   }
-  return null;
+  return result;
 }
 
 function splitAndMatchAll(tokenizer) {

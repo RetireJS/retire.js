@@ -19,6 +19,11 @@ COMMIT_ID=$(git rev-parse HEAD)
 
 node -e "if (require('./lib/retire.js').version != require('./package.json').version) throw new Error('Wrong version in lib/retire.js')"
 
+if grep -q "$VERSION" CHANGELOG.md; then
+    echo "Version is missing in CHANGELOG.md"
+    exit 1
+fi
+
 echo "Point $VERSION to $COMMIT_ID and publish (Y/N)?"
 
 if [ $(git tag -l $VERSION) ]; then

@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.4.2]
+
+### Fix
+
+- Fix matching to include all matches
+
+
 ## [4.4.1]
 
 ### Chore
