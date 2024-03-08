@@ -1,10 +1,12 @@
 /* global chrome, console, exports, CryptoJS, Emitter */
 
 const repoUrl =
-  "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json";
+  "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v2.json";
 let updatedAt = Date.now();
 let repo;
 let repoFuncs;
+
+const retire = retirechrome.retire;
 
 let vulnerable = {};
 const events = new Emitter();
@@ -30,8 +32,18 @@ async function download(url) {
 async function downloadRepo() {
   console.log("Downloading repo ...");
   updatedAt = Date.now();
-  const repoData = await download(repoUrl + "?" + updatedAt);
+  let repoData = JSON.stringify(retirechrome.repo);
+  try {
+    const dlRepo = await download(repoUrl + "?" + updatedAt);
+    repoData = dlRepo;
+  } catch (e) {
+    console.error(
+      "Failed to download repo from " + repoUrl + " - Using local data",
+      e
+    );
+  }
   repo = JSON.parse(retire.replaceVersion(repoData));
+  console.log(repo);
   console.log("Done");
   vulnerable = {};
   setFuncs();
@@ -78,8 +90,47 @@ events.on("scan", function (details) {
   });
 });
 
+function unique(a) {
+  return a.reduce(function (p, c) {
+    if (!p.some((x) => x[0] == c[0] && x[1] == c[1])) p.push(c);
+    return p;
+  }, []);
+}
+
+function babelScan(content, details, contentResults) {
+  chrome.runtime.sendMessage(
+    {
+      type: "babelscan",
+      url: details.url,
+      content,
+    },
+    (response) => {
+      if (!response) {
+        console.warn("No response", chrome.runtime.lastError);
+        return;
+      }
+      console.log("A response was received", response.data);
+      const babelResults = response.results;
+      console.log("Results from the service worker", babelResults);
+      var results = babelResults.filter((x) => {
+        return !contentResults.some(
+          (b) => x.component == b.component && x.version == b.version
+        );
+      });
+      console.log("Results from the service worker after filtering", results);
+      if (results.length > 0) {
+        events.emit("result-ready", details, results);
+      }
+    }
+  );
+}
+
 events.on("script-downloaded", function (details, content) {
+  console.log("Scanning content of " + details.url + " ...");
+  const bs = Date.now();
+  console.log("Babel", Date.now() - bs, resultsBabel);
   var results = retire.scanFileContent(content, repo, hasher);
+  var resultsBabel = babelScan(content, details, results);
   if (results.length > 0) {
     events.emit("result-ready", details, results);
     return true;
@@ -139,7 +190,7 @@ setInterval(() => {
 }, 5000);
 
 downloadRepo().then(() => {
-  chrome.runtime.sendMessage({ type: "repo-ready" });
+  chrome.runtime.sendMessage({ type: "repo-ready", repo: repo });
   chrome.runtime.onMessage.addListener((msg) => {
     if (msg.type === "scan") {
       events.emit("scan", msg.details);

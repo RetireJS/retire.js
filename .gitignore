@@ -13,3 +13,4 @@ node/lib/
 .idea
 tmp/
 .vscode
+chrome/extension/js/generated/

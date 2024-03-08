@@ -14,11 +14,21 @@ console.log(
 const convert = require("./convertFormat.js").convertToOldFormat;
 const data = require("./jsrepository-master.json");
 const current = require("./jsrepository.json");
-const converted = JSON.stringify(convert(data), null, 2);
+const converted = JSON.stringify(convert(data, false), null, 2);
 const currentString = JSON.stringify(current, null, 2);
 if (converted != currentString) {
   exitWithError("jsrepository.json is has not been converted");
 }
+console.log(
+  "Checking that jsrepository-master and jsonrepository-v2 are synced..."
+);
+const currentV2 = require("./jsrepository-v2.json");
+const convertedV2 = JSON.stringify(convert(data, true), null, 2);
+const currentV2String = JSON.stringify(currentV2, null, 2);
+if (convertedV2 != currentV2String) {
+  exitWithError("jsrepository-v2.json is has not been converted");
+}
+
 console.log("Done");
 
 console.log("Validting repo format...");

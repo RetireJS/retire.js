@@ -63,6 +63,7 @@ const prg = program
     'Use the specified certificate file to verify the peer used for fetching remote jsrepo/noderepo files',
   )
   .option('--includeOsv', 'Include OSV advisories in the output')
+  .option('--deep', 'Deep scan (slower and experimental)')
   .parse()
   .opts();
 
@@ -70,7 +71,9 @@ const colorwarn = prg.colors ? colors.red : (x: string) => x;
 const jsrepolocation: string[] = (prg.jsrepo ?? "'central'")
   .split(',')
   .map((x: string) =>
-    x === "'central'" ? 'https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository.json' : x,
+    x === "'central'"
+      ? 'https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v2.json'
+      : x,
   );
 
 const ignorefile = prg.ignoreFile ?? defaultIgnoreFiles.filter((x) => fs.existsSync(x))[0];
@@ -110,6 +113,7 @@ const config: Options = {
   includeOsv: !!prg.includeOsv,
   verbose: !!prg.verbose,
   proxy: prg.proxy,
+  deep: !!prg.deep,
 };
 
 log.info(`retire.js v${retire.version}`);

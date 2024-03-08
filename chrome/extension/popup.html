@@ -11,7 +11,8 @@
 	.vulnerable a:after { content: "]"; }
 	.hideunknown .unknown { display: none;}
 	.unknown { color: #999; }
-	td { vertical-align: top; padding: 0.5em; }
+	td { vertical-align: top; padding: 0.5em; word-break: break-all; }
+	td:nth-child(1), td:nth-child(2) { word-break: normal;}
 	td td { vertical-align: top; padding: 0em; }
 	tr:nth-child(2n+1) { background: #f0f0f0; }
 	tr tr { background: none !important;}

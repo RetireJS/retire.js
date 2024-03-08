@@ -14,6 +14,7 @@ export type Repository = Record<
       filecontent?: string[];
       filecontentreplace?: string[];
       hashes?: Record<string, string>;
+      ast?: string[];
     };
   }
 >;
@@ -39,6 +40,7 @@ export type Component = {
   npmname?: string;
   version: string;
   vulnerabilities?: Vulnerability[];
+  detection?: string;
 };
 
 export type Finding = {
@@ -96,4 +98,5 @@ export type Options = {
   path: string;
   exitwith: number;
   includeOsv?: boolean;
+  deep?: boolean;
 };

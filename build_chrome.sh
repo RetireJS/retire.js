@@ -1,12 +1,12 @@
 #!/bin/sh
+set -e
 
-FILEPATH=$(dirname $0)/chrome/js/retire.js
-
-echo "Building $FILEPATH ..."
-cp bom $FILEPATH
-echo "var retire = (function(){" >> $FILEPATH
-cat node/lib/retire.js >> $FILEPATH
-echo "return exports; })();" >> $FILEPATH
-
+cd node
+npm install
+cd ..
+cd chrome/build
+npm install
+npm run build
+cd ../..
 
 echo "Done!"

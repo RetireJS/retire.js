@@ -119,6 +119,7 @@ export function validateRepository(
             filecontent: z.array(regexValidator).optional(),
             filecontentreplace: z.array(replaceValidator).optional(),
             hashes: z.record(z.string().regex(/^[a-f0-9]+$/i), versionValidator).optional(),
+            ast: z.array(z.string()).optional(),
           })
           .strict(),
       })

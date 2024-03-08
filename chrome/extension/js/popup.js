@@ -92,7 +92,8 @@ function show(totalResults) {
         td(tr).innerText = r.component;
         td(tr).innerText = r.version;
         var vulns = td(tr);
-        vulns.innerHTML = "Found in " + r.url;
+        vulns.innerHTML =
+          "Found in " + r.url + " using " + r.detection + " detection";
       }
       if (r.vulnerabilities && r.vulnerabilities.length > 0) {
         tr.className = "vulnerable";

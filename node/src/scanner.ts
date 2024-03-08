@@ -6,6 +6,7 @@ import * as path from 'path';
 import { ComponentDescriptor, Finding, Hasher, Options, Repository, Vulnerability } from './types';
 import { Component } from './types';
 import { checkOSV } from './depsdev';
+import { deepScan } from './deepscan';
 
 type Ignores = Required<Options>['ignore'];
 
@@ -112,7 +113,11 @@ export function scanJsFile(file: string, repo: Repository, options: Options) {
   }
   let results = retire.scanFileName(file, repo);
   if (!results || results.length === 0) {
-    results = retire.scanFileContent(fs.readFileSync(file, 'utf-8'), repo, hash);
+    const content = fs.readFileSync(file, 'utf-8');
+    results = retire.scanFileContent(content, repo, hash);
+    if (options.deep) {
+      results = results.concat(deepScan(content, repo));
+    }
   }
   emitResults({ file: file, results: results }, options);
 }

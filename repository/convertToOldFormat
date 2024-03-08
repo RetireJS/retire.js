@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const convert = require("./convertFormat.js").convertToOldFormat;
 const data = require("./jsrepository-master.json");
+const fs = require("fs");
 
-const result = convert(data);
+const result = convert(data, false);
+fs.writeFileSync("jsrepository.json", JSON.stringify(result, null, 2));
 
-require("fs").writeFileSync(
-  "jsrepository.json",
-  JSON.stringify(result, null, 2)
-);
+const resultV2 = convert(data, true);
+fs.writeFileSync("jsrepository-v2.json", JSON.stringify(resultV2, null, 2));

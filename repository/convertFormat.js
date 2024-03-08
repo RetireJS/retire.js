@@ -1,3 +1,5 @@
+const queries = require("./jsrepository-ast.js").queries;
+
 function largerThan(a, b, name) {
   if (a == b) return false;
   if (a && !b) return true;
@@ -11,7 +13,7 @@ function largerThan(a, b, name) {
   return false;
 }
 
-function convertToOldFormat(input) {
+function convertToOldFormat(input, includeQueries = false) {
   const result = {};
   Object.entries(input).forEach(([key, value]) => {
     const { extractors, vulnerabilities, ...okeys } = value;
@@ -52,6 +54,13 @@ function convertToOldFormat(input) {
       vulnerabilities: vulns,
       extractors,
     };
+  });
+
+  if (!includeQueries) return result;
+
+  Object.entries(queries).forEach(([key, value]) => {
+    if (!result[key]) throw new Error("Invalid package name:" + key);
+    result[key].extractors.ast = value.map((x) => x.replace(/\n/g, " "));
   });
   return result;
 }

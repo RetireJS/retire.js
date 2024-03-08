@@ -1,0 +1,14 @@
+{
+  "name": "retirejs-chrome",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/browserify index.js --standalone retirechrome -o ../extension/js/generated/retire-chrome.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^17.0.0"
+  }
+}

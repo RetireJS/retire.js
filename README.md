@@ -9,7 +9,7 @@ Retire.js can be used in many ways:
 1. [As command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
 2. [As a grunt plugin](https://github.com/bekk/grunt-retire)
 3. [As a gulp task](#user-content-gulp-task)
-4. [As a Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome)
+4. [As a Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome) - **Not** officially available in the Chrome web store
 5. [As a Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox) - **Deprecated** Let us know if you want to maintain and undeprecate it.
 6. [As a Burp Extension](https://github.com/h3xstream/burp-retire-js) or [OWASP ZAP Add-on](https://www.zaproxy.org/docs/desktop/addons/retire.js/)
 

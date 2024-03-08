@@ -1,11 +1,16 @@
 # Changelog
 
+## [5.0.0]
+
+### Added
+
+- Deepscan option with `--deep` where retire.js will also try to detect libraries using JavaScript AST (slower)
+
 ## [4.4.2]
 
 ### Fix
 
 - Fix matching to include all matches
-
 
 ## [4.4.1]
 

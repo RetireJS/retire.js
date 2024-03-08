@@ -2,9 +2,12 @@
 
 echo "Building $FILEPATH ..."
 
-copy bom chrome\js\retire.js
-echo var retire = (function(){ >> chrome\js\retire.js
-type node\lib\retire.js >> chrome\js\retire.js
-echo return exports; })(); >> chrome\js\retire.js
+cd node
+npm install
+cd ..
+cd chrome\build
+npm install
+npm run build
+cd ..\..
 
 echo "Done!"
