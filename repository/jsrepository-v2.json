@@ -326,6 +326,7 @@
         "/\\*!? jQuery v(§§version§§)",
         "\\* jQuery JavaScript Library v(§§version§§)",
         "\\* jQuery (§§version§§) - New Wave Javascript",
+        "/\\*![\\s]+\\* jQuery JavaScript Library v(§§version§§)",
         "// \\$Id: jquery.js,v (§§version§§)",
         "/\\*! jQuery v(§§version§§)",
         "[^a-z]f=\"(§§version§§)\",.*[^a-z]jquery:f,",

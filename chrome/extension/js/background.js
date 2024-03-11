@@ -87,6 +87,23 @@ events.on("scan", function (details) {
   }
   download(details.url).then((content) => {
     events.emit("script-downloaded", details, content);
+    if (content.startsWith("/*! For license information please see ")) {
+      const licenseFilename = content
+        .split("/*! For license information please see ")[1]
+        .split(" */")[0];
+      const licenseUrl =
+        details.url
+          .split("?")[0]
+          .split("#")[0]
+          .split("/")
+          .slice(0, -1)
+          .join("/") +
+        "/" +
+        licenseFilename;
+      download(licenseUrl).then((licenseContent) => {
+        events.emit("script-downloaded", details, licenseContent);
+      });
+    }
   });
 });
 
