@@ -26,7 +26,7 @@
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
-    "chai": "^5.1.0",
+    "chai": "^4.x.x",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^9.0.0",
     "jsonschema": "^1.4.1",
