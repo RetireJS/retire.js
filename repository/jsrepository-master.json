@@ -139,7 +139,7 @@
           "CVE": ["CVE-2016-10707"],
           "githubID": "GHSA-mhpp-875w-9cpv"
         },
-        "cwe": ["CWE-400"],
+        "cwe": ["CWE-400", "CWE-674"],
         "severity": "high",
         "info": ["https://nvd.nist.gov/vuln/detail/CVE-2016-10707"]
       },
@@ -2024,6 +2024,30 @@
     "bowername": ["angularjs", "angular.js"],
     "npmname": "angular",
     "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "1.3.0",
+            "below": "999"
+          }
+        ],
+        "summary": "angular vulnerable to super-linear runtime due to backtracking",
+        "cwe": ["CWE-1333"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2024-21490"],
+          "githubID": "GHSA-4w4v-5hc9-xrr2"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-4w4v-5hc9-xrr2",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-21490",
+          "https://github.com/angular/angular.js",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-6241746",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6241747",
+          "https://security.snyk.io/vuln/SNYK-JS-ANGULAR-6091113",
+          "https://stackblitz.com/edit/angularjs-vulnerability-ng-srcset-redos"
+        ]
+      },
       {
         "ranges": [
           {
@@ -4292,8 +4316,12 @@
       {
         "ranges": [
           {
-            "atOrAbove": "0.8.1",
+            "atOrAbove": "1.0.0",
             "below": "1.6.0"
+          },
+          {
+            "atOrAbove": "0.8.1",
+            "below": "0.28.0"
           }
         ],
         "summary": "Axios Cross-Site Request Forgery Vulnerability",

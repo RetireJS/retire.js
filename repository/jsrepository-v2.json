@@ -236,7 +236,8 @@
         "atOrAbove": "3.0.0-rc.1",
         "below": "3.0.0",
         "cwe": [
-          "CWE-400"
+          "CWE-400",
+          "CWE-674"
         ],
         "severity": "high",
         "identifiers": {
@@ -3161,6 +3162,30 @@
         ]
       },
       {
+        "atOrAbove": "1.3.0",
+        "below": "999",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "angular vulnerable to super-linear runtime due to backtracking",
+          "CVE": [
+            "CVE-2024-21490"
+          ],
+          "githubID": "GHSA-4w4v-5hc9-xrr2"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-4w4v-5hc9-xrr2",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-21490",
+          "https://github.com/angular/angular.js",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-6241746",
+          "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6241747",
+          "https://security.snyk.io/vuln/SNYK-JS-ANGULAR-6091113",
+          "https://stackblitz.com/edit/angularjs-vulnerability-ng-srcset-redos"
+        ]
+      },
+      {
         "atOrAbove": "1.7.0",
         "below": "999",
         "severity": "medium",
@@ -5740,6 +5765,31 @@
       },
       {
         "atOrAbove": "0.8.1",
+        "below": "0.28.0",
+        "cwe": [
+          "CWE-352"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Axios Cross-Site Request Forgery Vulnerability",
+          "CVE": [
+            "CVE-2023-45857"
+          ],
+          "githubID": "GHSA-wf5p-g6vw-rhxx"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-wf5p-g6vw-rhxx",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-45857",
+          "https://github.com/axios/axios/issues/6006",
+          "https://github.com/axios/axios/issues/6022",
+          "https://github.com/axios/axios/pull/6028",
+          "https://github.com/axios/axios/commit/96ee232bd3ee4de2e657333d4d2191cd389e14d0",
+          "https://github.com/axios/axios/releases/tag/v1.6.0",
+          "https://security.snyk.io/vuln/SNYK-JS-AXIOS-6032459"
+        ]
+      },
+      {
+        "atOrAbove": "1.0.0",
         "below": "1.6.0",
         "cwe": [
           "CWE-352"
