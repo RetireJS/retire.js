@@ -278,4 +278,13 @@ exports.queries = {
         /*/SequenceExpression/AssignmentExpression[/:left/:property/:name == "version"]/:left/$:object
       ]/*/SequenceExpression/AssignmentExpression[/:left/:property/:name == "version"]/:$right/:init/:value`,
   ],
+  nextjs: [
+    `//BlockStatement[
+      /ExpressionStatement/AssignmentExpression/:left/:property/:name == "version" &&
+      /ExpressionStatement/AssignmentExpression/:left[
+        /:property/:name == "__NEXT_DATA__" &&
+        /:object/:name == "window"
+      ]
+    ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == "version"]/:$$right/:value`,
+  ],
 };
