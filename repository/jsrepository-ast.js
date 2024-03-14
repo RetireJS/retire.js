@@ -286,5 +286,9 @@ exports.queries = {
         /:object/:name == "window"
       ]
     ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == "version"]/:$$right/:value`,
+    `//AssignmentExpression[
+      /:left/:object/:name == "window" &&
+      /:left/:property/:name == "next"
+    ]/ObjectExpression/:properties[/:key/:name == "version"]/:value/:value`,
   ],
 };

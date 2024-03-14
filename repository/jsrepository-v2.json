@@ -6421,7 +6421,8 @@
         "next && next.version"
       ],
       "ast": [
-        "//BlockStatement[       /ExpressionStatement/AssignmentExpression/:left/:property/:name == \"version\" &&       /ExpressionStatement/AssignmentExpression/:left[         /:property/:name == \"__NEXT_DATA__\" &&         /:object/:name == \"window\"       ]     ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == \"version\"]/:$$right/:value"
+        "//BlockStatement[       /ExpressionStatement/AssignmentExpression/:left/:property/:name == \"version\" &&       /ExpressionStatement/AssignmentExpression/:left[         /:property/:name == \"__NEXT_DATA__\" &&         /:object/:name == \"window\"       ]     ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == \"version\"]/:$$right/:value",
+        "//AssignmentExpression[       /:left/:object/:name == \"window\" &&       /:left/:property/:name == \"next\"     ]/ObjectExpression/:properties[/:key/:name == \"version\"]/:value/:value"
       ]
     }
   },
