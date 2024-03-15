@@ -615,7 +615,7 @@
       "versions": ["3.2.2"]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/§§version§§/MathJax.js": {
-      "versions": ["2.7.3"]
+      "versions": ["2.7.3", "2.2", "2.3", "2.0", "1.1"]
     }
   }
 }
