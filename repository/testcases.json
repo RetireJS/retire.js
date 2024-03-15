@@ -606,5 +606,13 @@
         "1.1.1"
       ]
     }
+  },
+  "mathjax": {
+    "https://cdn.jsdelivr.net/npm/mathjax@§§version§§/es5/tex-mml-chtml.js": {
+      "versions": ["3.0.1"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/§§version§§/es5/core.min.js": {
+      "versions": ["3.2.2"]
+    }
   }
 }

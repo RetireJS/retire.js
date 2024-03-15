@@ -7164,6 +7164,67 @@
       ]
     }
   },
+  "mathjax": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "2.7.4",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Macro in MathJax running untrusted Javascript within a web browser",
+          "CVE": [
+            "CVE-2018-1999024"
+          ],
+          "githubID": "GHSA-3c48-6pcv-88rm"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-3c48-6pcv-88rm",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-1999024",
+          "https://github.com/mathjax/MathJax/commit/a55da396c18cafb767a26aa9ad96f6f4199852f1",
+          "https://blog.bentkowski.info/2018/06/xss-in-google-colaboratory-csp-bypass.html",
+          "https://github.com/advisories/GHSA-3c48-6pcv-88rm",
+          "https://github.com/mathjax/MathJax"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "MathJax Regular expression Denial of Service (ReDoS)",
+          "CVE": [
+            "CVE-2023-39663"
+          ],
+          "githubID": "GHSA-v638-q856-grg8"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-v638-q856-grg8",
+          "https://nvd.nist.gov/vuln/detail/CVE-2023-39663",
+          "https://github.com/mathjax/MathJax/issues/3074"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": [
+        "/mathjax@(§§version§§)/",
+        "/mathjax/(§§version§§)/"
+      ],
+      "filecontent": [
+        "\\.MathJax\\.config\\.startup;{10,100}.\\.VERSION=\"(§§version§§)\"",
+        "\\.MathJax=\\{version:\"(§§version§§)\"",
+        "MathJax.{0,100}.\\.VERSION=void 0,.\\.VERSION=\"(§§version§§)\""
+      ],
+      "func": [
+        "MathJax.version"
+      ]
+    }
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {
