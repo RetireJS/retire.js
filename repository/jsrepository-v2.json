@@ -7284,7 +7284,8 @@
       "filecontent": [
         "\\.MathJax\\.config\\.startup;{10,100}.\\.VERSION=\"(§§version§§)\"",
         "\\.MathJax=\\{version:\"(§§version§§)\"",
-        "MathJax.{0,100}.\\.VERSION=void 0,.\\.VERSION=\"(§§version§§)\""
+        "MathJax.{0,100}.\\.VERSION=void 0,.\\.VERSION=\"(§§version§§)\"",
+        "MathJax\\.version=\"(§§version§§)\";"
       ],
       "func": [
         "MathJax.version"
