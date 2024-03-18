@@ -50,7 +50,7 @@ function messageHandler(msg, sendResponse) {
   } else if (msg.message == "deepScanEnabled?") {
     sendResponse({ enabled: deepScanEnabled });
   } else if (msg.message == "deepScanEnabled") {
-    scanEnabled = msg.data;
+    deepScanEnabled = msg.data;
   } else if (msg.type == "astScan") {
     if (!deepScanEnabled) return;
     const content = msg.content;
