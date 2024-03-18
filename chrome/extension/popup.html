@@ -4,25 +4,53 @@
 <script src="js/popup.js"></script>
 <style type="text/css">
 	body { width: 600px;}
-	table { width: 100%; margin-top: 0.5em;}
-	.enabler { float: right; padding-top: 0.5em; }
-	.vulnerable { color: #f00;}
-	.vulnerable a:before { content: "["; margin-left: 0.5em; }
+	table { width: 100%; margin-top: 0.5em; border-collapse: collapse;}
+	table#results > tr {
+		border-top: 1px solid #ddd;
+	}
+	.enabler { float: right; padding-top: 0.5em; display: flex; align-items: center;}
+	.vulnerable a {
+		text-decoration: none;
+	}
+	.vulnerable a:before { content: "["; }
 	.vulnerable a:after { content: "]"; }
+	.info {
+		width: 5em;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+	}
 	.hideunknown .unknown { display: none;}
 	.unknown { color: #999; }
 	td { vertical-align: top; padding: 0.5em; word-break: break-all; }
 	td:nth-child(1), td:nth-child(2) { word-break: normal;}
 	td td { vertical-align: top; padding: 0em; }
-	tr:nth-child(2n+1) { background: #f0f0f0; }
+	xtr:nth-child(2n+1) { background: #f0f0f0; }
 	tr tr { background: none !important;}
 	h1 { margin: 0;}
-	td td:first-child { text-transform: capitalize; }
+	td td:first-child { 
+		text-transform: capitalize; 
+		padding-right: 0.5em;
+	}
+	.vulnerable.critical > td:nth-child(1), .vulnerable.critical > td:nth-child(2), .vulnerable tr.critical {
+		color: darkred;
+	}
+	.vulnerable.high > td:nth-child(1), .vulnerable.high > td:nth-child(2), .vulnerable tr.high {
+		color: #f00;
+	}
+	.vulnerable.medium > td:nth-child(1), .vulnerable.medium > td:nth-child(2), .vulnerable tr.medium {
+		color: rgb(200, 110, 0);;
+	}
+	.vulnerable.low > td:nth-child(1), .vulnerable.low > td:nth-child(2), .vulnerable tr.low {
+		color: rgb(131, 96, 0);
+	}
+	
 </style>
 </head>
 <body>
 <div class="enabler">
 <input type="checkbox" id="enabled">Enabled</input>
+<input type="checkbox" id="deepEnabled">Deep scan</input>
 <input type="checkbox" id="unknown">Show unknown</input>
 </div>
 <h1>Retire.js</h1>

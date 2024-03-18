@@ -4,6 +4,7 @@ const retire = retirechrome.retire;
 console.log(retire);
 
 var scanEnabled = true;
+var deepScanEnabled = true;
 var repo;
 
 async function createOffscreen() {
@@ -46,10 +47,15 @@ function messageHandler(msg, sendResponse) {
     sendResponse({ enabled: scanEnabled });
   } else if (msg.message == "enabled") {
     scanEnabled = msg.data;
-  } else if (msg.type == "babelscan") {
+  } else if (msg.message == "deepScanEnabled?") {
+    sendResponse({ enabled: deepScanEnabled });
+  } else if (msg.message == "deepScanEnabled") {
+    scanEnabled = msg.data;
+  } else if (msg.type == "astScan") {
+    if (!deepScanEnabled) return;
     const content = msg.content;
     const ds = Date.now();
-    const results = babelScan(content, repo, msg.url);
+    const results = astScan(content, repo, msg.url);
     console.log(
       "Scanning from the service worker: ",
       results,
@@ -94,14 +100,14 @@ function buf2hex(buffer) {
     .join("");
 }
 
-function babelScan(content, repo, url) {
+function astScan(content, repo, url) {
   if (seenAST.has(url)) {
     console.log("Returning cached for AST scan", url, seenAST.get(url));
     return seenAST.get(url);
   }
 
   const results = unique(retirechrome.deepScan(content, repo));
-  console.log("Direct babel results", results);
+  console.log("Direct AST results", results);
   const prepared = results
     .map(({ component, version }) => retire.check(component, version, repo))
     .reduce((a, b) => a.concat(b), [])

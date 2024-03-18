@@ -8,7 +8,6 @@ const repo = require("../node/lib/repo.js");
 const reporting = require("../node/lib/reporting.js");
 const deepScan = require("../node/lib/deepscan.js").deepScan;
 const queries = require("./jsrepository-ast.js").queries;
-//const babel = require("../node/node_modules/@babel/core");
 const options = {
   log: reporting.open({}),
 };
@@ -180,42 +179,42 @@ async function runTests(jsRepo) {
           let bRt = "-";
           if (queries[name]) {
             const bRs = Date.now();
-            let babelqResults = unique(deepScan(content.toString(), jsRepo));
+            let astResults = unique(deepScan(content.toString(), jsRepo));
             bRt = Date.now() - bRs;
             if (allowedOtherComponents)
-              babelqResults = babelqResults.filter(
+              astResults = astResults.filter(
                 (x) => !allowedOtherComponents.includes(x.component)
               );
 
             if (
-              babelqResults.length == 0 &&
+              astResults.length == 0 &&
               (!allowAstMiss || !allowAstMiss.includes(version))
             ) {
               exitWithError(
                 `Did not detect ${version} of ${name} using ast on ${t}`
               );
             }
-            if (babelqResults.length > 1) {
+            if (astResults.length > 1) {
               exitWithError(
-                `Detect multiple components in ${name} using ast on ${t} : ${babelqResults
+                `Detect multiple components in ${name} using ast on ${t} : ${astResults
                   .map((a) => a.component + " " + a.version)
                   .join(", ")}`
               );
             }
             if (
               (!allowAstMiss || !allowAstMiss.includes(version)) &&
-              babelqResults[0].component != name
+              astResults[0].component != name
             ) {
               exitWithError(
-                `Wrong component for ${version} of ${name} using ast on ${t}: ${babelqResults[0].component}`
+                `Wrong component for ${version} of ${name} using ast on ${t}: ${astResults[0].component}`
               );
             }
             if (
               (!allowAstMiss || !allowAstMiss.includes(version)) &&
-              !babelqResults[0].version.startsWith(version)
+              !astResults[0].version.startsWith(version)
             ) {
               exitWithError(
-                `Wrong version for ${version} of ${name} using ast on ${t}: ${babelqResults[0].version}`
+                `Wrong version for ${version} of ${name} using ast on ${t}: ${astResults[0].version}`
               );
             }
           }

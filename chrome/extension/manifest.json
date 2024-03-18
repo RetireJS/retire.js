@@ -20,7 +20,8 @@
     "default_popup": "popup.html"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self' ; object-src 'self'"
+    "extension_pages": "script-src 'self' ; object-src 'self'",
+    "sandbox": "sandbox allow-scripts ; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; default-src 'self' * chrome-extension://ibcjobljccofegbhhakbghbaiicchlli ;"
   },
 
   "background": {
@@ -35,6 +36,6 @@
     }
   ],
   "sandbox": {
-    "pages": ["sandbox.html"]
+    "pages": ["inner-sandbox.html"]
   }
 }

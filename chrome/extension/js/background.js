@@ -114,10 +114,10 @@ function unique(a) {
   }, []);
 }
 
-function babelScan(content, details, contentResults) {
+function astScan(content, details, contentResults) {
   chrome.runtime.sendMessage(
     {
-      type: "babelscan",
+      type: "astScan",
       url: details.url,
       content,
     },
@@ -127,9 +127,9 @@ function babelScan(content, details, contentResults) {
         return;
       }
       console.log("A response was received", response.data);
-      const babelResults = response.results;
-      console.log("Results from the service worker", babelResults);
-      var results = babelResults.filter((x) => {
+      const astResults = response.results;
+      console.log("Results from the service worker", astResults);
+      var results = astResults.filter((x) => {
         return !contentResults.some(
           (b) => x.component == b.component && x.version == b.version
         );
@@ -145,9 +145,8 @@ function babelScan(content, details, contentResults) {
 events.on("script-downloaded", function (details, content) {
   console.log("Scanning content of " + details.url + " ...");
   const bs = Date.now();
-  console.log("Babel", Date.now() - bs, resultsBabel);
   var results = retire.scanFileContent(content, repo, hasher);
-  var resultsBabel = babelScan(content, details, results);
+  astScan(content, details, results);
   if (results.length > 0) {
     events.emit("result-ready", details, results);
     return true;
@@ -158,6 +157,7 @@ events.on("script-downloaded", function (details, content) {
 });
 
 events.on("sandbox", function (details, content) {
+  console.log("Sending to the sandbox");
   sandboxWin.postMessage(
     {
       tabId: details.tabId,
