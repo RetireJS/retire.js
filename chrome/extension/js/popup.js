@@ -16,14 +16,14 @@ window.addEventListener(
         chrome.action.setIcon({
           path: this.checked ? "icons/icon48.png" : "icons/icon_bw48.png",
         });
-        sendMessage("enabled", this.checked, null);
+        sendMessage("enable", this.checked, null);
       },
       false
     );
     document.querySelector("input[type=checkbox]#deepEnabled").addEventListener(
       "click",
       () => {
-        sendMessage("deepScanEnabled", this.checked, null);
+        sendMessage("deepScanEnable", this.checked, null);
       },
       false
     );

@@ -45,12 +45,12 @@ function messageHandler(msg, sendResponse) {
     showResult(msg.result, msg.details);
   } else if (msg.message == "enabled?") {
     sendResponse({ enabled: scanEnabled });
-  } else if (msg.message == "enabled") {
-    scanEnabled = msg.data;
+  } else if (msg.message == "enable") {
+    scanEnabled = !scanEnabled;
   } else if (msg.message == "deepScanEnabled?") {
     sendResponse({ enabled: deepScanEnabled });
-  } else if (msg.message == "deepScanEnabled") {
-    deepScanEnabled = msg.data;
+  } else if (msg.message == "deepScanEnable") {
+    deepScanEnabled = !deepScanEnabled;
   } else if (msg.type == "astScan") {
     if (!deepScanEnabled) return;
     const content = msg.content;
