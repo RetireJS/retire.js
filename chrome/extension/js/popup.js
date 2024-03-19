@@ -31,9 +31,12 @@ window.addEventListener(
     document.querySelector("input[type=checkbox]#unknown").addEventListener(
       "click",
       () => {
-        document.getElementById("results").className = this.checked
-          ? ""
-          : "hideunknown";
+        const r = document.getElementById("results");
+        if (r.className.includes("hideunknown")) {
+          r.className = r.className.replace("hideunknown", "");
+        } else {
+          r.className += " hideunknown";
+        }
       },
       false
     );
@@ -79,6 +82,7 @@ const detMapping = {
 
 function show(totalResults) {
   if (totalResults == null || totalResults == undefined) return;
+
   document.getElementById("results").innerHTML = "";
   console.log(totalResults);
   var merged = {};
@@ -96,6 +100,19 @@ function show(totalResults) {
   });
 
   let results = Object.values(merged);
+
+  const vulnerabilities = results.reduce((acc, rs) => {
+    return (
+      acc +
+      rs.results.reduce((acc, r) => {
+        return acc + (r.vulnerabilities ? r.vulnerabilities.length : 0);
+      }, 0)
+    );
+  }, 0);
+  document.querySelector(
+    "#stats"
+  ).innerHTML = `<span>URLs scanned: ${results.length}</span> <span>Vulnerabilities found: ${vulnerabilities}</span>`;
+
   results.forEach((rs) => {
     rs.results.forEach((r) => {
       r.url = rs.url;

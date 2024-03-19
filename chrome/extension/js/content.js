@@ -1,6 +1,7 @@
 /* global chrome, console */
 
 let count = 0;
+
 const totalResults = [];
 
 (function () {

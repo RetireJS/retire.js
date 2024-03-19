@@ -20,7 +20,7 @@
 		flex-wrap: wrap;
 		justify-content: space-evenly;
 	}
-	.hideunknown .unknown { display: none;}
+	.hideunknown .unknown { display: none; }
 	.unknown { color: #999; }
 	td { vertical-align: top; padding: 0.5em; word-break: break-all; }
 	td:nth-child(1), td:nth-child(2) { word-break: normal;}
@@ -31,6 +31,11 @@
 	td td:first-child { 
 		text-transform: capitalize; 
 		padding-right: 0.5em;
+	}
+	#stats span {
+		color: #999;
+		margin-right: 1em;
+		font-style: italic;
 	}
 	.vulnerable.critical > td:nth-child(1), .vulnerable.critical > td:nth-child(2), .vulnerable tr.critical {
 		color: darkred;
@@ -54,6 +59,7 @@
 <input type="checkbox" id="unknown">Show unknown</input>
 </div>
 <h1>Retire.js</h1>
+<header id="stats"></header>
 <table id="results" class="hideunknown">
 </table>
 </body>
