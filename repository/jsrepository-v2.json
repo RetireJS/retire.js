@@ -451,6 +451,20 @@
           "https://github.com/advisories/GHSA-ffmh-x56j-9rc3",
           "https://github.com/jquery-validation/jquery-validation/commit/5bbd80d27fc6b607d2f7f106c89522051a9fb0dd"
         ]
+      },
+      {
+        "below": "1.20.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Potential XSS via showLabel",
+          "PR": "2462"
+        },
+        "info": [
+          "https://github.com/jquery-validation/jquery-validation/blob/master/changelog.md#1200--2023-10-10"
+        ]
       }
     ],
     "extractors": {

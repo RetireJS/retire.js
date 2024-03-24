@@ -293,6 +293,22 @@
       {
         "ranges": [
           {
+            "below": "1.20.0"
+          }
+        ],
+        "summary": "Potential XSS via showLabel",
+        "identifiers": {
+          "PR": "2462"
+        },
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "info": [
+          "https://github.com/jquery-validation/jquery-validation/blob/master/changelog.md#1200--2023-10-10"
+        ]
+      },
+      {
+        "ranges": [
+          {
             "below": "1.19.5"
           }
         ],

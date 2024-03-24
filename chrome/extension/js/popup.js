@@ -109,9 +109,11 @@ function show(totalResults) {
       }, 0)
     );
   }, 0);
-  document.querySelector(
-    "#stats"
-  ).innerHTML = `<span>URLs scanned: ${results.length}</span> <span>Vulnerabilities found: ${vulnerabilities}</span>`;
+  document.querySelector("#stats").innerHTML = `<span>URLs scanned: ${
+    results.length
+  }</span> <span class="${
+    vulnerabilities.length > 0 ? "vuln" : ""
+  }">Vulnerabilities found: ${vulnerabilities}</span>`;
 
   results.forEach((rs) => {
     rs.results.forEach((r) => {
