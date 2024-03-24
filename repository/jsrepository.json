@@ -5769,6 +5769,20 @@
           "https://github.com/axios/axios/releases/tag/v1.6.0",
           "https://security.snyk.io/vuln/SNYK-JS-AXIOS-6032459"
         ]
+      },
+      {
+        "below": "1.6.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-200"
+        ],
+        "identifiers": {
+          "summary": "Versions before 1.6.8 depends on follow-redirects before 1.15.6 which could leak the proxy authentication credentials",
+          "PR": "6300"
+        },
+        "info": [
+          "https://github.com/axios/axios/pull/6300"
+        ]
       }
     ],
     "extractors": {
@@ -5872,6 +5886,21 @@
           "https://github.com/markdown-it/markdown-it/blob/master/CHANGELOG.md",
           "https://nvd.nist.gov/vuln/detail/CVE-2022-21670",
           "https://security.snyk.io/vuln/SNYK-JS-MARKDOWNIT-2331914"
+        ]
+      },
+      {
+        "below": "13.0.2",
+        "severity": "medium",
+        "cwe": [
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "Fixed crash/infinite loop caused by linkify inline rule",
+          "issue": "957"
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/issues/957",
+          "https://github.com/markdown-it/markdown-it/compare/13.0.1...13.0.2"
         ]
       }
     ],
@@ -6509,6 +6538,25 @@
         },
         "info": [
           "https://github.com/froala/wysiwyg-editor/releases/tag/v4.0.11"
+        ]
+      },
+      {
+        "below": "4.1.4",
+        "atOrAbove": "4.0.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Froala Editor v4.0.1 to v4.1.1 was discovered to contain a cross-site scripting (XSS) vulnerability.",
+          "CVE": [
+            "CVE-2023-41592"
+          ],
+          "githubID": "GHSA-hvpq-7vcc-5hj5"
+        },
+        "info": [
+          "https://froala.com/wysiwyg-editor/changelog/#4.1.4",
+          "https://github.com/advisories/GHSA-hvpq-7vcc-5hj5"
         ]
       }
     ],

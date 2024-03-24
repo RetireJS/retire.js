@@ -4332,6 +4332,20 @@
       {
         "ranges": [
           {
+            "below": "1.6.8"
+          }
+        ],
+        "summary": "Versions before 1.6.8 depends on follow-redirects before 1.15.6 which could leak the proxy authentication credentials",
+        "identifiers": {
+          "PR": "6300"
+        },
+        "severity": "medium",
+        "cwe": ["CWE-200"],
+        "info": ["https://github.com/axios/axios/pull/6300"]
+      },
+      {
+        "ranges": [
+          {
             "atOrAbove": "1.0.0",
             "below": "1.6.0"
           },
@@ -4422,6 +4436,23 @@
   },
   "markdown-it": {
     "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "below": "13.0.2"
+          }
+        ],
+        "summary": "Fixed crash/infinite loop caused by linkify inline rule",
+        "identifiers": {
+          "issue": "957"
+        },
+        "severity": "medium",
+        "cwe": ["CWE-400"],
+        "info": [
+          "https://github.com/markdown-it/markdown-it/issues/957",
+          "https://github.com/markdown-it/markdown-it/compare/13.0.1...13.0.2"
+        ]
+      },
       {
         "ranges": [
           {
@@ -4982,6 +5013,25 @@
   "froala": {
     "npmname": "froala-editor",
     "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "below": "4.1.4",
+            "atOrAbove": "4.0.1"
+          }
+        ],
+        "summary": "Froala Editor v4.0.1 to v4.1.1 was discovered to contain a cross-site scripting (XSS) vulnerability.",
+        "identifiers": {
+          "CVE": ["CVE-2023-41592"],
+          "githubID": "GHSA-hvpq-7vcc-5hj5"
+        },
+        "severity": "medium",
+        "cwe": ["CWE-79"],
+        "info": [
+          "https://froala.com/wysiwyg-editor/changelog/#4.1.4",
+          "https://github.com/advisories/GHSA-hvpq-7vcc-5hj5"
+        ]
+      },
       {
         "ranges": [
           {
