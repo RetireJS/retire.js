@@ -1663,6 +1663,54 @@
           "https://tiny.cloud/docs/release-notes/release-notes5109/",
           "https://tiny.cloud/docs/tinymce/6/6.7.3-release-notes/"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "6.8.1",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability in handling iframes",
+          "CVE": [
+            "CVE-2024-29203"
+          ],
+          "githubID": "GHSA-438c-3975-5x3f"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-438c-3975-5x3f",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-438c-3975-5x3f",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-29203",
+          "https://github.com/tinymce/tinymce/commit/bcdea2ad14e3c2cea40743fb48c63bba067ae6d1",
+          "https://github.com/tinymce/tinymce",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.1-release-notes/#new-convert_unsafe_embeds-option-that-controls-whether-object-and-embed-elements-will-be-converted-to-more-restrictive-alternatives-namely-img-for-image-mime-types-video-for-video-mime-types-audio-audio-mime-types-or-iframe-for-other-or-unspecified-mime-types",
+          "https://www.tiny.cloud/docs/tinymce/7/7.0-release-notes/#sandbox_iframes-editor-option-is-now-defaulted-to-true"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "7.0.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability in handling external SVG files through Object or Embed elements",
+          "CVE": [
+            "CVE-2024-29881"
+          ],
+          "githubID": "GHSA-5359-pvf2-pw78"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-5359-pvf2-pw78",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-5359-pvf2-pw78",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-29881",
+          "https://github.com/tinymce/tinymce/commit/bcdea2ad14e3c2cea40743fb48c63bba067ae6d1",
+          "https://github.com/tinymce/tinymce",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.1-release-notes/#new-convert_unsafe_embeds-option-that-controls-whether-object-and-embed-elements-will-be-converted-to-more-restrictive-alternatives-namely-img-for-image-mime-types-video-for-video-mime-types-audio-audio-mime-types-or-iframe-for-other-or-unspecified-mime-types",
+          "https://www.tiny.cloud/docs/tinymce/7/7.0-release-notes/#convert_unsafe_embeds-editor-option-is-now-defaulted-to-true"
+        ]
       }
     ],
     "extractors": {
