@@ -873,13 +873,13 @@
       {
         "ranges": [
           {
-            "below": "2.3.23"
+            "below": "2.3.0"
           }
         ],
         "summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component",
         "identifiers": {
           "CVE": ["CVE-2013-2022"],
-          "release": "2.3.23"
+          "githubID": "GHSA-3jcq-cwr7-6332"
         },
         "severity": "medium",
         "cwe": ["CWE-79"],

@@ -1024,6 +1024,24 @@
         ]
       },
       {
+        "below": "2.3.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component",
+          "CVE": [
+            "CVE-2013-2022"
+          ],
+          "githubID": "GHSA-3jcq-cwr7-6332"
+        },
+        "info": [
+          "http://jplayer.org/latest/release-notes/",
+          "https://nvd.nist.gov/vuln/detail/CVE-2013-2022"
+        ]
+      },
+      {
         "below": "2.3.1",
         "severity": "medium",
         "cwe": [
@@ -1039,24 +1057,6 @@
         "info": [
           "http://jplayer.org/latest/release-notes/",
           "https://nvd.nist.gov/vuln/detail/CVE-2013-2023"
-        ]
-      },
-      {
-        "below": "2.3.23",
-        "severity": "medium",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "XSS vulnerabilities in actionscript/Jplayer.as in the Flash SWF component",
-          "CVE": [
-            "CVE-2013-2022"
-          ],
-          "release": "2.3.23"
-        },
-        "info": [
-          "http://jplayer.org/latest/release-notes/",
-          "https://nvd.nist.gov/vuln/detail/CVE-2013-2022"
         ]
       }
     ],
