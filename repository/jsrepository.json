@@ -5841,7 +5841,10 @@
         "axios-(§§version§§)(\\.min)?\\.js"
       ],
       "filecontent": [
-        "/\\* *axios v(§§version§§) "
+        "/\\* *axios v(§§version§§) ",
+        "// Axios v(§§version§§) ",
+        "return\"\\[Axios v(§§version§§)\\] Transitional",
+        "\\\"axios\\\",\\\"version\\\":\\\"(§§version§§)\\\""
       ],
       "func": [
         "axios && axios.VERSION"

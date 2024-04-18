@@ -617,5 +617,22 @@
     "https://cdnjs.cloudflare.com/ajax/libs/mathjax/§§version§§/MathJax.js": {
       "versions": ["2.7.3", "2.2", "2.3", "2.0", "1.1"]
     }
+  },
+  "axios": {
+    "https://cdnjs.cloudflare.com/ajax/libs/axios/§§version§§/axios§§subversion§§.js": {
+      "versions": [
+        "1.6.8",
+        "1.6.7",
+        "1.6.0",
+        "1.5.1",
+        "1.4.0",
+        "1.3.6",
+        "1.2.6",
+        "1.1.2",
+        "0.17.1"
+      ],
+      "allowAstMiss": ["0.17.1"],
+      "subversions": ["", ".min"]
+    }
   }
 }

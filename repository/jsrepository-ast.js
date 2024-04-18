@@ -291,4 +291,20 @@ exports.queries = {
       /:left/:property/:name == "next"
     ]/ObjectExpression/:properties[/:key/:name == "version"]/:value/:value`,
   ],
+  axios: [
+    `//AssignmentExpression[
+      /:left/:object/:name == "axios" &&
+      /:left/:property/:name == "VERSION"
+    ]/$$:right/:value`,
+    `//SequenceExpression[
+      /AssignmentExpression[
+        /:left/:property/:name == "AxiosError"
+      ]/:left/$:object ==
+      /AssignmentExpression[
+        /:left/:property/:name == "VERSION"
+      ]/:left/$:object
+    ]/AssignmentExpression[
+      /:left/:property/:name == "VERSION"
+    ]/$$:right/:value`,
+  ],
 };
