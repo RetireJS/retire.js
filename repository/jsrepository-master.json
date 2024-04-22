@@ -4480,7 +4480,7 @@
       "filename": ["axios-(§§version§§)(\\.min)?\\.js"],
       "filecontent": [
         "/\\* *axios v(§§version§§) ",
-        "// Axios v(§§version§§) ",
+        "// Axios v(§§version§§) C",
         "return\"\\[Axios v(§§version§§)\\] Transitional",
         "\\\"axios\\\",\\\"version\\\":\\\"(§§version§§)\\\""
       ],
