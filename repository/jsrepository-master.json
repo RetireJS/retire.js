@@ -5438,7 +5438,7 @@
           }
         ],
         "summary": "Prototype Pollution in lodash",
-        "cwe": ["CWE-20"],
+        "cwe": ["CWE-1321", "CWE-20"],
         "severity": "high",
         "identifiers": {
           "CVE": ["CVE-2019-10744"],
@@ -5464,8 +5464,8 @@
           }
         ],
         "summary": "Prototype Pollution in lodash",
-        "cwe": ["CWE-471"],
-        "severity": "low",
+        "cwe": ["CWE-471", "CWE-1321"],
+        "severity": "medium",
         "identifiers": {
           "CVE": ["CVE-2018-3721"],
           "githubID": "GHSA-fvqr-27wr-82fm"

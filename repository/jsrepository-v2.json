@@ -6908,9 +6908,10 @@
       {
         "below": "4.17.5",
         "cwe": [
-          "CWE-471"
+          "CWE-471",
+          "CWE-1321"
         ],
-        "severity": "low",
+        "severity": "medium",
         "identifiers": {
           "summary": "Prototype Pollution in lodash",
           "CVE": [
@@ -6977,6 +6978,7 @@
       {
         "below": "4.17.12",
         "cwe": [
+          "CWE-1321",
           "CWE-20"
         ],
         "severity": "high",
