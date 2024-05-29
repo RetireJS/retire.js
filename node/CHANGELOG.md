@@ -1,5 +1,9 @@
 # Changelog
 
+## [5.0.0]
+
+No changes. Just moving from beta to final.
+
 ## [5.0.0-beta.1]
 
 ### Added
