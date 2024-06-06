@@ -7455,6 +7455,26 @@
       ]
     }
   },
+  "pdf.js": {
+    "bowername": [
+      "pdfjs-dist"
+    ],
+    "npmname": "pdfjs-dist",
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/pdf\\.js/(§§version§§)/",
+        "/pdfjs-dist@(§§version§§)/"
+      ],
+      "filecontent": [
+        " pdfjs-dist@(§§version§§) ",
+        "(?:const|var) pdfjsVersion = ['\"](§§version§§)['\"];",
+        "PDFJS.version ?= ?['\"](§§version§§)['\"]",
+        "apiVersion: ?['\"](§§version§§)['\"][\\s\\S]*,data(:[a-zA-Z.]{1,6})?,[\\s\\S]*password(:[a-zA-Z.]{1,10})?,[\\s\\S]*disableAutoFetch(:[a-zA-Z.]{1,22})?,[\\s\\S]*rangeChunkSize",
+        "messageHandler\\.sendWithPromise\\(\"GetDocRequest\",\\{docId:[a-zA-Z],apiVersion:\"(§§version§§)\""
+      ]
+    }
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {

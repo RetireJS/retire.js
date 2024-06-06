@@ -5856,6 +5856,45 @@
       "func": ["MathJax.version"]
     }
   },
+  "pdf.js": {
+    "bowername": ["pdfjs-dist"],
+    "npmname": "pdfjs-dist",
+    "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "4.2.67"
+          }
+        ],
+        "summary": "PDF.js vulnerable to arbitrary JavaScript execution upon opening a malicious PDF",
+        "cwe": [],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2024-34342", "CVE-2024-4367"],
+          "githubID": "GHSA-wgrm-67xf-hhpq"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-wgrm-67xf-hhpq",
+          "https://github.com/mozilla/pdf.js/security/advisories/GHSA-wgrm-67xf-hhpq",
+          "https://github.com/mozilla/pdf.js/pull/18015",
+          "https://github.com/mozilla/pdf.js/commit/85e64b5c16c9aaef738f421733c12911a441cec6",
+          "https://bugzilla.mozilla.org/show_bug.cgi?id=1893645",
+          "https://github.com/mozilla/pdf.js"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": ["/pdf\\.js/(§§version§§)/", "/pdfjs-dist@(§§version§§)/"],
+      "filecontent": [
+        " pdfjs-dist@(§§version§§) ",
+        "(?:const|var) pdfjsVersion = ['\"](§§version§§)['\"];",
+        "PDFJS.version ?= ?['\"](§§version§§)['\"]",
+        "apiVersion: ?['\"](§§version§§)['\"][\\s\\S]*,data(:[a-zA-Z.]{1,6})?,[\\s\\S]*password(:[a-zA-Z.]{1,10})?,[\\s\\S]*disableAutoFetch(:[a-zA-Z.]{1,22})?,[\\s\\S]*rangeChunkSize",
+        "messageHandler\\.sendWithPromise\\(\"GetDocRequest\",\\{docId:[a-zA-Z],apiVersion:\"(§§version§§)\""
+      ]
+    }
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {
