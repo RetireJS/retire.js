@@ -7394,7 +7394,9 @@
       {
         "atOrAbove": "0",
         "below": "4.2.67",
-        "cwe": [],
+        "cwe": [
+          "CWE-79"
+        ],
         "severity": "high",
         "identifiers": {
           "summary": "PDF.js vulnerable to arbitrary JavaScript execution upon opening a malicious PDF",

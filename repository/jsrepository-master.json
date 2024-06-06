@@ -5868,7 +5868,7 @@
           }
         ],
         "summary": "PDF.js vulnerable to arbitrary JavaScript execution upon opening a malicious PDF",
-        "cwe": [],
+        "cwe": ["CWE-79"],
         "severity": "high",
         "identifiers": {
           "CVE": ["CVE-2024-34342", "CVE-2024-4367"],
