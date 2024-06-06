@@ -634,5 +634,23 @@
       "allowAstMiss": ["0.17.1"],
       "subversions": ["", ".min"]
     }
+  },
+  "pdf.js": {
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/§§version§§/pdf§§subversion§§.mjs": {
+      "versions": ["4.3.136", "4.0.189"],
+      "subversions": ["", ".min"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/§§version§§/pdf§§subversion§§.js": {
+      "versions": [
+        "3.11.174",
+        "3.2.146",
+        "2.16.105",
+        "2.2.2",
+        "2.0.173",
+        "1.10.100",
+        "1.0.818"
+      ],
+      "subversions": ["", ".min"]
+    }
   }
 }
