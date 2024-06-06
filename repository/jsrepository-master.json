@@ -5895,6 +5895,22 @@
       ]
     }
   },
+  "pdfobject": {
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/pdfobject@(§§version§§)/",
+        "/pdfobject/(§§version§§)/pdfobject(\\.min)?\\.js"
+      ],
+      "filecontent": [
+        "\\* +PDFObject v(§§version§§)",
+        "/*[\\s]+PDFObject v(§§version§§)",
+        "let pdfobjectversion = \"(§§version§§)\";",
+        "pdfobjectversion:\"(§§version§§)\""
+      ]
+    }
+  },
+
   "dont check": {
     "vulnerabilities": [],
     "extractors": {
