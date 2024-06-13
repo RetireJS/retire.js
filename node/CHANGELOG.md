@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.0.1]
+
+### Fix
+
+- Fix filename issue for windows file paths
+
 ## [5.0.0]
 
 No changes. Just moving from beta to final.
