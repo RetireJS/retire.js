@@ -657,6 +657,9 @@
     "https://cdnjs.cloudflare.com/ajax/libs/pdfobject/§§version§§/pdfobject§§subversion§§.js": {
       "versions": ["2.1.1", "2.3.0"],
       "subversions": ["", ".min"]
+    },
+    "https://cdn.jsdelivr.net/npm/pdfobject@§§version§§/pdfobject.min.js": {
+      "versions": ["2.1.1", "2.3.0"]
     }
   }
 }
