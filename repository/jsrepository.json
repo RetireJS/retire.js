@@ -7393,6 +7393,72 @@
     "vulnerabilities": [
       {
         "atOrAbove": "0",
+        "below": "1.10.100",
+        "cwe": [
+          "CWE-94"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Malicious PDF can inject JavaScript into PDF Viewer",
+          "CVE": [
+            "CVE-2018-5158"
+          ],
+          "githubID": "GHSA-7jg2-jgv3-fmr4"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-7jg2-jgv3-fmr4",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-5158",
+          "https://github.com/mozilla/pdf.js/pull/9659",
+          "https://github.com/mozilla/pdf.js/commit/2dc4af525d1612c98afcd1e6bee57d4788f78f97",
+          "https://access.redhat.com/errata/RHSA-2018:1414",
+          "https://access.redhat.com/errata/RHSA-2018:1415",
+          "https://bugzilla.mozilla.org/show_bug.cgi?id=1452075",
+          "https://github.com/mozilla/pdf.js",
+          "https://lists.debian.org/debian-lts-announce/2018/05/msg00007.html",
+          "https://security.gentoo.org/glsa/201810-01",
+          "https://usn.ubuntu.com/3645-1",
+          "https://www.debian.org/security/2018/dsa-4199",
+          "https://www.mozilla.org/security/advisories/mfsa2018-11",
+          "https://www.mozilla.org/security/advisories/mfsa2018-12",
+          "http://www.securityfocus.com/bid/104136",
+          "http://www.securitytracker.com/id/1040896"
+        ]
+      },
+      {
+        "atOrAbove": "2.0.0",
+        "below": "2.0.550",
+        "cwe": [
+          "CWE-94"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Malicious PDF can inject JavaScript into PDF Viewer",
+          "CVE": [
+            "CVE-2018-5158"
+          ],
+          "githubID": "GHSA-7jg2-jgv3-fmr4"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-7jg2-jgv3-fmr4",
+          "https://nvd.nist.gov/vuln/detail/CVE-2018-5158",
+          "https://github.com/mozilla/pdf.js/pull/9659",
+          "https://github.com/mozilla/pdf.js/commit/2dc4af525d1612c98afcd1e6bee57d4788f78f97",
+          "https://access.redhat.com/errata/RHSA-2018:1414",
+          "https://access.redhat.com/errata/RHSA-2018:1415",
+          "https://bugzilla.mozilla.org/show_bug.cgi?id=1452075",
+          "https://github.com/mozilla/pdf.js",
+          "https://lists.debian.org/debian-lts-announce/2018/05/msg00007.html",
+          "https://security.gentoo.org/glsa/201810-01",
+          "https://usn.ubuntu.com/3645-1",
+          "https://www.debian.org/security/2018/dsa-4199",
+          "https://www.mozilla.org/security/advisories/mfsa2018-11",
+          "https://www.mozilla.org/security/advisories/mfsa2018-12",
+          "http://www.securityfocus.com/bid/104136",
+          "http://www.securitytracker.com/id/1040896"
+        ]
+      },
+      {
+        "atOrAbove": "0",
         "below": "4.2.67",
         "cwe": [
           "CWE-79"
