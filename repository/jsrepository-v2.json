@@ -1580,6 +1580,59 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "5.11.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noneditable_regexp option",
+          "CVE": [
+            "CVE-2024-38356"
+          ],
+          "githubID": "GHSA-9hcv-j9pv-qmph"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-9hcv-j9pv-qmph",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-9hcv-j9pv-qmph",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38356",
+          "https://github.com/tinymce/tinymce/commit/5acb741665a98e83d62b91713c800abbff43b00d",
+          "https://github.com/tinymce/tinymce/commit/a9fb858509f86dacfa8b01cfd34653b408983ac0",
+          "https://github.com/tinymce/tinymce",
+          "https://owasp.org/www-community/attacks/xss",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/latest/7.2-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "5.11.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noscript elements",
+          "CVE": [
+            "CVE-2024-38357"
+          ],
+          "githubID": "GHSA-w9jx-4g6g-rp7x"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-w9jx-4g6g-rp7x",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-w9jx-4g6g-rp7x",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38357",
+          "https://github.com/tinymce/tinymce/commit/5acb741665a98e83d62b91713c800abbff43b00d",
+          "https://github.com/tinymce/tinymce/commit/a9fb858509f86dacfa8b01cfd34653b408983ac0",
+          "https://github.com/tinymce/tinymce",
+          "https://owasp.org/www-community/attacks/xss",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
+        ]
+      },
+      {
         "atOrAbove": "6.0.0",
         "below": "6.3.1",
         "severity": "medium",
@@ -1687,6 +1740,59 @@
         ]
       },
       {
+        "atOrAbove": "6.0.0",
+        "below": "6.8.4",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noneditable_regexp option",
+          "CVE": [
+            "CVE-2024-38356"
+          ],
+          "githubID": "GHSA-9hcv-j9pv-qmph"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-9hcv-j9pv-qmph",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-9hcv-j9pv-qmph",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38356",
+          "https://github.com/tinymce/tinymce/commit/5acb741665a98e83d62b91713c800abbff43b00d",
+          "https://github.com/tinymce/tinymce/commit/a9fb858509f86dacfa8b01cfd34653b408983ac0",
+          "https://github.com/tinymce/tinymce",
+          "https://owasp.org/www-community/attacks/xss",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/latest/7.2-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "6.8.4",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noscript elements",
+          "CVE": [
+            "CVE-2024-38357"
+          ],
+          "githubID": "GHSA-w9jx-4g6g-rp7x"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-w9jx-4g6g-rp7x",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-w9jx-4g6g-rp7x",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38357",
+          "https://github.com/tinymce/tinymce/commit/5acb741665a98e83d62b91713c800abbff43b00d",
+          "https://github.com/tinymce/tinymce/commit/a9fb858509f86dacfa8b01cfd34653b408983ac0",
+          "https://github.com/tinymce/tinymce",
+          "https://owasp.org/www-community/attacks/xss",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
+        ]
+      },
+      {
         "atOrAbove": "0",
         "below": "7.0.0",
         "cwe": [
@@ -1708,6 +1814,59 @@
           "https://github.com/tinymce/tinymce",
           "https://www.tiny.cloud/docs/tinymce/6/6.8.1-release-notes/#new-convert_unsafe_embeds-option-that-controls-whether-object-and-embed-elements-will-be-converted-to-more-restrictive-alternatives-namely-img-for-image-mime-types-video-for-video-mime-types-audio-audio-mime-types-or-iframe-for-other-or-unspecified-mime-types",
           "https://www.tiny.cloud/docs/tinymce/7/7.0-release-notes/#convert_unsafe_embeds-editor-option-is-now-defaulted-to-true"
+        ]
+      },
+      {
+        "atOrAbove": "7.0.0",
+        "below": "7.2.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noneditable_regexp option",
+          "CVE": [
+            "CVE-2024-38356"
+          ],
+          "githubID": "GHSA-9hcv-j9pv-qmph"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-9hcv-j9pv-qmph",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-9hcv-j9pv-qmph",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38356",
+          "https://github.com/tinymce/tinymce/commit/5acb741665a98e83d62b91713c800abbff43b00d",
+          "https://github.com/tinymce/tinymce/commit/a9fb858509f86dacfa8b01cfd34653b408983ac0",
+          "https://github.com/tinymce/tinymce",
+          "https://owasp.org/www-community/attacks/xss",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/latest/7.2-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "7.0.0",
+        "below": "7.2.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using noscript elements",
+          "CVE": [
+            "CVE-2024-38357"
+          ],
+          "githubID": "GHSA-w9jx-4g6g-rp7x"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-w9jx-4g6g-rp7x",
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-w9jx-4g6g-rp7x",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-38357",
+          "https://github.com/tinymce/tinymce/commit/5acb741665a98e83d62b91713c800abbff43b00d",
+          "https://github.com/tinymce/tinymce/commit/a9fb858509f86dacfa8b01cfd34653b408983ac0",
+          "https://github.com/tinymce/tinymce",
+          "https://owasp.org/www-community/attacks/xss",
+          "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
         ]
       }
     ],
