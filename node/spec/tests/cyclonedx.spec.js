@@ -9,7 +9,7 @@ var retire = require('../../lib/retire');
 var reporting = require('../../lib/reporting');
 var hash = reporting.hash;
 var repo = require('../repository.json');
-var libxmljs = require('libxmljs');
+var xsdValidator = require('xsd-schema-validator');
 
 let jsonSchema = require('../schema/bom-1.4.schema.json');
 let jsfSchema = require('../schema/jsf-0.82.schema.json');
@@ -36,7 +36,7 @@ describe('cyclonedx-json', () => {
     res.valid.should.equal(true);
   });
 
-  it('should validate report according to xml schema', () => {
+  it('should validate report according to xml schema', async () => {
     let data = [];
     let writer = {
       out: (a) => data.push(a),
@@ -49,12 +49,13 @@ describe('cyclonedx-json', () => {
     logger.logVulnerableDependency(result);
     logger.close();
     let xml = data.join('');
-    let xmlDoc = libxmljs.parseXml(xml);
-    let schemaS = fs.readFileSync('spec/schema/bom-1.4.xsd', 'utf-8');
-    let schema = libxmljs.parseXml(schemaS, { baseUrl: 'spec/schema/' });
-    let res = xmlDoc.validate(schema);
-    if (!res) {
-      fail(xmlDoc.validationErrors);
+    try {
+      let xsdResult = await xsdValidator.validateXML(xml, 'spec/schema/bom-1.4.xsd');
+      if (!xsdResult.valid) {
+        fail('XML not seen as valid', xsdResult);
+      }
+    } catch (e) {
+      fail(e);
     }
   });
 });

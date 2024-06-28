@@ -1,0 +1,32 @@
+{
+  "retire-example": [
+    {
+      "summary": "retire demo",
+      "severity": "high",
+      "extractors": ["^https://research.insecurelabs.org/retire/test/"],
+      "info": [
+        "https://blog.cloudflare.com/automatically-replacing-polyfill-io-links-with-cloudflares-mirror-for-a-safer-internet",
+        "https://sansec.io/research/polyfill-supply-chain-attack",
+        "https://www.securityweek.com/polyfill-supply-chain-attack-hits-over-100k-websites/"
+      ]
+    }
+  ],
+  "polyfill.io": [
+    {
+      "summary": "Reports indiciate that new owner of polyfill.io is serving malicious code. See info for more details.",
+      "severity": "high",
+      "extractors": [
+        "^https://polyfill\\.io/",
+        "^https://cdn\\.polyfill\\.io/",
+        "^https://[a-z0-9\\-]+\\.polyfill\\.io/",
+        "^https://www\\.googie-anaiytics\\.com/",
+        "^https://kuurza\\.com/redirect\\?from=bitget"
+      ],
+      "info": [
+        "https://blog.cloudflare.com/automatically-replacing-polyfill-io-links-with-cloudflares-mirror-for-a-safer-internet",
+        "https://sansec.io/research/polyfill-supply-chain-attack",
+        "https://www.securityweek.com/polyfill-supply-chain-attack-hits-over-100k-websites/"
+      ]
+    }
+  ]
+}

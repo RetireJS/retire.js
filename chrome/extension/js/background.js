@@ -1,9 +1,10 @@
 /* global chrome, console, exports, CryptoJS, Emitter */
 
 const repoUrl =
-  "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v2.json";
+  "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v3.json";
 let updatedAt = Date.now();
 let repo;
+let backdoorData;
 let repoFuncs;
 
 const retire = retirechrome.retire;
@@ -42,8 +43,11 @@ async function downloadRepo() {
       e
     );
   }
-  repo = JSON.parse(retire.replaceVersion(repoData));
+  const parsedRepo = JSON.parse(retire.replaceVersion(repoData));
+  repo = parsedRepo.advisories;
+  backdoorData = parsedRepo.backdoored;
   console.log(repo);
+  console.log(backdoorData);
   console.log("Done");
   vulnerable = {};
   setFuncs();
@@ -64,6 +68,34 @@ function getFileName(url) {
   return (a.pathname.match(/\/([^\/?#]+)$/i) || [, ""])[1];
 }
 
+function scanUrlBackdoored(url) {
+  console.log("Scanning url for bd: ", url);
+  const matches = Object.entries(backdoorData).filter(([title, advisories]) => {
+    return advisories.some((advisory) => {
+      return advisory.extractors.some((e) => {
+        return new RegExp(e).test(url);
+      });
+    });
+  });
+  const remapped = matches.map(([title, advisories]) => {
+    return {
+      component: title,
+      version: "-",
+      detection: "url",
+      vulnerabilities: advisories.map((a) => {
+        return {
+          ...a,
+          identifiers: {
+            summary: a.summary,
+          },
+        };
+      }),
+    };
+  });
+  console.log("BD matches", remapped);
+  return remapped;
+}
+
 events.on("scan", function (details) {
   if (details.url.indexOf("chrome-extension://") === 0) return true;
 
@@ -75,6 +107,11 @@ events.on("scan", function (details) {
   }
   events.emit("result-ready", details, []);
   console.log("Scanning " + details.url + " ...");
+  var bd = scanUrlBackdoored(details.url);
+  if (bd.length > 0) {
+    events.emit("result-ready", details, bd);
+    return;
+  }
   var results = retire.scanUri(details.url, repo);
   if (results.length > 0) {
     events.emit("result-ready", details, results);

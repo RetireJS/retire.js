@@ -3,8 +3,11 @@ const convert = require("./convertFormat.js").convertToOldFormat;
 const data = require("./jsrepository-master.json");
 const fs = require("fs");
 
-const result = convert(data, false);
+const result = convert(data, false, false);
 fs.writeFileSync("jsrepository.json", JSON.stringify(result, null, 2));
 
-const resultV2 = convert(data, true);
+const resultV2 = convert(data, true, false);
 fs.writeFileSync("jsrepository-v2.json", JSON.stringify(resultV2, null, 2));
+
+const resultV3 = convert(data, true, true);
+fs.writeFileSync("jsrepository-v3.json", JSON.stringify(resultV3, null, 2));

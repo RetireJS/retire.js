@@ -1,4 +1,5 @@
 const queries = require("./jsrepository-ast.js").queries;
+const backdoored = require("./jsrepository-backdoored.json");
 
 function largerThan(a, b, name) {
   if (a == b) return false;
@@ -13,7 +14,11 @@ function largerThan(a, b, name) {
   return false;
 }
 
-function convertToOldFormat(input, includeQueries = false) {
+function convertToOldFormat(
+  input,
+  includeQueries = false,
+  includeBackdoored = false
+) {
   const result = {};
   Object.entries(input).forEach(([key, value]) => {
     const { extractors, vulnerabilities, ...okeys } = value;
@@ -62,7 +67,11 @@ function convertToOldFormat(input, includeQueries = false) {
     if (!result[key]) throw new Error("Invalid package name:" + key);
     result[key].extractors.ast = value.map((x) => x.replace(/\n/g, " "));
   });
-  return result;
+  if (!includeBackdoored) return result;
+  return {
+    advisories: result,
+    backdoored,
+  };
 }
 
 exports.convertToOldFormat = convertToOldFormat;
