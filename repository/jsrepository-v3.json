@@ -7762,12 +7762,21 @@
           "^https://cdn\\.polyfill\\.io/",
           "^https://[a-z0-9\\-]+\\.polyfill\\.io/",
           "^https://www\\.googie-anaiytics\\.com/",
-          "^https://kuurza\\.com/redirect\\?from=bitget"
+          "^https://kuurza\\.com/redirect\\?from=bitget",
+          "^https://bootcdn.net/",
+          "^https://bootcss.com/",
+          "^https://staticfile.net/",
+          "^https://staticfile.org/",
+          "^https://unionadjs.com/",
+          "^https://xhsbpza.com/",
+          "^https://union.macoms.la/",
+          "^https://newcrbpc.com/"
         ],
         "info": [
           "https://blog.cloudflare.com/automatically-replacing-polyfill-io-links-with-cloudflares-mirror-for-a-safer-internet",
           "https://sansec.io/research/polyfill-supply-chain-attack",
-          "https://www.securityweek.com/polyfill-supply-chain-attack-hits-over-100k-websites/"
+          "https://www.securityweek.com/polyfill-supply-chain-attack-hits-over-100k-websites/",
+          "https://www.bleepingcomputer.com/news/security/polyfillio-bootcdn-bootcss-staticfile-attack-traced-to-1-operator/"
         ]
       }
     ]
