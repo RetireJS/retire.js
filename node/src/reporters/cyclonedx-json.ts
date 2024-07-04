@@ -33,9 +33,13 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
     }
   };
 
+  type Component = {
+    properties: Array<{ name: string; value: string }>;
+  };
+
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
-    const seen = new Set<string>();
+    const seen = new Map<string, Component>();
     const components = finalResults.data
       .filter((d) => d.results)
       .map((r) =>
@@ -57,9 +61,13 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               ];
             }
             const purl = generatePURL(dep);
-            if (seen.has(purl)) return undefined;
-            seen.add(purl);
-            return {
+            const existing = seen.get(purl);
+            if (existing) {
+              const missing = properties.filter((p) => !existing.properties.some((ep) => ep.value === p.value));
+              existing.properties.push(...missing);
+              return undefined;
+            }
+            const result = {
               type: 'library',
               name: dep.component,
               version: dep.version,
@@ -67,6 +75,8 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               hashes: hashes,
               properties,
             };
+            seen.set(purl, result);
+            return result;
           })
           .filter((x) => x != undefined),
       )

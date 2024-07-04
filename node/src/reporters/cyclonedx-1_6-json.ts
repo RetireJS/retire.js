@@ -63,8 +63,12 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               ];
             }
             const purl = generatePURL(dep);
-            if (seen.has(purl)) {
-              seen.get(purl)?.evidence.occurrences.push(...evidence.occurrences);
+            const existing = seen.get(purl);
+            if (existing) {
+              const missing = evidence.occurrences.filter(
+                (x) => !existing.evidence.occurrences.some((y) => y.location == x.location),
+              );
+              existing.evidence.occurrences.push(...missing);
               return undefined;
             }
             const result = {

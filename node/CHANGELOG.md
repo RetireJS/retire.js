@@ -1,8 +1,14 @@
 # Changelog
 
+## [5.1.1]
+
+### Bugfix
+
+- Remove duplicates in filename output in CycloneDX JSON formats
+
 ## [5.1.0]
 
-## Add
+### Add
 
 - Support for CycloneDX 1.6 JSON as output format
 - Adding file location as property in CycloneDX 1.4 JSON output

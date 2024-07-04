@@ -50,7 +50,7 @@ function deepScan(content, repo) {
  */
 
 var exports = exports || {};
-exports.version = '5.1.0';
+exports.version = '5.1.1';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
