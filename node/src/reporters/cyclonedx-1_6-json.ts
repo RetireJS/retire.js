@@ -33,9 +33,15 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
     }
   };
 
+  type Component = {
+    evidence: {
+      occurrences: Array<{ location: string }>;
+    };
+  };
+
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
-    const seen = new Set<string>();
+    const seen = new Map<string, Component>();
     const components = finalResults.data
       .filter((d) => d.results)
       .map((r) =>
@@ -44,11 +50,11 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
             dep.version = (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.');
             let hashes;
             const filepath = r.file;
-            const properties = [];
+            const evidence = { occurrences: [] as Array<{ location: string }> };
             if (filepath) {
               const file = fs.readFileSync(filepath);
               const relativePath = path.relative(process.cwd(), filepath);
-              properties.push({ name: 'location', value: relativePath });
+              evidence.occurrences.push({ location: relativePath });
               hashes = [
                 { alg: 'MD5', content: hash.md5(file) },
                 { alg: 'SHA-1', content: hash.sha1(file) },
@@ -57,16 +63,20 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               ];
             }
             const purl = generatePURL(dep);
-            if (seen.has(purl)) return undefined;
-            seen.add(purl);
-            return {
+            if (seen.has(purl)) {
+              seen.get(purl)?.evidence.occurrences.push(...evidence.occurrences);
+              return undefined;
+            }
+            const result = {
               type: 'library',
               name: dep.component,
               version: dep.version,
               purl: purl,
               hashes: hashes,
-              properties,
+              evidence,
             };
+            seen.set(purl, result);
+            return result;
           })
           .filter((x) => x != undefined),
       )
@@ -75,7 +85,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
       JSON.stringify(
         {
           bomFormat: 'CycloneDX',
-          specVersion: '1.4',
+          specVersion: '1.6',
           serialNumber: `urn:uuid:${uuidv4()}`,
           version: 1,
           metadata: {

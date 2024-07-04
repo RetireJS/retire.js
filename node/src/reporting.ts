@@ -6,6 +6,7 @@ import jsonLogger from './reporters/json';
 import depcheckLogger from './reporters/depcheck';
 import cyclonedxLogger from './reporters/cyclonedx';
 import cyclonedxJSONLogger from './reporters/cyclonedx-json';
+import cyclonedxJSON1_6Logger from './reporters/cyclonedx-1_6-json';
 import { Finding } from './types';
 
 const loggers = {
@@ -15,6 +16,7 @@ const loggers = {
   depcheck: depcheckLogger,
   cyclonedx: cyclonedxLogger,
   cyclonedxJSON: cyclonedxJSONLogger,
+  cyclonedxJSON1_6: cyclonedxJSON1_6Logger,
   clean: consoleLogger,
   jsonsimple: jsonLogger,
 } as Record<string, ConfigurableLogger>;

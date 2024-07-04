@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0]
+
+## Add
+
+- Support for CycloneDX 1.6 JSON as output format
+- Adding file location as property in CycloneDX 1.4 JSON output
+
 ## [5.0.1]
 
 ### Fix
