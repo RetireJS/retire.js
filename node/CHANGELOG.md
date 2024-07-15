@@ -1,11 +1,16 @@
 # Changelog
 
+## [4.4.3]
+
+### Bugfix
+
+- JSON format should not include results without vulnerabilities unless `--verbose` is specified.
+
 ## [4.4.2]
 
 ### Fix
 
 - Fix matching to include all matches
-
 
 ## [4.4.1]
 

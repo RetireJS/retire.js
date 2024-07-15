@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '4.4.2';
+exports.version = '4.4.3';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -26,7 +26,7 @@ function scan(data, extractor, repo, matcher = simpleMatch) {
     if (!isDefined(extractors)) continue;
     for (var i in extractors) {
       var matches = matcher(extractors[i], data);
-      matches.forEach(match => {
+      matches.forEach((match) => {
         match = match.replace(/(\.|-)min$/, '');
         detected.push({
           version: match,
@@ -42,20 +42,20 @@ function scan(data, extractor, repo, matcher = simpleMatch) {
 }
 
 function simpleMatch(regex, data) {
-  var re = new RegExp(regex, "g");
+  var re = new RegExp(regex, 'g');
   const result = [];
   let match;
-  while (match = re.exec(data)) {
+  while ((match = re.exec(data))) {
     result.push(match[1]);
   }
   return result;
 }
 function replacementMatch(regex, data) {
   var ar = /^\/(.*[^\\])\/([^\/]+)\/$/.exec(regex);
-  var re = new RegExp(ar[1], "g");
+  var re = new RegExp(ar[1], 'g');
   const result = [];
   let match;
-  while(match = re.exec(data)) {
+  while ((match = re.exec(data))) {
     var ver = null;
     if (match) {
       ver = match[0].replace(new RegExp(ar[1]), ar[2]);

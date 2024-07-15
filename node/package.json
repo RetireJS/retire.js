@@ -2,7 +2,7 @@
   "author": "Erlend Oftedal <erlend@oftedal.no>",
   "name": "retire",
   "description": "Retire is a tool for detecting use of vulnerable libraries",
-  "version": "4.4.2",
+  "version": "4.4.3",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -29,10 +29,10 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^9.0.0",
     "jsonschema": "^1.4.1",
-    "libxmljs": "^1.0.8",
     "mocha": "^10.2.0",
     "prettier": "^3.1.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "xsd-schema-validator": "^0.9.0"
   },
   "scripts": {
     "test": "./test",
