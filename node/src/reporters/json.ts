@@ -23,6 +23,9 @@ export default {
         };
     logger.warn = logger.error = (message) => finalResults.errors.push(message);
     logger.logVulnerableDependency = (finding) => {
+      if (!config.verbose) {
+        finding.results = finding.results.filter((r) => retire.isVulnerable([r]));
+      }
       finalResults.data.push(finding);
     };
     logger.logDependency = function (finding) {

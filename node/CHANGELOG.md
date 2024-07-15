@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.1.2]
+
+### Bugfix
+
+- JSON format should not include results without vulnerabilities unless `--verbose` is specified.
+
 ## [5.1.1]
 
 ### Bugfix
