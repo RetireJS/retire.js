@@ -6607,6 +6607,27 @@
       },
       {
         "atOrAbove": "13.4.0",
+        "below": "13.5.0",
+        "cwe": [
+          "CWE-400"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Next.js Denial of Service (DoS) condition",
+          "CVE": [
+            "CVE-2024-39693"
+          ],
+          "githubID": "GHSA-fq54-2j52-jc42"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-fq54-2j52-jc42",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-fq54-2j52-jc42",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-39693",
+          "https://github.com/vercel/next.js"
+        ]
+      },
+      {
+        "atOrAbove": "13.4.0",
         "below": "13.5.1",
         "cwe": [
           "CWE-444"
