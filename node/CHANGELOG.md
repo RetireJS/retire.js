@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.1.3]
+
+### Bugfix
+
+- Use URI detector on file paths as well
+
 ## [5.1.2]
 
 ### Bugfix

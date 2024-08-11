@@ -8,18 +8,18 @@ const systemEvents = require("sdk/system/events");
 const Request = require("sdk/request").Request;
 const URL = require("sdk/url").URL;
 
-exports.scan = function(details) {
+exports.scan = function (details) {
   return scan(details);
 };
 
-exports.getFileName = function(url) {
+exports.getFileName = function (url) {
   return getFileName(url);
-}
+};
 
 function scan(details) {
-  if ((Date.now() - repo.getLastUpdated()) > 1000*60*60*6) {
-    repo.download().then(() => { 
-      scan(details); 
+  if (Date.now() - repo.getLastUpdated() > 1000 * 60 * 60 * 6) {
+    repo.download().then(() => {
+      scan(details);
     });
     return;
   }
@@ -45,8 +45,8 @@ function scan(details) {
   let req = Request({
     url: details.url,
     onComplete: function (response) {
-      onScriptDownloaded(details, response.text); 
-    }
+      onScriptDownloaded(details, response.text);
+    },
   }).get();
   return;
 }
@@ -63,7 +63,11 @@ function onScriptDownloaded(details, content) {
 
 function onVersionDetected(result, details) {
   if (result.version) {
-    let results = retire.check(result.component, result.version, repo.getRepository());
+    let results = retire.check(
+      result.component,
+      result.version,
+      repo.getRepository()
+    );
     console.log("onVersionDetected", results);
     onResultReady(details, results);
   }
@@ -81,8 +85,8 @@ function onResultReady(details, results) {
       data: "",
       subject: {
         details: details,
-        msg: rmsg.join(" ")
-      }
+        msg: rmsg.join(" "),
+      },
     });
   }
 }
