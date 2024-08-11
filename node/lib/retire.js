@@ -167,8 +167,11 @@ exports.scanUri = function (uri, repo) {
   return check(result, repo);
 };
 
-exports.scanFileName = function (fileName, repo) {
+exports.scanFileName = function (fileName, repo, includeUri = false) {
   var result = scan(fileName, 'filename', repo, splitAndMatchAll(/[\/\\]/));
+  if (includeUri) {
+    result = result.concat(scan(fileName.replace(/\\/g, '/'), 'uri', repo));
+  }
   return check(result, repo);
 };
 

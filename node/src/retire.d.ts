@@ -8,7 +8,7 @@ export declare function isVulnerable(results: Component[]): boolean;
 
 export declare function scanUri(uri: string, repo: Repository): Component[];
 
-export declare function scanFileName(fileName: string, repo: Repository): Component[];
+export declare function scanFileName(fileName: string, repo: Repository, includeUri: boolean): Component[];
 
 export declare function scanFileContent(content: string, repo: Repository, hasher: Hasher): Component[];
 

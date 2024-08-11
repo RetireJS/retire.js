@@ -111,10 +111,7 @@ export function scanJsFile(file: string, repo: Repository, options: Options) {
   if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
-  let results = retire.scanUri(file, repo);
-  if (!results || results.length === 0) {
-    results = retire.scanFileName(file, repo);
-  }
+  let results = retire.scanFileName(file, repo, true);
   if (!results || results.length === 0) {
     const content = fs.readFileSync(file, 'utf-8');
     results = retire.scanFileContent(content, repo, hash);

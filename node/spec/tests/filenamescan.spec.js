@@ -57,12 +57,12 @@ describe('filename scan', function () {
     done();
   });
   it('should_be_vulnerable_when_path_matches_uri_linux', function (done) {
-    var result = retire.scanFileName('/usr/file/1.8.1/jquery.js', repo);
+    var result = retire.scanFileName('/usr/file/1.8.1/jquery.js', repo, true);
     assert.isVulnerable(result);
     done();
   });
   it('should_be_vulnerable_when_path_matches_uri_win', function (done) {
-    var result = retire.scanFileName('\\usr\\file\\1.8.1\\jquery.js', repo);
+    var result = retire.scanFileName('\\usr\\file\\1.8.1\\jquery.js', repo, true);
     assert.isVulnerable(result);
     done();
   });
