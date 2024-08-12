@@ -30,7 +30,7 @@ retire.js can generate SBOMs in the CycloneDX-format:
 $ retire --outputformat cyclonedx
 ```
 
-By default retire.js will exit with code 13 if it finds vulnerabilities. This can be overridden with `--exitcode 0`.
+By default retire.js will exit with code 13 if it finds vulnerabilities. This can be overridden with `--exitwith 0`.
 
 ## Grunt plugin
 
