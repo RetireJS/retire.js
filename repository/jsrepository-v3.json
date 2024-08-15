@@ -5194,6 +5194,29 @@
           ]
         },
         {
+          "atOrAbove": "2.0.0",
+          "below": "3.4.2",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
+            "CVE": [
+              "CVE-2024-6484"
+            ],
+            "githubID": "GHSA-9mvj-f7w8-pvh2"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-9mvj-f7w8-pvh2",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-6484",
+            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap-sass/CVE-2024-6484.yml",
+            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6484.yml",
+            "https://github.com/twbs/bootstrap",
+            "https://www.herodevs.com/vulnerability-directory/cve-2024-6484"
+          ]
+        },
+        {
           "below": "3.999.999",
           "severity": "low",
           "cwe": [
@@ -5304,31 +5327,8 @@
           ]
         },
         {
-          "atOrAbove": "2.0.0",
-          "below": "999",
-          "cwe": [
-            "CWE-79"
-          ],
-          "severity": "medium",
-          "identifiers": {
-            "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
-            "CVE": [
-              "CVE-2024-6484"
-            ],
-            "githubID": "GHSA-9mvj-f7w8-pvh2"
-          },
-          "info": [
-            "https://github.com/advisories/GHSA-9mvj-f7w8-pvh2",
-            "https://nvd.nist.gov/vuln/detail/CVE-2024-6484",
-            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap-sass/CVE-2024-6484.yml",
-            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6484.yml",
-            "https://github.com/twbs/bootstrap",
-            "https://www.herodevs.com/vulnerability-directory/cve-2024-6484"
-          ]
-        },
-        {
           "atOrAbove": "4.0.0",
-          "below": "999",
+          "below": "4.6.3",
           "cwe": [
             "CWE-79"
           ],

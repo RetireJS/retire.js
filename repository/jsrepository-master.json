@@ -3686,7 +3686,7 @@
         "ranges": [
           {
             "atOrAbove": "4.0.0",
-            "below": "999"
+            "below": "4.6.3"
           }
         ],
         "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
@@ -3708,7 +3708,7 @@
         "ranges": [
           {
             "atOrAbove": "2.0.0",
-            "below": "999"
+            "below": "3.4.2"
           }
         ],
         "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
