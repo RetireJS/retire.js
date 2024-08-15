@@ -793,7 +793,7 @@
       {
         "ranges": [
           {
-            "below": "999"
+            "below": "0.5.4"
           }
         ],
         "identifiers": {
@@ -2161,7 +2161,7 @@
         "ranges": [
           {
             "atOrAbove": "1.3.0",
-            "below": "999"
+            "below": "1.8.4"
           }
         ],
         "summary": "angular vulnerable to super-linear runtime due to backtracking",
@@ -2369,7 +2369,7 @@
       {
         "ranges": [
           {
-            "below": "999"
+            "below": "1.8.4"
           }
         ],
         "summary": "angular vulnerable to regular expression denial of service via the <input type=\"url\"> element",
@@ -2398,7 +2398,7 @@
       {
         "ranges": [
           {
-            "below": "999"
+            "below": "1.8.4"
           }
         ],
         "summary": "Angular (deprecated package) Cross-site Scripting",
@@ -2429,7 +2429,7 @@
       {
         "ranges": [
           {
-            "below": "999"
+            "below": "1.8.4"
           }
         ],
         "summary": "angular vulnerable to regular expression denial of service via the angular.copy() utility",
@@ -2444,7 +2444,7 @@
       {
         "ranges": [
           {
-            "below": "999"
+            "below": "1.8.4"
           }
         ],
         "summary": "angular vulnerable to regular expression denial of service via the $resource service",
@@ -5988,7 +5988,7 @@
         "ranges": [
           {
             "atOrAbove": "0",
-            "below": "999"
+            "below": "2.7.10"
           }
         ],
         "summary": "MathJax Regular expression Denial of Service (ReDoS)",

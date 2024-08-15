@@ -940,7 +940,7 @@
   "jquery-deparam": {
     "vulnerabilities": [
       {
-        "below": "999",
+        "below": "0.5.4",
         "severity": "high",
         "cwe": [
           "CWE-1321"
@@ -3299,21 +3299,7 @@
         ]
       },
       {
-        "below": "1.999",
-        "severity": "low",
-        "cwe": [
-          "CWE-1104"
-        ],
-        "identifiers": {
-          "summary": "End-of-Life: Long term support for AngularJS has been discontinued as of December 31, 2021",
-          "retid": "54"
-        },
-        "info": [
-          "https://docs.angularjs.org/misc/version-support-status"
-        ]
-      },
-      {
-        "below": "999",
+        "below": "1.8.4",
         "severity": "medium",
         "cwe": [
           "CWE-1333"
@@ -3330,7 +3316,7 @@
         ]
       },
       {
-        "below": "999",
+        "below": "1.8.4",
         "severity": "medium",
         "cwe": [
           "CWE-1333"
@@ -3347,7 +3333,7 @@
         ]
       },
       {
-        "below": "999",
+        "below": "1.8.4",
         "severity": "medium",
         "cwe": [
           "CWE-79"
@@ -3364,7 +3350,7 @@
         ]
       },
       {
-        "below": "999",
+        "below": "1.8.4",
         "severity": "medium",
         "cwe": [
           "CWE-1333"
@@ -3382,7 +3368,7 @@
       },
       {
         "atOrAbove": "1.3.0",
-        "below": "999",
+        "below": "1.8.4",
         "cwe": [
           "CWE-1333"
         ],
@@ -3402,6 +3388,20 @@
           "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6241747",
           "https://security.snyk.io/vuln/SNYK-JS-ANGULAR-6091113",
           "https://stackblitz.com/edit/angularjs-vulnerability-ng-srcset-redos"
+        ]
+      },
+      {
+        "below": "1.999",
+        "severity": "low",
+        "cwe": [
+          "CWE-1104"
+        ],
+        "identifiers": {
+          "summary": "End-of-Life: Long term support for AngularJS has been discontinued as of December 31, 2021",
+          "retid": "54"
+        },
+        "info": [
+          "https://docs.angularjs.org/misc/version-support-status"
         ]
       },
       {
@@ -7672,7 +7672,7 @@
       },
       {
         "atOrAbove": "0",
-        "below": "999",
+        "below": "2.7.10",
         "cwe": [
           "CWE-1333"
         ],
