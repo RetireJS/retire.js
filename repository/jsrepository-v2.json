@@ -5301,6 +5301,51 @@
           "https://github.com/advisories/GHSA-9v3m-8fp8-mj99",
           "https://github.com/twbs/bootstrap/issues/28236"
         ]
+      },
+      {
+        "atOrAbove": "2.0.0",
+        "below": "999",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
+          "CVE": [
+            "CVE-2024-6484"
+          ],
+          "githubID": "GHSA-9mvj-f7w8-pvh2"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-9mvj-f7w8-pvh2",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-6484",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap-sass/CVE-2024-6484.yml",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6484.yml",
+          "https://github.com/twbs/bootstrap",
+          "https://www.herodevs.com/vulnerability-directory/cve-2024-6484"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "999",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
+          "CVE": [
+            "CVE-2024-6531"
+          ],
+          "githubID": "GHSA-vc8w-jr9v-vj7f"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-vc8w-jr9v-vj7f",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-6531",
+          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6531.yml",
+          "https://github.com/twbs/bootstrap",
+          "https://www.herodevs.com/vulnerability-directory/cve-2024-6531"
+        ]
       }
     ],
     "extractors": {
@@ -6044,6 +6089,33 @@
         },
         "info": [
           "https://github.com/axios/axios/pull/6300"
+        ]
+      },
+      {
+        "atOrAbove": "1.3.2",
+        "below": "1.7.4",
+        "cwe": [
+          "CWE-918"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Server-Side Request Forgery in axios",
+          "CVE": [
+            "CVE-2024-39338"
+          ],
+          "githubID": "GHSA-8hc4-vh64-cxmj"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-8hc4-vh64-cxmj",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-39338",
+          "https://github.com/axios/axios/issues/6463",
+          "https://github.com/axios/axios/pull/6539",
+          "https://github.com/axios/axios/pull/6543",
+          "https://github.com/axios/axios/commit/6b6b605eaf73852fb2dae033f1e786155959de3a",
+          "https://github.com/axios/axios",
+          "https://github.com/axios/axios/releases",
+          "https://github.com/axios/axios/releases/tag/v1.7.4",
+          "https://jeffhacks.com/advisories/2024/06/24/CVE-2024-39338.html"
         ]
       }
     ],
