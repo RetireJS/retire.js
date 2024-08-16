@@ -194,7 +194,8 @@
         ],
         "summary": "jQuery 1.x and 2.x are End-of-Life and no longer receiving security updates",
         "identifiers": {
-          "retid": "73"
+          "retid": "73",
+          "issue": "162"
         },
         "cwe": ["CWE-1104"],
         "severity": "low",

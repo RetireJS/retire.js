@@ -130,7 +130,8 @@
         "severity": "low",
         "identifiers": {
           "summary": "jQuery 1.x and 2.x are End-of-Life and no longer receiving security updates",
-          "retid": "73"
+          "retid": "73",
+          "issue": "162"
         },
         "info": [
           "https://github.com/jquery/jquery.com/issues/162"
