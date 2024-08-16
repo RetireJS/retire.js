@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.1.4]
+
+### Bugfix
+
+- Fix bug where deepScan would sometimes not report vulnerabilities
+
 ## [5.1.3]
 
 ### Bugfix

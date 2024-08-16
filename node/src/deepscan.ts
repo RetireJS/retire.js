@@ -1,5 +1,6 @@
 import { multiQuery } from 'astronomical';
 import { Component, Repository } from './types';
+import { check } from './retire';
 
 export function deepScan(content: string, repo: Repository): Component[] {
   const astQueries: Record<string, string> = {};
@@ -10,7 +11,7 @@ export function deepScan(content: string, repo: Repository): Component[] {
       backMap[`${name}_${i}`] = name;
     });
   });
-  const results = multiQuery(content, astQueries) as Record<string,[]>;
+  const results = multiQuery(content, astQueries) as Record<string, []>;
   const detected: Component[] = [];
   Object.entries(results).forEach(([key, value]) => {
     value.forEach((match) => {
@@ -27,7 +28,6 @@ export function deepScan(content: string, repo: Repository): Component[] {
   });
   return detected.reduce((acc, cur) => {
     if (acc.some((c) => c.component === cur.component && c.version === cur.version)) return acc;
-    acc.push(cur);
-    return acc;
+    return acc.concat(check(cur.component, cur.version, repo));
   }, [] as Component[]);
 }
