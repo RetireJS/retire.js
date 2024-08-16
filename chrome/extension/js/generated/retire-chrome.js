@@ -10,6 +10,7 @@ exports.deepScan = deepScan;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deepScan = deepScan;
 const astronomical_1 = require("astronomical");
+const retire_1 = require("./retire");
 function deepScan(content, repo) {
     const astQueries = {};
     const backMap = {};
@@ -38,19 +39,18 @@ function deepScan(content, repo) {
     return detected.reduce((acc, cur) => {
         if (acc.some((c) => c.component === cur.component && c.version === cur.version))
             return acc;
-        acc.push(cur);
-        return acc;
+        return acc.concat((0, retire_1.check)(cur.component, cur.version, repo));
     }, []);
 }
 
-},{"astronomical":4}],3:[function(require,module,exports){
+},{"./retire":3,"astronomical":4}],3:[function(require,module,exports){
 /*
  * This file is used by the browser plugins and the Cli scanner and thus
  * cannot have any external dependencies (no require)
  */
 
 var exports = exports || {};
-exports.version = '5.1.1';
+exports.version = '5.1.4';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -213,8 +213,11 @@ exports.scanUri = function (uri, repo) {
   return check(result, repo);
 };
 
-exports.scanFileName = function (fileName, repo) {
+exports.scanFileName = function (fileName, repo, includeUri = false) {
   var result = scan(fileName, 'filename', repo, splitAndMatchAll(/[\/\\]/));
+  if (includeUri) {
+    result = result.concat(scan(fileName.replace(/\\/g, '/'), 'uri', repo));
+  }
   return check(result, repo);
 };
 
@@ -1624,54 +1627,6 @@ module.exports={
           ]
         },
         {
-          "atOrAbove": "1.8.0",
-          "below": "1.12.0",
-          "cwe": [
-            "CWE-79"
-          ],
-          "severity": "medium",
-          "identifiers": {
-            "summary": "3rd party CORS request may execute",
-            "issue": "2432",
-            "CVE": [
-              "CVE-2015-9251"
-            ],
-            "githubID": "GHSA-rmxg-73gg-4p98"
-          },
-          "info": [
-            "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/",
-            "http://research.insecurelabs.org/jquery/test/",
-            "https://bugs.jquery.com/ticket/11974",
-            "https://github.com/advisories/GHSA-rmxg-73gg-4p98",
-            "https://github.com/jquery/jquery/issues/2432",
-            "https://nvd.nist.gov/vuln/detail/CVE-2015-9251"
-          ]
-        },
-        {
-          "atOrAbove": "1.12.2",
-          "below": "2.2.0",
-          "cwe": [
-            "CWE-79"
-          ],
-          "severity": "medium",
-          "identifiers": {
-            "summary": "3rd party CORS request may execute",
-            "issue": "2432",
-            "CVE": [
-              "CVE-2015-9251"
-            ],
-            "githubID": "GHSA-rmxg-73gg-4p98"
-          },
-          "info": [
-            "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/",
-            "http://research.insecurelabs.org/jquery/test/",
-            "https://bugs.jquery.com/ticket/11974",
-            "https://github.com/advisories/GHSA-rmxg-73gg-4p98",
-            "https://github.com/jquery/jquery/issues/2432",
-            "https://nvd.nist.gov/vuln/detail/CVE-2015-9251"
-          ]
-        },
-        {
           "below": "2.999.999",
           "cwe": [
             "CWE-1104"
@@ -1688,30 +1643,6 @@ module.exports={
         {
           "atOrAbove": "1.12.3",
           "below": "3.0.0-beta1",
-          "cwe": [
-            "CWE-79"
-          ],
-          "severity": "medium",
-          "identifiers": {
-            "summary": "3rd party CORS request may execute",
-            "issue": "2432",
-            "CVE": [
-              "CVE-2015-9251"
-            ],
-            "githubID": "GHSA-rmxg-73gg-4p98"
-          },
-          "info": [
-            "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/",
-            "http://research.insecurelabs.org/jquery/test/",
-            "https://bugs.jquery.com/ticket/11974",
-            "https://github.com/advisories/GHSA-rmxg-73gg-4p98",
-            "https://github.com/jquery/jquery/issues/2432",
-            "https://nvd.nist.gov/vuln/detail/CVE-2015-9251"
-          ]
-        },
-        {
-          "atOrAbove": "2.2.2",
-          "below": "3.0.0",
           "cwe": [
             "CWE-79"
           ],
@@ -2441,7 +2372,7 @@ module.exports={
     "jquery-deparam": {
       "vulnerabilities": [
         {
-          "below": "999",
+          "below": "0.5.4",
           "severity": "high",
           "cwe": [
             "CWE-1321"
@@ -4800,21 +4731,7 @@ module.exports={
           ]
         },
         {
-          "below": "1.999",
-          "severity": "low",
-          "cwe": [
-            "CWE-1104"
-          ],
-          "identifiers": {
-            "summary": "End-of-Life: Long term support for AngularJS has been discontinued as of December 31, 2021",
-            "retid": "54"
-          },
-          "info": [
-            "https://blog.angular.io/discontinued-long-term-support-for-angularjs-cc066b82e65a?gi=9d3103b5445c"
-          ]
-        },
-        {
-          "below": "999",
+          "below": "1.8.4",
           "severity": "medium",
           "cwe": [
             "CWE-1333"
@@ -4831,7 +4748,7 @@ module.exports={
           ]
         },
         {
-          "below": "999",
+          "below": "1.8.4",
           "severity": "medium",
           "cwe": [
             "CWE-1333"
@@ -4848,7 +4765,7 @@ module.exports={
           ]
         },
         {
-          "below": "999",
+          "below": "1.8.4",
           "severity": "medium",
           "cwe": [
             "CWE-79"
@@ -4865,7 +4782,7 @@ module.exports={
           ]
         },
         {
-          "below": "999",
+          "below": "1.8.4",
           "severity": "medium",
           "cwe": [
             "CWE-1333"
@@ -4883,7 +4800,7 @@ module.exports={
         },
         {
           "atOrAbove": "1.3.0",
-          "below": "999",
+          "below": "1.8.4",
           "cwe": [
             "CWE-1333"
           ],
@@ -4903,6 +4820,20 @@ module.exports={
             "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6241747",
             "https://security.snyk.io/vuln/SNYK-JS-ANGULAR-6091113",
             "https://stackblitz.com/edit/angularjs-vulnerability-ng-srcset-redos"
+          ]
+        },
+        {
+          "below": "1.999",
+          "severity": "low",
+          "cwe": [
+            "CWE-1104"
+          ],
+          "identifiers": {
+            "summary": "End-of-Life: Long term support for AngularJS has been discontinued as of December 31, 2021",
+            "retid": "54"
+          },
+          "info": [
+            "https://docs.angularjs.org/misc/version-support-status"
           ]
         },
         {
@@ -6694,6 +6625,29 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "2.0.0",
+          "below": "3.4.2",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
+            "CVE": [
+              "CVE-2024-6484"
+            ],
+            "githubID": "GHSA-9mvj-f7w8-pvh2"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-9mvj-f7w8-pvh2",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-6484",
+            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap-sass/CVE-2024-6484.yml",
+            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6484.yml",
+            "https://github.com/twbs/bootstrap",
+            "https://www.herodevs.com/vulnerability-directory/cve-2024-6484"
+          ]
+        },
+        {
           "below": "3.999.999",
           "severity": "low",
           "cwe": [
@@ -6801,6 +6755,28 @@ module.exports={
           "info": [
             "https://github.com/advisories/GHSA-9v3m-8fp8-mj99",
             "https://github.com/twbs/bootstrap/issues/28236"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.6.3",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
+            "CVE": [
+              "CVE-2024-6531"
+            ],
+            "githubID": "GHSA-vc8w-jr9v-vj7f"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-vc8w-jr9v-vj7f",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-6531",
+            "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6531.yml",
+            "https://github.com/twbs/bootstrap",
+            "https://www.herodevs.com/vulnerability-directory/cve-2024-6531"
           ]
         }
       ],
@@ -7546,6 +7522,33 @@ module.exports={
           "info": [
             "https://github.com/axios/axios/pull/6300"
           ]
+        },
+        {
+          "atOrAbove": "1.3.2",
+          "below": "1.7.4",
+          "cwe": [
+            "CWE-918"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Server-Side Request Forgery in axios",
+            "CVE": [
+              "CVE-2024-39338"
+            ],
+            "githubID": "GHSA-8hc4-vh64-cxmj"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-8hc4-vh64-cxmj",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-39338",
+            "https://github.com/axios/axios/issues/6463",
+            "https://github.com/axios/axios/pull/6539",
+            "https://github.com/axios/axios/pull/6543",
+            "https://github.com/axios/axios/commit/6b6b605eaf73852fb2dae033f1e786155959de3a",
+            "https://github.com/axios/axios",
+            "https://github.com/axios/axios/releases",
+            "https://github.com/axios/axios/releases/tag/v1.7.4",
+            "https://jeffhacks.com/advisories/2024/06/24/CVE-2024-39338.html"
+          ]
         }
       ],
       "extractors": {
@@ -8165,6 +8168,27 @@ module.exports={
           },
           "info": [
             "https://github.com/advisories/GHSA-c59h-r6p8-q9wc"
+          ]
+        },
+        {
+          "atOrAbove": "13.4.0",
+          "below": "13.5.0",
+          "cwe": [
+            "CWE-400"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Next.js Denial of Service (DoS) condition",
+            "CVE": [
+              "CVE-2024-39693"
+            ],
+            "githubID": "GHSA-fq54-2j52-jc42"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-fq54-2j52-jc42",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-fq54-2j52-jc42",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-39693",
+            "https://github.com/vercel/next.js"
           ]
         },
         {
@@ -9080,7 +9104,7 @@ module.exports={
         },
         {
           "atOrAbove": "0",
-          "below": "999",
+          "below": "2.7.10",
           "cwe": [
             "CWE-1333"
           ],
@@ -9218,7 +9242,6 @@ module.exports={
           "/pdfjs-dist@(§§version§§)/"
         ],
         "filecontent": [
-          " pdfjs-dist@(§§version§§) ",
           "(?:const|var) pdfjsVersion = ['\"](§§version§§)['\"];",
           "PDFJS.version ?= ?['\"](§§version§§)['\"]",
           "apiVersion: ?['\"](§§version§§)['\"][\\s\\S]*,data(:[a-zA-Z.]{1,6})?,[\\s\\S]*password(:[a-zA-Z.]{1,10})?,[\\s\\S]*disableAutoFetch(:[a-zA-Z.]{1,22})?,[\\s\\S]*rangeChunkSize",
