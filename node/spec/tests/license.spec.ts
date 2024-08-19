@@ -1,6 +1,7 @@
-const license = require('../../lib/license');
-const chai = require('chai');
-chai.should();
+import * as license from '../../lib/license';
+import { should } from 'chai';
+import 'mocha';
+should();
 
 describe('licenses', function () {
   it('should_work_for_single_license', function (done) {
