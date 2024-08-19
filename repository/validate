@@ -19,6 +19,7 @@ const currentString = JSON.stringify(current, null, 2);
 if (converted != currentString) {
   exitWithError("jsrepository.json is has not been converted");
 }
+
 console.log(
   "Checking that jsrepository-master and jsonrepository-v2 are synced..."
 );
@@ -27,6 +28,26 @@ const convertedV2 = JSON.stringify(convert(data, true), null, 2);
 const currentV2String = JSON.stringify(currentV2, null, 2);
 if (convertedV2 != currentV2String) {
   exitWithError("jsrepository-v2.json is has not been converted");
+}
+
+console.log(
+  "Checking that jsrepository-master and jsonrepository-v3 are synced..."
+);
+const currentV3 = require("./jsrepository-v3.json");
+const convertedV3 = JSON.stringify(convert(data, true, true, true), null, 2);
+const currentV3String = JSON.stringify(currentV3, null, 2);
+if (convertedV3 != currentV3String) {
+  exitWithError("jsrepository-v3.json is has not been converted");
+}
+
+console.log(
+  "Checking that jsrepository-master and jsonrepository-v4 are synced..."
+);
+const currentV4 = require("./jsrepository-v4.json");
+const convertedV4 = JSON.stringify(convert(data, true, false, true), null, 2);
+const currentV4String = JSON.stringify(currentV4, null, 2);
+if (convertedV4 != currentV4String) {
+  exitWithError("jsrepository-v4.json is has not been converted");
 }
 
 console.log("Done");
