@@ -9,7 +9,7 @@ fs.writeFileSync("jsrepository.json", JSON.stringify(result, null, 2));
 const resultV2 = convert(data, true, false);
 fs.writeFileSync("jsrepository-v2.json", JSON.stringify(resultV2, null, 2));
 
-const resultV3 = convert(data, true, true);
+const resultV3 = convert(data, true, true, true);
 fs.writeFileSync("jsrepository-v3.json", JSON.stringify(resultV3, null, 2));
 
 const resultV4 = convert(data, true, false, true);
