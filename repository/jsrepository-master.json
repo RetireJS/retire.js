@@ -5445,7 +5445,7 @@
       ],
       "func": ["FroalaEditor.VERSION"]
     },
-    "licenses": ["commercial >=0"]
+    "licenses": ["LicenseRef-Proprietary >=0"]
   },
   "pendo": {
     "vulnerabilities": [
@@ -5470,7 +5470,7 @@
       ],
       "func": ["pendo.VERSION.split('_')[0]"]
     },
-    "licenses": ["commercial >=0"]
+    "licenses": ["LicenseRef-Proprietary >=0"]
   },
   "highcharts": {
     "vulnerabilities": [
@@ -5533,7 +5533,7 @@
         "product=\"Highcharts\"[,;].\\.version=\"(§§version§§)\""
       ]
     },
-    "licenses": ["commercial >=0"]
+    "licenses": ["LicenseRef-Proprietary >=0"]
   },
   "select2": {
     "vulnerabilities": [

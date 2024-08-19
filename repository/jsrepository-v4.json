@@ -6950,7 +6950,7 @@
   "froala": {
     "npmname": "froala-editor",
     "licenses": [
-      "commercial >=0"
+      "LicenseRef-Proprietary >=0"
     ],
     "vulnerabilities": [
       {
@@ -7085,7 +7085,7 @@
   },
   "pendo": {
     "licenses": [
-      "commercial >=0"
+      "LicenseRef-Proprietary >=0"
     ],
     "vulnerabilities": [
       {
@@ -7114,7 +7114,7 @@
   },
   "highcharts": {
     "licenses": [
-      "commercial >=0"
+      "LicenseRef-Proprietary >=0"
     ],
     "vulnerabilities": [
       {
