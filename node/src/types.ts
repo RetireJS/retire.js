@@ -16,6 +16,7 @@ export type Repository = Record<
       hashes?: Record<string, string>;
       ast?: string[];
     };
+    licenses?: string[];
   }
 >;
 
@@ -41,6 +42,7 @@ export type Component = {
   version: string;
   vulnerabilities?: Vulnerability[];
   detection?: string;
+  licenses?: string[];
 };
 
 export type Finding = {

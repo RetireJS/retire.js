@@ -38,7 +38,7 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
     const write = vulnsFound ? writer.err : writer.out;
     const seen = new Set<string>();
     const components = finalResults.data
-      .filter((d) => d.results)
+      .filter((d) => d.results.length > 0)
       .map((r) =>
         r.results
           .map((dep) => {
@@ -62,6 +62,7 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
     <component type="library">
       <name>${dep.component}</name>
       <version>${dep.version}</version>${hashes}
+      <licenses>${mapLicenses(dep.licenses)}</licenses>
       <purl>${purl}</purl>
       <modified>false</modified>
     </component>`;
@@ -86,6 +87,13 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
 </bom>`);
     writer.close(callback);
   };
+}
+
+function mapLicenses(licenses: string[] | undefined) {
+  if (!licenses) return '';
+  if (licenses.length == 0) return '';
+  if (licenses[0] == 'commercial') return '<license><name>Commercial</name></license>';
+  return `<expression>${licenses[0]}</expression>`;
 }
 
 export default {

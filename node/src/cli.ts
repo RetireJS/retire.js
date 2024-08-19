@@ -72,7 +72,7 @@ const jsrepolocation: string[] = (prg.jsrepo ?? "'central'")
   .split(',')
   .map((x: string) =>
     x === "'central'"
-      ? 'https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v2.json'
+      ? 'https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v4.json'
       : x,
   );
 

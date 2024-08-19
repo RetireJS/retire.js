@@ -122,6 +122,15 @@ export function validateRepository(
             ast: z.array(z.string()).optional(),
           })
           .strict(),
+        licenses: z
+          .array(
+            z
+              .string()
+              .regex(
+                /(\([A-Za-z\-0-9.]+( OR [A-Za-z\-0-9.]+)+\)|[A-Za-z\-0-9.]+) >=[0-9.]+( <[0-9.]+)?(;>=[0-9.]+( <[0-9.]+)?)*/,
+              ),
+          )
+          .optional(),
       })
       .strict(),
   );

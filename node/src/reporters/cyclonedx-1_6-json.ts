@@ -78,6 +78,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               purl: purl,
               hashes: hashes,
               evidence,
+              licenses: mapLicenses(dep.licenses),
             };
             seen.set(purl, result);
             return result;
@@ -110,6 +111,13 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
     );
     writer.close(callback);
   };
+}
+
+function mapLicenses(licenses: string[] | undefined) {
+  if (!licenses) return [];
+  if (licenses.length == 0) return [];
+  if (licenses[0] == 'commercial') return [{ license: { name: 'Commercial' } }];
+  return [{ expression: licenses[0] }];
 }
 
 export default {

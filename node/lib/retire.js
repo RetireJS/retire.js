@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '5.1.4';
+exports.version = '5.2.0';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -186,3 +186,5 @@ exports.scanFileContent = function (content, repo, hasher) {
   }
   return check(result, repo);
 };
+
+exports.isAtOrAbove = isAtOrAbove;

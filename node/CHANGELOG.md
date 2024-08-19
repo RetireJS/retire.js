@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.0]
+
+### Enhancement
+
+- Add license information to SBOM
+
 ## [5.1.4]
 
 ### Bugfix

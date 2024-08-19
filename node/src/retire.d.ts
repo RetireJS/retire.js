@@ -12,4 +12,6 @@ export declare function scanFileName(fileName: string, repo: Repository, include
 
 export declare function scanFileContent(content: string, repo: Repository, hasher: Hasher): Component[];
 
+export declare function isAtOrAbove(versionA: string, versionB: string): boolean;
+
 export declare const version: string;

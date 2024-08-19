@@ -7,6 +7,7 @@ import { ComponentDescriptor, Finding, Hasher, Options, Repository, Vulnerabilit
 import { Component } from './types';
 import { checkOSV } from './depsdev';
 import { deepScan } from './deepscan';
+import { evaluateLicense } from './license';
 
 type Ignores = Required<Options>['ignore'];
 
@@ -20,7 +21,7 @@ const hash: Hasher = {
   },
 };
 
-function emitResults(finding: Finding, options: Options) {
+function emitResults(finding: Finding, options: Options, repo: Repository) {
   if (options.includeOsv === true) {
     Promise.all(
       finding.results.map((r) =>
@@ -28,9 +29,9 @@ function emitResults(finding: Finding, options: Options) {
           (v) => (r.vulnerabilities = (r.vulnerabilities ?? []).concat(v)),
         ),
       ),
-    ).then(() => filterAndEmitResults(finding, options));
+    ).then(() => filterAndEmitResults(finding, options, repo));
   } else {
-    filterAndEmitResults(finding, options);
+    filterAndEmitResults(finding, options, repo);
   }
 }
 
@@ -51,11 +52,18 @@ function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]): Vulnerability
   }
   return unique;
 }
+function addLicenses(components: Component[], repo: Repository) {
+  components.forEach((c) => {
+    const possibleLicenses = repo[c.component]?.licenses;
+    if (possibleLicenses) c.licenses = evaluateLicense(possibleLicenses, c.version);
+  });
+}
 
-function filterAndEmitResults(finding: Finding, options: Options) {
+function filterAndEmitResults(finding: Finding, options: Options, repo: Repository) {
   finding.results.forEach((r) => (r.vulnerabilities = uniqueVulnerabilities(r.vulnerabilities)));
   if (options.ignore) removeIgnored(finding.results, options.ignore);
   if (finding.results.length == 0) return;
+  addLicenses(finding.results, repo);
   if (retire.isVulnerable(finding.results)) {
     events.emit('vulnerable-dependency-found', finding);
   } else {
@@ -119,7 +127,7 @@ export function scanJsFile(file: string, repo: Repository, options: Options) {
       results = results.concat(deepScan(content, repo));
     }
   }
-  emitResults({ file: file, results: results }, options);
+  emitResults({ file: file, results: results }, options, repo);
 }
 
 export function scanBowerFile(file: string, repo: Repository, options: Options) {
@@ -130,7 +138,7 @@ export function scanBowerFile(file: string, repo: Repository, options: Options) 
     const bower = JSON.parse(fs.readFileSync(file, 'utf-8'));
     if (bower.version) {
       const results = retire.check(bower.name, bower.version, repo);
-      emitResults({ file: file, results: results }, options);
+      emitResults({ file: file, results: results }, options, repo);
     }
   } catch (e) {
     options.log.warn(`Could not parse file: ${file}`);

@@ -36,6 +36,7 @@ describe('cyclonedx-json', () => {
     let logger = reporting.open({});
     jsonLogger.configure(logger, writer, {}, hash);
     let result1 = retire.scanFileContent('/*! jQuery v1.8.1 asdasd ', repo, hash);
+    result1[0].licenses = ['MIT'];
     logger.logVulnerableDependency({ results: result1, file: jqFile });
     logger.close();
     let validator = new Validator();
@@ -58,6 +59,7 @@ describe('cyclonedx-json', () => {
     let logger = reporting.open({});
     jsonLogger1_6.configure(logger, writer, {}, hash);
     let result1 = retire.scanFileContent('/*! jQuery v1.8.1 asdasd ', repo, hash);
+    result1[0].licenses = ['MIT'];
     logger.logVulnerableDependency({ results: result1, file: jqFile });
     logger.close();
     let validator = new Validator();
@@ -81,9 +83,11 @@ describe('cyclonedx-json', () => {
     let logger = reporting.open({});
     xmlLogger.configure(logger, writer, {}, hash);
     let result = retire.scanFileContent('/*! jQuery v1.8.1 asdasd ', repo, hash);
-    logger.logVulnerableDependency(result);
+    result[0].licenses = ['MIT'];
+    logger.logVulnerableDependency({ results: result, file: jqFile });
     logger.close();
     let xml = data.join('');
+    xml.should.contain('pkg:npm/jquery@1.8.1');
     try {
       let xsdResult = await xsdValidator.validateXML(xml, 'spec/schema/bom-1.4.xsd');
       if (!xsdResult.valid) {
