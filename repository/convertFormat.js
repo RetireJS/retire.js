@@ -17,7 +17,8 @@ function largerThan(a, b, name) {
 function convertToOldFormat(
   input,
   includeQueries = false,
-  includeBackdoored = false
+  includeBackdoored = false,
+  includeLicenses = false
 ) {
   const result = {};
   Object.entries(input).forEach(([key, value]) => {
@@ -59,6 +60,9 @@ function convertToOldFormat(
       vulnerabilities: vulns,
       extractors,
     };
+    if (!includeLicenses) {
+      delete result[key].licenses;
+    }
   });
 
   if (!includeQueries) return result;

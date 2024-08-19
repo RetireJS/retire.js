@@ -24,7 +24,8 @@
       "hashes": {
         "07f8b94c8d601a24a1914a1a92bec0e4fafda964": "0.0.1"
       }
-    }
+    },
+    "licenses": ["Apache-2.0 >=0"]
   },
   "jquery": {
     "bowername": ["jQuery"],
@@ -226,7 +227,8 @@
         "/var [a-z]=[a-z]\\.document,([a-z])=\"(§§version§§)\",([a-z])=.{130,160};\\3\\.fn=\\3\\.prototype=\\{jquery:\\1/$2/"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-migrate": {
     "vulnerabilities": [
@@ -274,7 +276,8 @@
         "jQuery\\.migrateVersion ?= ?\"(§§version§§)\""
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-validation": {
     "bowername": ["jquery-validation"],
@@ -361,7 +364,8 @@
         "Original file: /npm/jquery-validation@(§§version§§)/dist/jquery.validate.js"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-mobile": {
     "bowername": [
@@ -484,7 +488,8 @@
         "// Version of the jQuery Mobile Framework[\\s]+version: *[\"'](§§version§§)[\"'],"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-ui": {
     "bowername": ["jquery-ui", "jquery.ui"],
@@ -575,7 +580,8 @@
         "/\\*!?[\n *]+jQuery UI (§§version§§)"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-ui-dialog": {
     "bowername": ["jquery-ui", "jquery.ui"],
@@ -631,7 +637,8 @@
         "/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}\\* Includes: .* dialog\\.js"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-ui-autocomplete": {
     "bowername": ["jquery-ui", "jquery.ui"],
@@ -646,7 +653,8 @@
         "/\\*!? jQuery UI - v(§§version§§)(.*\n){1,3}\\* Includes: .* autocomplete\\.js"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery-ui-tooltip": {
     "bowername": ["jquery-ui", "jquery.ui"],
@@ -681,7 +689,8 @@
         "/\\*!?[\n *]+jQuery UI Tooltip (§§version§§)"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery.prettyPhoto": {
     "bowername": ["jquery-prettyPhoto"],
@@ -729,7 +738,8 @@
         "\\.prettyPhoto[ ]?=[ ]?\\{version:[ ]?(?:'|\")(§§version§§)(?:'|\")\\}"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["(CC-BY-2.5 OR GPL-2.0) >=0"]
   },
   "jquery.terminal": {
     "vulnerabilities": [
@@ -775,7 +785,8 @@
         "version (§§version§§)[\\s]+\\*[\\s]+\\* This file is part of jQuery Terminal.",
         "\\$\\.terminal=\\{version:\"(§§version§§)\""
       ]
-    }
+    },
+    "licenses": ["MIT >=0.10.0", "LGPL-3.0 >=0.9.1 <0.10.0"]
   },
   "jquery-deparam": {
     "vulnerabilities": [
@@ -804,7 +815,8 @@
         "967942805137f9eb0ae26005d94e8285e2e288a0": "0.3.0",
         "fbf2e115feae7ade26788e38ebf338af11a98bb2": "0.1.0"
       }
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "tableexport.jquery.plugin": {
     "vulnerabilities": [
@@ -835,7 +847,8 @@
         "/\\*[\\s]+tableExport.jquery.plugin[\\s]+Version (§§version§§)",
         "/\\*![\\s]+\\* TableExport.js v(§§version§§)"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jPlayer": {
     "bowername": ["jPlayer"],
@@ -903,7 +916,8 @@
         "/\\*!? jPlayer (§§version§§) for jQuery"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "knockout": {
     "vulnerabilities": [
@@ -930,7 +944,8 @@
       "uri": ["/knockout/(§§version§§)/knockout(-[a-z.]+)?\\.js"],
       "filecontent": ["(?:\\*|//) Knockout JavaScript library v(§§version§§)"],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "sessvars": {
     "vulnerabilities": [
@@ -953,7 +968,8 @@
       "filename": ["sessvars-(§§version§§)(.min)?\\.js"],
       "filecontent": ["sessvars ver (§§version§§)"],
       "hashes": {}
-    }
+    },
+    "licenses": []
   },
   "swfobject": {
     "bowername": ["swfobject", "swfobject-bower"],
@@ -979,7 +995,8 @@
       "filename": ["swfobject_(§§version§§)(.min)?\\.js"],
       "filecontent": ["SWFObject v(§§version§§) "],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "tinyMCE": {
     "bowername": ["tinymce", "tinymce-dist"],
@@ -1480,7 +1497,12 @@
         "/majorVersion:.([0-9]+).,minorVersion:.([0-9.]+).,.*tinyMCEPreInit/$1.$2/"
       ],
       "func": ["tinyMCE.majorVersion + '.'+ tinyMCE.minorVersion"]
-    }
+    },
+    "licenses": [
+      "MIT >=6.0.0 <7.0.0",
+      "GPL-2.0 >=7.0.0",
+      "LGPL-2.1 >=4.0.25 <6.0.0"
+    ]
   },
   "YUI": {
     "bowername": ["yui", "yui3"],
@@ -1652,7 +1674,8 @@
         "/yui/license.(?:html|txt)\nversion: (§§version§§)"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["BSD-2-Clause >=0"]
   },
   "prototypejs": {
     "bowername": ["prototypejs", "prototype.js", "prototypejs-bower"],
@@ -1687,7 +1710,8 @@
         "Prototype[ ]?=[ ]?\\{[ \r\n\t]*Version:[ ]?(?:'|\")(§§version§§)(?:'|\")"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "ember": {
     "vulnerabilities": [
@@ -1942,7 +1966,8 @@
         "// Version: (§§version§§)[\\s]+\\(function\\(\\) *\\{[\\s]*/\\*\\*[\\s]+@module ember[\\s]"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "dojo": {
     "vulnerabilities": [
@@ -2140,7 +2165,12 @@
         "12208a1e649402e362f528f6aae2c614fc697f8f": "1.2.0",
         "72a6a9fbef9fa5a73cd47e49942199147f905206": "1.1.1"
       }
-    }
+    },
+    "licenses": [
+      "BSD-3-Clause >=2.0.0-alpha.5 <2.0.0-alpha1",
+      "(AFL-2.1 OR BSD-2-Clause) >=1.6.4 <1.7.11; >=1.9.1 <1.9.8; >=1.10.0 <1.10.5",
+      "(BSD-3-Clause OR AFL-2.1) >=1.7.11 <1.9.1; >=1.9.8 <1.10.0; >=1.10.5 <2.0.0-alpha.5"
+    ]
   },
   "angularjs": {
     "bowername": ["angularjs", "angular.js"],
@@ -2455,7 +2485,8 @@
         "http://errors\\.angularjs\\.org/(§§version§§)/"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "@angular/core": {
     "vulnerabilities": [
@@ -2498,7 +2529,8 @@
       "func": [
         "document.querySelector('[ng-version]').getAttribute('ng-version')"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "backbone.js": {
     "bowername": ["backbonejs", "backbone"],
@@ -2533,7 +2565,8 @@
         "Backbone\\.VERSION *= *[\"'](§§version§§)[\"']"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "mustache.js": {
     "bowername": ["mustache.js", "mustache"],
@@ -2585,7 +2618,8 @@
         "exports.name[ ]?=[ ]?\"mustache.js\";[\n ]*exports.version[ ]?=[ ]?(?:'|\")(§§version§§)(?:'|\");"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "handlebars": {
     "bowername": ["handlebars", "handlebars.js"],
@@ -2868,7 +2902,8 @@
         ".\\.HandlebarsEnvironment=.;var .=.\\(.\\),.=.\\(.\\),.=\"(§§version§§)\";.\\.VERSION="
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0", "BSD-2-Clause >=1.0.2-beta <1.2.0"]
   },
   "easyXDM": {
     "npmname": "easyxdm",
@@ -2944,7 +2979,8 @@
       "hashes": {
         "cf266e3bc2da372c4f0d6b2bd87bcbaa24d5a643": "2.4.6"
       }
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "plupload": {
     "bowername": ["Plupload", "plupload"],
@@ -3087,7 +3123,8 @@
         "var g=\\{VERSION:\"(§§version§§)\",.*;window.plupload=g\\}"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["AGPL-3.0 >=2.2.1", "GPL-2.0 >=2.2.0 <2.2.1"]
   },
   "DOMPurify": {
     "bowername": ["dompurify", "DOMPurify"],
@@ -3313,7 +3350,8 @@
         "var .=\"dompurify\"+.{10,550}?\\.version=\"(§§version§§)\""
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MPL-2.0 >=0.4.0 <0.6.6", "(MPL-2.0 OR Apache-2.0) >=0.6.6"]
   },
   "react": {
     "vulnerabilities": [
@@ -3404,7 +3442,8 @@
         "ReactVersion\\.js[\\*! \\\\/\n\r]{0,100}function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\"",
         "expected a ReactNode.[\\s\\S]{0,1800}?function\\(e,t\\)\\{\"use strict\";e\\.exports=\"(§§version§§)\""
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "react-dom": {
     "vulnerabilities": [
@@ -3451,7 +3490,8 @@
         "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
         "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\."
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "react-is": {
     "vulnerabilities": [],
@@ -3459,7 +3499,8 @@
       "filecontent": [
         "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-is\\."
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "scheduler": {
     "vulnerabilities": [],
@@ -3467,7 +3508,8 @@
       "filecontent": [
         "/\\*\\* @license React v(§§version§§)[\\s]*\\* scheduler\\."
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "flowplayer": {
     "vulnerabilities": [
@@ -3489,7 +3531,8 @@
     "extractors": {
       "uri": ["flowplayer-(§§version§§)(\\.min)?\\.js"],
       "filename": ["flowplayer-(§§version§§)(\\.min)?\\.js"]
-    }
+    },
+    "licenses": ["GPL-3.0 >=0"]
   },
   "DWR": {
     "npmname": "dwr",
@@ -3531,7 +3574,8 @@
     "extractors": {
       "func": ["dwr.version"],
       "filecontent": [" dwr-(§§version§§).jar"]
-    }
+    },
+    "licenses": ["Apache-2.0 >=0"]
   },
   "moment.js": {
     "bowername": ["moment", "momentjs"],
@@ -3637,7 +3681,8 @@
         "=\"(§§version§§)\".{300,1000}Years:31536e6.{60,80}\\.isMoment",
         "// Moment.js is freely distributable under the terms of the MIT license.[\\s]+//[\\s]+// Version (§§version§§)"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "underscore.js": {
     "bowername": ["Underscore", "underscore"],
@@ -3667,7 +3712,8 @@
         "//[\\s]*Underscore.js (§§version§§)",
         "// *Underscore\\.js[\\s\\S]{1,2500}_\\.VERSION *= *['\"](§§version§§)['\"]"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "bootstrap": {
     "vulnerabilities": [
@@ -3893,7 +3939,8 @@
         "this\\.close\\)\\};.\\.VERSION=\"(§§version§§)\"(?:,.\\.TRANSITION_DURATION=150)?,.\\.prototype\\.close"
       ],
       "hashes": {}
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "bootstrap-select": {
     "vulnerabilities": [
@@ -3938,7 +3985,8 @@
         "/\\*![\\s]+\\*[\\s]+Bootstrap-select[\\s]+v(§§version§§)",
         ".\\.data\\(\"selectpicker\",.=new .\\(this,.\\)\\)\\}\"string\"==typeof .&&\\(.=.\\[.\\]instanceof Function\\?.\\[.\\]\\.apply\\(.,.\\):.\\.options\\[.\\]\\)\\}\\}\\);return void 0!==.\\?.:.\\}.\\.VERSION=\"(§§version§§)\","
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "ckeditor": {
     "vulnerabilities": [
@@ -4199,7 +4247,8 @@
       ],
       "hashes": {},
       "func": ["CKEDITOR.version"]
-    }
+    },
+    "licenses": ["(GPL-2.0 OR LGPL-2.1 OR MPL-1.1) >=0"]
   },
   "ckeditor5": {
     "vulnerabilities": [
@@ -4276,7 +4325,11 @@
       ],
       "hashes": {},
       "func": ["CKEDITOR_VERSION"]
-    }
+    },
+    "licenses": [
+      "GPL-2.0 >=0.0.0-nightly-20230629.0 <0.0.1-security; >=10.0.0-rc.1",
+      "ISC >=0.0.1-security <10.0.0-rc.1"
+    ]
   },
   "vue": {
     "vulnerabilities": [
@@ -4339,7 +4392,8 @@
         "\\.__vue_app__=.{0,8000}?const [a-z]+=\"(§§version§§)\","
       ],
       "func": ["Vue.version"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "ExtJS": {
     "vulnerabilities": [
@@ -4415,7 +4469,8 @@
         "Ext && Ext.versions && Ext.versions.extjs.version",
         "Ext && Ext.version"
       ]
-    }
+    },
+    "licenses": ["GPL-3.0 >=0"]
   },
   "svelte": {
     "vulnerabilities": [
@@ -4474,7 +4529,8 @@
         "var version\\$[0-9] = \"(§§version§§)\";[\\s\\S]{10,30}normalizeOptions\\(options\\)[\\s\\S]{80,200}'SvelteComponent.html'"
       ],
       "func": ["svelte.VERSION"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "axios": {
     "vulnerabilities": [
@@ -4613,7 +4669,8 @@
         "\\\"axios\\\",\\\"version\\\":\\\"(§§version§§)\\\""
       ],
       "func": ["axios && axios.VERSION"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "markdown-it": {
     "vulnerabilities": [
@@ -4727,7 +4784,8 @@
       "filename": ["markdown-it-(§§version§§)(\\.min)?\\.js"],
       "filecontent": ["/\\*! markdown-it(?:-ins)? (§§version§§)"],
       "func": []
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jszip": {
     "vulnerabilities": [
@@ -4776,7 +4834,8 @@
       "filename": ["jszip-(§§version§§)(\\.min)?\\.js"],
       "filecontent": ["/\\*![\\s]+JSZip v(§§version§§) "],
       "func": ["JSZip && JSZip.version"]
-    }
+    },
+    "licenses": ["(GPL-3.0 OR MIT) >=0.1.1", "MIT >=0.1.0 <0.1.1"]
   },
   "AlaSQL": {
     "npmname": "alasql",
@@ -4801,7 +4860,8 @@
       "filename": ["alasql-(§§version§§)(\\.min)?\\.js"],
       "filecontent": ["/\\*!?[ \n]*AlaSQL v(§§version§§)"],
       "func": ["alasql && alasql.version"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "jquery.datatables": {
     "npmname": "datatables.net",
@@ -4912,7 +4972,8 @@
         ".\\.version=\"(§§version§§)\";[\\s]*.\\.settings=\\[\\];[\\s]*.\\.models=\\{[\\s]*\\};[\\s]*.\\.models.oSearch"
       ],
       "func": ["DataTable && DataTable.version"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "nextjs": {
     "npmname": "next",
@@ -5227,7 +5288,8 @@
         "=\"(§§version§§)\"[\\s\\S]{10,100}Component[\\s\\S]{1,10}componentDidCatch[\\s\\S]{10,30}componentDidMount"
       ],
       "func": ["next && next.version"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "chart.js": {
     "vulnerabilities": [
@@ -5257,7 +5319,8 @@
         "/\\*![\\s]+\\* Chart.js v(§§version§§)",
         "/\\*![\\s]+\\* Chart.js[\\s]+\\* http://chartjs.org/[\\s]+\\* Version: (§§version§§)"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "froala": {
     "npmname": "froala-editor",
@@ -5381,7 +5444,8 @@
         "VERSION:\"(§§version§§)\",INSTANCES:\\[\\],OPTS_MAPPING:\\{\\}"
       ],
       "func": ["FroalaEditor.VERSION"]
-    }
+    },
+    "licenses": ["commercial >=0"]
   },
   "pendo": {
     "vulnerabilities": [
@@ -5405,7 +5469,8 @@
         "// Pendo Agent Wrapper\n//[\\s]+Environment:[\\s]+[^\n]+\n// Agent Version:[\\s]+(§§version§§)"
       ],
       "func": ["pendo.VERSION.split('_')[0]"]
-    }
+    },
+    "licenses": ["commercial >=0"]
   },
   "highcharts": {
     "vulnerabilities": [
@@ -5467,7 +5532,8 @@
         "product:\"Highcharts\",version:\"(§§version§§)\"",
         "product=\"Highcharts\"[,;].\\.version=\"(§§version§§)\""
       ]
-    }
+    },
+    "licenses": ["commercial >=0"]
   },
   "select2": {
     "vulnerabilities": [
@@ -5501,7 +5567,8 @@
         "/\\*[\\s]+Copyright 20[0-9]{2} [I]gor V[a]ynberg[\\s]+Version: (§§version§§)[\\s\\S]{1,5000}(\\.attr\\(\"class\",\"select2-sizer\"|\\.data\\(document, *\"select2-lastpos\"|document\\)\\.data\\(\"select2-lastpos\"|SingleSelect2, *MultiSelect2|window.Select2 *!== *undefined)"
       ],
       "uri": ["(§§version§§)/(js/)?select2(.min)?\\.js"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "blueimp-file-upload": {
     "vulnerabilities": [
@@ -5539,7 +5606,8 @@
       "uri": [
         "/blueimp-file-upload/(§§version§§)/jquery.fileupload(-ui)?(\\.min)?\\.js"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "c3": {
     "vulnerabilities": [
@@ -5572,7 +5640,8 @@
       "filecontent": [
         "[\\s]+var c3 ?= ?\\{ ?version: ?['\"](§§version§§)['\"] ?\\};[\\s]+var c3_chart_fn,"
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "lodash": {
     "vulnerabilities": [
@@ -5779,7 +5848,8 @@
         "var VERSION=\"(§§version§§)\";var BIND_FLAG=1,BIND_KEY_FLAG=2,CURRY_BOUND_FLAG=4,CURRY_FLAG=8"
       ],
       "uri": ["/(§§version§§)/lodash(\\.min)?\\.js"]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
   "ua-parser-js": {
     "vulnerabilities": [
@@ -5947,7 +6017,12 @@
         ".=\"(§§version§§)\",.=\"\",.=\"\\?\",.=\"function\",.=\"undefined\",.=\"object\",(.=\"string\",)?.=\"major\",.=\"model\",.=\"name\",.=\"type\",.=\"vendor\""
       ],
       "func": ["UAParser.VERSION", "$.ua.version"]
-    }
+    },
+    "licenses": [
+      "AGPL-3.0 >=2.0.0-beta.1",
+      "MIT >=0.7.20 <2.0.0-beta.1",
+      "(GPL-2.0 OR MIT) >=0.3.0 <0.7.20"
+    ]
   },
   "mathjax": {
     "vulnerabilities": [
@@ -6004,7 +6079,8 @@
         "MathJax\\.version=\"(§§version§§)\";"
       ],
       "func": ["MathJax.version"]
-    }
+    },
+    "licenses": ["Apache-2.0 >=0"]
   },
   "pdf.js": {
     "bowername": ["pdfjs-dist"],
@@ -6079,7 +6155,8 @@
         "apiVersion: ?['\"](§§version§§)['\"][\\s\\S]*,data(:[a-zA-Z.]{1,6})?,[\\s\\S]*password(:[a-zA-Z.]{1,10})?,[\\s\\S]*disableAutoFetch(:[a-zA-Z.]{1,22})?,[\\s\\S]*rangeChunkSize",
         "messageHandler\\.sendWithPromise\\(\"GetDocRequest\",\\{docId:[a-zA-Z],apiVersion:\"(§§version§§)\""
       ]
-    }
+    },
+    "licenses": ["Apache-2.0 >=0"]
   },
   "pdfobject": {
     "vulnerabilities": [],
@@ -6094,7 +6171,8 @@
         "let pdfobjectversion = \"(§§version§§)\";",
         "pdfobjectversion:\"(§§version§§)\""
       ]
-    }
+    },
+    "licenses": ["MIT >=0"]
   },
 
   "dont check": {
@@ -6105,6 +6183,7 @@
         "^http[s]?://apis.google.com/js/plusone.js",
         "^http[s]?://cdn.cxense.com/cx.js"
       ]
-    }
+    },
+    "licenses": []
   }
 }
