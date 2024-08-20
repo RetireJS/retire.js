@@ -104,7 +104,7 @@ export function validateRepository(
         bowername: z.array(z.string().regex(/^[a-z0-9.-]+$/i)).optional(),
         basePurl: z
           .string()
-          .regex(/^pkg:[a-z0-9/]+$/i)
+          .regex(/^pkg:[a-z0-9%.-/]+$/i)
           .optional(),
         npmname: z
           .string()

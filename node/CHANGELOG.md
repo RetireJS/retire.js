@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.2]
+
+### Bugfix
+
+- Encode purls correctly in SBOM
+
 ## [5.2.1]
 
 ### Bugfix
