@@ -2489,6 +2489,7 @@
     "licenses": ["MIT >=0"]
   },
   "@angular/core": {
+    "basePurl": "pkg:npm/%40angular/core",
     "vulnerabilities": [
       {
         "ranges": [
