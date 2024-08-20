@@ -2,7 +2,7 @@ import { Component } from '../types';
 
 function encodePURLchars(str: string): string {
   return str.replace(
-    /[^A-Za-z0-9.+/=-%]/g,
+    /[^A-Za-z0-9.+/=%-]/g,
     (match) => '%' + ('0' + match.charCodeAt(0).toString(16).toUpperCase()).slice(-2),
   );
 }
