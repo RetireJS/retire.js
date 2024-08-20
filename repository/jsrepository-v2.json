@@ -3376,7 +3376,6 @@
     }
   },
   "@angular/core": {
-    "basePurl": "pkg:npm/%40angular/core",
     "vulnerabilities": [
       {
         "atOrAbove": "0",

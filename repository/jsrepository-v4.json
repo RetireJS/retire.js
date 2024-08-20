@@ -3448,7 +3448,6 @@
     }
   },
   "@angular/core": {
-    "basePurl": "pkg:npm/%40angular/core",
     "licenses": [
       "MIT >=0"
     ],
