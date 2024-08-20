@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.1]
+
+### Bugfix
+
+- Add missing CWEs in response
+
 ## [5.2.0]
 
 ### Enhancement

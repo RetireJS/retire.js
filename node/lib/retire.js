@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '5.2.0';
+exports.version = '5.2.1';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -109,6 +109,9 @@ function check(results, repo) {
         }
         if (vulns[i].identifiers) {
           vulnerability.identifiers = vulns[i].identifiers;
+        }
+        if (vulns[i].cwe) {
+          vulnerability.cwe = vulns[i].cwe;
         }
         result.vulnerabilities = result.vulnerabilities || [];
         result.vulnerabilities.push(vulnerability);

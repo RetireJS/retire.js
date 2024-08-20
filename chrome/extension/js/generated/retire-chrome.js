@@ -50,7 +50,7 @@ function deepScan(content, repo) {
  */
 
 var exports = exports || {};
-exports.version = '5.1.4';
+exports.version = '5.2.1';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -156,6 +156,9 @@ function check(results, repo) {
         if (vulns[i].identifiers) {
           vulnerability.identifiers = vulns[i].identifiers;
         }
+        if (vulns[i].cwe) {
+          vulnerability.cwe = vulns[i].cwe;
+        }
         result.vulnerabilities = result.vulnerabilities || [];
         result.vulnerabilities.push(vulnerability);
       }
@@ -232,6 +235,8 @@ exports.scanFileContent = function (content, repo, hasher) {
   }
   return check(result, repo);
 };
+
+exports.isAtOrAbove = isAtOrAbove;
 
 },{}],4:[function(require,module,exports){
 "use strict";
@@ -1504,6 +1509,9 @@ exports.isDefined = isDefined;
 module.exports={
   "advisories": {
     "retire-example": {
+      "licenses": [
+        "Apache-2.0 >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.0.2",
@@ -1543,6 +1551,9 @@ module.exports={
         "jQuery"
       ],
       "npmname": "jquery",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.6.3",
@@ -1634,7 +1645,8 @@ module.exports={
           "severity": "low",
           "identifiers": {
             "summary": "jQuery 1.x and 2.x are End-of-Life and no longer receiving security updates",
-            "retid": "73"
+            "retid": "73",
+            "issue": "162"
           },
           "info": [
             "https://github.com/jquery/jquery.com/issues/162"
@@ -1778,6 +1790,9 @@ module.exports={
       }
     },
     "jquery-migrate": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.2.0",
@@ -1829,6 +1844,9 @@ module.exports={
     "jquery-validation": {
       "bowername": [
         "jquery-validation"
+      ],
+      "licenses": [
+        "MIT >=0"
       ],
       "vulnerabilities": [
         {
@@ -1924,6 +1942,9 @@ module.exports={
         "jquery-mobile-build",
         "jquery-mobile-dist",
         "jquery-mobile-bower"
+      ],
+      "licenses": [
+        "MIT >=0"
       ],
       "vulnerabilities": [
         {
@@ -2050,6 +2071,9 @@ module.exports={
         "jquery.ui"
       ],
       "npmname": "jquery-ui",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.13.0",
@@ -2153,6 +2177,9 @@ module.exports={
         "jquery.ui"
       ],
       "npmname": "jquery-ui",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "1.7.0",
@@ -2214,6 +2241,9 @@ module.exports={
         "jquery.ui"
       ],
       "npmname": "jquery-ui",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [],
       "extractors": {
         "func": [
@@ -2234,6 +2264,9 @@ module.exports={
         "jquery.ui"
       ],
       "npmname": "jquery-ui",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "1.9.2",
@@ -2273,6 +2306,9 @@ module.exports={
         "jquery-prettyPhoto"
       ],
       "basePurl": "pkg:github/scaron/prettyphoto",
+      "licenses": [
+        "(CC-BY-2.5 OR GPL-2.0) >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "3.1.5",
@@ -2323,6 +2359,10 @@ module.exports={
       }
     },
     "jquery.terminal": {
+      "licenses": [
+        "MIT >=0.10.0",
+        "LGPL-3.0 >=0.9.1 <0.10.0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.21.0",
@@ -2370,6 +2410,9 @@ module.exports={
       }
     },
     "jquery-deparam": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.5.4",
@@ -2401,6 +2444,9 @@ module.exports={
       }
     },
     "tableexport.jquery.plugin": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.25.0",
@@ -2436,6 +2482,9 @@ module.exports={
         "jPlayer"
       ],
       "npmname": "jplayer",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.2.20",
@@ -2504,6 +2553,9 @@ module.exports={
       }
     },
     "knockout": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "3.5.0",
@@ -2541,6 +2593,7 @@ module.exports={
       }
     },
     "sessvars": {
+      "licenses": [],
       "vulnerabilities": [
         {
           "below": "1.01",
@@ -2571,6 +2624,9 @@ module.exports={
       "bowername": [
         "swfobject",
         "swfobject-bower"
+      ],
+      "licenses": [
+        "MIT >=0"
       ],
       "vulnerabilities": [
         {
@@ -2604,6 +2660,11 @@ module.exports={
         "tinymce-dist"
       ],
       "npmname": "tinymce",
+      "licenses": [
+        "MIT >=6.0.0 <7.0.0",
+        "GPL-2.0 >=7.0.0",
+        "LGPL-2.1 >=4.0.25 <6.0.0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.4.2",
@@ -3325,6 +3386,9 @@ module.exports={
         "yui3"
       ],
       "npmname": "yui",
+      "licenses": [
+        "BSD-2-Clause >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "2.4.0",
@@ -3525,6 +3589,9 @@ module.exports={
         "prototype.js",
         "prototypejs-bower"
       ],
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.5.1.2",
@@ -3578,6 +3645,9 @@ module.exports={
       }
     },
     "ember": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.9.7",
@@ -4047,6 +4117,11 @@ module.exports={
       }
     },
     "dojo": {
+      "licenses": [
+        "BSD-3-Clause >=2.0.0-alpha.5 <2.0.0-alpha1",
+        "(AFL-2.1 OR BSD-2-Clause) >=1.6.4 <1.7.11; >=1.9.1 <1.9.8; >=1.10.0 <1.10.5",
+        "(BSD-3-Clause OR AFL-2.1) >=1.7.11 <1.9.1; >=1.9.8 <1.10.0; >=1.10.5 <2.0.0-alpha.5"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0.4",
@@ -4554,6 +4629,9 @@ module.exports={
         "angular.js"
       ],
       "npmname": "angular",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "1.0.0",
@@ -4879,6 +4957,9 @@ module.exports={
       }
     },
     "@angular/core": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0",
@@ -4977,6 +5058,9 @@ module.exports={
       ],
       "npmname": "backbone",
       "basePurl": "pkg:npm/backbone",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.5.0",
@@ -5023,6 +5107,9 @@ module.exports={
       ],
       "npmname": "mustache",
       "basePurl": "pkg:npm/mustache",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.3.1",
@@ -5081,6 +5168,10 @@ module.exports={
       "bowername": [
         "handlebars",
         "handlebars.js"
+      ],
+      "licenses": [
+        "MIT >=0",
+        "BSD-2-Clause >=1.0.2-beta <1.2.0"
       ],
       "vulnerabilities": [
         {
@@ -5470,6 +5561,9 @@ module.exports={
     },
     "easyXDM": {
       "npmname": "easyxdm",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.4.18",
@@ -5552,6 +5646,10 @@ module.exports={
       "bowername": [
         "Plupload",
         "plupload"
+      ],
+      "licenses": [
+        "AGPL-3.0 >=2.2.1",
+        "GPL-2.0 >=2.2.0 <2.2.1"
       ],
       "vulnerabilities": [
         {
@@ -5715,6 +5813,10 @@ module.exports={
         "DOMPurify"
       ],
       "npmname": "dompurify",
+      "licenses": [
+        "MPL-2.0 >=0.4.0 <0.6.6",
+        "(MPL-2.0 OR Apache-2.0) >=0.6.6"
+      ],
       "vulnerabilities": [
         {
           "below": "0.6.1",
@@ -5946,6 +6048,9 @@ module.exports={
       }
     },
     "react": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0.4.0",
@@ -6114,6 +6219,9 @@ module.exports={
       }
     },
     "react-dom": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "16.0.0",
@@ -6231,6 +6339,9 @@ module.exports={
       }
     },
     "react-is": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [],
       "extractors": {
         "filecontent": [
@@ -6239,6 +6350,9 @@ module.exports={
       }
     },
     "scheduler": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [],
       "extractors": {
         "filecontent": [
@@ -6247,6 +6361,9 @@ module.exports={
       }
     },
     "flowplayer": {
+      "licenses": [
+        "GPL-3.0 >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "5.4.3",
@@ -6274,6 +6391,9 @@ module.exports={
     },
     "DWR": {
       "npmname": "dwr",
+      "licenses": [
+        "Apache-2.0 >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.1.4",
@@ -6341,6 +6461,9 @@ module.exports={
       ],
       "npmname": "moment",
       "basePurl": "pkg:npm/moment",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.11.2",
@@ -6465,6 +6588,9 @@ module.exports={
         "underscore"
       ],
       "npmname": "underscore",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "1.3.2",
@@ -6499,6 +6625,9 @@ module.exports={
       }
     },
     "bootstrap": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.1.0",
@@ -6798,6 +6927,9 @@ module.exports={
       }
     },
     "bootstrap-select": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.13.6",
@@ -6845,6 +6977,9 @@ module.exports={
       }
     },
     "ckeditor": {
+      "licenses": [
+        "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1) >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "4.4.3",
@@ -7099,6 +7234,10 @@ module.exports={
       }
     },
     "ckeditor5": {
+      "licenses": [
+        "GPL-2.0 >=0.0.0-nightly-20230629.0 <0.0.1-security; >=10.0.0-rc.1",
+        "ISC >=0.0.1-security <10.0.0-rc.1"
+      ],
       "vulnerabilities": [
         {
           "below": "10.0.1",
@@ -7184,6 +7323,9 @@ module.exports={
       }
     },
     "vue": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.4.3",
@@ -7256,6 +7398,9 @@ module.exports={
       }
     },
     "ExtJS": {
+      "licenses": [
+        "GPL-3.0 >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "3.0.0",
@@ -7335,6 +7480,9 @@ module.exports={
       }
     },
     "svelte": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.9.8",
@@ -7402,6 +7550,9 @@ module.exports={
       }
     },
     "axios": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.18.1",
@@ -7574,6 +7725,9 @@ module.exports={
       }
     },
     "markdown-it": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "3.0.0",
@@ -7691,6 +7845,10 @@ module.exports={
       }
     },
     "jszip": {
+      "licenses": [
+        "(GPL-3.0 OR MIT) >=0.1.1",
+        "MIT >=0.1.0 <0.1.1"
+      ],
       "vulnerabilities": [
         {
           "below": "2.7.0",
@@ -7767,6 +7925,9 @@ module.exports={
     },
     "AlaSQL": {
       "npmname": "alasql",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.7.0",
@@ -7800,6 +7961,9 @@ module.exports={
     },
     "jquery.datatables": {
       "npmname": "datatables.net",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "1.10.10",
@@ -7917,6 +8081,9 @@ module.exports={
     },
     "nextjs": {
       "npmname": "next",
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "1.0.0",
@@ -8241,7 +8408,8 @@ module.exports={
       "extractors": {
         "filecontent": [
           "version=\"(§§version§§)\".{1,1500}document\\.getElementById\\(\"__NEXT_DATA__\"\\)\\.textContent",
-          "document\\.getElementById\\(\"__NEXT_DATA__\"\\)\\.textContent\\);window\\.__NEXT_DATA__=.;.\\.version=\"(§§version§§)\""
+          "document\\.getElementById\\(\"__NEXT_DATA__\"\\)\\.textContent\\);window\\.__NEXT_DATA__=.;.\\.version=\"(§§version§§)\"",
+          "=\"(§§version§§)\"[\\s\\S]{10,100}Component[\\s\\S]{1,10}componentDidCatch[\\s\\S]{10,30}componentDidMount"
         ],
         "func": [
           "next && next.version"
@@ -8253,6 +8421,9 @@ module.exports={
       }
     },
     "chart.js": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.9.4",
@@ -8287,6 +8458,9 @@ module.exports={
     },
     "froala": {
       "npmname": "froala-editor",
+      "licenses": [
+        "LicenseRef-Proprietary >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "3.2.2",
@@ -8419,6 +8593,9 @@ module.exports={
       }
     },
     "pendo": {
+      "licenses": [
+        "LicenseRef-Proprietary >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "2.15.18",
@@ -8445,6 +8622,9 @@ module.exports={
       }
     },
     "highcharts": {
+      "licenses": [
+        "LicenseRef-Proprietary >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "6.1.0",
@@ -8523,6 +8703,9 @@ module.exports={
       }
     },
     "select2": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0",
@@ -8559,6 +8742,9 @@ module.exports={
       }
     },
     "blueimp-file-upload": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "9.22.1",
@@ -8597,6 +8783,9 @@ module.exports={
       }
     },
     "c3": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "0.4.11",
@@ -8632,6 +8821,9 @@ module.exports={
       }
     },
     "lodash": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [
         {
           "below": "4.17.5",
@@ -8846,6 +9038,11 @@ module.exports={
       }
     },
     "ua-parser-js": {
+      "licenses": [
+        "AGPL-3.0 >=2.0.0-beta.1",
+        "MIT >=0.7.20 <2.0.0-beta.1",
+        "(GPL-2.0 OR MIT) >=0.3.0 <0.7.20"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0",
@@ -9078,6 +9275,9 @@ module.exports={
       }
     },
     "mathjax": {
+      "licenses": [
+        "Apache-2.0 >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0",
@@ -9144,6 +9344,9 @@ module.exports={
         "pdfjs-dist"
       ],
       "npmname": "pdfjs-dist",
+      "licenses": [
+        "Apache-2.0 >=0"
+      ],
       "vulnerabilities": [
         {
           "atOrAbove": "0",
@@ -9250,6 +9453,9 @@ module.exports={
       }
     },
     "pdfobject": {
+      "licenses": [
+        "MIT >=0"
+      ],
       "vulnerabilities": [],
       "extractors": {
         "uri": [
@@ -9265,6 +9471,7 @@ module.exports={
       }
     },
     "dont check": {
+      "licenses": [],
       "vulnerabilities": [],
       "extractors": {
         "uri": [
