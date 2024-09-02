@@ -342,7 +342,7 @@
   },
   "svelte": {
     "https://unpkg.com/svelte@§§version§§/internal/index.mjs": {
-      "versions": ["3.55.0"]
+      "versions": ["3.55.0", "3.59.2"]
     },
     "https://unpkg.com/svelte@§§version§§/compiler.js": {
       "versions": ["3.6.0"]
