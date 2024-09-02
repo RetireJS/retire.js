@@ -6020,6 +6020,27 @@
         "info": [
           "https://github.com/sveltejs/svelte/pull/7530"
         ]
+      },
+      {
+        "below": "4.2.19",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Svelte has a potential mXSS vulnerability due to improper HTML escaping",
+          "CVE": [
+            "CVE-2024-45047"
+          ],
+          "githubID": "GHSA-8266-84wp-wv5c"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-8266-84wp-wv5c",
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-8266-84wp-wv5c",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-45047",
+          "https://github.com/sveltejs/svelte/commit/83e96e044deb5ecbae2af361ae9e31d3e1ac43a3",
+          "https://github.com/sveltejs/svelte"
+        ]
       }
     ],
     "extractors": {
