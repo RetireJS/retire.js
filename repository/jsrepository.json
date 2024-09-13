@@ -3274,6 +3274,28 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "1.8.4",
+        "cwe": [
+          "CWE-791"
+        ],
+        "severity": "low",
+        "identifiers": {
+          "summary": "AngularJS allows attackers to bypass common image source restrictions",
+          "CVE": [
+            "CVE-2024-8373"
+          ],
+          "githubID": "GHSA-mqm9-c95h-x2p6"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-mqm9-c95h-x2p6",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-8373",
+          "https://codepen.io/herodevs/full/bGPQgMp/8da9ce87e99403ee13a295c305ebfa0b",
+          "https://github.com/angular/angular.js",
+          "https://www.herodevs.com/vulnerability-directory/cve-2024-8373"
+        ]
+      },
+      {
         "atOrAbove": "1.3.0",
         "below": "1.8.4",
         "cwe": [
@@ -3295,6 +3317,28 @@
           "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6241747",
           "https://security.snyk.io/vuln/SNYK-JS-ANGULAR-6091113",
           "https://stackblitz.com/edit/angularjs-vulnerability-ng-srcset-redos"
+        ]
+      },
+      {
+        "atOrAbove": "1.3.0-rc.4",
+        "below": "1.8.4",
+        "cwe": [
+          "CWE-1289"
+        ],
+        "severity": "low",
+        "identifiers": {
+          "summary": "AngularJS allows attackers to bypass common image source restrictions",
+          "CVE": [
+            "CVE-2024-8372"
+          ],
+          "githubID": "GHSA-m9gf-397r-hwpg"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-m9gf-397r-hwpg",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-8372",
+          "https://codepen.io/herodevs/full/xxoQRNL/0072e627abe03e9cda373bc75b4c1017",
+          "https://github.com/angular/angular.js",
+          "https://www.herodevs.com/vulnerability-directory/cve-2024-8372"
         ]
       },
       {
@@ -5204,7 +5248,7 @@
       },
       {
         "atOrAbove": "4.0.0",
-        "below": "4.6.3",
+        "below": "5.0.0",
         "cwe": [
           "CWE-79"
         ],
