@@ -4431,6 +4431,54 @@
         "info": [
           "https://github.com/cure53/DOMPurify/releases"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "2.5.4",
+        "cwe": [
+          "CWE-1321",
+          "CWE-1333"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "DOMPurify allows tampering by prototype pollution",
+          "CVE": [
+            "CVE-2024-45801"
+          ],
+          "githubID": "GHSA-mmhx-hmjr-r674"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-mmhx-hmjr-r674",
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mmhx-hmjr-r674",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-45801",
+          "https://github.com/cure53/DOMPurify/commit/1e520262bf4c66b5efda49e2316d6d1246ca7b21",
+          "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
+          "https://github.com/cure53/DOMPurify"
+        ]
+      },
+      {
+        "atOrAbove": "3.0.0",
+        "below": "3.1.3",
+        "cwe": [
+          "CWE-1321",
+          "CWE-1333"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "DOMPurify allows tampering by prototype pollution",
+          "CVE": [
+            "CVE-2024-45801"
+          ],
+          "githubID": "GHSA-mmhx-hmjr-r674"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-mmhx-hmjr-r674",
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mmhx-hmjr-r674",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-45801",
+          "https://github.com/cure53/DOMPurify/commit/1e520262bf4c66b5efda49e2316d6d1246ca7b21",
+          "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
+          "https://github.com/cure53/DOMPurify"
+        ]
       }
     ],
     "extractors": {
@@ -6717,6 +6765,30 @@
         ]
       },
       {
+        "atOrAbove": "13.5.1",
+        "below": "13.5.7",
+        "cwe": [
+          "CWE-349",
+          "CWE-639"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Next.js Cache Poisoning",
+          "CVE": [
+            "CVE-2024-46982"
+          ],
+          "githubID": "GHSA-gp8f-8m3g-qvj9"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-gp8f-8m3g-qvj9",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-gp8f-8m3g-qvj9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-46982",
+          "https://github.com/vercel/next.js/commit/7ed7f125e07ef0517a331009ed7e32691ba403d3",
+          "https://github.com/vercel/next.js/commit/bd164d53af259c05f1ab434004bcfdd3837d7cda",
+          "https://github.com/vercel/next.js"
+        ]
+      },
+      {
         "atOrAbove": "13.4.0",
         "below": "14.1.1",
         "cwe": [
@@ -6736,6 +6808,30 @@
           "https://nvd.nist.gov/vuln/detail/CVE-2024-34351",
           "https://github.com/vercel/next.js/pull/62561",
           "https://github.com/vercel/next.js/commit/8f7a6ca7d21a97bc9f7a1bbe10427b5ad74b9085",
+          "https://github.com/vercel/next.js"
+        ]
+      },
+      {
+        "atOrAbove": "14.0.0",
+        "below": "14.2.10",
+        "cwe": [
+          "CWE-349",
+          "CWE-639"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Next.js Cache Poisoning",
+          "CVE": [
+            "CVE-2024-46982"
+          ],
+          "githubID": "GHSA-gp8f-8m3g-qvj9"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-gp8f-8m3g-qvj9",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-gp8f-8m3g-qvj9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-46982",
+          "https://github.com/vercel/next.js/commit/7ed7f125e07ef0517a331009ed7e32691ba403d3",
+          "https://github.com/vercel/next.js/commit/bd164d53af259c05f1ab434004bcfdd3837d7cda",
           "https://github.com/vercel/next.js"
         ]
       }
