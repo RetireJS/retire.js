@@ -53,7 +53,7 @@ if (convertedV4 != currentV4String) {
 
 console.log("Done");
 
-console.log("Validting repo format...");
+console.log("Validating repo format...");
 const vStart = Date.now();
 const validationResult = validateRepository(currentV4);
 const vEnd = Date.now();
@@ -69,7 +69,7 @@ if (!validationResult.success) {
 const jsRepo = validationResult.data;
 console.log("Done: " + (vEnd - vStart) + "ms");
 
-console.log("Checking for identifiers...");
+console.log("Checking for identifiers and verifying license strings...");
 let maxRetId = "0";
 let seenRetId = {};
 const retIdMapping = new Map();
