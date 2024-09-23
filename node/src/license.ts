@@ -13,9 +13,13 @@ export function evaluateLicense(licenses: string[], version: string): string[] {
       .slice(splitIndex + 1)
       .trim()
       .split(';')
+      .map((x) => x.trim())
       .map((range) => {
         const [from, to] = range.split(' ').map((v) => v.trim());
-        if (!from.startsWith('>=')) throw new Error("Invalid license range: 'from' must start with '>=': " + range);
+        if (!from.startsWith('>='))
+          throw new Error(
+            "Invalid license range: 'from' must start with '>=': " + range + '[' + from + ']' + '[' + to + ']',
+          );
         if (to && !to.startsWith('<')) throw new Error("Invalid license range: 'to' must start with '<': " + range);
         if (to && to.startsWith('<=')) throw new Error("Invalid license range: 'to' must start with '<': " + range);
         return { from: from.replace('>=', ''), to: to ? to.replace('<', '') : undefined };

@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.3]
+
+### Bugfix
+
+- Fix license handling for complex licenses
+
 ## [5.2.2]
 
 ### Bugfix

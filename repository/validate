@@ -2,6 +2,7 @@
 
 var fs = require("fs");
 var validateRepository = require("../node/lib/repo.js").validateRepository;
+var evaluateLicense = require("../node/lib/license.js").evaluateLicense;
 
 function exitWithError(...msg) {
   console.warn(...msg);
@@ -54,7 +55,7 @@ console.log("Done");
 
 console.log("Validting repo format...");
 const vStart = Date.now();
-const validationResult = validateRepository(current);
+const validationResult = validateRepository(currentV4);
 const vEnd = Date.now();
 if (!validationResult.success) {
   const errorMessage = JSON.stringify(
@@ -74,6 +75,14 @@ let seenRetId = {};
 const retIdMapping = new Map();
 
 Object.entries(jsRepo).forEach(([k, val]) => {
+  if (val.licenses) {
+    try {
+      evaluateLicense(val.licenses, "1.0.0");
+    } catch (e) {
+      console.warn("WARN: Invalid license for " + k + ": " + e.message);
+    }
+  }
+
   (val.vulnerabilities || [])
     .filter((v) => {
       let ids = v.identifiers;
