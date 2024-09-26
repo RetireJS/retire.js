@@ -58,9 +58,10 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
             const purl = generatePURL(dep);
             if (seen.has(purl)) return '';
             seen.add(purl);
+            const nameParts = dep.component.split('/').reverse();
             return `
     <component type="library">
-      <name>${dep.component}</name>
+      <name>${nameParts[0]}</name>${nameParts.length > 1 ? `\n      <group>${nameParts[1]}</group>` : ''}
       <version>${dep.version}</version>${hashes}
       <licenses>${mapLicenses(dep.licenses)}</licenses>
       <purl>${purl}</purl>

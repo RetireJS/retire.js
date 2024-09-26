@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.4]
+
+### Bugfix
+
+- Fix name vs group for scoped components in CycloneDX output
+
 ## [5.2.3]
 
 ### Bugfix

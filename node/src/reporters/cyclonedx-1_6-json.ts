@@ -71,9 +71,11 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               existing.evidence.occurrences.push(...missing);
               return undefined;
             }
+            const nameParts = dep.component.split('/').reverse();
             const result = {
               type: 'library',
-              name: dep.component,
+              name: nameParts[0],
+              group: nameParts[1],
               version: dep.version,
               purl: purl,
               hashes: hashes,
