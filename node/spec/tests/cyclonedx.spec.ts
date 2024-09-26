@@ -6,6 +6,7 @@ import { Schema, Validator } from 'jsonschema';
 import * as retire from '../../lib/retire';
 import { hash, LoggerOptions, Writer } from '../../lib/reporting';
 import * as reporting from '../../lib/reporting';
+import * as libxmljs from 'libxmljs';
 
 function readJson<T>(path: string): T {
   const data = fs.readFileSync(path, 'utf8');
@@ -13,8 +14,6 @@ function readJson<T>(path: string): T {
 }
 
 const repo = readJson<Repository>('spec/repository.json');
-
-import * as xsdValidator from 'xsd-schema-validator';
 
 const jsonSchema = readJson<Schema>('spec/schema/bom-1.4.schema.json');
 const jsonSchema1_6 = readJson<Schema>('spec/schema/bom-1.6.schema.json');
@@ -105,12 +104,15 @@ describe('cyclonedx-json', () => {
     const xml = data.join('');
     xml.should.contain('pkg:npm/jquery@1.8.1');
     try {
-      const xsdResult = await xsdValidator.validateXML(xml, 'spec/schema/bom-1.4.xsd');
-      if (!xsdResult.valid) {
-        fail('XML not seen as valid');
-      }
+      const parsedXml = libxmljs.parseXml(xml);
+      const bomschema = libxmljs.parseXml(fs.readFileSync('spec/schema/bom-1.4.xsd', 'utf8'));
+      //const spdx = fs.readFileSync('spec/schema/spdx.xsd', 'utf8');
+      bomschema.child(1)?.setAttribute('schemaLocation', path.resolve('spec/schema/spdx.xsd'));
+      const x = parsedXml.validate(bomschema) as boolean;
+      x.should.equal(true);
     } catch (e) {
-      fail(e as Error);
+      console.warn(e);
+      fail('XML not seen as valid: ' + e);
     }
   });
 });
