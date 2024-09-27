@@ -2571,7 +2571,8 @@
     ],
     "extractors": {
       "func": [
-        "document.querySelector('[ng-version]').getAttribute('ng-version')"
+        "document.querySelector('[ng-version]').getAttribute('ng-version')",
+        "window.getAllAngularRootElements()[0].getAttribute(['ng-version'])"
       ]
     },
     "licenses": ["MIT >=0"]
@@ -4323,6 +4324,28 @@
   },
   "ckeditor5": {
     "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "40.0.0",
+            "below": "43.1.1"
+          }
+        ],
+        "summary": "Cross-site scripting (XSS) in the clipboard package",
+        "cwe": ["CWE-79"],
+        "severity": "medium",
+        "identifiers": {
+          "CVE": ["CVE-2024-45613"],
+          "githubID": "GHSA-rgg8-g5x8-wr9v"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-rgg8-g5x8-wr9v",
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rgg8-g5x8-wr9v",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-45613",
+          "https://github.com/ckeditor/ckeditor5",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v43.1.1"
+        ]
+      },
       {
         "ranges": [
           {
@@ -6294,7 +6317,6 @@
     },
     "licenses": ["MIT >=0"]
   },
-
   "dont check": {
     "vulnerabilities": [],
     "extractors": {
