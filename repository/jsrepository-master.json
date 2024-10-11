@@ -3181,6 +3181,34 @@
         "ranges": [
           {
             "atOrAbove": "0",
+            "below": "2.5.0"
+          },
+          {
+            "atOrAbove": "3.0.0",
+            "below": "3.1.3"
+          }
+        ],
+        "summary": "DOMpurify has a nesting-based mXSS",
+        "cwe": ["CWE-79"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2024-47875"],
+          "githubID": "GHSA-gx9m-whjm-85jf"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-gx9m-whjm-85jf",
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gx9m-whjm-85jf",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-47875",
+          "https://github.com/cure53/DOMPurify/commit/0ef5e537a514f904b6aa1d7ad9e749e365d7185f",
+          "https://github.com/cure53/DOMPurify/commit/6ea80cd8b47640c20f2f230c7920b1f4ce4fdf7a",
+          "https://github.com/cure53/DOMPurify",
+          "https://github.com/cure53/DOMPurify/blob/0ef5e537a514f904b6aa1d7ad9e749e365d7185f/test/test-suite.js#L2098"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
             "below": "2.5.4"
           },
           {

@@ -4437,6 +4437,30 @@
       },
       {
         "atOrAbove": "0",
+        "below": "2.5.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "DOMpurify has a nesting-based mXSS",
+          "CVE": [
+            "CVE-2024-47875"
+          ],
+          "githubID": "GHSA-gx9m-whjm-85jf"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-gx9m-whjm-85jf",
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gx9m-whjm-85jf",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-47875",
+          "https://github.com/cure53/DOMPurify/commit/0ef5e537a514f904b6aa1d7ad9e749e365d7185f",
+          "https://github.com/cure53/DOMPurify/commit/6ea80cd8b47640c20f2f230c7920b1f4ce4fdf7a",
+          "https://github.com/cure53/DOMPurify",
+          "https://github.com/cure53/DOMPurify/blob/0ef5e537a514f904b6aa1d7ad9e749e365d7185f/test/test-suite.js#L2098"
+        ]
+      },
+      {
+        "atOrAbove": "0",
         "below": "2.5.4",
         "cwe": [
           "CWE-1321",
@@ -4457,6 +4481,30 @@
           "https://github.com/cure53/DOMPurify/commit/1e520262bf4c66b5efda49e2316d6d1246ca7b21",
           "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
           "https://github.com/cure53/DOMPurify"
+        ]
+      },
+      {
+        "atOrAbove": "3.0.0",
+        "below": "3.1.3",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "DOMpurify has a nesting-based mXSS",
+          "CVE": [
+            "CVE-2024-47875"
+          ],
+          "githubID": "GHSA-gx9m-whjm-85jf"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-gx9m-whjm-85jf",
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gx9m-whjm-85jf",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-47875",
+          "https://github.com/cure53/DOMPurify/commit/0ef5e537a514f904b6aa1d7ad9e749e365d7185f",
+          "https://github.com/cure53/DOMPurify/commit/6ea80cd8b47640c20f2f230c7920b1f4ce4fdf7a",
+          "https://github.com/cure53/DOMPurify",
+          "https://github.com/cure53/DOMPurify/blob/0ef5e537a514f904b6aa1d7ad9e749e365d7185f/test/test-suite.js#L2098"
         ]
       },
       {
