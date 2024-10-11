@@ -73,6 +73,7 @@
       {
         "ranges": [
           {
+            "atOrAbove": "1.2.1",
             "below": "1.9.0"
           }
         ],
@@ -85,7 +86,8 @@
         "severity": "medium",
         "info": [
           "https://github.com/advisories/GHSA-q4m3-2j7h-f7xw",
-          "https://nvd.nist.gov/vuln/detail/CVE-2020-7656"
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-7656",
+          "https://research.insecurelabs.org/jquery/test/"
         ]
       },
       {
