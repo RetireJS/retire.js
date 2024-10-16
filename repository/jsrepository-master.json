@@ -5127,6 +5127,28 @@
       {
         "ranges": [
           {
+            "atOrAbove": "10.0.0",
+            "below": "14.2.7"
+          }
+        ],
+        "summary": "Denial of Service condition in Next.js image optimization",
+        "cwe": ["CWE-674"],
+        "severity": "medium",
+        "identifiers": {
+          "CVE": ["CVE-2024-47831"],
+          "githubID": "GHSA-g77x-44xx-532m"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-g77x-44xx-532m",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-g77x-44xx-532m",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-47831",
+          "https://github.com/vercel/next.js/commit/d11cbc9ff0b1aaefabcba9afe1e562e0b1fde65a",
+          "https://github.com/vercel/next.js"
+        ]
+      },
+      {
+        "ranges": [
+          {
             "atOrAbove": "13.5.1",
             "below": "13.5.7"
           },
