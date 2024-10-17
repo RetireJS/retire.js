@@ -2,7 +2,7 @@
   "name": "retirejs",
   "fullName": "Retire.js for Firefox",
   "id": "jid1-WraQ74BxTHiaUw@jetpack.org",
-  "description": "Scanning website for vulernable js libraries. Icon by http://www.studiomx.eu/",
+  "description": "Scanning website for vulernable js libraries. Icon by studiomx",
   "author": "Erlend Oftedal",
   "license": "Apache License, Version 2.0",
   "version": "0.1.2a1",
