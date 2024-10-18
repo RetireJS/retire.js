@@ -50,7 +50,7 @@ function deepScan(content, repo) {
  */
 
 var exports = exports || {};
-exports.version = '5.2.1';
+exports.version = '5.2.4';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -1596,6 +1596,7 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "1.2.1",
           "below": "1.9.0",
           "cwe": [
             "CWE-79"
@@ -1610,7 +1611,8 @@ module.exports={
           },
           "info": [
             "https://github.com/advisories/GHSA-q4m3-2j7h-f7xw",
-            "https://nvd.nist.gov/vuln/detail/CVE-2020-7656"
+            "https://nvd.nist.gov/vuln/detail/CVE-2020-7656",
+            "https://research.insecurelabs.org/jquery/test/"
           ]
         },
         {
@@ -4877,6 +4879,28 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "1.8.4",
+          "cwe": [
+            "CWE-791"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "AngularJS allows attackers to bypass common image source restrictions",
+            "CVE": [
+              "CVE-2024-8373"
+            ],
+            "githubID": "GHSA-mqm9-c95h-x2p6"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-mqm9-c95h-x2p6",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-8373",
+            "https://codepen.io/herodevs/full/bGPQgMp/8da9ce87e99403ee13a295c305ebfa0b",
+            "https://github.com/angular/angular.js",
+            "https://www.herodevs.com/vulnerability-directory/cve-2024-8373"
+          ]
+        },
+        {
           "atOrAbove": "1.3.0",
           "below": "1.8.4",
           "cwe": [
@@ -4898,6 +4922,28 @@ module.exports={
             "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-6241747",
             "https://security.snyk.io/vuln/SNYK-JS-ANGULAR-6091113",
             "https://stackblitz.com/edit/angularjs-vulnerability-ng-srcset-redos"
+          ]
+        },
+        {
+          "atOrAbove": "1.3.0-rc.4",
+          "below": "1.8.4",
+          "cwe": [
+            "CWE-1289"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "AngularJS allows attackers to bypass common image source restrictions",
+            "CVE": [
+              "CVE-2024-8372"
+            ],
+            "githubID": "GHSA-m9gf-397r-hwpg"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-m9gf-397r-hwpg",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-8372",
+            "https://codepen.io/herodevs/full/xxoQRNL/0072e627abe03e9cda373bc75b4c1017",
+            "https://github.com/angular/angular.js",
+            "https://www.herodevs.com/vulnerability-directory/cve-2024-8372"
           ]
         },
         {
@@ -5042,7 +5088,8 @@ module.exports={
       ],
       "extractors": {
         "func": [
-          "document.querySelector('[ng-version]').getAttribute('ng-version')"
+          "document.querySelector('[ng-version]').getAttribute('ng-version')",
+          "window.getAllAngularRootElements()[0].getAttribute(['ng-version'])"
         ],
         "ast": [
           "//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == \"NgModuleFactory\" ||          /:name == \"ɵBrowserDomAdapter\"       ]     ]/ExportSpecifier[       /:exported/:name == \"VERSION\"     ]/:$local/:init/:arguments/:value",
@@ -6028,6 +6075,102 @@ module.exports={
           "info": [
             "https://github.com/cure53/DOMPurify/releases"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "2.5.0",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "DOMpurify has a nesting-based mXSS",
+            "CVE": [
+              "CVE-2024-47875"
+            ],
+            "githubID": "GHSA-gx9m-whjm-85jf"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-gx9m-whjm-85jf",
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gx9m-whjm-85jf",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-47875",
+            "https://github.com/cure53/DOMPurify/commit/0ef5e537a514f904b6aa1d7ad9e749e365d7185f",
+            "https://github.com/cure53/DOMPurify/commit/6ea80cd8b47640c20f2f230c7920b1f4ce4fdf7a",
+            "https://github.com/cure53/DOMPurify",
+            "https://github.com/cure53/DOMPurify/blob/0ef5e537a514f904b6aa1d7ad9e749e365d7185f/test/test-suite.js#L2098"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "2.5.4",
+          "cwe": [
+            "CWE-1321",
+            "CWE-1333"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "DOMPurify allows tampering by prototype pollution",
+            "CVE": [
+              "CVE-2024-45801"
+            ],
+            "githubID": "GHSA-mmhx-hmjr-r674"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-mmhx-hmjr-r674",
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mmhx-hmjr-r674",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-45801",
+            "https://github.com/cure53/DOMPurify/commit/1e520262bf4c66b5efda49e2316d6d1246ca7b21",
+            "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
+            "https://github.com/cure53/DOMPurify"
+          ]
+        },
+        {
+          "atOrAbove": "3.0.0",
+          "below": "3.1.3",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "DOMpurify has a nesting-based mXSS",
+            "CVE": [
+              "CVE-2024-47875"
+            ],
+            "githubID": "GHSA-gx9m-whjm-85jf"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-gx9m-whjm-85jf",
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gx9m-whjm-85jf",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-47875",
+            "https://github.com/cure53/DOMPurify/commit/0ef5e537a514f904b6aa1d7ad9e749e365d7185f",
+            "https://github.com/cure53/DOMPurify/commit/6ea80cd8b47640c20f2f230c7920b1f4ce4fdf7a",
+            "https://github.com/cure53/DOMPurify",
+            "https://github.com/cure53/DOMPurify/blob/0ef5e537a514f904b6aa1d7ad9e749e365d7185f/test/test-suite.js#L2098"
+          ]
+        },
+        {
+          "atOrAbove": "3.0.0",
+          "below": "3.1.3",
+          "cwe": [
+            "CWE-1321",
+            "CWE-1333"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "DOMPurify allows tampering by prototype pollution",
+            "CVE": [
+              "CVE-2024-45801"
+            ],
+            "githubID": "GHSA-mmhx-hmjr-r674"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-mmhx-hmjr-r674",
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mmhx-hmjr-r674",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-45801",
+            "https://github.com/cure53/DOMPurify/commit/1e520262bf4c66b5efda49e2316d6d1246ca7b21",
+            "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
+            "https://github.com/cure53/DOMPurify"
+          ]
         }
       ],
       "extractors": {
@@ -6888,7 +7031,7 @@ module.exports={
         },
         {
           "atOrAbove": "4.0.0",
-          "below": "4.6.3",
+          "below": "5.0.0",
           "cwe": [
             "CWE-79"
           ],
@@ -7303,6 +7446,28 @@ module.exports={
             "https://github.com/ckeditor/ckeditor5/compare/v34.2.0...v35.0.0",
             "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-42wq-rch8-6f6j"
           ]
+        },
+        {
+          "atOrAbove": "40.0.0",
+          "below": "43.1.1",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Cross-site scripting (XSS) in the clipboard package",
+            "CVE": [
+              "CVE-2024-45613"
+            ],
+            "githubID": "GHSA-rgg8-g5x8-wr9v"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-rgg8-g5x8-wr9v",
+            "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rgg8-g5x8-wr9v",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-45613",
+            "https://github.com/ckeditor/ckeditor5",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v43.1.1"
+          ]
         }
       ],
       "extractors": {
@@ -7529,6 +7694,27 @@ module.exports={
           "info": [
             "https://github.com/sveltejs/svelte/pull/7530"
           ]
+        },
+        {
+          "below": "4.2.19",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Svelte has a potential mXSS vulnerability due to improper HTML escaping",
+            "CVE": [
+              "CVE-2024-45047"
+            ],
+            "githubID": "GHSA-8266-84wp-wv5c"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-8266-84wp-wv5c",
+            "https://github.com/sveltejs/svelte/security/advisories/GHSA-8266-84wp-wv5c",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-45047",
+            "https://github.com/sveltejs/svelte/commit/83e96e044deb5ecbae2af361ae9e31d3e1ac43a3",
+            "https://github.com/sveltejs/svelte"
+          ]
         }
       ],
       "extractors": {
@@ -7540,6 +7726,7 @@ module.exports={
         ],
         "filecontent": [
           "generated by Svelte v\\$\\{['\"](§§version§§)['\"]\\}",
+          "generated by Svelte v(§§version§§) \\*/",
           "version: '(§§version§§)' [\\s\\S]{80,200}'SvelteDOMInsert'",
           "VERSION = '(§§version§§)'[\\s\\S]{21,200}parse\\$[0-9][\\s\\S]{10,80}preprocess",
           "var version\\$[0-9] = \"(§§version§§)\";[\\s\\S]{10,30}normalizeOptions\\(options\\)[\\s\\S]{80,200}'SvelteComponent.html'"
@@ -8382,6 +8569,30 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "13.5.1",
+          "below": "13.5.7",
+          "cwe": [
+            "CWE-349",
+            "CWE-639"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Next.js Cache Poisoning",
+            "CVE": [
+              "CVE-2024-46982"
+            ],
+            "githubID": "GHSA-gp8f-8m3g-qvj9"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-gp8f-8m3g-qvj9",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-gp8f-8m3g-qvj9",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-46982",
+            "https://github.com/vercel/next.js/commit/7ed7f125e07ef0517a331009ed7e32691ba403d3",
+            "https://github.com/vercel/next.js/commit/bd164d53af259c05f1ab434004bcfdd3837d7cda",
+            "https://github.com/vercel/next.js"
+          ]
+        },
+        {
           "atOrAbove": "13.4.0",
           "below": "14.1.1",
           "cwe": [
@@ -8401,6 +8612,52 @@ module.exports={
             "https://nvd.nist.gov/vuln/detail/CVE-2024-34351",
             "https://github.com/vercel/next.js/pull/62561",
             "https://github.com/vercel/next.js/commit/8f7a6ca7d21a97bc9f7a1bbe10427b5ad74b9085",
+            "https://github.com/vercel/next.js"
+          ]
+        },
+        {
+          "atOrAbove": "10.0.0",
+          "below": "14.2.7",
+          "cwe": [
+            "CWE-674"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Denial of Service condition in Next.js image optimization",
+            "CVE": [
+              "CVE-2024-47831"
+            ],
+            "githubID": "GHSA-g77x-44xx-532m"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-g77x-44xx-532m",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-g77x-44xx-532m",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-47831",
+            "https://github.com/vercel/next.js/commit/d11cbc9ff0b1aaefabcba9afe1e562e0b1fde65a",
+            "https://github.com/vercel/next.js"
+          ]
+        },
+        {
+          "atOrAbove": "14.0.0",
+          "below": "14.2.10",
+          "cwe": [
+            "CWE-349",
+            "CWE-639"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Next.js Cache Poisoning",
+            "CVE": [
+              "CVE-2024-46982"
+            ],
+            "githubID": "GHSA-gp8f-8m3g-qvj9"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-gp8f-8m3g-qvj9",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-gp8f-8m3g-qvj9",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-46982",
+            "https://github.com/vercel/next.js/commit/7ed7f125e07ef0517a331009ed7e32691ba403d3",
+            "https://github.com/vercel/next.js/commit/bd164d53af259c05f1ab434004bcfdd3837d7cda",
             "https://github.com/vercel/next.js"
           ]
         }
