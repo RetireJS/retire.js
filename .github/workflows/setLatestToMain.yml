@@ -1,4 +1,4 @@
-name: Publish Package to npmjs
+name: Set latest tag to last main branch release
 on:
   workflow_dispatch:
 
