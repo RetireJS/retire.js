@@ -1,0 +1,24 @@
+name: Publish Package to npmjs
+on:
+  workflow_dispatch:
+
+jobs:
+  update-latest-tag:
+    if: github.ref == 'refs/heads/master' # Only runs on master branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm install -g npm
+        working-directory: node
+      - run: npm dist-tag add retire@$(cat node/package.json| jq -r ".version") latest
+        working-directory: node
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
