@@ -18,7 +18,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm install -g npm
         working-directory: node
-      - run: npm dist-tag add retire@$(cat node/package.json| jq -r ".version") latest
+      - run: npm dist-tag add retire@$(cat package.json| jq -r ".version") latest
         working-directory: node
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
