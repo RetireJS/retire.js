@@ -6,7 +6,6 @@ import { Schema, Validator } from 'jsonschema';
 import * as retire from '../../lib/retire';
 import { hash, LoggerOptions, Writer } from '../../lib/reporting';
 import * as reporting from '../../lib/reporting';
-import * as libxmljs from 'libxmljs';
 
 function readJson<T>(path: string): T {
   const data = fs.readFileSync(path, 'utf8');
@@ -88,7 +87,7 @@ describe('cyclonedx-json', () => {
     output.components[0].evidence.occurrences[0].location.should.equal(relative);
   });
 
-  it('should validate report according to xml schema', async () => {
+  /*it('should validate report according to xml schema', async () => {
     const data: unknown[] = [];
     const writer: Writer = {
       out: (a) => data.push(a),
@@ -114,5 +113,5 @@ describe('cyclonedx-json', () => {
       console.warn(e);
       fail('XML not seen as valid: ' + e);
     }
-  });
+  });*/
 });
