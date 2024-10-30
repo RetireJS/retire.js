@@ -110,6 +110,7 @@ const config: Options = {
   includeOsv: !!prg.includeOsv,
   verbose: !!prg.verbose,
   proxy: prg.proxy,
+  ext: prg.ext ?? 'js',
 };
 
 log.info(`retire.js v${retire.version}`);

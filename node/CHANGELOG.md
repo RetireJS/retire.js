@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.4.4]
+
+### Bugfix
+
+- CLI argument `--ext` was not working
+
 ## [4.4.3]
 
 ### Bugfix
