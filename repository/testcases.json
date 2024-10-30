@@ -197,10 +197,10 @@
   },
   "vue": {
     "https://cdn.jsdelivr.net/npm/vue@§§version§§": {
-      "versions": ["3.2.45", "3.2.37", "3.2.36", "2.7.6", "1.0.28"]
+      "versions": ["3.5.12", "3.2.45", "3.2.37", "3.2.36", "2.7.6", "1.0.28"]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.global.prod.min.js": {
-      "versions": ["3.2.37", "3.2.36", "3.2.45"]
+      "versions": ["3.5.12", "3.2.37", "3.2.36", "3.2.45"]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.min.js": {
       "versions": ["2.7.6", "1.0.28"]
@@ -637,8 +637,17 @@
   },
   "pdf.js": {
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/§§version§§/pdf§§subversion§§.mjs": {
-      "versions": ["4.3.136", "4.0.189"],
-      "subversions": ["", ".min"]
+      "versions": ["4.7.76", "4.3.136", "4.0.189"],
+      "subversions": ["", ".min"],
+      "additionalVersions": [
+        "4.6.82",
+        "4.5.136",
+        "4.4.168",
+        "4.2.67",
+        "4.1.392",
+        "4.0.379",
+        "4.0.269"
+      ]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/§§version§§/pdf§§subversion§§.js": {
       "versions": [
