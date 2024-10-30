@@ -197,10 +197,18 @@
   },
   "vue": {
     "https://cdn.jsdelivr.net/npm/vue@§§version§§": {
-      "versions": ["3.5.12", "3.2.45", "3.2.37", "3.2.36", "2.7.6", "1.0.28"]
+      "versions": [
+        "3.5.12",
+        "3.4.27",
+        "3.2.45",
+        "3.2.37",
+        "3.2.36",
+        "2.7.6",
+        "1.0.28"
+      ]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.global.prod.min.js": {
-      "versions": ["3.5.12", "3.2.37", "3.2.36", "3.2.45"]
+      "versions": ["3.5.12", "3.4.27", "3.2.37", "3.2.36", "3.2.45"]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.min.js": {
       "versions": ["2.7.6", "1.0.28"]
