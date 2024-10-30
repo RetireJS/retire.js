@@ -114,6 +114,7 @@ const config: Options = {
   verbose: !!prg.verbose,
   proxy: prg.proxy,
   deep: !!prg.deep,
+  ext: prg.ext ?? 'js',
 };
 
 log.info(`retire.js v${retire.version}`);
