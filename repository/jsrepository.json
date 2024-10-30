@@ -5855,7 +5855,7 @@
         "const version[ ]*=[ ]*\"(§§version§§)\";[\\s]*/\\*\\*[\\s]*\\* SSR utils for \\\\@vue/server-renderer",
         "\\.__vue_app__=.{0,8000}?const [a-z]+=\"(§§version§§)\",",
         "let [A-Za-z]+=\"(§§version§§)\",..=\"undefined\"!=typeof window&&window.trustedTypes;if\\(..\\)try\\{.=..\\.createPolicy\\(\"vue\",",
-        "isCustomElement.{1,5}?compilerOptions.{0,400}exposeProxy.{0,700}\"(§§version§§)\""
+        "isCustomElement.{1,5}?compilerOptions.{0,500}exposeProxy.{0,700}\"(§§version§§)\""
       ],
       "func": [
         "Vue.version"
