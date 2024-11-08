@@ -4473,6 +4473,28 @@
       },
       {
         "atOrAbove": "0",
+        "below": "2.4.2",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "DOMPurify vulnerable to tampering by prototype polution",
+          "CVE": [
+            "CVE-2024-48910"
+          ],
+          "githubID": "GHSA-p3vf-v8qc-cwcr"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-p3vf-v8qc-cwcr",
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-p3vf-v8qc-cwcr",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-48910",
+          "https://github.com/cure53/DOMPurify/commit/d1dd0374caef2b4c56c3bd09fe1988c3479166dc",
+          "https://github.com/cure53/DOMPurify"
+        ]
+      },
+      {
+        "atOrAbove": "0",
         "below": "2.5.0",
         "cwe": [
           "CWE-79"
@@ -6878,7 +6900,7 @@
         ]
       },
       {
-        "atOrAbove": "13.4.0",
+        "atOrAbove": "13.3.1",
         "below": "13.5.0",
         "cwe": [
           "CWE-400"
