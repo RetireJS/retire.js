@@ -2067,7 +2067,7 @@
       {
         "ranges": [
           {
-            "below": "1.9.1"
+            "below": "1.2.0"
           }
         ],
         "summary": "Versions of dojo prior to 1.2.0 are vulnerable to Cross-Site Scripting (XSS). The package fails to sanitize HTML code in user-controlled input, allowing attackers to execute arbitrary JavaScript in the victim's browser.",

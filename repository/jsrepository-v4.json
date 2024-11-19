@@ -2712,6 +2712,23 @@
         ]
       },
       {
+        "below": "1.2.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Versions of dojo prior to 1.2.0 are vulnerable to Cross-Site Scripting (XSS). The package fails to sanitize HTML code in user-controlled input, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
+          "CVE": [
+            "CVE-2015-5654"
+          ],
+          "githubID": "GHSA-p82g-2xpp-m5r3"
+        },
+        "info": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2015-5654"
+        ]
+      },
+      {
         "atOrAbove": "1.2",
         "below": "1.2.4",
         "severity": "medium",
@@ -2803,23 +2820,6 @@
           "https://dojotoolkit.org/blog/dojo-1-14-released",
           "https://github.com/advisories/GHSA-536q-8gxx-m782",
           "https://github.com/dojo/dojo/pull/307"
-        ]
-      },
-      {
-        "below": "1.9.1",
-        "severity": "medium",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "Versions of dojo prior to 1.2.0 are vulnerable to Cross-Site Scripting (XSS). The package fails to sanitize HTML code in user-controlled input, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
-          "CVE": [
-            "CVE-2015-5654"
-          ],
-          "githubID": "GHSA-p82g-2xpp-m5r3"
-        },
-        "info": [
-          "https://nvd.nist.gov/vuln/detail/CVE-2015-5654"
         ]
       },
       {
