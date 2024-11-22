@@ -5013,7 +5013,7 @@
           "CVE": ["CVE-2022-48285"],
           "githubID": "GHSA-36fh-84j7-cv5h"
         },
-        "severity": "high",
+        "severity": "medium",
         "cwe": ["CWE-22"],
         "info": ["https://stuk.github.io/jszip/CHANGES.html"]
       },

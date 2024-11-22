@@ -6483,7 +6483,7 @@
       },
       {
         "below": "3.8.0",
-        "severity": "high",
+        "severity": "medium",
         "cwe": [
           "CWE-22"
         ],
