@@ -76,10 +76,6 @@ These are the vulnerabilities currently detected by Retire.js
 <tr><th>Library</th><th>From version</th><th>Up to version</th><th>Links</th></tr>
 </table>
 
-<h3>Node packages</h3>
-<table id="vulnsnode">
-<tr><th>Library</th><th>From version</th><th>Up to version</th><th>Links</th></tr>
-</table>
 
 
 
@@ -129,7 +125,6 @@ function doIt(id, data) {
 
 
 fetch("//rawgit.com/RetireJS/retire.js/master/repository/jsrepository.json").then(r => r.json()).then(d => doIt("vulnsjs", d));
-fetch("//rawgit.com/RetireJS/retire.js/master/repository/npmrepository.json").then(r => r.json()).then(d => doIt("vulnsjs", d));
 
 </script>
 
