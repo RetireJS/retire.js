@@ -87,6 +87,7 @@ async function runTests(jsRepo) {
         additionalVersions,
         allowedOtherComponents,
         allowAstMiss,
+        allowContentMiss,
       } = tcontent;
       if (limit) {
         versions = Array.from(
@@ -150,12 +151,15 @@ async function runTests(jsRepo) {
             contentResults = contentResults.filter(
               (x) => !allowedOtherComponents.includes(x.component)
             );
-          if (contentResults.length == 0) {
+          const canSkipContent =
+            allowContentMiss && allowContentMiss.includes(version);
+          if (contentResults.length == 0 && !canSkipContent) {
             exitWithError(
               `Did not detect ${version} of ${name} using content on ${t}`
             );
           }
           if (
+            !canSkipContent &&
             contentResults.length > 1 &&
             contentResults[0].component != "jquery-ui"
           ) {
@@ -166,12 +170,15 @@ async function runTests(jsRepo) {
                 .join(", ")}`
             );
           }
-          if (contentResults[0].component != name) {
+          if (!canSkipContent && contentResults[0].component != name) {
             exitWithError(
               `Wrong component for ${version} of ${name} using uri or filename on ${t}: ${contentResults[0].component}`
             );
           }
-          if (!contentResults[0].version.startsWith(version)) {
+          if (
+            !canSkipContent &&
+            !contentResults[0].version.startsWith(version)
+          ) {
             exitWithError(
               `Wrong version for ${version} of ${name} using content on ${t}: ${contentResults[0].version}`
             );
@@ -218,9 +225,8 @@ async function runTests(jsRepo) {
               );
             }
           }
-          success(
-            `  - ${contentResults[0].component} @ ${contentResults[0].version}  C: ${cRt}ms B: ${bRt}ms`
-          );
+
+          success(`  - ${name} @ ${version}  C: ${cRt}ms B: ${bRt}ms`);
         }
       }
     }

@@ -196,6 +196,9 @@
     }
   },
   "vue": {
+    "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.runtime.global.min.js": {
+      "versions": ["3.5.12", "3.4.27", "3.2.37", "3.2.36", "3.2.45"]
+    },
     "https://cdn.jsdelivr.net/npm/vue@§§version§§": {
       "versions": [
         "3.5.12",
@@ -206,6 +209,13 @@
         "2.7.6",
         "1.0.28"
       ]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.cjs.js": {
+      "versions": ["3.5.12", "3.4.27"],
+      "allowAstMiss": ["3.5.12", "3.4.27"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.runtime.global.prod.min.js": {
+      "versions": ["3.5.12", "3.4.27"]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/vue/§§version§§/vue.global.prod.min.js": {
       "versions": ["3.5.12", "3.4.27", "3.2.37", "3.2.36", "3.2.45"],

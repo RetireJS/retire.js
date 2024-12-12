@@ -5913,13 +5913,16 @@
       ],
       "filecontent": [
         "/\\*!\\n \\* Vue.js v(§§version§§)",
+        "/\\*\\*?!?\\n ?\\* vue v(§§version§§)",
         "Vue.version = '(§§version§§)';",
         "'(§§version§§)'[^\\n]{0,8000}Vue compiler",
         "\\* Original file: /npm/vue@(§§version§§)/dist/vue.(global|common).js",
         "const version[ ]*=[ ]*\"(§§version§§)\";[\\s]*/\\*\\*[\\s]*\\* SSR utils for \\\\@vue/server-renderer",
         "\\.__vue_app__=.{0,8000}?const [a-z]+=\"(§§version§§)\",",
         "let [A-Za-z]+=\"(§§version§§)\",..=\"undefined\"!=typeof window&&window.trustedTypes;if\\(..\\)try\\{.=..\\.createPolicy\\(\"vue\",",
-        "isCustomElement.{1,5}?compilerOptions.{0,500}exposeProxy.{0,700}\"(§§version§§)\""
+        "isCustomElement.{1,5}?compilerOptions.{0,500}exposeProxy.{0,700}\"(§§version§§)\"",
+        "\"(§§version§§)\"[\\s\\S]{0,150}\\.createPolicy\\(\"vue\"",
+        "devtoolsFormatters[\\s\\S]{50,180}\"(§§version§§)\"[\\s\\S]{50,180}\\.createElement\\(\"template\"\\)"
       ],
       "func": [
         "Vue.version"
