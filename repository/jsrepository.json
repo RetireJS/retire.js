@@ -6998,6 +6998,29 @@
           "https://github.com/vercel/next.js/commit/bd164d53af259c05f1ab434004bcfdd3837d7cda",
           "https://github.com/vercel/next.js"
         ]
+      },
+      {
+        "atOrAbove": "9.5.5",
+        "below": "14.2.15",
+        "cwe": [
+          "CWE-285"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Next.js authorization bypass vulnerability",
+          "CVE": [
+            "CVE-2024-51479"
+          ],
+          "githubID": "GHSA-7gfc-8cq8-jh5f"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-7gfc-8cq8-jh5f",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-7gfc-8cq8-jh5f",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-51479",
+          "https://github.com/vercel/next.js/commit/1c8234eb20bc8afd396b89999a00f06b61d72d7b",
+          "https://github.com/vercel/next.js",
+          "https://github.com/vercel/next.js/releases/tag/v14.2.15"
+        ]
       }
     ],
     "extractors": {
