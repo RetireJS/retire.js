@@ -6931,6 +6931,27 @@
         ]
       },
       {
+        "atOrAbove": "13.0.0",
+        "below": "13.5.8",
+        "cwe": [
+          "CWE-770"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+          "CVE": [
+            "CVE-2024-56332"
+          ],
+          "githubID": "GHSA-7m27-7ghc-44w9"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
+          "https://github.com/vercel/next.js"
+        ]
+      },
+      {
         "atOrAbove": "13.4.0",
         "below": "14.1.1",
         "cwe": [
@@ -7020,6 +7041,48 @@
           "https://github.com/vercel/next.js/commit/1c8234eb20bc8afd396b89999a00f06b61d72d7b",
           "https://github.com/vercel/next.js",
           "https://github.com/vercel/next.js/releases/tag/v14.2.15"
+        ]
+      },
+      {
+        "atOrAbove": "14.0.0",
+        "below": "14.2.21",
+        "cwe": [
+          "CWE-770"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+          "CVE": [
+            "CVE-2024-56332"
+          ],
+          "githubID": "GHSA-7m27-7ghc-44w9"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
+          "https://github.com/vercel/next.js"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.1.2",
+        "cwe": [
+          "CWE-770"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+          "CVE": [
+            "CVE-2024-56332"
+          ],
+          "githubID": "GHSA-7m27-7ghc-44w9"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
+          "https://github.com/vercel/next.js"
         ]
       }
     ],
