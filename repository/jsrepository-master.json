@@ -3781,7 +3781,7 @@
         ],
         "summary": "Regular Expression Denial of Service (ReDoS), Affecting moment package, versions >=2.18.0 <2.29.4",
         "identifiers": {
-          "CVE": ["CVE-2022-31129", "CVE-2023-22467"],
+          "CVE": ["CVE-2022-31129"],
           "githubID": "GHSA-wc69-rhjr-hc9g"
         },
         "severity": "high",
@@ -6413,7 +6413,7 @@
         "cwe": ["CWE-79"],
         "severity": "high",
         "identifiers": {
-          "CVE": ["CVE-2024-34342", "CVE-2024-4367"],
+          "CVE": ["CVE-2024-4367"],
           "githubID": "GHSA-wgrm-67xf-hhpq"
         },
         "info": [

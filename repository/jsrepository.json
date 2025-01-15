@@ -5037,8 +5037,7 @@
         "identifiers": {
           "summary": "Regular Expression Denial of Service (ReDoS), Affecting moment package, versions >=2.18.0 <2.29.4",
           "CVE": [
-            "CVE-2022-31129",
-            "CVE-2023-22467"
+            "CVE-2022-31129"
           ],
           "githubID": "GHSA-wc69-rhjr-hc9g"
         },
@@ -8061,7 +8060,6 @@
         "identifiers": {
           "summary": "PDF.js vulnerable to arbitrary JavaScript execution upon opening a malicious PDF",
           "CVE": [
-            "CVE-2024-34342",
             "CVE-2024-4367"
           ],
           "githubID": "GHSA-wgrm-67xf-hhpq"
