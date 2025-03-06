@@ -4552,6 +4552,30 @@
           "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
           "https://github.com/cure53/DOMPurify"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "3.2.4",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "DOMPurify allows Cross-site Scripting (XSS)",
+          "CVE": [
+            "CVE-2025-26791"
+          ],
+          "githubID": "GHSA-vhxf-7vqr-mrjg"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-vhxf-7vqr-mrjg",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-26791",
+          "https://github.com/cure53/DOMPurify/commit/d18ffcb554e0001748865da03ac75dd7829f0f02",
+          "https://ensy.zip/posts/dompurify-323-bypass",
+          "https://github.com/cure53/DOMPurify",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.2.4",
+          "https://nsysean.github.io/posts/dompurify-323-bypass"
+        ]
       }
     ],
     "extractors": {
