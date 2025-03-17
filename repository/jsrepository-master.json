@@ -4776,6 +4776,30 @@
       {
         "ranges": [
           {
+            "atOrAbove": "0",
+            "below": "1.8.2"
+          }
+        ],
+        "summary": "axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL",
+        "cwe": ["CWE-918"],
+        "severity": "high",
+        "identifiers": {
+          "CVE": ["CVE-2025-27152"],
+          "githubID": "GHSA-jr5f-v2jv-69x6"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-jr5f-v2jv-69x6",
+          "https://github.com/axios/axios/security/advisories/GHSA-jr5f-v2jv-69x6",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-27152",
+          "https://github.com/axios/axios/issues/6463",
+          "https://github.com/axios/axios/commit/fb8eec214ce7744b5ca787f2c3b8339b2f54b00f",
+          "https://github.com/axios/axios",
+          "https://github.com/axios/axios/releases/tag/v1.8.2"
+        ]
+      },
+      {
+        "ranges": [
+          {
             "atOrAbove": "1.3.2",
             "below": "1.7.4"
           }
@@ -5665,6 +5689,27 @@
   "froala": {
     "npmname": "froala-editor",
     "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "4.3.1"
+          }
+        ],
+        "summary": "Froala WYSIWYG editor allows cross-site scripting (XSS)",
+        "cwe": ["CWE-79"],
+        "severity": "medium",
+        "identifiers": {
+          "CVE": ["CVE-2024-51434"],
+          "githubID": "GHSA-549p-5c7f-c5p4"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-549p-5c7f-c5p4",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-51434",
+          "https://georgyg.com/home/froala-wysiwyg-editor---xss-cve-2024-51434",
+          "https://github.com/froala/wysiwyg-editor"
+        ]
+      },
       {
         "ranges": [
           {
