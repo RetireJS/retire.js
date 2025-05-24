@@ -1,6 +1,5 @@
 import jsonLogger from '../../lib/reporters/cyclonedx-json';
 import jsonLogger1_6 from '../../lib/reporters/cyclonedx-1_6-json';
-import xmlLogger from '../../lib/reporters/cyclonedx';
 import * as fs from 'fs';
 import { Schema, Validator } from 'jsonschema';
 import * as retire from '../../lib/retire';
@@ -20,7 +19,6 @@ const jsfSchema = readJson<Schema>('spec/schema/jsf-0.82.schema.json');
 
 import * as path from 'path';
 
-import { fail } from 'assert';
 import * as os from 'os';
 import { Repository } from '../../lib/types';
 
