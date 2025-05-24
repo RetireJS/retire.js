@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.6]
+
+### Bugfix
+
+- Don't crash on invalid code when using deep scan
+
 ## [5.2.5]
 
 ### Bugfix

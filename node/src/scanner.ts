@@ -124,7 +124,11 @@ export function scanJsFile(file: string, repo: Repository, options: Options) {
     const content = fs.readFileSync(file, 'utf-8');
     results = retire.scanFileContent(content, repo, hash);
     if (options.deep) {
-      results = results.concat(deepScan(content, repo));
+      try {
+        results = results.concat(deepScan(content, repo));
+      } catch(e) {
+        options.log.warn(`Failed to scan ${file}: ` + e);
+      }
     }
   }
   emitResults({ file: file, results: results }, options, repo);

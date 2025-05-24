@@ -50,7 +50,7 @@ function deepScan(content, repo) {
  */
 
 var exports = exports || {};
-exports.version = '5.2.5';
+exports.version = '5.2.6';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -6241,6 +6241,30 @@ module.exports={
             "https://github.com/cure53/DOMPurify/commit/26e1d69ca7f769f5c558619d644d90dd8bf26ebc",
             "https://github.com/cure53/DOMPurify"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "3.2.4",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "DOMPurify allows Cross-site Scripting (XSS)",
+            "CVE": [
+              "CVE-2025-26791"
+            ],
+            "githubID": "GHSA-vhxf-7vqr-mrjg"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-vhxf-7vqr-mrjg",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-26791",
+            "https://github.com/cure53/DOMPurify/commit/d18ffcb554e0001748865da03ac75dd7829f0f02",
+            "https://ensy.zip/posts/dompurify-323-bypass",
+            "https://github.com/cure53/DOMPurify",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.2.4",
+            "https://nsysean.github.io/posts/dompurify-323-bypass"
+          ]
         }
       ],
       "extractors": {
@@ -6759,8 +6783,7 @@ module.exports={
           "identifiers": {
             "summary": "Regular Expression Denial of Service (ReDoS), Affecting moment package, versions >=2.18.0 <2.29.4",
             "CVE": [
-              "CVE-2022-31129",
-              "CVE-2023-22467"
+              "CVE-2022-31129"
             ],
             "githubID": "GHSA-wc69-rhjr-hc9g"
           },
@@ -7658,13 +7681,16 @@ module.exports={
         ],
         "filecontent": [
           "/\\*!\\n \\* Vue.js v(§§version§§)",
+          "/\\*\\*?!?\\n ?\\* vue v(§§version§§)",
           "Vue.version = '(§§version§§)';",
           "'(§§version§§)'[^\\n]{0,8000}Vue compiler",
           "\\* Original file: /npm/vue@(§§version§§)/dist/vue.(global|common).js",
           "const version[ ]*=[ ]*\"(§§version§§)\";[\\s]*/\\*\\*[\\s]*\\* SSR utils for \\\\@vue/server-renderer",
           "\\.__vue_app__=.{0,8000}?const [a-z]+=\"(§§version§§)\",",
           "let [A-Za-z]+=\"(§§version§§)\",..=\"undefined\"!=typeof window&&window.trustedTypes;if\\(..\\)try\\{.=..\\.createPolicy\\(\"vue\",",
-          "isCustomElement.{1,5}?compilerOptions.{0,500}exposeProxy.{0,700}\"(§§version§§)\""
+          "isCustomElement.{1,5}?compilerOptions.{0,500}exposeProxy.{0,700}\"(§§version§§)\"",
+          "\"(§§version§§)\"[\\s\\S]{0,150}\\.createPolicy\\(\"vue\"",
+          "devtoolsFormatters[\\s\\S]{50,180}\"(§§version§§)\"[\\s\\S]{50,180}\\.createElement\\(\"template\"\\)"
         ],
         "func": [
           "Vue.version"
@@ -8000,6 +8026,30 @@ module.exports={
             "https://github.com/axios/axios/releases",
             "https://github.com/axios/axios/releases/tag/v1.7.4",
             "https://jeffhacks.com/advisories/2024/06/24/CVE-2024-39338.html"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "1.8.2",
+          "cwe": [
+            "CWE-918"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL",
+            "CVE": [
+              "CVE-2025-27152"
+            ],
+            "githubID": "GHSA-jr5f-v2jv-69x6"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-jr5f-v2jv-69x6",
+            "https://github.com/axios/axios/security/advisories/GHSA-jr5f-v2jv-69x6",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-27152",
+            "https://github.com/axios/axios/issues/6463",
+            "https://github.com/axios/axios/commit/fb8eec214ce7744b5ca787f2c3b8339b2f54b00f",
+            "https://github.com/axios/axios",
+            "https://github.com/axios/axios/releases/tag/v1.8.2"
           ]
         }
       ],
@@ -8707,6 +8757,27 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "13.0.0",
+          "below": "13.5.8",
+          "cwe": [
+            "CWE-770"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+            "CVE": [
+              "CVE-2024-56332"
+            ],
+            "githubID": "GHSA-7m27-7ghc-44w9"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
+            "https://github.com/vercel/next.js"
+          ]
+        },
+        {
           "atOrAbove": "13.4.0",
           "below": "14.1.1",
           "cwe": [
@@ -8772,6 +8843,71 @@ module.exports={
             "https://nvd.nist.gov/vuln/detail/CVE-2024-46982",
             "https://github.com/vercel/next.js/commit/7ed7f125e07ef0517a331009ed7e32691ba403d3",
             "https://github.com/vercel/next.js/commit/bd164d53af259c05f1ab434004bcfdd3837d7cda",
+            "https://github.com/vercel/next.js"
+          ]
+        },
+        {
+          "atOrAbove": "9.5.5",
+          "below": "14.2.15",
+          "cwe": [
+            "CWE-285"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Next.js authorization bypass vulnerability",
+            "CVE": [
+              "CVE-2024-51479"
+            ],
+            "githubID": "GHSA-7gfc-8cq8-jh5f"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-7gfc-8cq8-jh5f",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-7gfc-8cq8-jh5f",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-51479",
+            "https://github.com/vercel/next.js/commit/1c8234eb20bc8afd396b89999a00f06b61d72d7b",
+            "https://github.com/vercel/next.js",
+            "https://github.com/vercel/next.js/releases/tag/v14.2.15"
+          ]
+        },
+        {
+          "atOrAbove": "14.0.0",
+          "below": "14.2.21",
+          "cwe": [
+            "CWE-770"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+            "CVE": [
+              "CVE-2024-56332"
+            ],
+            "githubID": "GHSA-7m27-7ghc-44w9"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
+            "https://github.com/vercel/next.js"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.1.2",
+          "cwe": [
+            "CWE-770"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+            "CVE": [
+              "CVE-2024-56332"
+            ],
+            "githubID": "GHSA-7m27-7ghc-44w9"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-7m27-7ghc-44w9",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
             "https://github.com/vercel/next.js"
           ]
         }
@@ -8946,6 +9082,27 @@ module.exports={
           "info": [
             "https://froala.com/wysiwyg-editor/changelog/#4.1.4",
             "https://github.com/advisories/GHSA-hvpq-7vcc-5hj5"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "4.3.1",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "Froala WYSIWYG editor allows cross-site scripting (XSS)",
+            "CVE": [
+              "CVE-2024-51434"
+            ],
+            "githubID": "GHSA-549p-5c7f-c5p4"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-549p-5c7f-c5p4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-51434",
+            "https://georgyg.com/home/froala-wysiwyg-editor---xss-cve-2024-51434",
+            "https://github.com/froala/wysiwyg-editor"
           ]
         }
       ],
@@ -9795,7 +9952,6 @@ module.exports={
           "identifiers": {
             "summary": "PDF.js vulnerable to arbitrary JavaScript execution upon opening a malicious PDF",
             "CVE": [
-              "CVE-2024-34342",
               "CVE-2024-4367"
             ],
             "githubID": "GHSA-wgrm-67xf-hhpq"
