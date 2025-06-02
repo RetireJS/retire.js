@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.7]
+
+### Performance fix
+
+- Upgrade to ASTronomical 2.0.0 to reduce memory usage
+
 ## [5.2.6]
 
 ### Bugfix

@@ -50,7 +50,7 @@ function deepScan(content, repo) {
  */
 
 var exports = exports || {};
-exports.version = '5.2.6';
+exports.version = '5.2.7';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -252,12 +252,11 @@ const meriyah_1 = require("meriyah");
 const nodeutils_1 = require("./nodeutils");
 const utils_1 = require("./utils");
 const debugLogEnabled = false;
-const log = {
-    debug: debugLogEnabled ? (...args) => {
-        if (debugLogEnabled)
-            console.debug(...args);
-    } : () => { }
-};
+const log = debugLogEnabled ? {
+    debug: (...args) => {
+        console.debug(...args);
+    }
+} : undefined;
 exports.functions = {
     "join": {
         fn: (result) => {
@@ -350,17 +349,17 @@ function createQuerier() {
         }
         else if ("node" in filter) {
             if (filter.node.type == "child") {
-                log.debug("ADDING FILTER CHILD", filter.node);
+                log?.debug("ADDING FILTER CHILD", filter.node);
                 state.child[state.depth + 1].push(filter);
             }
             if (filter.node.type == "descendant") {
-                log.debug("ADDING FILTER DESCENDANT", filter.node);
+                log?.debug("ADDING FILTER DESCENDANT", filter.node);
                 state.descendant[state.depth + 1].push(filter);
             }
         }
     }
     function createFNodeAndAddToState(token, result, state) {
-        log.debug("ADDING FNODE", token);
+        log?.debug("ADDING FNODE", token);
         const fnode = createFNode(token, result);
         if (token.type == "child") {
             state.child[state.depth + 1].push(fnode);
@@ -374,7 +373,7 @@ function createQuerier() {
         if (fnode.node.attribute) {
             const m = fnode.node.value == path.parentKey || fnode.node.value == path.key;
             if (m)
-                log.debug("ATTR MATCH", fnode.node.value, breadCrumb(path));
+                log?.debug("ATTR MATCH", fnode.node.value, breadCrumb(path));
             return m;
         }
         if (fnode.node.value == "*") {
@@ -382,7 +381,7 @@ function createQuerier() {
         }
         const m = fnode.node.value == path.node.type;
         if (m)
-            log.debug("NODE MATCH", fnode.node.value, breadCrumb(path));
+            log?.debug("NODE MATCH", fnode.node.value, breadCrumb(path));
         return m;
     }
     function addIfTokenMatch(fnode, path, state) {
@@ -450,11 +449,11 @@ function createQuerier() {
         const nodes = getPrimitiveChildren(fnode.node.value, path);
         if (nodes.length == 0)
             return;
-        log.debug("PRIMITIVE", fnode.node.value, nodes);
+        log?.debug("PRIMITIVE", fnode.node.value, nodes);
         fnode.result.push(...nodes);
     }
     function evaluateFilter(filter, path) {
-        log.debug("EVALUATING FILTER", filter, breadCrumb(path));
+        log?.debug("EVALUATING FILTER", filter, breadCrumb(path));
         if ("type" in filter) {
             if (filter.type == "and") {
                 const left = evaluateFilter(filter.left, path);
@@ -489,7 +488,7 @@ function createQuerier() {
     function resolveBinding(path) {
         if (!(0, nodeutils_1.isIdentifier)(path.node))
             return undefined;
-        log.debug("RESOLVING BINDING FOR ", path.node);
+        log?.debug("RESOLVING BINDING FOR ", path.node);
         const name = path.node.name;
         if (name == undefined || typeof name != "string")
             return undefined;
@@ -497,7 +496,7 @@ function createQuerier() {
         const binding = getBinding(path.scopeId, name);
         if (!binding)
             return undefined;
-        log.debug("THIS IS THE BINDING", binding);
+        log?.debug("THIS IS THE BINDING", binding);
         return binding.path;
     }
     function resolveFilterWithParent(node, path) {
@@ -508,7 +507,7 @@ function createQuerier() {
                 throw new Error("Parent filter must have child");
             if (!startPath.parentPath)
                 return [];
-            log.debug("STEP OUT", startNode, breadCrumb(startPath));
+            log?.debug("STEP OUT", startNode, breadCrumb(startPath));
             startNode = startNode.child;
             startPath = startPath.parentPath;
         }
@@ -527,9 +526,9 @@ function createQuerier() {
             const lookup = startNode.value;
             if (!lookup)
                 throw new Error("Selector must have a value");
-            //log.debug("STEP IN ", lookup, paths.map(p => breadCrumb(p)));
+            //log?.debug("STEP IN ", lookup, paths.map(p => breadCrumb(p)));
             const nodes = paths.filter(nodeutils_1.isNodePath).map(n => getPrimitiveChildrenOrNodePaths(lookup, n)).flat();
-            //log.debug("LOOKUP", lookup, path.node.type, nodes.map(n => n.node));
+            //log?.debug("LOOKUP", lookup, path.node.type, nodes.map(n => n.node));
             //console.log(nodes);
             if (nodes.length == 0)
                 return [];
@@ -551,7 +550,7 @@ function createQuerier() {
             }
             startNode = startNode.child;
         }
-        //log.debug("DIRECT TRAV RESOLVE", startNode, paths.map(p => breadCrumb(p)));
+        //log?.debug("DIRECT TRAV RESOLVE", startNode, paths.map(p => breadCrumb(p)));
         const result = [];
         //console.log(paths.length, subQueryCounter);
         for (const path of paths) {
@@ -569,7 +568,7 @@ function createQuerier() {
                 }
             }
         }
-        log.debug("DIRECT TRAV RESOLVE RESULT", result);
+        log?.debug("DIRECT TRAV RESOLVE RESULT", result);
         return result;
     }
     function addResultIfTokenMatch(fnode, path, state) {
@@ -626,7 +625,7 @@ function createQuerier() {
             resolveFunctionCalls(fnode, functionCallResult, path, state);
         }
         else if (matchingFilters.length > 0) {
-            log.debug("HAS MATCHING FILTER", fnode.result.length, matchingFilters.length, breadCrumb(path));
+            log?.debug("HAS MATCHING FILTER", fnode.result.length, matchingFilters.length, breadCrumb(path));
             fnode.result.push(...matchingFilters.flatMap(f => f.result));
         }
     }
@@ -642,7 +641,7 @@ function createQuerier() {
             }
         }
         const functionResult = exports.functions[functionCallResult.functionCall.function].fn(parameterResults);
-        log.debug("PARAMETER RESULTS", functionCallResult.functionCall.function, parameterResults, functionResult);
+        log?.debug("PARAMETER RESULTS", functionCallResult.functionCall.function, parameterResults, functionResult);
         fnode.result.push(...functionResult);
     }
     function travHandle(queries, root) {
@@ -663,7 +662,7 @@ function createQuerier() {
         state.descendant.slice(0, state.depth + 1).forEach(fnodes => fnodes.forEach(fnode => addPrimitiveAttributeIfMatch(fnode, root)));
         traverse(root.node, {
             enter(path, state) {
-                //log.debug("ENTER", breadCrumb(path));
+                //log?.debug("ENTER", breadCrumb(path));
                 state.depth++;
                 state.child.push([]);
                 state.descendant.push([]);
@@ -681,7 +680,7 @@ function createQuerier() {
                 }
             },
             exit(path, state) {
-                log.debug("EXIT", breadCrumb(path));
+                log?.debug("EXIT", breadCrumb(path));
                 // Check for attributes as not all attributes are visited
                 state.child[state.depth + 1].forEach(fnode => addPrimitiveAttributeIfMatch(fnode, path));
                 for (const fnodes of state.descendant) {
@@ -730,18 +729,19 @@ function multiQuery(code, namedQueries, returnAST) {
     const queries = Object.fromEntries(Object.entries(namedQueries).map(([name, query]) => [name, (0, parseQuery_1.parse)(query)]));
     const querier = createQuerier();
     const result = querier.beginHandle(queries, ast);
-    log.debug("Query time: ", Date.now() - start);
+    log?.debug("Query time: ", Date.now() - start);
     if (returnAST) {
         return { ...result, __AST: ast };
     }
     return result;
 }
-function parseSource(source) {
+function parseSource(source, optimize = true) {
+    const parsingOptions = optimize ? { loc: false, ranges: false } : { loc: true, ranges: true };
     try {
-        return (0, meriyah_1.parseScript)(source, { module: true, next: true });
+        return (0, meriyah_1.parseScript)(source, { module: true, next: true, ...parsingOptions });
     }
     catch (e) {
-        return (0, meriyah_1.parseScript)(source, { module: false, next: true });
+        return (0, meriyah_1.parseScript)(source, { module: false, next: true, ...parsingOptions, webcompat: true });
     }
 }
 const scopes = new Map();
@@ -961,10 +961,10 @@ function createTraverser() {
         const fscope = path?.functionScopeId ?? node.extra?.functionScopeId ?? scopeId;
         traverseInner(node, visitor, scopeId, fscope, state, path);
         if (!sOut.includes(scopeIdCounter)) {
-            log.debug("Scopes created", scopeIdCounter, " Scopes removed", removedScopes, "Paths created", pathsCreated, bindingNodesVisited);
+            log?.debug("Scopes created", scopeIdCounter, " Scopes removed", removedScopes, "Paths created", pathsCreated, bindingNodesVisited);
             sOut.push(scopeIdCounter);
             const k = Object.fromEntries(Object.entries(nodePathsCreated).sort((a, b) => a[1] - b[1]));
-            log.debug("Node paths created", k);
+            log?.debug("Node paths created", k);
         }
     }
     return {
@@ -1247,12 +1247,11 @@ exports.parse = parse;
 const _1 = require(".");
 const nodeutils_1 = require("./nodeutils");
 const debugLogEnabled = false;
-const log = {
-    debug: debugLogEnabled ? (...args) => {
-        if (debugLogEnabled)
-            console.debug(...args);
-    } : () => { }
-};
+const log = debugLogEnabled ? {
+    debug: (...args) => {
+        console.debug(...args);
+    }
+} : undefined;
 const supportedIdentifiers = Object.fromEntries(Object.keys(nodeutils_1.VISITOR_KEYS).map(k => [k, k]));
 function isIdentifierToken(token) {
     if (token == undefined)
@@ -1393,7 +1392,7 @@ function tokenize(input) {
     return result;
 }
 function buildFilter(tokens) {
-    log.debug("BUILD FILTER", tokens);
+    log?.debug("BUILD FILTER", tokens);
     tokens.shift();
     const p = buildTree(tokens);
     const next = tokens[0];
@@ -1440,7 +1439,7 @@ function buildFilter(tokens) {
 }
 const subNodes = ["child", "descendant"];
 function buildTree(tokens) {
-    log.debug("BUILD TREE", tokens);
+    log?.debug("BUILD TREE", tokens);
     if (tokens.length == 0)
         throw new Error("Unexpected end of input");
     const token = tokens.shift();
@@ -1483,7 +1482,7 @@ function buildTree(tokens) {
         let filter = undefined;
         if (tokens.length > 0 && tokens[0].type == "filterBegin") {
             filter = buildFilter(tokens);
-            log.debug("FILTER", filter, tokens);
+            log?.debug("FILTER", filter, tokens);
         }
         let child = undefined;
         if (tokens.length > 0 && subNodes.includes(tokens[0].type)) {
@@ -1510,7 +1509,7 @@ function buildTree(tokens) {
     throw new Error("Unexpected token: " + token.type);
 }
 function buildFunctionCall(name, tokens) {
-    log.debug("BUILD FUNCTION", name, tokens);
+    log?.debug("BUILD FUNCTION", name, tokens);
     const parameters = [];
     const next = tokens.shift();
     if (next?.type != "parametersBegin")
@@ -1532,7 +1531,7 @@ function buildFunctionCall(name, tokens) {
 function parse(input) {
     const tokens = tokenize(input);
     const result = buildTree(tokens);
-    log.debug("RESULT", result);
+    log?.debug("RESULT", result);
     if (!result)
         throw new Error("No root element found");
     return result;
