@@ -5,6 +5,8 @@ import { Schema, Validator } from 'jsonschema';
 import * as retire from '../../lib/retire';
 import { hash, LoggerOptions, Writer } from '../../lib/reporting';
 import * as reporting from '../../lib/reporting';
+import { should } from 'chai';
+should();
 
 function readJson<T>(path: string): T {
   const data = fs.readFileSync(path, 'utf8');

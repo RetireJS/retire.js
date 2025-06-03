@@ -1,6 +1,5 @@
 import * as license from '../../lib/license';
 import { should } from 'chai';
-import 'mocha';
 should();
 
 describe('licenses', function () {

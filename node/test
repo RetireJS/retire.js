@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-rm   -rf spec/out
-mkdir -p spec/out
-
-node_modules/.bin/mocha -r ts-node/register 'spec/tests/*.ts' spec/tests

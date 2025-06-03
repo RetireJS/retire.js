@@ -22,8 +22,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/chai": "^4.3.17",
-    "@types/mocha": "^10.0.7",
     "@types/node": "^18.13.0",
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -32,13 +32,13 @@
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^9.0.0",
     "jsonschema": "^1.4.1",
-    "mocha": "^10.2.0",
     "prettier": "^3.1.0",
+    "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "test": "./test",
+    "test": "rm   -rf spec/out && mkdir -p spec/out && jest --ci --runInBand",
     "build": "tsc && chmod ugo+x lib/cli.js && cp src/retire.d.ts lib/retire.d.ts",
     "watch": "tsc --watch ",
     "typecheck": "tsc --noEmit",

@@ -1,5 +1,4 @@
 import { should } from 'chai';
-import 'mocha';
 should();
 import { generatePURL } from '../../lib/reporters/utils';
 
