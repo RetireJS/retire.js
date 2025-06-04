@@ -705,6 +705,7 @@ function createQuerier() {
     function beginHandle(queries, path) {
         const rootPath = createNodePath(path, undefined, undefined, undefined, undefined);
         const r = travHandle(queries, rootPath);
+        memo.clear();
         return r;
     }
     return {
@@ -744,9 +745,9 @@ function parseSource(source, optimize = true) {
         return (0, meriyah_1.parseScript)(source, { module: false, next: true, ...parsingOptions, webcompat: true });
     }
 }
-const scopes = new Map();
 function createTraverser() {
     let scopeIdCounter = 0;
+    const scopes = new Map();
     let removedScopes = 0;
     const nodePathsCreated = {};
     function createScope(parentScopeId) {
