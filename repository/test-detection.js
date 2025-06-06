@@ -41,7 +41,10 @@ async function dl(uri) {
   process.stdout.write(`  Downloading ${uri} `);
   const uriFixed = uri.replace(/[^a-z0-9.]/gi, "_");
   const data = await readIfExists(uriFixed);
-  if (data) return Promise.resolve(data);
+  if (data) {
+    console.log("(cached)");
+    return Promise.resolve(data);
+  }
   const start = Date.now();
   return new Promise((resolve, reject) => {
     if (dlCache[uri]) return resolve(dlCache[uri]);
