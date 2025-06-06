@@ -2,7 +2,7 @@
 
 const crypto = require("crypto");
 const testCases = require("./testcases.json");
-
+const fs = require("fs");
 const retire = require("../node/lib/retire.js");
 const repo = require("../node/lib/repo.js");
 const reporting = require("../node/lib/reporting.js");
@@ -21,12 +21,28 @@ var hash = {
     return shasum.digest("hex");
   },
 };
+if (!fs.existsSync("tmp")) {
+  fs.mkdirSync("tmp")
+}
+function readIfExists(path) {
+  return new Promise((resolve,reject) => {
+    const p = "tmp/" + path;
+    fs.access(p, fs.constants.F_OK, (err) => {
+      if (err) return resolve(undefined);
+      const data = fs.readFileSync(p, "utf-8");
+      return resolve(data);
+    });
+  })
+}
 
 const https = require("https");
 const dlCache = {};
 async function dl(uri) {
-  const start = Date.now();
   process.stdout.write(`  Downloading ${uri} `);
+  const uriFixed = uri.replace(/[^a-z0-9.]/gi, "_");
+  const data = await readIfExists(uriFixed);
+  if (data) return Promise.resolve(data);
+  const start = Date.now();
   return new Promise((resolve, reject) => {
     if (dlCache[uri]) return resolve(dlCache[uri]);
     let d = https.get(uri, (res) => {
@@ -48,6 +64,7 @@ async function dl(uri) {
           return reject("Failed to download " + uri + ": " + res.statusCode);
         }
         dlCache[uri] = Buffer.concat(d);
+        fs.writeFileSync("tmp/" + uriFixed, dlCache[uri]);
         resolve(dlCache[uri]);
       });
     });

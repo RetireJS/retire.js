@@ -29,5 +29,13 @@ jobs:
         working-directory: node
       - run: ./validate
         working-directory: repository
+      - name: Restore cached data for test-detection
+        uses: actions/cache@v3
+        id: cache-testdata
+        with:
+          path: repository/tmp
+          key: ${{ runner.os }}-test-detection-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-test-detection-
       - run: ./test-detection.js
         working-directory: repository
