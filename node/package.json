@@ -39,7 +39,7 @@
   },
   "scripts": {
     "test": "rm   -rf spec/out && mkdir -p spec/out && jest --ci --runInBand",
-    "build": "tsc && chmod ugo+x lib/cli.js && cp src/retire.d.ts lib/retire.d.ts",
+    "build": "tsc && chmod ugo+x lib/cli.js && cp src/retire.d.ts lib/retire.d.ts && cp ../LICENSE.md .",
     "watch": "tsc --watch ",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts --fix --ignore-path ../.gitignore",
