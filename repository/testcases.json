@@ -95,17 +95,17 @@
   },
   "jquery-validation": {
     "https://cdn.jsdelivr.net/npm/jquery-validation@§§version§§/dist/jquery.validate§§subversion§§.js": {
-      "versions": ["1.19.5", "1.15.1"],
+      "versions": ["1.21.0","1.19.5", "1.15.1"],
       "subversions": ["", ".min"]
     },
     "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/§§version§§/jquery.validate§§subversion§§.js": {
-      "versions": ["1.19.5", "1.15.1"],
+      "versions": ["1.21.0","1.19.5", "1.15.1"],
       "subversions": ["", ".min"]
     }
   },
   "jquery-migrate": {
     "https://code.jquery.com/jquery-migrate-§§version§§§§subversion§§.js": {
-      "versions": ["3.4.0", "1.4.1"],
+      "versions": ["3.5.2", "3.4.0", "1.4.1"],
       "subversions": ["", ".min"],
       "additionalVersions": [
         "3.4.1",
@@ -129,13 +129,17 @@
   },
   "jquery-ui": {
     "https://code.jquery.com/ui/§§version§§/jquery-ui§§subversion§§.js": {
-      "versions": ["1.13.1", "1.8.23", "1.7.1"],
+      "versions": ["1.14.1", "1.13.1", "1.8.23", "1.7.1"],
       "subversions": ["", ".min"]
     }
   },
   "jquery.datatables": {
     "https://cdn.datatables.net/§§version§§/js/jquery.dataTables§§subversion§§.js": {
       "versions": ["1.12.1"],
+      "subversions": ["", ".min"]
+    },
+    "https://cdn.datatables.net/§§version§§/js/dataTables§§subversion§§.js": {
+      "versions": ["2.3.2"],
       "subversions": ["", ".min"]
     }
   },
@@ -162,7 +166,12 @@
   },
   "knockout": {
     "https://cdnjs.cloudflare.com/ajax/libs/knockout/§§version§§/knockout-min.js": {
-      "versions": ["3.5.0", "3.0.0", "2.2.1", "1.2.1"]
+      "versions": ["3.5.0", "3.0.0", "2.2.1", "1.2.1"],
+      "allowAstMiss": ["1.2.1"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/knockout/§§version§§/knockout-latest§§subversion§§.js": {
+      "versions": ["3.5.1"],
+      "subversions": ["", ".min"]
     }
   },
   "tinyMCE": {
@@ -448,6 +457,11 @@
     }
   },
   "react-dom": {
+    "https://cdnjs.cloudflare.com/ajax/libs/react-dom/§§version§§/cjs/react-dom.production.min.js": {
+      "versions": [
+        "19.0.0"
+      ]
+    },  
     "https://unpkg.com/react-dom@§§version§§/umd/react-dom.production.min.js": {
       "versions": [
         "18.2.0",
@@ -474,7 +488,7 @@
   },
   "angularjs": {
     "https://cdnjs.cloudflare.com/ajax/libs/angular.js/§§version§§/angular§§subversion§§.js": {
-      "versions": ["0.10.5"],
+      "versions": ["0.10.5", "1.8.3"],
       "subversions": ["", ".min"]
     },
     "https://code.angularjs.org/§§version§§/angular§§subversion§§.js": {
@@ -498,6 +512,10 @@
     }
   },
   "ua-parser-js": {
+    "https://cdn.jsdelivr.net/npm/ua-parser-js@§§version§§/dist/ua-parser§§subversion§§.js": {
+      "versions": ["2.0.3"],
+      "subversions": [".pack", ".min"]
+    },
     "https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/§§version§§/ua-parser§§subversion§§.js": {
       "versions": ["1.0.37", "1.0.2", "0.7.20"],
       "subversions": ["", ".min"],
@@ -544,6 +562,7 @@
   "dojo": {
     "https://ajax.googleapis.com/ajax/libs/dojo/§§version§§/dojo/dojo.js": {
       "versions": [
+        "1.14.1",
         "1.13.0",
         "1.12.2",
         "1.11.1",
@@ -681,7 +700,7 @@
   },
   "pdf.js": {
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/§§version§§/pdf§§subversion§§.mjs": {
-      "versions": ["4.7.76", "4.3.136", "4.0.189"],
+      "versions": ["4.7.76", "4.3.136", "4.0.189", "5.0.375"],
       "subversions": ["", ".min"],
       "additionalVersions": [
         "4.6.82",
@@ -708,11 +727,11 @@
   },
   "pdfobject": {
     "https://cdnjs.cloudflare.com/ajax/libs/pdfobject/§§version§§/pdfobject§§subversion§§.js": {
-      "versions": ["2.1.1", "2.3.0"],
+      "versions": ["2.1.1", "2.3.0", "2.3.1"],
       "subversions": ["", ".min"]
     },
     "https://cdn.jsdelivr.net/npm/pdfobject@§§version§§/pdfobject.min.js": {
-      "versions": ["2.1.1", "2.3.0"]
+      "versions": ["2.1.1", "2.3.0", "2.3.1"]
     }
   }
 }

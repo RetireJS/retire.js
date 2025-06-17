@@ -238,6 +238,11 @@ exports.queries = {
     `//ObjectExpression[
       /Property[/:key/:name == "rendererPackageName" && /:value/:value == "react-dom"]
     ]/Property[/:key/:name == "version"]/:value/:value`,
+    `//SequenceExpression[
+            /AssignmentExpression/:left[/:object/:name == "exports" && /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"] 
+        ]/AssignmentExpression[
+            /:left/:object/:name == "exports" && /:left/:property/:name == "version"
+        ]/:right/:value`
   ],
   react: [
     `//CallExpression[
@@ -307,4 +312,21 @@ exports.queries = {
       /:left/:property/:name == "VERSION"
     ]/$$:right/:value`,
   ],
+  knockout: [
+    `//ExpressionStatement/SequenceExpression[
+          /AssignmentExpression[/:left/:property/:name == "options" && /ObjectExpression/:properties/:key/:name == "foreachHidesDestroyed" ]
+        ]/AssignmentExpression[/:left/:property/:name == "version"]/:right/:value`,
+    `//BlockStatement[
+          /ExpressionStatement/AssignmentExpression[
+            /:left/:property/:name == "options"  &&
+            /ObjectExpression/:properties/:key[
+                /:name == "foreachHidesDestroyed" ||
+                /:value == "foreachHidesDestroyed"
+            ]
+          ]
+        ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == "version"]/:right/:value`,
+    `//BlockStatement[
+          /ExpressionStatement/CallExpression/:arguments/:value == "isWriteableObservable"
+        ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == "version"]/:right/:value`
+  ]
 };

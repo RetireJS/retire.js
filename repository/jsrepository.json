@@ -1043,7 +1043,8 @@
         "/knockout/(§§version§§)/knockout(-[a-z.]+)?\\.js"
       ],
       "filecontent": [
-        "(?:\\*|//) Knockout JavaScript library v(§§version§§)"
+        "(?:\\*|//) Knockout JavaScript library v(§§version§§)",
+        ".version=\"(§§version§§)\",_.b\\(.version.,_.version\\),_.options=\\{deferUpdates:!1,useOnlyNativeEvents:!1,foreachHidesDestroyed:!1\\}"
       ],
       "hashes": {}
     }
@@ -4925,11 +4926,13 @@
     ],
     "extractors": {
       "uri": [
-        "/react-dom@(§§version§§)/"
+        "/react-dom@(§§version§§)/",
+        "/react-dom/(§§version§§)/"
       ],
       "filecontent": [
         "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
-        "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\."
+        "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\.",
+        "return ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)\\},exports.version=\"(§§version§§)\""
       ]
     }
   },
@@ -6728,7 +6731,7 @@
     ],
     "extractors": {
       "uri": [
-        "/(§§version§§)/(js/)?jquery.dataTables(.min)?.js"
+        "/(§§version§§)/(js/)?(jquery.)?dataTables(.min)?.js"
       ],
       "filename": [
         "jquery.dataTables-(§§version§§)(\\.min)?\\.js"
@@ -8327,7 +8330,8 @@
     ],
     "extractors": {
       "uri": [
-        "/(§§version§§)/ua-parser(.min)?.js"
+        "/(§§version§§)/ua-parser(.min)?.js",
+        "/ua-parser-js@(§§version§§)/"
       ],
       "filecontent": [
         "/\\* UAParser.js v(§§version§§)",

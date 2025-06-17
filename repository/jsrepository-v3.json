@@ -1104,9 +1104,15 @@
           "/knockout/(§§version§§)/knockout(-[a-z.]+)?\\.js"
         ],
         "filecontent": [
-          "(?:\\*|//) Knockout JavaScript library v(§§version§§)"
+          "(?:\\*|//) Knockout JavaScript library v(§§version§§)",
+          ".version=\"(§§version§§)\",_.b\\(.version.,_.version\\),_.options=\\{deferUpdates:!1,useOnlyNativeEvents:!1,foreachHidesDestroyed:!1\\}"
         ],
-        "hashes": {}
+        "hashes": {},
+        "ast": [
+          "//ExpressionStatement/SequenceExpression[           /AssignmentExpression[/:left/:property/:name == \"options\" && /ObjectExpression/:properties/:key/:name == \"foreachHidesDestroyed\" ]         ]/AssignmentExpression[/:left/:property/:name == \"version\"]/:right/:value",
+          "//BlockStatement[           /ExpressionStatement/AssignmentExpression[             /:left/:property/:name == \"options\"  &&             /ObjectExpression/:properties/:key[                 /:name == \"foreachHidesDestroyed\" ||                 /:value == \"foreachHidesDestroyed\"             ]           ]         ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == \"version\"]/:right/:value",
+          "//BlockStatement[           /ExpressionStatement/CallExpression/:arguments/:value == \"isWriteableObservable\"         ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == \"version\"]/:right/:value"
+        ]
       }
     },
     "sessvars": {
@@ -5072,15 +5078,18 @@
       ],
       "extractors": {
         "uri": [
-          "/react-dom@(§§version§§)/"
+          "/react-dom@(§§version§§)/",
+          "/react-dom/(§§version§§)/"
         ],
         "filecontent": [
           "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
-          "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\."
+          "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\.",
+          "return ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)\\},exports.version=\"(§§version§§)\""
         ],
         "ast": [
           "//ObjectExpression/Property[/:key/:name == \"reconcilerVersion\"]/$$:value/:value",
-          "//ObjectExpression[       /Property[/:key/:name == \"rendererPackageName\" && /:value/:value == \"react-dom\"]     ]/Property[/:key/:name == \"version\"]/:value/:value"
+          "//ObjectExpression[       /Property[/:key/:name == \"rendererPackageName\" && /:value/:value == \"react-dom\"]     ]/Property[/:key/:name == \"version\"]/:value/:value",
+          "//SequenceExpression[             /AssignmentExpression/:left[/:object/:name == \"exports\" && /:property/:name == \"__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE\"]          ]/AssignmentExpression[             /:left/:object/:name == \"exports\" && /:left/:property/:name == \"version\"         ]/:right/:value"
         ]
       }
     },
@@ -6948,7 +6957,7 @@
       ],
       "extractors": {
         "uri": [
-          "/(§§version§§)/(js/)?jquery.dataTables(.min)?.js"
+          "/(§§version§§)/(js/)?(jquery.)?dataTables(.min)?.js"
         ],
         "filename": [
           "jquery.dataTables-(§§version§§)(\\.min)?\\.js"
@@ -8583,7 +8592,8 @@
       ],
       "extractors": {
         "uri": [
-          "/(§§version§§)/ua-parser(.min)?.js"
+          "/(§§version§§)/ua-parser(.min)?.js",
+          "/ua-parser-js@(§§version§§)/"
         ],
         "filecontent": [
           "/\\* UAParser.js v(§§version§§)",
