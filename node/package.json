@@ -60,6 +60,7 @@
   "type": "commonjs",
   "files": [
     "lib/**/*",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "LICENSE.md"
   ]
 }
