@@ -7379,6 +7379,28 @@
         ]
       },
       {
+        "atOrAbove": "13.0",
+        "below": "14.2.30",
+        "cwe": [
+          "CWE-1385"
+        ],
+        "severity": "low",
+        "identifiers": {
+          "summary": "Information exposure in Next.js dev server due to lack of origin verification",
+          "CVE": [
+            "CVE-2025-48068"
+          ],
+          "githubID": "GHSA-3h52-269p-cp9r"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-3h52-269p-cp9r",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-3h52-269p-cp9r",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-48068",
+          "https://github.com/vercel/next.js",
+          "https://vercel.com/changelog/cve-2025-48068"
+        ]
+      },
+      {
         "atOrAbove": "15.0.0",
         "below": "15.1.2",
         "cwe": [
@@ -7422,7 +7444,7 @@
         ]
       },
       {
-        "atOrAbove": "13.0",
+        "atOrAbove": "15.0.0",
         "below": "15.2.2",
         "cwe": [
           "CWE-1385"
