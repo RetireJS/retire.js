@@ -8133,7 +8133,7 @@
         "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§)[\\s\\S]{1,200}Build: `lodash modern -o",
         "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§) <",
         "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§) lodash.com/license",
-        "=\"(§§version§§)\"[\\s\\S]{1,300}__lodash_hash_undefined__",
+        "=\"(§§version§§)(?<=[0-9]+(\\.[0-9]+)+)\"[\\s\\S]{1,300}__lodash_hash_undefined__",
         "/\\*[\\s*]+@license[\\s*]+(?:Lo-Dash|lodhash|Lodash)[\\s\\S]{1,500}var VERSION *= *['\"](§§version§§)['\"]",
         "var VERSION=\"(§§version§§)\";var BIND_FLAG=1,BIND_KEY_FLAG=2,CURRY_BOUND_FLAG=4,CURRY_FLAG=8"
       ],
