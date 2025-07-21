@@ -1965,6 +1965,29 @@ module.exports={
           "info": [
             "https://github.com/jquery-validation/jquery-validation/blob/master/changelog.md#1200--2023-10-10"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "1.20.0",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "jquery-validation vulnerable to Cross-site Scripting",
+            "CVE": [
+              "CVE-2025-3573"
+            ],
+            "githubID": "GHSA-rrj2-ph5q-jxw2"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-rrj2-ph5q-jxw2",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-3573",
+            "https://github.com/jquery-validation/jquery-validation/pull/2462",
+            "https://github.com/jquery-validation/jquery-validation/commit/7a490d8f39bd988027568ddcf51755e1f4688902",
+            "https://github.com/jquery-validation/jquery-validation",
+            "https://security.snyk.io/vuln/SNYK-JS-JQUERYVALIDATION-5952285"
+          ]
         }
       ],
       "extractors": {
@@ -2637,9 +2660,15 @@ module.exports={
           "/knockout/(§§version§§)/knockout(-[a-z.]+)?\\.js"
         ],
         "filecontent": [
-          "(?:\\*|//) Knockout JavaScript library v(§§version§§)"
+          "(?:\\*|//) Knockout JavaScript library v(§§version§§)",
+          ".version=\"(§§version§§)\",_.b\\(.version.,_.version\\),_.options=\\{deferUpdates:!1,useOnlyNativeEvents:!1,foreachHidesDestroyed:!1\\}"
         ],
-        "hashes": {}
+        "hashes": {},
+        "ast": [
+          "//ExpressionStatement/SequenceExpression[           /AssignmentExpression[/:left/:property/:name == \"options\" && /ObjectExpression/:properties/:key/:name == \"foreachHidesDestroyed\" ]         ]/AssignmentExpression[/:left/:property/:name == \"version\"]/:right/:value",
+          "//BlockStatement[           /ExpressionStatement/AssignmentExpression[             /:left/:property/:name == \"options\"  &&             /ObjectExpression/:properties/:key[                 /:name == \"foreachHidesDestroyed\" ||                 /:value == \"foreachHidesDestroyed\"             ]           ]         ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == \"version\"]/:right/:value",
+          "//BlockStatement[           /ExpressionStatement/CallExpression/:arguments/:value == \"isWriteableObservable\"         ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == \"version\"]/:right/:value"
+        ]
       }
     },
     "sessvars": {
@@ -3561,14 +3590,15 @@ module.exports={
           "identifiers": {
             "CVE": [
               "CVE-2013-4941"
-            ]
+            ],
+            "githubID": "GHSA-64r3-582j-frqm"
           },
           "info": [
             "http://www.cvedetails.com/cve/CVE-2013-4941/"
           ]
         },
         {
-          "atOrAbove": "3.5.0",
+          "atOrAbove": "3.2.0",
           "below": "3.9.2",
           "severity": "medium",
           "cwe": [
@@ -3577,7 +3607,8 @@ module.exports={
           "identifiers": {
             "CVE": [
               "CVE-2013-4942"
-            ]
+            ],
+            "githubID": "GHSA-9ww8-j8j2-3788"
           },
           "info": [
             "http://www.cvedetails.com/cve/CVE-2013-4942/"
@@ -3603,7 +3634,7 @@ module.exports={
         },
         {
           "atOrAbove": "3.0.0",
-          "below": "3.10.3",
+          "below": "3.10.11",
           "severity": "medium",
           "cwe": [
             "CWE-79"
@@ -3611,7 +3642,25 @@ module.exports={
           "identifiers": {
             "CVE": [
               "CVE-2013-4940"
-            ]
+            ],
+            "githubID": "GHSA-x5hj-47vv-53p8"
+          },
+          "info": [
+            "http://www.cvedetails.com/cve/CVE-2013-4940/"
+          ]
+        },
+        {
+          "atOrAbove": "3.10.12",
+          "below": "3.10.13",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "CVE": [
+              "CVE-2013-4940"
+            ],
+            "githubID": "GHSA-x5hj-47vv-53p8"
           },
           "info": [
             "http://www.cvedetails.com/cve/CVE-2013-4940/"
@@ -4924,6 +4973,28 @@ module.exports={
           },
           "info": [
             "https://github.com/advisories/GHSA-qwqh-hm9m-p5hr"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "1.8.4",
+          "cwe": [
+            "CWE-791"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "AngularJS improperly sanitizes SVG elements",
+            "CVE": [
+              "CVE-2025-0716"
+            ],
+            "githubID": "GHSA-j58c-ww9w-pwp5"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-j58c-ww9w-pwp5",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-0716",
+            "https://codepen.io/herodevs/pen/qEWQmpd/a86a0d29310e12c7a3756768e6c7b915",
+            "https://github.com/angular/angular.js",
+            "https://www.herodevs.com/vulnerability-directory/cve-2025-0716"
           ]
         },
         {
@@ -6563,15 +6634,18 @@ module.exports={
       ],
       "extractors": {
         "uri": [
-          "/react-dom@(§§version§§)/"
+          "/react-dom@(§§version§§)/",
+          "/react-dom/(§§version§§)/"
         ],
         "filecontent": [
           "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
-          "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\."
+          "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\.",
+          "return ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)\\},exports.version=\"(§§version§§)\""
         ],
         "ast": [
           "//ObjectExpression/Property[/:key/:name == \"reconcilerVersion\"]/$$:value/:value",
-          "//ObjectExpression[       /Property[/:key/:name == \"rendererPackageName\" && /:value/:value == \"react-dom\"]     ]/Property[/:key/:name == \"version\"]/:value/:value"
+          "//ObjectExpression[       /Property[/:key/:name == \"rendererPackageName\" && /:value/:value == \"react-dom\"]     ]/Property[/:key/:name == \"version\"]/:value/:value",
+          "//SequenceExpression[             /AssignmentExpression/:left[/:object/:name == \"exports\" && /:property/:name == \"__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE\"]          ]/AssignmentExpression[             /:left/:object/:name == \"exports\" && /:left/:property/:name == \"version\"         ]/:right/:value"
         ]
       }
     },
@@ -7963,6 +8037,30 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "0.30.0",
+          "cwe": [
+            "CWE-918"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL",
+            "CVE": [
+              "CVE-2025-27152"
+            ],
+            "githubID": "GHSA-jr5f-v2jv-69x6"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-jr5f-v2jv-69x6",
+            "https://github.com/axios/axios/security/advisories/GHSA-jr5f-v2jv-69x6",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-27152",
+            "https://github.com/axios/axios/issues/6463",
+            "https://github.com/axios/axios/commit/fb8eec214ce7744b5ca787f2c3b8339b2f54b00f",
+            "https://github.com/axios/axios",
+            "https://github.com/axios/axios/releases/tag/v1.8.2"
+          ]
+        },
+        {
           "atOrAbove": "1.0.0",
           "below": "1.6.0",
           "cwe": [
@@ -8029,7 +8127,7 @@ module.exports={
           ]
         },
         {
-          "atOrAbove": "0",
+          "atOrAbove": "1.0.0",
           "below": "1.8.2",
           "cwe": [
             "CWE-918"
@@ -8061,7 +8159,7 @@ module.exports={
           "axios-(§§version§§)(\\.min)?\\.js"
         ],
         "filecontent": [
-          "/\\* *axios v(§§version§§) ",
+          "/\\*!? *[Aa]xios v(§§version§§) ",
           "// Axios v(§§version§§) C",
           "return\"\\[Axios v(§§version§§)\\] Transitional",
           "\\\"axios\\\",\\\"version\\\":\\\"(§§version§§)\\\""
@@ -8415,7 +8513,7 @@ module.exports={
       ],
       "extractors": {
         "uri": [
-          "/(§§version§§)/(js/)?jquery.dataTables(.min)?.js"
+          "/(§§version§§)/(js/)?(jquery.)?dataTables(.min)?.js"
         ],
         "filename": [
           "jquery.dataTables-(§§version§§)(\\.min)?\\.js"
@@ -8671,6 +8769,57 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "11.1.4",
+          "below": "12.3.5",
+          "cwe": [
+            "CWE-285"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Authorization Bypass in Next.js Middleware",
+            "CVE": [
+              "CVE-2025-29927"
+            ],
+            "githubID": "GHSA-f82v-jwr5-mffw"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-f82v-jwr5-mffw",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f82v-jwr5-mffw",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-29927",
+            "https://github.com/vercel/next.js/commit/52a078da3884efe6501613c7834a3d02a91676d2",
+            "https://github.com/vercel/next.js/commit/5fd3ae8f8542677c6294f32d18022731eab6fe48",
+            "https://github.com/vercel/next.js",
+            "https://github.com/vercel/next.js/releases/tag/v12.3.5",
+            "https://github.com/vercel/next.js/releases/tag/v13.5.9",
+            "https://security.netapp.com/advisory/ntap-20250328-0002",
+            "https://vercel.com/changelog/vercel-firewall-proactively-protects-against-vulnerability-with-middleware",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/3",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/4"
+          ]
+        },
+        {
+          "atOrAbove": "12.3.5",
+          "below": "12.3.6",
+          "cwe": [
+            "CWE-200"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Next.js may leak x-middleware-subrequest-id to external hosts",
+            "CVE": [
+              "CVE-2025-30218"
+            ],
+            "githubID": "GHSA-223j-4rm8-mrmf"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-223j-4rm8-mrmf",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-223j-4rm8-mrmf",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-30218",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-30218-5DREmEH765PoeAsrNNQj3O"
+          ]
+        },
+        {
           "atOrAbove": "0.9.9",
           "below": "13.4.20-canary.13",
           "cwe": [
@@ -8775,6 +8924,57 @@ module.exports={
             "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
             "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
             "https://github.com/vercel/next.js"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.5.9",
+          "cwe": [
+            "CWE-285"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Authorization Bypass in Next.js Middleware",
+            "CVE": [
+              "CVE-2025-29927"
+            ],
+            "githubID": "GHSA-f82v-jwr5-mffw"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-f82v-jwr5-mffw",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f82v-jwr5-mffw",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-29927",
+            "https://github.com/vercel/next.js/commit/52a078da3884efe6501613c7834a3d02a91676d2",
+            "https://github.com/vercel/next.js/commit/5fd3ae8f8542677c6294f32d18022731eab6fe48",
+            "https://github.com/vercel/next.js",
+            "https://github.com/vercel/next.js/releases/tag/v12.3.5",
+            "https://github.com/vercel/next.js/releases/tag/v13.5.9",
+            "https://security.netapp.com/advisory/ntap-20250328-0002",
+            "https://vercel.com/changelog/vercel-firewall-proactively-protects-against-vulnerability-with-middleware",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/3",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/4"
+          ]
+        },
+        {
+          "atOrAbove": "13.5.9",
+          "below": "13.5.10",
+          "cwe": [
+            "CWE-200"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Next.js may leak x-middleware-subrequest-id to external hosts",
+            "CVE": [
+              "CVE-2025-30218"
+            ],
+            "githubID": "GHSA-223j-4rm8-mrmf"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-223j-4rm8-mrmf",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-223j-4rm8-mrmf",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-30218",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-30218-5DREmEH765PoeAsrNNQj3O"
           ]
         },
         {
@@ -8891,6 +9091,101 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "14.2.24",
+          "cwe": [
+            "CWE-362"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Next.js Race Condition to Cache Poisoning",
+            "CVE": [
+              "CVE-2025-32421"
+            ],
+            "githubID": "GHSA-qpjv-v59x-3qc4"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-qpjv-v59x-3qc4",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-qpjv-v59x-3qc4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-32421",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-32421"
+          ]
+        },
+        {
+          "atOrAbove": "14.0.0",
+          "below": "14.2.25",
+          "cwe": [
+            "CWE-285"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Authorization Bypass in Next.js Middleware",
+            "CVE": [
+              "CVE-2025-29927"
+            ],
+            "githubID": "GHSA-f82v-jwr5-mffw"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-f82v-jwr5-mffw",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f82v-jwr5-mffw",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-29927",
+            "https://github.com/vercel/next.js/commit/52a078da3884efe6501613c7834a3d02a91676d2",
+            "https://github.com/vercel/next.js/commit/5fd3ae8f8542677c6294f32d18022731eab6fe48",
+            "https://github.com/vercel/next.js",
+            "https://github.com/vercel/next.js/releases/tag/v12.3.5",
+            "https://github.com/vercel/next.js/releases/tag/v13.5.9",
+            "https://security.netapp.com/advisory/ntap-20250328-0002",
+            "https://vercel.com/changelog/vercel-firewall-proactively-protects-against-vulnerability-with-middleware",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/3",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/4"
+          ]
+        },
+        {
+          "atOrAbove": "14.2.25",
+          "below": "14.2.26",
+          "cwe": [
+            "CWE-200"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Next.js may leak x-middleware-subrequest-id to external hosts",
+            "CVE": [
+              "CVE-2025-30218"
+            ],
+            "githubID": "GHSA-223j-4rm8-mrmf"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-223j-4rm8-mrmf",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-223j-4rm8-mrmf",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-30218",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-30218-5DREmEH765PoeAsrNNQj3O"
+          ]
+        },
+        {
+          "atOrAbove": "13.0",
+          "below": "14.2.30",
+          "cwe": [
+            "CWE-1385"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Information exposure in Next.js dev server due to lack of origin verification",
+            "CVE": [
+              "CVE-2025-48068"
+            ],
+            "githubID": "GHSA-3h52-269p-cp9r"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-3h52-269p-cp9r",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3h52-269p-cp9r",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-48068",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-48068"
+          ]
+        },
+        {
           "atOrAbove": "15.0.0",
           "below": "15.1.2",
           "cwe": [
@@ -8909,6 +9204,101 @@ module.exports={
             "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
             "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
             "https://github.com/vercel/next.js"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.1.6",
+          "cwe": [
+            "CWE-362"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Next.js Race Condition to Cache Poisoning",
+            "CVE": [
+              "CVE-2025-32421"
+            ],
+            "githubID": "GHSA-qpjv-v59x-3qc4"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-qpjv-v59x-3qc4",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-qpjv-v59x-3qc4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-32421",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-32421"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.2.2",
+          "cwe": [
+            "CWE-1385"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Information exposure in Next.js dev server due to lack of origin verification",
+            "CVE": [
+              "CVE-2025-48068"
+            ],
+            "githubID": "GHSA-3h52-269p-cp9r"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-3h52-269p-cp9r",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3h52-269p-cp9r",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-48068",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-48068"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.2.3",
+          "cwe": [
+            "CWE-285"
+          ],
+          "severity": "high",
+          "identifiers": {
+            "summary": "Authorization Bypass in Next.js Middleware",
+            "CVE": [
+              "CVE-2025-29927"
+            ],
+            "githubID": "GHSA-f82v-jwr5-mffw"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-f82v-jwr5-mffw",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f82v-jwr5-mffw",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-29927",
+            "https://github.com/vercel/next.js/commit/52a078da3884efe6501613c7834a3d02a91676d2",
+            "https://github.com/vercel/next.js/commit/5fd3ae8f8542677c6294f32d18022731eab6fe48",
+            "https://github.com/vercel/next.js",
+            "https://github.com/vercel/next.js/releases/tag/v12.3.5",
+            "https://github.com/vercel/next.js/releases/tag/v13.5.9",
+            "https://security.netapp.com/advisory/ntap-20250328-0002",
+            "https://vercel.com/changelog/vercel-firewall-proactively-protects-against-vulnerability-with-middleware",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/3",
+            "http://www.openwall.com/lists/oss-security/2025/03/23/4"
+          ]
+        },
+        {
+          "atOrAbove": "15.2.3",
+          "below": "15.2.4",
+          "cwe": [
+            "CWE-200"
+          ],
+          "severity": "low",
+          "identifiers": {
+            "summary": "Next.js may leak x-middleware-subrequest-id to external hosts",
+            "CVE": [
+              "CVE-2025-30218"
+            ],
+            "githubID": "GHSA-223j-4rm8-mrmf"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-223j-4rm8-mrmf",
+            "https://github.com/vercel/next.js/security/advisories/GHSA-223j-4rm8-mrmf",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-30218",
+            "https://github.com/vercel/next.js",
+            "https://vercel.com/changelog/cve-2025-30218-5DREmEH765PoeAsrNNQj3O"
           ]
         }
       ],
@@ -9556,7 +9946,7 @@ module.exports={
           "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§)[\\s\\S]{1,200}Build: `lodash modern -o",
           "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§) <",
           "/\\*[\\s*!]+(?:@license)?[\\s*]+(?:Lo-Dash|lodash|Lodash) v?(§§version§§) lodash.com/license",
-          "=\"(§§version§§)\"[\\s\\S]{1,300}__lodash_hash_undefined__",
+          "=\"(§§version§§)(?<=[0-9]+(\\.[0-9]{1,3}){1,5})\"[\\s\\S]{1,300}__lodash_hash_undefined__",
           "/\\*[\\s*]+@license[\\s*]+(?:Lo-Dash|lodhash|Lodash)[\\s\\S]{1,500}var VERSION *= *['\"](§§version§§)['\"]",
           "var VERSION=\"(§§version§§)\";var BIND_FLAG=1,BIND_KEY_FLAG=2,CURRY_BOUND_FLAG=4,CURRY_FLAG=8"
         ],
@@ -9780,7 +10170,8 @@ module.exports={
       ],
       "extractors": {
         "uri": [
-          "/(§§version§§)/ua-parser(.min)?.js"
+          "/(§§version§§)/ua-parser(.min)?.js",
+          "/ua-parser-js@(§§version§§)/"
         ],
         "filecontent": [
           "/\\* UAParser.js v(§§version§§)",
@@ -9946,7 +10337,7 @@ module.exports={
           "atOrAbove": "0",
           "below": "4.2.67",
           "cwe": [
-            "CWE-79"
+            "CWE-754"
           ],
           "severity": "high",
           "identifiers": {
