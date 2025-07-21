@@ -10,7 +10,7 @@
   },
   "author": "Erlend Oftedal",
 
-  "permissions": ["webRequest", "tabs", "offscreen", "webNavigation"],
+  "permissions": ["webRequest", "activeTab", "offscreen", "webNavigation"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {
