@@ -6228,7 +6228,7 @@
         ]
       },
       {
-        "below": "0.21.3",
+        "below": "0.21.2",
         "severity": "high",
         "cwe": [
           "CWE-1333",
@@ -7444,6 +7444,28 @@
         ]
       },
       {
+        "atOrAbove": "15.0.4-canary.51",
+        "below": "15.1.8",
+        "cwe": [
+          "CWE-444"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "### Summary\nA vulnerability affecting Next.js has been addressed. It impacted versions 15.0.4 through 15.1.8 and involved a cache poisoning bug leading to a Denial of Service (DoS) condition.\n\nUnder certain conditions, this issue may allow a HTTP 204 response to be cached for static pages, leading to the 204 response being served to all users attempting to access the page\n\nMore details: [CVE-2025-49826](https://vercel.com/changelog/cve-2025-49826)\n\n## Credits\n- Allam Rachid [zhero;](https://zhero-web-sec.github.io/research-and-things/)\n- Allam Yasser (inzo)",
+          "githubID": "GHSA-67rr-84xm-4c7r",
+          "CVE": [
+            "CVE-2025-49826"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-67rr-84xm-4c7r",
+          "https://github.com/vercel/next.js/commit/16bfce64ef2157f2c1dfedcfdb7771bc63103fd2",
+          "https://github.com/vercel/next.js/commit/a15b974ed707d63ad4da5b74c1441f5b7b120e93",
+          "https://github.com/vercel/next.js/releases/tag/v15.1.8",
+          "https://vercel.com/changelog/cve-2025-49826"
+        ]
+      },
+      {
         "atOrAbove": "15.0.0",
         "below": "15.2.2",
         "cwe": [
@@ -7514,6 +7536,29 @@
           "https://nvd.nist.gov/vuln/detail/CVE-2025-30218",
           "https://github.com/vercel/next.js",
           "https://vercel.com/changelog/cve-2025-30218-5DREmEH765PoeAsrNNQj3O"
+        ]
+      },
+      {
+        "atOrAbove": "15.3.0",
+        "below": "15.3.3",
+        "cwe": [
+          "CWE-444"
+        ],
+        "severity": "low",
+        "identifiers": {
+          "summary": "### Summary\n\nA cache poisoning issue in **Next.js App Router >=15.3.0 and < 15.3.3** may have allowed RSC payloads to be cached and served in place of HTML, under specific conditions involving middleware and redirects. This issue has been fixed in **Next.js 15.3.3**.\n\nUsers on affected versions should **upgrade immediately** and **redeploy** to ensure proper caching behavior.\n\nMore details: [CVE-2025-49005](https://vercel.com/changelog/cve-2025-49005)",
+          "githubID": "GHSA-r2fc-ccr8-96c4",
+          "CVE": [
+            "CVE-2025-49005"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-r2fc-ccr8-96c4",
+          "https://github.com/vercel/next.js/issues/79346",
+          "https://github.com/vercel/next.js/pull/79939",
+          "https://github.com/vercel/next.js/commit/ec202eccf05820b60c6126d6411fe16766ecc066",
+          "https://github.com/vercel/next.js/releases/tag/v15.3.3",
+          "https://vercel.com/changelog/cve-2025-49005"
         ]
       }
     ],
