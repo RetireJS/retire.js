@@ -76,7 +76,7 @@ const jsrepolocation: string[] = (prg.jsrepo ?? "'central'")
       : x,
   );
 
-const ignorefile = prg.ignoreFile ?? defaultIgnoreFiles.filter((x) => fs.existsSync(x))[0];
+const ignorefile = prg.ignorefile ?? defaultIgnoreFiles.filter((x) => fs.existsSync(x))[0];
 
 const scanpath = prg.path ?? prg.jspath ?? '.';
 
