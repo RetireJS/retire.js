@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.2.8]
+
+### Bugfix
+
+- ignorefile cli argument was not working
+
 ## [5.2.7]
 
 ### Performance fix
