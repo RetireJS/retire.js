@@ -94,7 +94,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
             const bomRef = purl;
             dep.vulnerabilities?.forEach((vuln) => {
               // Pick valid identifiers for VEX
-              const ids: string[] | undefined = vuln.identifiers.CVE ?? (vuln.identifiers.githubID ? [vuln.identifiers.githubID] : undefined);
+              const ids: string[] | undefined = vuln.identifiers?.CVE ?? (vuln.identifiers?.githubID ? [vuln.identifiers.githubID] : undefined);
               if (!ids) return;
               ids.forEach((id) => {
                 if (!vulnerabilitiesCyclone.has(id)) {

@@ -3,7 +3,7 @@
     "vulnerabilities": [
       { "atOrAbove": "1.6.0-rc.1", "below": "1.6.0-rc.1.1", "info": ["http://some.url"] },
       { "below": "1.5.0", "info": ["http://some.url"] },
-      { "atOrAbove": "1.8.0", "below": "1.9.0", "info": ["http://some.url"] }
+      { "atOrAbove": "1.8.0", "below": "1.9.0", "info": ["http://some.url"], "cwe":[ "CWE-79"], "identifiers": { "CVE": ["CVE-2021-1234"], "githubID": "GHSA-1234" } }
     ],
     "extractors": {
       "uri": ["/([0-9.]+([a-z\\-0-9.]+)?)/jquery(\\.min)?\\.js"],
