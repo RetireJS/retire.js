@@ -42,7 +42,7 @@ const prg = program
   .option('--proxy <url>', 'Proxy url (http://some.host:8080)')
   .option(
     '--outputformat <format>',
-    'Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx, cyclonedxJSON and cyclonedxJSON1_6',
+    'Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx, cyclonedxJSON, cyclonedxJSON1_6, cyclonedxJSON1_6_VEX',
   )
   .option('--outputpath <path>', 'File to which output should be written')
   .option('--ignore <paths>', 'Comma delimited list of paths to ignore')

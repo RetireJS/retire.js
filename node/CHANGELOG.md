@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.3.0]
+
+### Improvement
+
+- Add cyclonedxJSON1_6_VEX as output format for CycloneDX 1.6 with vulnerability information
+
 ## [5.2.8]
 
 ### Bugfix

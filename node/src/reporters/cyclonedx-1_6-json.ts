@@ -3,7 +3,7 @@ import { ConfigurableLogger, Hasher, Logger, LoggerOptions, Writer } from '../re
 import * as retire from '../retire';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-import { Finding } from '../types';
+import { Finding, Vulnerability } from '../types';
 import { generatePURL } from './utils';
 import * as path from 'path';
 
@@ -38,10 +38,29 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
       occurrences: Array<{ location: string }>;
     };
   };
+  type Vulnerability = {
+    id: string;
+    cwes: number[];
+    description?: string;
+    advisories: Array<{ url: string; title?: string; }>;
+    references: Array<{ id: string; source: { name: string; url: string } }>;
+    ratings: Array<{
+      source: string;
+      severity: string;
+    }>;
+    affects: Array<{
+      ref: string;
+      range: string;
+    }>;
+  };
+
 
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
     const seen = new Map<string, Component>();
+    const vulnerabilitiesCyclone = new Map<string, Vulnerability>();
+    const includeVEX = config.outputformat === 'cyclonedxJSON1_6_VEX';
+
     const components = finalResults.data
       .filter((d) => d.results)
       .map((r) =>
@@ -72,7 +91,38 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
               return undefined;
             }
             const nameParts = dep.component.split('/').reverse();
+            const bomRef = purl;
+            dep.vulnerabilities?.forEach((vuln) => {
+              // Pick valid identifiers for VEX
+              const ids: string[] | undefined = vuln.identifiers.CVE ?? (vuln.identifiers.githubID ? [vuln.identifiers.githubID] : undefined);
+              if (!ids) return;
+              ids.forEach((id) => {
+                if (!vulnerabilitiesCyclone.has(id)) {
+                  const { references, advisories } = mapUrls(vuln);
+                  vulnerabilitiesCyclone.set(id, {
+                    id,
+                    cwes: vuln.cwe.map((c) => parseInt(c.split("-")[1])),
+                    description: vuln.identifiers.summary,
+                    advisories: advisories,
+                    references: references,
+                    ratings: [
+                      {
+                        source: 'Retire.js',
+                        severity: vuln.severity,
+                      },
+                    ],
+                    affects: [],
+                  });
+                }
+                vulnerabilitiesCyclone.get(id)!.affects.push({ 
+                  ref: bomRef,
+                  // "vers:npm/1.2.3|>=2.0.0|<5.0.0"
+                  range: "vers:npm/" + (vuln.atOrAbove ? ">=" + vuln.atOrAbove + "|" : "") + "<" + vuln.below,
+                });
+              });
+            });
             const result = {
+              "bom-ref": bomRef,
               type: 'library',
               name: nameParts[0],
               group: nameParts[1],
@@ -100,12 +150,13 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
             tools: [
               {
                 vendor: 'RetireJS',
-                name: 'retire.js',
+                name: 'retire',
                 version: retire.version,
               },
             ],
           },
           components: components,
+          vulnerabilities: includeVEX ? Array.from(vulnerabilitiesCyclone.values()) : undefined,
         },
         undefined,
         2,
@@ -120,6 +171,22 @@ function mapLicenses(licenses: string[] | undefined) {
   if (licenses.length == 0) return [];
   if (licenses[0] == 'commercial') return [{ license: { name: 'Commercial' } }];
   return [{ expression: licenses[0] }];
+}
+
+function mapUrls(vulnerability: Vulnerability) {
+  const references = [];
+  if (vulnerability.identifiers.CVE) {
+    const nvdlink = `https://nvd.nist.gov/vuln/detail/${vulnerability.identifiers.CVE[0]}`;
+    references.push({ id: vulnerability.identifiers.CVE[0], source: { name: 'NVD', url: nvdlink } });
+  }
+  if (vulnerability.identifiers.githubID) {
+    const ghsa = `https://github.com/advisories/${vulnerability.identifiers.githubID}`;
+    references.push({ id: vulnerability.identifiers.githubID, source: { name: 'GitHub Advisories', url: ghsa } });
+  }
+  const advisories = vulnerability.info
+    .filter((url) => !url.startsWith('https://nvd.nist.gov/vuln/detail/') && !url.startsWith('https://github.com/advisories/'))
+    .map((u) => ({ url: u }));
+  return { references, advisories };
 }
 
 export default {

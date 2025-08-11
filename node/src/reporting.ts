@@ -17,6 +17,7 @@ const loggers = {
   cyclonedx: cyclonedxLogger,
   cyclonedxJSON: cyclonedxJSONLogger,
   cyclonedxJSON1_6: cyclonedxJSON1_6Logger,
+  cyclonedxJSON1_6_VEX: cyclonedxJSON1_6Logger,
   clean: consoleLogger,
   jsonsimple: jsonLogger,
 } as Record<string, ConfigurableLogger>;
