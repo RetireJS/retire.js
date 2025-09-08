@@ -3410,6 +3410,50 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "1.9.8",
+        "cwe": [
+          "CWE-791"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "AngularJS Incomplete Filtering of Special Elements vulnerability",
+          "CVE": [
+            "CVE-2025-2336"
+          ],
+          "githubID": "GHSA-4p4w-6hg8-63wx"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-4p4w-6hg8-63wx",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-2336",
+          "https://codepen.io/herodevs/pen/bNGYaXx/412a3a4218387479898912f60c269c6c",
+          "https://github.com/angular/angular.js",
+          "https://www.herodevs.com/vulnerability-directory/cve-2025-2336"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "1.9.9",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "AngularJS Regular expression Denial of Service (ReDoS)",
+          "CVE": [
+            "CVE-2025-4690"
+          ],
+          "githubID": "GHSA-hfff-63hg-f47j"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-hfff-63hg-f47j",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-4690",
+          "https://codepen.io/herodevs/pen/RNNEPzP/751b91eab7730dff277523f3d50e4b77",
+          "https://github.com/angular/angular.js",
+          "https://www.herodevs.com/vulnerability-directory/cve-2025-4690"
+        ]
+      },
+      {
         "below": "1.999",
         "severity": "low",
         "cwe": [
@@ -3454,7 +3498,7 @@
         "angular(?:js)?-(§§version§§)(.min)?\\.js"
       ],
       "filecontent": [
-        "/\\*[\\*\\s]+(?:@license )?AngularJS v(§§version§§)",
+        "/\\*[\\*\\s]+(?:@license )?AngularJS(?: NES)? v(§§version§§)",
         "http://errors\\.angularjs\\.org/(§§version§§)/"
       ],
       "hashes": {}
