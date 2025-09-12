@@ -7719,7 +7719,7 @@
       {
         "atOrAbove": "0.9.9",
         "below": "14.2.31",
-        "severity": "moderate",
+        "severity": "medium",
         "cwe": [
           "CWE-524"
         ],
@@ -7740,7 +7740,7 @@
       {
         "atOrAbove": "0.9.9",
         "below": "14.2.31",
-        "severity": "moderate",
+        "severity": "medium",
         "cwe": [
           "CWE-20"
         ],
@@ -7761,7 +7761,7 @@
       {
         "atOrAbove": "0.9.9",
         "below": "14.2.32",
-        "severity": "moderate",
+        "severity": "medium",
         "cwe": [
           "CWE-918"
         ],
