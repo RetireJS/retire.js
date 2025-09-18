@@ -1,0 +1,95 @@
+{
+  "functional": [
+    {
+      "name": "Manifest Validation",
+      "status": "PASSED",
+      "duration": 1.4844655990600586,
+      "error": null
+    },
+    {
+      "name": "Core Script Validation",
+      "status": "PASSED",
+      "duration": 0.4604768753051758,
+      "error": null
+    },
+    {
+      "name": "HTML Interface Validation",
+      "status": "PASSED",
+      "duration": 0.2775688171386719,
+      "error": null
+    },
+    {
+      "name": "Vulnerability Detection Logic",
+      "status": "PASSED",
+      "duration": 3.034001350402832,
+      "error": null
+    }
+  ],
+  "integration": [
+    {
+      "name": "WebExtensions API Compatibility",
+      "status": "PASSED",
+      "duration": 1.6503257751464844,
+      "error": null
+    },
+    {
+      "name": "Content-Background Communication",
+      "status": "PASSED",
+      "duration": 0.3726072311401367,
+      "error": null
+    },
+    {
+      "name": "Repository Updater Integration",
+      "status": "PASSED",
+      "duration": 0.22280406951904297,
+      "error": null
+    }
+  ],
+  "security": [
+    {
+      "name": "Content Security Policy Validation",
+      "status": "PASSED",
+      "duration": 0.1842942237854004,
+      "error": null
+    },
+    {
+      "name": "Permission Minimization",
+      "status": "PASSED",
+      "duration": 0.4130077362060547,
+      "error": null
+    },
+    {
+      "name": "Input Validation",
+      "status": "PASSED",
+      "duration": 0.35834598541259766,
+      "error": null
+    }
+  ],
+  "performance": [
+    {
+      "name": "Script Size Validation",
+      "status": "PASSED",
+      "duration": 0.14482593536376953,
+      "error": null
+    },
+    {
+      "name": "Memory Efficiency Check",
+      "status": "PASSED",
+      "duration": 0.1558852195739746,
+      "error": null
+    },
+    {
+      "name": "Scanning Performance Simulation",
+      "status": "PASSED",
+      "duration": 0.15392112731933594,
+      "error": null
+    }
+  ],
+  "summary": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "duration": 14.29250192642212
+  }
+}

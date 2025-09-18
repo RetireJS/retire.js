@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>retire.js Settings</title>
+    <link rel="stylesheet" href="../css/settings.css">
+</head>
+<body>
+    <div class="settings-container">
+        <header class="settings-header">
+            <div class="header-content">
+                <img src="../icons/icon48.png" alt="retire.js" class="logo">
+                <div class="header-text">
+                    <h1>retire.js Settings</h1>
+                    <p>Configure vulnerability scanning preferences</p>
+                </div>
+            </div>
+        </header>
+        
+        <main class="settings-main">
+            <section class="settings-section">
+                <h2>Scanning Options</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Enable Vulnerability Scanning</h3>
+                        <p>Automatically scan JavaScript libraries on websites for known vulnerabilities</p>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="enable-scanning" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Deep Scanning (AST Analysis)</h3>
+                        <p>Perform advanced code analysis for more accurate detection. May impact performance.</p>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="enable-deep-scan" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Console Logging</h3>
+                        <p>Show detailed vulnerability information in browser developer console</p>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="enable-console-logging" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Repository Management</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Vulnerability Database</h3>
+                        <p>Manage the vulnerability database used for scanning</p>
+                        <div class="repository-stats" id="repository-stats">
+                            <div class="stat-loading">Loading repository statistics...</div>
+                        </div>
+                    </div>
+                    <div class="setting-control">
+                        <button id="update-repository" class="action-btn">
+                            Update Database
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Auto-Update Frequency</h3>
+                        <p>How often to automatically check for database updates</p>
+                    </div>
+                    <div class="setting-control">
+                        <select id="update-frequency">
+                            <option value="6">Every 6 hours</option>
+                            <option value="12">Every 12 hours</option>
+                            <option value="24">Daily</option>
+                            <option value="168">Weekly</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Performance</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Scan Timeout</h3>
+                        <p>Maximum time to wait for script analysis (seconds)</p>
+                    </div>
+                    <div class="setting-control">
+                        <select id="scan-timeout">
+                            <option value="5">5 seconds</option>
+                            <option value="10" selected>10 seconds</option>
+                            <option value="15">15 seconds</option>
+                            <option value="30">30 seconds</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Max File Size</h3>
+                        <p>Skip scanning files larger than this size (MB)</p>
+                    </div>
+                    <div class="setting-control">
+                        <select id="max-file-size">
+                            <option value="1">1 MB</option>
+                            <option value="5" selected>5 MB</option>
+                            <option value="10">10 MB</option>
+                            <option value="50">50 MB</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Privacy & Security</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Respect Do Not Track</h3>
+                        <p>Disable scanning when Do Not Track is enabled in browser</p>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="respect-dnt">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Local Storage Only</h3>
+                        <p>Store all data locally, never sync with cloud services</p>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="local-storage-only" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Advanced</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Debug Mode</h3>
+                        <p>Enable detailed logging for troubleshooting</p>
+                    </div>
+                    <div class="setting-control">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="debug-mode">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Reset Settings</h3>
+                        <p>Restore all settings to their default values</p>
+                    </div>
+                    <div class="setting-control">
+                        <button id="reset-settings" class="action-btn secondary">
+                            Reset to Defaults
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="settings-footer">
+            <div class="footer-content">
+                <div class="version-info">
+                    <span>retire.js v2.0.0</span>
+                    <span>•</span>
+                    <a href="https://github.com/RetireJS/retire.js" target="_blank">GitHub</a>
+                    <span>•</span>
+                    <a href="https://github.com/RetireJS/retire.js/wiki" target="_blank">Help</a>
+                </div>
+                <div class="save-status" id="save-status"></div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="../js/settings.js"></script>
+</body>
+</html>
