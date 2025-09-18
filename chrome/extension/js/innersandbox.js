@@ -1,60 +1,95 @@
-var realwin = window;
-var realdoc = document;
-console.log("inner sandbox loaded");
+// Retire.js inner sandbox (SAFE ANALYZER)
+// This version NEVER executes page scripts.
+// It only runs regex/hash extractors on provided script text.
 
-window.addEventListener("message", function (evt) {
-  //console.log('inner', evt, evt.data);
-  if (!evt.data.script) return evt.source.postMessage({ done: "true" }, "*");
-  var repoFuncs = evt.data.repoFuncs;
-  console.log("I'm trying!!");
-  //try {
-  ["alert", "prompt", "confirm"].forEach(function (n) {
-    try {
-      Object.defineProperty(window, n, {
-        get: function () {
-          return function () {};
-        },
-        set: function () {},
-        enumerable: true,
-        configurable: false,
-      });
-    } catch (e) {}
-  });
+import { repo } from "./retire-chrome.js"; // built repo with extractors
 
-  //Make sure other scripts are loaded correctly
-  if (evt.data.url) {
-    document
-      .getElementsByTagName("base")[0]
-      .setAttribute(
-        "href",
-        evt.data.url.replace(/(https?:\/\/[^\/]+).*/, "$1/")
-      );
-  }
+(function () {
+  "use strict";
+  console.log("inner sandbox (analyzer) loaded");
 
-  //Anti framebusting
-  window.fun = new Function("top", evt.data.script);
-  try {
-    console.log("SANDBOX invoking", evt.data.url);
-    window.fun(window);
-  } catch (e) {
-    console.warn("SANDBOX ERROR", e);
-  }
-  Object.entries(repoFuncs).forEach(([component, funcs]) => {
-    funcs.forEach(function (func) {
-      try {
-        var result = eval(func);
-        console.log("SANDBOX eval", component, result);
-        evt.source.postMessage(
-          { component: component, version: result, original: evt.data },
-          "*"
-        );
-      } catch (e) {
-        //if (component == "nextjs") console.log("SANDBOX ERROR", e);
+  // Utility: test filename, URI, filecontent, and hashes
+  function analyzeScript(data) {
+    const results = [];
+    const { url, content } = data;
+    if (!url && !content) return results;
+
+    for (const [lib, def] of Object.entries(repo)) {
+      const extractors = def.extractors || {};
+      let version = null;
+
+      // Filename match
+      if (!version && extractors.filename) {
+        extractors.filename.forEach((re) => {
+          const m = new RegExp(re).exec(url || "");
+          if (m && m[1]) version = m[1];
+        });
       }
-    });
+
+      // URI match
+      if (!version && extractors.uri) {
+        extractors.uri.forEach((re) => {
+          const m = new RegExp(re).exec(url || "");
+          if (m && m[1]) version = m[1];
+        });
+      }
+
+      // Filecontent match
+      if (!version && extractors.filecontent && content) {
+        extractors.filecontent.forEach((re) => {
+          const m = new RegExp(re).exec(content);
+          if (m && m[1]) version = m[1];
+        });
+      }
+
+      // Hash match
+      if (!version && extractors.hashes && content) {
+        // Compute sha1 of content
+        try {
+          const enc = new TextEncoder();
+          const buf = enc.encode(content);
+          crypto.subtle.digest("SHA-1", buf).then((hash) => {
+            const hex = Array.from(new Uint8Array(hash))
+              .map((b) => b.toString(16).padStart(2, "0"))
+              .join("");
+            if (extractors.hashes[hex]) {
+              version = extractors.hashes[hex];
+              postResult(lib, version, data);
+            }
+          });
+        } catch (e) {
+          console.debug("Hashing failed", e);
+        }
+      }
+
+      if (version) {
+        results.push({ lib, version });
+        postResult(lib, version, data);
+      }
+    }
+
+    return results;
+  }
+
+  function postResult(lib, version, original) {
+    window.parent.postMessage(
+      { component: lib, version, original },
+      "*"
+    );
+  }
+
+  // Main message handler
+  window.addEventListener("message", (evt) => {
+    try {
+      const data = evt.data || {};
+      analyzeScript(data);
+      evt.source && evt.source.postMessage({ done: true }, "*");
+    } catch (err) {
+      console.warn("SANDBOX ERROR analyzer", err);
+      try {
+        evt.source &&
+          evt.source.postMessage({ done: true, error: String(err) }, "*");
+      } catch {}
+    }
   });
-  /*} catch(e) {
-    console.warn(e);
-  }*/
-  evt.source.postMessage({ done: "true" }, "*");
-});
+})();

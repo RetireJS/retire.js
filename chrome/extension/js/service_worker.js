@@ -7,6 +7,21 @@ var scanEnabled = true;
 var deepScanEnabled = true;
 var repo;
 
+async function fetchScriptText(url) {
+  try {
+    const res = await fetch(url, { credentials: "omit", cache: "reload" });
+    if (!res.ok) {
+      console.debug("Fetch non-OK", url, res.status);
+      return null;
+    }
+    return await res.text();
+  } catch (err) {
+    console.debug("Fetch error", url, err);
+    return null;
+  }
+}
+
+
 async function createOffscreen() {
   if (await chrome.offscreen.hasDocument()) return;
   chrome.offscreen.createDocument({
