@@ -1191,21 +1191,6 @@
         ]
       },
       {
-        "below": "4.9.7",
-        "severity": "high",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "TinyMCE before 4.9.7 and 5.x before 5.1.4 allows XSS in the core parser, the paste plugin, and the visualchars plugin by using the clipboard or APIs to insert content into the editor.",
-          "githubID": "GHSA-p7j5-4mwm-hv86"
-        },
-        "info": [
-          "https://github.com/advisories/GHSA-p7j5-4mwm-hv86",
-          "https://github.com/tinymce/tinymce/security/advisories/GHSA-p7j5-4mwm-hv86"
-        ]
-      },
-      {
         "below": "4.9.10",
         "severity": "medium",
         "cwe": [
@@ -1258,22 +1243,6 @@
         "info": [
           "https://github.com/advisories/GHSA-27gm-ghr9-4v95",
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-27gm-ghr9-4v95"
-        ]
-      },
-      {
-        "atOrAbove": "5.0.0",
-        "below": "5.1.4",
-        "severity": "high",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "TinyMCE before 4.9.7 and 5.x before 5.1.4 allows XSS in the core parser, the paste plugin, and the visualchars plugin by using the clipboard or APIs to insert content into the editor.",
-          "githubID": "GHSA-p7j5-4mwm-hv86"
-        },
-        "info": [
-          "https://github.com/advisories/GHSA-p7j5-4mwm-hv86",
-          "https://github.com/tinymce/tinymce/security/advisories/GHSA-p7j5-4mwm-hv86"
         ]
       },
       {
@@ -5391,26 +5360,22 @@
         ]
       },
       {
-        "atOrAbove": "2.0.0",
+        "atOrAbove": "3.4.1",
         "below": "3.4.2",
+        "severity": "moderate",
         "cwe": [
           "CWE-79"
         ],
-        "severity": "medium",
         "identifiers": {
-          "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
+          "summary": "Improper Neutralization of Input During Web Page Generation (XSS or 'Cross-site Scripting') vulnerability in Bootstrap allows Cross-Site Scripting (XSS). This issue affects Bootstrap version 3.4.1. At time of publication, there is no publicly available patched version.",
+          "githubID": "GHSA-q58r-hwc8-rm9j",
           "CVE": [
-            "CVE-2024-6484"
-          ],
-          "githubID": "GHSA-9mvj-f7w8-pvh2"
+            "CVE-2025-1647"
+          ]
         },
         "info": [
-          "https://github.com/advisories/GHSA-9mvj-f7w8-pvh2",
-          "https://nvd.nist.gov/vuln/detail/CVE-2024-6484",
-          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap-sass/CVE-2024-6484.yml",
-          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6484.yml",
-          "https://github.com/twbs/bootstrap",
-          "https://www.herodevs.com/vulnerability-directory/cve-2024-6484"
+          "https://lists.debian.org/debian-lts-announce/2025/06/msg00001.html",
+          "https://www.herodevs.com/vulnerability-directory/cve-2025-1647"
         ]
       },
       {
@@ -6903,6 +6868,7 @@
         ]
       },
       {
+        "atOrAbove": "0.9.9",
         "below": "9.3.2",
         "severity": "medium",
         "cwe": [
@@ -7393,7 +7359,7 @@
         ]
       },
       {
-        "atOrAbove": "0",
+        "atOrAbove": "0.9.9",
         "below": "14.2.24",
         "cwe": [
           "CWE-362"
@@ -7569,28 +7535,6 @@
           "https://github.com/vercel/next.js/security/advisories/GHSA-7m27-7ghc-44w9",
           "https://nvd.nist.gov/vuln/detail/CVE-2024-56332",
           "https://github.com/vercel/next.js"
-        ]
-      },
-      {
-        "atOrAbove": "15.0.0",
-        "below": "15.1.6",
-        "cwe": [
-          "CWE-362"
-        ],
-        "severity": "low",
-        "identifiers": {
-          "summary": "Next.js Race Condition to Cache Poisoning",
-          "CVE": [
-            "CVE-2025-32421"
-          ],
-          "githubID": "GHSA-qpjv-v59x-3qc4"
-        },
-        "info": [
-          "https://github.com/advisories/GHSA-qpjv-v59x-3qc4",
-          "https://github.com/vercel/next.js/security/advisories/GHSA-qpjv-v59x-3qc4",
-          "https://nvd.nist.gov/vuln/detail/CVE-2025-32421",
-          "https://github.com/vercel/next.js",
-          "https://vercel.com/changelog/cve-2025-32421"
         ]
       },
       {
