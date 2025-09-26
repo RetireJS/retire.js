@@ -3955,7 +3955,7 @@
             "CVE-2025-1647"
           ]
         },
-        "severity": "moderate",
+        "severity": "medium",
         "cwe": [
           "CWE-79"
         ],
