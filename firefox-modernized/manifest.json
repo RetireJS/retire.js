@@ -1,0 +1,56 @@
+{
+  "manifest_version": 2,
+  "name": "retire.js for Firefox",
+  "description": "Scanning website for vulnerable JavaScript libraries. Modernized WebExtensions version.",
+  "version": "2.0.0",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "author": "Erlend Oftedal",
+  
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "activeTab",
+    "webNavigation",
+    "storage",
+    "<all_urls>"
+  ],
+  
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    },
+    "default_title": "retire.js",
+    "default_popup": "html/popup.html"
+  },
+  
+  "background": {
+    "scripts": ["js/retire-core.js", "js/repository-updater.js", "js/background.js"],
+    "persistent": true
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  
+  "web_accessible_resources": [
+    "js/retire-core.js"
+  ],
+  
+  "applications": {
+    "gecko": {
+      "id": "retirejs-modernized@firefox.org",
+      "strict_min_version": "55.0"
+    }
+  }
+}

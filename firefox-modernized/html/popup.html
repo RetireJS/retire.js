@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>retire.js</title>
+    <link rel="stylesheet" href="../css/popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <div class="header">
+            <img src="../icons/icon48.png" alt="retire.js" class="logo">
+            <h1>retire.js</h1>
+            <span class="version">v2.0.0</span>
+        </div>
+        
+        <div class="status-section">
+            <div class="status-item">
+                <span class="status-label">Scanning:</span>
+                <button id="toggle-scan" class="toggle-btn">
+                    <span class="toggle-text">Enabled</span>
+                </button>
+            </div>
+            
+            <div class="status-item">
+                <span class="status-label">Deep Scan:</span>
+                <button id="toggle-deep-scan" class="toggle-btn">
+                    <span class="toggle-text">Enabled</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <div class="results-header">
+                <h3>Current Page</h3>
+                <span id="vulnerability-count" class="vulnerability-badge">0</span>
+            </div>
+            
+            <div id="vulnerability-list" class="vulnerability-list">
+                <div class="no-vulnerabilities">
+                    <span class="checkmark">✓</span>
+                    <p>No known vulnerable libraries detected</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions-section">
+            <button id="rescan-btn" class="action-btn">
+                <span>Rescan Page</span>
+            </button>
+            
+            <button id="report-btn" class="action-btn secondary">
+                <span>View Report</span>
+            </button>
+        </div>
+        
+        <div class="footer">
+            <div class="links">
+                <a href="#" id="settings-link">Settings</a>
+                <a href="https://github.com/RetireJS/retire.js" target="_blank">GitHub</a>
+                <a href="#" id="help-link">Help</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/popup.js"></script>
+</body>
+</html>

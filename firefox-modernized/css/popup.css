@@ -1,0 +1,297 @@
+/* retire.js Firefox Extension Popup Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 350px;
+    min-height: 400px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    background: #ffffff;
+    color: #333333;
+}
+
+.popup-container {
+    padding: 16px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+}
+
+.header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #c13832;
+    flex-grow: 1;
+}
+
+.version {
+    font-size: 12px;
+    color: #666666;
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+/* Status Section */
+.status-section {
+    margin-bottom: 20px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.status-label {
+    font-weight: 500;
+    color: #333333;
+}
+
+.toggle-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 70px;
+}
+
+.toggle-btn:hover {
+    opacity: 0.9;
+}
+
+.toggle-btn.disabled {
+    background: #9E9E9E;
+}
+
+/* Results Section */
+.results-section {
+    margin-bottom: 20px;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.results-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.vulnerability-badge {
+    background: #c13832;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 24px;
+    text-align: center;
+}
+
+.vulnerability-badge.zero {
+    background: #4CAF50;
+}
+
+.vulnerability-list {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.no-vulnerabilities {
+    text-align: center;
+    padding: 24px 16px;
+    color: #666666;
+}
+
+.checkmark {
+    font-size: 24px;
+    color: #4CAF50;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.vulnerability-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.vulnerability-item:last-child {
+    border-bottom: none;
+}
+
+.vulnerability-component {
+    font-weight: 600;
+    color: #c13832;
+    margin-bottom: 4px;
+}
+
+.vulnerability-version {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+}
+
+.vulnerability-details {
+    font-size: 12px;
+    color: #333333;
+}
+
+.severity-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 4px;
+}
+
+.severity-high {
+    background: #f44336;
+    color: white;
+}
+
+.severity-medium {
+    background: #ff9800;
+    color: white;
+}
+
+.severity-low {
+    background: #ffeb3b;
+    color: #333333;
+}
+
+/* Actions Section */
+.actions-section {
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn:last-child {
+    margin-bottom: 0;
+}
+
+.action-btn {
+    background: #c13832;
+    color: white;
+}
+
+.action-btn:hover {
+    background: #a02e28;
+}
+
+.action-btn.secondary {
+    background: #f5f5f5;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+.action-btn.secondary:hover {
+    background: #eeeeee;
+}
+
+.action-btn:disabled {
+    background: #e0e0e0;
+    color: #999999;
+    cursor: not-allowed;
+}
+
+/* Footer */
+.footer {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 16px;
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+}
+
+.links a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.links a:hover {
+    color: #c13832;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 320px) {
+    body {
+        width: 300px;
+    }
+    
+    .popup-container {
+        padding: 12px;
+    }
+}
+
+/* Loading state */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #666666;
+}
+
+.loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    border: 2px solid #e0e0e0;
+    border-top: 2px solid #c13832;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

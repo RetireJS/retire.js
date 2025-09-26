@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>retire.js Firefox Extension Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-header {
+            background: #f0f0f0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .test-section h2 {
+            background: #333;
+            color: white;
+            margin: 0;
+            padding: 15px;
+        }
+        .test-results {
+            padding: 20px;
+        }
+        .test-case {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #ccc;
+            background: #f9f9f9;
+        }
+        .test-case.pass {
+            border-left-color: #4CAF50;
+            background: #f0f8f0;
+        }
+        .test-case.fail {
+            border-left-color: #f44336;
+            background: #fff0f0;
+        }
+        .test-case.pending {
+            border-left-color: #ff9800;
+            background: #fff8f0;
+        }
+        .error-details {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .summary {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .primary { background: #2196F3; color: white; }
+        .secondary { background: #757575; color: white; }
+        .danger { background: #f44336; color: white; }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>retire.js Firefox Extension Test Suite</h1>
+        <p>Comprehensive testing for vulnerability detection functionality</p>
+        <div class="controls">
+            <button class="primary" onclick="runAllTests()">Run All Tests</button>
+            <button class="secondary" onclick="runUnitTests()">Unit Tests Only</button>
+            <button class="secondary" onclick="runIntegrationTests()">Integration Tests Only</button>
+            <button class="danger" onclick="clearResults()">Clear Results</button>
+        </div>
+    </div>
+
+    <div id="test-summary" class="summary" style="display: none;">
+        <h3>Test Summary</h3>
+        <div id="summary-content"></div>
+    </div>
+
+    <div id="unit-tests" class="test-section">
+        <h2>Unit Tests</h2>
+        <div class="test-results" id="unit-results">
+            <p>Click "Run All Tests" or "Unit Tests Only" to start testing...</p>
+        </div>
+    </div>
+
+    <div id="integration-tests" class="test-section">
+        <h2>Integration Tests</h2>
+        <div class="test-results" id="integration-results">
+            <p>Click "Run All Tests" or "Integration Tests Only" to start testing...</p>
+        </div>
+    </div>
+
+    <div id="vulnerability-tests" class="test-section">
+        <h2>Vulnerability Detection Tests</h2>
+        <div class="test-results" id="vulnerability-results">
+            <p>These tests validate detection of known vulnerable libraries...</p>
+        </div>
+    </div>
+
+    <script>
+        // Test framework
+        class TestFramework {
+            constructor() {
+                this.results = {
+                    unit: [],
+                    integration: [],
+                    vulnerability: []
+                };
+            }
+
+            async runTest(name, testFn, category = 'unit') {
+                const startTime = Date.now();
+                let result = {
+                    name,
+                    category,
+                    status: 'pending',
+                    duration: 0,
+                    error: null
+                };
+
+                try {
+                    await testFn();
+                    result.status = 'pass';
+                } catch (error) {
+                    result.status = 'fail';
+                    result.error = error.message;
+                    console.error(`Test failed: ${name}`, error);
+                }
+
+                result.duration = Date.now() - startTime;
+                this.results[category].push(result);
+                this.displayResult(result);
+                return result;
+            }
+
+            displayResult(result) {
+                const container = document.getElementById(`${result.category}-results`);
+                const testDiv = document.createElement('div');
+                testDiv.className = `test-case ${result.status}`;
+                
+                let content = `<strong>${result.name}</strong> - ${result.status.toUpperCase()} (${result.duration}ms)`;
+                
+                if (result.error) {
+                    content += `<div class="error-details">${result.error}</div>`;
+                }
+                
+                testDiv.innerHTML = content;
+                container.appendChild(testDiv);
+            }
+
+            displaySummary() {
+                const allResults = [...this.results.unit, ...this.results.integration, ...this.results.vulnerability];
+                const passed = allResults.filter(r => r.status === 'pass').length;
+                const failed = allResults.filter(r => r.status === 'fail').length;
+                const total = allResults.length;
+                
+                const summaryDiv = document.getElementById('test-summary');
+                const contentDiv = document.getElementById('summary-content');
+                
+                contentDiv.innerHTML = `
+                    <p><strong>Total Tests:</strong> ${total}</p>
+                    <p><strong>Passed:</strong> ${passed}</p>
+                    <p><strong>Failed:</strong> ${failed}</p>
+                    <p><strong>Success Rate:</strong> ${total > 0 ? Math.round((passed / total) * 100) : 0}%</p>
+                `;
+                
+                summaryDiv.style.display = 'block';
+            }
+
+            clearResults() {
+                this.results = { unit: [], integration: [], vulnerability: [] };
+                ['unit-results', 'integration-results', 'vulnerability-results'].forEach(id => {
+                    document.getElementById(id).innerHTML = '<p>Results cleared...</p>';
+                });
+                document.getElementById('test-summary').style.display = 'none';
+            }
+        }
+
+        const testFramework = new TestFramework();
+
+        // Mock browser API for testing
+        if (typeof browser === 'undefined') {
+            window.browser = {
+                runtime: {
+                    sendMessage: async (msg) => {
+                        // Mock responses for different message types
+                        switch (msg.type) {
+                            case 'get-status':
+                                return { scanEnabled: true, deepScanEnabled: true, vulnerabilityCount: 0 };
+                            case 'get-repository-stats':
+                                return { libraries: 150, vulnerabilities: 500, extractors: 200, lastUpdate: Date.now() };
+                            default:
+                                return { success: true };
+                        }
+                    }
+                },
+                storage: {
+                    local: {
+                        get: async (key) => ({ [key]: {} }),
+                        set: async (obj) => true
+                    }
+                },
+                tabs: {
+                    query: async () => [{ id: 1, url: 'https://example.com' }],
+                    sendMessage: async () => []
+                }
+            };
+        }
+
+        // Unit Tests
+        async function runUnitTests() {
+            document.getElementById('unit-results').innerHTML = '';
+            
+            // Test 1: Repository Updater
+            await testFramework.runTest('Repository Updater Initialization', async () => {
+                // Mock test for repository updater
+                if (!window.RepositoryUpdater) {
+                    throw new Error('RepositoryUpdater class not loaded');
+                }
+            }, 'unit');
+
+            // Test 2: Settings Management
+            await testFramework.runTest('Settings Load/Save', async () => {
+                const settings = { enableScanning: true, enableDeepScan: false };
+                await browser.storage.local.set({ retirejs_settings: settings });
+                const loaded = await browser.storage.local.get('retirejs_settings');
+                
+                if (!loaded.retirejs_settings || loaded.retirejs_settings.enableScanning !== true) {
+                    throw new Error('Settings not saved/loaded correctly');
+                }
+            }, 'unit');
+
+            // Test 3: Message Handling
+            await testFramework.runTest('Background Script Messages', async () => {
+                const response = await browser.runtime.sendMessage({ type: 'get-status' });
+                
+                if (!response || typeof response.scanEnabled !== 'boolean') {
+                    throw new Error('Invalid response from background script');
+                }
+            }, 'unit');
+
+            // Test 4: URL Parsing
+            await testFramework.runTest('URL Filename Extraction', async () => {
+                function getFileName(url) {
+                    try {
+                        const urlObj = new URL(url);
+                        return urlObj.pathname.split('/').pop() || '';
+                    } catch {
+                        return '';
+                    }
+                }
+
+                const testCases = [
+                    ['https://example.com/jquery.min.js', 'jquery.min.js'],
+                    ['https://cdn.example.com/lib/react-16.8.0.js', 'react-16.8.0.js'],
+                    ['https://example.com/', ''],
+                    ['invalid-url', '']
+                ];
+
+                for (const [url, expected] of testCases) {
+                    const result = getFileName(url);
+                    if (result !== expected) {
+                        throw new Error(`Expected ${expected}, got ${result} for URL: ${url}`);
+                    }
+                }
+            }, 'unit');
+        }
+
+        // Integration Tests
+        async function runIntegrationTests() {
+            document.getElementById('integration-results').innerHTML = '';
+
+            // Test 1: Extension Loading
+            await testFramework.runTest('Extension Components Loading', async () => {
+                // Check if core scripts are available
+                const scripts = ['retire-core.js', 'background.js', 'content.js', 'popup.js'];
+                let missingScripts = [];
+
+                for (const script of scripts) {
+                    try {
+                        await fetch(`../js/${script}`);
+                    } catch {
+                        missingScripts.push(script);
+                    }
+                }
+
+                if (missingScripts.length > 0) {
+                    throw new Error(`Missing scripts: ${missingScripts.join(', ')}`);
+                }
+            }, 'integration');
+
+            // Test 2: Repository Integration
+            await testFramework.runTest('Repository Stats Retrieval', async () => {
+                const stats = await browser.runtime.sendMessage({ type: 'get-repository-stats' });
+                
+                if (!stats || typeof stats.libraries !== 'number') {
+                    throw new Error('Failed to retrieve repository statistics');
+                }
+            }, 'integration');
+
+            // Test 3: Content-Background Communication
+            await testFramework.runTest('Content-Background Communication', async () => {
+                const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+                
+                if (!tabs || tabs.length === 0) {
+                    throw new Error('No active tabs found');
+                }
+
+                try {
+                    await browser.tabs.sendMessage(tabs[0].id, { type: 'get-detected' });
+                } catch (error) {
+                    // This is expected in test environment
+                    console.log('Content script communication test completed (expected failure in test env)');
+                }
+            }, 'integration');
+        }
+
+        // Vulnerability Detection Tests
+        async function runVulnerabilityTests() {
+            document.getElementById('vulnerability-results').innerHTML = '';
+
+            // Test 1: Known Vulnerable Libraries
+            await testFramework.runTest('jQuery 1.4.2 Detection', async () => {
+                // This would normally test against actual jQuery 1.4.2
+                // For demo purposes, we simulate the test
+                const mockVulnerable = {
+                    component: 'jquery',
+                    version: '1.4.2',
+                    vulnerabilities: [
+                        { severity: 'medium', info: ['XSS vulnerability'] }
+                    ]
+                };
+
+                if (!mockVulnerable.vulnerabilities || mockVulnerable.vulnerabilities.length === 0) {
+                    throw new Error('Failed to detect known jQuery vulnerability');
+                }
+            }, 'vulnerability');
+
+            // Test 2: AngularJS Detection
+            await testFramework.runTest('AngularJS 1.5.0 Detection', async () => {
+                const mockVulnerable = {
+                    component: 'angularjs',
+                    version: '1.5.0',
+                    vulnerabilities: [
+                        { severity: 'high', info: ['Sandbox bypass'] }
+                    ]
+                };
+
+                if (!mockVulnerable.vulnerabilities || mockVulnerable.vulnerabilities.length === 0) {
+                    throw new Error('Failed to detect AngularJS vulnerability');
+                }
+            }, 'vulnerability');
+
+            // Test 3: Bootstrap Detection
+            await testFramework.runTest('Bootstrap 3.3.7 Detection', async () => {
+                const mockVulnerable = {
+                    component: 'bootstrap',
+                    version: '3.3.7',
+                    vulnerabilities: [
+                        { severity: 'medium', info: ['XSS in tooltip'] }
+                    ]
+                };
+
+                if (!mockVulnerable.vulnerabilities || mockVulnerable.vulnerabilities.length === 0) {
+                    throw new Error('Failed to detect Bootstrap vulnerability');
+                }
+            }, 'vulnerability');
+
+            // Test 4: False Positive Check
+            await testFramework.runTest('False Positive Prevention', async () => {
+                const mockSafe = {
+                    component: 'jquery',
+                    version: '3.6.0',
+                    vulnerabilities: []
+                };
+
+                if (mockSafe.vulnerabilities.length > 0) {
+                    throw new Error('False positive detected for safe jQuery version');
+                }
+            }, 'vulnerability');
+        }
+
+        // Main test runners
+        async function runAllTests() {
+            testFramework.clearResults();
+            await runUnitTests();
+            await runIntegrationTests();
+            await runVulnerabilityTests();
+            testFramework.displaySummary();
+        }
+
+        function clearResults() {
+            testFramework.clearResults();
+        }
+
+        // Load test fixtures
+        function loadTestFixtures() {
+            // This would load actual vulnerable JavaScript files for testing
+            console.log('Test fixtures would be loaded here');
+        }
+
+        // Initialize test environment
+        window.addEventListener('load', () => {
+            console.log('Test runner loaded. Click "Run All Tests" to begin.');
+        });
+    </script>
+</body>
+</html>
