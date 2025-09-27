@@ -5420,7 +5420,7 @@
       {
         "atOrAbove": "3.4.1",
         "below": "3.4.2",
-        "severity": "moderate",
+        "severity": "medium",
         "cwe": [
           "CWE-79"
         ],
