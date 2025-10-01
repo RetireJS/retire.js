@@ -6414,7 +6414,7 @@
         ]
       },
       {
-        "atOrAbove": "0",
+        "atOrAbove": "1.0.0",
         "below": "1.12.0",
         "severity": "high",
         "cwe": [
@@ -8118,6 +8118,7 @@
         ]
       },
       {
+        "atOrAbove": "4.7.0",
         "below": "4.17.11",
         "cwe": [
           "CWE-400"
@@ -8199,6 +8200,42 @@
       {
         "below": "4.17.21",
         "cwe": [
+          "CWE-77",
+          "CWE-94"
+        ],
+        "severity": "high",
+        "identifiers": {
+          "summary": "Command Injection in lodash",
+          "CVE": [
+            "CVE-2021-23337"
+          ],
+          "githubID": "GHSA-35jh-r3h4-6jhm"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+          "https://nvd.nist.gov/vuln/detail/CVE-2021-23337",
+          "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+          "https://github.com/lodash/lodash",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851",
+          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851",
+          "https://security.netapp.com/advisory/ntap-20210312-0006/",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
+          "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
+          "https://www.oracle.com//security-alerts/cpujul2021.html",
+          "https://www.oracle.com/security-alerts/cpujan2022.html",
+          "https://www.oracle.com/security-alerts/cpujul2022.html",
+          "https://www.oracle.com/security-alerts/cpuoct2021.html"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.17.21",
+        "cwe": [
           "CWE-1333",
           "CWE-400"
         ],
@@ -8226,41 +8263,6 @@
           "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
           "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
           "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
-          "https://www.oracle.com//security-alerts/cpujul2021.html",
-          "https://www.oracle.com/security-alerts/cpujan2022.html",
-          "https://www.oracle.com/security-alerts/cpujul2022.html",
-          "https://www.oracle.com/security-alerts/cpuoct2021.html"
-        ]
-      },
-      {
-        "below": "4.17.21",
-        "cwe": [
-          "CWE-77",
-          "CWE-94"
-        ],
-        "severity": "high",
-        "identifiers": {
-          "summary": "Command Injection in lodash",
-          "CVE": [
-            "CVE-2021-23337"
-          ],
-          "githubID": "GHSA-35jh-r3h4-6jhm"
-        },
-        "info": [
-          "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
-          "https://nvd.nist.gov/vuln/detail/CVE-2021-23337",
-          "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
-          "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
-          "https://github.com/lodash/lodash",
-          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851",
-          "https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851",
-          "https://security.netapp.com/advisory/ntap-20210312-0006/",
-          "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074932",
-          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074930",
-          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074928",
-          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074931",
-          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074929",
-          "https://snyk.io/vuln/SNYK-JS-LODASH-1040724",
           "https://www.oracle.com//security-alerts/cpujul2021.html",
           "https://www.oracle.com/security-alerts/cpujan2022.html",
           "https://www.oracle.com/security-alerts/cpujul2022.html",
