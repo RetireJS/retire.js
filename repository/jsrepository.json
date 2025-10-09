@@ -5487,28 +5487,6 @@
           "https://github.com/advisories/GHSA-9v3m-8fp8-mj99",
           "https://github.com/twbs/bootstrap/issues/28236"
         ]
-      },
-      {
-        "atOrAbove": "4.0.0",
-        "below": "5.0.0",
-        "cwe": [
-          "CWE-79"
-        ],
-        "severity": "medium",
-        "identifiers": {
-          "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability",
-          "CVE": [
-            "CVE-2024-6531"
-          ],
-          "githubID": "GHSA-vc8w-jr9v-vj7f"
-        },
-        "info": [
-          "https://github.com/advisories/GHSA-vc8w-jr9v-vj7f",
-          "https://nvd.nist.gov/vuln/detail/CVE-2024-6531",
-          "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/bootstrap/CVE-2024-6531.yml",
-          "https://github.com/twbs/bootstrap",
-          "https://www.herodevs.com/vulnerability-directory/cve-2024-6531"
-        ]
       }
     ],
     "extractors": {
