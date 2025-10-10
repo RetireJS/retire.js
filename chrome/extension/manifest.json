@@ -30,7 +30,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": ["<all_urls>"],
       "js": ["js/content.js"],
       "run_at": "document_start"
     }

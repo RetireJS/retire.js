@@ -19,14 +19,39 @@ const hasher = {
   },
 };
 
+async function fetchScriptText(url) {
+  try {
+    const res = await fetch(url, { credentials: "omit", cache: "reload" });
+    if (!res.ok) {
+      console.debug("Fetch non-OK", url, res.status);
+      return null;
+    }
+    return await res.text();
+  } catch (err) {
+    console.debug("Fetch error", url, err);
+    return null;
+  }
+}
+
+
 async function download(url) {
-  const response = await fetch(url);
-  if (response.ok) {
-    return response.text();
-  } else {
-    throw new Error(
-      "Got " + response.status + " when trying to download " + url
-    );
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      return await response.text();
+    } else {
+      // Suppress 403/404 silently; log others for debug
+      if (response.status !== 403 && response.status !== 404) {
+        console.warn(`Download failed with status ${response.status} for ${url}`);
+      }
+      return ''; // Empty on error to continue scanning
+    }
+  } catch (e) {
+    // Network errors (e.g., CORS, abort) – suppress unless critical
+    if (!e.message.includes('Failed to fetch') && !e.message.includes('network failure')) {
+      console.warn(`Download error: ${e.message} for ${url}`);
+    }
+    return '';
   }
 }
 

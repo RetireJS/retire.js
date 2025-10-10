@@ -1,4 +1,4 @@
-## Development
+# Development
 
 To use the development version:
 

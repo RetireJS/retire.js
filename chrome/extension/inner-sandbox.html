@@ -1,8 +1,18 @@
+<!DOCTYPE html>
 <html>
 <head>
-<base>
-<script src="js/innersandbox.js"></script>
-<body>
-
-</body>
+  <meta charset="utf-8" />
+  <title>Retire.js Inner Sandbox</title>
+  <script>
+    (function () {
+      if (!document.querySelector("base")) {
+        const base = document.createElement("base");
+        base.href = "/";
+        document.head.appendChild(base);
+      }
+    })();
+  </script>
+  <script src="js/innersandbox.js" type="module"></script>
+</head>
+<body></body>
 </html>
