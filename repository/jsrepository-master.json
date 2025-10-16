@@ -6706,7 +6706,7 @@
       {
         "ranges": [
           {
-            "atOrAbove": "0",
+            "atOrAbove": "0.7.30",
             "below": "0.7.33"
           },
           {
