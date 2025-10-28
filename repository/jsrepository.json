@@ -3379,6 +3379,25 @@
         ]
       },
       {
+        "atOrAbove": "1.7.0",
+        "below": "1.8.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1333",
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "angular vulnerable to regular expression denial of service (ReDoS)",
+          "CVE": [
+            "CVE-2022-25844"
+          ],
+          "githubID": "GHSA-m2h2-264f-f486"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-m2h2-264f-f486"
+        ]
+      },
+      {
         "atOrAbove": "0",
         "below": "1.9.8",
         "cwe": [
@@ -3434,25 +3453,6 @@
         },
         "info": [
           "https://docs.angularjs.org/misc/version-support-status"
-        ]
-      },
-      {
-        "atOrAbove": "1.7.0",
-        "below": "999",
-        "severity": "medium",
-        "cwe": [
-          "CWE-1333",
-          "CWE-770"
-        ],
-        "identifiers": {
-          "summary": "angular vulnerable to regular expression denial of service (ReDoS)",
-          "CVE": [
-            "CVE-2022-25844"
-          ],
-          "githubID": "GHSA-m2h2-264f-f486"
-        },
-        "info": [
-          "https://github.com/advisories/GHSA-m2h2-264f-f486"
         ]
       }
     ],
