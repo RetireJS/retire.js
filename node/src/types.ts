@@ -23,6 +23,7 @@ export type Repository = Record<
 export type Vulnerability = {
   below: string;
   atOrAbove?: string;
+  excludes?: string[];
   severity: SeverityLevel;
   cwe: string[];
   identifiers: {

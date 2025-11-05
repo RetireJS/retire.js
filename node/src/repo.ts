@@ -21,6 +21,7 @@ export function validateRepository(
     .object({
       below: versionValidator,
       atOrAbove: versionValidator.optional(),
+      excludes: z.array(versionValidator).optional(),
       severity: z.enum(keys),
       cwe: z.array(z.string().regex(/^CWE-[0-9]+$/)).min(1),
       identifiers: z

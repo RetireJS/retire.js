@@ -132,6 +132,9 @@
       },
       {
         "below": "2.999.999",
+        "excludes": [
+          "1.12.4-aem"
+        ],
         "cwe": [
           "CWE-1104"
         ],
@@ -148,6 +151,9 @@
       {
         "atOrAbove": "1.12.3",
         "below": "3.0.0-beta1",
+        "excludes": [
+          "1.12.4-aem"
+        ],
         "cwe": [
           "CWE-79"
         ],
@@ -191,6 +197,9 @@
       {
         "atOrAbove": "1.1.4",
         "below": "3.4.0",
+        "excludes": [
+          "1.12.4-aem"
+        ],
         "cwe": [
           "CWE-1321",
           "CWE-79"
@@ -213,6 +222,9 @@
       {
         "atOrAbove": "1.0.3",
         "below": "3.5.0",
+        "excludes": [
+          "1.12.4-aem"
+        ],
         "cwe": [
           "CWE-79"
         ],
@@ -232,6 +244,9 @@
       {
         "atOrAbove": "1.2.0",
         "below": "3.5.0",
+        "excludes": [
+          "1.12.4-aem"
+        ],
         "cwe": [
           "CWE-79"
         ],

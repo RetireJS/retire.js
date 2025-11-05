@@ -28,12 +28,16 @@ function convertToOldFormat(
       const { ranges, summary, identifiers, info, ...rest } = v;
 
       ranges.forEach((r) => {
-        vulns.push({
+        const vuln = {
           ...r,
           ...rest,
           identifiers: { summary, ...identifiers },
           info,
-        });
+        };
+        if (r.excludes) {
+          vuln.excludes = r.excludes;
+        }
+        vulns.push(vuln);
       });
     });
     vulns.sort((a, b) => {

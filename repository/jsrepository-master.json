@@ -98,7 +98,8 @@
           },
           {
             "atOrAbove": "1.12.3",
-            "below": "3.0.0-beta1"
+            "below": "3.0.0-beta1",
+            "excludes": ["1.12.4-aem"]
           }
         ],
         "summary": "3rd party CORS request may execute",
@@ -138,7 +139,8 @@
         "ranges": [
           {
             "atOrAbove": "1.1.4",
-            "below": "3.4.0"
+            "below": "3.4.0",
+            "excludes": ["1.12.4-aem"]
           }
         ],
         "summary": "jQuery before 3.4.0, as used in Drupal, Backdrop CMS, and other products, mishandles jQuery.extend(true, {}, ...) because of Object.prototype pollution",
@@ -159,7 +161,8 @@
         "ranges": [
           {
             "atOrAbove": "1.2.0",
-            "below": "3.5.0"
+            "below": "3.5.0",
+            "excludes": ["1.12.4-aem"]
           }
         ],
         "summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS",
@@ -176,7 +179,8 @@
         "ranges": [
           {
             "atOrAbove": "1.0.3",
-            "below": "3.5.0"
+            "below": "3.5.0",
+            "excludes": ["1.12.4-aem"]
           }
         ],
         "summary": "passing HTML containing <option> elements from untrusted sources - even after sanitizing it - to one of jQuery's DOM manipulation methods (i.e. .html(), .append(), and others) may execute untrusted code.",
@@ -192,7 +196,8 @@
       {
         "ranges": [
           {
-            "below": "2.999.999"
+            "below": "2.999.999",
+            "excludes": ["1.12.4-aem"]
           }
         ],
         "summary": "jQuery 1.x and 2.x are End-of-Life and no longer receiving security updates",
