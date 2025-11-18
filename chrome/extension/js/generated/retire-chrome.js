@@ -1873,10 +1873,25 @@ module.exports={
           "info": [
             "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/",
             "http://research.insecurelabs.org/jquery/test/",
-            "https://bugs.jquery.com/ticket/11974",
             "https://github.com/advisories/GHSA-rmxg-73gg-4p98",
             "https://github.com/jquery/jquery/issues/2432",
             "https://nvd.nist.gov/vuln/detail/CVE-2015-9251"
+          ]
+        },
+        {
+          "atOrAbove": "1.8.0",
+          "below": "2.2.0",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "parseHTML() executes scripts in event handlers",
+            "issue": "11974"
+          },
+          "info": [
+            "http://research.insecurelabs.org/jquery/test/",
+            "https://bugs.jquery.com/ticket/11974"
           ]
         },
         {
@@ -1912,10 +1927,25 @@ module.exports={
           "info": [
             "http://blog.jquery.com/2016/01/08/jquery-2-2-and-1-12-released/",
             "http://research.insecurelabs.org/jquery/test/",
-            "https://bugs.jquery.com/ticket/11974",
             "https://github.com/advisories/GHSA-rmxg-73gg-4p98",
             "https://github.com/jquery/jquery/issues/2432",
             "https://nvd.nist.gov/vuln/detail/CVE-2015-9251"
+          ]
+        },
+        {
+          "atOrAbove": "2.2.2",
+          "below": "3.0.0",
+          "cwe": [
+            "CWE-79"
+          ],
+          "severity": "medium",
+          "identifiers": {
+            "summary": "parseHTML() executes scripts in event handlers",
+            "issue": "11974"
+          },
+          "info": [
+            "http://research.insecurelabs.org/jquery/test/",
+            "https://bugs.jquery.com/ticket/11974"
           ]
         },
         {
@@ -5227,6 +5257,25 @@ module.exports={
           ]
         },
         {
+          "atOrAbove": "1.7.0",
+          "below": "1.8.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1333",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "angular vulnerable to regular expression denial of service (ReDoS)",
+            "CVE": [
+              "CVE-2022-25844"
+            ],
+            "githubID": "GHSA-m2h2-264f-f486"
+          },
+          "info": [
+            "https://github.com/advisories/GHSA-m2h2-264f-f486"
+          ]
+        },
+        {
           "atOrAbove": "0",
           "below": "1.9.8",
           "cwe": [
@@ -5282,25 +5331,6 @@ module.exports={
           },
           "info": [
             "https://docs.angularjs.org/misc/version-support-status"
-          ]
-        },
-        {
-          "atOrAbove": "1.7.0",
-          "below": "999",
-          "severity": "medium",
-          "cwe": [
-            "CWE-1333",
-            "CWE-770"
-          ],
-          "identifiers": {
-            "summary": "angular vulnerable to regular expression denial of service (ReDoS)",
-            "CVE": [
-              "CVE-2022-25844"
-            ],
-            "githubID": "GHSA-m2h2-264f-f486"
-          },
-          "info": [
-            "https://github.com/advisories/GHSA-m2h2-264f-f486"
           ]
         }
       ],
@@ -10390,7 +10420,7 @@ module.exports={
           ]
         },
         {
-          "atOrAbove": "0",
+          "atOrAbove": "0.7.30",
           "below": "0.7.33",
           "cwe": [
             "CWE-1333",
