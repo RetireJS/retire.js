@@ -67,4 +67,16 @@ describe('versions', function () {
     assert.isNotVulnerable(result);
     done();
   });
+  it('should_not_be_vulnerable_when_version_in_excludes_list', function (done) {
+    repo.jquery.vulnerabilities = [{ atOrAbove: '1.0.0', below: '3.0.0', excludes: ['1.12.4-aem'] }];
+    const result = retire.scanUri('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4-aem/jquery.min.js', repo);
+    assert.isNotVulnerable(result);
+    done();
+  });
+  it('should_be_vulnerable_when_similar_version_not_in_excludes_list', function (done) {
+    repo.jquery.vulnerabilities = [{ atOrAbove: '1.0.0', below: '3.0.0', excludes: ['1.12.4-aem'] }];
+    const result = retire.scanUri('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', repo);
+    assert.isVulnerable(result);
+    done();
+  });
 });
