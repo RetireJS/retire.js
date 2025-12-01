@@ -161,8 +161,7 @@
         "ranges": [
           {
             "atOrAbove": "1.1.4",
-            "below": "3.4.0",
-            "excludes": ["1.12.4-aem"]
+            "below": "3.4.0"
           }
         ],
         "summary": "jQuery before 3.4.0, as used in Drupal, Backdrop CMS, and other products, mishandles jQuery.extend(true, {}, ...) because of Object.prototype pollution",
@@ -183,8 +182,7 @@
         "ranges": [
           {
             "atOrAbove": "1.2.0",
-            "below": "3.5.0",
-            "excludes": ["1.12.4-aem"]
+            "below": "3.5.0"
           }
         ],
         "summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS",
@@ -201,8 +199,7 @@
         "ranges": [
           {
             "atOrAbove": "1.0.3",
-            "below": "3.5.0",
-            "excludes": ["1.12.4-aem"]
+            "below": "3.5.0"
           }
         ],
         "summary": "passing HTML containing <option> elements from untrusted sources - even after sanitizing it - to one of jQuery's DOM manipulation methods (i.e. .html(), .append(), and others) may execute untrusted code.",

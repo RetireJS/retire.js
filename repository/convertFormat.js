@@ -18,7 +18,8 @@ function convertToOldFormat(
   input,
   includeQueries = false,
   includeBackdoored = false,
-  includeLicenses = false
+  includeLicenses = false,
+  includeExcludes = false,
 ) {
   const result = {};
   Object.entries(input).forEach(([key, value]) => {
@@ -34,8 +35,8 @@ function convertToOldFormat(
           identifiers: { summary, ...identifiers },
           info,
         };
-        if (r.excludes) {
-          vuln.excludes = r.excludes;
+        if (!includeExcludes && r.excludes) {
+          vuln.excludes = undefined;
         }
         vulns.push(vuln);
       });

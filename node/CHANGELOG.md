@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.4.0]
+
+### Improvements
+
+- Add possibility to exclude specific versions for a vulnerability (example: jquery-1.12.4-aem which has some extra patches).
+
 ## [5.3.0]
 
 ### Improvement
