@@ -18,7 +18,8 @@ function convertToOldFormat(
   input,
   includeQueries = false,
   includeBackdoored = false,
-  includeLicenses = false
+  includeLicenses = false,
+  includeExcludes = false,
 ) {
   const result = {};
   Object.entries(input).forEach(([key, value]) => {
@@ -28,12 +29,16 @@ function convertToOldFormat(
       const { ranges, summary, identifiers, info, ...rest } = v;
 
       ranges.forEach((r) => {
-        vulns.push({
+        const vuln = {
           ...r,
           ...rest,
           identifiers: { summary, ...identifiers },
           info,
-        });
+        };
+        if (!includeExcludes && r.excludes) {
+          vuln.excludes = undefined;
+        }
+        vulns.push(vuln);
       });
     });
     vulns.sort((a, b) => {

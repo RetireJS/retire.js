@@ -14,3 +14,6 @@ fs.writeFileSync("jsrepository-v3.json", JSON.stringify(resultV3, null, 2));
 
 const resultV4 = convert(data, true, false, true);
 fs.writeFileSync("jsrepository-v4.json", JSON.stringify(resultV4, null, 2));
+
+const resultV5 = convert(data, true, false, true, true);
+fs.writeFileSync("jsrepository-v5.json", JSON.stringify(resultV5, null, 2));
