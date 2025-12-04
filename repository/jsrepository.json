@@ -7525,6 +7525,24 @@
         ]
       },
       {
+        "atOrAbove": "14.3.0-canary.77",
+        "below": "15.0.5",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp",
+          "CVE": [
+            "CVE-2025-66478"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
         "atOrAbove": "15.0.0",
         "below": "15.1.2",
         "cwe": [
