@@ -571,6 +571,24 @@
           "https://github.com/jquery/jquery-mobile/issues/8640",
           "https://snyk.io/vuln/SNYK-JS-JQUERYMOBILE-174599"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "open redirect leads to cross site scripting",
+          "blog": "sirdarckcat/unpatched-0day-jquery-mobile-xss",
+          "githubID": "GHSA-fj93-7wm4-8x2g"
+        },
+        "info": [
+          "http://sirdarckcat.blogspot.no/2017/02/unpatched-0day-jquery-mobile-xss.html",
+          "https://github.com/jquery/jquery-mobile/issues/8640",
+          "https://snyk.io/vuln/SNYK-JS-JQUERYMOBILE-174599"
+        ]
       }
     ],
     "extractors": {
@@ -3024,6 +3042,24 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "1.16.5",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Prototype pollution",
+          "CVE": [
+            "CVE-2021-23450"
+          ],
+          "githubID": "GHSA-m8gw-hjpr-rjv7"
+        },
+        "info": [
+          "https://github.com/dojo/dojo/pull/418"
+        ]
+      },
+      {
         "below": "1.17.0",
         "severity": "high",
         "cwe": [
@@ -3409,6 +3445,28 @@
         ]
       },
       {
+        "atOrAbove": "1.3.1",
+        "below": "1.8.4",
+        "cwe": [
+          "CWE-791"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "AngularJS Incomplete Filtering of Special Elements vulnerability",
+          "CVE": [
+            "CVE-2025-2336"
+          ],
+          "githubID": "GHSA-4p4w-6hg8-63wx"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-4p4w-6hg8-63wx",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-2336",
+          "https://codepen.io/herodevs/pen/bNGYaXx/412a3a4218387479898912f60c269c6c",
+          "https://github.com/angular/angular.js",
+          "https://www.herodevs.com/vulnerability-directory/cve-2025-2336"
+        ]
+      },
+      {
         "atOrAbove": "1.7.0",
         "below": "1.8.8",
         "severity": "medium",
@@ -3483,6 +3541,25 @@
         },
         "info": [
           "https://docs.angularjs.org/misc/version-support-status"
+        ]
+      },
+      {
+        "atOrAbove": "1.7.0",
+        "below": "999.999.999",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1333",
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "angular vulnerable to regular expression denial of service (ReDoS)",
+          "CVE": [
+            "CVE-2022-25844"
+          ],
+          "githubID": "GHSA-m2h2-264f-f486"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-m2h2-264f-f486"
         ]
       }
     ],
@@ -5331,6 +5408,44 @@
         ]
       },
       {
+        "atOrAbove": "2.3.0",
+        "below": "3.4.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "XSS in collapse data-parent attribute",
+          "issue": "20184",
+          "CVE": [
+            "CVE-2018-14040"
+          ],
+          "githubID": "GHSA-3wqf-4x89-9g79"
+        },
+        "info": [
+          "https://github.com/twbs/bootstrap/issues/20184"
+        ]
+      },
+      {
+        "atOrAbove": "2.3.0",
+        "below": "3.4.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "XSS in data-container property of tooltip",
+          "issue": "20184",
+          "CVE": [
+            "CVE-2018-14042"
+          ],
+          "githubID": "GHSA-7mvr-5x2g-wfc8"
+        },
+        "info": [
+          "https://github.com/twbs/bootstrap/issues/20184"
+        ]
+      },
+      {
         "atOrAbove": "3.0.0",
         "below": "3.4.0",
         "severity": "medium",
@@ -5387,6 +5502,27 @@
         "info": [
           "https://github.com/advisories/GHSA-9v3m-8fp8-mj99",
           "https://github.com/twbs/bootstrap/issues/28236"
+        ]
+      },
+      {
+        "atOrAbove": "1.4.0",
+        "below": "3.4.2",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Bootstrap Cross-Site Scripting (XSS) vulnerability for data-* attributes",
+          "CVE": [
+            "CVE-2024-6485"
+          ],
+          "githubID": "GHSA-vxmc-5x29-h64v"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-vxmc-5x29-h64v",
+          "https://nvd.nist.gov/vuln/detail/CVE-2024-6485",
+          "https://github.com/twbs/bootstrap",
+          "https://www.herodevs.com/vulnerability-directory/cve-2024-6485"
         ]
       },
       {
@@ -5927,6 +6063,25 @@
         ]
       },
       {
+        "atOrAbove": "44.2.0",
+        "below": "45.2.2",
+        "severity": "low",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 clipboard package. This vulnerability could be triggered by a specific user action, leading to unauthorized JavaScript code execution, if the attacker managed to insert a malicious content into the editor, which might happen with a very specific editor configuration.\n\nThis vulnerability affects **only** installations where the editor configuration meets one of the following criteria:\n- [HTML embed plugin](https://ckeditor.com/docs/ckeditor5/latest/features/html/html-embed.html) is enabled\n- Custom plugin introducing editable element which implements view [`RawElement`](https://ckeditor.com/docs/ckeditor5/latest/api/module_engine_view_rawelement-ViewRawElement.html) is enabled\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version 46.0.3 (and above), and explicitly in version 45.2.2.\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+          "githubID": "GHSA-x9gp-vjh6-3wv6",
+          "CVE": [
+            "CVE-2025-58064"
+          ]
+        },
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-x9gp-vjh6-3wv6",
+          "https://github.com/ckeditor/ckeditor5/commit/b210e90c6cf84e662ef6c7daf93a92355a961bf2"
+        ]
+      },
+      {
         "atOrAbove": "46.0.0",
         "below": "46.0.3",
         "severity": "low",
@@ -6329,6 +6484,27 @@
           "https://github.com/axios/axios/commit/fb8eec214ce7744b5ca787f2c3b8339b2f54b00f",
           "https://github.com/axios/axios",
           "https://github.com/axios/axios/releases/tag/v1.8.2"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.30.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\nWhen Axios runs on Node.js and is given a URL with the `data:` scheme, it does not perform HTTP. Instead, its Node http adapter decodes the entire payload into memory (`Buffer`/`Blob`) and returns a synthetic 200 response.\nThis path ignores `maxContentLength` / `maxBodyLength` (which only protect HTTP responses), so an attacker can supply a very large `data:` URI and cause the process to allocate unbounded memory and crash (DoS), even if the caller requested `responseType: 'stream'`.",
+          "githubID": "GHSA-4hjh-wcwx-xvwj",
+          "CVE": [
+            "CVE-2025-58754"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-4hjh-wcwx-xvwj",
+          "https://github.com/axios/axios/pull/7011",
+          "https://github.com/axios/axios/commit/945435fc51467303768202250debb8d4ae892593",
+          "https://github.com/axios/axios/releases/tag/v1.12.0"
         ]
       },
       {
@@ -7582,6 +7758,25 @@
       {
         "atOrAbove": "15.0.0-canary.0",
         "below": "15.0.6",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0-canary.0",
+        "below": "15.0.6",
         "severity": "medium",
         "cwe": [
           "CWE-1395",
@@ -7596,6 +7791,27 @@
           "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
           "https://nextjs.org/blog/security-update-2025-12-11",
           "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.6",
+        "below": "15.0.7",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
         ]
       },
       {
@@ -7620,6 +7836,28 @@
         ]
       },
       {
+        "atOrAbove": "15.0.0",
+        "below": "15.1.6",
+        "cwe": [
+          "CWE-362"
+        ],
+        "severity": "low",
+        "identifiers": {
+          "summary": "Next.js Race Condition to Cache Poisoning",
+          "CVE": [
+            "CVE-2025-32421"
+          ],
+          "githubID": "GHSA-qpjv-v59x-3qc4"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-qpjv-v59x-3qc4",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-qpjv-v59x-3qc4",
+          "https://nvd.nist.gov/vuln/detail/CVE-2025-32421",
+          "https://github.com/vercel/next.js",
+          "https://vercel.com/changelog/cve-2025-32421"
+        ]
+      },
+      {
         "atOrAbove": "15.0.4-canary.51",
         "below": "15.1.8",
         "cwe": [
@@ -7639,6 +7877,80 @@
           "https://github.com/vercel/next.js/commit/a15b974ed707d63ad4da5b74c1441f5b7b120e93",
           "https://github.com/vercel/next.js/releases/tag/v15.1.8",
           "https://vercel.com/changelog/cve-2025-49826"
+        ]
+      },
+      {
+        "atOrAbove": "15.1.0-canary.0",
+        "below": "15.1.9",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
+        "atOrAbove": "15.1.1-canary.0",
+        "below": "15.1.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.1.1-canary.0",
+        "below": "15.1.10",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.1.10",
+        "below": "15.1.11",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
         ]
       },
       {
@@ -7716,6 +8028,80 @@
         ]
       },
       {
+        "atOrAbove": "15.2.0-canary.0",
+        "below": "15.2.6",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
+        "atOrAbove": "15.2.0-canary.0",
+        "below": "15.2.7",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.2.0-canary.0",
+        "below": "15.2.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.2.7",
+        "below": "15.2.8",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
+        ]
+      },
+      {
         "atOrAbove": "15.3.0",
         "below": "15.3.3",
         "cwe": [
@@ -7736,6 +8122,482 @@
           "https://github.com/vercel/next.js/commit/ec202eccf05820b60c6126d6411fe16766ecc066",
           "https://github.com/vercel/next.js/releases/tag/v15.3.3",
           "https://vercel.com/changelog/cve-2025-49005"
+        ]
+      },
+      {
+        "atOrAbove": "15.3.0-canary.0",
+        "below": "15.3.6",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
+        "atOrAbove": "15.3.0-canary.0",
+        "below": "15.3.7",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.3.0-canary.0",
+        "below": "15.3.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.3.7",
+        "below": "15.3.8",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability in Next.js Image Optimization has been fixed in v15.4.5 and v14.2.31. When images returned from API routes vary based on request headers (such as `Cookie` or `Authorization`), these responses could be incorrectly cached and served to unauthorized users due to a cache key confusion bug.\n\nAll users are encouraged to upgrade if they use API routes to serve images that depend on request headers and have image optimization enabled.\n\nMore details at [Vercel Changelog](https://vercel.com/changelog/cve-2025-57752)",
+          "githubID": "GHSA-g5qg-72qw-gw5v",
+          "CVE": [
+            "CVE-2025-57752"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-g5qg-72qw-gw5v",
+          "https://github.com/vercel/next.js/pull/82114",
+          "https://github.com/vercel/next.js/commit/6b12c60c61ee80cb0443ccd20de82ca9b4422ddd",
+          "https://vercel.com/changelog/cve-2025-57752"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-20"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability in **Next.js Image Optimization** has been fixed in **v15.4.5** and **v14.2.31**. The issue allowed attacker-controlled external image sources to trigger file downloads with arbitrary content and filenames under specific configurations. This behavior could be abused for phishing or malicious file delivery.\n\nAll users relying on `images.domains` or `images.remotePatterns` are encouraged to upgrade and verify that external image sources are strictly validated.\n\nMore details at [Vercel Changelog](https://vercel.com/changelog/cve-2025-55173)",
+          "githubID": "GHSA-xv57-4mr9-wg8v",
+          "CVE": [
+            "CVE-2025-55173"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-xv57-4mr9-wg8v",
+          "https://github.com/vercel/next.js/commit/6b12c60c61ee80cb0443ccd20de82ca9b4422ddd",
+          "https://vercel.com/changelog/cve-2025-55173",
+          "http://vercel.com/changelog/cve-2025-55173"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0-canary.0",
+        "below": "15.4.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-918"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability in **Next.js Middleware** has been fixed in **v14.2.32** and **v15.4.7**. The issue occurred when request headers were directly passed into `NextResponse.next()`. In self-hosted applications, this could allow Server-Side Request Forgery (SSRF) if certain sensitive headers from the incoming request were reflected back into the response.\n\nAll users implementing custom middleware logic in self-hosted environments are strongly encouraged to upgrade and verify correct usage of the `next()` function.\n\nMore details at [Vercel Changelog](https://vercel.com/changelog/cve-2025-57822)",
+          "githubID": "GHSA-4342-x723-ch2f",
+          "CVE": [
+            "CVE-2025-57822"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-4342-x723-ch2f",
+          "https://github.com/vercel/next.js/commit/9c9aaed5bb9338ef31b0517ccf0ab4414f2093d8",
+          "https://vercel.com/changelog/cve-2025-57822"
+        ]
+      },
+      {
+        "atOrAbove": "15.4.0-canary.0",
+        "below": "15.4.8",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
+        "atOrAbove": "15.4.0-canary.0",
+        "below": "15.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.4.0-canary.0",
+        "below": "15.4.9",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.4.9",
+        "below": "15.4.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
+        ]
+      },
+      {
+        "atOrAbove": "15.5.0-canary.0",
+        "below": "15.5.7",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
+        "atOrAbove": "15.5.1-canary.0",
+        "below": "15.5.8",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.5.1-canary.0",
+        "below": "15.5.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.5.8",
+        "below": "15.5.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
+        ]
+      },
+      {
+        "atOrAbove": "15.6.0-canary.0",
+        "below": "15.6.0-canary.59",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "15.6.0-canary.0",
+        "below": "15.6.0-canary.59",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "15.6.0-canary.59",
+        "below": "15.6.0-canary.60",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0-canary.0",
+        "below": "16.0.7",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages<sup>1</sup> for versions 19.0.0, 19.1.0, 19.1.1, and 19.2.0 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55182](https://www.cve.org/CVERecord?id=CVE-2025-55182). \n\nFixed in:\nReact: 19.0.1, 19.1.2, 19.2.1\nNext.js: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7\n\nThe vulnerability also affects experimental canary releases starting with 14.3.0-canary.77. Users on any of the 14.3 canary builds should either downgrade to a 14.x stable release or 14.3.0-canary.76.\n\nAll users of stable 15.x or 16.x Next.js versions should upgrade to a patched, stable version immediately.\n\n<sup>1</sup> The affected React packages are:\n- react-server-dom-parcel\n- react-server-dom-turbopack\n- react-server-dom-webpack",
+          "githubID": "GHSA-9qr9-h5gf-34mp"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0-beta.0",
+        "below": "16.0.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0-beta.0",
+        "below": "16.0.9",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.9",
+        "below": "16.0.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
+        ]
+      },
+      {
+        "atOrAbove": "16.1.0-canary.0",
+        "below": "16.1.0-canary.17",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that, when deserialized, can cause the server process to hang and consume CPU. This can result in denial of service in unpatched environments.",
+          "githubID": "GHSA-mwv6-3258-q52c"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mwv6-3258-q52c",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184"
+        ]
+      },
+      {
+        "atOrAbove": "16.1.0-canary.0",
+        "below": "16.1.0-canary.17",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1395",
+          "CWE-497",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability affects certain React packages for versions 19.0.0, 19.0.1, 19.1.0, 19.1.1, 19.1.2, 19.2.0, and 19.2.1 and frameworks that use the affected packages, including Next.js 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183).\n\nA malicious HTTP request can be crafted and sent to any App Router endpoint that can return the compiled source code of [Server Functions](https://react.dev/reference/rsc/server-functions). This could reveal business logic, but would not expose secrets unless they were hardcoded directly into [Server Function](https://react.dev/reference/rsc/server-functions) code.",
+          "githubID": "GHSA-w37m-7fhw-fmv9"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-w37m-7fhw-fmv9",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55183"
+        ]
+      },
+      {
+        "atOrAbove": "16.1.0-canary.17",
+        "below": "16.1.0-canary.19",
+        "severity": "high",
+        "cwe": [
+          "CWE-1395",
+          "CWE-400",
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "It was found that the fix addressing [CVE-2025-55184](https://github.com/advisories/GHSA-2m3v-v2m8-q956) in React Server Components was incomplete and did not fully prevent denial-of-service attacks in all payload types. This affects React package versions 19.0.2, 19.1.3, and 19.2.2 and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x and 16.x using the App Router. The issue is tracked upstream as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).\n\nA malicious HTTP request can be crafted and sent to any Server Function endpoint that, when deserialized, can enter an infinite loop within the React Server Components runtime. This can cause the server process to hang and consume CPU, resulting in denial of service in unpatched environments.",
+          "githubID": "GHSA-5j59-xgg2-r9c4"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-5j59-xgg2-r9c4",
+          "https://nextjs.org/blog/security-update-2025-12-11",
+          "https://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-in-react-server-components",
+          "https://www.cve.org/CVERecord?id=CVE-2025-55184",
+          "https://www.facebook.com/security/advisories/cve-2025-67779"
         ]
       }
     ],
