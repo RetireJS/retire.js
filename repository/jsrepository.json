@@ -6358,6 +6358,27 @@
           "https://github.com/sveltejs/svelte/commit/83e96e044deb5ecbae2af361ae9e31d3e1ac43a3",
           "https://github.com/sveltejs/svelte"
         ]
+      },
+      {
+        "atOrAbove": "5.46.0",
+        "below": "5.46.4",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\nAn XSS vulnerability exists in Svelte 5.46.0-2 resulting from improper escaping of `hydratable` keys. If these keys incorporate untrusted user input, arbitrary JavaScript can be injected into server-rendered HTML.\n\n## Details\n\nWhen using the [`hydratable`](https://svelte.dev/docs/svelte/hydratable) function, the first argument is used as a key to uniquely identify the data, such that the value is not regenerated in the browser.\n\nThis key is embedded into a `<script>` block in the server-rendered `<head>` without escaping unsafe characters. A malicious key can break out of the script context and inject arbitrary JavaScript into the HTML response.\n\n## Impact\n\nThis is a cross-site scripting vulnerability affecting applications that have the `experimental.async` flag enabled and use `hydratable` with keys incorporating untrusted user input. \n\n- **Impact**: Arbitrary JS execution in the client’s browser.\n- **Exploitability**: Remote, single-request if key is attacker-controlled.\n- **Typical Outcomes**:\n  - Session/token theft\n  - DOM defacement\n  - CSRF bypass via injected JS\n  - Account takeover depending on cookie/session strategy\n\nAffected applications should upgrade to a patched version immediately.",
+          "githubID": "GHSA-6738-r8g5-qwp3",
+          "CVE": [
+            "CVE-2025-15265"
+          ]
+        },
+        "info": [
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-6738-r8g5-qwp3",
+          "https://github.com/sveltejs/svelte/commit/ef81048e238844b729942441541d6dcfe6c8ccca",
+          "https://fluidattacks.com/advisories/lydian",
+          "https://github.com/sveltejs/svelte/releases/tag/svelte%405.46.4"
+        ]
       }
     ],
     "extractors": {
