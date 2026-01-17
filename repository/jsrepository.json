@@ -3694,6 +3694,26 @@
         "info": [
           "http://backbonejs.org/#changelog"
         ]
+      },
+      {
+        "atOrAbove": "0.3.3",
+        "below": "0.5.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "cross-site scripting vulnerability",
+          "release": "0.5.0",
+          "retid": "46",
+          "githubID": "GHSA-j6p2-cx3w-6jcp",
+          "CVE": [
+            "CVE-2016-10537"
+          ]
+        },
+        "info": [
+          "http://backbonejs.org/#changelog"
+        ]
       }
     ],
     "extractors": {
@@ -6339,6 +6359,22 @@
         ]
       },
       {
+        "atOrAbove": "3.0.0",
+        "below": "3.59.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "### Summary\n\nA server-side rendered `<textarea>` with two-way bound value does not have its value correctly escaped in the rendered HTML.\n\n### Details\n\nIn SSR, `<textarea bind:value={...}>` does not have its value escaped when it is rendered into the HTML as `<textarea>...</textarea>`.\n\n### PoC\n\nPut this in a server-side-rendered Svelte component:\n\n```\n<script>\n  let value = `test'\"></textarea><script` + `>alert('BIM');</sc` + `ript>`;\n</script>\n\n<textarea bind:value />\n```\n\n### Impact\n\n- Only affects SSR\n- Needs a `<textarea bind:value>` filled by user content via two-way binding",
+          "githubID": "GHSA-gw32-9rmw-qwww"
+        },
+        "info": [
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-gw32-9rmw-qwww",
+          "https://github.com/sveltejs/svelte/commit/a31dec5eb30978cff7ff4d77f4bf316841f711bc"
+        ]
+      },
+      {
         "below": "4.2.19",
         "cwe": [
           "CWE-79"
@@ -6509,6 +6545,27 @@
       },
       {
         "atOrAbove": "0",
+        "below": "0.30.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\nWhen Axios runs on Node.js and is given a URL with the `data:` scheme, it does not perform HTTP. Instead, its Node http adapter decodes the entire payload into memory (`Buffer`/`Blob`) and returns a synthetic 200 response.\nThis path ignores `maxContentLength` / `maxBodyLength` (which only protect HTTP responses), so an attacker can supply a very large `data:` URI and cause the process to allocate unbounded memory and crash (DoS), even if the caller requested `responseType: 'stream'`.",
+          "githubID": "GHSA-4hjh-wcwx-xvwj",
+          "CVE": [
+            "CVE-2025-58754"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-4hjh-wcwx-xvwj",
+          "https://github.com/axios/axios/pull/7011",
+          "https://github.com/axios/axios/commit/945435fc51467303768202250debb8d4ae892593",
+          "https://github.com/axios/axios/releases/tag/v1.12.0"
+        ]
+      },
+      {
+        "atOrAbove": "0.28.0",
         "below": "0.30.2",
         "severity": "high",
         "cwe": [
