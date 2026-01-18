@@ -268,8 +268,9 @@ function unique(a) {
   }, []);
 }
 
+console.log("Using ./jsrepository-v5.json");
 repo
-  .loadrepositoryFromFile("./jsrepository-v2.json", options)
+  .loadrepositoryFromFile("./jsrepository-v5.json", options)
   .then((jsRepo) => runTests(jsRepo))
   .then(() => console.log("Done!"))
   .catch((err) => console.warn("Failed!", err));

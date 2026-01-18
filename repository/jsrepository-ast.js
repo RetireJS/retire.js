@@ -242,7 +242,21 @@ exports.queries = {
             /AssignmentExpression/:left[/:object/:name == "exports" && /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"] 
         ]/AssignmentExpression[
             /:left/:object/:name == "exports" && /:left/:property/:name == "version"
-        ]/:right/:value`
+        ]/:right/:value`,
+        `/ExpressionStatement/AssignmentExpression[
+  /MemberExpression/:property/:name == "version" &&
+  /MemberExpression
+    [/:$object == 
+        ../../../ExpressionStatement/AssignmentExpression/MemberExpression[
+          /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"
+        ]/$:object ||
+      /Identifier[
+        /:name == "exports" && ../../../../ExpressionStatement/AssignmentExpression/MemberExpression[
+          /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"
+        ]/Identifier/:name == "exports"
+      ]
+    ]
+    ]/$$:right/:value`
   ],
   react: [
     `//CallExpression[

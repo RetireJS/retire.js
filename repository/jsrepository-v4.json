@@ -5203,12 +5203,13 @@
       "filecontent": [
         "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
         "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\.",
-        "return ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)\\},exports.version=\"(§§version§§)\""
+        "return[\\s]+ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)[;]?[\\s]*\\}[;,][\\s]*exports.version[\\s]*=[\\s]*\"(§§version§§)\""
       ],
       "ast": [
         "//ObjectExpression/Property[/:key/:name == \"reconcilerVersion\"]/$$:value/:value",
         "//ObjectExpression[       /Property[/:key/:name == \"rendererPackageName\" && /:value/:value == \"react-dom\"]     ]/Property[/:key/:name == \"version\"]/:value/:value",
-        "//SequenceExpression[             /AssignmentExpression/:left[/:object/:name == \"exports\" && /:property/:name == \"__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE\"]          ]/AssignmentExpression[             /:left/:object/:name == \"exports\" && /:left/:property/:name == \"version\"         ]/:right/:value"
+        "//SequenceExpression[             /AssignmentExpression/:left[/:object/:name == \"exports\" && /:property/:name == \"__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE\"]          ]/AssignmentExpression[             /:left/:object/:name == \"exports\" && /:left/:property/:name == \"version\"         ]/:right/:value",
+        "/ExpressionStatement/AssignmentExpression[   /MemberExpression/:property/:name == \"version\" &&   /MemberExpression     [/:$object ==          ../../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == \"__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE\"         ]/$:object ||       /Identifier[         /:name == \"exports\" && ../../../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == \"__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE\"         ]/Identifier/:name == \"exports\"       ]     ]     ]/$$:right/:value"
       ]
     }
   },

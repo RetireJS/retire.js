@@ -459,9 +459,14 @@
   "react-dom": {
     "https://cdnjs.cloudflare.com/ajax/libs/react-dom/§§version§§/cjs/react-dom.production.min.js": {
       "versions": [
-        "19.0.0"
+        "19.0.0", "19.1.1"
       ]
     },  
+    "https://unpkg.com/react-dom@§§version§§/cjs/react-dom.production.js": {
+      "versions": [
+        "19.2.3"
+      ]
+    },
     "https://unpkg.com/react-dom@§§version§§/umd/react-dom.production.min.js": {
       "versions": [
         "18.2.0",

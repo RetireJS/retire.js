@@ -5052,7 +5052,7 @@
       "filecontent": [
         "version:\"(§§version§§)[a-z0-9\\-]*\"[\\s,]*rendererPackageName:\"react-dom\"",
         "/\\*\\* @license React v(§§version§§)[\\s]*\\* react-dom\\.",
-        "return ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)\\},exports.version=\"(§§version§§)\""
+        "return[\\s]+ReactSharedInternals.[a-zA-Z].useHostTransitionStatus\\(\\)[;]?[\\s]*\\}[;,][\\s]*exports.version[\\s]*=[\\s]*\"(§§version§§)\""
       ]
     }
   },
