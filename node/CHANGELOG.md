@@ -1,5 +1,9 @@
 # Changelog
 
+## [5.4.2]
+
+* Fix build scripts
+
 ## [5.4.1]
 
 * Upgrade dependencies
