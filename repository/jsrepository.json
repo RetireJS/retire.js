@@ -9290,6 +9290,25 @@
           "https://www.oracle.com/security-alerts/cpujul2022.html",
           "https://www.oracle.com/security-alerts/cpuoct2021.html"
         ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.17.23",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.",
+          "githubID": "GHSA-xxjr-mmjv-4gpg",
+          "CVE": [
+            "CVE-2025-13465"
+          ]
+        },
+        "info": [
+          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg",
+          "https://github.com/lodash/lodash/commit/edadd452146f7e4bad4ea684e955708931d84d81"
+        ]
       }
     ],
     "extractors": {
