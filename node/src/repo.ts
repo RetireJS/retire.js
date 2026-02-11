@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as http from 'http';
 import * as https from 'https';
 import * as retire from './retire';
-import * as URL from 'url';
+import { URL } from 'url';
 import { ProxyAgent } from 'proxy-agent';
 import { Options, Repository } from './types';
 import * as z from 'zod';
@@ -13,7 +13,7 @@ import { severityLevels } from './types';
 export function validateRepository(
   repo: Repository,
   replacer?: Options['process'],
-): z.SafeParseReturnType<unknown, Repository> {
+): z.ZodSafeParseResult<Repository> {
   const keys = Object.keys(severityLevels) as [keyof typeof severityLevels];
   const versionValidator = z.string().regex(/^[\d.]+([a-zA-Z\d.-]+)?$/);
   const numericString = z.string().regex(/^[\d]+$/);
@@ -58,39 +58,38 @@ export function validateRepository(
         .strict()
         .superRefine((o, ctx) => {
           if (Object.keys(o).filter((k) => k != 'summary').length == 0)
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must have at least one identifier' });
+            ctx.addIssue({ code: "custom", message: 'Must have at least one identifier' });
           const ids = Object.values(o)
             .map((x) => (Array.isArray(x) ? x : [x]))
             .reduce((a, b) => a.concat(b), []).length;
-          if (ids == 0) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must have at least one identifier' });
+          if (ids == 0) ctx.addIssue({ code: "custom", message: 'Must have at least one identifier' });
         }),
       info: z.array(z.string().regex(/^https?:\/\/.+/)),
     })
     .strict();
   const regexValidator = z.string().superRefine((s, ctx) => {
-    if (ctx.path[0] == 'dont check') return;
     try {
       new RegExp(s);
     } catch (error) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: 'Invalid regex: ' + s,
       });
     }
-    if (s.includes('[]')) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Regex must not contain []: ' + s });
-    if (s.includes('{}')) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Regex must not contain {}: ' + s });
+    if (s.includes('[]')) ctx.addIssue({ code: "custom", message: 'Regex must not contain []: ' + s });
+    if (s.includes('{}')) ctx.addIssue({ code: "custom", message: 'Regex must not contain {}: ' + s });
     [/.*[^\\]\{[^0-9,\\]\}.*/, /[^,0-9\\]\}/, /[^\\]\{[^,0-9]/].forEach((r) => {
       if (r.test(s))
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'There is something odd with this regex: ' + s });
+        ctx.addIssue({ code: "custom", message: 'There is something odd with this regex: ' + s });
     });
     let versionMatcher = '§§version§§';
     if (replacer) versionMatcher = JSON.parse(`"${replacer(versionMatcher)}"`);
     const versionIndex = s.indexOf(versionMatcher);
     if (versionIndex == -1 || (versionIndex > 0 && s.substring(versionIndex - 1, versionIndex) == '\\')) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Regex must contain (§§version§§): ' + s });
+      ctx.addIssue({ code: "custom", message: 'Regex must contain (§§version§§): ' + s });
     } else if (s.replace(/\(\?:/g, '').replace(/\\\(/g, '').split(/\(/)[1].indexOf(versionMatcher) != 0) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message:
           'Regex must contain (§§version§§) as first capture group: ' + s.replace(/\(\?:/g, '').replace(/\\\(/g, ''),
       });
@@ -100,7 +99,8 @@ export function validateRepository(
     .string()
     .regex(/^\/(.*[^\\])\/([^/]+)\/$/, 'RegExp error - should be on format "/search/replacement/"');
 
-  const validator = z.record(
+  const dontCheck = z.object({["dont check"]: z.any()})
+  const validator = dontCheck.catchall(
     z
       .object({
         bowername: z.array(z.string().regex(/^[a-z0-9.-]+$/i)).optional(),
@@ -149,7 +149,14 @@ function formatValidationError(error: z.ZodError) {
 async function loadJson<T>(url: string, options: Options): Promise<T> {
   return new Promise((resolve, reject) => {
     options.log.info('Downloading ' + url + ' ...');
-    const reqOptions: https.RequestOptions = { ...URL.parse(url), method: 'GET' };
+    const parsedUrl = new URL(url);
+    const reqOptions: https.RequestOptions = {
+      protocol: parsedUrl.protocol,
+      hostname: parsedUrl.hostname,
+      port: parsedUrl.port,
+      path: parsedUrl.pathname + parsedUrl.search,
+      method: 'GET',
+    };
     const proxyUri = options.proxy || process.env.http_proxy;
     if (proxyUri) {
       reqOptions.agent = new ProxyAgent({

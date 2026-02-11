@@ -15,11 +15,11 @@
   "dependencies": {
     "ansi-colors": "^4.1.1",
     "astronomical": "^3.0.0",
-    "commander": "^10.0.1",
+    "commander": "^14.0.3",
     "proxy-agent": "^6.4.0",
-    "uuid": "^9.0.1",
+    "uuid": "^9.0.0",
     "walkdir": "0.4.1",
-    "zod": "^3.22.4"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/chai": "^4.3.17",
