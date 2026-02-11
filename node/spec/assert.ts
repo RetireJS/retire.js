@@ -1,5 +1,6 @@
 import * as retire from '../lib/retire';
 import { should } from 'chai';
+import 'chai/register-should';
 import { Component } from '../lib/types';
 should();
 
