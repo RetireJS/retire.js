@@ -1,4 +1,5 @@
 import { should } from 'chai';
+import 'chai/register-should';
 should();
 import { generatePURL } from '../../lib/reporters/utils';
 

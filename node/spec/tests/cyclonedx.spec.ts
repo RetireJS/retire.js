@@ -1,11 +1,15 @@
-import jsonLogger from '../../lib/reporters/cyclonedx-json';
-import jsonLogger1_6 from '../../lib/reporters/cyclonedx-1_6-json';
+import * as jsonLoggerModule from '../../lib/reporters/cyclonedx-json';
+import * as jsonLogger1_6Module from '../../lib/reporters/cyclonedx-1_6-json';
+
+const jsonLogger = (jsonLoggerModule as any).default.default || (jsonLoggerModule as any).default;
+const jsonLogger1_6 = (jsonLogger1_6Module as any).default.default || (jsonLogger1_6Module as any).default;
 import * as fs from 'fs';
 import { Schema, Validator } from 'jsonschema';
 import * as retire from '../../lib/retire';
 import { hash, LoggerOptions, Writer } from '../../lib/reporting';
 import * as reporting from '../../lib/reporting';
 import { should } from 'chai';
+import 'chai/register-should';
 should();
 
 function readJson<T>(path: string): T {

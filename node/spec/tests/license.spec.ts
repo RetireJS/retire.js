@@ -1,5 +1,6 @@
 import * as license from '../../lib/license';
 import { should } from 'chai';
+import 'chai/register-should';
 should();
 
 describe('licenses', function () {
