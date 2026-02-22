@@ -4,14 +4,12 @@ const repoUrl =
   "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v5.json";
 let updatedAt = Date.now();
 let repo;
-let backdoorData;
-let repoFuncs;
+let backdoorData = {};
 
 const retire = retirechrome.retire;
 
 let vulnerable = {};
 const events = new Emitter();
-let sandboxWin;
 
 const hasher = {
   sha1: function (data) {
@@ -44,22 +42,40 @@ async function downloadRepo() {
     );
   }
   const parsedRepo = JSON.parse(retire.replaceVersion(repoData));
-  repo = parsedRepo.advisories;
-  backdoorData = parsedRepo.backdoored;
+  // jsrepository-v5.json is a flat advisory map. Keep backward compatibility
+  // if a wrapped format with `advisories`/`backdoored` is provided.
+  if (parsedRepo && parsedRepo.advisories) {
+    repo = sanitizeRepo(parsedRepo.advisories);
+    backdoorData = parsedRepo.backdoored || {};
+  } else {
+    repo = sanitizeRepo(parsedRepo);
+    backdoorData = {};
+  }
   console.log(repo);
   console.log(backdoorData);
   console.log("Done");
   vulnerable = {};
-  setFuncs();
 }
 
-function setFuncs() {
-  repoFuncs = {};
-  for (var component in repo) {
-    if (repo[component].extractors.func) {
-      repoFuncs[component] = repo[component].extractors.func;
-    }
+function sanitizeRepo(inputRepo) {
+  // Defense-in-depth: keep signature data, strip runtime executable extractors.
+  if (!inputRepo || typeof inputRepo !== "object") {
+    return {};
   }
+  const sanitized = {};
+  Object.entries(inputRepo).forEach(([component, data]) => {
+    if (!data || typeof data !== "object") {
+      sanitized[component] = data;
+      return;
+    }
+    const next = { ...data };
+    if (next.extractors && typeof next.extractors === "object") {
+      const { func, ...extractors } = next.extractors;
+      next.extractors = extractors;
+    }
+    sanitized[component] = next;
+  });
+  return sanitized;
 }
 
 function getFileName(url) {
@@ -69,6 +85,9 @@ function getFileName(url) {
 }
 
 function scanUrlBackdoored(url) {
+  if (!backdoorData || Object.keys(backdoorData).length === 0) {
+    return [];
+  }
   console.log("Scanning url for bd: ", url);
   const matches = Object.entries(backdoorData).filter(([title, advisories]) => {
     return advisories.some((advisory) => {
@@ -181,42 +200,15 @@ function astScan(content, details, contentResults) {
 
 events.on("script-downloaded", function (details, content) {
   console.log("Scanning content of " + details.url + " ...");
-  const bs = Date.now();
   var results = retire.scanFileContent(content, repo, hasher);
   astScan(content, details, results);
   if (results.length > 0) {
     events.emit("result-ready", details, results);
     return true;
   }
-  events.emit("sandbox", details, content);
+  // Intentionally disable sandbox runtime execution paths (eval/new Function).
+  // Keep signature/hash/AST-based detections only.
   console.log(hasher.sha1(content) + " : " + details.url);
-  return true;
-});
-
-events.on("sandbox", function (details, content) {
-  console.log("Sending to the sandbox");
-  sandboxWin.postMessage(
-    {
-      tabId: details.tabId,
-      script: content,
-      url: details.url,
-      repoFuncs: repoFuncs,
-    },
-    "*"
-  );
-  return true;
-});
-
-window.addEventListener("message", function (evt) {
-  if (evt.data.version) {
-    var results = retire.check(evt.data.component, evt.data.version, repo);
-    console.log("SANDBOX", stringifyResults(results));
-    events.emit(
-      "result-ready",
-      { url: evt.data.original.url, tabId: evt.data.original.tabId },
-      results
-    );
-  }
   return true;
 });
 
@@ -254,5 +246,3 @@ downloadRepo().then(() => {
     return false;
   });
 });
-
-sandboxWin = window.document.getElementById("sandboxframe").contentWindow;
