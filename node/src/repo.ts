@@ -233,6 +233,16 @@ async function loadFromCache<T>(url: string, cachedir: string, options: Options)
   return data;
 }
 
+export function listLibraries(jsRepo: Repository): string[] {
+  const names = new Set<string>();
+  Object.keys(jsRepo).forEach((k) => {
+    names.add(k);
+    if (jsRepo[k].npmname) names.add(jsRepo[k].npmname as string);
+    (jsRepo[k].bowername ?? []).forEach((b: string) => names.add(b));
+  });
+  return [...names].sort();
+}
+
 export function asbowerrepo(jsRepo: Repository) {
   const result = {} as Repository;
   Object.keys(jsRepo).map((k) => {

@@ -64,6 +64,7 @@ const prg = program
   )
   .option('--includeOsv', 'Include OSV advisories in the output')
   .option('--deep', 'Deep scan (slower and experimental)')
+  .option('--list', 'List all libraries covered by the repository')
   .parse()
   .opts();
 
