@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vulnerable Library Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .library-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .vulnerable {
+            border-color: #f44336;
+            background-color: #fff5f5;
+        }
+        .safe {
+            border-color: #4CAF50;
+            background-color: #f5fff5;
+        }
+        .status {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .vulnerable .status {
+            color: #f44336;
+        }
+        .safe .status {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>retire.js Vulnerability Detection Test Page</h1>
+    <p>This page loads various JavaScript libraries with known vulnerabilities to test the retire.js Firefox extension.</p>
+
+    <div class="library-section vulnerable">
+        <h3>jQuery 1.4.2 (Vulnerable)</h3>
+        <div class="status">Expected: VULNERABLE - XSS issues</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <p>This version of jQuery has known XSS vulnerabilities.</p>
+    </div>
+
+    <div class="library-section vulnerable">
+        <h3>AngularJS 1.5.0 (Vulnerable)</h3>
+        <div class="status">Expected: VULNERABLE - Sandbox bypass</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <p>This version of AngularJS has sandbox bypass vulnerabilities.</p>
+    </div>
+
+    <div class="library-section vulnerable">
+        <h3>Bootstrap 3.3.7 (Vulnerable)</h3>
+        <div class="status">Expected: VULNERABLE - XSS in tooltip</div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <p>This version of Bootstrap has XSS vulnerabilities in tooltip/popover functionality.</p>
+    </div>
+
+    <div class="library-section vulnerable">
+        <h3>Lodash 4.17.0 (Vulnerable)</h3>
+        <div class="status">Expected: VULNERABLE - Prototype pollution</div>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.0/lodash.min.js"></script>
+        <p>This version of Lodash has prototype pollution vulnerabilities.</p>
+    </div>
+
+    <div class="library-section safe">
+        <h3>jQuery 3.6.0 (Safe)</h3>
+        <div class="status">Expected: SAFE - No known vulnerabilities</div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <p>This is a recent, safe version of jQuery.</p>
+    </div>
+
+    <div class="library-section">
+        <h3>Inline Script Test</h3>
+        <div class="status">Testing inline script scanning</div>
+        <script>
+            // This inline script should be scanned for vulnerabilities
+            console.log('Inline script for testing - retire.js should scan this');
+            
+            // Simulate some code that might match vulnerability patterns
+            var potentialVuln = {
+                version: '1.4.2',
+                library: 'test-lib'
+            };
+        </script>
+        <p>Inline scripts should also be scanned for vulnerability patterns.</p>
+    </div>
+
+    <div class="library-section">
+        <h3>Dynamic Script Loading Test</h3>
+        <div class="status">Testing dynamic script injection</div>
+        <button onclick="loadDynamicScript()">Load Dynamic Script</button>
+        <p>Click the button to dynamically load a script and test real-time scanning.</p>
+    </div>
+
+    <script>
+        function loadDynamicScript() {
+            var script = document.createElement('script');
+            script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js';
+            script.onload = function() {
+                console.log('Dynamic jQuery 1.6.0 loaded - should be detected as vulnerable');
+                alert('Dynamic script loaded! Check console for vulnerability warnings.');
+            };
+            document.head.appendChild(script);
+        }
+
+        // Log test page information
+        console.log('retire.js test page loaded');
+        console.log('Libraries loaded:');
+        console.log('- jQuery 1.4.2 (vulnerable)');
+        console.log('- AngularJS 1.5.0 (vulnerable)');
+        console.log('- Bootstrap 3.3.7 (vulnerable)');
+        console.log('- Lodash 4.17.0 (vulnerable)');
+        console.log('- jQuery 3.6.0 (safe)');
+        
+        // Test error handling
+        try {
+            // This should not cause issues with the extension
+            throw new Error('Test error for extension stability');
+        } catch (e) {
+            console.log('Test error caught:', e.message);
+        }
+    </script>
+</body>
+</html>

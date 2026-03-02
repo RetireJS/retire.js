@@ -1,0 +1,102 @@
+{
+  "summary": {
+    "performanceScore": 100,
+    "avgScanTime": 0.08951091766357422,
+    "memoryIncrease": 5729096,
+    "concurrentThroughput": 233233.27754082956,
+    "timestamp": "2025-09-18T06:30:10.164Z"
+  },
+  "benchmarks": [
+    {
+      "type": "script-loading",
+      "script": "retire-core.js",
+      "loadTime": 2.0890889167785645,
+      "size": 493930,
+      "throughput": 236433.21068480625
+    },
+    {
+      "type": "script-loading",
+      "script": "background.js",
+      "loadTime": 0.1302480697631836,
+      "size": 7261,
+      "throughput": 55747.46722313747
+    },
+    {
+      "type": "script-loading",
+      "script": "content.js",
+      "loadTime": 0.10533475875854492,
+      "size": 3880,
+      "throughput": 36834.94456843049
+    },
+    {
+      "type": "script-loading",
+      "script": "popup.js",
+      "loadTime": 0.11597633361816406,
+      "size": 7186,
+      "throughput": 61960.917161417645
+    },
+    {
+      "type": "script-loading",
+      "script": "settings.js",
+      "loadTime": 0.1147160530090332,
+      "size": 7681,
+      "throughput": 66956.62724200568
+    },
+    {
+      "type": "script-loading",
+      "script": "repository-updater.js",
+      "loadTime": 0.09684419631958008,
+      "size": 6441,
+      "throughput": 66508.88999837516
+    },
+    {
+      "type": "vulnerability-scan",
+      "url": "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",
+      "scanTime": 0.2084369659423828,
+      "vulnerabilityFound": false,
+      "component": null
+    },
+    {
+      "type": "vulnerability-scan",
+      "url": "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js",
+      "scanTime": 0.16805410385131836,
+      "vulnerabilityFound": false,
+      "component": null
+    },
+    {
+      "type": "vulnerability-scan",
+      "url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js",
+      "scanTime": 0.024174213409423828,
+      "vulnerabilityFound": false,
+      "component": null
+    },
+    {
+      "type": "vulnerability-scan",
+      "url": "https://cdn.jsdelivr.net/npm/lodash@4.17.0/lodash.min.js",
+      "scanTime": 0.026828289031982422,
+      "vulnerabilityFound": false,
+      "component": null
+    },
+    {
+      "type": "vulnerability-scan",
+      "url": "https://unpkg.com/react@16.8.0/umd/react.development.js",
+      "scanTime": 0.020061016082763672,
+      "vulnerabilityFound": false,
+      "component": null
+    },
+    {
+      "type": "memory-usage",
+      "initialMemory": 5618976,
+      "finalMemory": 11348072,
+      "memoryIncrease": 5729096,
+      "iterations": 10
+    },
+    {
+      "type": "concurrent-scanning",
+      "urlCount": 20,
+      "totalTime": 0.08575105667114258,
+      "averageTimePerUrl": 0.004287552833557129,
+      "throughput": 233233.27754082956
+    }
+  ]
+}
