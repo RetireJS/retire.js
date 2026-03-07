@@ -738,5 +738,15 @@
     "https://cdn.jsdelivr.net/npm/pdfobject@§§version§§/pdfobject.min.js": {
       "versions": ["2.1.1", "2.3.0", "2.3.1"]
     }
+  },
+  "threejs" : {
+    "https://cdnjs.cloudflare.com/ajax/libs/three.js/§§version§§/three.core§§subversion§§.js": {
+      "versions" : ["0.180.0", "0.172.0"],
+      "subversions": ["", ".min"]
+    },
+    "https://cdnjs.cloudflare.com/ajax/libs/three.js/§§version§§/three§§subversion§§.js": {
+      "versions" : ["0.150.0"],
+      "subversions": ["", ".min"]
+    }
   }
 }
