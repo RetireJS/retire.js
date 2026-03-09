@@ -5,13 +5,13 @@ const repoUrl =
 let updatedAt = Date.now();
 let repo;
 let backdoorData = {};
-let repoFuncs;
+
 
 const retire = retirechrome.retire;
 
 let vulnerable = {};
 const events = new Emitter();
-let sandboxWin;
+
 
 const hasher = {
   sha1: function (data) {
@@ -44,23 +44,34 @@ async function downloadRepo() {
     );
   }
   const parsedRepo = JSON.parse(retire.replaceVersion(repoData));
-  repo = parsedRepo.advisories;
-  backdoorData = parsedRepo.backdoored ?? retirechrome.backdoored;
+  repo = stripFunc(parsedRepo.advisories);
+  backdoorData = parsedRepo.backdoored ?? {};
   console.log(repo);
   console.log(backdoorData);
   console.log("Done");
   vulnerable = {};
-  setFuncs();
 }
 
-function setFuncs() {
-  repoFuncs = {};
-  for (var component in repo) {
-    if (repo[component].extractors.func) {
-      repoFuncs[component] = repo[component].extractors.func;
-    }
+
+function stripFunc(inputRepo) {
+  if (!inputRepo || typeof inputRepo !== "object") {
+    return {};
   }
+  const sanitized = Object.entries(inputRepo).map(([component, data]) => {
+    if (!data || typeof data !== "object") {
+      return [component, data];
+    }
+    const next = { ...data };
+    if (next.extractors && typeof next.extractors === "object") {
+      const { func, ...extractors } = next.extractors;
+      next.extractors = extractors;
+    }
+    return [component, data];
+  });
+  return Object.fromEntries(sanitized);
 }
+
+
 
 function getFileName(url) {
   var a = document.createElement("a");
@@ -69,6 +80,9 @@ function getFileName(url) {
 }
 
 function scanUrlBackdoored(url) {
+  if (!backdoorData || Object.keys(backdoorData).length === 0) {
+    return [];
+  }
   console.log("Scanning url for bd: ", url);
   const matches = Object.entries(backdoorData).filter(([title, advisories]) => {
     return advisories.some((advisory) => {
@@ -188,37 +202,10 @@ events.on("script-downloaded", function (details, content) {
     events.emit("result-ready", details, results);
     return true;
   }
-  events.emit("sandbox", details, content);
   console.log(hasher.sha1(content) + " : " + details.url);
   return true;
 });
 
-events.on("sandbox", function (details, content) {
-  console.log("Sending to the sandbox");
-  sandboxWin.postMessage(
-    {
-      tabId: details.tabId,
-      script: content,
-      url: details.url,
-      repoFuncs: repoFuncs,
-    },
-    "*"
-  );
-  return true;
-});
-
-window.addEventListener("message", function (evt) {
-  if (evt.data.version) {
-    var results = retire.check(evt.data.component, evt.data.version, repo);
-    console.log("SANDBOX", stringifyResults(results));
-    events.emit(
-      "result-ready",
-      { url: evt.data.original.url, tabId: evt.data.original.tabId },
-      results
-    );
-  }
-  return true;
-});
 
 function stringifyResults(results) {
   return results
@@ -243,6 +230,7 @@ setInterval(() => {
   chrome.runtime.sendMessage({ type: "ping" });
 }, 5000);
 
+
 downloadRepo().then(() => {
   chrome.runtime.sendMessage({ type: "repo-ready", repo: repo });
   chrome.runtime.onMessage.addListener((msg) => {
@@ -255,4 +243,3 @@ downloadRepo().then(() => {
   });
 });
 
-sandboxWin = window.document.getElementById("sandboxframe").contentWindow;

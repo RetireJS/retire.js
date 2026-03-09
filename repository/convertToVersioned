@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const convert = require("./convertFormat.js").convertToOldFormat;
 const data = require("./jsrepository-master.json");
+const backdoored = require("./jsrepository-backdoored.json");
 const fs = require("fs");
 
 const result = convert(data, false, false);
@@ -17,3 +18,5 @@ fs.writeFileSync("jsrepository-v4.json", JSON.stringify(resultV4, null, 2));
 
 const resultV5 = convert(data, true, false, true, true);
 fs.writeFileSync("jsrepository-v5.json", JSON.stringify(resultV5, null, 2));
+
+fs.writeFileSync("jsrepository-v5-combined.json", JSON.stringify({ advisories: resultV5, backdoored }, null, 2));
