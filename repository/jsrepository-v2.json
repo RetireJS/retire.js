@@ -10560,6 +10560,25 @@
       ]
     }
   },
+  "highlightjs": {
+    "npmname": "highlight.js",
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/highlight.js[@/](§§version§§)/"
+      ],
+      "filename": [
+        "highlight[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "/\\*!\\s*[Hh]ighlight.js v(§§version§§)",
+        "\"after:highlightBlock\"[\\s\\S]{0,170}versionString=['\"](§§version§§)['\"]"
+      ],
+      "ast": [
+        "//VariableDeclarator[/:id/:name == \"hljs\"]//AssignmentExpression[/MemberExpression/:property/:name==\"versionString\"]/:right/:value"
+      ]
+    }
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {

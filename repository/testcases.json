@@ -748,5 +748,11 @@
       "versions" : ["0.150.0"],
       "subversions": ["", ".min"]
     }
+  },
+  "highlightjs" : {
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/§§version§§/highlight.min.js": {
+      "versions" : ["11.11.1", "10.7.3", "9.18.5"],
+      "allowAstMiss": ["9.18.5"]
+    }
   }
 }

@@ -342,5 +342,8 @@ exports.queries = {
     `//BlockStatement[
           /ExpressionStatement/CallExpression/:arguments/:value == "isWriteableObservable"
         ]/ExpressionStatement/AssignmentExpression[/:left/:property/:name == "version"]/:right/:value`
+  ],
+  "highlightjs": [
+    `//VariableDeclarator[/:id/:name == "hljs"]//AssignmentExpression[/MemberExpression/:property/:name=="versionString"]/:right/:value`
   ]
 };

@@ -10483,6 +10483,22 @@
       ]
     }
   },
+  "highlightjs": {
+    "npmname": "highlight.js",
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/highlight.js[@/](§§version§§)/"
+      ],
+      "filename": [
+        "highlight[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "/\\*!\\s*[Hh]ighlight.js v(§§version§§)",
+        "\"after:highlightBlock\"[\\s\\S]{0,170}versionString=['\"](§§version§§)['\"]"
+      ]
+    }
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {
