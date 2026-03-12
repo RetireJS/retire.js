@@ -10767,7 +10767,73 @@
     "licenses": [
       "BSD-3-Clause >=0"
     ],
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "9.18.2",
+        "severity": "medium",
+        "cwe": [
+          "CWE-471"
+        ],
+        "identifiers": {
+          "summary": "### Impact\n\nAffected versions of this package are vulnerable to Prototype Pollution.  A malicious HTML code block can be crafted that will result in prototype pollution of the base object's prototype during highlighting.  If you allow users to insert custom HTML code blocks into your page/app via parsing Markdown code blocks (or similar) and do not filter the language names the user can provide you may be vulnerable. \n\nThe pollution should just be harmless data but this can cause problems for applications not expecting these properties to exist and can result in strange behavior or application crashes, i.e. a potential DOS vector. \n\n_If your website or application does not render user provided data it should be unaffected._\n\n### Patches\n\nVersions 9.18.2 and 10.1.2 and newer include fixes for this vulnerability.  If you are using version 7 or 8 you are encouraged to upgrade to a newer release.\n\n### Workarounds\n\n#### Patch your library\n\nManually patch your library to create null objects for both `languages` and `aliases`:\n\n```js\nconst HLJS = function(hljs) {\n  // ...\n  var languages = Object.create(null);\n  var aliases = Object.create(null);\n```\n\n#### Filter out bad data from end users:\n\nFilter the language names that users are allowed to inject into your HTML to guarantee they are valid.\n\n### References\n\n* [What is Prototype Pollution?](https://codeburst.io/what-is-prototype-pollution-49482fc4b638)\n* https://github.com/highlightjs/highlight.js/pull/2636\n\n### For more information\n\nIf you have any questions or comments about this advisory:\n\n* Please file an issue against [highlight.js](https://github.com/highlightjs/highlight.js/issues/)",
+          "githubID": "GHSA-vfrc-7r7c-w9mx",
+          "CVE": [
+            "CVE-2020-26237"
+          ]
+        },
+        "info": [
+          "https://github.com/highlightjs/highlight.js/security/advisories/GHSA-vfrc-7r7c-w9mx",
+          "https://github.com/highlightjs/highlight.js/pull/2636",
+          "https://github.com/highlightjs/highlight.js/commit/7241013ae011a585983e176ddc0489a7a52f6bb0",
+          "https://lists.debian.org/debian-lts-announce/2020/12/msg00041.html",
+          "https://www.npmjs.com/package/highlight.js",
+          "https://www.oracle.com/security-alerts/cpujul2022.html"
+        ]
+      },
+      {
+        "atOrAbove": "10.0.0",
+        "below": "10.1.2",
+        "severity": "medium",
+        "cwe": [
+          "CWE-471"
+        ],
+        "identifiers": {
+          "summary": "### Impact\n\nAffected versions of this package are vulnerable to Prototype Pollution.  A malicious HTML code block can be crafted that will result in prototype pollution of the base object's prototype during highlighting.  If you allow users to insert custom HTML code blocks into your page/app via parsing Markdown code blocks (or similar) and do not filter the language names the user can provide you may be vulnerable. \n\nThe pollution should just be harmless data but this can cause problems for applications not expecting these properties to exist and can result in strange behavior or application crashes, i.e. a potential DOS vector. \n\n_If your website or application does not render user provided data it should be unaffected._\n\n### Patches\n\nVersions 9.18.2 and 10.1.2 and newer include fixes for this vulnerability.  If you are using version 7 or 8 you are encouraged to upgrade to a newer release.\n\n### Workarounds\n\n#### Patch your library\n\nManually patch your library to create null objects for both `languages` and `aliases`:\n\n```js\nconst HLJS = function(hljs) {\n  // ...\n  var languages = Object.create(null);\n  var aliases = Object.create(null);\n```\n\n#### Filter out bad data from end users:\n\nFilter the language names that users are allowed to inject into your HTML to guarantee they are valid.\n\n### References\n\n* [What is Prototype Pollution?](https://codeburst.io/what-is-prototype-pollution-49482fc4b638)\n* https://github.com/highlightjs/highlight.js/pull/2636\n\n### For more information\n\nIf you have any questions or comments about this advisory:\n\n* Please file an issue against [highlight.js](https://github.com/highlightjs/highlight.js/issues/)",
+          "githubID": "GHSA-vfrc-7r7c-w9mx",
+          "CVE": [
+            "CVE-2020-26237"
+          ]
+        },
+        "info": [
+          "https://github.com/highlightjs/highlight.js/security/advisories/GHSA-vfrc-7r7c-w9mx",
+          "https://github.com/highlightjs/highlight.js/pull/2636",
+          "https://github.com/highlightjs/highlight.js/commit/7241013ae011a585983e176ddc0489a7a52f6bb0",
+          "https://lists.debian.org/debian-lts-announce/2020/12/msg00041.html",
+          "https://www.npmjs.com/package/highlight.js",
+          "https://www.oracle.com/security-alerts/cpujul2022.html"
+        ]
+      },
+      {
+        "atOrAbove": "9.0.0",
+        "below": "10.4.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-20",
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "### Impact: Potential ReDOS vulnerabilities (exponential and polynomial RegEx backtracking)\n\n[oswasp](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS): \n\n> The Regular expression Denial of Service (ReDoS) is a Denial of Service attack, that exploits the fact that most Regular Expression implementations may reach extreme situations that cause them to work very slowly (exponentially related to input size). An attacker can then cause a program using a Regular Expression to enter these extreme situations and then hang for a very long time.\n\nIf are you are using Highlight.js to highlight user-provided data you are possibly vulnerable.  On the client-side (in a browser or Electron environment) risks could include lengthy freezes or crashes... On the server-side infinite freezes could occur... effectively preventing users from accessing your app or service (ie, Denial of Service).\n\nThis is an issue with grammars shipped with the parser (and potentially 3rd party grammars also), not the parser itself. If you are using Highlight.js with any of the following grammars you are vulnerable.  If you are using `highlightAuto` to detect the language (and have any of these grammars registered) you are vulnerable. Exponential grammars (C, Perl, JavaScript) are auto-registered when using the common grammar subset/library `require('highlight.js/lib/common')` as of 10.4.0 - see https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.js\n\nAll versions prior to 10.4.1 are vulnerable, including version 9.18.5. \n\n**Grammars with exponential backtracking issues:**\n\n  - c-like (c, cpp, arduino)\n  - handlebars (htmlbars)\n  - gams\n  - perl\n  - jboss-cli\n  - r\n  - erlang-repl\n  - powershell\n  - routeros\n  - livescript (10.4.0 and 9.18.5 included this fix)\n  - javascript & typescript (10.4.0 included partial fixes)\n\nAnd of course any aliases of those languages have the same issue. ie: `hpp` is no safer than `cpp`.\n\n**Grammars with polynomial backtracking issues:**\n\n- kotlin\n- gcode\n- d\n- aspectj\n- moonscript\n- coffeescript/livescript\n- csharp\n- scilab\n- crystal\n- elixir\n- basic\n- ebnf\n- ruby\n- fortran/irpf90\n- livecodeserver\n- yaml\n- x86asm\n- dsconfig\n- markdown\n- ruleslanguage\n- xquery\n- sqf\n\nAnd again: any aliases of those languages have the same issue. ie: `ruby` and `rb` share the same ruby issues.\n\n\n### Patches\n\n- Version 10.4.1 resolves these vulnerabilities.  Please upgrade.\n\n### Workarounds / Mitigations\n\n- Discontinue use the affected grammars. (or perhaps use only those with poly vs exponential issues)\n- Attempt cherry-picking the grammar fixes into older versions...\n- Attempt using newer CDN versions of any affected languages.  (ie using an older CDN version of the library with newer CDN grammars).  Your mileage may vary.\n\n### References\n\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS\n\n### For more information\n\nIf you have any questions or comments about this advisory:\n* Open an issue: https://github.com/highlightjs/highlight.js/issues\n* Email us at [security@highlightjs.com](mailto:security@highlightjs.com)",
+          "githubID": "GHSA-7wwv-vh3v-89cq"
+        },
+        "info": [
+          "https://github.com/highlightjs/highlight.js/security/advisories/GHSA-7wwv-vh3v-89cq",
+          "https://github.com/highlightjs/highlight.js/commit/373b9d862401162e832ce77305e49b859e110f9c",
+          "https://www.npmjs.com/package/@highlightjs/cdn-assets",
+          "https://www.npmjs.com/package/highlight.js"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/highlight.js[@/](§§version§§)/"
