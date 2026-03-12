@@ -754,5 +754,10 @@
       "versions" : ["11.11.1", "10.7.3", "9.18.5"],
       "allowAstMiss": ["9.18.5"]
     }
+  },
+  "marked" : {
+    "https://cdnjs.cloudflare.com/ajax/libs/marked/§§version§§/lib/marked.esm.js" : {
+      "versions" : ["16.3.0", "10.0.0", "5.1.2"]
+    }
   }
 }

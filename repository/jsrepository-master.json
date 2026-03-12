@@ -9560,6 +9560,23 @@
       "BSD-3-Clause >=0"
     ]
   },
+"marked": {
+  "vulnerabilities": [],
+  "extractors": {
+      "uri": [
+        "/marked[@/](§§version§§)/"
+      ],
+      "filename": [
+        "marked[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "/[!*\\s/]+[\\s]marked v(§§version§§)"
+      ]
+    },
+    "licenses": [
+      "MIT >=0"
+    ]
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {

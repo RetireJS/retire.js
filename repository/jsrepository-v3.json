@@ -10851,6 +10851,23 @@
         ]
       }
     },
+    "marked": {
+      "licenses": [
+        "MIT >=0"
+      ],
+      "vulnerabilities": [],
+      "extractors": {
+        "uri": [
+          "/marked[@/](§§version§§)/"
+        ],
+        "filename": [
+          "marked[-.](§§version§§)(.min)?.js"
+        ],
+        "filecontent": [
+          "/[!*\\s/]+[\\s]marked v(§§version§§)"
+        ]
+      }
+    },
     "dont check": {
       "licenses": [],
       "vulnerabilities": [],
