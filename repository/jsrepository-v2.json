@@ -10646,7 +10646,253 @@
     }
   },
   "marked": {
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "0.3.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Versions 0.3.0 and earlier of `marked` are affected by two cross-site scripting vulnerabilities, even when `sanitize: true` is set.\n\nThe attack vectors for this vulnerability are GFM Codeblocks and JavaScript URLs.\n\n\n## Recommendation\n\nUpgrade to version 0.3.1 or later.",
+          "githubID": "GHSA-9cw2-jqp5-7x39",
+          "CVE": [
+            "CVE-2014-3743"
+          ]
+        },
+        "info": [
+          "https://www.npmjs.com/advisories/22"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.3.3",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Versions 0.3.2 and earlier of `marked` are affected by a cross-site scripting vulnerability even when `sanitize:true` is set. \n\n## Proof of Concept ( IE10 Compatibility Mode Only )\n\n`[xss link](vbscript:alert(1&#41;)`\n\nwill get a link\n\n`<a href=\"vbscript:alert(1)\">xss link</a>`\n\n\n## Recommendation\n\nUpdate to version 0.3.3 or later.",
+          "githubID": "GHSA-cfjh-p3g4-3q2f",
+          "CVE": [
+            "CVE-2015-1370"
+          ]
+        },
+        "info": [
+          "https://github.com/chjj/marked/issues/492",
+          "https://github.com/markedjs/marked/issues/492",
+          "https://github.com/evilpacket/marked/commit/3c191144939107c45a7fa11ab6cb88be6694a1ba",
+          "https://github.com/markedjs/marked/commit/fc372d1c6293267722e33f2719d57cebd67b3da1",
+          "https://www.npmjs.com/advisories/24",
+          "https://www.npmjs.com/advisories/24/versions",
+          "http://www.openwall.com/lists/oss-security/2015/01/23/2"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.3.4",
+        "severity": "high",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "Versions 0.3.3 and earlier of `marked` are affected by a regular expression denial of service ( ReDoS ) vulnerability when passed inputs that reach the `em` inline rule.\n\n\n\n## Recommendation\n\nUpdate to version 0.3.4 or later.",
+          "githubID": "GHSA-hjcp-j389-59ff",
+          "CVE": [
+            "CVE-2015-8854"
+          ]
+        },
+        "info": [
+          "https://github.com/chjj/marked/issues/497",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/BO2RMVVZVV6NFTU46B5RYRK7ZCXYARZS",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/M6BJG6RGDH7ZWVVAUFBFI5L32RSMQN2S",
+          "https://support.f5.com/csp/article/K05052081?utm_source=f5support&amp;utm_medium=RSS",
+          "https://www.npmjs.com/advisories/23",
+          "https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS",
+          "http://www.openwall.com/lists/oss-security/2016/04/20/11"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.3.6",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Affected versions of `marked` are susceptible to a cross-site scripting vulnerability in link components when `sanitize:true` is configured. \n\n## Proof of Concept\n\nThis flaw exists because link URIs containing HTML entities get processed in an abnormal manner. Any HTML Entities get parsed on a best-effort basis and included in the resulting link, while if that parsing fails that character is omitted.\n\nFor example:\n\nA link URI such as\n```\njavascript&#x58document;alert&#40;1&#41;\n```\nRenders a valid link that when clicked will execute `alert(1)`.\n\n\n## Recommendation\n\nUpdate to version 0.3.6 or later.",
+          "githubID": "GHSA-vfvf-mqq8-rwqc",
+          "CVE": [
+            "CVE-2016-10531"
+          ]
+        },
+        "info": [
+          "https://github.com/chjj/marked/pull/592",
+          "https://github.com/chjj/marked/pull/592/commits/2cff85979be8e7a026a9aca35542c470cf5da523",
+          "https://www.npmjs.com/advisories/101"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.3.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "marked version 0.3.6 and earlier is vulnerable to an XSS attack in the data: URI parser.",
+          "githubID": "GHSA-7px7-7xjx-hxm8",
+          "CVE": [
+            "CVE-2017-1000427"
+          ]
+        },
+        "info": [
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/BO2RMVVZVV6NFTU46B5RYRK7ZCXYARZS",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/M6BJG6RGDH7ZWVVAUFBFI5L32RSMQN2S",
+          "https://snyk.io/vuln/npm:marked:20170112"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.3.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "Affected versions of `marked` are vulnerable to a regular expression denial of service. \n\nThe amplification in this vulnerability is significant, with 1,000 characters resulting in the event loop being blocked for around 6 seconds.\n\n\n## Recommendation\n\nUpdate to version 0.3.9 or later.",
+          "githubID": "GHSA-x5pg-88wf-qq4p",
+          "CVE": [
+            "CVE-2017-16114"
+          ]
+        },
+        "info": [
+          "https://github.com/chjj/marked/issues/937",
+          "https://www.npmjs.com/advisories/531"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.3.17",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "Marked prior to version 0.3.17 is vulnerable to a Regular Expression Denial of Service (ReDoS) attack due to catastrophic backtracking in several regular expressions used for parsing HTML tags and markdown links. An attacker can exploit this vulnerability by providing specially crafted markdown input, such as deeply nested or repetitively structured brackets or tag attributes, which cause the parser to hang and lead to a Denial of Service.",
+          "githubID": "GHSA-p9wx-2529-fp83",
+          "CVE": [
+            "CVE-2018-25110"
+          ]
+        },
+        "info": [
+          "https://github.com/markedjs/marked/issues/1070",
+          "https://github.com/markedjs/marked/pull/1083",
+          "https://github.com/markedjs/marked/commit/20bfc106013ed45713a21672ad4a34df94dcd485",
+          "https://github.com/Checkmarx/Vulnerabilities-Proofs-of-Concept/tree/main/2018/CVE-2018-25110"
+        ]
+      },
+      {
+        "atOrAbove": "0.3.14",
+        "below": "0.6.2",
+        "severity": "medium",
+        "cwe": [
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "Versions of `marked` from 0.3.14 until 0.6.2 are vulnerable to Regular Expression Denial of Service. Email addresses may be evaluated in quadratic time, allowing attackers to potentially crash the node process due to resource exhaustion.\n\n\n## Recommendation\n\nUpgrade to version 0.6.2 or later.",
+          "githubID": "GHSA-xf5p-87ch-gxw2"
+        },
+        "info": [
+          "https://github.com/markedjs/marked/pull/1460",
+          "https://github.com/markedjs/marked/commit/b15e42b67cec9ded8505e9d68bb8741ad7a9590d",
+          "https://github.com/markedjs/marked/releases/tag/v0.6.2",
+          "https://snyk.io/vuln/SNYK-JS-MARKED-174116",
+          "https://www.npmjs.com/advisories/812"
+        ]
+      },
+      {
+        "atOrAbove": "0.4.0",
+        "below": "0.7.0",
+        "severity": "low",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "Affected versions of `marked` are vulnerable to Regular Expression Denial of Service (ReDoS). The `_label` subrule may significantly degrade parsing performance of malformed input.\n\n\n## Recommendation\n\nUpgrade to version 0.7.0 or later.",
+          "githubID": "GHSA-ch52-vgq2-943f"
+        },
+        "info": [
+          "https://www.npmjs.com/advisories/1076"
+        ]
+      },
+      {
+        "atOrAbove": "1.1.1",
+        "below": "2.0.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\n[Regular expression Denial of Service](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\n\nA Denial of Service attack can affect anyone who runs user generated code through `marked`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\npatched in v2.0.0\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nNone.\n\n### References\n_Are there any links users can visit to find out more?_\n\nhttps://github.com/markedjs/marked/issues/1927\nhttps://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [marked](https://github.com/markedjs/marked/issues)",
+          "githubID": "GHSA-4r62-v4vq-hr96",
+          "CVE": [
+            "CVE-2021-21306"
+          ]
+        },
+        "info": [
+          "https://github.com/markedjs/marked/security/advisories/GHSA-4r62-v4vq-hr96",
+          "https://github.com/markedjs/marked/issues/1927",
+          "https://github.com/markedjs/marked/pull/1864",
+          "https://github.com/markedjs/marked/commit/7293251c438e3ee968970f7609f1a27f9007bccd",
+          "https://www.npmjs.com/package/marked"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "4.0.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "### Impact\n\n_What kind of vulnerability is it?_\n\nDenial of service.\n\nThe regular expression `inline.reflinkSearch` may cause catastrophic backtracking against some strings.\nPoC is the following.\n\n```javascript\nimport * as marked from 'marked';\n\nconsole.log(marked.parse(`[x]: x\n\n\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](\\\\[\\\\](`));\n```\n\n_Who is impacted?_\n\nAnyone who runs untrusted markdown through marked and does not use a worker with a time limit.\n\n### Patches\n\n_Has the problem been patched?_\n\nYes\n\n_What versions should users upgrade to?_\n\n4.0.10\n\n### Workarounds\n\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nDo not run untrusted markdown through marked or run marked on a [worker](https://marked.js.org/using_advanced#workers) thread and set a reasonable time limit to prevent draining resources.\n\n### References\n\n_Are there any links users can visit to find out more?_\n\n- https://marked.js.org/using_advanced#workers\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS\n\n### For more information\n\nIf you have any questions or comments about this advisory:\n\n* Open an issue in [marked](https://github.com/markedjs/marked)\n",
+          "githubID": "GHSA-5v2h-r2cx-5xgj",
+          "CVE": [
+            "CVE-2022-21681"
+          ]
+        },
+        "info": [
+          "https://github.com/markedjs/marked/security/advisories/GHSA-5v2h-r2cx-5xgj",
+          "https://github.com/markedjs/marked/commit/8f806573a3f6c6b7a39b8cdb66ab5ebb8d55a5f5",
+          "https://github.com/markedjs/marked/commit/c4a3ccd344b6929afa8a1d50ac54a721e57012c0",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AIXDMC3CSHYW3YWVSQOXAWLUYQHAO5UX"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "4.0.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-1333",
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "### Impact\n\n_What kind of vulnerability is it?_\n\nDenial of service.\n\nThe regular expression `block.def` may cause catastrophic backtracking against some strings.\nPoC is the following.\n\n```javascript\nimport * as marked from \"marked\";\n\nmarked.parse(`[x]:${' '.repeat(1500)}x ${' '.repeat(1500)} x`);\n```\n\n_Who is impacted?_\n\nAnyone who runs untrusted markdown through marked and does not use a worker with a time limit.\n\n### Patches\n\n_Has the problem been patched?_\n\nYes\n\n_What versions should users upgrade to?_\n\n4.0.10\n\n### Workarounds\n\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nDo not run untrusted markdown through marked or run marked on a [worker](https://marked.js.org/using_advanced#workers) thread and set a reasonable time limit to prevent draining resources.\n\n### References\n\n_Are there any links users can visit to find out more?_\n\n- https://marked.js.org/using_advanced#workers\n- https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS\n\n### For more information\n\nIf you have any questions or comments about this advisory:\n\n* Open an issue in [marked](https://github.com/markedjs/marked)\n",
+          "githubID": "GHSA-rrrm-qjm4-v8hf",
+          "CVE": [
+            "CVE-2022-21680"
+          ]
+        },
+        "info": [
+          "https://github.com/markedjs/marked/security/advisories/GHSA-rrrm-qjm4-v8hf",
+          "https://github.com/markedjs/marked/commit/c4a3ccd344b6929afa8a1d50ac54a721e57012c0",
+          "https://github.com/markedjs/marked/releases/tag/v4.0.10",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AIXDMC3CSHYW3YWVSQOXAWLUYQHAO5UX"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/marked[@/](§§version§§)/"
