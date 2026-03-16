@@ -3794,6 +3794,30 @@
         ]
       },
       {
+        "atOrAbove": "17.0.0.next.0",
+        "below": "18.2.15",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A Cross-Site Scripting (XSS) vulnerability has been identified in the Angular runtime and compiler. It occurs when the application uses a security-sensitive attribute (for example href on an anchor tag) together with Angular's ability to internationalize attributes. Enabling internationalization for the sensitive attribute by adding `i18n-<attribute>` name bypasses Angular's built-in sanitization mechanism, which when combined with a data binding to untrusted user-generated data can allow an attacker to inject a malicious script. \n\nThe following example illustrates the issue:\n```html\n<a href=\"{{maliciousUrl}}\" i18n-href>Click me</a>\n```\n\nThe following attributes have been confirmed to be vulnerable:\n- `action`\n- `background`\n- `cite`\n- `codebase`\n- `data`\n- `formaction`\n- `href`\n- `itemtype`\n- `longdesc`\n- `poster`\n- `src`\n- `xlink:href`\n\n### Impact\nWhen exploited, this vulnerability allows an attacker to execute arbitrary code within the context of the vulnerable application's domain. This enables:\n- Session Hijacking: Stealing session cookies and authentication tokens.\n- Data Exfiltration: Capturing and transmitting sensitive user data.\n- Unauthorized Actions: Performing actions on behalf of the user.\n\n### Attack Preconditions\n1. The application must use a vulnerable version of Angular.\n2. The application must bind unsanitized user input to one of the attributes mentioned above.\n3. The bound value must be marked for internationalization via the presence of a `i18n-<name>` attribute on the same element.\n\n### Patches\n- 22.0.0-next.3\n- 21.2.4\n- 20.3.18\n- 19.2.20\n\n### Workarounds\nThe primary workaround is to ensure that any data bound to the vulnerable attributes is **never sourced from untrusted user input** (e.g., database, API response, URL parameters) until the patch is applied, or when it is, it shouldn't be marked for internationalization.\n\nAlternatively, users can explicitly sanitize their attributes by passing them through Angular's `DomSanitizer`:\n```ts\nimport {Component, inject, SecurityContext} from '@angular/core';\nimport {DomSanitizer} from '@angular/platform-browser';\n\n@Component({\n  template: `\n    <form action=\"{{url}}\" i18n-action>\n      <button>Submit</button>\n    </form>\n  `,\n})\nexport class App {\n  url: string;\n\n  constructor() {\n    const dangerousUrl = 'javascript:alert(1)';\n    const sanitizer = inject(DomSanitizer);\n    this.url = sanitizer.sanitize(SecurityContext.URL, dangerousUrl) || '';\n  }\n}\n```",
+          "githubID": "GHSA-g93w-mfhg-p222",
+          "CVE": [
+            "CVE-2026-32635"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-g93w-mfhg-p222",
+          "https://github.com/angular/angular/pull/67541",
+          "https://github.com/angular/angular/pull/67561",
+          "https://github.com/angular/angular/commit/224e60ecb1b90115baa702f1c06edc1d64d86187",
+          "https://github.com/angular/angular/commit/78dea55351fb305b33a919c43a6b363137eca166",
+          "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
+          "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
+        ]
+      },
+      {
         "atOrAbove": "19.0.0-next.0",
         "below": "19.2.19",
         "severity": "high",
@@ -3820,6 +3844,30 @@
         ]
       },
       {
+        "atOrAbove": "19.0.0.next.0",
+        "below": "19.2.20",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A Cross-Site Scripting (XSS) vulnerability has been identified in the Angular runtime and compiler. It occurs when the application uses a security-sensitive attribute (for example href on an anchor tag) together with Angular's ability to internationalize attributes. Enabling internationalization for the sensitive attribute by adding `i18n-<attribute>` name bypasses Angular's built-in sanitization mechanism, which when combined with a data binding to untrusted user-generated data can allow an attacker to inject a malicious script. \n\nThe following example illustrates the issue:\n```html\n<a href=\"{{maliciousUrl}}\" i18n-href>Click me</a>\n```\n\nThe following attributes have been confirmed to be vulnerable:\n- `action`\n- `background`\n- `cite`\n- `codebase`\n- `data`\n- `formaction`\n- `href`\n- `itemtype`\n- `longdesc`\n- `poster`\n- `src`\n- `xlink:href`\n\n### Impact\nWhen exploited, this vulnerability allows an attacker to execute arbitrary code within the context of the vulnerable application's domain. This enables:\n- Session Hijacking: Stealing session cookies and authentication tokens.\n- Data Exfiltration: Capturing and transmitting sensitive user data.\n- Unauthorized Actions: Performing actions on behalf of the user.\n\n### Attack Preconditions\n1. The application must use a vulnerable version of Angular.\n2. The application must bind unsanitized user input to one of the attributes mentioned above.\n3. The bound value must be marked for internationalization via the presence of a `i18n-<name>` attribute on the same element.\n\n### Patches\n- 22.0.0-next.3\n- 21.2.4\n- 20.3.18\n- 19.2.20\n\n### Workarounds\nThe primary workaround is to ensure that any data bound to the vulnerable attributes is **never sourced from untrusted user input** (e.g., database, API response, URL parameters) until the patch is applied, or when it is, it shouldn't be marked for internationalization.\n\nAlternatively, users can explicitly sanitize their attributes by passing them through Angular's `DomSanitizer`:\n```ts\nimport {Component, inject, SecurityContext} from '@angular/core';\nimport {DomSanitizer} from '@angular/platform-browser';\n\n@Component({\n  template: `\n    <form action=\"{{url}}\" i18n-action>\n      <button>Submit</button>\n    </form>\n  `,\n})\nexport class App {\n  url: string;\n\n  constructor() {\n    const dangerousUrl = 'javascript:alert(1)';\n    const sanitizer = inject(DomSanitizer);\n    this.url = sanitizer.sanitize(SecurityContext.URL, dangerousUrl) || '';\n  }\n}\n```",
+          "githubID": "GHSA-g93w-mfhg-p222",
+          "CVE": [
+            "CVE-2026-32635"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-g93w-mfhg-p222",
+          "https://github.com/angular/angular/pull/67541",
+          "https://github.com/angular/angular/pull/67561",
+          "https://github.com/angular/angular/commit/224e60ecb1b90115baa702f1c06edc1d64d86187",
+          "https://github.com/angular/angular/commit/78dea55351fb305b33a919c43a6b363137eca166",
+          "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
+          "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
+        ]
+      },
+      {
         "atOrAbove": "20.0.0-next.0",
         "below": "20.3.17",
         "severity": "high",
@@ -3843,6 +3891,30 @@
           "https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API",
           "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP",
           "https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS"
+        ]
+      },
+      {
+        "atOrAbove": "20.0.0-next.0.0.0",
+        "below": "20.3.18",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A Cross-Site Scripting (XSS) vulnerability has been identified in the Angular runtime and compiler. It occurs when the application uses a security-sensitive attribute (for example href on an anchor tag) together with Angular's ability to internationalize attributes. Enabling internationalization for the sensitive attribute by adding `i18n-<attribute>` name bypasses Angular's built-in sanitization mechanism, which when combined with a data binding to untrusted user-generated data can allow an attacker to inject a malicious script. \n\nThe following example illustrates the issue:\n```html\n<a href=\"{{maliciousUrl}}\" i18n-href>Click me</a>\n```\n\nThe following attributes have been confirmed to be vulnerable:\n- `action`\n- `background`\n- `cite`\n- `codebase`\n- `data`\n- `formaction`\n- `href`\n- `itemtype`\n- `longdesc`\n- `poster`\n- `src`\n- `xlink:href`\n\n### Impact\nWhen exploited, this vulnerability allows an attacker to execute arbitrary code within the context of the vulnerable application's domain. This enables:\n- Session Hijacking: Stealing session cookies and authentication tokens.\n- Data Exfiltration: Capturing and transmitting sensitive user data.\n- Unauthorized Actions: Performing actions on behalf of the user.\n\n### Attack Preconditions\n1. The application must use a vulnerable version of Angular.\n2. The application must bind unsanitized user input to one of the attributes mentioned above.\n3. The bound value must be marked for internationalization via the presence of a `i18n-<name>` attribute on the same element.\n\n### Patches\n- 22.0.0-next.3\n- 21.2.4\n- 20.3.18\n- 19.2.20\n\n### Workarounds\nThe primary workaround is to ensure that any data bound to the vulnerable attributes is **never sourced from untrusted user input** (e.g., database, API response, URL parameters) until the patch is applied, or when it is, it shouldn't be marked for internationalization.\n\nAlternatively, users can explicitly sanitize their attributes by passing them through Angular's `DomSanitizer`:\n```ts\nimport {Component, inject, SecurityContext} from '@angular/core';\nimport {DomSanitizer} from '@angular/platform-browser';\n\n@Component({\n  template: `\n    <form action=\"{{url}}\" i18n-action>\n      <button>Submit</button>\n    </form>\n  `,\n})\nexport class App {\n  url: string;\n\n  constructor() {\n    const dangerousUrl = 'javascript:alert(1)';\n    const sanitizer = inject(DomSanitizer);\n    this.url = sanitizer.sanitize(SecurityContext.URL, dangerousUrl) || '';\n  }\n}\n```",
+          "githubID": "GHSA-g93w-mfhg-p222",
+          "CVE": [
+            "CVE-2026-32635"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-g93w-mfhg-p222",
+          "https://github.com/angular/angular/pull/67541",
+          "https://github.com/angular/angular/pull/67561",
+          "https://github.com/angular/angular/commit/224e60ecb1b90115baa702f1c06edc1d64d86187",
+          "https://github.com/angular/angular/commit/78dea55351fb305b33a919c43a6b363137eca166",
+          "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
+          "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
         ]
       },
       {
@@ -3895,6 +3967,54 @@
           "https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API",
           "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP",
           "https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS"
+        ]
+      },
+      {
+        "atOrAbove": "21.0.0-next.0",
+        "below": "21.2.4",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A Cross-Site Scripting (XSS) vulnerability has been identified in the Angular runtime and compiler. It occurs when the application uses a security-sensitive attribute (for example href on an anchor tag) together with Angular's ability to internationalize attributes. Enabling internationalization for the sensitive attribute by adding `i18n-<attribute>` name bypasses Angular's built-in sanitization mechanism, which when combined with a data binding to untrusted user-generated data can allow an attacker to inject a malicious script. \n\nThe following example illustrates the issue:\n```html\n<a href=\"{{maliciousUrl}}\" i18n-href>Click me</a>\n```\n\nThe following attributes have been confirmed to be vulnerable:\n- `action`\n- `background`\n- `cite`\n- `codebase`\n- `data`\n- `formaction`\n- `href`\n- `itemtype`\n- `longdesc`\n- `poster`\n- `src`\n- `xlink:href`\n\n### Impact\nWhen exploited, this vulnerability allows an attacker to execute arbitrary code within the context of the vulnerable application's domain. This enables:\n- Session Hijacking: Stealing session cookies and authentication tokens.\n- Data Exfiltration: Capturing and transmitting sensitive user data.\n- Unauthorized Actions: Performing actions on behalf of the user.\n\n### Attack Preconditions\n1. The application must use a vulnerable version of Angular.\n2. The application must bind unsanitized user input to one of the attributes mentioned above.\n3. The bound value must be marked for internationalization via the presence of a `i18n-<name>` attribute on the same element.\n\n### Patches\n- 22.0.0-next.3\n- 21.2.4\n- 20.3.18\n- 19.2.20\n\n### Workarounds\nThe primary workaround is to ensure that any data bound to the vulnerable attributes is **never sourced from untrusted user input** (e.g., database, API response, URL parameters) until the patch is applied, or when it is, it shouldn't be marked for internationalization.\n\nAlternatively, users can explicitly sanitize their attributes by passing them through Angular's `DomSanitizer`:\n```ts\nimport {Component, inject, SecurityContext} from '@angular/core';\nimport {DomSanitizer} from '@angular/platform-browser';\n\n@Component({\n  template: `\n    <form action=\"{{url}}\" i18n-action>\n      <button>Submit</button>\n    </form>\n  `,\n})\nexport class App {\n  url: string;\n\n  constructor() {\n    const dangerousUrl = 'javascript:alert(1)';\n    const sanitizer = inject(DomSanitizer);\n    this.url = sanitizer.sanitize(SecurityContext.URL, dangerousUrl) || '';\n  }\n}\n```",
+          "githubID": "GHSA-g93w-mfhg-p222",
+          "CVE": [
+            "CVE-2026-32635"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-g93w-mfhg-p222",
+          "https://github.com/angular/angular/pull/67541",
+          "https://github.com/angular/angular/pull/67561",
+          "https://github.com/angular/angular/commit/224e60ecb1b90115baa702f1c06edc1d64d86187",
+          "https://github.com/angular/angular/commit/78dea55351fb305b33a919c43a6b363137eca166",
+          "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
+          "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
+        ]
+      },
+      {
+        "atOrAbove": "22.0.0-next.0",
+        "below": "22.0.0-next.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A Cross-Site Scripting (XSS) vulnerability has been identified in the Angular runtime and compiler. It occurs when the application uses a security-sensitive attribute (for example href on an anchor tag) together with Angular's ability to internationalize attributes. Enabling internationalization for the sensitive attribute by adding `i18n-<attribute>` name bypasses Angular's built-in sanitization mechanism, which when combined with a data binding to untrusted user-generated data can allow an attacker to inject a malicious script. \n\nThe following example illustrates the issue:\n```html\n<a href=\"{{maliciousUrl}}\" i18n-href>Click me</a>\n```\n\nThe following attributes have been confirmed to be vulnerable:\n- `action`\n- `background`\n- `cite`\n- `codebase`\n- `data`\n- `formaction`\n- `href`\n- `itemtype`\n- `longdesc`\n- `poster`\n- `src`\n- `xlink:href`\n\n### Impact\nWhen exploited, this vulnerability allows an attacker to execute arbitrary code within the context of the vulnerable application's domain. This enables:\n- Session Hijacking: Stealing session cookies and authentication tokens.\n- Data Exfiltration: Capturing and transmitting sensitive user data.\n- Unauthorized Actions: Performing actions on behalf of the user.\n\n### Attack Preconditions\n1. The application must use a vulnerable version of Angular.\n2. The application must bind unsanitized user input to one of the attributes mentioned above.\n3. The bound value must be marked for internationalization via the presence of a `i18n-<name>` attribute on the same element.\n\n### Patches\n- 22.0.0-next.3\n- 21.2.4\n- 20.3.18\n- 19.2.20\n\n### Workarounds\nThe primary workaround is to ensure that any data bound to the vulnerable attributes is **never sourced from untrusted user input** (e.g., database, API response, URL parameters) until the patch is applied, or when it is, it shouldn't be marked for internationalization.\n\nAlternatively, users can explicitly sanitize their attributes by passing them through Angular's `DomSanitizer`:\n```ts\nimport {Component, inject, SecurityContext} from '@angular/core';\nimport {DomSanitizer} from '@angular/platform-browser';\n\n@Component({\n  template: `\n    <form action=\"{{url}}\" i18n-action>\n      <button>Submit</button>\n    </form>\n  `,\n})\nexport class App {\n  url: string;\n\n  constructor() {\n    const dangerousUrl = 'javascript:alert(1)';\n    const sanitizer = inject(DomSanitizer);\n    this.url = sanitizer.sanitize(SecurityContext.URL, dangerousUrl) || '';\n  }\n}\n```",
+          "githubID": "GHSA-g93w-mfhg-p222",
+          "CVE": [
+            "CVE-2026-32635"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-g93w-mfhg-p222",
+          "https://github.com/angular/angular/pull/67541",
+          "https://github.com/angular/angular/pull/67561",
+          "https://github.com/angular/angular/commit/224e60ecb1b90115baa702f1c06edc1d64d86187",
+          "https://github.com/angular/angular/commit/78dea55351fb305b33a919c43a6b363137eca166",
+          "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
+          "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
         ]
       }
     ],
