@@ -9415,6 +9415,27 @@
         ]
       },
       {
+        "atOrAbove": "9.5.0",
+        "below": "15.5.13",
+        "severity": "medium",
+        "cwe": [
+          "CWE-444"
+        ],
+        "identifiers": {
+          "summary": "## Summary\nWhen Next.js rewrites proxy traffic to an external backend, a crafted `DELETE`/`OPTIONS` request using `Transfer-Encoding: chunked` could trigger request boundary disagreement between the proxy and backend. This could allow request smuggling through rewritten routes.\n\n## Impact\nAn attacker could smuggle a second request to unintended backend routes (for example, internal/admin endpoints), bypassing assumptions that only the configured rewrite destination/path is reachable. This does not impact applications hosted on providers that handle rewrites at the CDN level, such as Vercel. \n\n## Patches\nThe vulnerability originated in an upstream library vendored by Next.js. It is fixed by updating that dependency’s behavior so `content-length: 0` is added only when both `content-length` and `transfer-encoding` are absent, and `transfer-encoding` is no longer removed in that code path.\n\n## Workarounds\nIf upgrade is not immediately possible:\n- Block chunked `DELETE`/`OPTIONS` requests on rewritten routes at your edge/proxy.\n- Enforce authentication/authorization on backend routes per our [security guidance](https://nextjs.org/docs/app/guides/data-security).",
+          "githubID": "GHSA-ggv3-7p47-pfv8",
+          "CVE": [
+            "CVE-2026-29057"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-ggv3-7p47-pfv8",
+          "https://github.com/vercel/next.js/commit/dc98c04f376c6a1df76ec3e0a2d07edf4abdabd6",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.13",
+          "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+        ]
+      },
+      {
         "atOrAbove": "15.6.0-canary.0",
         "below": "15.6.0-canary.59",
         "severity": "high",
@@ -9723,6 +9744,107 @@
           "https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg",
           "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
           "https://vercel.com/changelog/summary-of-cve-2026-23864"
+        ]
+      },
+      {
+        "atOrAbove": "10.0.0",
+        "below": "16.1.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
+          "githubID": "GHSA-3x4c-7xq6-9pq8",
+          "CVE": [
+            "CVE-2026-27980"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+          "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+          "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0-beta.0",
+        "below": "16.1.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-444"
+        ],
+        "identifiers": {
+          "summary": "## Summary\nWhen Next.js rewrites proxy traffic to an external backend, a crafted `DELETE`/`OPTIONS` request using `Transfer-Encoding: chunked` could trigger request boundary disagreement between the proxy and backend. This could allow request smuggling through rewritten routes.\n\n## Impact\nAn attacker could smuggle a second request to unintended backend routes (for example, internal/admin endpoints), bypassing assumptions that only the configured rewrite destination/path is reachable. This does not impact applications hosted on providers that handle rewrites at the CDN level, such as Vercel. \n\n## Patches\nThe vulnerability originated in an upstream library vendored by Next.js. It is fixed by updating that dependency’s behavior so `content-length: 0` is added only when both `content-length` and `transfer-encoding` are absent, and `transfer-encoding` is no longer removed in that code path.\n\n## Workarounds\nIf upgrade is not immediately possible:\n- Block chunked `DELETE`/`OPTIONS` requests on rewritten routes at your edge/proxy.\n- Enforce authentication/authorization on backend routes per our [security guidance](https://nextjs.org/docs/app/guides/data-security).",
+          "githubID": "GHSA-ggv3-7p47-pfv8",
+          "CVE": [
+            "CVE-2026-29057"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-ggv3-7p47-pfv8",
+          "https://github.com/vercel/next.js/commit/dc98c04f376c6a1df76ec3e0a2d07edf4abdabd6",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.13",
+          "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.1",
+        "below": "16.1.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "## Summary\nA request containing the `next-resume: 1` header (corresponding with a PPR resume request) would buffer request bodies without consistently enforcing `maxPostponedStateSize` in certain setups. The previous mitigation protected minimal-mode deployments, but equivalent non-minimal deployments remained vulnerable to the same unbounded postponed resume-body buffering behavior.\n\n## Impact\nIn applications using the App Router with Partial Prerendering capability enabled (via `experimental.ppr` or `cacheComponents`), an attacker could send oversized `next-resume` POST payloads that were buffered without consistent size enforcement in non-minimal deployments, causing excessive memory usage and potential denial of service.\n\n## Patches\nFixed by enforcing size limits across all postponed-body buffering paths and erroring when limits are exceeded.  \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Block requests containing the `next-resume` header, as this is never valid to be sent from an untrusted client.",
+          "githubID": "GHSA-h27x-g6w4-24gq",
+          "CVE": [
+            "CVE-2026-27979"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-h27x-g6w4-24gq",
+          "https://github.com/vercel/next.js/commit/c885d4825f800dd1e49ead37274dcd08cdd6f3f1",
+          "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.1",
+        "below": "16.1.7",
+        "severity": "low",
+        "cwe": [
+          "CWE-1385"
+        ],
+        "identifiers": {
+          "summary": "## Summary\nIn `next dev`, cross-site protection for internal websocket endpoints could treat `Origin: null` as a bypass case even if [`allowedDevOrigins`](https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins) is configured, allowing privacy-sensitive/opaque contexts (for example sandboxed documents) to connect unexpectedly.\n\n## Impact\nIf a dev server is reachable from attacker-controlled content, an attacker may be able to connect to the HMR websocket channel and interact with dev websocket traffic. This affects development mode only.\nApps without a configured [`allowedDevOrigins`](https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins) still allow connections from any origin.\n\n## Patches\nFixed by validating `Origin: null` through the same cross-site origin-allowance checks used for other origins.  \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Do not expose `next dev` to untrusted networks.\n- Block websocket upgrades to `/_next/webpack-hmr` when `Origin` is `null` at your proxy.",
+          "githubID": "GHSA-jcc7-9wpm-mj36",
+          "CVE": [
+            "CVE-2026-27977"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-jcc7-9wpm-mj36",
+          "https://github.com/vercel/next.js/commit/862f9b9bb41d235e0d8cf44aa811e7fd118cee2a",
+          "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.1",
+        "below": "16.1.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-352"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n`origin: null` was treated as a \"missing\" origin during Server Action CSRF validation. As a result, requests from opaque contexts (such as sandboxed iframes) could bypass origin verification instead of being validated as cross-origin requests.\n\n## Impact\nAn attacker could induce a victim browser to submit Server Actions from a sandboxed context, potentially executing state-changing actions with victim credentials (CSRF).\n\n## Patches\nFixed by treating `'null'` as an explicit origin value and enforcing host/origin checks unless `'null'` is explicitly allowlisted in `experimental.serverActions.allowedOrigins`.  \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Add CSRF tokens for sensitive Server Actions.\n- Prefer `SameSite=Strict` on sensitive auth cookies.\n- Do not allow `'null'` in `serverActions.allowedOrigins` unless intentionally required and additionally protected.",
+          "githubID": "GHSA-mq59-m269-xvcx",
+          "CVE": [
+            "CVE-2026-27978"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mq59-m269-xvcx",
+          "https://github.com/vercel/next.js/commit/a27a11d78e748a8c7ccfd14b7759ad2b9bf097d8",
+          "https://github.com/vercel/next.js/releases/tag/v16.1.7"
         ]
       }
     ],
