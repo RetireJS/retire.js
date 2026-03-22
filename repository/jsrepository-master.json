@@ -8343,6 +8343,14 @@
           {
             "atOrAbove": "10.0.0",
             "below": "16.1.7"
+          },
+          {
+            "atOrAbove": "16.0.0-beta.0",
+            "below": "16.1.7"
+          },
+          {
+            "atOrAbove": "10.0.0",
+            "below": "15.5.14"
           }
         ],
         "summary": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
