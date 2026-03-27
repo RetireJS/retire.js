@@ -4537,6 +4537,27 @@
           "info": [
             "https://nvd.nist.gov/vuln/detail/CVE-2021-23369"
           ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321",
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\n`resolvePartial()` in the Handlebars runtime resolves partial names via a plain property lookup on `options.partials` without guarding against prototype-chain traversal. When `Object.prototype` has been polluted with a string value whose key matches a partial reference in a template, the polluted string is used as the partial body and rendered **without HTML escaping**, resulting in reflected or stored XSS.\n\n## Description\n\nThe root cause is in `lib/handlebars/runtime.js` inside `resolvePartial()` and `invokePartial()`:\n\n```javascript\n// Vulnerable: plain bracket access traverses Object.prototype\npartial = options.partials[options.name];\n```\n\n`hasOwnProperty` is never checked, so if `Object.prototype` has been seeded with a key whose name matches a partial reference in the template (e.g. `widget`), the lookup succeeds and the polluted string is returned. The runtime emits a prototype-access warning, but the partial is still resolved and its content is inserted into the rendered output unescaped. This contradicts the documented security model and is distinct from CVE-2021-23369 and CVE-2021-23383, which addressed data property access rather than partial template resolution.\n\n**Prerequisites for exploitation:**\n1. The target application must be vulnerable to prototype pollution (e.g. via `qs`, `minimist`, or\n   any querystring/JSON merge sink).\n2. The attacker must know or guess the name of a partial reference used in a template.\n\n## Proof of Concept\n\n```javascript\nconst Handlebars = require('handlebars');\n\n// Step 1: Prototype pollution (via qs, minimist, or another vector)\nObject.prototype.widget = '<img src=x onerror=\"alert(document.domain)\">';\n\n// Step 2: Normal template that references a partial\nconst template = Handlebars.compile('<div>Welcome! {{> widget}}</div>');\n\n// Step 3: Render — XSS payload injected unescaped\nconst output = template({});\n// Output: <div>Welcome! <img src=x onerror=\"alert(document.domain)\"></div>\n```\n\n> The runtime prints a prototype access warning claiming \"access has been denied,\" but the partial still resolves and returns the polluted value.\n\n## Workarounds\n\n- Apply `Object.freeze(Object.prototype)` early in application startup to prevent prototype  pollution. Note: this may break other libraries.\n- Use the Handlebars runtime-only build (`handlebars/runtime`), which does not compile templates  and reduces the attack surface.",
+            "githubID": "GHSA-2qvq-rjwj-gvw9",
+            "CVE": [
+              "CVE-2026-33916"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-2qvq-rjwj-gvw9",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
         }
       ],
       "extractors": {
@@ -9443,6 +9464,26 @@
           ]
         },
         {
+          "atOrAbove": "10.0.0",
+          "below": "15.5.14",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
+            "githubID": "GHSA-3x4c-7xq6-9pq8",
+            "CVE": [
+              "CVE-2026-27980"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+            "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+            "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -9755,6 +9796,26 @@
         },
         {
           "atOrAbove": "10.0.0",
+          "below": "16.1.7",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
+            "githubID": "GHSA-3x4c-7xq6-9pq8",
+            "CVE": [
+              "CVE-2026-27980"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+            "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+            "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0-beta.0",
           "below": "16.1.7",
           "severity": "medium",
           "cwe": [
