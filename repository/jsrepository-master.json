@@ -10406,6 +10406,23 @@
       "MIT >=0"
     ]
   },
+  "alpinejs": {
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/alpinejs[@/](§§version§§)/"
+      ],
+      "filename": [
+        "alpine(?:js)?[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "version:['\"](§§version§§)['\"],flushAndStopDeferringMutations"
+      ]
+    },
+    "licenses": [
+      "MIT >=0"
+    ]
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {

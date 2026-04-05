@@ -51,6 +51,17 @@ if (convertedV4 != currentV4String) {
   exitWithError("jsrepository-v4.json is has not been converted");
 }
 
+console.log(
+  "Checking that jsrepository-master and jsonrepository-v5 are synced..."
+);
+const currentV5 = require("./jsrepository-v5.json");
+const convertedV5 = JSON.stringify(convert(data, true, false, true, true), null, 2);
+const currentV5String = JSON.stringify(currentV5, null, 2);
+if (convertedV5 != currentV5String) {
+  exitWithError("jsrepository-v5.json is has not been converted");
+}
+
+
 console.log("Done");
 
 console.log("Validating repo format...");

@@ -11962,6 +11962,23 @@
       ]
     }
   },
+  "alpinejs": {
+    "licenses": [
+      "MIT >=0"
+    ],
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/alpinejs[@/](§§version§§)/"
+      ],
+      "filename": [
+        "alpine(?:js)?[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "version:['\"](§§version§§)['\"],flushAndStopDeferringMutations"
+      ]
+    }
+  },
   "dont check": {
     "licenses": [],
     "vulnerabilities": [],
