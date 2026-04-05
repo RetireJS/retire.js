@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify index.js --standalone retirechrome -o ../extension/js/generated/retire-chrome.js"
+    "build": "esbuild index.js --bundle --format=iife --platform=browser --global-name=retirechrome --outfile=../extension/js/generated/retire-chrome.js && echo 'if (globalThis) globalThis.retirechrome = retirechrome;' >> ../extension/js/generated/retire-chrome.js"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "browserify": "^17.0.0"
-  },
   "dependencies": {
     "hash.js": "^1.1.7"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
   }
 }

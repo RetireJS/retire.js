@@ -1,6 +1,6 @@
 import "./generated/retire-chrome.js";
 
-const retire = retirechrome.retire;
+const retire = globalThis.retirechrome.retire;
 console.log(retire);
 
 var scanEnabled = true;
