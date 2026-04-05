@@ -12000,7 +12000,50 @@
     "licenses": [
       "Apache-2.0 >=0"
     ],
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "4.3.3",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321",
+          "CWE-915"
+        ],
+        "identifiers": {
+          "summary": "### Impact\nUsing `merge` and `clone` helper methods in the `src/core/util.ts` module will have prototype pollution. It will affect the popular data visualization library Apache ECharts, which is using and exported these two methods directly.\n\n### Patches\n \nIt has been patched in https://github.com/ecomfe/zrender/pull/826. \nUsers should update zrender to `5.2.1`.  and update echarts to `5.2.1` if project is using echarts.\n\n### References\nNA\n\n### For more information\nNA\n",
+          "githubID": "GHSA-fhv8-fx5f-7fxf",
+          "CVE": [
+            "CVE-2021-39227"
+          ]
+        },
+        "info": [
+          "https://github.com/ecomfe/zrender/security/advisories/GHSA-fhv8-fx5f-7fxf",
+          "https://github.com/ecomfe/zrender/pull/826",
+          "https://github.com/ecomfe/zrender/releases/tag/5.2.1"
+        ]
+      },
+      {
+        "atOrAbove": "5.0.0",
+        "below": "5.2.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321",
+          "CWE-915"
+        ],
+        "identifiers": {
+          "summary": "### Impact\nUsing `merge` and `clone` helper methods in the `src/core/util.ts` module will have prototype pollution. It will affect the popular data visualization library Apache ECharts, which is using and exported these two methods directly.\n\n### Patches\n \nIt has been patched in https://github.com/ecomfe/zrender/pull/826. \nUsers should update zrender to `5.2.1`.  and update echarts to `5.2.1` if project is using echarts.\n\n### References\nNA\n\n### For more information\nNA\n",
+          "githubID": "GHSA-fhv8-fx5f-7fxf",
+          "CVE": [
+            "CVE-2021-39227"
+          ]
+        },
+        "info": [
+          "https://github.com/ecomfe/zrender/security/advisories/GHSA-fhv8-fx5f-7fxf",
+          "https://github.com/ecomfe/zrender/pull/826",
+          "https://github.com/ecomfe/zrender/releases/tag/5.2.1"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/zrender[@/](§§version§§)/"
