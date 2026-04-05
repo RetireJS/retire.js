@@ -347,7 +347,11 @@ exports.queries = {
     `//VariableDeclarator[/:id/:name == "hljs"]//AssignmentExpression[/MemberExpression/:property/:name=="versionString"]/:right/:value`
   ],
   "echarts" : [
+    `//SequenceExpression[/AssignmentExpression/:left/:property/:name == "disConnect"]/AssignmentExpression[//:left/:property/:name == "version"]/:right/:value`,
     `//BlockStatement[/FunctionDeclaration/:id/:name == "createRegisterEventWithLowercaseECharts"]/VariableDeclaration/:declarations[/:id/:name == "version"]/:init/:value`,
-    `//ObjectExpression[/Property/:key/:name == "registerPainter" && /Property/:key/:name == "disposeAll"]/Property[/:key/:name == "version"]/:value/:value`
+  ],
+  "zrender" : [
+    `//SequenceExpression[/AssignmentExpression/:left/:property/:name == "showDebugDirtyRect"]/AssignmentExpression[//:left/:property/:name == "version"]/:right/:value`,
+    `//BlockStatement[/FunctionDeclaration/:id/:name == "registerPainter" && /FunctionDeclaration/:id/:name == "getWheelDeltaMayPolyfill"]/VariableDeclaration/VariableDeclarator[/:id/:name == "version"]/Literal/:value`
   ]
 };

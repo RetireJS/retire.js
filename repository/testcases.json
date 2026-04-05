@@ -763,6 +763,13 @@
   "echarts" : {
     "https://cdnjs.cloudflare.com/ajax/libs/echarts/§§version§§/echarts§§subversion§§.js" : {
       "versions" : ["6.0.0", "5.0.0"],
+      "subversions": ["", ".min"],
+      "allowedOtherComponents": "zrender"
+    }
+  },
+  "zrender" : {
+    "https://cdnjs.cloudflare.com/ajax/libs/zrender/§§version§§/zrender§§subversion§§.js" : {
+      "versions" : ["6.0.0", "5.0.0"],
       "subversions": ["", ".min"]
     }
   }

@@ -11993,14 +11993,36 @@
           "echarts[-.](§§version§§)(.min)?.js"
         ],
         "filecontent": [
-          "registerPainter:[a-zA-Z]+,getElementSSRData:[a-zA-Z]+,registerSSRDataGetter:[a-zA-Z]+,version:['\"](§§version§§)['\"]",
-          ",registerPainter:[a-zA-Z]+,version:['\"](§§version§§)['\"]\\}",
-          "ssrDataGetter = getter;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+var zrender",
-          "painterCtors\\[name\\] = Ctor;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+var zrender"
+          "'(§§version§§)';[\\s]+var dependencies = \\{[\\s]+zrender: '[0-9.]+'[\\s]+\\};[\\s]+var TEST_FRAME_REMAIN_TIME = 1;",
+          "setPlatformAPI=[a-zA-Z_]+,.\\.throttle=[a-zA-Z_]+,.\\.time=[a-zA-Z_]+,.\\.use=[a-zA-Z_]+,.\\.util=[a-zA-Z_]+,.\\.vector=[a-zA-Z_]+,.\\.version=['\"](§§version§§)['\"],.\\.zrUtil",
+          ".\\.throttle=[a-zA-Z_]+,.\\.time=[a-zA-Z_]+,.\\.util=[a-zA-Z_]+,.\\.vector=[a-zA-Z_]+,.\\.version=['\"](§§version§§)['\"],.\\.zrender"
         ],
         "ast": [
-          "//BlockStatement[/FunctionDeclaration/:id/:name == \"createRegisterEventWithLowercaseECharts\"]/VariableDeclaration/:declarations[/:id/:name == \"version\"]/:init/:value",
-          "//ObjectExpression[/Property/:key/:name == \"registerPainter\" && /Property/:key/:name == \"disposeAll\"]/Property[/:key/:name == \"version\"]/:value/:value"
+          "//SequenceExpression[/AssignmentExpression/:left/:property/:name == \"disConnect\"]/AssignmentExpression[//:left/:property/:name == \"version\"]/:right/:value",
+          "//BlockStatement[/FunctionDeclaration/:id/:name == \"createRegisterEventWithLowercaseECharts\"]/VariableDeclaration/:declarations[/:id/:name == \"version\"]/:init/:value"
+        ]
+      }
+    },
+    "zrender": {
+      "licenses": [
+        "Apache-2.0 >=0"
+      ],
+      "vulnerabilities": [],
+      "extractors": {
+        "uri": [
+          "/zrender[@/](§§version§§)/"
+        ],
+        "filename": [
+          "zrender[-.](§§version§§)(.min)?.js"
+        ],
+        "filecontent": [
+          "ssrDataGetter = getter;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+",
+          "painterCtors\\[name\\] = Ctor;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+",
+          ".\\.util=[a-zA-Z_]+,.\\.vector=[a-zA-Z_]+,.\\.version=['\"](§§version§§)['\"],Object"
+        ],
+        "ast": [
+          "//SequenceExpression[/AssignmentExpression/:left/:property/:name == \"showDebugDirtyRect\"]/AssignmentExpression[//:left/:property/:name == \"version\"]/:right/:value",
+          "//BlockStatement[/FunctionDeclaration/:id/:name == \"registerPainter\" && /FunctionDeclaration/:id/:name == \"getWheelDeltaMayPolyfill\"]/VariableDeclaration/VariableDeclarator[/:id/:name == \"version\"]/Literal/:value"
         ]
       }
     },
