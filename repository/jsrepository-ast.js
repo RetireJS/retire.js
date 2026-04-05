@@ -345,5 +345,9 @@ exports.queries = {
   ],
   "highlightjs": [
     `//VariableDeclarator[/:id/:name == "hljs"]//AssignmentExpression[/MemberExpression/:property/:name=="versionString"]/:right/:value`
+  ],
+  "echarts" : [
+    `//BlockStatement[/FunctionDeclaration/:id/:name == "createRegisterEventWithLowercaseECharts"]/VariableDeclaration/:declarations[/:id/:name == "version"]/:init/:value`,
+    `//ObjectExpression[/Property/:key/:name == "registerPainter" && /Property/:key/:name == "disposeAll"]/Property[/:key/:name == "version"]/:value/:value`
   ]
 };

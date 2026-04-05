@@ -759,5 +759,11 @@
     "https://cdnjs.cloudflare.com/ajax/libs/marked/§§version§§/lib/marked.esm.js" : {
       "versions" : ["16.3.0", "10.0.0", "5.1.2"]
     }
+  },
+  "echarts" : {
+    "https://cdnjs.cloudflare.com/ajax/libs/echarts/§§version§§/echarts§§subversion§§.js" : {
+      "versions" : ["6.0.0", "5.0.0"],
+      "subversions": ["", ".min"]
+    }
   }
 }

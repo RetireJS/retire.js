@@ -10423,6 +10423,26 @@
       "MIT >=0"
     ]
   },
+  "echarts": {
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/echarts[@/](§§version§§)/"
+      ],
+      "filename": [
+        "echarts[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "registerPainter:[a-zA-Z]+,getElementSSRData:[a-zA-Z]+,registerSSRDataGetter:[a-zA-Z]+,version:['\"](§§version§§)['\"]",
+        ",registerPainter:[a-zA-Z]+,version:['\"](§§version§§)['\"]\\}",
+        "ssrDataGetter = getter;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+var zrender",
+        "painterCtors\\[name\\] = Ctor;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+var zrender"
+      ]
+    },
+    "licenses": [
+      "Apache-2.0 >=0"
+    ]
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {

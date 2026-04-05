@@ -11762,6 +11762,27 @@
       ]
     }
   },
+  "echarts": {
+    "vulnerabilities": [],
+    "extractors": {
+      "uri": [
+        "/echarts[@/](§§version§§)/"
+      ],
+      "filename": [
+        "echarts[-.](§§version§§)(.min)?.js"
+      ],
+      "filecontent": [
+        "registerPainter:[a-zA-Z]+,getElementSSRData:[a-zA-Z]+,registerSSRDataGetter:[a-zA-Z]+,version:['\"](§§version§§)['\"]",
+        ",registerPainter:[a-zA-Z]+,version:['\"](§§version§§)['\"]\\}",
+        "ssrDataGetter = getter;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+var zrender",
+        "painterCtors\\[name\\] = Ctor;[\\s]+\\}[\\s]+var version = '(§§version§§)';[\\s]+var zrender"
+      ],
+      "ast": [
+        "//BlockStatement[/FunctionDeclaration/:id/:name == \"createRegisterEventWithLowercaseECharts\"]/VariableDeclaration/:declarations[/:id/:name == \"version\"]/:init/:value",
+        "//ObjectExpression[/Property/:key/:name == \"registerPainter\" && /Property/:key/:name == \"disposeAll\"]/Property[/:key/:name == \"version\"]/:value/:value"
+      ]
+    }
+  },
   "dont check": {
     "vulnerabilities": [],
     "extractors": {
