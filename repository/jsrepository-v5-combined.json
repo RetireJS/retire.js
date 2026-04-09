@@ -7613,6 +7613,25 @@
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "1.13.2",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "### Summary\n\nAxios HTTP/2 session cleanup logic contains a state corruption bug that allows a malicious server to crash the client process through concurrent session closures. This denial-of-service vulnerability affects axios versions prior to 1.13.2 when HTTP/2 is enabled.\n\n### Details\n\nThe vulnerability exists in the `Http2Sessions.getSession()` method in `lib/adapters/http.js`. The session cleanup logic contains a control flow error when removing sessions from the sessions array.\n\n**Vulnerable Code:**\n```javascript\nwhile (i--) {\n  if (entries[i][0] === session) {\n    entries.splice(i, 1);\n    if (len === 1) {\n      delete this.sessions[authority];\n      return;\n    }\n  }\n}\n```\n\n**Root Cause:**\nAfter calling `entries.splice(i, 1)` to remove a session, the original code only returned early if `len === 1`. For arrays with multiple entries, the iteration continued after modifying the array, causing undefined behavior and potential crashes when accessing shifted array indices.\n\n**Fixed Code:**\n```javascript\nwhile (i--) {\n  if (entries[i][0] === session) {\n    if (len === 1) {\n      delete this.sessions[authority];\n    } else {\n      entries.splice(i, 1);\n    }\n    return;\n  }\n}\n```\n\nThe fix restructures the control flow to immediately return after removing a session, regardless of whether the array is being emptied or just having one element removed. This prevents continued iteration over a modified array and eliminates the state corruption vulnerability.\n\n**Affected Component:**\n- `lib/adapters/http.js` - Http2Sessions class, session cleanup in connection close handler\n\n### PoC\n\n1. Set up a malicious HTTP/2 server that accepts multiple concurrent connections from an axios client\n2. Establish multiple concurrent HTTP/2 sessions with the axios client\n3. Close all sessions simultaneously with precise timing\n4. The flawed cleanup logic attempts to iterate over and modify the sessions array concurrently\n5. This causes the client to access invalid memory locations, resulting in a process crash\n\n**Prerequisites:**\n- Client must use axios with HTTP/2 enabled\n- Client must connect to attacker-controlled HTTP/2 server\n- Multiple concurrent HTTP/2 sessions must be established\n- Server must close all sessions simultaneously with precise timing\n\n### Impact\n\n**Who is impacted:**\n- Applications using axios with HTTP/2 enabled\n- Applications connecting to untrusted or attacker-controlled HTTP/2 servers\n- Node.js applications using axios for HTTP/2 requests\n\n**Impact Details:**\n- **Denial of Service:** Malicious server can crash the axios client process by accepting and closing multiple concurrent HTTP/2 connections simultaneously\n- **Availability Impact:** Complete loss of availability for the client process through crash (though service may auto-restart)\n- **Scope:** Impact is limited to the single client process making the requests; does not escape to affect other components or systems\n- **No Confidentiality or Integrity Impact:** Vulnerability only causes process crash, no information disclosure or data modification\n\n**CVSS Score:** 5.9 (Medium)\n**CVSS Vector:** CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H\n\n**CWE Classifications:**\n- CWE-400: Uncontrolled Resource Consumption\n- CWE-662: Improper Synchronization",
+            "githubID": "GHSA-qj83-cq47-w5f8",
+            "CVE": [
+              "CVE-2026-39865"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-qj83-cq47-w5f8",
+            "https://github.com/axios/axios/releases/tag/v1.13.2"
+          ]
+        },
+        {
           "atOrAbove": "1.0.0",
           "below": "1.13.5",
           "severity": "high",
@@ -8830,6 +8849,111 @@
           ]
         },
         {
+          "atOrAbove": "15.0.0-canary.0",
+          "below": "15.0.0-canary.206",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.1-canary.0",
+          "below": "15.0.1-canary.4",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.2-canary.0",
+          "below": "15.0.2-canary.12",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.3-canary.0",
+          "below": "15.0.3-canary.10",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.4-canary.0",
+          "below": "15.0.4-canary.53",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
           "atOrAbove": "14.3.0-canary.77",
           "below": "15.0.5",
           "severity": "critical",
@@ -8919,6 +9043,27 @@
             "https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg",
             "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
             "https://vercel.com/changelog/summary-of-cve-2026-23864"
+          ]
+        },
+        {
+          "atOrAbove": "15.1.1-canary.0",
+          "below": "15.1.1-canary.28",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
           ]
         },
         {
@@ -9079,6 +9224,48 @@
           ]
         },
         {
+          "atOrAbove": "15.2.0-canary.0",
+          "below": "15.2.0-canary.78",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.2.1-canary.0",
+          "below": "15.2.1-canary.7",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
           "atOrAbove": "15.0.0",
           "below": "15.2.2",
           "cwe": [
@@ -9098,6 +9285,27 @@
             "https://nvd.nist.gov/vuln/detail/CVE-2025-48068",
             "https://github.com/vercel/next.js",
             "https://vercel.com/changelog/cve-2025-48068"
+          ]
+        },
+        {
+          "atOrAbove": "15.2.2-canary.0",
+          "below": "15.2.2-canary.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
           ]
         },
         {
@@ -9245,6 +9453,48 @@
           ]
         },
         {
+          "atOrAbove": "15.3.0-canary.0",
+          "below": "15.3.0-canary.47",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.3.1-canary.0",
+          "below": "15.3.1-canary.16",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
           "atOrAbove": "15.3.0",
           "below": "15.3.3",
           "cwe": [
@@ -9357,6 +9607,48 @@
             "https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg",
             "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
             "https://vercel.com/changelog/summary-of-cve-2026-23864"
+          ]
+        },
+        {
+          "atOrAbove": "15.4.0-canary.0",
+          "below": "15.4.0-canary.131",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
+          ]
+        },
+        {
+          "atOrAbove": "15.4.2-canary.0",
+          "below": "15.4.2-canary.57",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
           ]
         },
         {
@@ -9511,6 +9803,27 @@
             "https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg",
             "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
             "https://vercel.com/changelog/summary-of-cve-2026-23864"
+          ]
+        },
+        {
+          "atOrAbove": "15.5.1-canary.0",
+          "below": "15.5.1-canary.40",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-409",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
+            "githubID": "GHSA-5f7q-jpqc-wp7h",
+            "CVE": [
+              "CVE-2025-59472"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-5f7q-jpqc-wp7h",
+            "https://vercel.com/changelog/summaries-of-cve-2025-59471-and-cve-2025-59472"
           ]
         },
         {
