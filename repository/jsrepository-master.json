@@ -7055,6 +7055,34 @@
           "https://github.com/axios/axios/security/advisories/GHSA-qj83-cq47-w5f8",
           "https://github.com/axios/axios/releases/tag/v1.13.2"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "1.15.0"
+          }
+        ],
+        "summary": "Axios does not correctly handle hostname normalization when checking `NO_PROXY` rules.\nRequests to loopback addresses like `localhost.` (with a trailing dot) or `[::1]` (IPv6 literal) skip `NO_PROXY` matching and go through the configured proxy.\n\nThis goes against what developers expect and lets attackers force requests through a proxy, even if `NO_PROXY` is set up to protect loopback or internal services.\n\nAccording to [RFC 1034 §3.1](https://datatracker.ietf.org/doc/html/rfc1034#section-3.1) and [RFC 3986 §3.2.2](https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.2), a hostname can have a trailing dot to show it is a fully qualified domain name (FQDN). At the DNS level, `localhost.` is the same as `localhost`. \nHowever, Axios does a literal string comparison instead of normalizing hostnames before checking `NO_PROXY`. This causes requests like `http://localhost.:8080/` and `http://[::1]:8080/` to be incorrectly proxied.\n\nThis issue leads to the possibility of proxy bypass and SSRF vulnerabilities allowing attackers to reach sensitive loopback or internal services despite the configured protections.\n\n---\n\n**PoC**\n\n```js\nimport http from \"http\";\nimport axios from \"axios\";\n\nconst proxyPort = 5300;\n\nhttp.createServer((req, res) => {\n  console.log(\"[PROXY] Got:\", req.method, req.url, \"Host:\", req.headers.host);\n  res.writeHead(200, { \"Content-Type\": \"text/plain\" });\n  res.end(\"proxied\");\n}).listen(proxyPort, () => console.log(\"Proxy\", proxyPort));\n\nprocess.env.HTTP_PROXY = `http://127.0.0.1:${proxyPort}`;\nprocess.env.NO_PROXY = \"localhost,127.0.0.1,::1\";\n\nasync function test(url) {\n  try {\n    await axios.get(url, { timeout: 2000 });\n  } catch {}\n}\n\nsetTimeout(async () => {\n  console.log(\"\\n[*] Testing http://localhost.:8080/\");\n  await test(\"http://localhost.:8080/\"); // goes through proxy\n\n  console.log(\"\\n[*] Testing http://[::1]:8080/\");\n  await test(\"http://[::1]:8080/\"); // goes through proxy\n}, 500);\n```\n\n**Expected:** Requests bypass the proxy (direct to loopback).\n**Actual:** Proxy logs requests for `localhost.` and `[::1]`.\n\n---\n\n**Impact**\n\n* Applications that rely on `NO_PROXY=localhost,127.0.0.1,::1` for protecting loopback/internal access are vulnerable.\n* Attackers controlling request URLs can:\n\n  * Force Axios to send local traffic through an attacker-controlled proxy.\n  * Bypass SSRF mitigations relying on NO\\_PROXY rules.\n  * Potentially exfiltrate sensitive responses from internal services via the proxy.\n  \n  \n---\n\n**Affected Versions**\n\n* Confirmed on Axios **1.12.2** (latest at time of testing).\n* affects all versions that rely on Axios’ current `NO_PROXY` evaluation.\n\n---\n\n**Remediation**\nAxios should normalize hostnames before evaluating `NO_PROXY`, including:\n\n* Strip trailing dots from hostnames (per RFC 3986).\n* Normalize IPv6 literals by removing brackets for matching.",
+        "identifiers": {
+          "githubID": "GHSA-3p68-rc4w-qgx5",
+          "CVE": [
+            "CVE-2025-62718"
+          ]
+        },
+        "severity": "critical",
+        "cwe": [
+          "CWE-441",
+          "CWE-918"
+        ],
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-3p68-rc4w-qgx5",
+          "https://github.com/axios/axios/pull/10661",
+          "https://github.com/axios/axios/commit/fb3befb6daac6cad26b2e54094d0f2d9e47f24df",
+          "https://datatracker.ietf.org/doc/html/rfc1034#section-3.1",
+          "https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.2",
+          "https://github.com/axios/axios/releases/tag/v1.15.0"
+        ]
       }
     ],
     "extractors": {
