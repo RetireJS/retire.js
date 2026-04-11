@@ -147,13 +147,13 @@ function show(totalResults) {
       td(tr).innerText = "-";
       td(tr).innerText = "-";
       vulns = td(tr);
-      vulns.innerHTML = `Did not recognize ${r.url}`;
+      vulns.textContent = `Did not recognize ${r.url}`;
     } else {
       td(tr).innerText = r.component;
       td(tr).innerText = r.version;
       vulns = td(tr);
       let d = detMapping[r.detection] ?? r.detection;
-      vulns.innerHTML = `${r.url} (${d} detection)`;
+      vulns.textContent = `${r.url} (${d} detection)`;
     }
     if (r.vulnerabilities && r.vulnerabilities.length > 0) {
       r.vulnerabilities.sort((x, y) => {
