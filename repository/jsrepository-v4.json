@@ -277,6 +277,25 @@
         "info": [
           "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/"
         ]
+      },
+      {
+        "atOrAbove": "1.12.0",
+        "below": "3.5.0",
+        "cwe": [
+          "CWE-79"
+        ],
+        "severity": "medium",
+        "identifiers": {
+          "summary": "Regex in its jQuery.htmlPrefilter sometimes may introduce XSS",
+          "CVE": [
+            "CVE-2020-11022"
+          ],
+          "issue": "4642",
+          "githubID": "GHSA-gxr4-xjj5-5px2"
+        },
+        "info": [
+          "https://blog.jquery.com/2020/04/10/jquery-3-5-0-released/"
+        ]
       }
     ],
     "extractors": {
@@ -7607,6 +7626,25 @@
       },
       {
         "atOrAbove": "0",
+        "below": "1.13.2",
+        "severity": "medium",
+        "cwe": [
+          "CWE-400"
+        ],
+        "identifiers": {
+          "summary": "### Summary\n\nAxios HTTP/2 session cleanup logic contains a state corruption bug that allows a malicious server to crash the client process through concurrent session closures. This denial-of-service vulnerability affects axios versions prior to 1.13.2 when HTTP/2 is enabled.\n\n### Details\n\nThe vulnerability exists in the `Http2Sessions.getSession()` method in `lib/adapters/http.js`. The session cleanup logic contains a control flow error when removing sessions from the sessions array.\n\n**Vulnerable Code:**\n```javascript\nwhile (i--) {\n  if (entries[i][0] === session) {\n    entries.splice(i, 1);\n    if (len === 1) {\n      delete this.sessions[authority];\n      return;\n    }\n  }\n}\n```\n\n**Root Cause:**\nAfter calling `entries.splice(i, 1)` to remove a session, the original code only returned early if `len === 1`. For arrays with multiple entries, the iteration continued after modifying the array, causing undefined behavior and potential crashes when accessing shifted array indices.\n\n**Fixed Code:**\n```javascript\nwhile (i--) {\n  if (entries[i][0] === session) {\n    if (len === 1) {\n      delete this.sessions[authority];\n    } else {\n      entries.splice(i, 1);\n    }\n    return;\n  }\n}\n```\n\nThe fix restructures the control flow to immediately return after removing a session, regardless of whether the array is being emptied or just having one element removed. This prevents continued iteration over a modified array and eliminates the state corruption vulnerability.\n\n**Affected Component:**\n- `lib/adapters/http.js` - Http2Sessions class, session cleanup in connection close handler\n\n### PoC\n\n1. Set up a malicious HTTP/2 server that accepts multiple concurrent connections from an axios client\n2. Establish multiple concurrent HTTP/2 sessions with the axios client\n3. Close all sessions simultaneously with precise timing\n4. The flawed cleanup logic attempts to iterate over and modify the sessions array concurrently\n5. This causes the client to access invalid memory locations, resulting in a process crash\n\n**Prerequisites:**\n- Client must use axios with HTTP/2 enabled\n- Client must connect to attacker-controlled HTTP/2 server\n- Multiple concurrent HTTP/2 sessions must be established\n- Server must close all sessions simultaneously with precise timing\n\n### Impact\n\n**Who is impacted:**\n- Applications using axios with HTTP/2 enabled\n- Applications connecting to untrusted or attacker-controlled HTTP/2 servers\n- Node.js applications using axios for HTTP/2 requests\n\n**Impact Details:**\n- **Denial of Service:** Malicious server can crash the axios client process by accepting and closing multiple concurrent HTTP/2 connections simultaneously\n- **Availability Impact:** Complete loss of availability for the client process through crash (though service may auto-restart)\n- **Scope:** Impact is limited to the single client process making the requests; does not escape to affect other components or systems\n- **No Confidentiality or Integrity Impact:** Vulnerability only causes process crash, no information disclosure or data modification\n\n**CVSS Score:** 5.9 (Medium)\n**CVSS Vector:** CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H\n\n**CWE Classifications:**\n- CWE-400: Uncontrolled Resource Consumption\n- CWE-662: Improper Synchronization",
+          "githubID": "GHSA-qj83-cq47-w5f8",
+          "CVE": [
+            "CVE-2026-39865"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-qj83-cq47-w5f8",
+          "https://github.com/axios/axios/releases/tag/v1.13.2"
+        ]
+      },
+      {
+        "atOrAbove": "1.13.0",
         "below": "1.13.2",
         "severity": "medium",
         "cwe": [
