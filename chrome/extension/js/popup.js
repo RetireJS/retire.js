@@ -100,7 +100,7 @@ function show(totalResults) {
   });
 
   let results = Object.values(merged);
-
+  
   const vulnerabilities = results.reduce((acc, rs) => {
     return (
       acc +
@@ -109,11 +109,12 @@ function show(totalResults) {
       }, 0)
     );
   }, 0);
-  document.querySelector("#stats").innerHTML = `<span>URLs scanned: ${
+  document.querySelector("#stats").innerHTML = "";
+  document.querySelector("#stats").appendChild(span(`URLs scanned: ${
     results.length
-  }</span> <span class="${
-    vulnerabilities.length > 0 ? "vuln" : ""
-  }">Vulnerabilities found: ${vulnerabilities}</span>`;
+  }`));
+  console.log(vulnerabilities);
+  document.querySelector("#stats").appendChild(span(`Vulnerabilities found: ${vulnerabilities}`, vulnerabilities > 0 ? "vuln" : ""));
 
   results.forEach((rs) => {
     rs.results.forEach((r) => {
@@ -147,13 +148,13 @@ function show(totalResults) {
       td(tr).innerText = "-";
       td(tr).innerText = "-";
       vulns = td(tr);
-      vulns.innerHTML = `Did not recognize ${r.url}`;
+      vulns.textContent = `Did not recognize ${r.url}`;
     } else {
       td(tr).innerText = r.component;
       td(tr).innerText = r.version;
       vulns = td(tr);
       let d = detMapping[r.detection] ?? r.detection;
-      vulns.innerHTML = `${r.url} (${d} detection)`;
+      vulns.textContent = `${r.url} (${d} detection)`;
     }
     if (r.vulnerabilities && r.vulnerabilities.length > 0) {
       r.vulnerabilities.sort((x, y) => {
@@ -194,6 +195,12 @@ function td(tr) {
   let cell = document.createElement("td");
   tr.appendChild(cell);
   return cell;
+}
+function span(data, className) {
+  const s = document.createElement("span");
+  if (className) s.classList.add(className);
+  s.textContent = data;
+  return s;
 }
 
 Object.prototype.forEachOwnProperty = function (f) {
