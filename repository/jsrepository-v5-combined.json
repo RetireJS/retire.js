@@ -2218,6 +2218,7 @@
             "CWE-1333"
           ],
           "identifiers": {
+            "summary": "An issue was discovered in the stripTags and unescapeHTML components in Prototype 1.7.3 where an attacker can cause a Regular Expression Denial of Service (ReDOS) through stripping crafted HTML tags.",
             "CVE": [
               "CVE-2020-27511"
             ]
