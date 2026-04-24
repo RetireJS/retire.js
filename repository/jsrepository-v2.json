@@ -2142,6 +2142,23 @@
           "http://prototypejs.org/2008/01/25/prototype-1-6-0-2-bug-fixes-performance-improvements-and-security/",
           "http://www.cvedetails.com/cve/CVE-2008-7220/"
         ]
+      },
+      {
+        "below": "1.7.4",
+        "severity": "high",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "An issue was discovered in the stripTags and unescapeHTML components in Prototype 1.7.3 where an attacker can cause a Regular Expression Denial of Service (ReDOS) through stripping crafted HTML tags.",
+          "CVE": [
+            "CVE-2020-27511"
+          ]
+        },
+        "info": [
+          "https://nvd.nist.gov/vuln/detail/CVE-2020-27511",
+          "https://github.com/prototypejs/prototype/issues/355"
+        ]
       }
     ],
     "extractors": {
