@@ -12682,7 +12682,26 @@
     "licenses": [
       "ISC >=0"
     ],
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "1.0.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-506"
+        ],
+        "identifiers": {
+          "summary": "The `d3.js` package is a piece of malware that steals environment variables and sends them to attacker controlled locations. \n\nAll versions have been unpublished from the npm registry.\n\n\n## Recommendation\n\nAs this package is malware, if you find it installed in your environment, the real security concern is determining how it got there. \n\nIf you have found this installed in your environment, you should:\n1. Delete the package\n2. Clear your npm cache\n3. Ensure it is not present in any other package.json files on your system\n4. Regenerate your registry credentials, tokens, and any other sensitive credentials that may have been present in your environment variables. \n\nAdditionally, any service which may have been exposed via credentials in your environment variables, such as a database, should be reviewed for indicators of compromise as well.",
+          "githubID": "GHSA-qmjg-g86h-6rc9",
+          "CVE": [
+            "CVE-2017-16044"
+          ]
+        },
+        "info": [
+          "https://www.npmjs.com/advisories/497"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/d3[@/](§§version§§)/d3.(min.)?js"
