@@ -12835,7 +12835,32 @@
     }
   },
   "video.js": {
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "7.14.3",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "This affects the package video.js before 7.14.3.\n The src attribute of track tag allows to bypass HTML escaping and execute arbitrary code.\n\n",
+          "githubID": "GHSA-pp7m-6j83-m7r6",
+          "CVE": [
+            "CVE-2021-23414"
+          ]
+        },
+        "info": [
+          "https://github.com/videojs/video.js/commit/b3acf663641fca0f7a966525a72845af7ec5fab2",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2DHYIIAUXUBHMBEDYU7TYNZXEN2W2SA2",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/74SXNGA5RIWM7QNX7H3G7SYIQLP4UUGV",
+          "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/NLRJB5JNKK3VVBLV3NH3RI7COEDAXSAB",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1533588",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1533587",
+          "https://snyk.io/vuln/SNYK-JS-VIDEOJS-1533429"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/video\\.js[@/](§§version§§)/"
@@ -12852,7 +12877,66 @@
   },
   "quill": {
     "npmname": "quill",
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "1.3.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1022"
+        ],
+        "identifiers": {
+          "summary": "Versions of `quill` prior to 1.3.7 are vulnerable to [Reverse Tabnabbing](https://www.owasp.org/index.php/Reverse_Tabnabbing). The package uses `target='_blank'` in anchor tags, allowing attackers to access `window.opener` for the original page when opening links. This is commonly used for phishing attacks.\n\n\n## Recommendation\n\nNo fix is currently available. Consider using an alternative package until a fix is made available.",
+          "githubID": "GHSA-588m-9qg5-35pq"
+        },
+        "info": [
+          "https://github.com/quilljs/quill/issues/2438",
+          "https://github.com/quilljs/quill/pull/2674",
+          "https://www.npmjs.com/advisories/1039"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "1.3.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A vulnerability in the HTML editor of Slab Quill allows an attacker to execute arbitrary JavaScript by storing an XSS payload (a crafted `onloadstart` attribute of an IMG element) in a text field. No patch exists and no further releases are planned.\n\nThis CVE is disputed. Researchers have claimed that this issue is not within the product itself, but is intended behavior in a web browser. More information can be found [here](https://github.com/quilljs/quill/issues/3364).",
+          "githubID": "GHSA-4943-9vgg-gr5r",
+          "CVE": [
+            "CVE-2021-3163"
+          ]
+        },
+        "info": [
+          "https://github.com/quilljs/quill/issues/3273",
+          "https://github.com/quilljs/quill/issues/3359",
+          "https://github.com/quilljs/quill/issues/3364",
+          "https://burninatorsec.blogspot.com/2021/04/cve-2021-3163-xss-slab-quill-js.html",
+          "https://quilljs.com"
+        ]
+      },
+      {
+        "atOrAbove": "2.0.3",
+        "below": "2.0.4",
+        "severity": "low",
+        "cwe": [
+          "CWE-74",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "A lack of data validation vulnerability in the HTML export feature in Quill in allows Cross-Site Scripting (XSS).\n\nThis issue affects Quill: 2.0.3.",
+          "githubID": "GHSA-v3m3-f69x-jf25",
+          "CVE": [
+            "CVE-2025-15056"
+          ]
+        },
+        "info": [
+          "https://fluidattacks.com/advisories/diomedes"
+        ]
+      }
+    ],
     "extractors": {
       "filename": [
         "quill-(§§version§§)(?:\\.min)?\\.js"
@@ -12867,7 +12951,53 @@
     }
   },
   "swiper": {
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "6.5.1",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Versions of the package swiper before 6.5.1 are susceptible to prototype pollution.",
+          "githubID": "GHSA-p3hc-fv2j-rp68",
+          "CVE": [
+            "CVE-2021-23370"
+          ]
+        },
+        "info": [
+          "https://github.com/nolimits4web/Swiper/commit/ec358deab79a8cd2529465f07a0ead5dbcc264ad",
+          "https://github.com/nolimits4web/swiper/commit/9dad2739b7474f383474773d5ab898a0c29ac178",
+          "https://github.com/nolimits4web/swiper/blob/master/CHANGELOG.md#651-2021-03-29",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1244698",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1244699",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBNOLIMITS4WEB-1244697",
+          "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1244696",
+          "https://snyk.io/vuln/SNYK-JS-SWIPER-1088062"
+        ]
+      },
+      {
+        "atOrAbove": "6.5.1",
+        "below": "12.1.2",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "### Summary\nA prototype pollution vulnerability exists in the the npm package swiper (>=6.5.1, < 12.1.2). Despite a previous fix that attempted to mitigate prototype pollution by checking whether user input contained a forbidden key, it is still possible to pollute `Object.prototype` via a crafted input using Array.prototype. The exploit works across Windows and Linux and on Node and Bun runtimes. This issue is fixed in version 12.1.2\n\n### Details\nThe vulnerability resides in line 94 of shared/utils.mjs where indexOf() function is used to check whether user provided input contain forbidden strings.\n\n### PoC\n#### Steps to reproduce\n1. Install latest version of swiper using npm install \n2. Run the following code snippet:\n```javascript\nvar swiper = require('swiper');\nArray.prototype.indexOf = () => -1;        \nlet obj = {};\nvar malicious_payload = '{\"__proto__\":{\"polluted\":\"yes\"}}';\nconsole.log({}.polluted);\nswiper.default.extendDefaults(JSON.parse(malicious_payload));\nconsole.log({}.polluted);  // prints yes -> indicating that the patch was bypassed and prototype pollution occurred\n```\n\n#### Expected behavior\nPrototype pollution should be prevented and {} should not gain new properties.\nThis should be printed on the console:\n```\nundefined\nundefined OR throw an Error\n```\n\n#### Actual behavior\nObject.prototype is polluted\nThis is printed on the console:\n```\nundefined \nyes\n```\n\n### Impact\nThis is a prototype pollution vulnerability, which can have severe security implications depending on how swiper is used by downstream applications. Any application that processes attacker-controlled input using this package may be affected.\nIt could potentially lead to the following problems:\n1. Authentication bypass\n2. Denial of service - Even if an attacker is not able to exploit prototype pollution in swiper, if there is a prototype pollution within the project from other dependencies, modifying global `Array.prototype.indexOf` property can result in crash when swiper.default.extendDefaults is called because swiper makes use of this global property. This can lead to Denial of Service.  \n3. Remote code execution (if polluted property is passed to sinks like eval or child_process)\n\n### Related CVEs\n[CVE-2026-25521](https://github.com/advisories/GHSA-rxrv-835q-v5mh)\n[CVE-2026-25047](https://github.com/advisories/GHSA-2733-6c58-pf27)\n[CVE-2026-26021](https://github.com/advisories/GHSA-2c4m-g7rx-63q7)",
+          "githubID": "GHSA-hmx5-qpq5-p643",
+          "CVE": [
+            "CVE-2026-27212"
+          ]
+        },
+        "info": [
+          "https://github.com/nolimits4web/swiper/security/advisories/GHSA-hmx5-qpq5-p643",
+          "https://github.com/nolimits4web/swiper/commit/d3e663322a13043ca63aaba235d8cf3900e0c8cf",
+          "https://github.com/nolimits4web/swiper/releases/tag/v12.1.2"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/[Ss]wiper[@/](§§version§§)/swiper"
