@@ -7587,6 +7587,7 @@
           "below": "0.30.3",
           "severity": "high",
           "cwe": [
+            "CWE-1321",
             "CWE-754"
           ],
           "identifiers": {
@@ -7993,6 +7994,7 @@
           "below": "1.13.5",
           "severity": "high",
           "cwe": [
+            "CWE-1321",
             "CWE-754"
           ],
           "identifiers": {

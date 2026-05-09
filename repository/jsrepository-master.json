@@ -7137,6 +7137,7 @@
         },
         "severity": "high",
         "cwe": [
+          "CWE-1321",
           "CWE-754"
         ],
         "info": [
