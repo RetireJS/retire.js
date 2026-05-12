@@ -9409,6 +9409,368 @@
           "https://github.com/vercel/next.js/security/advisories/GHSA-q4gf-8mx6-v5v3",
           "https://vercel.com/changelog/summary-of-cve-2026-23869"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "15.2.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApp Router applications that rely on middleware or proxy-based checks for authorization can allow unauthorized access through transport-specific route variants used for segment prefetching. In affected configurations, specially crafted `.rsc` and segment-prefetch URLs can resolve to the same page without being matched by the intended middleware rule, which can allow protected content to be reached without the expected authorization check.\n\n### Fix\n\nWe now include App Router transport variants when generating middleware matchers, so middleware protections are applied consistently to those requests as well as to the normal page URL.\n\n### Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in the underlying route or page logic instead of relying solely on middleware.",
+        "identifiers": {
+          "githubID": "GHSA-267c-6grr-h53f",
+          "CVE": [
+            "CVE-2026-44575"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-288"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "15.2.0",
+            "below": "15.5.18"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.6"
+          }
+        ],
+        "summary": "### Impact\n\n\nIt was found that the fix addressing [CVE-2026-44575](https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f) did not apply to `middleware.ts` with Turbopack. Refer to  [CVE-2026-44575](https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f) for further details.\n\n### References \n\n- [CVE CVE-2026-44575](https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f)",
+        "identifiers": {
+          "githubID": "GHSA-26hh-7cqf-hhc6",
+          "CVE": [
+            "CVE-2026-45109"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-288"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-26hh-7cqf-hhc6",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.18",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.6"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "12.2.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApplications using the Pages Router with `i18n` configured and middleware/proxy-based authorization can allow unauthorized access to protected page data through locale-less `/_next/data/<buildId>/<page>.json` requests. In affected configurations, middleware does not run for the unprefixed data route, allowing an attacker to retrieve SSR JSON for protected pages without passing the intended authorization checks.\n\n### Fix\nThe matcher logic was updated to perform the same match as it would on a non-i18n data route.\n\n### Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in the page's server-side data path instead of relying solely on middleware.",
+        "identifiers": {
+          "githubID": "GHSA-36qx-fr4f-26g5",
+          "CVE": [
+            "CVE-2026-44573"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-863"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-36qx-fr4f-26g5",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "12.2.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nNext.js uses the `x-nextjs-data` request header for internal data requests. On affected versions, an external client could send this header on a normal request to a path handled by middleware that returns a redirect.\n\nWhen that happened, the middleware/proxy could treat the request as a data request and replace the standard `Location` redirect header with the internal `x-nextjs-redirect` header. Browsers do not follow `x-nextjs-redirect`, so the response became an unusable redirect for normal clients.\n\nIf the application was deployed behind a CDN or reverse proxy that caches 3xx responses without varying on this header, a single attacker request could poison the cached redirect response for the affected path. Subsequent visitors could then receive a cached redirect response without a `Location` header, causing a denial of service for that redirect path until the cache entry expired or was purged.\n\n### Affected scenarios\n\nThis affects applications that:\n- use middleware or proxy redirects\n- are deployed behind a caching CDN or reverse proxy\n- allow 3xx responses on those paths to be cached without differentiating internal data requests from normal requests\n\n### Fix\n\nThe fix stops trusting `x-nextjs-data` by itself for middleware redirect handling. A request is now treated as an internal data request only when it is validated as such by internal routing state, preserving legitimate data-request redirect behavior while preventing external header injection from changing normal redirect responses.\n\n### Workarounds\n\nBefore upgrading, users can reduce risk by:\n- configuring the CDN or reverse proxy to vary its cache key on `x-nextjs-data` for affected responses",
+        "identifiers": {
+          "githubID": "GHSA-3g8h-86w9-wvmq",
+          "CVE": [
+            "CVE-2026-44572"
+          ]
+        },
+        "severity": "low",
+        "cwe": [
+          "CWE-349"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-3g8h-86w9-wvmq",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "15.4.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApplications that rely on middleware to protect dynamic routes can be vulnerable to authorization bypass. In affected deployments, specially crafted query parameters can alter the dynamic route value seen by the page while leaving the visible path unchanged, which can allow protected content to be rendered without passing the expected middleware check.\n\n### Fix\n\nWe now only honor internal route-parameter normalization in trusted routing flows and ignore externally supplied parameter encodings that should never have been accepted from ordinary requests.\n\n### Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in route or page logic instead of relying solely on middleware path matching.",
+        "identifiers": {
+          "githubID": "GHSA-492v-c6pp-mqqv",
+          "CVE": [
+            "CVE-2026-44574"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-288"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-492v-c6pp-mqqv",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "13.0.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "A vulnerability affects certain React Server Components packages for versions 19.x and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x, and 16.x using the App Router. The issue is tracked upstream as [CVE-2026-23870](https://github.com/facebook/react/security/advisories/GHSA-rv78-f8rc-xrxh). \n\nA specially crafted HTTP request can be sent to any App Router Server Function endpoint that, when deserialized, may trigger excessive CPU usage. This can result in denial of service in unpatched environments.",
+        "identifiers": {
+          "githubID": "GHSA-8h8q-6873-q5fj"
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "info": [
+          "https://github.com/facebook/react/security/advisories/GHSA-rv78-f8rc-xrxh",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-8h8q-6873-q5fj",
+          "https://github.com/vitejs/vite-plugin-react/security/advisories/GHSA-w94c-4vhp-22gx"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "13.4.13",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nSelf-hosted applications using the built-in Node.js server can be vulnerable to server-side request forgery through crafted WebSocket upgrade requests. An attacker can cause the server to proxy requests to arbitrary internal or external destinations, which may expose internal services or cloud metadata endpoints. Vercel-hosted deployments are not affected.\n\n### Fix\n\nWe now apply the same safety checks to WebSocket upgrade handling that already existed for normal HTTP requests, so upgrade requests are only proxied when routing has explicitly marked them as safe external rewrites.\n\n### Workarounds\n\nIf you cannot upgrade immediately, do not expose the origin server directly to untrusted networks. If WebSocket upgrades are not required, block them at your reverse proxy or load balancer, and restrict origin egress to internal networks and metadata services where possible.",
+        "identifiers": {
+          "githubID": "GHSA-c4j6-fc7j-m34r",
+          "CVE": [
+            "CVE-2026-44578"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-918"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-c4j6-fc7j-m34r",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "13.4.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApp Router applications that rely on CSP nonces can be vulnerable to stored cross-site scripting when deployed behind shared caches. In affected versions, malformed nonce values derived from request headers could be reflected into rendered HTML in an unsafe way, allowing an attacker to poison cached responses and cause script execution for later visitors.\n\n### Fix\n\nWe now reject or ignore malformed nonce values before they are embedded into HTML and apply stricter nonce sanitization so request-derived nonce data cannot break out of the intended attribute context.\n\n### Workarounds\n\nIf you cannot upgrade immediately, strip inbound `Content-Security-Policy` request headers from untrusted traffic.",
+        "identifiers": {
+          "githubID": "GHSA-ffhc-5mcf-pf4q",
+          "CVE": [
+            "CVE-2026-44581"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-ffhc-5mcf-pf4q",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "13.0.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApplications that use `beforeInteractive` scripts together with untrusted content can be vulnerable to cross-site scripting. In affected versions, serialized script content was not escaped safely before being embedded into the document, which could allow attacker-controlled input to break out of the intended script context and execute arbitrary JavaScript in a visitor's browser.\n\n### Fix\n\nWe now HTML-escape serialized `beforeInteractive` script content before embedding it into the page, preventing attacker-controlled content from breaking out of the inline script boundary.\n\n### Workarounds\n\nIf you cannot upgrade immediately, do not pass untrusted data into `beforeInteractive` scripts. If that pattern is unavoidable, sanitize or escape the content before embedding it.",
+        "identifiers": {
+          "githubID": "GHSA-gx5p-jg67-6x7h",
+          "CVE": [
+            "CVE-2026-44580"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-gx5p-jg67-6x7h",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "10.0.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nWhen self-hosting Next.js with the default image loader, the Image Optimization API fetches local images entirely into memory without enforcing a maximum size limit. An attacker could cause out-of-memory conditions by requesting large local assets from the `/_next/image` endpoint that match the `images.localPatterns` configuration (by default, all patterns are allowed).\n\n- If you are using `images.localPatterns`, only the patterns in that array are impacted.\n- If you are using `images.unoptimized: true`, you are NOT impacted.\n- If you are using `images.loader: 'custom'`, you are NOT impacted.\n- If you are using Vercel, you are NOT impacted.\n\n### Fix\n\nWe now apply response size limits consistently to internal image fetches, not just external ones, and fail oversized responses before they can exhaust process memory.\n\nThis can be adjusted using the `images.maximumResponseBody` configuration.\n\n### Workarounds\n\nIf you cannot upgrade immediately, avoid routing large local assets through `/_next/image`, disable image optimization for large or untrusted local files, or block image optimization access to those assets at the edge.\n\nYou can disable using the `images.localPatterns: []` configuration. This will still allow fetching remote images (which is not impacted).",
+        "identifiers": {
+          "githubID": "GHSA-h64f-5h5j-jqjh",
+          "CVE": [
+            "CVE-2026-44577"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-770"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-h64f-5h5j-jqjh",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "15.0.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApplications using Partial Prerendering through the Cache Components feature can be vulnerable to connection exhaustion through crafted POST requests to a server action. In affected configurations, a malicious request can trigger a request-body handling deadlock that leaves connections open for an extended period, consuming file descriptors and server capacity until legitimate users are denied service.\n\n### Fix\n\nWe now treat the header used for resuming Partial Prerendered requests as an internal-only header and strip it from untrusted incoming requests. This header should never be accepted directly from external clients.\n\n### Workarounds\n\nIf you cannot upgrade immediately, block requests that would be handled by Next.js if they contain the `Next-Resume` header at the edge.",
+        "identifiers": {
+          "githubID": "GHSA-mg66-mrh9-m8jx",
+          "CVE": [
+            "CVE-2026-44579"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mg66-mrh9-m8jx",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "13.4.6",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nReact Server Component responses can be vulnerable to cache poisoning in deployments that rely on shared caches with insufficient response partitioning. In affected conditions, collisions in the `_rsc` cache-busting value can allow an attacker to poison cache entries so users receive the wrong response variant for a given URL.\n\n### Fix\n\nWe strengthened the `_rsc` cache-busting mechanism to make practical collisions significantly harder and to better separate response variants that should not share cache entries.\n\n### Workarounds\n\nIf you cannot upgrade immediately, ensure intermediary caches correctly honor `Vary` for RSC-related request headers, or disable shared caching for affected RSC responses until you can deploy a patched release.",
+        "identifiers": {
+          "githubID": "GHSA-vfv6-92ff-j949",
+          "CVE": [
+            "CVE-2026-44582"
+          ]
+        },
+        "severity": "low",
+        "cwe": [
+          "CWE-328"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-vfv6-92ff-j949",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "14.2.0",
+            "below": "15.5.16"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.2.5"
+          }
+        ],
+        "summary": "### Impact\n\nApplications using React Server Components can be vulnerable to cache poisoning when shared caches do not correctly partition response variants. Under affected conditions, an attacker can cause an RSC response to be served from the original URL and poison shared cache entries so later visitors receive component payloads instead of the expected HTML.\n\n### Fix\n\nWe now validate and interpret `RSC` request headers consistently across request classification and rendering, and we enforce the intended cache-busting behavior so RSC payloads are not unexpectedly served from the original URL.\n\n### Workarounds\n\nIf you cannot upgrade immediately, ensure your CDN or reverse proxy keys on the relevant RSC request headers and honors `Vary`, or disable shared caching for affected App Router and RSC responses.",
+        "identifiers": {
+          "githubID": "GHSA-wfc6-r584-vfw7",
+          "CVE": [
+            "CVE-2026-44576"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-436"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-wfc6-r584-vfw7",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+          "https://github.com/vercel/next.js/releases/tag/v16.2.5"
+        ]
       }
     ],
     "extractors": {
@@ -11371,7 +11733,51 @@
   },
   "mootools": {
     "npmname": "mootools",
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "1.5.3"
+          }
+        ],
+        "summary": "MooTools is a collection of JavaScript utilities for JavaScript developers. All known versions include a CSS selector parser that is vulnerable to Regular Expression Denial of Service (ReDoS). An attack requires that an attacker can inject a string into a CSS selector at runtime, which is quite common with e.g. jQuery CSS selectors. No patches are available for this issue.",
+        "identifiers": {
+          "githubID": "GHSA-v63q-hgqc-qvpg",
+          "CVE": [
+            "CVE-2021-32821"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-1333",
+          "CWE-400"
+        ],
+        "info": []
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "1.5.3"
+          }
+        ],
+        "summary": "This affects all versions of package mootools. This is due to the ability to pass untrusted input to Object.merge()",
+        "identifiers": {
+          "githubID": "GHSA-x6hx-7gh3-3q98",
+          "CVE": [
+            "CVE-2021-23432"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "info": [
+          "https://snyk.io/vuln/SNYK-JS-MOOTOOLS-1325536"
+        ]
+      }
+    ],
     "extractors": {
       "func": [
         "MooTools.version"
