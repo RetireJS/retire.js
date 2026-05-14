@@ -13930,7 +13930,470 @@
     },
     "protobufjs": {
       "npmname": "protobufjs",
-      "vulnerabilities": [],
+      "vulnerabilities": [
+        {
+          "atOrAbove": "0",
+          "below": "5.0.3",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "identifiers": {
+            "summary": "Versions of `protobufjs` before 5.0.3 and 6.8.6 are vulnerable to a regular expression denial of service when parsing crafted invalid *.proto files.\n\n\n## Recommendation\n\nUpdate to version 5.0.3, 6.8.6 or later.",
+            "githubID": "GHSA-762f-c2wg-m8c8",
+            "CVE": [
+              "CVE-2018-3738"
+            ]
+          },
+          "info": [
+            "https://hackerone.com/reports/319576",
+            "https://github.com/dcodeIO/protobuf.js/blob/6.8.5/src/parse.js#L27",
+            "https://www.npmjs.com/advisories/605"
+          ]
+        },
+        {
+          "atOrAbove": "6.0.0",
+          "below": "6.8.6",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "identifiers": {
+            "summary": "Versions of `protobufjs` before 5.0.3 and 6.8.6 are vulnerable to a regular expression denial of service when parsing crafted invalid *.proto files.\n\n\n## Recommendation\n\nUpdate to version 5.0.3, 6.8.6 or later.",
+            "githubID": "GHSA-762f-c2wg-m8c8",
+            "CVE": [
+              "CVE-2018-3738"
+            ]
+          },
+          "info": [
+            "https://hackerone.com/reports/319576",
+            "https://github.com/dcodeIO/protobuf.js/blob/6.8.5/src/parse.js#L27",
+            "https://www.npmjs.com/advisories/605"
+          ]
+        },
+        {
+          "atOrAbove": "6.10.0",
+          "below": "6.10.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "The package protobufjs is vulnerable to Prototype Pollution, which can allow an attacker to add/modify properties of the Object.prototype. Versions after and including 6.10.0 until 6.10.3 and after and including 6.11.0 until 6.11.3 are vulnerable.\n\nThis vulnerability can occur in multiple ways:\n1. by providing untrusted user input to util.setProperty or to ReflectionObject.setParsedOption functions\n2. by parsing/loading .proto files\n\n\n",
+            "githubID": "GHSA-g954-5hwp-pp24",
+            "CVE": [
+              "CVE-2022-25878"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/pull/1731",
+            "https://github.com/protobufjs/protobuf.js/pull/1735",
+            "https://github.com/protobufjs/protobuf.js/commit/b5f1391dff5515894830a6570e6d73f5511b2e8f",
+            "https://github.com/protobufjs/protobuf.js/blob/d13d5d5688052e366aa2e9169f50dfca376b32cf/src/util.js%23L176-L197",
+            "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-2841507",
+            "https://snyk.io/vuln/SNYK-JS-PROTOBUFJS-2441248"
+          ]
+        },
+        {
+          "atOrAbove": "6.11.0",
+          "below": "6.11.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "The package protobufjs is vulnerable to Prototype Pollution, which can allow an attacker to add/modify properties of the Object.prototype. Versions after and including 6.10.0 until 6.10.3 and after and including 6.11.0 until 6.11.3 are vulnerable.\n\nThis vulnerability can occur in multiple ways:\n1. by providing untrusted user input to util.setProperty or to ReflectionObject.setParsedOption functions\n2. by parsing/loading .proto files\n\n\n",
+            "githubID": "GHSA-g954-5hwp-pp24",
+            "CVE": [
+              "CVE-2022-25878"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/pull/1731",
+            "https://github.com/protobufjs/protobuf.js/pull/1735",
+            "https://github.com/protobufjs/protobuf.js/commit/b5f1391dff5515894830a6570e6d73f5511b2e8f",
+            "https://github.com/protobufjs/protobuf.js/blob/d13d5d5688052e366aa2e9169f50dfca376b32cf/src/util.js%23L176-L197",
+            "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-2841507",
+            "https://snyk.io/vuln/SNYK-JS-PROTOBUFJS-2441248"
+          ]
+        },
+        {
+          "atOrAbove": "6.10.0",
+          "below": "6.11.4",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "protobuf.js (aka protobufjs) 6.10.0 until 6.11.4 and 7.0.0 until 7.2.4 allows Prototype Pollution, a different vulnerability than CVE-2022-25878. A user-controlled protobuf message can be used by an attacker to pollute the prototype of Object.prototype by adding and overwriting its data and functions. Exploitation can involve: (1) using the function parse to parse protobuf messages on the fly, (2) loading .proto files by using load/loadSync functions, or (3) providing untrusted input to the functions ReflectionObject.setParsedOption and util.setProperty. NOTE: this CVE Record is about `Object.constructor.prototype.<new-property> = ...;` whereas CVE-2022-25878 was about `Object.__proto__.<new-property> = ...;` instead.",
+            "githubID": "GHSA-h755-8qp9-cq85",
+            "CVE": [
+              "CVE-2023-36665"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/issues/1918#issuecomment-1723500294",
+            "https://github.com/protobufjs/protobuf.js/pull/1899",
+            "https://github.com/protobufjs/protobuf.js/commit/e66379f451b0393c27d87b37fa7d271619e16b0d",
+            "https://github.com/protobufjs/protobuf.js/commits/release-6.11.4",
+            "https://github.com/protobufjs/protobuf.js/compare/protobufjs-v7.2.3...protobufjs-v7.2.4",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.2.4",
+            "https://security.netapp.com/advisory/ntap-20240628-0006",
+            "https://www.code-intelligence.com/blog/cve-protobufjs-prototype-pollution-cve-2023-36665"
+          ]
+        },
+        {
+          "atOrAbove": "7.0.0",
+          "below": "7.2.5",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "protobuf.js (aka protobufjs) 6.10.0 until 6.11.4 and 7.0.0 until 7.2.4 allows Prototype Pollution, a different vulnerability than CVE-2022-25878. A user-controlled protobuf message can be used by an attacker to pollute the prototype of Object.prototype by adding and overwriting its data and functions. Exploitation can involve: (1) using the function parse to parse protobuf messages on the fly, (2) loading .proto files by using load/loadSync functions, or (3) providing untrusted input to the functions ReflectionObject.setParsedOption and util.setProperty. NOTE: this CVE Record is about `Object.constructor.prototype.<new-property> = ...;` whereas CVE-2022-25878 was about `Object.__proto__.<new-property> = ...;` instead.",
+            "githubID": "GHSA-h755-8qp9-cq85",
+            "CVE": [
+              "CVE-2023-36665"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/issues/1918#issuecomment-1723500294",
+            "https://github.com/protobufjs/protobuf.js/pull/1899",
+            "https://github.com/protobufjs/protobuf.js/commit/e66379f451b0393c27d87b37fa7d271619e16b0d",
+            "https://github.com/protobufjs/protobuf.js/commits/release-6.11.4",
+            "https://github.com/protobufjs/protobuf.js/compare/protobufjs-v7.2.3...protobufjs-v7.2.4",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.2.4",
+            "https://security.netapp.com/advisory/ntap-20240628-0006",
+            "https://www.code-intelligence.com/blog/cve-protobufjs-prototype-pollution-cve-2023-36665"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.5",
+          "severity": "critical",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs could execute generated JavaScript code derived from protobuf schema metadata. When loading a crafted JSON descriptor, schema-controlled type names and type references could reach runtime code generation without sufficient validation.\n\n## Impact\n\nAn attacker who can provide a malicious protobuf definition or JSON descriptor to an application may be able to execute arbitrary JavaScript in the context of the process using protobufjs.\n\nThis requires control over the protobuf schema or descriptor being loaded. Applications that only decode messages using trusted, application-defined schemas are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf definition or JSON descriptor.\n- The application must load that definition through protobufjs reflection APIs such as descriptor loading.\n- The affected generated-code path must be reached, for example by performing an operation on the loaded type.\n\n## Workarounds\n\nDo not load protobuf definitions or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or restrict them before loading and run schema processing in an isolated environment.",
+            "githubID": "GHSA-xq3m-2v4x-88gg",
+            "CVE": [
+              "CVE-2026-41242"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-xq3m-2v4x-88gg",
+            "https://github.com/protobufjs/protobuf.js/commit/535df444ac060243722ac5d672db205e5c531d75",
+            "https://github.com/protobufjs/protobuf.js/commit/ff7b2afef8754837cc6dc64c864cd111ab477956",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.5",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.1"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "medium",
+          "cwe": [
+            "CWE-20"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs generated JavaScript property accessors from schema-controlled field and oneof names. Certain control characters in field names were not escaped before being embedded into generated function bodies. A crafted schema or JSON descriptor could therefore cause generated encode, decode, verify, or conversion functions to fail during compilation.\n\n## Impact\n\nAn attacker who can provide or influence a protobuf schema or JSON descriptor may be able to make affected message types unusable by causing protobufjs runtime code generation to throw a syntax error.\n\nThis is a denial of service issue for applications that load untrusted schemas or descriptors. Applications that only use trusted, application-defined schemas are not directly affected by this issue.\n\nThe issue is not known to allow code execution by itself.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf schema or JSON descriptor.\n- The crafted input must define a field name containing control characters that reach generated JavaScript property access.\n- The application must perform an operation that triggers protobufjs code generation for the affected type, such as encode, decode, verify, `fromObject`, or `toObject`.\n\n## Workarounds\n\nDo not load protobuf schemas or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate field names before loading them and reject names containing control characters.",
+            "githubID": "GHSA-2pr8-phx7-x9h3",
+            "CVE": [
+              "CVE-2026-44294"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-2pr8-phx7-x9h3",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "high",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs generated JavaScript for `toObject` conversion could include an unsafe expression derived from a schema-controlled `bytes` field default value. A crafted descriptor with a non-string default value for a `bytes` field could cause attacker-controlled code to be emitted into the generated conversion function.\n\n## Impact\n\nAn attacker who can provide or influence a protobuf descriptor may be able to execute arbitrary JavaScript in the context of the process using protobufjs.\n\nThis requires the application to load an attacker-controlled schema or descriptor and then convert a message of the affected type with defaults enabled. Applications that only use trusted, application-defined schemas are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf JSON descriptor or equivalent reflected schema.\n- The descriptor must define a `bytes` field with an attacker-controlled default value.\n- The application must call `toObject` with defaults enabled for the affected type.\n\n## Workarounds\n\nDo not load protobuf schemas or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or restrict field options before loading them and run schema processing in an isolated environment.",
+            "githubID": "GHSA-66ff-xgx4-vchm",
+            "CVE": [
+              "CVE-2026-44293"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-66ff-xgx4-vchm",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "high",
+          "cwe": [
+            "CWE-674"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs could recurse without a depth limit while decoding nested protobuf data. This affected both skipping unknown group fields and generated decoding of nested message fields.\n\nA crafted protobuf binary payload could cause the JavaScript call stack to be exhausted during decoding.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded by an application may be able to crash the process or otherwise cause decoding to fail with a stack overflow.\n\nThis affects applications that decode untrusted protobuf binary input with affected versions.\n\n## Preconditions\n\n- The application must decode protobuf binary data influenced by an attacker.\n- The crafted input must contain deeply nested protobuf structures, such as nested group tags or nested message fields.\n- The affected decoder path must process the crafted input.\n\n## Workarounds\n\nAvoid decoding untrusted protobuf binary data with affected versions. If immediate upgrade is not possible, reject excessively nested messages at an outer protocol boundary where feasible, or isolate protobuf decoding in a process that can be safely restarted.",
+            "githubID": "GHSA-685m-2w69-288q",
+            "CVE": [
+              "CVE-2026-44289"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-685m-2w69-288q",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs used plain objects with inherited prototypes for internal type lookup tables used by generated encode and decode functions. If `Object.prototype` had already been polluted, those lookup tables could resolve attacker-controlled inherited properties as valid protobuf type information.\n\nThis could cause attacker-controlled strings to be emitted into generated JavaScript code.\n\n## Impact\n\nAn attacker who can first trigger a prototype pollution vulnerability may be able to influence generated protobufjs encode or decode functions in a way that can lead to arbitrary JavaScript execution.\n\nThis issue requires a separate prototype pollution primitive before protobufjs is invoked.\n\nApplications without a reachable prototype pollution primitive are not directly exploitable through this issue alone.\n\n## Preconditions\n\n- The application or one of its dependencies must allow an attacker to pollute `Object.prototype`.\n- The polluted property must affect protobufjs internal type lookup behavior.\n- The application must use protobufjs functionality that generates encode or decode code for affected types.\n- The generated code path must be reached after the prototype pollution has occurred.\n\n## Workarounds\n\nAvoid running affected versions in applications where attacker-controlled input can pollute `Object.prototype`. If immediate upgrade is not possible, remove or mitigate reachable prototype pollution primitives and isolate schema/message processing from untrusted application state.",
+            "githubID": "GHSA-75px-5xx7-5xc7",
+            "CVE": [
+              "CVE-2026-44291"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-75px-5xx7-5xc7",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs generated message constructors copied enumerable properties from a provided properties object without filtering the `__proto__` key. If an application constructed a message from an attacker-controlled plain object, an own enumerable `__proto__` property could alter the prototype of that individual message instance.\n\n## Impact\n\nAn attacker who can control the properties object passed to a generated protobufjs message constructor or creation helper may be able to modify the prototype chain of the resulting message instance.\n\nThis is a per-instance prototype injection issue. It does not pollute `Object.prototype` or other global prototypes. The impact depends on downstream application behavior, such as relying on inherited properties, prototype methods, or `instanceof` checks for message objects.\n\nApplications that only decode binary protobuf data, or that construct messages from trusted application-defined objects, are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a plain object used to construct a protobufjs message.\n- The object must contain an own enumerable `__proto__` property, for example from parsed JSON input.\n- The application must pass that object to a generated message constructor or creation helper that copies arbitrary enumerable properties.\n\n## Workarounds\n\nDo not pass attacker-controlled plain objects directly to generated message constructors with affected versions. If untrusted JSON input must be accepted, validate or sanitize object keys before constructing messages, and reject `__proto__` properties.",
+            "githubID": "GHSA-fx83-v9x8-x52w",
+            "CVE": [
+              "CVE-2026-44292"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-fx83-v9x8-x52w",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs allowed certain schema option paths to traverse through inherited object properties while applying options. A crafted protobuf schema or JSON descriptor could cause option handling to write to properties on global JavaScript constructors, corrupting process-wide built-in functionality.\n\n## Impact\n\nAn attacker who can provide or influence protobuf schemas or JSON descriptors may be able to corrupt built-in process state in a way that causes subsequent application code or protobufjs code to fail. This can result in a persistent denial of service for the lifetime of the affected process.\n\nThis issue affects applications that parse or load protobuf schemas or descriptors from untrusted sources. Applications that use bundled, generated, or otherwise trusted schemas to decode untrusted protobuf message payloads are not directly affected.\n\nThe issue is not known to allow code execution by itself.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf schema or JSON descriptor.\n- The application must parse or load that schema through protobufjs reflection APIs such as `parse`, `Root.load`, `Root.loadSync`, or `Root.fromJSON`.\n- The crafted input must contain option paths that reach unsafe inherited properties during option processing.\n\n## Workarounds\n\nDo not parse or load protobuf schemas or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or reject option names containing unsafe property path components before loading them, and run schema processing in an isolated process.",
+            "githubID": "GHSA-jvwf-75h9-cwgg",
+            "CVE": [
+              "CVE-2026-44290"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jvwf-75h9-cwgg",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "7.5.6",
+          "severity": "medium",
+          "cwe": [
+            "CWE-176"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs includes a minimal UTF-8 decoder used in non-Node and fallback decoding paths. The affected decoder accepted overlong UTF-8 byte sequences and decoded them to their canonical characters instead of replacing them.\n\nThe issue concerns overlong encodings and code points outside the Unicode range. protobufjs may still accept some non-strict UTF-8 input for compatibility, so applications should not rely on protobufjs as a general-purpose strict UTF-8 validator.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded through the affected UTF-8 path may be able to bypass application-level checks that inspect raw bytes before protobuf string decoding. For example, bytes that do not contain certain ASCII characters could decode to strings containing those characters.\n\nThe practical impact depends on downstream application validation and how decoded strings are used. Node.js Buffer-backed decoding paths are not directly affected when they use Node's native UTF-8 decoding.\n\n## Preconditions\n\n- The application must decode protobuf binary data influenced by an attacker.\n- The affected protobuf string field must be decoded through protobufjs's minimal UTF-8 decoder rather than a native UTF-8 decoder.\n- The application must rely on byte-level filtering or validation before protobuf string decoding.\n- The decoded string must then be used in a security-sensitive context.\n\n## Workarounds\n\nAvoid relying only on byte-level filtering before protobuf string decoding with affected versions. Validate decoded strings at the point where they are used, and prefer runtime paths that use native UTF-8 decoding where necessary.",
+            "githubID": "GHSA-q6x5-8v7m-xcrf",
+            "CVE": [
+              "CVE-2026-44288"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-q6x5-8v7m-xcrf",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.1",
+          "severity": "critical",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs could execute generated JavaScript code derived from protobuf schema metadata. When loading a crafted JSON descriptor, schema-controlled type names and type references could reach runtime code generation without sufficient validation.\n\n## Impact\n\nAn attacker who can provide a malicious protobuf definition or JSON descriptor to an application may be able to execute arbitrary JavaScript in the context of the process using protobufjs.\n\nThis requires control over the protobuf schema or descriptor being loaded. Applications that only decode messages using trusted, application-defined schemas are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf definition or JSON descriptor.\n- The application must load that definition through protobufjs reflection APIs such as descriptor loading.\n- The affected generated-code path must be reached, for example by performing an operation on the loaded type.\n\n## Workarounds\n\nDo not load protobuf definitions or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or restrict them before loading and run schema processing in an isolated environment.",
+            "githubID": "GHSA-xq3m-2v4x-88gg",
+            "CVE": [
+              "CVE-2026-41242"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-xq3m-2v4x-88gg",
+            "https://github.com/protobufjs/protobuf.js/commit/535df444ac060243722ac5d672db205e5c531d75",
+            "https://github.com/protobufjs/protobuf.js/commit/ff7b2afef8754837cc6dc64c864cd111ab477956",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.5",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.1"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "medium",
+          "cwe": [
+            "CWE-20"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs generated JavaScript property accessors from schema-controlled field and oneof names. Certain control characters in field names were not escaped before being embedded into generated function bodies. A crafted schema or JSON descriptor could therefore cause generated encode, decode, verify, or conversion functions to fail during compilation.\n\n## Impact\n\nAn attacker who can provide or influence a protobuf schema or JSON descriptor may be able to make affected message types unusable by causing protobufjs runtime code generation to throw a syntax error.\n\nThis is a denial of service issue for applications that load untrusted schemas or descriptors. Applications that only use trusted, application-defined schemas are not directly affected by this issue.\n\nThe issue is not known to allow code execution by itself.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf schema or JSON descriptor.\n- The crafted input must define a field name containing control characters that reach generated JavaScript property access.\n- The application must perform an operation that triggers protobufjs code generation for the affected type, such as encode, decode, verify, `fromObject`, or `toObject`.\n\n## Workarounds\n\nDo not load protobuf schemas or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate field names before loading them and reject names containing control characters.",
+            "githubID": "GHSA-2pr8-phx7-x9h3",
+            "CVE": [
+              "CVE-2026-44294"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-2pr8-phx7-x9h3",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs generated JavaScript for `toObject` conversion could include an unsafe expression derived from a schema-controlled `bytes` field default value. A crafted descriptor with a non-string default value for a `bytes` field could cause attacker-controlled code to be emitted into the generated conversion function.\n\n## Impact\n\nAn attacker who can provide or influence a protobuf descriptor may be able to execute arbitrary JavaScript in the context of the process using protobufjs.\n\nThis requires the application to load an attacker-controlled schema or descriptor and then convert a message of the affected type with defaults enabled. Applications that only use trusted, application-defined schemas are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf JSON descriptor or equivalent reflected schema.\n- The descriptor must define a `bytes` field with an attacker-controlled default value.\n- The application must call `toObject` with defaults enabled for the affected type.\n\n## Workarounds\n\nDo not load protobuf schemas or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or restrict field options before loading them and run schema processing in an isolated environment.",
+            "githubID": "GHSA-66ff-xgx4-vchm",
+            "CVE": [
+              "CVE-2026-44293"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-66ff-xgx4-vchm",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-674"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs could recurse without a depth limit while decoding nested protobuf data. This affected both skipping unknown group fields and generated decoding of nested message fields.\n\nA crafted protobuf binary payload could cause the JavaScript call stack to be exhausted during decoding.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded by an application may be able to crash the process or otherwise cause decoding to fail with a stack overflow.\n\nThis affects applications that decode untrusted protobuf binary input with affected versions.\n\n## Preconditions\n\n- The application must decode protobuf binary data influenced by an attacker.\n- The crafted input must contain deeply nested protobuf structures, such as nested group tags or nested message fields.\n- The affected decoder path must process the crafted input.\n\n## Workarounds\n\nAvoid decoding untrusted protobuf binary data with affected versions. If immediate upgrade is not possible, reject excessively nested messages at an outer protocol boundary where feasible, or isolate protobuf decoding in a process that can be safely restarted.",
+            "githubID": "GHSA-685m-2w69-288q",
+            "CVE": [
+              "CVE-2026-44289"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-685m-2w69-288q",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs used plain objects with inherited prototypes for internal type lookup tables used by generated encode and decode functions. If `Object.prototype` had already been polluted, those lookup tables could resolve attacker-controlled inherited properties as valid protobuf type information.\n\nThis could cause attacker-controlled strings to be emitted into generated JavaScript code.\n\n## Impact\n\nAn attacker who can first trigger a prototype pollution vulnerability may be able to influence generated protobufjs encode or decode functions in a way that can lead to arbitrary JavaScript execution.\n\nThis issue requires a separate prototype pollution primitive before protobufjs is invoked.\n\nApplications without a reachable prototype pollution primitive are not directly exploitable through this issue alone.\n\n## Preconditions\n\n- The application or one of its dependencies must allow an attacker to pollute `Object.prototype`.\n- The polluted property must affect protobufjs internal type lookup behavior.\n- The application must use protobufjs functionality that generates encode or decode code for affected types.\n- The generated code path must be reached after the prototype pollution has occurred.\n\n## Workarounds\n\nAvoid running affected versions in applications where attacker-controlled input can pollute `Object.prototype`. If immediate upgrade is not possible, remove or mitigate reachable prototype pollution primitives and isolate schema/message processing from untrusted application state.",
+            "githubID": "GHSA-75px-5xx7-5xc7",
+            "CVE": [
+              "CVE-2026-44291"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-75px-5xx7-5xc7",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs generated message constructors copied enumerable properties from a provided properties object without filtering the `__proto__` key. If an application constructed a message from an attacker-controlled plain object, an own enumerable `__proto__` property could alter the prototype of that individual message instance.\n\n## Impact\n\nAn attacker who can control the properties object passed to a generated protobufjs message constructor or creation helper may be able to modify the prototype chain of the resulting message instance.\n\nThis is a per-instance prototype injection issue. It does not pollute `Object.prototype` or other global prototypes. The impact depends on downstream application behavior, such as relying on inherited properties, prototype methods, or `instanceof` checks for message objects.\n\nApplications that only decode binary protobuf data, or that construct messages from trusted application-defined objects, are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a plain object used to construct a protobufjs message.\n- The object must contain an own enumerable `__proto__` property, for example from parsed JSON input.\n- The application must pass that object to a generated message constructor or creation helper that copies arbitrary enumerable properties.\n\n## Workarounds\n\nDo not pass attacker-controlled plain objects directly to generated message constructors with affected versions. If untrusted JSON input must be accepted, validate or sanitize object keys before constructing messages, and reject `__proto__` properties.",
+            "githubID": "GHSA-fx83-v9x8-x52w",
+            "CVE": [
+              "CVE-2026-44292"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-fx83-v9x8-x52w",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs allowed certain schema option paths to traverse through inherited object properties while applying options. A crafted protobuf schema or JSON descriptor could cause option handling to write to properties on global JavaScript constructors, corrupting process-wide built-in functionality.\n\n## Impact\n\nAn attacker who can provide or influence protobuf schemas or JSON descriptors may be able to corrupt built-in process state in a way that causes subsequent application code or protobufjs code to fail. This can result in a persistent denial of service for the lifetime of the affected process.\n\nThis issue affects applications that parse or load protobuf schemas or descriptors from untrusted sources. Applications that use bundled, generated, or otherwise trusted schemas to decode untrusted protobuf message payloads are not directly affected.\n\nThe issue is not known to allow code execution by itself.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf schema or JSON descriptor.\n- The application must parse or load that schema through protobufjs reflection APIs such as `parse`, `Root.load`, `Root.loadSync`, or `Root.fromJSON`.\n- The crafted input must contain option paths that reach unsafe inherited properties during option processing.\n\n## Workarounds\n\nDo not parse or load protobuf schemas or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or reject option names containing unsafe property path components before loading them, and run schema processing in an isolated process.",
+            "githubID": "GHSA-jvwf-75h9-cwgg",
+            "CVE": [
+              "CVE-2026-44290"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jvwf-75h9-cwgg",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.0.2",
+          "severity": "medium",
+          "cwe": [
+            "CWE-176"
+          ],
+          "identifiers": {
+            "summary": "## Summary\n\nprotobufjs includes a minimal UTF-8 decoder used in non-Node and fallback decoding paths. The affected decoder accepted overlong UTF-8 byte sequences and decoded them to their canonical characters instead of replacing them.\n\nThe issue concerns overlong encodings and code points outside the Unicode range. protobufjs may still accept some non-strict UTF-8 input for compatibility, so applications should not rely on protobufjs as a general-purpose strict UTF-8 validator.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded through the affected UTF-8 path may be able to bypass application-level checks that inspect raw bytes before protobuf string decoding. For example, bytes that do not contain certain ASCII characters could decode to strings containing those characters.\n\nThe practical impact depends on downstream application validation and how decoded strings are used. Node.js Buffer-backed decoding paths are not directly affected when they use Node's native UTF-8 decoding.\n\n## Preconditions\n\n- The application must decode protobuf binary data influenced by an attacker.\n- The affected protobuf string field must be decoded through protobufjs's minimal UTF-8 decoder rather than a native UTF-8 decoder.\n- The application must rely on byte-level filtering or validation before protobuf string decoding.\n- The decoded string must then be used in a security-sensitive context.\n\n## Workarounds\n\nAvoid relying only on byte-level filtering before protobuf string decoding with affected versions. Validate decoded strings at the point where they are used, and prefer runtime paths that use native UTF-8 decoding where necessary.",
+            "githubID": "GHSA-q6x5-8v7m-xcrf",
+            "CVE": [
+              "CVE-2026-44288"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-q6x5-8v7m-xcrf",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+          ]
+        }
+      ],
       "extractors": {
         "filename": [
           "protobuf-(§§version§§)(?:\\.min)?\\.js"
