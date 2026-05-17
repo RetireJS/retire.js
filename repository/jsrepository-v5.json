@@ -7437,6 +7437,80 @@
           "https://github.com/sveltejs/svelte/commit/0298e979371bb583855c9810db79a70a551d22b9",
           "https://github.com/sveltejs/svelte/releases/tag/svelte@5.53.5"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "5.55.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "When using spread syntax to render attributes from untrusted data, event handler properties are included in the rendered HTML output. If an application spreads user-controlled or external data as element attributes, an attacker can inject malicious event handlers that execute in victims' browsers. Note that this vulnerability _only_ triggers if the user's browser has JavaScript enabled but Svelte's hydration mechanism does not reach the vulnerable element before the event fires.\n\nThis is similar to but different from [CVE-2026-27121](https://nvd.nist.gov/vuln/detail/CVE-2026-27121).",
+          "githubID": "GHSA-pr6f-5x2q-rwfp",
+          "CVE": [
+            "CVE-2026-42599"
+          ]
+        },
+        "info": [
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-pr6f-5x2q-rwfp",
+          "https://github.com/sveltejs/svelte/releases/tag/svelte%405.55.7"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "5.55.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Svelte was vulnerable to DOM clobbering of its internal framework state on elements, potentially leading to XSS attacks.\n\nYou are vulnerable if all of the following is true:\n- you are using attribute spreading on a form element\n- you are using attribute spreading or allow a dynamic value for the `name` attribute on an input or button element within that form\n- both of these are simultaneously user-controllable\n\n```svelte\n<form {...spread1}>\n  <input {...spread2}>\n</form>\n```",
+          "githubID": "GHSA-rcqx-6q8c-2c42",
+          "CVE": [
+            "CVE-2026-42573"
+          ]
+        },
+        "info": [
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-rcqx-6q8c-2c42",
+          "https://github.com/sveltejs/svelte/releases/tag/svelte%405.55.7"
+        ]
+      },
+      {
+        "atOrAbove": "5.46.0",
+        "below": "5.55.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Contents of `hydratable` promises were not properly stringified, potentially leading to an XSS exploit. You are vulnerable if all of the following is true:\n- you are using `hydratable` (an experimental feature at the time of this report)\n- you are passing attacker-controlled input such that a synchronous value is hydrated, then a promise value, e.g. `hydratable('someKey', () => [synchronousValue, promiseValue])`",
+          "githubID": "GHSA-f3cj-j4f6-wq85"
+        },
+        "info": [
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-f3cj-j4f6-wq85",
+          "https://github.com/sveltejs/svelte/commit/a16ebc67bbcf8f708360195687e1b2719463e1a4",
+          "http://github.com/sveltejs/svelte/releases/tag/svelte%405.55.7"
+        ]
+      },
+      {
+        "atOrAbove": "5.51.5",
+        "below": "5.55.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "An internal regex in the Svelte runtime can take exponential time to test in `<svelte:element this={tag}></svelte:element>`. You are only vulnerable to this if you allow tags of unconstrained length. If your application only allows a predetermined list of tags or trims their length before passing them to `svelte:element`, you are safe.",
+          "githubID": "GHSA-9rmh-mm8f-r9h6",
+          "CVE": [
+            "CVE-2026-42567"
+          ]
+        },
+        "info": [
+          "https://github.com/sveltejs/svelte/security/advisories/GHSA-9rmh-mm8f-r9h6",
+          "https://github.com/sveltejs/svelte/releases/tag/svelte%405.55.7"
+        ]
       }
     ],
     "extractors": {
