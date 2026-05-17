@@ -229,10 +229,6 @@
       {
         "ranges": [
           {
-            "atOrAbove": "1.2.0",
-            "below": "3.5.0"
-          },
-          {
             "atOrAbove": "1.12.0",
             "below": "3.5.0"
           }
@@ -622,9 +618,6 @@
       },
       {
         "ranges": [
-          {
-            "below": "100.0.0"
-          },
           {
             "atOrAbove": "0",
             "below": "999.999.999"
@@ -2568,44 +2561,20 @@
       {
         "ranges": [
           {
-            "atOrAbove": "0.4",
-            "below": "0.4.4"
-          },
-          {
-            "atOrAbove": "1.0",
-            "below": "1.0.3"
-          },
-          {
-            "atOrAbove": "1.1",
-            "below": "1.1.2"
-          },
-          {
-            "atOrAbove": "1.2",
-            "below": "1.2.4"
-          },
-          {
-            "atOrAbove": "1.3",
-            "below": "1.3.3"
-          },
-          {
-            "atOrAbove": "1.4",
-            "below": "1.4.2"
-          },
-          {
-            "atOrAbove": "1.10.0",
-            "below": "1.10.10"
-          },
-          {
-            "atOrAbove": "1.11.0",
-            "below": "1.11.6"
+            "atOrAbove": "1.13.0",
+            "below": "1.13.1"
           },
           {
             "atOrAbove": "1.12.0",
             "below": "1.12.4"
           },
           {
-            "atOrAbove": "1.13.0",
-            "below": "1.13.1"
+            "atOrAbove": "1.11.0",
+            "below": "1.11.6"
+          },
+          {
+            "atOrAbove": "1.10.0",
+            "below": "1.10.10"
           }
         ],
         "summary": "Versions of dojo prior to 1.4.2 are vulnerable to DOM-based Cross-Site Scripting (XSS). The package does not sanitize URL parameters in the _testCommon.js and runner.html test files, allowing attackers to execute arbitrary JavaScript in the victim's browser.",
@@ -2761,9 +2730,6 @@
       {
         "ranges": [
           {
-            "below": "1.17.0"
-          },
-          {
             "atOrAbove": "0",
             "below": "1.16.5"
           }
@@ -2851,10 +2817,6 @@
       },
       {
         "ranges": [
-          {
-            "atOrAbove": "0",
-            "below": "1.9.8"
-          },
           {
             "atOrAbove": "1.3.1",
             "below": "1.8.4"
@@ -3268,10 +3230,6 @@
         "ranges": [
           {
             "atOrAbove": "1.7.0",
-            "below": "1.8.8"
-          },
-          {
-            "atOrAbove": "1.7.0",
             "below": "999.999.999"
           }
         ],
@@ -3505,9 +3463,6 @@
     "vulnerabilities": [
       {
         "ranges": [
-          {
-            "below": "0.5.0"
-          },
           {
             "atOrAbove": "0.3.3",
             "below": "0.5.0"
@@ -5609,10 +5564,6 @@
         "ranges": [
           {
             "atOrAbove": "1.4.0",
-            "below": "3.4.1"
-          },
-          {
-            "atOrAbove": "1.4.0",
             "below": "3.4.2"
           }
         ],
@@ -5664,9 +5615,6 @@
       },
       {
         "ranges": [
-          {
-            "below": "3.4.0"
-          },
           {
             "atOrAbove": "4.0.0",
             "below": "4.1.2"
@@ -5740,9 +5688,6 @@
       },
       {
         "ranges": [
-          {
-            "below": "3.4.0"
-          },
           {
             "atOrAbove": "4.0.0",
             "below": "4.1.2"
@@ -7001,10 +6946,6 @@
             "below": "1.12.0"
           },
           {
-            "atOrAbove": "0",
-            "below": "0.30.2"
-          },
-          {
             "atOrAbove": "0.28.0",
             "below": "0.30.2"
           }
@@ -7245,10 +7186,6 @@
       {
         "ranges": [
           {
-            "atOrAbove": "0",
-            "below": "1.13.2"
-          },
-          {
             "atOrAbove": "1.13.0",
             "below": "1.13.2"
           }
@@ -7271,10 +7208,6 @@
       },
       {
         "ranges": [
-          {
-            "atOrAbove": "0",
-            "below": "1.15.0"
-          },
           {
             "atOrAbove": "1.0.0",
             "below": "1.15.0"
@@ -7307,10 +7240,6 @@
       },
       {
         "ranges": [
-          {
-            "atOrAbove": "0",
-            "below": "1.15.0"
-          },
           {
             "atOrAbove": "1.0.0",
             "below": "1.15.0"
@@ -8562,10 +8491,6 @@
             "below": "15.2.3"
           },
           {
-            "atOrAbove": "11.1.4",
-            "below": "12.3.5"
-          },
-          {
             "atOrAbove": "12.0.0",
             "below": "12.3.5"
           }
@@ -9118,72 +9043,8 @@
       {
         "ranges": [
           {
-            "atOrAbove": "15.0.0-canary.0",
-            "below": "15.6.0-canary.61"
-          },
-          {
             "atOrAbove": "16.0.0-beta.0",
             "below": "16.1.5"
-          },
-          {
-            "atOrAbove": "15.0.0-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.0.1-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.0.2-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.0.3-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.0.4-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.1.1-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.2.0-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.2.1-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.2.2-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.3.0-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.3.1-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.4.0-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.4.2-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.5.1-canary.0",
-            "below": "999.999.999"
-          },
-          {
-            "atOrAbove": "15.6.0-canary.0",
-            "below": "15.6.0-canary.61"
           },
           {
             "atOrAbove": "15.0.0-canary.0",
@@ -9240,6 +9101,10 @@
           {
             "atOrAbove": "15.5.1-canary.0",
             "below": "15.5.1-canary.40"
+          },
+          {
+            "atOrAbove": "15.6.0-canary.0",
+            "below": "15.6.0-canary.61"
           }
         ],
         "summary": "A denial of service vulnerability exists in Next.js versions with Partial Prerendering (PPR) enabled when running in minimal mode. The PPR resume endpoint accepts unauthenticated POST requests with the `Next-Resume: 1` header and processes attacker-controlled postponed state data. Two closely related vulnerabilities allow an attacker to crash the server process through memory exhaustion:\n\n1. **Unbounded request body buffering**: The server buffers the entire POST request body into memory using `Buffer.concat()` without enforcing any size limit, allowing arbitrarily large payloads to exhaust available memory.\n\n2. **Unbounded decompression (zipbomb)**: The resume data cache is decompressed using `inflateSync()` without limiting the decompressed output size. A small compressed payload can expand to hundreds of megabytes or gigabytes, causing memory exhaustion.\n\nBoth attack vectors result in a fatal V8 out-of-memory error (`FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`) causing the Node.js process to terminate. The zipbomb variant is particularly dangerous as it can bypass reverse proxy request size limits while still causing large memory allocation on the server.\n\nTo be affected, an application must run with `experimental.ppr: true` or `cacheComponents: true` configured along with the NEXT_PRIVATE_MINIMAL_MODE=1 environment variable.\n\nStrongly consider upgrading to 15.6.0-canary.61 or 16.1.5 to reduce risk and prevent availability issues in Next applications.",
@@ -9347,10 +9212,6 @@
       },
       {
         "ranges": [
-          {
-            "atOrAbove": "10.0.0",
-            "below": "16.1.7"
-          },
           {
             "atOrAbove": "16.0.0-beta.0",
             "below": "16.1.7"
