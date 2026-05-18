@@ -7320,7 +7320,7 @@
           "CWE-918"
         ],
         "identifiers": {
-          "summary": "1.",
+          "summary": "Axios has an incomplete security patch for GHSA-3p68-rc4w-qgx5 (CVE-2025-62718) in NO_PROXY hostname resolution.",
           "githubID": "GHSA-pmwg-cvhr-8vh7",
           "CVE": [
             "CVE-2026-42043"
@@ -7742,7 +7742,7 @@
           "CWE-918"
         ],
         "identifiers": {
-          "summary": "1.",
+          "summary": "Axios has an incomplete security patch for GHSA-3p68-rc4w-qgx5 (CVE-2025-62718) in NO_PROXY hostname resolution.",
           "githubID": "GHSA-pmwg-cvhr-8vh7",
           "CVE": [
             "CVE-2026-42043"
