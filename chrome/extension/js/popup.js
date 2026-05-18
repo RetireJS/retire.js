@@ -197,7 +197,11 @@ function show(totalResults) {
       let d = detMapping[r.detection] ?? r.detection;
       let urlDiv = document.createElement("div");
       urlDiv.className = "detection-url";
-      urlDiv.textContent = `${r.url} (${d} detection)`;
+      urlDiv.textContent = `${r.url} `;
+      let detSpan = document.createElement("span");
+      detSpan.textContent = `(${d} detection)`;
+      detSpan.className = "detection-method";
+      urlDiv.appendChild(detSpan);
       body.appendChild(urlDiv);
 
       if (r.vulnerabilities && r.vulnerabilities.length > 0) {
