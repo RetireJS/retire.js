@@ -105,20 +105,28 @@ function show(totalResults) {
 
   let results = Object.values(merged);
   
+  const severityCounts = { critical: 0, high: 0, medium: 0, low: 0 };
   const vulnerabilities = results.reduce((acc, rs) => {
     return (
       acc +
       rs.results.reduce((acc, r) => {
+        if (r.vulnerabilities) {
+          r.vulnerabilities.forEach((v) => {
+            if (v.severity in severityCounts) severityCounts[v.severity]++;
+          });
+        }
         return acc + (r.vulnerabilities ? r.vulnerabilities.length : 0);
       }, 0)
     );
   }, 0);
   document.querySelector("#stats").innerHTML = "";
-  document.querySelector("#stats").appendChild(span(`URLs scanned: ${
-    results.length
-  }`));
-  console.log(vulnerabilities);
+  document.querySelector("#stats").appendChild(span(`URLs scanned: ${results.length}`));
   document.querySelector("#stats").appendChild(span(`Vulnerabilities found: ${vulnerabilities}`, vulnerabilities > 0 ? "vuln" : ""));
+  ["critical", "high", "medium", "low"].forEach((severity) => {
+    if (severityCounts[severity] > 0) {
+      document.querySelector("#stats").appendChild(span(`${severity}: ${severityCounts[severity]}`, severity));
+    }
+  });
 
   results.forEach((rs) => {
     rs.results.forEach((r) => {
@@ -132,70 +140,95 @@ function show(totalResults) {
   let res = results.reduce((x, y) => {
     return x.concat(y.results);
   }, []);
+  function severityScore(r) {
+    if (r.unknown) return -1;
+    if (r.vulnerabilities && r.vulnerabilities.length > 0) {
+      return severityMap[mapSeverity(r.vulnerabilities)] ?? 0;
+    }
+    return 0;
+  }
   res.sort((x, y) => {
-    if (x.unknown != y.unknown) {
-      return x.unknown ? 1 : -1;
-    }
-    if (x.vulnerable != y.vulnerable) {
-      return x.vulnerable ? -1 : 1;
-    }
+    const sd = severityScore(y) - severityScore(x);
+    if (sd !== 0) return sd;
     return (x.component + x.version + x.url).localeCompare(
       y.component + y.version + y.url
     );
   });
   res.forEach((r) => {
-    let tr = document.createElement("tr");
-    document.getElementById("results").appendChild(tr);
-    let vulns;
+
+
     if (r.unknown) {
-      tr.className = "unknown";
-      td(tr).innerText = "-";
-      td(tr).innerText = "-";
-      vulns = td(tr);
-      vulns.textContent = `Did not recognize ${r.url}`;
+      let div = document.createElement("div");
+      document.getElementById("results").appendChild(div);
+      div.className = "unknown";
+      div.appendChild(span(r.url));
     } else {
-      td(tr).innerText = r.component;
-      td(tr).innerText = r.version;
-      vulns = td(tr);
-      let d = detMapping[r.detection] ?? r.detection;
-      vulns.textContent = `${r.url} (${d} detection)`;
-    }
-    if (r.vulnerabilities && r.vulnerabilities.length > 0) {
-      r.vulnerabilities.sort((x, y) => {
-        return severityMap[y.severity] - severityMap[x.severity];
-      });
-      const severity = mapSeverity(r.vulnerabilities);
-      tr.className = "vulnerable " + severity;
-      var table = document.createElement("table");
-      vulns.appendChild(table);
-      r.vulnerabilities.forEach(function (v) {
-        var tr = document.createElement("tr");
-        tr.className = v.severity;
-        table.appendChild(tr);
-        td(tr).innerText = v.severity || " ";
-        let text = td(tr);
-        let textDiv = document.createElement("div");
-        text.appendChild(textDiv);
-        textDiv.className = "text";
-        textDiv.innerText = v.identifiers
-          ? Object.values(v.identifiers).flat().join(" ")
-          : " ";
-        textDiv.classList.add("collapsed");
-        textDiv.addEventListener("click", () => textDiv.classList.toggle("collapsed"));
+      let details = document.createElement("details");
+      document.getElementById("results").appendChild(details);
 
+      let summary = document.createElement("summary");
+      details.appendChild(summary);
+      let body = document.createElement("div");
+      body.className = "details-body";
+      details.appendChild(body);
+      summary.appendChild(span(`${r.component} ${r.version}`, "lib-name"));
 
-
-        let info = td(tr);
-        info.className = "info";
-        v.info.forEach(function (u, i) {
-          var a = document.createElement("a");
-          a.innerText = i + 1;
-          a.href = u;
-          a.title = u;
-          a.target = "_blank";
-          info.appendChild(a);
+      if (r.vulnerabilities && r.vulnerabilities.length > 0) {
+        r.vulnerabilities.sort((x, y) => {
+          return severityMap[y.severity] - severityMap[x.severity];
         });
-      });
+        const severity = mapSeverity(r.vulnerabilities);
+        details.className = "vulnerable " + severity;
+
+        const counts = {};
+        r.vulnerabilities.forEach((v) => {
+          counts[v.severity] = (counts[v.severity] || 0) + 1;
+        });
+        ["critical", "high", "medium", "low"].forEach((sev) => {
+          if (counts[sev]) {
+            const badge = document.createElement("span");
+            badge.textContent = `${sev}: ${counts[sev]}`;
+            badge.classList.add("severity-badge", sev);
+            summary.appendChild(badge);
+          }
+        });
+      }
+
+      let d = detMapping[r.detection] ?? r.detection;
+      let urlDiv = document.createElement("div");
+      urlDiv.textContent = `${r.url} (${d} detection)`;
+      body.appendChild(urlDiv);
+
+      if (r.vulnerabilities && r.vulnerabilities.length > 0) {
+        var table = document.createElement("table");
+        body.appendChild(table);
+        r.vulnerabilities.forEach(function (v) {
+          var tr = document.createElement("tr");
+          tr.className = v.severity;
+          table.appendChild(tr);
+          td(tr).innerText = v.severity || " ";
+          let text = td(tr);
+          let textDiv = document.createElement("div");
+          text.appendChild(textDiv);
+          textDiv.className = "text";
+          textDiv.innerText = v.identifiers
+            ? Object.values(v.identifiers).flat().join(" ")
+            : " ";
+          textDiv.classList.add("collapsed");
+          textDiv.addEventListener("click", () => textDiv.classList.toggle("collapsed"));
+
+          let info = td(tr);
+          info.className = "info";
+          v.info.forEach(function (u, i) {
+            var a = document.createElement("a");
+            a.innerText = i + 1;
+            a.href = u;
+            a.title = u;
+            a.target = "_blank";
+            info.appendChild(a);
+          });
+        });
+      }
     }
   });
 }
