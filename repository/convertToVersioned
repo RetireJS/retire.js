@@ -4,19 +4,24 @@ const data = require("./jsrepository-master.json");
 const backdoored = require("./jsrepository-backdoored.json");
 const fs = require("fs");
 
-const result = convert(data, false, false);
+const result = convert(data);
 fs.writeFileSync("jsrepository.json", JSON.stringify(result, null, 2));
 
-const resultV2 = convert(data, true, false);
+const resultV2 = convert(data, { includeQueries: true });
 fs.writeFileSync("jsrepository-v2.json", JSON.stringify(resultV2, null, 2));
 
-const resultV3 = convert(data, true, true, true);
+const resultV3 = convert(data, { includeQueries: true, includeBackdoored: true, includeLicenses: true });
 fs.writeFileSync("jsrepository-v3.json", JSON.stringify(resultV3, null, 2));
 
-const resultV4 = convert(data, true, false, true);
+const resultV4 = convert(data, { includeQueries: true, includeLicenses: true });
 fs.writeFileSync("jsrepository-v4.json", JSON.stringify(resultV4, null, 2));
 
-const resultV5 = convert(data, true, false, true, true);
+const resultV5 = convert(data, { includeQueries: true, includeLicenses: true, includeExcludes: true });
 fs.writeFileSync("jsrepository-v5.json", JSON.stringify(resultV5, null, 2));
 
 fs.writeFileSync("jsrepository-v5-combined.json", JSON.stringify({ advisories: resultV5, backdoored }, null, 2));
+
+const resultV6 = convert(data, { includeQueries: true, includeLicenses: true, includeExcludes: true, includeDetails: true });
+fs.writeFileSync("jsrepository-v6.json", JSON.stringify(resultV6, null, 2));
+
+fs.writeFileSync("jsrepository-v6-combined.json", JSON.stringify({ advisories: resultV6, backdoored }, null, 2));

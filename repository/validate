@@ -15,7 +15,7 @@ console.log(
 const convert = require("./convertFormat.js").convertToOldFormat;
 const data = require("./jsrepository-master.json");
 const current = require("./jsrepository.json");
-const converted = JSON.stringify(convert(data, false), null, 2);
+const converted = JSON.stringify(convert(data), null, 2);
 const currentString = JSON.stringify(current, null, 2);
 if (converted != currentString) {
   exitWithError("jsrepository.json is has not been converted");
@@ -25,7 +25,7 @@ console.log(
   "Checking that jsrepository-master and jsonrepository-v2 are synced..."
 );
 const currentV2 = require("./jsrepository-v2.json");
-const convertedV2 = JSON.stringify(convert(data, true), null, 2);
+const convertedV2 = JSON.stringify(convert(data, { includeQueries: true }), null, 2);
 const currentV2String = JSON.stringify(currentV2, null, 2);
 if (convertedV2 != currentV2String) {
   exitWithError("jsrepository-v2.json is has not been converted");
@@ -35,7 +35,7 @@ console.log(
   "Checking that jsrepository-master and jsonrepository-v3 are synced..."
 );
 const currentV3 = require("./jsrepository-v3.json");
-const convertedV3 = JSON.stringify(convert(data, true, true, true), null, 2);
+const convertedV3 = JSON.stringify(convert(data, { includeQueries: true, includeBackdoored: true, includeLicenses: true }), null, 2);
 const currentV3String = JSON.stringify(currentV3, null, 2);
 if (convertedV3 != currentV3String) {
   exitWithError("jsrepository-v3.json is has not been converted");
@@ -45,7 +45,7 @@ console.log(
   "Checking that jsrepository-master and jsonrepository-v4 are synced..."
 );
 const currentV4 = require("./jsrepository-v4.json");
-const convertedV4 = JSON.stringify(convert(data, true, false, true), null, 2);
+const convertedV4 = JSON.stringify(convert(data, { includeQueries: true, includeLicenses: true }), null, 2);
 const currentV4String = JSON.stringify(currentV4, null, 2);
 if (convertedV4 != currentV4String) {
   exitWithError("jsrepository-v4.json is has not been converted");
@@ -55,12 +55,21 @@ console.log(
   "Checking that jsrepository-master and jsonrepository-v5 are synced..."
 );
 const currentV5 = require("./jsrepository-v5.json");
-const convertedV5 = JSON.stringify(convert(data, true, false, true, true), null, 2);
+const convertedV5 = JSON.stringify(convert(data, { includeQueries: true, includeLicenses: true, includeExcludes: true }), null, 2);
 const currentV5String = JSON.stringify(currentV5, null, 2);
 if (convertedV5 != currentV5String) {
   exitWithError("jsrepository-v5.json is has not been converted");
 }
 
+console.log(
+  "Checking that jsrepository-master and jsonrepository-v6 are synced..."
+);
+const currentV6 = require("./jsrepository-v6.json");
+const convertedV6 = JSON.stringify(convert(data, { includeQueries: true, includeLicenses: true, includeExcludes: true, includeDetails: true }), null, 2);
+const currentV6String = JSON.stringify(currentV6, null, 2);
+if (convertedV6 != currentV6String) {
+  exitWithError("jsrepository-v6.json is has not been converted");
+}
 
 console.log("Done");
 

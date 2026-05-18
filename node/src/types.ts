@@ -33,6 +33,7 @@ export type Vulnerability = {
     summary?: string;
     githubID?: string;
   };
+  details?: string;
   info: string[];
 };
 

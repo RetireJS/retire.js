@@ -16,23 +16,27 @@ function largerThan(a, b, name) {
 
 function convertToOldFormat(
   input,
-  includeQueries = false,
-  includeBackdoored = false,
-  includeLicenses = false,
-  includeExcludes = false,
+  {
+    includeQueries = false,
+    includeBackdoored = false,
+    includeLicenses = false,
+    includeExcludes = false,
+    includeDetails = false,
+  } = {},
 ) {
   const result = {};
   Object.entries(input).forEach(([key, value]) => {
     const { extractors, vulnerabilities, ...okeys } = value;
     const vulns = [];
     vulnerabilities.forEach((v) => {
-      const { ranges, summary, identifiers, info, ...rest } = v;
+      const { ranges, summary, details, identifiers, info, ...rest } = v;
 
       ranges.forEach((r) => {
         const vuln = {
           ...r,
           ...rest,
           identifiers: { summary, ...identifiers },
+          ...(includeDetails && details ? { details } : {}),
           info,
         };
         if (!includeExcludes && r.excludes) {

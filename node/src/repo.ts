@@ -64,6 +64,7 @@ export function validateRepository(
             .reduce((a, b) => a.concat(b), []).length;
           if (ids == 0) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must have at least one identifier' });
         }),
+      details: z.string().optional(),
       info: z.array(z.string().regex(/^https?:\/\/.+/)),
     })
     .strict();
