@@ -5101,7 +5101,7 @@
           "CWE-1321"
         ],
         "identifiers": {
-          "summary": "Summary When USEPROFILES is enabled, DOMPurify rebuilds ALLOWEDATTR as a plain array before populating it with the requested allowlists.",
+          "summary": "When USEPROFILES is enabled, DOMPurify rebuilds ALLOWEDATTR as a plain array before populating it with the requested allowlists.",
           "githubID": "GHSA-cj63-jhhr-wcxv"
         },
         "info": [
@@ -5118,7 +5118,7 @@
           "CWE-183"
         ],
         "identifiers": {
-          "summary": "Summary DOMPurify allows ADDATTR to be provided as a predicate function via EXTRAELEMENTHANDLING.attributeCheck.",
+          "summary": "DOMPurify allows ADDATTR to be provided as a predicate function via EXTRAELEMENTHANDLING.attributeCheck.",
           "githubID": "GHSA-cjmm-f4jc-qw8r"
         },
         "info": [
@@ -5172,7 +5172,7 @@
           "CWE-783"
         ],
         "identifiers": {
-          "summary": "Summary In src/purify.ts:1117-1123, ADDTAGS as a function (via EXTRAELEMENTHANDLING.tagCheck) bypasses FORBIDTAGS due to short-circuit evaluation.",
+          "summary": "In src/purify.ts:1117-1123, ADDTAGS as a function (via EXTRAELEMENTHANDLING.tagCheck) bypasses FORBIDTAGS due to short-circuit evaluation.",
           "githubID": "GHSA-39q2-94rc-95cp"
         },
         "info": [
@@ -7326,7 +7326,7 @@
           "CWE-674"
         ],
         "identifiers": {
-          "summary": "Summary toFormData recursively walks nested objects with no depth limit, so a deeply nested value passed as request data crashes the Node.js process with a RangeError.",
+          "summary": "toFormData recursively walks nested objects with no depth limit, so a deeply nested value passed as request data crashes the Node.js process with a RangeError.",
           "githubID": "GHSA-62hf-57xw-28j9",
           "CVE": [
             "CVE-2026-42039"
@@ -7710,7 +7710,7 @@
           "CWE-93"
         ],
         "identifiers": {
-          "summary": "Summary The FormDataPart constructor in lib/helpers/formDataToStream.js interpolates value.type directly into the Content-Type header of each multipart part without sanitizing CRLF (\\r\\n) sequences.",
+          "summary": "The FormDataPart constructor in lib/helpers/formDataToStream.js interpolates value.type directly into the Content-Type header of each multipart part without sanitizing CRLF (\\r\\n) sequences.",
           "githubID": "GHSA-445q-vr5w-6q77",
           "CVE": [
             "CVE-2026-42037"
@@ -7748,7 +7748,7 @@
           "CWE-674"
         ],
         "identifiers": {
-          "summary": "Summary toFormData recursively walks nested objects with no depth limit, so a deeply nested value passed as request data crashes the Node.js process with a RangeError.",
+          "summary": "toFormData recursively walks nested objects with no depth limit, so a deeply nested value passed as request data crashes the Node.js process with a RangeError.",
           "githubID": "GHSA-62hf-57xw-28j9",
           "CVE": [
             "CVE-2026-42039"
@@ -9388,7 +9388,7 @@
         ],
         "severity": "high",
         "identifiers": {
-          "summary": "Summary A vulnerability affecting Next.js has been addressed.",
+          "summary": "A vulnerability affecting Next.js has been addressed.",
           "githubID": "GHSA-67rr-84xm-4c7r",
           "CVE": [
             "CVE-2025-49826"
@@ -10259,7 +10259,7 @@
           "CWE-444"
         ],
         "identifiers": {
-          "summary": "Summary When Next.js rewrites proxy traffic to an external backend, a crafted DELETE/OPTIONS request using Transfer-Encoding: chunked could trigger request boundary disagreement between the proxy and backend.",
+          "summary": "When Next.js rewrites proxy traffic to an external backend, a crafted DELETE/OPTIONS request using Transfer-Encoding: chunked could trigger request boundary disagreement between the proxy and backend.",
           "githubID": "GHSA-ggv3-7p47-pfv8",
           "CVE": [
             "CVE-2026-29057"
@@ -10281,7 +10281,7 @@
           "CWE-400"
         ],
         "identifiers": {
-          "summary": "Summary The default Next.js image optimization disk cache (/next/image) did not have a configurable upper bound, allowing unbounded cache growth.",
+          "summary": "The default Next.js image optimization disk cache (/next/image) did not have a configurable upper bound, allowing unbounded cache growth.",
           "githubID": "GHSA-3x4c-7xq6-9pq8",
           "CVE": [
             "CVE-2026-27980"
@@ -10917,7 +10917,7 @@
           "CWE-400"
         ],
         "identifiers": {
-          "summary": "Summary The default Next.js image optimization disk cache (/next/image) did not have a configurable upper bound, allowing unbounded cache growth.",
+          "summary": "The default Next.js image optimization disk cache (/next/image) did not have a configurable upper bound, allowing unbounded cache growth.",
           "githubID": "GHSA-3x4c-7xq6-9pq8",
           "CVE": [
             "CVE-2026-27980"
@@ -10938,7 +10938,7 @@
           "CWE-444"
         ],
         "identifiers": {
-          "summary": "Summary When Next.js rewrites proxy traffic to an external backend, a crafted DELETE/OPTIONS request using Transfer-Encoding: chunked could trigger request boundary disagreement between the proxy and backend.",
+          "summary": "When Next.js rewrites proxy traffic to an external backend, a crafted DELETE/OPTIONS request using Transfer-Encoding: chunked could trigger request boundary disagreement between the proxy and backend.",
           "githubID": "GHSA-ggv3-7p47-pfv8",
           "CVE": [
             "CVE-2026-29057"
@@ -10960,7 +10960,7 @@
           "CWE-770"
         ],
         "identifiers": {
-          "summary": "Summary A request containing the next-resume: 1 header (corresponding with a PPR resume request) would buffer request bodies without consistently enforcing maxPostponedStateSize in certain setups.",
+          "summary": "A request containing the next-resume: 1 header (corresponding with a PPR resume request) would buffer request bodies without consistently enforcing maxPostponedStateSize in certain setups.",
           "githubID": "GHSA-h27x-g6w4-24gq",
           "CVE": [
             "CVE-2026-27979"
@@ -10981,7 +10981,7 @@
           "CWE-1385"
         ],
         "identifiers": {
-          "summary": "Summary In next dev, cross-site protection for internal websocket endpoints could treat Origin: null as a bypass case even if allowedDevOrigins is configured, allowing privacy-sensitive/opaque contexts (for example sandboxed documents) to connect unexpectedly.",
+          "summary": "In next dev, cross-site protection for internal websocket endpoints could treat Origin: null as a bypass case even if allowedDevOrigins is configured, allowing privacy-sensitive/opaque contexts (for example sandboxed documents) to connect unexpectedly.",
           "githubID": "GHSA-jcc7-9wpm-mj36",
           "CVE": [
             "CVE-2026-27977"
@@ -11002,7 +11002,7 @@
           "CWE-352"
         ],
         "identifiers": {
-          "summary": "Summary origin: null was treated as a \"missing\" origin during Server Action CSRF validation.",
+          "summary": "origin: null was treated as a \"missing\" origin during Server Action CSRF validation.",
           "githubID": "GHSA-mq59-m269-xvcx",
           "CVE": [
             "CVE-2026-27978"
@@ -12819,7 +12819,7 @@
           "CWE-835"
         ],
         "identifiers": {
-          "summary": "Summary A critical Denial of Service (DoS) vulnerability exists in marked@18.0.0.",
+          "summary": "A critical Denial of Service (DoS) vulnerability exists in marked@18.0.0.",
           "githubID": "GHSA-6v9c-7cg6-27q7",
           "CVE": [
             "CVE-2026-41680"
@@ -13115,7 +13115,7 @@
           "CWE-1321"
         ],
         "identifiers": {
-          "summary": "Summary A prototype pollution vulnerability exists in the the npm package swiper (>=6.5.1, < 12.1.2).",
+          "summary": "A prototype pollution vulnerability exists in the the npm package swiper (>=6.5.1, < 12.1.2).",
           "githubID": "GHSA-hmx5-qpq5-p643",
           "CVE": [
             "CVE-2026-27212"
