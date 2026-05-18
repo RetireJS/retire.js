@@ -196,46 +196,71 @@ function show(totalResults) {
 
       let d = detMapping[r.detection] ?? r.detection;
       let urlDiv = document.createElement("div");
+      urlDiv.className = "detection-url";
       urlDiv.textContent = `${r.url} (${d} detection)`;
       body.appendChild(urlDiv);
 
       if (r.vulnerabilities && r.vulnerabilities.length > 0) {
-        var table = document.createElement("table");
-        body.appendChild(table);
         r.vulnerabilities.forEach(function (v) {
-          var tr = document.createElement("tr");
-          tr.className = v.severity;
-          table.appendChild(tr);
-          td(tr).innerText = v.severity || " ";
-          let text = td(tr);
-          let textDiv = document.createElement("div");
-          text.appendChild(textDiv);
-          textDiv.className = "text";
-          textDiv.innerText = v.identifiers
-            ? Object.values(v.identifiers).flat().join(" ")
-            : " ";
-          textDiv.classList.add("collapsed");
-          textDiv.addEventListener("click", () => textDiv.classList.toggle("collapsed"));
+          const vulnItem = document.createElement("details");
+          vulnItem.className = "vuln-item " + (v.severity || "");
+          body.appendChild(vulnItem);
 
-          let info = td(tr);
-          info.className = "info";
-          v.info.forEach(function (u, i) {
-            var a = document.createElement("a");
-            a.innerText = i + 1;
-            a.href = u;
-            a.title = u;
-            a.target = "_blank";
-            info.appendChild(a);
-          });
+          const vulnSummary = document.createElement("summary");
+          vulnItem.appendChild(vulnSummary);
+
+          vulnSummary.appendChild(span(v.severity || "unknown", "severity-text"));
+
+          const ids = v.identifiers || {};
+          const summarySpan = document.createElement("span");
+          summarySpan.className = "vuln-summary";
+          summarySpan.textContent = ids.summary || "";
+          vulnSummary.appendChild(summarySpan);
+
+          const vulnBody = document.createElement("div");
+          vulnBody.className = "vuln-body";
+          vulnItem.appendChild(vulnBody);
+
+          const skipKeys = new Set(["githubID", "CVE", "summary"]);
+          const allChips = [
+            ...[ids.githubID, ...(ids.CVE || [])].filter(Boolean),
+            ...Object.entries(ids)
+              .filter(([k]) => !skipKeys.has(k))
+              .flatMap(([, val]) => Array.isArray(val) ? val : [val])
+              .filter(Boolean),
+          ];
+          if (allChips.length > 0) {
+            const chipsDiv = document.createElement("div");
+            chipsDiv.className = "id-chips";
+            allChips.forEach((id) => chipsDiv.appendChild(span(id, "id-chip")));
+            vulnBody.appendChild(chipsDiv);
+          }
+
+          if (v.details) {
+            const detailsText = document.createElement("p");
+            detailsText.className = "details-text";
+            detailsText.textContent = v.details;
+            vulnBody.appendChild(detailsText);
+          }
+
+          if (v.info && v.info.length > 0) {
+            const ul = document.createElement("ul");
+            ul.className = "info-links";
+            vulnBody.appendChild(ul);
+            v.info.forEach(function (u) {
+              const li = document.createElement("li");
+              const a = document.createElement("a");
+              a.href = u;
+              a.textContent = u;
+              a.target = "_blank";
+              li.appendChild(a);
+              ul.appendChild(li);
+            });
+          }
         });
       }
     }
   });
-}
-function td(tr) {
-  let cell = document.createElement("td");
-  tr.appendChild(cell);
-  return cell;
 }
 function span(data, className) {
   const s = document.createElement("span");

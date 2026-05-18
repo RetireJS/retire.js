@@ -8,45 +8,14 @@
 	body { padding:0; margin: 0.5em 1em; width: calc(800px - 2em); box-sizing: border-box; }
 	.enabler { float: right; padding-top: 0.5em; display: flex; align-items: center;}
 	.vulnerable a { text-decoration: none; }
-	.vulnerable a:before { content: "["; }
-	.vulnerable a:after { content: "]"; }
-	.info {
-		width: 5em;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-evenly;
-	}
-	td:has(.text) { padding-bottom: 0.5em; }
-	.text {
-		position: relative;
-		cursor: pointer;
-		overflow-wrap: break-word;
-		word-break: normal;
-		hyphens: auto;
-	}
-	.text.collapsed {
-		max-height: 4.7em;
-		overflow: hidden;
-	}
-	.text.collapsed::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 1.5em;
-		background: linear-gradient(to bottom, transparent, white);
-		pointer-events: none;
-	}
 	.hideunknown .unknown { display: none; }
-	.unknown { color: #999; border-top: 1px solid #ddd; padding: 0.3em 0; 
+	.unknown { color: #999; border-top: 1px solid #ddd; padding: 0.3em 0;
 		overflow-wrap: break-word;
 		word-break: normal;
 		hyphens: none;
 	}
-	td { vertical-align: top; padding: 0; word-break: break-all; }
-	td:first-child { text-transform: capitalize; padding-right: 0.5em; word-break: normal; }
 	h1 { margin: 0; }
+	.detection-url { margin: 0.2em 0em; }
 	#stats span { color: #999; margin-right: 1em; font-style: italic; text-transform: capitalize;}
 	#stats .critical { color: darkred; text-transform: capitalize; }
 	#stats .high { color: #f00; text-transform: capitalize; }
@@ -66,9 +35,41 @@
 	.details-body { margin-top: 0.5em; padding-left: 1em; overflow-wrap: break-word;
 		word-break: normal;
 		hyphens: auto;
-	 }
-	.details-body table { width: 100%; margin-top: 0.3em; }
-	.details-body table td { border-top: 1px solid #ddd; padding-top: 0.5em; }
+	}
+	.vuln-item { border-top: 1px solid #ddd; padding: 0.3em 0; }
+	.vuln-item > summary { align-items: start; flex-wrap: nowrap; }
+	.severity-text { font-weight: bold; text-transform: capitalize; flex-shrink: 0; width: 5em; }
+	.vuln-summary {
+		flex: 1;
+		position: relative;
+		overflow-wrap: break-word;
+	}
+	.vuln-item:not([open]) > summary .vuln-summary {
+		max-height: 2.8em;
+		overflow: hidden;
+	}
+	.vuln-item:not([open]) > summary .vuln-summary::after {
+		content: '';
+		position: absolute;
+		bottom: 0; left: 0; right: 0;
+		height: 1.4em;
+		background: linear-gradient(to bottom, transparent, white);
+		pointer-events: none;
+	}
+	.vuln-body { padding: 0.3em 0 0.2em 5.5em; }
+	.id-chips { display: flex; flex-wrap: wrap; gap: 0.3em; margin-bottom: 0.3em; }
+	.id-chip {
+		font-family: monospace;
+		font-size: 0.85em;
+		background: #555;
+		color: #fff;
+		padding: 0.25em 1em;
+		border-radius: 1em;
+		white-space: nowrap;
+	}
+	.details-text { margin: 0.3em 0 0.5em; white-space: pre-wrap; }
+	.info-links { margin: 0; padding-left: 1.2em; }
+	.info-links a { color: inherit; }
 	.severity-badge {
 		color: #fff !important;
 		font-size: 0.75em;
@@ -86,10 +87,10 @@
 	.vulnerable.high > summary { color: #f00; }
 	.vulnerable.medium > summary { color: rgb(200, 110, 0); }
 	.vulnerable.low > summary { color: rgb(131, 96, 0); }
-	.vulnerable tr.critical { color: darkred; }
-	.vulnerable tr.high { color: #f00; }
-	.vulnerable tr.medium { color: rgb(200, 110, 0); }
-	.vulnerable tr.low { color: rgb(131, 96, 0); }
+	.vuln-item.critical > summary .severity-text { color: darkred; }
+	.vuln-item.high > summary .severity-text { color: #f00; }
+	.vuln-item.medium > summary .severity-text { color: rgb(200, 110, 0); }
+	.vuln-item.low > summary .severity-text { color: rgb(131, 96, 0); }
 </style>
 </head>
 <body>

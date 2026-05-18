@@ -116,6 +116,9 @@ function check(results, repo) {
         if (vulns[i].cwe) {
           vulnerability.cwe = vulns[i].cwe;
         }
+        if (vulns[i].details) {
+          vulnerability.details = vulns[i].details;
+        }
         result.vulnerabilities = result.vulnerabilities || [];
         result.vulnerabilities.push(vulnerability);
       }

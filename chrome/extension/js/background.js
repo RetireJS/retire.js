@@ -1,7 +1,7 @@
 /* global chrome, console, exports, CryptoJS, Emitter */
 
 const repoUrl =
-  "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v5-combined.json";
+  "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v6-combined.json";
 let updatedAt = Date.now();
 let repo;
 let backdoorData = {};
