@@ -26,6 +26,7 @@ export type Vulnerability = {
   excludes?: string[];
   severity: SeverityLevel;
   cwe: string[];
+  details?: string;
   identifiers: {
     CVE?: string[];
     bug?: string;

@@ -18,14 +18,15 @@ export function validateRepository(
   const versionValidator = z.string().regex(/^[\d.]+([a-zA-Z\d.-]+)?$/);
   const numericString = z.string().regex(/^[\d]+$/);
   const vulnValidator = z
-    .object({
-      below: versionValidator,
-      atOrAbove: versionValidator.optional(),
-      excludes: z.array(versionValidator).optional(),
-      severity: z.enum(keys),
-      cwe: z.array(z.string().regex(/^CWE-[0-9]+$/)).min(1),
-      identifiers: z
-        .object({
+      .object({
+        below: versionValidator,
+        atOrAbove: versionValidator.optional(),
+        excludes: z.array(versionValidator).optional(),
+        severity: z.enum(keys),
+        cwe: z.array(z.string().regex(/^CWE-[0-9]+$/)).min(1),
+        details: z.string().optional(),
+        identifiers: z
+          .object({
           CVE: z.array(z.string().regex(/^CVE-[0-9X-]+$/)).optional(),
           bug: z
             .string()
