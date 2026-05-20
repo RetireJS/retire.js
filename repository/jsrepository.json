@@ -13184,6 +13184,24 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "7.5.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-674"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\nprotobufjs could recurse without a depth limit while expanding nested JSON descriptors through `Root.fromJSON()` and `Namespace.addJSON()`.\n\nA crafted JSON descriptor with deeply nested namespace definitions could cause the JavaScript call stack to be exhausted during descriptor loading.\n\n## Impact\n\nAn attacker who can provide JSON descriptors loaded by an application may be able to crash the process or otherwise cause schema loading to fail with a stack overflow.\n\nThis affects applications that load JSON descriptors from untrusted sources with affected versions.\n\n## Preconditions\n\n- The application must load JSON descriptor data influenced by an attacker.\n- The crafted descriptor must contain deeply nested `nested` namespace objects.\n- The affected `Root.fromJSON()` / `Namespace.addJSON()` descriptor expansion path must process the crafted input.\n\n## Workarounds\n\nAvoid loading untrusted protobuf JSON descriptors with affected versions. If immediate upgrade is not possible, reject excessively nested descriptor structures at an outer validation boundary where feasible, or isolate descriptor loading in a process that can be safely restarted.",
+          "githubID": "GHSA-jggg-4jg4-v7c6",
+          "CVE": [
+            "CVE-2026-45740"
+          ]
+        },
+        "info": [
+          "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jggg-4jg4-v7c6"
+        ]
+      },
+      {
         "atOrAbove": "8.0.0",
         "below": "8.0.1",
         "severity": "critical",
@@ -13344,6 +13362,24 @@
           "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-q6x5-8v7m-xcrf",
           "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.6",
           "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.2"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.2.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-674"
+        ],
+        "identifiers": {
+          "summary": "## Summary\n\nprotobufjs could recurse without a depth limit while expanding nested JSON descriptors through `Root.fromJSON()` and `Namespace.addJSON()`.\n\nA crafted JSON descriptor with deeply nested namespace definitions could cause the JavaScript call stack to be exhausted during descriptor loading.\n\n## Impact\n\nAn attacker who can provide JSON descriptors loaded by an application may be able to crash the process or otherwise cause schema loading to fail with a stack overflow.\n\nThis affects applications that load JSON descriptors from untrusted sources with affected versions.\n\n## Preconditions\n\n- The application must load JSON descriptor data influenced by an attacker.\n- The crafted descriptor must contain deeply nested `nested` namespace objects.\n- The affected `Root.fromJSON()` / `Namespace.addJSON()` descriptor expansion path must process the crafted input.\n\n## Workarounds\n\nAvoid loading untrusted protobuf JSON descriptors with affected versions. If immediate upgrade is not possible, reject excessively nested descriptor structures at an outer validation boundary where feasible, or isolate descriptor loading in a process that can be safely restarted.",
+          "githubID": "GHSA-jggg-4jg4-v7c6",
+          "CVE": [
+            "CVE-2026-45740"
+          ]
+        },
+        "info": [
+          "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jggg-4jg4-v7c6"
         ]
       }
     ],
