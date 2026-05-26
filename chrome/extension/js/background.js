@@ -187,15 +187,13 @@ events.on("script-downloaded", function (details, content) {
   astScan(content, details, results);
   if (results.length > 0) {
     events.emit("result-ready", details, results);
-    return true;
   }
   events.emit("sandbox", details, content);
   console.log(hasher.sha1(content) + " : " + details.url);
-  return true;
 });
 
 events.on("sandbox", function (details, content) {
-  console.log("Sending to the sandbox");
+  console.log("Sending to the sandbox: " + details.url);
   sandboxWin.postMessage(
     {
       tabId: details.tabId,
