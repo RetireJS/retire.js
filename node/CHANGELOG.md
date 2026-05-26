@@ -1,5 +1,9 @@
 # Changelog
 
+## [5.4.3]
+
+* Remove dependencies that are not needed anymore
+
 ## [5.4.2]
 
 * Fix build scripts
