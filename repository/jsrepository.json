@@ -5163,6 +5163,24 @@
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-v9jr-rg53-9pgp",
           "https://github.com/cure53/DOMPurify/releases/tag/3.4.0"
         ]
+      },
+      {
+        "atOrAbove": "3.4.4",
+        "below": "3.4.5",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "DOMPurify XSS via selectedcontent re-clone",
+          "githubID": "GHSA-87xg-pxx2-7hvx",
+          "CVE": [
+            "CVE-2026-47423"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-87xg-pxx2-7hvx"
+        ]
       }
     ],
     "extractors": {
