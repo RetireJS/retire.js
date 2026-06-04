@@ -12,7 +12,10 @@ const options = {
   log: reporting.open({}),
 };
 
-const limit = process.argv[2];
+const limitArg = process.argv[2];
+const atIndex = limitArg ? limitArg.indexOf("@") : -1;
+const limitToPackage = atIndex >= 0 ? limitArg.slice(0, atIndex) : limitArg;
+const limitToVersion = atIndex >= 0 ? limitArg.slice(atIndex + 1) : undefined;
 
 var hash = {
   sha1: function (data) {
@@ -97,7 +100,7 @@ function failure(...msg) {
 
 async function runTests(jsRepo) {
   for (let [name, content] of Object.entries(testCases)) {
-    if (limit && limit != name) continue;
+    if (limitToPackage && limitToPackage != name) continue;
     console.log(`Testing ${name}`);
     for (let [template, tcontent] of Object.entries(content)) {
       let {
@@ -109,10 +112,14 @@ async function runTests(jsRepo) {
         allowAstMiss,
         allowContentMiss,
       } = tcontent;
-      if (limit) {
+      if (limitToPackage) {
         versions = Array.from(
           new Set(versions.concat(additionalVersions || []))
         );
+      }
+      if (limitToVersion) {
+        versions = versions.filter((v) => v == limitToVersion);
+        if (versions.length == 0) continue;
       }
       subversions = subversions || [""];
       for (let version of versions) {
