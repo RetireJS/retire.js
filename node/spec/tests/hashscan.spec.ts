@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test';
 import * as fs from 'fs';
 import * as retire from '../../lib/retire';
 import * as assert from '../assert';
@@ -17,34 +18,29 @@ const hasher = {
 
 const hash = hasher.sha1(content);
 describe('hash scan', function () {
-  it('should_be_vulnerable_between', function (done) {
+  it('should_be_vulnerable_between', function () {
     repo.jquery.extractors.hashes[hash] = '1.8.1';
     const result = retire.scanFileContent(content, repo, hasher);
     assert.isVulnerable(result);
-    done();
   });
-  it('should_not_be_vulnerable_before', function (done) {
+  it('should_not_be_vulnerable_before', function () {
     repo.jquery.extractors.hashes[hash] = '1.6.1';
     const result = retire.scanFileContent(content, repo, hasher);
     assert.isNotVulnerable(result);
-    done();
   });
-  it('should_not_be_vulnerable_at', function (done) {
+  it('should_not_be_vulnerable_at', function () {
     repo.jquery.extractors.hashes[hash] = '1.9.0';
     const result = retire.scanFileContent(content, repo, hasher);
     assert.isNotVulnerable(result);
-    done();
   });
-  it('should_not_be_vulnerable_above', function (done) {
+  it('should_not_be_vulnerable_above', function () {
     repo.jquery.extractors.hashes[hash] = '1.9.1';
     const result = retire.scanFileContent(content, repo, hasher);
     assert.isNotVulnerable(result);
-    done();
   });
-  it('should_be_vulnerable_before', function (done) {
+  it('should_be_vulnerable_before', function () {
     repo.jquery.extractors.hashes[hash] = '1.4';
     const result = retire.scanFileContent(content, repo, hasher);
     assert.isVulnerable(result);
-    done();
   });
 });
