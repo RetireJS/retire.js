@@ -7418,6 +7418,69 @@
         "below": "0.32.0",
         "severity": "high",
         "cwe": [
+          "CWE-400",
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
+          "githubID": "GHSA-hfxv-24rg-xrqf",
+          "CVE": [
+            "CVE-2026-44496"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-hfxv-24rg-xrqf",
+          "https://github.com/axios/axios/releases/tag/v0.32.0",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.32.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-200"
+        ],
+        "identifiers": {
+          "summary": "Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection",
+          "githubID": "GHSA-j5f8-grm9-p9fc",
+          "CVE": [
+            "CVE-2026-44486"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-j5f8-grm9-p9fc",
+          "https://github.com/axios/axios/pull/10794",
+          "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+          "https://github.com/axios/axios/releases/tag/v0.32.0",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.32.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-201"
+        ],
+        "identifiers": {
+          "summary": "Axios: Proxy-Authorization Credential Leak to Origin Server Across HTTP-to-HTTPS Redirect in Axios Node.js HTTP Adapter",
+          "githubID": "GHSA-p92q-9vqr-4j8v",
+          "CVE": [
+            "CVE-2026-44487"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-p92q-9vqr-4j8v",
+          "https://github.com/axios/axios/releases/tag/v0.32.0",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "0.32.0",
+        "severity": "high",
+        "cwe": [
           "CWE-918"
         ],
         "identifiers": {
@@ -7935,6 +7998,69 @@
         "below": "1.16.0",
         "severity": "high",
         "cwe": [
+          "CWE-400",
+          "CWE-1333"
+        ],
+        "identifiers": {
+          "summary": "Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
+          "githubID": "GHSA-hfxv-24rg-xrqf",
+          "CVE": [
+            "CVE-2026-44496"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-hfxv-24rg-xrqf",
+          "https://github.com/axios/axios/releases/tag/v0.32.0",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
+        ]
+      },
+      {
+        "atOrAbove": "1.0.0",
+        "below": "1.16.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-200"
+        ],
+        "identifiers": {
+          "summary": "Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection",
+          "githubID": "GHSA-j5f8-grm9-p9fc",
+          "CVE": [
+            "CVE-2026-44486"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-j5f8-grm9-p9fc",
+          "https://github.com/axios/axios/pull/10794",
+          "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+          "https://github.com/axios/axios/releases/tag/v0.32.0",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
+        ]
+      },
+      {
+        "atOrAbove": "1.0.0",
+        "below": "1.16.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-201"
+        ],
+        "identifiers": {
+          "summary": "Axios: Proxy-Authorization Credential Leak to Origin Server Across HTTP-to-HTTPS Redirect in Axios Node.js HTTP Adapter",
+          "githubID": "GHSA-p92q-9vqr-4j8v",
+          "CVE": [
+            "CVE-2026-44487"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-p92q-9vqr-4j8v",
+          "https://github.com/axios/axios/releases/tag/v0.32.0",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
+        ]
+      },
+      {
+        "atOrAbove": "1.0.0",
+        "below": "1.16.0",
+        "severity": "high",
+        "cwe": [
           "CWE-918"
         ],
         "identifiers": {
@@ -7946,6 +8072,27 @@
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
+        ]
+      },
+      {
+        "atOrAbove": "1.7.0",
+        "below": "1.16.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "Allocation of Resources Without Limits or Throttling in Axios",
+          "githubID": "GHSA-777c-7fjr-54vf",
+          "CVE": [
+            "CVE-2026-44488"
+          ]
+        },
+        "info": [
+          "https://github.com/axios/axios/security/advisories/GHSA-777c-7fjr-54vf",
+          "https://github.com/axios/axios/pull/10795",
+          "https://github.com/axios/axios/pull/10796",
+          "https://github.com/axios/axios/releases/tag/v1.16.0"
         ]
       },
       {
