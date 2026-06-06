@@ -1839,6 +1839,25 @@
         ]
       },
       {
+        "atOrAbove": "6.8.0",
+        "below": "7.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using sanitization bypass through nested SVGs",
+          "githubID": "GHSA-mh5m-5hw4-5c69",
+          "CVE": [
+            "CVE-2026-47760"
+          ]
+        },
+        "details": "### Impact\nTinyMCE 6.8.x contains an XSS vulnerability caused by improper SVG namespace scope handling in the sanitizer. A crafted payload using nested <svg> elements can bypass attribute sanitization and execute arbitrary JavaScript.\n\n### Patches\nThis issue affects TinyMCE 6.8.x-7.0.x. The vulnerability is fixed in TinyMCE 7.1.0 and later.\n\n### Workarounds\nNo official workaround available.\n\n### Acknowledgements\nTiny thanks [maple3142](https://github.com/maple3142) (<https://maple3142.net>) of DEVCORE for their help identifying this vulnerability.\n\n### References\nFix introduced in TinyMCE 7.1.0 though a rewrite of code causing the vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-mh5m-5hw4-5c69"
+        ]
+      },
+      {
         "atOrAbove": "7.0.0",
         "below": "7.2.0",
         "cwe": [
@@ -1889,6 +1908,195 @@
           "https://owasp.org/www-community/attacks/xss",
           "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
           "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "7.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+          "githubID": "GHSA-q742-qvgc-gc2f",
+          "CVE": [
+            "CVE-2026-47759"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability via unsanitized data-mce-* attributes (data-mce-href, data-mce-src, data-mce-style). Allows attackers to inject malicious values that override safe attributes during serialization, bypassing validation.\n\n### Patches\nPatched by stripping unsafe data-mce-* attributes during parsing. Users should upgrade to the latest patched versions (5 LTS, 7.x, 8.x).\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Tadi Kadango](https://github.com/mtrill47) ([website](https://tadiwakadango.com/))  and [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "7.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "7.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+          "githubID": "GHSA-q742-qvgc-gc2f",
+          "CVE": [
+            "CVE-2026-47759"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability via unsanitized data-mce-* attributes (data-mce-href, data-mce-src, data-mce-style). Allows attackers to inject malicious values that override safe attributes during serialization, bypassing validation.\n\n### Patches\nPatched by stripping unsafe data-mce-* attributes during parsing. Users should upgrade to the latest patched versions (5 LTS, 7.x, 8.x).\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Tadi Kadango](https://github.com/mtrill47) ([website](https://tadiwakadango.com/))  and [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+          "githubID": "GHSA-q742-qvgc-gc2f",
+          "CVE": [
+            "CVE-2026-47759"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability via unsanitized data-mce-* attributes (data-mce-href, data-mce-src, data-mce-style). Allows attackers to inject malicious values that override safe attributes during serialization, bypassing validation.\n\n### Patches\nPatched by stripping unsafe data-mce-* attributes during parsing. Users should upgrade to the latest patched versions (5 LTS, 7.x, 8.x).\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Tadi Kadango](https://github.com/mtrill47) ([website](https://tadiwakadango.com/))  and [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
         ]
       }
     ],
