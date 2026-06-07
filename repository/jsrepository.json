@@ -1758,6 +1758,24 @@
         ]
       },
       {
+        "atOrAbove": "6.8.0",
+        "below": "7.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using sanitization bypass through nested SVGs",
+          "githubID": "GHSA-mh5m-5hw4-5c69",
+          "CVE": [
+            "CVE-2026-47760"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-mh5m-5hw4-5c69"
+        ]
+      },
+      {
         "atOrAbove": "7.0.0",
         "below": "7.2.0",
         "cwe": [
@@ -1808,6 +1826,186 @@
           "https://owasp.org/www-community/attacks/xss",
           "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
           "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "7.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+          "githubID": "GHSA-q742-qvgc-gc2f",
+          "CVE": [
+            "CVE-2026-47759"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "7.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "6.0.0",
+        "below": "7.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+          "githubID": "GHSA-q742-qvgc-gc2f",
+          "CVE": [
+            "CVE-2026-47759"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.0.0",
+        "below": "8.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+          "githubID": "GHSA-q742-qvgc-gc2f",
+          "CVE": [
+            "CVE-2026-47759"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "999.999.999",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
         ]
       }
     ],
