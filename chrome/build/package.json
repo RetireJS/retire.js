@@ -12,6 +12,6 @@
     "hash.js": "^1.1.7"
   },
   "devDependencies": {
-    "esbuild": "^0.28.0"
+    "esbuild": "^0.28.1"
   }
 }
