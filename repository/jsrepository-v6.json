@@ -4338,6 +4338,10 @@
         "document.querySelector('[ng-version]').getAttribute('ng-version')",
         "window.getAllAngularRootElements()[0].getAttribute(['ng-version'])"
       ],
+      "filecontent": [
+        "/\\*\\*[\\s*]+@license Angular v(§§version§§)",
+        "\\[['\"]ng-version['\"],['\"](§§version§§)['\"]\\]"
+      ],
       "ast": [
         "//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == \"NgModuleFactory\" ||          /:name == \"ɵBrowserDomAdapter\"       ]     ]/ExportSpecifier[       /:exported/:name == \"VERSION\"     ]/:$local/:init/:arguments/:value",
         "//CallExpression/ArrayExpression[/Literal/:value == \"ng-version\"]/MemberExpression[       /:property/:name == \"full\"     ]/:$object/:init/:arguments/:value",

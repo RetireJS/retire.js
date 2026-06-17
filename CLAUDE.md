@@ -72,3 +72,10 @@ Do **not** edit `jsrepository.json` directly — it is generated from master. Do
 - `repo.ts` — loads and validates the repository (uses zod schema)
 - `cli.ts` — commander-based CLI entry point
 - `reporters/` — output formatters (console, JSON, CycloneDX SBOM)
+
+## Bumping the version number
+
+When bumping the version number of node/package.json, also update the version number in:
+- node/lib/retire.js
+- chrome/extension/manifest.json
+- chrome/extension-no-func/manifest.json

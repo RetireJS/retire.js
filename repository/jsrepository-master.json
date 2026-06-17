@@ -3692,6 +3692,10 @@
       "func": [
         "document.querySelector('[ng-version]').getAttribute('ng-version')",
         "window.getAllAngularRootElements()[0].getAttribute(['ng-version'])"
+      ],
+      "filecontent": [
+        "/\\*\\*[\\s*]+@license Angular v(§§version§§)",
+        "\\[['\"]ng-version['\"],['\"](§§version§§)['\"]\\]"
       ]
     },
     "licenses": [
