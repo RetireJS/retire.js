@@ -62,6 +62,36 @@
       ]
     }
   },
+  "@angular/core": {
+    "https://cdn.jsdelivr.net/npm/@angular/core@§§version§§/bundles/core.umd§§subversion§§.js": {
+      "versions": [
+        "4.4.7",
+        "9.1.13"
+      ],
+      "subversions": [
+        "",
+        ".min"
+      ]
+    },
+    "https://cdn.jsdelivr.net/npm/@angular/core@§§version§§/fesm2020/core§§subversion§§.mjs": {
+      "versions": [
+        "13.3.12",
+        "15.2.10"
+      ],
+      "subversions": [
+        ""
+      ]
+    },
+    "https://cdn.jsdelivr.net/npm/@angular/core@§§version§§/fesm2022/core§§subversion§§.mjs": {
+      "versions": [
+        "17.3.12",
+        "18.2.14"
+      ],
+      "subversions": [
+        ""
+      ]
+    }
+  },
   "angularjs": {
     "https://cdnjs.cloudflare.com/ajax/libs/angular.js/§§version§§/angular§§subversion§§.js": {
       "versions": [

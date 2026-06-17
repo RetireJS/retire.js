@@ -13,7 +13,9 @@ const options = {
 };
 
 const limitArg = process.argv[2];
-const atIndex = limitArg ? limitArg.indexOf("@") : -1;
+// Search from index 1 so a leading "@" (npm scope, e.g. "@angular/core") is not
+// treated as the package@version separator.
+const atIndex = limitArg ? limitArg.indexOf("@", 1) : -1;
 const limitToPackage = atIndex >= 0 ? limitArg.slice(0, atIndex) : limitArg;
 const limitToVersion = atIndex >= 0 ? limitArg.slice(atIndex + 1) : undefined;
 

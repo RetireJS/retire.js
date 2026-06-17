@@ -293,6 +293,27 @@ exports.queries = {
       /:property/:name == "full"
     ]/:$object/:init/:arguments/:value`,
     `//CallExpression/ArrayExpression[/Literal/:value == "ng-version"]/:1/:value`,
+    /*
+      UMD/ES5 bundles (v2–v12) call setAttribute directly rather than via an array:
+        renderer.setAttribute(el, 'ng-version', VERSION.full)
+      where var VERSION = new Version('4.4.7')
+    */
+    `//CallExpression[/Literal/:value == "ng-version"]/MemberExpression[
+      /:property/:name == "full"
+    ]/:$object/:init/:arguments/:value`,
+    /*
+      v20+ moved VERSION into a shared chunk that re-exports it alongside
+      Angular-specific internals:
+        const VERSION = new Version('20.3.25'); export { ..., VERSION, XSS_SECURITY_URL, ZONELESS_ENABLED, ... }
+    */
+    `//ExportNamedDeclaration[
+      /ExportSpecifier/:exported[
+        /:name == "XSS_SECURITY_URL" ||
+        /:name == "ZONELESS_ENABLED"
+      ]
+    ]/ExportSpecifier[
+      /:exported/:name == "VERSION"
+    ]/:$local/:init/:arguments/:value`,
   ],
   "react-dom": [
     `//ObjectExpression/Property[/:key/:name == "reconcilerVersion"]/$$:value/:value`,

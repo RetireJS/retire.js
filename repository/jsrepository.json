@@ -4189,6 +4189,9 @@
       "filecontent": [
         "/\\*\\*[\\s*]+@license Angular v(§§version§§)",
         "\\[['\"]ng-version['\"],['\"](§§version§§)['\"]\\]"
+      ],
+      "uri": [
+        "@angular/core@(§§version§§)/"
       ]
     }
   },
