@@ -280,10 +280,19 @@ exports.queries = {
     ]/:value/:value`,
   ],
   "@angular/core": [
+    /*
+      ESM bundles re-export VERSION alongside Angular-specific internals. The
+      anchor set covers both the fesm core bundle (NgModuleFactory /
+      ɵBrowserDomAdapter) and the v20+ shared chunk that VERSION moved into
+      (XSS_SECURITY_URL / ZONELESS_ENABLED):
+        const VERSION = new Version('20.3.25'); export { ..., VERSION, ZONELESS_ENABLED, ... }
+    */
     `//ExportNamedDeclaration[
       /ExportSpecifier/:exported[
-        /:name == "NgModuleFactory" || 
-        /:name == "ɵBrowserDomAdapter"
+        /:name == "NgModuleFactory" ||
+        /:name == "ɵBrowserDomAdapter" ||
+        /:name == "XSS_SECURITY_URL" ||
+        /:name == "ZONELESS_ENABLED"
       ]
     ]/ExportSpecifier[
       /:exported/:name == "VERSION"
@@ -301,19 +310,6 @@ exports.queries = {
     `//CallExpression[/Literal/:value == "ng-version"]/MemberExpression[
       /:property/:name == "full"
     ]/:$object/:init/:arguments/:value`,
-    /*
-      v20+ moved VERSION into a shared chunk that re-exports it alongside
-      Angular-specific internals:
-        const VERSION = new Version('20.3.25'); export { ..., VERSION, XSS_SECURITY_URL, ZONELESS_ENABLED, ... }
-    */
-    `//ExportNamedDeclaration[
-      /ExportSpecifier/:exported[
-        /:name == "XSS_SECURITY_URL" ||
-        /:name == "ZONELESS_ENABLED"
-      ]
-    ]/ExportSpecifier[
-      /:exported/:name == "VERSION"
-    ]/:$local/:init/:arguments/:value`,
   ],
   "react-dom": [
     `//ObjectExpression/Property[/:key/:name == "reconcilerVersion"]/$$:value/:value`,

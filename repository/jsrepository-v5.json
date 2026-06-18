@@ -4311,11 +4311,10 @@
         "@angular/core@(§§version§§)/"
       ],
       "ast": [
-        "//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == \"NgModuleFactory\" ||          /:name == \"ɵBrowserDomAdapter\"       ]     ]/ExportSpecifier[       /:exported/:name == \"VERSION\"     ]/:$local/:init/:arguments/:value",
+        "//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == \"NgModuleFactory\" ||         /:name == \"ɵBrowserDomAdapter\" ||         /:name == \"XSS_SECURITY_URL\" ||         /:name == \"ZONELESS_ENABLED\"       ]     ]/ExportSpecifier[       /:exported/:name == \"VERSION\"     ]/:$local/:init/:arguments/:value",
         "//CallExpression/ArrayExpression[/Literal/:value == \"ng-version\"]/MemberExpression[       /:property/:name == \"full\"     ]/:$object/:init/:arguments/:value",
         "//CallExpression/ArrayExpression[/Literal/:value == \"ng-version\"]/:1/:value",
-        "//CallExpression[/Literal/:value == \"ng-version\"]/MemberExpression[       /:property/:name == \"full\"     ]/:$object/:init/:arguments/:value",
-        "//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == \"XSS_SECURITY_URL\" ||         /:name == \"ZONELESS_ENABLED\"       ]     ]/ExportSpecifier[       /:exported/:name == \"VERSION\"     ]/:$local/:init/:arguments/:value"
+        "//CallExpression[/Literal/:value == \"ng-version\"]/MemberExpression[       /:property/:name == \"full\"     ]/:$object/:init/:arguments/:value"
       ]
     }
   },
