@@ -146,7 +146,7 @@ const ignoreFileParser = z.array(
           z.object({
             component: z.string(),
             version: z.string().optional(),
-            identifiers: z.record(z.string(), z.string()).optional(),
+            identifiers: z.record(z.string(), z.string().or(z.array(z.string()))).optional(),
           }),
         ),
     ),
