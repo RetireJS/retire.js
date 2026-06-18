@@ -112,7 +112,9 @@ function removeIgnoredVulnerabilitiesByIdentifier(identifiers: Record<string, st
 function hasIdentifier(identifiers: Record<string, string | string[]>, key: string, value: string | string[]) {
   if (!(key in identifiers)) return false;
   const identifier = identifiers[key];
-  return Array.isArray(identifier) ? identifier.some((x) => x === value) : identifier === value;
+  const identifierArr = Array.isArray(identifier) ? identifier : [identifier];
+  const valueArr = Array.isArray(value) ? value : [value];
+  return identifierArr.some((id) => valueArr.includes(id));
 }
 
 export function scanJsFile(file: string, repo: Repository, options: Options) {
