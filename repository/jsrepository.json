@@ -5789,6 +5789,23 @@
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-vxr8-fq34-vvx9"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "3.4.11",
+        "severity": "medium",
+        "cwe": [
+          "CWE-471",
+          "CWE-665",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "DOMPurify: Permanent `ALLOWED_ATTR` pollution via `setConfig()` bypassing the hook clone-guard (incomplete fix of the 3.4.7 hook-pollution patch)",
+          "githubID": "GHSA-cmwh-pvxp-8882"
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882"
+        ]
       }
     ],
     "extractors": {
