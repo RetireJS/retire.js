@@ -1604,6 +1604,27 @@
         },
         {
           "atOrAbove": "0",
+          "below": "5.10.10",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+            "githubID": "GHSA-vg35-5wq7-3x7w",
+            "CVE": [
+              "CVE-2026-47761"
+            ]
+          },
+          "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+          "info": [
+            "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+            "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+            "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+          ]
+        },
+        {
+          "atOrAbove": "0",
           "below": "5.11.0",
           "cwe": [
             "CWE-79"
@@ -1693,27 +1714,6 @@
           "details": "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
           "info": [
             "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
-            "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
-            "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
-          ]
-        },
-        {
-          "atOrAbove": "0",
-          "below": "5.11.1",
-          "severity": "high",
-          "cwe": [
-            "CWE-79"
-          ],
-          "identifiers": {
-            "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
-            "githubID": "GHSA-vg35-5wq7-3x7w",
-            "CVE": [
-              "CVE-2026-47761"
-            ]
-          },
-          "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
-          "info": [
-            "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
             "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
             "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
           ]
@@ -14112,7 +14112,32 @@
       "licenses": [
         "Apache-2.0 >=0"
       ],
-      "vulnerabilities": [],
+      "vulnerabilities": [
+        {
+          "atOrAbove": "0",
+          "below": "6.1.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Apache ECharts has a cross-site scripting (XSS) vulnerability",
+            "githubID": "GHSA-fgmj-fm8m-jvvx",
+            "CVE": [
+              "CVE-2026-45249"
+            ]
+          },
+          "details": "A cross-site scripting (XSS) vulnerability exists in Apache ECharts in the Lines series tooltip rendering logic.\n\nThis issue affects Apache ECharts: from before 6.1.0.\n\nIn versions prior to 6.1.0, if both Lines series and tooltip are used, and no user-specified tooltip.formatter is provided, and series.data[i].name is specified, raw HTML string series.data[i].name can be rendered through innerHTML sink into tooltip content. Although tooltip is allowed to accept user-provided raw HTML via a custom tooltip.formatter, the built-in tooltip formatters conventionally perform HTML escaping automatically. This case breaks that convention and may unexpectedly lead to script execution when tooltips are displayed.\n\n\nUsers are recommended to upgrade to version 6.1.0 if using the Lines series in this way, which fixes the issue.",
+          "info": [
+            "https://github.com/apache/echarts/pull/21608",
+            "https://github.com/apache/echarts/commit/1e39b00eedda0e4a0b048e099c0e13ce7149d90f",
+            "https://echarts.apache.org/en/option.html#series-lines",
+            "https://echarts.apache.org/handbook/en/best-practices/security/#passing_raw_html_safely",
+            "https://lists.apache.org/thread/1g6xk7gd9vg1c6zyqqt2lnko10zomc3o",
+            "http://www.openwall.com/lists/oss-security/2026/05/23/4"
+          ]
+        }
+      ],
       "extractors": {
         "uri": [
           "/echarts[@/](§§version§§)/"
