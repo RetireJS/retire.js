@@ -1602,6 +1602,26 @@
       },
       {
         "atOrAbove": "0",
+        "below": "5.10.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+          "githubID": "GHSA-vg35-5wq7-3x7w",
+          "CVE": [
+            "CVE-2026-47761"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
         "below": "5.11.0",
         "cwe": [
           "CWE-79"
@@ -1689,26 +1709,6 @@
         },
         "info": [
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
-          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
-          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
-        ]
-      },
-      {
-        "atOrAbove": "0",
-        "below": "5.11.1",
-        "severity": "high",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
-          "githubID": "GHSA-vg35-5wq7-3x7w",
-          "CVE": [
-            "CVE-2026-47761"
-          ]
-        },
-        "info": [
-          "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
           "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
           "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
         ]
@@ -13862,7 +13862,31 @@
     "licenses": [
       "Apache-2.0 >=0"
     ],
-    "vulnerabilities": [],
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "6.1.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Apache ECharts has a cross-site scripting (XSS) vulnerability",
+          "githubID": "GHSA-fgmj-fm8m-jvvx",
+          "CVE": [
+            "CVE-2026-45249"
+          ]
+        },
+        "info": [
+          "https://github.com/apache/echarts/pull/21608",
+          "https://github.com/apache/echarts/commit/1e39b00eedda0e4a0b048e099c0e13ce7149d90f",
+          "https://echarts.apache.org/en/option.html#series-lines",
+          "https://echarts.apache.org/handbook/en/best-practices/security/#passing_raw_html_safely",
+          "https://lists.apache.org/thread/1g6xk7gd9vg1c6zyqqt2lnko10zomc3o",
+          "http://www.openwall.com/lists/oss-security/2026/05/23/4"
+        ]
+      }
+    ],
     "extractors": {
       "uri": [
         "/echarts[@/](§§version§§)/"
