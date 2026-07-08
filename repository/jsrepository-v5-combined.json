@@ -1609,6 +1609,26 @@
             "CWE-79"
           ],
           "identifiers": {
+            "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+            "githubID": "GHSA-q742-qvgc-gc2f",
+            "CVE": [
+              "CVE-2026-47759"
+            ]
+          },
+          "info": [
+            "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+            "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+            "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "5.10.10",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
             "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
             "githubID": "GHSA-vg35-5wq7-3x7w",
             "CVE": [
@@ -1672,26 +1692,6 @@
             "https://owasp.org/www-community/attacks/xss",
             "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
             "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
-          ]
-        },
-        {
-          "atOrAbove": "0",
-          "below": "5.11.1",
-          "severity": "high",
-          "cwe": [
-            "CWE-79"
-          ],
-          "identifiers": {
-            "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
-            "githubID": "GHSA-q742-qvgc-gc2f",
-            "CVE": [
-              "CVE-2026-47759"
-            ]
-          },
-          "info": [
-            "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
-            "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
-            "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
           ]
         },
         {
@@ -8344,6 +8344,7 @@
           "below": "0.32.0",
           "severity": "high",
           "cwe": [
+            "CWE-289",
             "CWE-918"
           ],
           "identifiers": {
@@ -8920,24 +8921,6 @@
           ]
         },
         {
-          "atOrAbove": "1.0.0",
-          "below": "1.16.0",
-          "severity": "high",
-          "cwe": [
-            "CWE-918"
-          ],
-          "identifiers": {
-            "summary": "The shouldBypassProxy function introduced in Axios 1.15.0 does not normalize IPv4-mapped IPv6 addresses, allowing bypass of NO_PROXY exclusions when requests use IPv4-mapped IPv6 notation to target excluded IPv4 addresses.",
-            "githubID": "GHSA-pjwm-pj3p-43mv",
-            "CVE": [
-              "CVE-2026-44492"
-            ]
-          },
-          "info": [
-            "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
-          ]
-        },
-        {
           "atOrAbove": "1.7.0",
           "below": "1.16.0",
           "severity": "high",
@@ -8956,6 +8939,25 @@
             "https://github.com/axios/axios/pull/10795",
             "https://github.com/axios/axios/pull/10796",
             "https://github.com/axios/axios/releases/tag/v1.16.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.0",
+          "below": "1.16.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-289",
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "The shouldBypassProxy function introduced in Axios 1.15.0 does not normalize IPv4-mapped IPv6 addresses, allowing bypass of NO_PROXY exclusions when requests use IPv4-mapped IPv6 notation to target excluded IPv4 addresses.",
+            "githubID": "GHSA-pjwm-pj3p-43mv",
+            "CVE": [
+              "CVE-2026-44492"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
           ]
         },
         {

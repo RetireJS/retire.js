@@ -1925,7 +1925,7 @@
         "ranges": [
           {
             "atOrAbove": "0",
-            "below": "5.11.1"
+            "below": "5.10.10"
           },
           {
             "atOrAbove": "6.0.0",
@@ -8206,7 +8206,7 @@
       {
         "ranges": [
           {
-            "atOrAbove": "1.0.0",
+            "atOrAbove": "1.15.0",
             "below": "1.16.0"
           },
           {
@@ -8224,6 +8224,7 @@
         },
         "severity": "high",
         "cwe": [
+          "CWE-289",
           "CWE-918"
         ],
         "info": [
