@@ -12829,7 +12829,8 @@
           "identifiers": {
             "summary": "Command Injection in lodash",
             "CVE": [
-              "CVE-2021-23337"
+              "CVE-2021-23337",
+              "CVE-2026-4800"
             ],
             "githubID": "GHSA-35jh-r3h4-6jhm"
           },
@@ -12902,7 +12903,8 @@
             "summary": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution via the _.unset and _.omit functions. An attacker can pass crafted paths to delete methods from global prototypes such as Object.prototype, though the issue only permits deletion and not overwriting of properties.",
             "githubID": "GHSA-xxjr-mmjv-4gpg",
             "CVE": [
-              "CVE-2025-13465"
+              "CVE-2025-13465",
+              "CVE-2026-2950"
             ]
           },
           "info": [
@@ -12921,6 +12923,7 @@
             "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
             "githubID": "GHSA-f23m-r3pf-42rh",
             "CVE": [
+              "CVE-2025-13465",
               "CVE-2026-2950"
             ]
           },
@@ -12940,6 +12943,7 @@
             "summary": "Lodash _.template is vulnerable to code injection via unsanitized options.imports key names. Untrusted key names are passed to the Function() constructor sink without validation, and the use of assignInWith (which enumerates inherited properties) also means that pre-existing prototype pollution on Object.prototype can flow into the Function() sink and execute arbitrary code at template compilation time.",
             "githubID": "GHSA-r5fr-rjxr-66jc",
             "CVE": [
+              "CVE-2021-23337",
               "CVE-2026-4800"
             ]
           },
