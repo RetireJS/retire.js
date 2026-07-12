@@ -11176,7 +11176,8 @@
         "severity": "high",
         "identifiers": {
           "CVE": [
-            "CVE-2021-23337"
+            "CVE-2021-23337",
+            "CVE-2026-4800"
           ],
           "githubID": "GHSA-35jh-r3h4-6jhm"
         },
@@ -11254,7 +11255,8 @@
         "identifiers": {
           "githubID": "GHSA-xxjr-mmjv-4gpg",
           "CVE": [
-            "CVE-2025-13465"
+            "CVE-2025-13465",
+            "CVE-2026-2950"
           ]
         },
         "severity": "medium",
@@ -11278,6 +11280,7 @@
         "identifiers": {
           "githubID": "GHSA-f23m-r3pf-42rh",
           "CVE": [
+            "CVE-2025-13465",
             "CVE-2026-2950"
           ]
         },
@@ -11302,6 +11305,7 @@
         "identifiers": {
           "githubID": "GHSA-r5fr-rjxr-66jc",
           "CVE": [
+            "CVE-2021-23337",
             "CVE-2026-4800"
           ]
         },
