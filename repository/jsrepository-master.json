@@ -1958,7 +1958,7 @@
         "ranges": [
           {
             "atOrAbove": "0",
-            "below": "5.11.1"
+            "below": "5.10.10"
           },
           {
             "atOrAbove": "6.0.0",
@@ -11356,7 +11356,7 @@
         ],
         "summary": "Embedded malware in ua-parser-js",
         "cwe": [
-          "CWE-829",
+          "CWE-506",
           "CWE-912"
         ],
         "severity": "high",
