@@ -1548,6 +1548,26 @@
           "CWE-79"
         ],
         "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+          "githubID": "GHSA-v98h-vmpc-fpqv",
+          "CVE": [
+            "CVE-2026-47762"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "5.10.10",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
           "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
           "githubID": "GHSA-vg35-5wq7-3x7w",
           "CVE": [
@@ -1611,26 +1631,6 @@
           "https://owasp.org/www-community/attacks/xss",
           "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
           "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
-        ]
-      },
-      {
-        "atOrAbove": "0",
-        "below": "5.11.1",
-        "severity": "high",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
-          "githubID": "GHSA-v98h-vmpc-fpqv",
-          "CVE": [
-            "CVE-2026-47762"
-          ]
-        },
-        "info": [
-          "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
-          "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
-          "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
         ]
       },
       {
@@ -3423,6 +3423,30 @@
           "https://codepen.io/herodevs/full/bGPQgMp/8da9ce87e99403ee13a295c305ebfa0b",
           "https://github.com/angular/angular.js",
           "https://www.herodevs.com/vulnerability-directory/cve-2024-8373"
+        ]
+      },
+      {
+        "atOrAbove": "1.2.0-rc.3",
+        "below": "1.8.4",
+        "severity": "high",
+        "cwe": [
+          "CWE-79",
+          "CWE-791"
+        ],
+        "identifiers": {
+          "summary": "Angular's deprecated package has a Cross-Site Scripting issue",
+          "githubID": "GHSA-7x27-g8rg-x87w",
+          "CVE": [
+            "CVE-2026-11998"
+          ]
+        },
+        "info": [
+          "https://access.redhat.com/security/cve/CVE-2026-11998",
+          "https://bugzilla.redhat.com/show_bug.cgi?id=2492579",
+          "https://codepen.io/herodevs/pen/JobQdmz/5b3896f56fab66f20cd25e698cf3faa8",
+          "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-11998.json",
+          "https://www.herodevs.com/vulnerability-directory/cve-2026-11998",
+          "https://www.herodevs.com/vulnerability-directory/cve-2026-11998?nes-for-angularjs"
         ]
       },
       {
@@ -12788,7 +12812,7 @@
         "atOrAbove": "0.7.29",
         "below": "0.7.30",
         "cwe": [
-          "CWE-829",
+          "CWE-506",
           "CWE-912"
         ],
         "severity": "high",
@@ -12835,7 +12859,7 @@
         "atOrAbove": "0.8.0",
         "below": "0.8.1",
         "cwe": [
-          "CWE-829",
+          "CWE-506",
           "CWE-912"
         ],
         "severity": "high",
@@ -12858,7 +12882,7 @@
         "atOrAbove": "1.0.0",
         "below": "1.0.1",
         "cwe": [
-          "CWE-829",
+          "CWE-506",
           "CWE-912"
         ],
         "severity": "high",
