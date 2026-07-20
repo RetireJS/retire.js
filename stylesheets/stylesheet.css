@@ -243,6 +243,12 @@ th {
 td {
   padding: 10px;
   border: 1px solid #373737;
+  word-break: break-word;
+ }
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
  }
 
 form {

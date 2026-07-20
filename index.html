@@ -41,7 +41,6 @@ known vulnerabilities.</p>
 
 <ol>
 <li>A command line scanner</li>
-<li>A grunt plugin</li>
 <li>A Chrome extension</li>
 <li>A Firefox extension</li>
 <li>Burp and ZAP plugin</li>
@@ -49,13 +48,6 @@ known vulnerabilities.</p>
 <a name="command-line-scanner" class="anchor" href="#command-line-scanner"><span class="octicon octicon-link"></span></a>Command line scanner</h2>
 
 <p>Scan a web app or node app for use of vulnerable JavaScript libraries and/or node modules.</p>
-
-<h2>
-<a name="grunt-plugin" class="anchor" href="#grunt-plugin"><span class="octicon octicon-link"></span></a>Grunt plugin</h2>
-
-<p><a href="https://github.com/bekk/grunt-retire">grunt-retire</a> scans your grunt enabled app for use of vulnerable JavaScript libraries and/or node modules.</p>
-
-
 
 <h2>
 <a name="chrome-extension" class="anchor" href="#chrome-extension"><span class="octicon octicon-link"></span></a>Chrome and Firefox extensions</h2>
@@ -72,9 +64,11 @@ known vulnerabilities.</p>
 <h2>Vulnerabilities</h2>
 These are the vulnerabilities currently detected by Retire.js
 <h3>JavaScript libraries</h3>
+<div class="table-scroll">
 <table id="vulnsjs">
-<tr><th>Library</th><th>From version</th><th>Up to version</th><th>Links</th></tr>
+<tr><th>Library</th><th>From version</th><th>Up to version</th><th>Links</th><th>Summary</th></tr>
 </table>
+</div>
 
 
 
@@ -110,13 +104,26 @@ function doIt(id, data) {
         c("td", tr, data[i].vulnerabilities[j].atOrAbove || "←");
         c("td", tr, data[i].vulnerabilities[j].below || "→");
 
+        var vuln = data[i].vulnerabilities[j];
+        var ids = vuln.identifiers || {};
+
         var td = c("td", tr);
 
-        data[i].vulnerabilities[j].info.map((url, i) => {
-          if (i > 0) c("br", td);
-          var a = c("a", td, url)
-          a.href = url;
-        });
+        if (ids.githubID) {
+          var a = c("a", td, ids.githubID);
+          a.href = "https://github.com/advisories/" + ids.githubID;
+        } else if (ids.CVE && ids.CVE.length) {
+          var a = c("a", td, ids.CVE[0]);
+          a.href = "https://nvd.nist.gov/vuln/detail/" + ids.CVE[0];
+        } else {
+          vuln.info.map((url, k) => {
+            if (k > 0) c("br", td);
+            var a = c("a", td, url)
+            a.href = url;
+          });
+        }
+
+        c("td", tr, ids.summary || "");
       }
     }
   }
@@ -124,7 +131,7 @@ function doIt(id, data) {
 
 
 
-fetch("//rawgit.com/RetireJS/retire.js/master/repository/jsrepository.json").then(r => r.json()).then(d => doIt("vulnsjs", d));
+fetch("https://cdn.jsdelivr.net/gh/RetireJS/retire.js@master/repository/jsrepository.json").then(r => r.json()).then(d => doIt("vulnsjs", d));
 
 </script>
 
