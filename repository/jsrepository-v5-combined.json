@@ -8383,6 +8383,157 @@
           ]
         },
         {
+          "atOrAbove": "0.8.0",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Nested axios option objects can consume polluted prototype values",
+            "githubID": "GHSA-7q8q-rj6j-mhjq"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-7q8q-rj6j-mhjq",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.28.0",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-674"
+          ],
+          "identifiers": {
+            "summary": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+            "githubID": "GHSA-42h9-826w-cgv3"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-42h9-826w-cgv3",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.28.0",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+            "githubID": "GHSA-pmv8-rq9r-6j72"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.31.0",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-183",
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+            "githubID": "GHSA-f4gw-2p7v-4548"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-f4gw-2p7v-4548",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.31.1",
+          "below": "0.33.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321",
+            "CWE-200"
+          ],
+          "identifiers": {
+            "summary": "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
+            "githubID": "GHSA-gcfj-64vw-6mp9"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-gcfj-64vw-6mp9",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.31.1",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-674"
+          ],
+          "identifiers": {
+            "summary": "Axios form serializer maxDepth bypass via {} metatoken",
+            "githubID": "GHSA-hcpx-6fm6-wx23"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-hcpx-6fm6-wx23",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype pollution gadgets can alter axios request construction",
+            "githubID": "GHSA-mmx7-hfxf-jppx"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-mmx7-hfxf-jppx",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
           "atOrAbove": "1.0.0",
           "below": "1.6.0",
           "cwe": [
@@ -9002,6 +9153,211 @@
           "info": [
             "https://github.com/axios/axios/security/advisories/GHSA-654m-c8p4-x5fp",
             "https://github.com/axios/axios/security/advisories/GHSA-q8qp-cvcw-x6jj"
+          ]
+        },
+        {
+          "atOrAbove": "1.0.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-674"
+          ],
+          "identifiers": {
+            "summary": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+            "githubID": "GHSA-42h9-826w-cgv3"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-42h9-826w-cgv3",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.0.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Nested axios option objects can consume polluted prototype values",
+            "githubID": "GHSA-7q8q-rj6j-mhjq"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-7q8q-rj6j-mhjq",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.0.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype pollution gadgets can alter axios request construction",
+            "githubID": "GHSA-mmx7-hfxf-jppx"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-mmx7-hfxf-jppx",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.0.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+            "githubID": "GHSA-pmv8-rq9r-6j72"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.7.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
+            "githubID": "GHSA-jqh4-m9w3-8hp9"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-jqh4-m9w3-8hp9",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.13.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
+            "githubID": "GHSA-mwf2-3pr3-8698"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-mwf2-3pr3-8698",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.0",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-183",
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+            "githubID": "GHSA-f4gw-2p7v-4548"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-f4gw-2p7v-4548",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.1",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-674"
+          ],
+          "identifiers": {
+            "summary": "Axios form serializer maxDepth bypass via {} metatoken",
+            "githubID": "GHSA-hcpx-6fm6-wx23"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-hcpx-6fm6-wx23",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.2",
+          "below": "1.18.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321",
+            "CWE-200"
+          ],
+          "identifiers": {
+            "summary": "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
+            "githubID": "GHSA-gcfj-64vw-6mp9"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-gcfj-64vw-6mp9",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.2",
+          "below": "1.18.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype pollution auth subfields can inject Basic auth",
+            "githubID": "GHSA-xj6q-8x83-jv6g"
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-xj6q-8x83-jv6g",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
           ]
         }
       ],
@@ -14620,6 +14976,29 @@
           ]
         },
         {
+          "atOrAbove": "7.5.0",
+          "below": "7.6.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-835"
+          ],
+          "identifiers": {
+            "summary": "protobufjs: Denial of Service via infinite loop in .proto option parsing",
+            "githubID": "GHSA-j3f2-48v5-ccww",
+            "CVE": [
+              "CVE-2026-59877"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-j3f2-48v5-ccww",
+            "https://github.com/protobufjs/protobuf.js/pull/2352",
+            "https://github.com/protobufjs/protobuf.js/commit/10fba6d54815ceecca8a06b9a6db490c8f5d2217",
+            "https://github.com/protobufjs/protobuf.js/commit/fa5c73add738ceb471e74da8cc2f3727c3d0a69f",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.6.5",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.6.6"
+          ]
+        },
+        {
           "atOrAbove": "8.0.0",
           "below": "8.0.1",
           "severity": "critical",
@@ -14853,6 +15232,50 @@
           },
           "info": [
             "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-f38q-mgvj-vph7"
+          ]
+        },
+        {
+          "atOrAbove": "8.2.0",
+          "below": "8.6.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "protobufjs: Text Format string map parsing can mutate returned map object prototype",
+            "githubID": "GHSA-jfj6-75fj-8934",
+            "CVE": [
+              "CVE-2026-59876"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jfj6-75fj-8934",
+            "https://github.com/protobufjs/protobuf.js/pull/2335",
+            "https://github.com/protobufjs/protobuf.js/commit/9f97fe413072d3beb52c74e62d88ea8adc9444d8",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.6.5"
+          ]
+        },
+        {
+          "atOrAbove": "8.0.0",
+          "below": "8.6.6",
+          "severity": "medium",
+          "cwe": [
+            "CWE-835"
+          ],
+          "identifiers": {
+            "summary": "protobufjs: Denial of Service via infinite loop in .proto option parsing",
+            "githubID": "GHSA-j3f2-48v5-ccww",
+            "CVE": [
+              "CVE-2026-59877"
+            ]
+          },
+          "info": [
+            "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-j3f2-48v5-ccww",
+            "https://github.com/protobufjs/protobuf.js/pull/2352",
+            "https://github.com/protobufjs/protobuf.js/commit/10fba6d54815ceecca8a06b9a6db490c8f5d2217",
+            "https://github.com/protobufjs/protobuf.js/commit/fa5c73add738ceb471e74da8cc2f3727c3d0a69f",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.6.5",
+            "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.6.6"
           ]
         }
       ],
