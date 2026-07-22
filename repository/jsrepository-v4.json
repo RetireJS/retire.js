@@ -5976,6 +5976,26 @@
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "3.4.12",
+        "severity": "low",
+        "cwe": [
+          "CWE-184",
+          "CWE-693",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "DOMPurify: `CUSTOM_ELEMENT_HANDLING` bypasses `afterSanitizeElements` for allowed custom elements.",
+          "githubID": "GHSA-c2j3-45gr-mqc4"
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c2j3-45gr-mqc4",
+          "https://github.com/cure53/DOMPurify/pull/1537",
+          "https://github.com/cure53/DOMPurify/commit/a9ca1e537422319a557a9a2aa61f003b23b4a197",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.12"
+        ]
       }
     ],
     "extractors": {
