@@ -12185,6 +12185,190 @@
           ]
         },
         {
+          "atOrAbove": "12.0.0",
+          "below": "15.5.21",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+            "githubID": "GHSA-p9j2-gv94-2wf4",
+            "CVE": [
+              "CVE-2026-64645"
+            ]
+          },
+          "details": "## Impact\n\nA `rewrites()` or `redirects()` rule that builds its external destination hostname from request-controlled input can be pointed at an arbitrary hostname, regardless of the rule's hostname suffix. For a rewrite, Next.js proxies the request to that arbitrary host and serves the response from the application's origin, leading to Server-Side Request forgery. A `redirects()` rule configured this way is vulnerable to an Open Redirect.\n\nThis affects any destination that puts a dynamic segment in the hostname, whether from the path:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/:tenant',\n        destination: 'https://:tenant.api.example.com',\n      },\n    ]\n  },\n}\n```\n\nor from a `has` capture:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/',\n        has: [{ type: 'query', key: 'region', value: '(?<region>.+)' }],\n        destination: 'https://:region.api.example.com',\n      },\n    ]\n  },\n}\n```\n\n## Workarounds\n\nIf you cannot upgrade immediately, do not build the hostname of an external `rewrites()` or `redirects()` destination from user-controlled input. If a dynamic subdomain is required, constrain the value to hostname-safe characters:  `value: '(?<region>[a-z0-9-]+)'`.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+            "https://github.com/vercel/next.js/commit/35f501357e9b0fe7c950b0d6aa8fcf5343f707e9",
+            "https://github.com/vercel/next.js/commit/d3033266c6dff23f7be71e19341fe3a8c6e2c599",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-116"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+            "githubID": "GHSA-4633-3j49-mh5q",
+            "CVE": [
+              "CVE-2026-64647"
+            ]
+          },
+          "details": "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis is only an issue when receiving request bodies with a content type charset other than UTF-8. For example, the UTF-16 byte sequences for `삃삃` and `섄섄` in the request body would share the same cache.\n\n## Workarounds\n\nIf you cannot upgrade, consider only making fetch requests with UTF-8 bodies (default in Next.js). Applications using Pages Router are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+            "https://github.com/vercel/next.js/pull/96008",
+            "https://github.com/vercel/next.js/commit/025bf4a5f7b47fb7758c4ebf1c931a61c451c082",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unbounded Server Action payload in Edge runtime",
+            "githubID": "GHSA-4c39-4ccg-62r3",
+            "CVE": [
+              "CVE-2026-64646"
+            ]
+          },
+          "details": "## Impact\n\nRequests targeting Next.js applications using App Router with at least one Server Action can lead to excessive memory consumption if that Server Actions uses the Edge runtime\n\n## Workarounds\n\nIf you cannot upgrade, ensure your hosting provider limits the request's body size. 5 MiB should be allowed at max by your hosting provider.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+            "https://github.com/vercel/next.js/commit/57c31f724d746e86a9e8b92aa8be538a922446a4",
+            "https://github.com/vercel/next.js/commit/9a4651e754f70b12e397694ffc41f44c3ba8cc17",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies",
+            "githubID": "GHSA-68g3-v927-f742",
+            "CVE": [
+              "CVE-2026-64648"
+            ]
+          },
+          "details": "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis only applies to `fetch` calls with a request that has a different init than the one passed to `fetch`.\nSafe: `fetch(new Request(init), init)`\nUnsafe: `fetch(new Request(init), aDifferentInit)`\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+            "https://github.com/vercel/next.js/commit/062f66700b52a5d6bba2c0605d55577ab7ad262c",
+            "https://github.com/vercel/next.js/commit/73b94872bc343d09494b50394d8c08eb9fc8e56a",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-201"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+            "githubID": "GHSA-955p-x3mx-jcvp",
+            "CVE": [
+              "CVE-2026-64643"
+            ]
+          },
+          "details": "## Impact\n\nIn Next.js applications using App Router, Server Actions (`use server`) or `use cache` endpoints can be disclosed bypassing any authentication on the pages where these endpoints are usually used.\n\nServer Action IDs can be disclosed to unauthenticated users via publicly served client artifacts (for example, static chunks containing action references).\n\nAffected users are applications using App Router + Server Actions.  \n\nBy itself, this disclosure is typically a recon/enumeration primitive; however, it can increase risk when combined with other weaknesses.\n \n## Workarounds\n\nNever assume any authentication claims at the `use cache` or `use server` boundary. Always authenticate within the boundary.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+            "https://github.com/vercel/next.js/commit/1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3",
+            "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "high",
+          "cwe": [
+            "CWE-834"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in App Router using Server Actions",
+            "githubID": "GHSA-m99w-x7hq-7vfj",
+            "CVE": [
+              "CVE-2026-64641"
+            ]
+          },
+          "details": "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+            "https://github.com/vercel/next.js/pull/96013",
+            "https://github.com/vercel/next.js/commit/019628571641dec57aaf349ba0c360e3964e6f12",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "14.1.1",
+          "below": "15.5.21",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+            "githubID": "GHSA-89xv-2m56-2m9x",
+            "CVE": [
+              "CVE-2026-64649"
+            ]
+          },
+          "details": "## Impact\n\nWhen a Server Action forwards or redirects a request, an attacker can cause the server to send that outbound request to a malicious host (Server-Side Request Forgery). This requires the attacker's request to control Host-associated headers. In some configurations, it's also possible to obtain internal values that weaken middleware/proxy authorization.\n\nApplications that use Server Actions are affected when the incoming host header is not fixed to a trusted value. This typically occurs on custom servers, or on deployments not behind a proxy that pins the host. Managed hosting pins the host upstream and is not affected; `next start` and standalone output do the same from version 14.2 onward.\n\n## Workarounds\n\nIf you cannot upgrade, ensure clients do not control the host header your application receives. Pin or validate `Host` and `X-Forwarded-Host` at your edge or proxy. On version 14.2.0 and later, you can additionally set the `__NEXT_PRIVATE_ORIGIN` environment variable to your deployment's real origin:\n\n```bash\n__NEXT_PRIVATE_ORIGIN=https://www.example.com node server.js",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+            "https://github.com/vercel/next.js/commit/b51206321854193208c0805ba42acc49287f942b",
+            "https://github.com/vercel/next.js/commit/e3e5666ccead3a15162793d697af5e48b7cc0498",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "15.5.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in the Image Optimization API using SVGs",
+            "githubID": "GHSA-q8wf-6r8g-63ch",
+            "CVE": [
+              "CVE-2026-64644"
+            ]
+          },
+          "details": "### Impact\n\nWhen self-hosting Next.js with the default image loader, the Image Optimization API can optimize remotely hosted images if configured (not enabled by default). If those images contain malicious content, they can cause CPU exhaustion in  `/_next/image` endpoints.\n\n- If you are using `config.images.remotePatterns`, only the patterns in that array are impacted.\n- If you are using `config.images.unoptimized: true`, you are NOT impacted.\n- If you are using `config.images.loader: 'custom'`, you are NOT impacted.\n- If you are using Vercel, you are NOT impacted.\n\n### Workarounds\n\nIf you cannot upgrade immediately, you can avoid the expensive work by setting `config.experimental.imgOptSkipMetadata : true`.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-q8wf-6r8g-63ch",
+            "https://github.com/vercel/next.js/pull/96006",
+            "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -12903,6 +13087,212 @@
             "https://github.com/vercel/next.js/security/advisories/GHSA-26hh-7cqf-hhc6",
             "https://github.com/vercel/next.js/releases/tag/v15.5.18",
             "https://github.com/vercel/next.js/releases/tag/v16.2.6"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-116"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+            "githubID": "GHSA-4633-3j49-mh5q",
+            "CVE": [
+              "CVE-2026-64647"
+            ]
+          },
+          "details": "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis is only an issue when receiving request bodies with a content type charset other than UTF-8. For example, the UTF-16 byte sequences for `삃삃` and `섄섄` in the request body would share the same cache.\n\n## Workarounds\n\nIf you cannot upgrade, consider only making fetch requests with UTF-8 bodies (default in Next.js). Applications using Pages Router are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+            "https://github.com/vercel/next.js/pull/96008",
+            "https://github.com/vercel/next.js/commit/025bf4a5f7b47fb7758c4ebf1c931a61c451c082",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unbounded Server Action payload in Edge runtime",
+            "githubID": "GHSA-4c39-4ccg-62r3",
+            "CVE": [
+              "CVE-2026-64646"
+            ]
+          },
+          "details": "## Impact\n\nRequests targeting Next.js applications using App Router with at least one Server Action can lead to excessive memory consumption if that Server Actions uses the Edge runtime\n\n## Workarounds\n\nIf you cannot upgrade, ensure your hosting provider limits the request's body size. 5 MiB should be allowed at max by your hosting provider.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+            "https://github.com/vercel/next.js/commit/57c31f724d746e86a9e8b92aa8be538a922446a4",
+            "https://github.com/vercel/next.js/commit/9a4651e754f70b12e397694ffc41f44c3ba8cc17",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies",
+            "githubID": "GHSA-68g3-v927-f742",
+            "CVE": [
+              "CVE-2026-64648"
+            ]
+          },
+          "details": "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis only applies to `fetch` calls with a request that has a different init than the one passed to `fetch`.\nSafe: `fetch(new Request(init), init)`\nUnsafe: `fetch(new Request(init), aDifferentInit)`\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+            "https://github.com/vercel/next.js/commit/062f66700b52a5d6bba2c0605d55577ab7ad262c",
+            "https://github.com/vercel/next.js/commit/73b94872bc343d09494b50394d8c08eb9fc8e56a",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-285"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Middleware / Proxy bypass in App Router applications using Turbopack and single locale",
+            "githubID": "GHSA-6gpp-xcg3-4w24",
+            "CVE": [
+              "CVE-2026-64642"
+            ]
+          },
+          "details": "## Impact\n\nCrafted requests targeting Next.js applications using App Router built with Turbopack and a **single** entry in `config.i18n.locales` can bypass middleware/proxy based authentication.\n\n## Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in the page's server-side data path instead of relying solely on middleware.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-6gpp-xcg3-4w24",
+            "https://github.com/vercel/next.js/pull/96014",
+            "https://github.com/vercel/next.js/commit/6bf4df14508ad6c0cd46af50c6051ee42f2d9151",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+            "githubID": "GHSA-89xv-2m56-2m9x",
+            "CVE": [
+              "CVE-2026-64649"
+            ]
+          },
+          "details": "## Impact\n\nWhen a Server Action forwards or redirects a request, an attacker can cause the server to send that outbound request to a malicious host (Server-Side Request Forgery). This requires the attacker's request to control Host-associated headers. In some configurations, it's also possible to obtain internal values that weaken middleware/proxy authorization.\n\nApplications that use Server Actions are affected when the incoming host header is not fixed to a trusted value. This typically occurs on custom servers, or on deployments not behind a proxy that pins the host. Managed hosting pins the host upstream and is not affected; `next start` and standalone output do the same from version 14.2 onward.\n\n## Workarounds\n\nIf you cannot upgrade, ensure clients do not control the host header your application receives. Pin or validate `Host` and `X-Forwarded-Host` at your edge or proxy. On version 14.2.0 and later, you can additionally set the `__NEXT_PRIVATE_ORIGIN` environment variable to your deployment's real origin:\n\n```bash\n__NEXT_PRIVATE_ORIGIN=https://www.example.com node server.js",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+            "https://github.com/vercel/next.js/commit/b51206321854193208c0805ba42acc49287f942b",
+            "https://github.com/vercel/next.js/commit/e3e5666ccead3a15162793d697af5e48b7cc0498",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-201"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+            "githubID": "GHSA-955p-x3mx-jcvp",
+            "CVE": [
+              "CVE-2026-64643"
+            ]
+          },
+          "details": "## Impact\n\nIn Next.js applications using App Router, Server Actions (`use server`) or `use cache` endpoints can be disclosed bypassing any authentication on the pages where these endpoints are usually used.\n\nServer Action IDs can be disclosed to unauthenticated users via publicly served client artifacts (for example, static chunks containing action references).\n\nAffected users are applications using App Router + Server Actions.  \n\nBy itself, this disclosure is typically a recon/enumeration primitive; however, it can increase risk when combined with other weaknesses.\n \n## Workarounds\n\nNever assume any authentication claims at the `use cache` or `use server` boundary. Always authenticate within the boundary.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+            "https://github.com/vercel/next.js/commit/1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3",
+            "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-834"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in App Router using Server Actions",
+            "githubID": "GHSA-m99w-x7hq-7vfj",
+            "CVE": [
+              "CVE-2026-64641"
+            ]
+          },
+          "details": "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+            "https://github.com/vercel/next.js/pull/96013",
+            "https://github.com/vercel/next.js/commit/019628571641dec57aaf349ba0c360e3964e6f12",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+            "githubID": "GHSA-p9j2-gv94-2wf4",
+            "CVE": [
+              "CVE-2026-64645"
+            ]
+          },
+          "details": "## Impact\n\nA `rewrites()` or `redirects()` rule that builds its external destination hostname from request-controlled input can be pointed at an arbitrary hostname, regardless of the rule's hostname suffix. For a rewrite, Next.js proxies the request to that arbitrary host and serves the response from the application's origin, leading to Server-Side Request forgery. A `redirects()` rule configured this way is vulnerable to an Open Redirect.\n\nThis affects any destination that puts a dynamic segment in the hostname, whether from the path:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/:tenant',\n        destination: 'https://:tenant.api.example.com',\n      },\n    ]\n  },\n}\n```\n\nor from a `has` capture:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/',\n        has: [{ type: 'query', key: 'region', value: '(?<region>.+)' }],\n        destination: 'https://:region.api.example.com',\n      },\n    ]\n  },\n}\n```\n\n## Workarounds\n\nIf you cannot upgrade immediately, do not build the hostname of an external `rewrites()` or `redirects()` destination from user-controlled input. If a dynamic subdomain is required, constrain the value to hostname-safe characters:  `value: '(?<region>[a-z0-9-]+)'`.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+            "https://github.com/vercel/next.js/commit/35f501357e9b0fe7c950b0d6aa8fcf5343f707e9",
+            "https://github.com/vercel/next.js/commit/d3033266c6dff23f7be71e19341fe3a8c6e2c599",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in the Image Optimization API using SVGs",
+            "githubID": "GHSA-q8wf-6r8g-63ch",
+            "CVE": [
+              "CVE-2026-64644"
+            ]
+          },
+          "details": "### Impact\n\nWhen self-hosting Next.js with the default image loader, the Image Optimization API can optimize remotely hosted images if configured (not enabled by default). If those images contain malicious content, they can cause CPU exhaustion in  `/_next/image` endpoints.\n\n- If you are using `config.images.remotePatterns`, only the patterns in that array are impacted.\n- If you are using `config.images.unoptimized: true`, you are NOT impacted.\n- If you are using `config.images.loader: 'custom'`, you are NOT impacted.\n- If you are using Vercel, you are NOT impacted.\n\n### Workarounds\n\nIf you cannot upgrade immediately, you can avoid the expensive work by setting `config.experimental.imgOptSkipMetadata : true`.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-q8wf-6r8g-63ch",
+            "https://github.com/vercel/next.js/pull/96006",
+            "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
           ]
         }
       ],

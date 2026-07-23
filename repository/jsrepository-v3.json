@@ -11965,6 +11965,182 @@
           ]
         },
         {
+          "atOrAbove": "12.0.0",
+          "below": "15.5.21",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+            "githubID": "GHSA-p9j2-gv94-2wf4",
+            "CVE": [
+              "CVE-2026-64645"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+            "https://github.com/vercel/next.js/commit/35f501357e9b0fe7c950b0d6aa8fcf5343f707e9",
+            "https://github.com/vercel/next.js/commit/d3033266c6dff23f7be71e19341fe3a8c6e2c599",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-116"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+            "githubID": "GHSA-4633-3j49-mh5q",
+            "CVE": [
+              "CVE-2026-64647"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+            "https://github.com/vercel/next.js/pull/96008",
+            "https://github.com/vercel/next.js/commit/025bf4a5f7b47fb7758c4ebf1c931a61c451c082",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unbounded Server Action payload in Edge runtime",
+            "githubID": "GHSA-4c39-4ccg-62r3",
+            "CVE": [
+              "CVE-2026-64646"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+            "https://github.com/vercel/next.js/commit/57c31f724d746e86a9e8b92aa8be538a922446a4",
+            "https://github.com/vercel/next.js/commit/9a4651e754f70b12e397694ffc41f44c3ba8cc17",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies",
+            "githubID": "GHSA-68g3-v927-f742",
+            "CVE": [
+              "CVE-2026-64648"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+            "https://github.com/vercel/next.js/commit/062f66700b52a5d6bba2c0605d55577ab7ad262c",
+            "https://github.com/vercel/next.js/commit/73b94872bc343d09494b50394d8c08eb9fc8e56a",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-201"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+            "githubID": "GHSA-955p-x3mx-jcvp",
+            "CVE": [
+              "CVE-2026-64643"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+            "https://github.com/vercel/next.js/commit/1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3",
+            "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.21",
+          "severity": "high",
+          "cwe": [
+            "CWE-834"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in App Router using Server Actions",
+            "githubID": "GHSA-m99w-x7hq-7vfj",
+            "CVE": [
+              "CVE-2026-64641"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+            "https://github.com/vercel/next.js/pull/96013",
+            "https://github.com/vercel/next.js/commit/019628571641dec57aaf349ba0c360e3964e6f12",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "14.1.1",
+          "below": "15.5.21",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+            "githubID": "GHSA-89xv-2m56-2m9x",
+            "CVE": [
+              "CVE-2026-64649"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+            "https://github.com/vercel/next.js/commit/b51206321854193208c0805ba42acc49287f942b",
+            "https://github.com/vercel/next.js/commit/e3e5666ccead3a15162793d697af5e48b7cc0498",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "15.5.0",
+          "below": "15.5.21",
+          "severity": "medium",
+          "cwe": [
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in the Image Optimization API using SVGs",
+            "githubID": "GHSA-q8wf-6r8g-63ch",
+            "CVE": [
+              "CVE-2026-64644"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-q8wf-6r8g-63ch",
+            "https://github.com/vercel/next.js/pull/96006",
+            "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -12648,6 +12824,203 @@
             "https://github.com/vercel/next.js/security/advisories/GHSA-26hh-7cqf-hhc6",
             "https://github.com/vercel/next.js/releases/tag/v15.5.18",
             "https://github.com/vercel/next.js/releases/tag/v16.2.6"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-116"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+            "githubID": "GHSA-4633-3j49-mh5q",
+            "CVE": [
+              "CVE-2026-64647"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+            "https://github.com/vercel/next.js/pull/96008",
+            "https://github.com/vercel/next.js/commit/025bf4a5f7b47fb7758c4ebf1c931a61c451c082",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unbounded Server Action payload in Edge runtime",
+            "githubID": "GHSA-4c39-4ccg-62r3",
+            "CVE": [
+              "CVE-2026-64646"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+            "https://github.com/vercel/next.js/commit/57c31f724d746e86a9e8b92aa8be538a922446a4",
+            "https://github.com/vercel/next.js/commit/9a4651e754f70b12e397694ffc41f44c3ba8cc17",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache confusion of response bodies for requests with bodies",
+            "githubID": "GHSA-68g3-v927-f742",
+            "CVE": [
+              "CVE-2026-64648"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+            "https://github.com/vercel/next.js/commit/062f66700b52a5d6bba2c0605d55577ab7ad262c",
+            "https://github.com/vercel/next.js/commit/73b94872bc343d09494b50394d8c08eb9fc8e56a",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-285"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Middleware / Proxy bypass in App Router applications using Turbopack and single locale",
+            "githubID": "GHSA-6gpp-xcg3-4w24",
+            "CVE": [
+              "CVE-2026-64642"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-6gpp-xcg3-4w24",
+            "https://github.com/vercel/next.js/pull/96014",
+            "https://github.com/vercel/next.js/commit/6bf4df14508ad6c0cd46af50c6051ee42f2d9151",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+            "githubID": "GHSA-89xv-2m56-2m9x",
+            "CVE": [
+              "CVE-2026-64649"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+            "https://github.com/vercel/next.js/commit/b51206321854193208c0805ba42acc49287f942b",
+            "https://github.com/vercel/next.js/commit/e3e5666ccead3a15162793d697af5e48b7cc0498",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-201"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+            "githubID": "GHSA-955p-x3mx-jcvp",
+            "CVE": [
+              "CVE-2026-64643"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+            "https://github.com/vercel/next.js/commit/1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3",
+            "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-834"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in App Router using Server Actions",
+            "githubID": "GHSA-m99w-x7hq-7vfj",
+            "CVE": [
+              "CVE-2026-64641"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+            "https://github.com/vercel/next.js/pull/96013",
+            "https://github.com/vercel/next.js/commit/019628571641dec57aaf349ba0c360e3964e6f12",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+            "githubID": "GHSA-p9j2-gv94-2wf4",
+            "CVE": [
+              "CVE-2026-64645"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+            "https://github.com/vercel/next.js/commit/35f501357e9b0fe7c950b0d6aa8fcf5343f707e9",
+            "https://github.com/vercel/next.js/commit/d3033266c6dff23f7be71e19341fe3a8c6e2c599",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.2.11",
+          "severity": "medium",
+          "cwe": [
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in the Image Optimization API using SVGs",
+            "githubID": "GHSA-q8wf-6r8g-63ch",
+            "CVE": [
+              "CVE-2026-64644"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-q8wf-6r8g-63ch",
+            "https://github.com/vercel/next.js/pull/96006",
+            "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+            "https://github.com/vercel/next.js/releases/tag/v16.2.11"
           ]
         }
       ],
