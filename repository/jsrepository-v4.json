@@ -5689,7 +5689,10 @@
         ],
         "identifiers": {
           "summary": "When USE_PROFILES is enabled, DOMPurify rebuilds ALLOWED_ATTR as a plain array whose properties are looked up by name, making it susceptible to prototype pollution. If Array.prototype has been polluted with an event handler attribute name (e.g. onclick), DOMPurify will allow that event handler to survive sanitization, resulting in DOM-based XSS.",
-          "githubID": "GHSA-cj63-jhhr-wcxv"
+          "githubID": "GHSA-cj63-jhhr-wcxv",
+          "CVE": [
+            "CVE-2026-65913"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cj63-jhhr-wcxv",
@@ -5705,7 +5708,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify's ADD_ATTR predicate function mechanism (via EXTRA_ELEMENT_HANDLING.attributeCheck) short-circuits URI validation when the predicate returns true. This allows unsafe protocols such as javascript: to survive sanitization in href and similar attributes, enabling DOM-based XSS when such links are activated.",
-          "githubID": "GHSA-cjmm-f4jc-qw8r"
+          "githubID": "GHSA-cjmm-f4jc-qw8r",
+          "CVE": [
+            "CVE-2026-65912"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cjmm-f4jc-qw8r",
@@ -5721,7 +5727,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify is vulnerable to mutation-XSS (mXSS) when sanitized HTML is embedded into special raw-text wrapper elements such as xmp, script, iframe, noembed, noframes, or noscript before being assigned via innerHTML. Attacker-controlled sequences like </xmp> inside attribute values close the raw-text context during the second parse, causing the sanitized output to mutate into executable markup.",
-          "githubID": "GHSA-h8r8-wccr-v5f2"
+          "githubID": "GHSA-h8r8-wccr-v5f2",
+          "CVE": [
+            "CVE-2026-65914"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-h8r8-wccr-v5f2",
@@ -5757,7 +5766,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify has a logic inconsistency where FORBID_TAGS is not checked when a function-based ADD_TAGS (tagCheck) returns true. Due to short-circuit evaluation, the FORBID_TAGS check is never evaluated, allowing explicitly forbidden elements to pass through sanitization when EXTRA_ELEMENT_HANDLING.tagCheck is configured.",
-          "githubID": "GHSA-39q2-94rc-95cp"
+          "githubID": "GHSA-39q2-94rc-95cp",
+          "CVE": [
+            "CVE-2026-65903"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-39q2-94rc-95cp"
@@ -5891,7 +5903,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: Hook mutation of `data.allowedTags` / `data.allowedAttributes` permanently pollutes `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR`",
-          "githubID": "GHSA-76mc-f452-cxcm"
+          "githubID": "GHSA-76mc-f452-cxcm",
+          "CVE": [
+            "CVE-2026-65902"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-76mc-f452-cxcm"
@@ -5924,7 +5939,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: `IN_PLACE` mode trusts attacker-controlled `nodeName` on live non-form nodes, allowing script retention and XSS via attacker-supplied DOM objects",
-          "githubID": "GHSA-x4vx-rjvf-j5p4"
+          "githubID": "GHSA-x4vx-rjvf-j5p4",
+          "CVE": [
+            "CVE-2026-65901"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-x4vx-rjvf-j5p4"
@@ -5939,7 +5957,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: SAFE_FOR_TEMPLATES bypass - template expressions survive sanitization inside <template> content when using DOM output modes",
-          "githubID": "GHSA-gvmj-g25r-r7wr"
+          "githubID": "GHSA-gvmj-g25r-r7wr",
+          "CVE": [
+            "CVE-2026-65900"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gvmj-g25r-r7wr"
@@ -5954,7 +5975,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: Trusted Types policy survives `clearConfig()` and can poison later `RETURN_TRUSTED_TYPE` output",
-          "githubID": "GHSA-vxr8-fq34-vvx9"
+          "githubID": "GHSA-vxr8-fq34-vvx9",
+          "CVE": [
+            "CVE-2026-65899"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-vxr8-fq34-vvx9"
@@ -5971,7 +5995,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: Permanent `ALLOWED_ATTR` pollution via `setConfig()` bypassing the hook clone-guard (incomplete fix of the 3.4.7 hook-pollution patch)",
-          "githubID": "GHSA-cmwh-pvxp-8882"
+          "githubID": "GHSA-cmwh-pvxp-8882",
+          "CVE": [
+            "CVE-2026-65898"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882"
