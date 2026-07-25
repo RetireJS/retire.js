@@ -6016,7 +6016,10 @@
           ],
           "identifiers": {
             "summary": "DOMPurify: `CUSTOM_ELEMENT_HANDLING` bypasses `afterSanitizeElements` for allowed custom elements.",
-            "githubID": "GHSA-c2j3-45gr-mqc4"
+            "githubID": "GHSA-c2j3-45gr-mqc4",
+            "CVE": [
+              "CVE-2026-66010"
+            ]
           },
           "info": [
             "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c2j3-45gr-mqc4",
