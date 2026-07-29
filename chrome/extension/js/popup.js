@@ -93,12 +93,18 @@ function show(totalResults) {
   totalResults.forEach((rs) => {
     merged[rs.url] = merged[rs.url] || { url: rs.url, results: [] };
     rs.results.forEach((r) => {
-      if (
-        !merged[rs.url].results.some(
-          (x) => x.component == r.component && x.version == r.version
-        )
-      ) {
-        merged[rs.url].results.push(r);
+      const existing = merged[rs.url].results.find(
+        (x) => x.component == r.component && x.version == r.version
+      );
+      if (existing) {
+        if (r.detection && !existing.detections.includes(r.detection)) {
+          existing.detections.push(r.detection);
+        }
+      } else {
+        merged[rs.url].results.push({
+          ...r,
+          detections: r.detection ? [r.detection] : [],
+        });
       }
     });
   });
@@ -194,12 +200,17 @@ function show(totalResults) {
         });
       }
 
-      let d = detMapping[r.detection] ?? r.detection;
+      let dNames = (r.detections && r.detections.length > 0
+        ? r.detections
+        : [r.detection]
+      )
+        .filter(Boolean)
+        .map((d) => detMapping[d] ?? d);
       let urlDiv = document.createElement("div");
       urlDiv.className = "detection-url";
       urlDiv.textContent = `${r.url} `;
       let detSpan = document.createElement("span");
-      detSpan.textContent = `(${d} detection)`;
+      detSpan.textContent = `(${dNames.join(", ")} detection)`;
       detSpan.className = "detection-method";
       urlDiv.appendChild(detSpan);
       body.appendChild(urlDiv);
