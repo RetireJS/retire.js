@@ -8440,7 +8440,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Nested axios option objects can consume polluted prototype values",
-          "githubID": "GHSA-7q8q-rj6j-mhjq"
+          "githubID": "GHSA-7q8q-rj6j-mhjq",
+          "CVE": [
+            "CVE-2026-67319"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-7q8q-rj6j-mhjq",
@@ -8462,7 +8465,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
-          "githubID": "GHSA-42h9-826w-cgv3"
+          "githubID": "GHSA-42h9-826w-cgv3",
+          "CVE": [
+            "CVE-2026-67313"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-42h9-826w-cgv3",
@@ -8484,7 +8490,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
-          "githubID": "GHSA-pmv8-rq9r-6j72"
+          "githubID": "GHSA-pmv8-rq9r-6j72",
+          "CVE": [
+            "CVE-2026-67312"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
@@ -8506,7 +8515,10 @@
         ],
         "identifiers": {
           "summary": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
-          "githubID": "GHSA-f4gw-2p7v-4548"
+          "githubID": "GHSA-f4gw-2p7v-4548",
+          "CVE": [
+            "CVE-2026-67315"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-f4gw-2p7v-4548",
@@ -8528,7 +8540,10 @@
         ],
         "identifiers": {
           "summary": "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
-          "githubID": "GHSA-gcfj-64vw-6mp9"
+          "githubID": "GHSA-gcfj-64vw-6mp9",
+          "CVE": [
+            "CVE-2026-67320"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-gcfj-64vw-6mp9",
@@ -8549,7 +8564,10 @@
         ],
         "identifiers": {
           "summary": "Axios form serializer maxDepth bypass via {} metatoken",
-          "githubID": "GHSA-hcpx-6fm6-wx23"
+          "githubID": "GHSA-hcpx-6fm6-wx23",
+          "CVE": [
+            "CVE-2026-67321"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-hcpx-6fm6-wx23",
@@ -8570,7 +8588,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Prototype pollution gadgets can alter axios request construction",
-          "githubID": "GHSA-mmx7-hfxf-jppx"
+          "githubID": "GHSA-mmx7-hfxf-jppx",
+          "CVE": [
+            "CVE-2026-67316"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-mmx7-hfxf-jppx",
@@ -9214,7 +9235,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
-          "githubID": "GHSA-42h9-826w-cgv3"
+          "githubID": "GHSA-42h9-826w-cgv3",
+          "CVE": [
+            "CVE-2026-67313"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-42h9-826w-cgv3",
@@ -9235,7 +9259,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Nested axios option objects can consume polluted prototype values",
-          "githubID": "GHSA-7q8q-rj6j-mhjq"
+          "githubID": "GHSA-7q8q-rj6j-mhjq",
+          "CVE": [
+            "CVE-2026-67319"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-7q8q-rj6j-mhjq",
@@ -9256,7 +9283,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Prototype pollution gadgets can alter axios request construction",
-          "githubID": "GHSA-mmx7-hfxf-jppx"
+          "githubID": "GHSA-mmx7-hfxf-jppx",
+          "CVE": [
+            "CVE-2026-67316"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-mmx7-hfxf-jppx",
@@ -9278,7 +9308,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
-          "githubID": "GHSA-pmv8-rq9r-6j72"
+          "githubID": "GHSA-pmv8-rq9r-6j72",
+          "CVE": [
+            "CVE-2026-67312"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
@@ -9299,7 +9332,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
-          "githubID": "GHSA-jqh4-m9w3-8hp9"
+          "githubID": "GHSA-jqh4-m9w3-8hp9",
+          "CVE": [
+            "CVE-2026-67317"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-jqh4-m9w3-8hp9",
@@ -9317,7 +9353,10 @@
         ],
         "identifiers": {
           "summary": "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
-          "githubID": "GHSA-mwf2-3pr3-8698"
+          "githubID": "GHSA-mwf2-3pr3-8698",
+          "CVE": [
+            "CVE-2026-67318"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-mwf2-3pr3-8698",
@@ -9336,7 +9375,10 @@
         ],
         "identifiers": {
           "summary": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
-          "githubID": "GHSA-f4gw-2p7v-4548"
+          "githubID": "GHSA-f4gw-2p7v-4548",
+          "CVE": [
+            "CVE-2026-67315"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-f4gw-2p7v-4548",
@@ -9357,7 +9399,10 @@
         ],
         "identifiers": {
           "summary": "Axios form serializer maxDepth bypass via {} metatoken",
-          "githubID": "GHSA-hcpx-6fm6-wx23"
+          "githubID": "GHSA-hcpx-6fm6-wx23",
+          "CVE": [
+            "CVE-2026-67321"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-hcpx-6fm6-wx23",
@@ -9379,7 +9424,10 @@
         ],
         "identifiers": {
           "summary": "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
-          "githubID": "GHSA-gcfj-64vw-6mp9"
+          "githubID": "GHSA-gcfj-64vw-6mp9",
+          "CVE": [
+            "CVE-2026-67320"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-gcfj-64vw-6mp9",
@@ -9400,7 +9448,10 @@
         ],
         "identifiers": {
           "summary": "Axios: Prototype pollution auth subfields can inject Basic auth",
-          "githubID": "GHSA-xj6q-8x83-jv6g"
+          "githubID": "GHSA-xj6q-8x83-jv6g",
+          "CVE": [
+            "CVE-2026-67314"
+          ]
         },
         "info": [
           "https://github.com/axios/axios/security/advisories/GHSA-xj6q-8x83-jv6g",
