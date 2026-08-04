@@ -6830,8 +6830,8 @@
       "hashes": {},
       "ast": [
         "//BlockStatement[       /ClassDeclaration[/:id/:name == \"BaseComponent\"] &&       /VariableDeclaration/VariableDeclarator[/:init/:value == \"bs.alert\"]     ]/VariableDeclaration/VariableDeclarator[/:id/:name == \"VERSION\"]/:init/:value",
-        "//ClassBody[       /MethodDefinition[/:kind == \"get\" && /:key/:name == \"DATA_KEY\"]//TemplateLiteral &&       /MethodDefinition[/:kind == \"get\" && /:key/:name == \"EVENT_KEY\"]//TemplateLiteral     ]/MethodDefinition[/:kind == \"get\" && /:key/:name == \"VERSION\"]//ReturnStatement//Literal/:value",
-        "//BlockStatement[       //ClassBody/MethodDefinition[/:kind == \"get\" && /:key/:name == \"DATA_KEY\"]//Literal[/:value == \"bs.alert\"]     ]//ClassBody/MethodDefinition[/:kind == \"get\" && /:key/:name == \"VERSION\"]//ReturnStatement//Literal/:value",
+        "//ClassBody[       /MethodDefinition[/:kind == \"get\" && /:key/:name == \"DATA_KEY\"]//TemplateLiteral &&       /MethodDefinition[/:kind == \"get\" && /:key/:name == \"EVENT_KEY\"]//TemplateLiteral     ]/MethodDefinition[/:kind == \"get\" && /:key/:name == \"VERSION\"]//ReturnStatement/$$:argument/:value",
+        "//BlockStatement[       //ClassBody/MethodDefinition[/:kind == \"get\" && /:key/:name == \"DATA_KEY\"]//Literal[/:value == \"bs.alert\"]     ]//ClassBody/MethodDefinition[/:kind == \"get\" && /:key/:name == \"VERSION\"]//ReturnStatement/$$:argument/:value",
         "//BlockStatement[       //Literal[/:value == \"bs.alert\"]     ]//ObjectExpression[       /Property[/:key/:name == \"key\" && /:value/:value == \"VERSION\"]     ]/Property[/:key/:name == \"get\"]//ReturnStatement/$$:argument/:value"
       ]
     }
@@ -14612,7 +14612,7 @@
       ],
       "ast": [
         "//SequenceExpression[/AssignmentExpression/:left/:property/:name == \"showDebugDirtyRect\"]/AssignmentExpression[//:left/:property/:name == \"version\"]/:right/:value",
-        "//BlockStatement[/FunctionDeclaration/:id/:name == \"registerPainter\" && /FunctionDeclaration/:id/:name == \"getWheelDeltaMayPolyfill\"]/VariableDeclaration/VariableDeclarator[/:id/:name == \"version\"]/Literal/:value"
+        "//BlockStatement[/FunctionDeclaration/:id/:name == \"registerPainter\" && /FunctionDeclaration/:id/:name == \"getWheelDeltaMayPolyfill\"]/VariableDeclaration/VariableDeclarator[/:id/:name == \"version\"]/:init/:value"
       ]
     }
   },

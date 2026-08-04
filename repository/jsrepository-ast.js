@@ -17,7 +17,7 @@ exports.queries = {
     `//ClassBody[
       /MethodDefinition[/:kind == "get" && /:key/:name == "DATA_KEY"]//TemplateLiteral &&
       /MethodDefinition[/:kind == "get" && /:key/:name == "EVENT_KEY"]//TemplateLiteral
-    ]/MethodDefinition[/:kind == "get" && /:key/:name == "VERSION"]//ReturnStatement//Literal/:value`,
+    ]/MethodDefinition[/:kind == "get" && /:key/:name == "VERSION"]//ReturnStatement/$$:argument/:value`,
     /*
       5.0.0 minified — VERSION getter and DATA_KEY getter in different classes (base vs Alert),
       but in the same BlockStatement (factory body)
@@ -26,7 +26,7 @@ exports.queries = {
     */
     `//BlockStatement[
       //ClassBody/MethodDefinition[/:kind == "get" && /:key/:name == "DATA_KEY"]//Literal[/:value == "bs.alert"]
-    ]//ClassBody/MethodDefinition[/:kind == "get" && /:key/:name == "VERSION"]//ReturnStatement//Literal/:value`,
+    ]//ClassBody/MethodDefinition[/:kind == "get" && /:key/:name == "VERSION"]//ReturnStatement/$$:argument/:value`,
     /*
       4.x min+unmin — Babel _createClass descriptor {key:"VERSION", get:function(){return...}}
       anchored by "bs.alert" literal (VariableDeclarator in unmin, Data_KEY getter body in min).
@@ -530,7 +530,7 @@ exports.queries = {
   ],
   "zrender" : [
     `//SequenceExpression[/AssignmentExpression/:left/:property/:name == "showDebugDirtyRect"]/AssignmentExpression[//:left/:property/:name == "version"]/:right/:value`,
-    `//BlockStatement[/FunctionDeclaration/:id/:name == "registerPainter" && /FunctionDeclaration/:id/:name == "getWheelDeltaMayPolyfill"]/VariableDeclaration/VariableDeclarator[/:id/:name == "version"]/Literal/:value`
+    `//BlockStatement[/FunctionDeclaration/:id/:name == "registerPainter" && /FunctionDeclaration/:id/:name == "getWheelDeltaMayPolyfill"]/VariableDeclaration/VariableDeclarator[/:id/:name == "version"]/:init/:value`
   ],
   "d3" : [
     `//BlockStatement[
