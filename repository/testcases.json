@@ -1015,6 +1015,37 @@
       ]
     }
   },
+  "react": {
+    "https://cdnjs.cloudflare.com/ajax/libs/react/§§version§§/cjs/react.production.min.js": {
+      "versions": [
+        "19.0.0",
+        "19.1.1"
+      ],
+      "contentOnly": true,
+      "allowContentMiss": ["19.0.0", "19.1.1"]
+    },
+    "https://unpkg.com/react@§§version§§/cjs/react.production.js": {
+      "versions": [
+        "19.2.6",
+        "19.2.3"
+      ],
+      "contentOnly": true,
+      "allowContentMiss": ["19.2.6", "19.2.3"]
+    },
+    "https://unpkg.com/react@§§version§§/umd/react.production.min.js": {
+      "versions": [
+        "18.2.0",
+        "18.1.0",
+        "17.0.2",
+        "16.14.0",
+        "16.13.1",
+        "16.0.0"
+      ],
+      "contentOnly": true,
+      "allowContentMiss": ["18.2.0", "18.1.0", "17.0.2", "16.14.0", "16.13.1", "16.0.0"],
+      "allowAstMiss": ["16.0.0"]
+    }
+  },
   "react-dom": {
     "https://cdnjs.cloudflare.com/ajax/libs/react-dom/§§version§§/cjs/react-dom.production.min.js": {
       "versions": [

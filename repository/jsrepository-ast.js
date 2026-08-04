@@ -352,7 +352,22 @@ exports.queries = {
         ]/Identifier/:name == "exports"
       ]
     ]
-    ]/$$:right/:value`
+    ]/$$:right/:value`,
+    /*
+      Some bundlers (e.g. Vite/Rollup production builds) merge each module's
+      assignments into a single comma-joined SequenceExpression and rename the
+      CJS "exports" object to a short bundler-local identifier (e.g. `e`), and
+      may emit the version as a template literal (backtick string) rather than
+      a plain string Literal:
+        e.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE=i,e.createPortal=...,e.version=`19.2.7`
+      Match structurally on the assignment target object instead of the name.
+    */
+    `//SequenceExpression[
+      /AssignmentExpression[/:left/:property/:name == "__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]/:left/$:object ==
+      /AssignmentExpression[/:left/:property/:name == "version"]/:left/$:object
+    ]/AssignmentExpression[
+      /:left/:property/:name == "version"
+    ]/:right/TemplateElement/:value/:cooked`,
   ],
   react: [
     `//CallExpression[
@@ -366,10 +381,45 @@ exports.queries = {
     ]/ExpressionStatement/AssignmentExpression[/MemberExpression/:property/:name == "version"]/$$:right/:value`,
     `/ExpressionStatement/AssignmentExpression[
         /MemberExpression/:property/:name == "version" &&
-        /MemberExpression/:$object == 
+        /MemberExpression/:$object ==
         ../../ExpressionStatement/AssignmentExpression/MemberExpression[
           /:property/:name == "__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED"
         ]/$:object
+    ]/$$:right/:value`,
+    /*
+      React 19 renamed __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED to
+      __CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE. The four
+      queries below mirror the three patterns above (plus the react-dom-style
+      SequenceExpression form) for the new name, covering: standalone CJS
+      builds where "exports" is an undeclared free variable referenced by
+      name (cdnjs minified, unpkg unminified), and bundler output where the
+      exports object is a declared local/parameter with an arbitrary name and
+      the version may be a template literal (Vite/Rollup production builds).
+    */
+    `//SequenceExpression[
+      /AssignmentExpression/:left[/:object/:name == "exports" && /:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]
+    ]/AssignmentExpression[
+      /:left/:object/:name == "exports" && /:left/:property/:name == "version"
+    ]/:right/:value`,
+    `//SequenceExpression[
+      /AssignmentExpression[/:left/:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]/:left/$:object ==
+      /AssignmentExpression[/:left/:property/:name == "version"]/:left/$:object
+    ]/AssignmentExpression[
+      /:left/:property/:name == "version"
+    ]/$$:right/:value`,
+    `//SequenceExpression[
+      /AssignmentExpression[/:left/:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE"]/:left/$:object ==
+      /AssignmentExpression[/:left/:property/:name == "version"]/:left/$:object
+    ]/AssignmentExpression[
+      /:left/:property/:name == "version"
+    ]/:right/TemplateElement/:value/:cooked`,
+    `/ExpressionStatement/AssignmentExpression[
+      /MemberExpression/:property/:name == "version" &&
+      /MemberExpression/:object/:name == "exports" &&
+      ../../ExpressionStatement/AssignmentExpression/MemberExpression[
+        /:property/:name == "__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE" &&
+        /:object/:name == "exports"
+      ]
     ]/$$:right/:value`,
   ],
   "moment.js": [
