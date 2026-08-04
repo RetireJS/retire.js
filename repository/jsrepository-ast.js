@@ -176,8 +176,18 @@ exports.queries = {
       /:left/:property/:name == "version"
     ]/$:right/:init/:value
     `,
+    /*
+      //:left matches the .left of any node with that attribute (also
+      BinaryExpression, LogicalExpression, etc, not just AssignmentExpression),
+      so this scans far more candidates than necessary on every CallExpression
+      in the file (this query's anchor). Narrowing to an explicit
+      AssignmentExpression[...] type filter lets the engine use its type index
+      instead of a same-attribute scan across unrelated node types — same
+      matches, measurably cheaper on every file scanned, no version-specific
+      structural assumptions added.
+    */
     `//CallExpression[
-      /:callee//:left/:property/:name == "Vue"
+      /:callee//AssignmentExpression[/:left/:property/:name == "Vue"]
     ]/:arguments//AssignmentExpression[
       /:left/:property/:name == "version"
     ]/$$:right/:value`,
@@ -192,8 +202,15 @@ exports.queries = {
     2.x/3.0.x: var DOMPurify = function DOMPurify(root){...}
     3.1.x+:    const DOMPurify = root => createDOMPurify(root)
     */
+    /*
+      Narrowed from //:left (matches any node with a .left attribute — also
+      BinaryExpression, LogicalExpression, etc) to an explicit
+      AssignmentExpression type filter: same matches, but lets the engine use
+      its type index instead of scanning every attribute-bearing node type on
+      each of the many CallExpressions in a file (this query's anchor).
+    */
     `//CallExpression[
-      /:callee//:left/:property/:name == "DOMPurify"
+      /:callee//AssignmentExpression[/:left/:property/:name == "DOMPurify"]
     ]/:arguments//AssignmentExpression[
       /:left/:property/:name == "version"
     ]/:right/:value`,

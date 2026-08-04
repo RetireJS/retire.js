@@ -6116,7 +6116,7 @@
         ],
         "hashes": {},
         "ast": [
-          "//CallExpression[       /:callee//:left/:property/:name == \"DOMPurify\"     ]/:arguments//AssignmentExpression[       /:left/:property/:name == \"version\"     ]/:right/:value",
+          "//CallExpression[       /:callee//AssignmentExpression[/:left/:property/:name == \"DOMPurify\"]     ]/:arguments//AssignmentExpression[       /:left/:property/:name == \"version\"     ]/:right/:value",
           "//IfStatement[       /:test//AssignmentExpression[/:left/:property/:name == \"removed\"]/:left/$:object ==       /:consequent//AssignmentExpression[/:left/:property/:name == \"isSupported\"]/:left/$:object     ]/:test//AssignmentExpression[/:left/:property/:name == \"version\"]/$$:right/:value"
         ]
       }
@@ -7591,7 +7591,7 @@
         ],
         "ast": [
           "//VariableDeclarator[       /:id/:name == \"Vue\"     ]/CallExpression/FunctionExpression/BlockStatement/ReturnStatement/SequenceExpression/AssignmentExpression[       /:left/:property/:name == \"version\"     ]/$:right/:init/:value     ",
-          "//CallExpression[       /:callee//:left/:property/:name == \"Vue\"     ]/:arguments//AssignmentExpression[       /:left/:property/:name == \"version\"     ]/$$:right/:value",
+          "//CallExpression[       /:callee//AssignmentExpression[/:left/:property/:name == \"Vue\"]     ]/:arguments//AssignmentExpression[       /:left/:property/:name == \"version\"     ]/$$:right/:value",
           "//AssignmentExpression[       /:left/:object/:name == \"Vue\" &&       /:left/:property/:name == \"version\"     ]/:right/:value"
         ]
       }
