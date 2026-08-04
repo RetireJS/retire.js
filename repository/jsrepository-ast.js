@@ -500,5 +500,52 @@ exports.queries = {
       ".",
       /Property[/:key/:name == "minorVersion"]/:value/:value
     )`,
+  ],
+  lodash: [
+    /*
+      3.x/4.x — top-level IIFE:
+        var VERSION = '4.17.21';
+        ...
+        var PLACEHOLDER = '__lodash_placeholder__';
+        ...
+        function runInContext(context) { ... lodash.VERSION = VERSION; ... }
+      The local VERSION var is renamed by minifiers, so instead of matching its
+      name we anchor on the exported `.VERSION =` property (survives minification)
+      and require the enclosing block to also declare the lodash-unique
+      '__lodash_placeholder__' string constant. Does not match lodash below 3.0.0
+      (predates this constant) — covered by the second query below instead.
+    */
+    `//BlockStatement[
+      //VariableDeclarator[/:init/:value == "__lodash_placeholder__"]
+    ]//AssignmentExpression[
+      /:left/:property/:name == "VERSION"
+    ]/$$:right/:value`,
+    /*
+      0.x/1.x/2.x — pre-runInContext era, e.g.:
+        lodash.forOwn = forOwn;
+        lodash.forIn = forIn;
+        ...
+        lodash.VERSION = '2.4.2';
+      No '__lodash_placeholder__' constant this far back, so anchor on `.forOwn =`
+      and `.forIn =` instead — both are Lo-Dash's own additions over Underscore.js's
+      API (Underscore never had per-own/inherited-property iteration helpers under
+      these names), and both have existed since lodash 0.3.0, so this covers the
+      full pre-3.0.0 range.
+      Deliberately checking co-occurrence within the enclosing block rather than
+      requiring all three properties to resolve to the same object binding
+      (`/:left/$:object == ...`): the object-identity check is the most expensive
+      part of this query (~15-20% slower per scanned file, paid on every file since
+      all libraries' queries share one AST pass, not just lodash files) and two
+      independent anchors sharing a block is already a strong enough signal — an
+      unrelated bundle would need three separate objects independently named
+      VERSION/forOwn/forIn co-located in the same block to false-positive here.
+    */
+    `//BlockStatement[
+      //AssignmentExpression/:left/:property/:name == "forOwn" &&
+      //AssignmentExpression/:left/:property/:name == "forIn" &&
+      //AssignmentExpression/:left/:property/:name == "VERSION"
+    ]//AssignmentExpression[
+      /:left/:property/:name == "VERSION"
+    ]/$$:right/:value`,
   ]
 };

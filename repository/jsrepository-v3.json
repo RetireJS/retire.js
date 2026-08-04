@@ -13819,6 +13819,10 @@
         ],
         "uri": [
           "/(§§version§§)/lodash(\\.min)?\\.js"
+        ],
+        "ast": [
+          "//BlockStatement[       //VariableDeclarator[/:init/:value == \"__lodash_placeholder__\"]     ]//AssignmentExpression[       /:left/:property/:name == \"VERSION\"     ]/$$:right/:value",
+          "//BlockStatement[       //AssignmentExpression/:left/:property/:name == \"forOwn\" &&       //AssignmentExpression/:left/:property/:name == \"forIn\" &&       //AssignmentExpression/:left/:property/:name == \"VERSION\"     ]//AssignmentExpression[       /:left/:property/:name == \"VERSION\"     ]/$$:right/:value"
         ]
       }
     },
