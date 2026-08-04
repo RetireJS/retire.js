@@ -164,6 +164,14 @@ Use ASTronomical syntax to navigate from the root to the version Literal, filter
 
 Start simple, add anchors until the query is specific enough. Multiple queries in the array are OR'd — add a second entry for a different version era if the code structure changed across major versions.
 
+**If two candidate queries end up nearly identical, stop and suspect an ASTronomical bug instead of writing both.** "Nearly identical" means the same filters/anchors, differing only in the terminal extraction step — e.g. one query ends in `/:value` and works against a plain string `Literal` (`x.version = "1.2.3"`), but a real-world build needs a second, otherwise-identical query ending in `/TemplateElement/:value/:cooked` because that build emits the version as a non-interpolated template literal instead (`` x.version = `1.2.3` ``). A `Literal` and a template literal with no `${}` are semantically the same string — the query *engine* should resolve either transparently, not every library's query author. Duplicating the query per literal-style is a local workaround that only fixes the one library, and this exact shape of gap tends to recur (react, react-dom, moment.js, and ua-parser-js all independently hit it in the same session because one bundler happened to prefer backtick strings).
+
+When you notice this, don't add the duplicate to `jsrepository-ast.js`. Instead:
+1. Report the pattern to the user and propose fixing it in ASTronomical itself, at `/Users/erlend/code/github/RetireJS/ASTronomical` (a sibling checkout — confirm it exists before assuming the path).
+2. The fix belongs in `src/index.ts`'s attribute-resolution helpers (`getPrimitiveChildren` / `getPrimitiveChildrenOrNodePaths`) — add a fallback so a requested attribute (e.g. `value`) transparently resolves through the alternate AST shape, instead of requiring the query to spell out both shapes.
+3. Validate with the engine's own suite (`npm run typecheck && npm test` in the ASTronomical repo) before touching retire.js again, and confirm the *original* (single, non-duplicated) query now matches both shapes.
+4. Bumping ASTronomical's version, updating its `CHANGELOG.md`, publishing to npm, and bumping the dependency in `node/package.json` are all separate, more consequential steps (a published package affects every consumer, not just this repo) — check with the user before doing any of them rather than assuming the fix should ship immediately.
+
 ## Step 7 — Test the Query Locally
 
 Create a test script:
@@ -233,7 +241,7 @@ node test-detection.js          # full suite — catch any false positives intro
 
 **Fixing failures:**
 - `validate` error: check `jsrepository-ast.js` syntax — it's a JS module, not JSON; look for unclosed template literals or missing commas
-- `Did not detect ... using ast`: query doesn't match that version — refine the query (back to Step 7) or add `allowAstMiss` for that version
+- `Did not detect ... using ast`: query doesn't match that version — refine the query (back to Step 7) or add `allowAstMiss` for that version. If the fix you're reaching for is "add a near-duplicate query that only changes how the final value is extracted," stop — see the callout in Step 6 about suspecting an ASTronomical engine gap instead.
 - `Detect multiple components using ast`: query is too broad — strengthen the anchor (back to Step 6)
 
 ## Step 11 — Report Results
