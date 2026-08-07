@@ -12384,6 +12384,30 @@
           "http://www.securityfocus.com/bid/104136",
           "http://www.securitytracker.com/id/1040896"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "5.6.83",
+            "below": "6.2.108"
+          }
+        ],
+        "summary": "PDF.js: Arbitrary JavaScript execution upon opening a malicious PDF ",
+        "details": "### Impact\n\nIf PDF.js is used to load a malicious PDF, and PDF.js is configured with `enableScripting` set to true (which is the default value) and no CSP for disallowing script-src, unrestricted attacker-controlled JavaScript will be executed in the context of the hosting domain.\n\n### Patches\n\n### Workarounds\nSet `enableScripting` to `false` or set a CSP.",
+        "identifiers": {
+          "githubID": "GHSA-hq66-cqwq-w95j",
+          "CVE": [
+            "CVE-2026-16633"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/mozilla/pdf.js/security/advisories/GHSA-hq66-cqwq-w95j",
+          "https://bugzilla.mozilla.org/show_bug.cgi?id=2055885"
+        ]
       }
     ],
     "extractors": {

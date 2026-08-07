@@ -14261,6 +14261,25 @@
           "https://bugzilla.mozilla.org/show_bug.cgi?id=1893645",
           "https://github.com/mozilla/pdf.js"
         ]
+      },
+      {
+        "atOrAbove": "5.6.83",
+        "below": "6.2.108",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "PDF.js: Arbitrary JavaScript execution upon opening a malicious PDF ",
+          "githubID": "GHSA-hq66-cqwq-w95j",
+          "CVE": [
+            "CVE-2026-16633"
+          ]
+        },
+        "info": [
+          "https://github.com/mozilla/pdf.js/security/advisories/GHSA-hq66-cqwq-w95j",
+          "https://bugzilla.mozilla.org/show_bug.cgi?id=2055885"
+        ]
       }
     ],
     "extractors": {
