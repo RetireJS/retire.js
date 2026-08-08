@@ -6033,6 +6033,24 @@
             "https://github.com/cure53/DOMPurify/commit/a9ca1e537422319a557a9a2aa61f003b23b4a197",
             "https://github.com/cure53/DOMPurify/releases/tag/3.4.12"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "3.4.13",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify: IN_PLACE hook removal leaves a detached subtree executable, causing XSS",
+            "githubID": "GHSA-55q2-fjhq-7xh7"
+          },
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-55q2-fjhq-7xh7",
+            "https://github.com/cure53/DOMPurify/pull/1557",
+            "https://github.com/cure53/DOMPurify/commit/3067f7746769",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.13"
+          ]
         }
       ],
       "extractors": {
