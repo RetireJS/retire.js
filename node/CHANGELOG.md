@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.5.0]
+
+### Improvements
+
+- Include the vulnerability repositories used for the scan in the output: as `vulnerabilityRepositories` in the JSON report, and as `retirejs:vulnerability-repository` entries under `metadata.properties` in all CycloneDX reports.
+- CycloneDX 1.6 VEX output now identifies Retire.js as the source of each vulnerability and rating, including the repository URL when a single repository is used.
+
+### Bugfixes
+
+- CycloneDX 1.6 VEX output was not schema valid: `ratings[].source` was a string rather than an object, and version ranges were reported as `affects[].range` rather than nested under `affects[].versions[]`.
+
 ## [5.4.3]
 
 * Remove dependencies that are not needed anymore
