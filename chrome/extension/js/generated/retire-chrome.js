@@ -10871,7 +10871,7 @@ var retirechrome = (() => {
     "../../node/lib/retire.js"(exports) {
       "use strict";
       var exports = exports || {};
-      exports.version = "5.4.3";
+      exports.version = "5.5.0";
       function isDefined(o) {
         return typeof o !== "undefined";
       }

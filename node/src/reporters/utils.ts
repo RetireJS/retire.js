@@ -16,3 +16,11 @@ export function generatePURL(component: Component): string {
   const compName = component.npmname || component.component;
   return `pkg:npm/${encodePURLchars(compName)}@${encodePURLchars(component.version)}`;
 }
+
+/**
+ * The vulnerability repositories used for the scan, as configured via --jsrepo.
+ */
+export function vulnerabilityRepositories(jsRepo: string[] | undefined): string[] {
+  if (!jsRepo) return [];
+  return jsRepo.map((repo) => repo.trim()).filter((repo) => repo.length > 0);
+}

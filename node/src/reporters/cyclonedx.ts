@@ -5,7 +5,7 @@ import { ConfigurableLogger, Hasher, Logger, LoggerOptions, Writer } from '../re
 import * as retire from '../retire';
 import * as fs from 'fs';
 import { Finding } from '../types';
-import { generatePURL } from './utils';
+import { generatePURL, vulnerabilityRepositories } from './utils';
 import * as crypto from 'crypto';
 
 function configureCycloneDXLogger(logger: Logger, writer: Writer, config: LoggerOptions, hash: Hasher) {
@@ -36,6 +36,12 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
 
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
+    const repositories = vulnerabilityRepositories(config.jsRepo)
+      .map(
+        (repo) => `
+      <property name="retirejs:vulnerability-repository">${escapeXml(repo)}</property>`,
+      )
+      .join('');
     const seen = new Set<string>();
     const components = finalResults.data
       .filter((d) => d.results.length > 0)
@@ -81,13 +87,23 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
             <name>retire.js</name>
             <version>${retire.version}</version>
         </tool>
-    </tools>
+    </tools>${repositories ? `
+    <properties>${repositories}
+    </properties>` : ''}
   </metadata>
   <components>${components}
   </components>
 </bom>`);
     writer.close(callback);
   };
+}
+
+function escapeXml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 function mapLicenses(licenses: string[] | undefined) {

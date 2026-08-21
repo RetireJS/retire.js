@@ -3,7 +3,7 @@ import { ConfigurableLogger, Hasher, Logger, LoggerOptions, Writer } from '../re
 import * as retire from '../retire';
 import * as fs from 'fs';
 import { Finding, Vulnerability } from '../types';
-import { generatePURL } from './utils';
+import { generatePURL, vulnerabilityRepositories } from './utils';
 import * as path from 'path';
 import * as crypto from 'crypto';
 
@@ -38,19 +38,21 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
       occurrences: Array<{ location: string }>;
     };
   };
+  type VulnerabilitySource = { name: string; url?: string };
   type Vulnerability = {
     id: string;
+    source: VulnerabilitySource;
     cwes: number[];
     description?: string;
     advisories: Array<{ url: string; title?: string; }>;
     references: Array<{ id: string; source: { name: string; url: string } }>;
     ratings: Array<{
-      source: string;
+      source: VulnerabilitySource;
       severity: string;
     }>;
     affects: Array<{
       ref: string;
-      range: string;
+      versions: Array<{ range: string; status: 'affected' }>;
     }>;
   };
 
@@ -60,6 +62,12 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
     const seen = new Map<string, Component>();
     const vulnerabilitiesCyclone = new Map<string, Vulnerability>();
     const includeVEX = config.outputformat === 'cyclonedxJSON1_6_VEX';
+    const repositories = vulnerabilityRepositories(config.jsRepo);
+    // Only attributable to a single URL when exactly one repository was used
+    const retireSource: VulnerabilitySource = {
+      name: 'Retire.js',
+      url: repositories.length === 1 ? repositories[0] : undefined,
+    };
 
     const components = finalResults.data
       .filter((d) => d.results)
@@ -101,23 +109,29 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
                   const { references, advisories } = mapUrls(vuln);
                   vulnerabilitiesCyclone.set(id, {
                     id,
+                    source: retireSource,
                     cwes: vuln.cwe.map((c) => parseInt(c.split("-")[1])),
                     description: vuln.identifiers.summary,
                     advisories: advisories,
                     references: references,
                     ratings: [
                       {
-                        source: 'Retire.js',
+                        source: retireSource,
                         severity: vuln.severity,
                       },
                     ],
                     affects: [],
                   });
                 }
-                vulnerabilitiesCyclone.get(id)!.affects.push({ 
+                vulnerabilitiesCyclone.get(id)!.affects.push({
                   ref: bomRef,
-                  // "vers:npm/1.2.3|>=2.0.0|<5.0.0"
-                  range: "vers:npm/" + (vuln.atOrAbove ? ">=" + vuln.atOrAbove + "|" : "") + "<" + vuln.below,
+                  versions: [
+                    {
+                      // "vers:npm/1.2.3|>=2.0.0|<5.0.0"
+                      range: 'vers:npm/' + (vuln.atOrAbove ? '>=' + vuln.atOrAbove + '|' : '') + '<' + vuln.below,
+                      status: 'affected',
+                    },
+                  ],
                 });
               });
             });
@@ -154,6 +168,12 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
                 version: retire.version,
               },
             ],
+            properties: repositories.length
+              ? repositories.map((repo) => ({
+                  name: 'retirejs:vulnerability-repository',
+                  value: repo,
+                }))
+              : undefined,
           },
           components: components,
           vulnerabilities: includeVEX ? Array.from(vulnerabilitiesCyclone.values()) : undefined,

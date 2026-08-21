@@ -36,7 +36,7 @@ const loggerOptions: LoggerOptions = {
   colors: false,
   path: '.',
   colorwarn: () => '',
-  jsRepo: 'testrepo.json',
+  jsRepo: ['testrepo.json'],
 };
 
 describe('cyclonedx-json', () => {
@@ -61,6 +61,9 @@ describe('cyclonedx-json', () => {
     assert.strictEqual(res.valid, true);
     assert.strictEqual(output.bomFormat, 'CycloneDX');
     assert.strictEqual(output.specVersion, '1.4');
+    assert.deepStrictEqual(output.metadata.properties, [
+      { name: 'retirejs:vulnerability-repository', value: 'testrepo.json' },
+    ]);
   });
 
   it('should validate report according to schema 1.6', () => {
@@ -85,6 +88,37 @@ describe('cyclonedx-json', () => {
     assert.strictEqual(output.bomFormat, 'CycloneDX');
     assert.strictEqual(output.specVersion, '1.6');
     assert.strictEqual(output.components[0].evidence.occurrences[0].location, relative);
+    assert.deepStrictEqual(output.metadata.properties, [
+      { name: 'retirejs:vulnerability-repository', value: 'testrepo.json' },
+    ]);
+  });
+
+  it('should validate VEX report according to schema 1.6', () => {
+    const data: unknown[] = [];
+    const writer: Writer = {
+      out: (a) => data.push(a),
+      err: (a) => data.push(a),
+      close: () => undefined,
+    };
+    const vexOptions: LoggerOptions = { ...loggerOptions, outputformat: 'cyclonedxJSON1_6_VEX' };
+    const logger = reporting.open(vexOptions);
+    jsonLogger1_6.configure(logger, writer, vexOptions, hash);
+    const result1 = retire.scanFileContent('/*! jQuery v1.8.1 asdasd ', repo, hash);
+    result1[0].licenses = ['MIT'];
+    logger.logVulnerableDependency({ results: result1, file: jqFile });
+    logger.close();
+    const validator = new Validator();
+    validator.addSchema(jsfSchema, 'jsf-0.82.schema.json#/definitions/signature');
+    const output = JSON.parse(data.join(''));
+    const res = validator.validate(output, jsonSchema1_6);
+    assert.strictEqual(res.valid, true, res.errors.join('\n'));
+    assert.ok(output.vulnerabilities.length > 0);
+    const vulnerability = output.vulnerabilities[0];
+    assert.deepStrictEqual(vulnerability.source, { name: 'Retire.js', url: 'testrepo.json' });
+    assert.deepStrictEqual(vulnerability.ratings[0].source, { name: 'Retire.js', url: 'testrepo.json' });
+    assert.strictEqual(vulnerability.affects[0].ref, 'pkg:npm/jquery@1.8.1');
+    assert.strictEqual(vulnerability.affects[0].versions[0].status, 'affected');
+    assert.ok(vulnerability.affects[0].versions[0].range.startsWith('vers:npm/'));
   });
 
   /*it('should validate report according to xml schema', async () => {

@@ -3,6 +3,7 @@
 import { ConfigurableLogger } from '../reporting';
 
 import * as retire from '../retire';
+import { vulnerabilityRepositories } from './utils';
 
 export default {
   configure: (logger, writer, config) => {
@@ -14,6 +15,7 @@ export default {
       messages: [] as unknown[],
       errors: [] as unknown[],
       time: undefined as undefined | number,
+      vulnerabilityRepositories: vulnerabilityRepositories(config.jsRepo),
     };
     logger.info = finalResults.messages.push;
     logger.debug = config.verbose

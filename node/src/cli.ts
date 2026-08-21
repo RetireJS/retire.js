@@ -83,7 +83,7 @@ const scanpath = prg.path ?? prg.jspath ?? '.';
 const log = reporting.open({
   colors: !!prg.colors,
   colorwarn,
-  jsRepo: jsrepolocation.join(', '),
+  jsRepo: jsrepolocation,
   outputformat: prg.outputformat,
   outputpath: prg.outputpath,
   path: scanpath,

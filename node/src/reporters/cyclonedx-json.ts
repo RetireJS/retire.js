@@ -3,7 +3,7 @@ import { ConfigurableLogger, Hasher, Logger, LoggerOptions, Writer } from '../re
 import * as retire from '../retire';
 import * as fs from 'fs';
 import { Finding } from '../types';
-import { generatePURL } from './utils';
+import { generatePURL, vulnerabilityRepositories } from './utils';
 import * as path from 'path';
 import * as crypto from 'crypto';
 
@@ -39,6 +39,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
 
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
+    const repositories = vulnerabilityRepositories(config.jsRepo);
     const seen = new Map<string, Component>();
     const components = finalResults.data
       .filter((d) => d.results)
@@ -100,6 +101,12 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
                 version: retire.version,
               },
             ],
+            properties: repositories.length
+              ? repositories.map((repo) => ({
+                  name: 'retirejs:vulnerability-repository',
+                  value: repo,
+                }))
+              : undefined,
           },
           components: components,
         },
