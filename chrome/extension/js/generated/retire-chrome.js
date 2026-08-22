@@ -10871,7 +10871,7 @@ var retirechrome = (() => {
     "../../node/lib/retire.js"(exports) {
       "use strict";
       var exports = exports || {};
-      exports.version = "5.5.0";
+      exports.version = "5.6.0";
       function isDefined(o) {
         return typeof o !== "undefined";
       }
@@ -17756,6 +17756,28 @@ Reporter: Koda Reef`,
                   "https://github.com/cure53/DOMPurify/pull/1537",
                   "https://github.com/cure53/DOMPurify/commit/a9ca1e537422319a557a9a2aa61f003b23b4a197",
                   "https://github.com/cure53/DOMPurify/releases/tag/3.4.12"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "3.4.13",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: IN_PLACE hook removal leaves a detached subtree executable, causing XSS",
+                  githubID: "GHSA-55q2-fjhq-7xh7",
+                  CVE: [
+                    "CVE-2026-75838"
+                  ]
+                },
+                details: "### Summary\n\nDuring `IN_PLACE` sanitization, a hook that removes an element can leave that element's detached descendants executable. A descendant image can retain its attacker-provided `onload` handler and fire after `sanitize()` returns, even though the returned root is clean and the image remains disconnected from the document.\n\n### Details\n\nIn DOMPurify 3.4.12, `_sanitizeElements()` in `src/purify.ts:1862-1904` runs the `beforeSanitizeElements` or `uponSanitizeElement` hook and returns immediately when the hook detached the current node. The return does not call `_neutralizeSubtree(currentNode)`.\n\nThe detached subtree is not added to `DOMPurify.removed`, so the post-walk `IN_PLACE` neutralization cannot reach it. If the browser queued a resource event while the application constructed the detached dirty root, a descendant can therefore retain its handler and execute after sanitization.\n\nThe hook only rejects the containing element and does not add or approve the event handler. DOMPurify's ordinary removal path de-arms the same queued event; only the hook-detachment early return skips the existing subtree neutralization.\n\n### PoC\n\nLoad the published `dompurify@3.4.12` `dist/purify.js` before this script in Chromium:\n\n```html\n<div id=\"result\">not fired</div>\n<script>\nconst root = document.createElement('div');\nroot.innerHTML = `\n  <footer>\n    <img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7\"\n         onload=\"result.textContent = 'XSS after sanitize'\">\n  </footer>\n  <div>safe</div>`;\n\nDOMPurify.setConfig({\n  ALLOWED_TAGS: ['div', '#text', 'footer'],\n  IN_PLACE: true\n});\nDOMPurify.addHook('uponSanitizeElement', node => {\n  if (node.tagName === 'FOOTER') node.remove();\n});\n\nDOMPurify.sanitize(root);\ndocument.body.append(root);\n<\/script>\n```\n\n`sanitize()` returns with no handler execution and the returned root contains only the safe `div`. After the event loop advances, the original image remains disconnected but its retained `onload` changes the page to `XSS after sanitize`.\n\nAs the claim-matched control, use the same detached input with `ALLOWED_TAGS: ['div', '#text']` and no hook. DOMPurify's ordinary removal path removes the original image's handler, the returned root is still `<div>safe</div>`, and the marker does not fire.\n\n### Impact\n\nIn an application that uses `IN_PLACE` with the documented element-removal hook pattern, an attacker who can supply HTML can execute JavaScript in the integrating application's origin after the application sanitizes and renders that content.\n\nThe required non-default configuration is `IN_PLACE` plus a hook that removes a containing element. The hook does not add or approve the event handler, and the dirty root never needs to be connected before sanitization.\n\n### Suggested fix\n\nReuse the existing `_neutralizeSubtree(currentNode)` helper before returning from both hook-detachment branches in `_sanitizeElements()`. Add regressions for `beforeSanitizeElements` and `uponSanitizeElement` that retain a reference to a descendant resource element and verify that its event handler is removed after the hook detaches its ancestor.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-55q2-fjhq-7xh7",
+                  "https://github.com/cure53/DOMPurify/pull/1557",
+                  "https://github.com/cure53/DOMPurify/commit/3067f7746769",
+                  "https://github.com/cure53/DOMPurify/releases/tag/3.4.13"
                 ]
               }
             ],
@@ -26295,6 +26317,26 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   "https://github.com/mozilla/pdf.js/commit/85e64b5c16c9aaef738f421733c12911a441cec6",
                   "https://bugzilla.mozilla.org/show_bug.cgi?id=1893645",
                   "https://github.com/mozilla/pdf.js"
+                ]
+              },
+              {
+                atOrAbove: "5.6.83",
+                below: "6.2.108",
+                severity: "high",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "PDF.js: Arbitrary JavaScript execution upon opening a malicious PDF ",
+                  githubID: "GHSA-hq66-cqwq-w95j",
+                  CVE: [
+                    "CVE-2026-16633"
+                  ]
+                },
+                details: "### Impact\n\nIf PDF.js is used to load a malicious PDF, and PDF.js is configured with `enableScripting` set to true (which is the default value) and no CSP for disallowing script-src, unrestricted attacker-controlled JavaScript will be executed in the context of the hosting domain.\n\n### Patches\n\n### Workarounds\nSet `enableScripting` to `false` or set a CSP.",
+                info: [
+                  "https://github.com/mozilla/pdf.js/security/advisories/GHSA-hq66-cqwq-w95j",
+                  "https://bugzilla.mozilla.org/show_bug.cgi?id=2055885"
                 ]
               }
             ],
