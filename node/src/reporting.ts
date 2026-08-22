@@ -7,6 +7,7 @@ import depcheckLogger from './reporters/depcheck';
 import cyclonedxLogger from './reporters/cyclonedx';
 import cyclonedxJSONLogger from './reporters/cyclonedx-json';
 import cyclonedxJSON1_6Logger from './reporters/cyclonedx-1_6-json';
+import cyclonedxJSON1_7Logger from './reporters/cyclonedx-1_7-json';
 import { Finding } from './types';
 
 const loggers = {
@@ -18,6 +19,8 @@ const loggers = {
   cyclonedxJSON: cyclonedxJSONLogger,
   cyclonedxJSON1_6: cyclonedxJSON1_6Logger,
   cyclonedxJSON1_6_VEX: cyclonedxJSON1_6Logger,
+  cyclonedxJSON1_7: cyclonedxJSON1_7Logger,
+  cyclonedxJSON1_7_VEX: cyclonedxJSON1_7Logger,
   clean: consoleLogger,
   jsonsimple: jsonLogger,
 } as Record<string, ConfigurableLogger>;

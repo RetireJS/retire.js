@@ -15,17 +15,42 @@ This is a monorepo with two main parts:
 cd node
 npm install
 npm run build       # compile TypeScript → lib/
-npm run test        # run jest test suite (node/spec/tests/*.spec.ts)
+npm run test        # run the test suite (node/spec/tests/*.spec.ts)
 npm run check       # lint + typecheck
 npm run lint        # eslint --fix
 npm run typecheck   # tsc --noEmit
 ```
 
+### Testing
+
+Tests use the built-in [`node:test`](https://nodejs.org/api/test.html) runner (`describe`/`it` with
+`node:assert`), not jest.
+
+**The specs import from `../../lib/`, not `../../src/`, so `npm run build` must be run before
+`npm run test`** — otherwise you are testing the previously compiled output and your changes will
+appear to have no effect:
+
+```bash
+cd node
+npm run build && npm run test
+```
+
 Run a single test file:
 ```bash
 cd node
-npx jest spec/tests/contentscan.spec.ts
+TS_NODE_PROJECT=tsconfig.spec.json node --require ts-node/register --test spec/tests/contentscan.spec.ts
 ```
+
+Run a single test by name (matched as a regex against the `it(...)` description):
+```bash
+cd node
+TS_NODE_PROJECT=tsconfig.spec.json node --require ts-node/register --test \
+  --test-name-pattern 'should validate report according to schema' spec/tests/cyclonedx.spec.ts
+```
+
+Reporters that emit CycloneDX are validated against the JSON schemas bundled in
+`node/spec/schema/`. When adding support for a new spec version, add its `bom-<version>.schema.json`
+there too.
 
 ## Vulnerability repository (repository/)
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## [5.7.0]
+
+### Improvements
+
+- Added CycloneDX 1.7 output: `--outputformat cyclonedxJSON1_7` and `cyclonedxJSON1_7_VEX`.
+- CycloneDX 1.7 reports every resolved license, each as its own SPDX expression. Earlier spec versions only allow a single expression per component, so 1.4/1.6 output still reports the first license only.
+- The CycloneDX 1.6 and 1.7 reports now include:
+  - `$schema`, pointing at the schema for the emitted spec version.
+  - `metadata.tools` in the object form introduced in 1.5, replacing the deprecated legacy array.
+  - `metadata.component`, describing the scanned path as the subject of the BOM.
+  - `dependencies`, linking the scan target to every detected component.
+  - `evidence.identity`, reporting how the version was detected (`filecontent`, `filename`, `hash`, `ast`, ...) as a CycloneDX identity technique and confidence.
+  - `vulnerabilities[].detail`, when the repository supplies `details` (VEX variants only).
+
+### Bugfixes
+
+- CycloneDX 1.6 output threw when a vulnerability in a custom `--jsrepo` had no `cwe`, and could throw on a vulnerability with no `identifiers`.
+
 ## [5.6.0]
 
 ### Improvements

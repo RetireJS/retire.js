@@ -18,7 +18,8 @@ Options:
   --jsrepo <path|url>      Local or internal version of repo. Can be multiple comma separated. Default: 'central')
   --cachedir <path>        Path to use for local cache instead of /tmp/.retire-cache
   --proxy <url>            Proxy url (http://some.host:8080)
-  --outputformat <format>  Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx and cyclonedxJSON
+  --outputformat <format>  Valid formats: text, json, jsonsimple, depcheck (experimental), cyclonedx, cyclonedxJSON, cyclonedxJSON1_6,
+                           cyclonedxJSON1_6_VEX, cyclonedxJSON1_7 and cyclonedxJSON1_7_VEX
   --outputpath <path>      File to which output should be written
   --ignore <paths>         Comma delimited list of paths to ignore
   --ignorefile <path>      Custom ignore file, defaults to .retireignore / .retireignore.json
@@ -35,7 +36,9 @@ Options:
 ```
 
 The `depcheck` output format mimics the output of OWASP Dependency Check, but lacks some information compared to OWASP Dependency Check, because that information is not in the repo.
-The `cyclonedx` output format is based on based on the https://github.com/CycloneDX spec.
+The `cyclonedx` output format is based on the https://github.com/CycloneDX spec. `cyclonedx` and `cyclonedxJSON` emit CycloneDX 1.4
+(XML and JSON respectively). `cyclonedxJSON1_6` and `cyclonedxJSON1_7` emit JSON for the corresponding spec versions, and the
+`_VEX` variants of those additionally include a `vulnerabilities` section.
 
 ## .retireignore
 

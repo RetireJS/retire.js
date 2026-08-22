@@ -31,6 +31,9 @@ retire.js can generate SBOMs in the CycloneDX-format:
 $ retire --outputformat cyclonedx
 ```
 
+`cyclonedx` produces CycloneDX 1.4 XML. For JSON, and for newer spec versions, use `cyclonedxJSON` (1.4), `cyclonedxJSON1_6` or
+`cyclonedxJSON1_7`. The `cyclonedxJSON1_6_VEX` and `cyclonedxJSON1_7_VEX` variants also include a `vulnerabilities` section.
+
 By default retire.js will exit with code 13 if it finds vulnerabilities. This can be overridden with `--exitwith 0`.
 
 
