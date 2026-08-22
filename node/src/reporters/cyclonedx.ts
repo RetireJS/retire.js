@@ -36,10 +36,17 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
 
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
-    const repositories = vulnerabilityRepositories(config.jsRepo)
+    const propertyList = vulnerabilityRepositories(config.jsRepo).map((repo) => ({
+      name: 'retirejs:vulnerability-repository',
+      value: repo,
+    }));
+    if (config.insecure) {
+      propertyList.push({ name: 'retirejs:ignore-repository-certificate-errors', value: 'true' });
+    }
+    const properties = propertyList
       .map(
-        (repo) => `
-      <property name="retirejs:vulnerability-repository">${escapeXml(repo)}</property>`,
+        (property) => `
+      <property name="${escapeXml(property.name)}">${escapeXml(property.value)}</property>`,
       )
       .join('');
     const seen = new Set<string>();
@@ -87,8 +94,8 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
             <name>retire.js</name>
             <version>${retire.version}</version>
         </tool>
-    </tools>${repositories ? `
-    <properties>${repositories}
+    </tools>${properties ? `
+    <properties>${properties}
     </properties>` : ''}
   </metadata>
   <components>${components}

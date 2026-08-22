@@ -28,6 +28,7 @@ export type LoggerOptions = {
   colors: boolean;
   outputformat: string;
   jsRepo: string[];
+  insecure?: boolean;
   path: string;
   colorwarn: (s: string) => string;
 };

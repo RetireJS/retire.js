@@ -16,6 +16,7 @@ export default {
       errors: [] as unknown[],
       time: undefined as undefined | number,
       vulnerabilityRepositories: vulnerabilityRepositories(config.jsRepo),
+      ignoreRepositoryCertificateErrors: config.insecure,
     };
     logger.info = finalResults.messages.push;
     logger.debug = config.verbose

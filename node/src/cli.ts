@@ -84,6 +84,7 @@ const log = reporting.open({
   colors: !!prg.colors,
   colorwarn,
   jsRepo: jsrepolocation,
+  insecure: prg.insecure,
   outputformat: prg.outputformat,
   outputpath: prg.outputpath,
   path: scanpath,

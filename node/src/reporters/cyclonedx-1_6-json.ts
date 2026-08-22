@@ -62,12 +62,18 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
     const seen = new Map<string, Component>();
     const vulnerabilitiesCyclone = new Map<string, Vulnerability>();
     const includeVEX = config.outputformat === 'cyclonedxJSON1_6_VEX';
-    const repositories = vulnerabilityRepositories(config.jsRepo);
+    const vulnerabilityRepositoriesList = vulnerabilityRepositories(config.jsRepo);
     // Only attributable to a single URL when exactly one repository was used
     const retireSource: VulnerabilitySource = {
       name: 'Retire.js',
-      url: repositories.length === 1 ? repositories[0] : undefined,
+      url: vulnerabilityRepositoriesList.length === 1 ? vulnerabilityRepositoriesList[0] : undefined,
     };
+    const properties = vulnerabilityRepositoriesList.map(
+      (repo) => ({ name: 'retirejs:vulnerability-repository', value: repo }),
+    );
+    if (config.insecure) {
+      properties.push({ name: 'retirejs:ignore-repository-certificate-errors', value: 'true' });
+    }
 
     const components = finalResults.data
       .filter((d) => d.results)
@@ -168,12 +174,7 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
                 version: retire.version,
               },
             ],
-            properties: repositories.length
-              ? repositories.map((repo) => ({
-                  name: 'retirejs:vulnerability-repository',
-                  value: repo,
-                }))
-              : undefined,
+            properties: properties.length ? properties : undefined,
           },
           components: components,
           vulnerabilities: includeVEX ? Array.from(vulnerabilitiesCyclone.values()) : undefined,

@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.6.0]
+
+### Improvements
+
+- Report when repository certificate errors are ignored (`--insecure`): as `ignoreRepositoryCertificateErrors` in the JSON report, and as a `retirejs:ignore-repository-certificate-errors` entry under `metadata.properties` in all CycloneDX reports. The entry is only present when the option is set.
+
 ## [5.5.0]
 
 ### Improvements
