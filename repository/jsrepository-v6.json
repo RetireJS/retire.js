@@ -12475,6 +12475,53 @@
         ]
       },
       {
+        "atOrAbove": "10.0.0",
+        "below": "15.5.24",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1395"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when AVIF files are used",
+          "githubID": "GHSA-2xp9-vwfh-vxw4"
+        },
+        "details": "A vulnerability in the underlying `libheif` library used by `sharp` which Next.js uses for image optimization can lead to remote code execution when AVIF files are optimized.\n\nUntil a fix has propagated, optimization of AVIF files is disabled.",
+        "info": [
+          "https://github.com/strukturag/libheif/security/advisories/GHSA-g89c-p67h-r497",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-2xp9-vwfh-vxw4",
+          "https://github.com/vercel/next.js/pull/97875",
+          "https://github.com/vercel/next.js/pull/97931",
+          "https://github.com/vercel/next.js/commit/3a15b4ac6ac8e70b1a9b18ecc18e8434462899b3",
+          "https://github.com/vercel/next.js/commit/409772ec807def20132d251ad48fd8d8ad4c73c2",
+          "https://github.com/vercel/next.js/commit/7a5937a8ab20b89d0a961f75eabb11577f5d5998",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.24",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.3"
+        ]
+      },
+      {
+        "atOrAbove": "13.4.0",
+        "below": "15.5.24",
+        "severity": "critical",
+        "cwe": [
+          "CWE-22"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution on windows-hosted servers",
+          "githubID": "GHSA-p293-qw3h-jr36",
+          "CVE": [
+            "CVE-2026-75604"
+          ]
+        },
+        "details": "## Impact\n\nA vulnerability in applications using Pages and App router without Cache Component can lead to remote code execution when the server is hosted on machines using a Windows filesystem.\n\n## Workaround\n\nThere is no known workaround for affected windows-hosted applications. You should upgrade immediately if your server is hosted on Windows.",
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-p293-qw3h-jr36",
+          "https://github.com/vercel/next.js/commit/968b9fcb26bdeb8e0a861a9df05361474666d51b",
+          "https://github.com/vercel/next.js/commit/b0f3460a92b955d3ca41fccff9a525a2b910fbf3",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.24",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.3"
+        ]
+      },
+      {
         "atOrAbove": "15.6.0-canary.0",
         "below": "15.6.0-canary.59",
         "severity": "high",
@@ -13399,6 +13446,53 @@
           "https://github.com/vercel/next.js/commit/93cb90891402fa4c47798d03cb9e05c13233766c",
           "https://github.com/vercel/next.js/releases/tag/v15.5.21",
           "https://github.com/vercel/next.js/releases/tag/v16.2.11"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.3",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1395"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when AVIF files are used",
+          "githubID": "GHSA-2xp9-vwfh-vxw4"
+        },
+        "details": "A vulnerability in the underlying `libheif` library used by `sharp` which Next.js uses for image optimization can lead to remote code execution when AVIF files are optimized.\n\nUntil a fix has propagated, optimization of AVIF files is disabled.",
+        "info": [
+          "https://github.com/strukturag/libheif/security/advisories/GHSA-g89c-p67h-r497",
+          "https://github.com/vercel/next.js/security/advisories/GHSA-2xp9-vwfh-vxw4",
+          "https://github.com/vercel/next.js/pull/97875",
+          "https://github.com/vercel/next.js/pull/97931",
+          "https://github.com/vercel/next.js/commit/3a15b4ac6ac8e70b1a9b18ecc18e8434462899b3",
+          "https://github.com/vercel/next.js/commit/409772ec807def20132d251ad48fd8d8ad4c73c2",
+          "https://github.com/vercel/next.js/commit/7a5937a8ab20b89d0a961f75eabb11577f5d5998",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.24",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.3"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.3",
+        "severity": "critical",
+        "cwe": [
+          "CWE-22"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution on windows-hosted servers",
+          "githubID": "GHSA-p293-qw3h-jr36",
+          "CVE": [
+            "CVE-2026-75604"
+          ]
+        },
+        "details": "## Impact\n\nA vulnerability in applications using Pages and App router without Cache Component can lead to remote code execution when the server is hosted on machines using a Windows filesystem.\n\n## Workaround\n\nThere is no known workaround for affected windows-hosted applications. You should upgrade immediately if your server is hosted on Windows.",
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-p293-qw3h-jr36",
+          "https://github.com/vercel/next.js/commit/968b9fcb26bdeb8e0a861a9df05361474666d51b",
+          "https://github.com/vercel/next.js/commit/b0f3460a92b955d3ca41fccff9a525a2b910fbf3",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.24",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.3"
         ]
       }
     ],
