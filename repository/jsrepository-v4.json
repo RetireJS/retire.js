@@ -3964,6 +3964,32 @@
       {
         "atOrAbove": "0",
         "below": "19.2.26",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+          "githubID": "GHSA-hh8m-fm6v-7cvg",
+          "CVE": [
+            "CVE-2026-88057"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+          "https://github.com/angular/angular/issues/69550",
+          "https://github.com/angular/angular/pull/69558",
+          "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+          "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+          "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+          "https://github.com/angular/angular/releases/tag/v20.3.28",
+          "https://github.com/angular/angular/releases/tag/v21.2.20",
+          "https://github.com/angular/angular/releases/tag/v22.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "19.2.26",
         "severity": "high",
         "cwe": [
           "CWE-79",
@@ -4091,6 +4117,32 @@
           "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
           "https://github.com/angular/angular/pull/69064",
           "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+        ]
+      },
+      {
+        "atOrAbove": "20.0.0",
+        "below": "20.3.28",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+          "githubID": "GHSA-hh8m-fm6v-7cvg",
+          "CVE": [
+            "CVE-2026-88057"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+          "https://github.com/angular/angular/issues/69550",
+          "https://github.com/angular/angular/pull/69558",
+          "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+          "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+          "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+          "https://github.com/angular/angular/releases/tag/v20.3.28",
+          "https://github.com/angular/angular/releases/tag/v21.2.20",
+          "https://github.com/angular/angular/releases/tag/v22.1.0"
         ]
       },
       {
@@ -4231,6 +4283,32 @@
         ]
       },
       {
+        "atOrAbove": "21.0.0",
+        "below": "21.2.20",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+          "githubID": "GHSA-hh8m-fm6v-7cvg",
+          "CVE": [
+            "CVE-2026-88057"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+          "https://github.com/angular/angular/issues/69550",
+          "https://github.com/angular/angular/pull/69558",
+          "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+          "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+          "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+          "https://github.com/angular/angular/releases/tag/v20.3.28",
+          "https://github.com/angular/angular/releases/tag/v21.2.20",
+          "https://github.com/angular/angular/releases/tag/v22.1.0"
+        ]
+      },
+      {
         "atOrAbove": "22.0.0-next.0",
         "below": "22.0.0-rc.2",
         "severity": "medium",
@@ -4313,6 +4391,32 @@
           "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
           "https://github.com/angular/angular/pull/69064",
           "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+        ]
+      },
+      {
+        "atOrAbove": "22.0.0",
+        "below": "22.1.0",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+          "githubID": "GHSA-hh8m-fm6v-7cvg",
+          "CVE": [
+            "CVE-2026-88057"
+          ]
+        },
+        "info": [
+          "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+          "https://github.com/angular/angular/issues/69550",
+          "https://github.com/angular/angular/pull/69558",
+          "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+          "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+          "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+          "https://github.com/angular/angular/releases/tag/v20.3.28",
+          "https://github.com/angular/angular/releases/tag/v21.2.20",
+          "https://github.com/angular/angular/releases/tag/v22.1.0"
         ]
       }
     ],
