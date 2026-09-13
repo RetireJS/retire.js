@@ -3991,6 +3991,33 @@
         {
           "atOrAbove": "0",
           "below": "19.2.26",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+            "githubID": "GHSA-hh8m-fm6v-7cvg",
+            "CVE": [
+              "CVE-2026-88057"
+            ]
+          },
+          "details": "Angular automatically sanitizes untrusted values bound to security-sensitive DOM sinks (such as `href`, `src`, `action`, `xlink:href`, and `data`) to protect against Cross-Site Scripting (XSS).\n\nPrior to the fix, the Angular compiler determined the `SecurityContext` for directive host bindings (`host: {'[attr.href]': 'value'}` or `@HostBinding('attr.href')`) based solely on the declaring directive or component selector at compile time, rather than the concrete host element that the directive was applied to.\n\nWhen a directive with a security-sensitive host binding was applied to a different concrete host element—such as through:\n- `hostDirectives` composition,\n- Class inheritance of host bindings,\n- Dynamic component instantiation (`createComponent` with custom `hostElement` or dynamic directives),\n- Elements with SVG/MathML namespaces (e.g. `<svg:a>`, `<math>`), or\n- Elements using tag-neutral selectors (e.g. `:not(...)`),\n\nthe compiler either failed to associate a sanitizer with the host binding or attached an incorrect security context. As a result, untrusted inputs (e.g. `javascript:...` URLs) bound via the host binding would be written to the DOM attribute without passing through Angular's built-in sanitizer.\n\n### Impact\nAn attacker capable of controlling the value bound to an affected directive host binding could execute arbitrary JavaScript in the user's browser context (Cross-Site Scripting).\n\n### Patches\nThis issue has been resolved in versions:\n- `22.1.0` \n- `21.2.20`\n- `20.3.28`\n\n### Workarounds\nEnsure that any user-controlled values assigned to properties bound via directive host bindings are explicitly sanitized using `DomSanitizer.sanitize(SecurityContext.URL, ...)` before assignment, or restrict the input to validated safe URL schemes (e.g. `http://`, `https://`).",
+          "info": [
+            "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+            "https://github.com/angular/angular/issues/69550",
+            "https://github.com/angular/angular/pull/69558",
+            "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+            "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+            "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+            "https://github.com/angular/angular/releases/tag/v20.3.28",
+            "https://github.com/angular/angular/releases/tag/v21.2.20",
+            "https://github.com/angular/angular/releases/tag/v22.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "19.2.26",
           "severity": "high",
           "cwe": [
             "CWE-79",
@@ -4124,6 +4151,33 @@
             "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
             "https://github.com/angular/angular/pull/69064",
             "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+          ]
+        },
+        {
+          "atOrAbove": "20.0.0",
+          "below": "20.3.28",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+            "githubID": "GHSA-hh8m-fm6v-7cvg",
+            "CVE": [
+              "CVE-2026-88057"
+            ]
+          },
+          "details": "Angular automatically sanitizes untrusted values bound to security-sensitive DOM sinks (such as `href`, `src`, `action`, `xlink:href`, and `data`) to protect against Cross-Site Scripting (XSS).\n\nPrior to the fix, the Angular compiler determined the `SecurityContext` for directive host bindings (`host: {'[attr.href]': 'value'}` or `@HostBinding('attr.href')`) based solely on the declaring directive or component selector at compile time, rather than the concrete host element that the directive was applied to.\n\nWhen a directive with a security-sensitive host binding was applied to a different concrete host element—such as through:\n- `hostDirectives` composition,\n- Class inheritance of host bindings,\n- Dynamic component instantiation (`createComponent` with custom `hostElement` or dynamic directives),\n- Elements with SVG/MathML namespaces (e.g. `<svg:a>`, `<math>`), or\n- Elements using tag-neutral selectors (e.g. `:not(...)`),\n\nthe compiler either failed to associate a sanitizer with the host binding or attached an incorrect security context. As a result, untrusted inputs (e.g. `javascript:...` URLs) bound via the host binding would be written to the DOM attribute without passing through Angular's built-in sanitizer.\n\n### Impact\nAn attacker capable of controlling the value bound to an affected directive host binding could execute arbitrary JavaScript in the user's browser context (Cross-Site Scripting).\n\n### Patches\nThis issue has been resolved in versions:\n- `22.1.0` \n- `21.2.20`\n- `20.3.28`\n\n### Workarounds\nEnsure that any user-controlled values assigned to properties bound via directive host bindings are explicitly sanitized using `DomSanitizer.sanitize(SecurityContext.URL, ...)` before assignment, or restrict the input to validated safe URL schemes (e.g. `http://`, `https://`).",
+          "info": [
+            "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+            "https://github.com/angular/angular/issues/69550",
+            "https://github.com/angular/angular/pull/69558",
+            "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+            "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+            "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+            "https://github.com/angular/angular/releases/tag/v20.3.28",
+            "https://github.com/angular/angular/releases/tag/v21.2.20",
+            "https://github.com/angular/angular/releases/tag/v22.1.0"
           ]
         },
         {
@@ -4270,6 +4324,33 @@
           ]
         },
         {
+          "atOrAbove": "21.0.0",
+          "below": "21.2.20",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+            "githubID": "GHSA-hh8m-fm6v-7cvg",
+            "CVE": [
+              "CVE-2026-88057"
+            ]
+          },
+          "details": "Angular automatically sanitizes untrusted values bound to security-sensitive DOM sinks (such as `href`, `src`, `action`, `xlink:href`, and `data`) to protect against Cross-Site Scripting (XSS).\n\nPrior to the fix, the Angular compiler determined the `SecurityContext` for directive host bindings (`host: {'[attr.href]': 'value'}` or `@HostBinding('attr.href')`) based solely on the declaring directive or component selector at compile time, rather than the concrete host element that the directive was applied to.\n\nWhen a directive with a security-sensitive host binding was applied to a different concrete host element—such as through:\n- `hostDirectives` composition,\n- Class inheritance of host bindings,\n- Dynamic component instantiation (`createComponent` with custom `hostElement` or dynamic directives),\n- Elements with SVG/MathML namespaces (e.g. `<svg:a>`, `<math>`), or\n- Elements using tag-neutral selectors (e.g. `:not(...)`),\n\nthe compiler either failed to associate a sanitizer with the host binding or attached an incorrect security context. As a result, untrusted inputs (e.g. `javascript:...` URLs) bound via the host binding would be written to the DOM attribute without passing through Angular's built-in sanitizer.\n\n### Impact\nAn attacker capable of controlling the value bound to an affected directive host binding could execute arbitrary JavaScript in the user's browser context (Cross-Site Scripting).\n\n### Patches\nThis issue has been resolved in versions:\n- `22.1.0` \n- `21.2.20`\n- `20.3.28`\n\n### Workarounds\nEnsure that any user-controlled values assigned to properties bound via directive host bindings are explicitly sanitized using `DomSanitizer.sanitize(SecurityContext.URL, ...)` before assignment, or restrict the input to validated safe URL schemes (e.g. `http://`, `https://`).",
+          "info": [
+            "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+            "https://github.com/angular/angular/issues/69550",
+            "https://github.com/angular/angular/pull/69558",
+            "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+            "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+            "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+            "https://github.com/angular/angular/releases/tag/v20.3.28",
+            "https://github.com/angular/angular/releases/tag/v21.2.20",
+            "https://github.com/angular/angular/releases/tag/v22.1.0"
+          ]
+        },
+        {
           "atOrAbove": "22.0.0-next.0",
           "below": "22.0.0-rc.2",
           "severity": "medium",
@@ -4356,6 +4437,33 @@
             "https://github.com/angular/angular/security/advisories/GHSA-rgjc-h3x7-9mwg",
             "https://github.com/angular/angular/pull/69064",
             "https://github.com/angular/angular/commit/6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa"
+          ]
+        },
+        {
+          "atOrAbove": "22.0.0",
+          "below": "22.1.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Angular: Sanitization bypass via directive host bindings on concrete host elements in @angular/core and @angular/compiler",
+            "githubID": "GHSA-hh8m-fm6v-7cvg",
+            "CVE": [
+              "CVE-2026-88057"
+            ]
+          },
+          "details": "Angular automatically sanitizes untrusted values bound to security-sensitive DOM sinks (such as `href`, `src`, `action`, `xlink:href`, and `data`) to protect against Cross-Site Scripting (XSS).\n\nPrior to the fix, the Angular compiler determined the `SecurityContext` for directive host bindings (`host: {'[attr.href]': 'value'}` or `@HostBinding('attr.href')`) based solely on the declaring directive or component selector at compile time, rather than the concrete host element that the directive was applied to.\n\nWhen a directive with a security-sensitive host binding was applied to a different concrete host element—such as through:\n- `hostDirectives` composition,\n- Class inheritance of host bindings,\n- Dynamic component instantiation (`createComponent` with custom `hostElement` or dynamic directives),\n- Elements with SVG/MathML namespaces (e.g. `<svg:a>`, `<math>`), or\n- Elements using tag-neutral selectors (e.g. `:not(...)`),\n\nthe compiler either failed to associate a sanitizer with the host binding or attached an incorrect security context. As a result, untrusted inputs (e.g. `javascript:...` URLs) bound via the host binding would be written to the DOM attribute without passing through Angular's built-in sanitizer.\n\n### Impact\nAn attacker capable of controlling the value bound to an affected directive host binding could execute arbitrary JavaScript in the user's browser context (Cross-Site Scripting).\n\n### Patches\nThis issue has been resolved in versions:\n- `22.1.0` \n- `21.2.20`\n- `20.3.28`\n\n### Workarounds\nEnsure that any user-controlled values assigned to properties bound via directive host bindings are explicitly sanitized using `DomSanitizer.sanitize(SecurityContext.URL, ...)` before assignment, or restrict the input to validated safe URL schemes (e.g. `http://`, `https://`).",
+          "info": [
+            "https://github.com/angular/angular/security/advisories/GHSA-hh8m-fm6v-7cvg",
+            "https://github.com/angular/angular/issues/69550",
+            "https://github.com/angular/angular/pull/69558",
+            "https://github.com/angular/angular/commit/2f96c8020f85ccb715a76de4b79a0c680c2c7264",
+            "https://github.com/angular/angular/commit/6afe6fa781c2f0931f0aedd729b9884a8fe212ee",
+            "https://github.com/angular/angular/commit/6caa298dee58319b2d674dc91364e26ffe3ecb2b",
+            "https://github.com/angular/angular/releases/tag/v20.3.28",
+            "https://github.com/angular/angular/releases/tag/v21.2.20",
+            "https://github.com/angular/angular/releases/tag/v22.1.0"
           ]
         }
       ],
