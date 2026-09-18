@@ -10,7 +10,7 @@ export function scanJsFiles(path: string, options: Options): Emitter {
     if (ext.some((e) => file.endsWith(e))) {
       finder.emit('jsfile', file);
     }
-    if (file.match(/\/bower.json$/)) {
+    if (file.match(/[\\/]bower\.json$/)) {
       finder.emit('bowerfile', file);
     }
   }
