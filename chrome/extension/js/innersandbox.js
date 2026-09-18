@@ -1,60 +1,33 @@
-var realwin = window;
-var realdoc = document;
-console.log("inner sandbox loaded");
-
-window.addEventListener("message", function (evt) {
-  //console.log('inner', evt, evt.data);
-  if (!evt.data.script) return evt.source.postMessage({ done: "true" }, "*");
-  var repoFuncs = evt.data.repoFuncs;
-  console.log("I'm trying!!");
-  //try {
-  ["alert", "prompt", "confirm"].forEach(function (n) {
+window.addEventListener(
+  "message",
+  (event) => {
+    if (
+      event.source !== parent ||
+      !event.data ||
+      typeof event.data.script !== "string"
+    )
+      return;
+    const receiver = event.source;
+    const send = receiver.postMessage.bind(receiver);
+    for (const name of ["alert", "prompt", "confirm"])
+      Object.defineProperty(window, name, { value() {}, configurable: false });
     try {
-      Object.defineProperty(window, n, {
-        get: function () {
-          return function () {};
-        },
-        set: function () {},
-        enumerable: true,
-        configurable: false,
-      });
-    } catch (e) {}
-  });
-
-  //Make sure other scripts are loaded correctly
-  if (evt.data.url) {
-    document
-      .getElementsByTagName("base")[0]
-      .setAttribute(
-        "href",
-        evt.data.url.replace(/(https?:\/\/[^\/]+).*/, "$1/")
-      );
-  }
-
-  //Anti framebusting
-  window.fun = new Function("top", evt.data.script);
-  try {
-    console.log("SANDBOX invoking", evt.data.url);
-    window.fun(window);
-  } catch (e) {
-    console.warn("SANDBOX ERROR", e);
-  }
-  Object.entries(repoFuncs).forEach(([component, funcs]) => {
-    funcs.forEach(function (func) {
-      try {
-        var result = eval(func);
-        console.log("SANDBOX eval", component, result);
-        evt.source.postMessage(
-          { component: component, version: result, original: evt.data },
-          "*"
-        );
-      } catch (e) {
-        //if (component == "nextjs") console.log("SANDBOX ERROR", e);
+      document.querySelector("base").href = new URL("/", event.data.url).href;
+      new Function("top", event.data.script)(window);
+    } catch {
+      /* A library may expect globals absent from this sandbox. */
+    }
+    for (const [component, funcs] of Object.entries(event.data.repoFuncs)) {
+      for (const expression of funcs) {
+        try {
+          const version = eval(expression);
+          if (typeof version === "string") send({ component, version }, "*");
+        } catch {
+          /* Not every extractor applies to each script. */
+        }
       }
-    });
-  });
-  /*} catch(e) {
-    console.warn(e);
-  }*/
-  evt.source.postMessage({ done: "true" }, "*");
-});
+    }
+    send({ done: true }, "*");
+  },
+  { once: true },
+);

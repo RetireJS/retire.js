@@ -1,22 +1,29 @@
-# Development
+# Browser extension development
 
-To use the development version:
+Run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root. Node.js 18 or newer and npm are required. The build compiles the scanner and creates all three packages without relying on symlinks:
 
-1. Clone the repo: `git clone https://github.com/RetireJS/retire.js`
-2. Install the requirements: npm - [https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-3. Run `./build_chrome.sh` (Linux) or `./build_chrome.bat` (Windows) from the root of the repo
-4. Open [chrome://extensions/](chrome://extensions/)
-5. Check "Developer mode"
-6. Click "Load unpacked" at the top left, and select the `chrome/extension` or `chrome/extension-no-func` folder inside the repo
-7. Use and develop
+- `dist/chrome`: Chrome 116+, with sandboxed function detection.
+- `dist/chrome-no-func`: Chrome 116+, static and AST detection only.
+- `dist/firefox`: Firefox 140+, static and AST detection only.
 
-To test the reporting, you can visit the demo page at [https://erlend.oftedal.no/blog/retire/](https://erlend.oftedal.no/blog/retire/)
+In Chrome, open `chrome://extensions`, enable Developer mode, and Load unpacked from the appropriate `dist` directory. Reload the extension and test page after rebuilding. For Firefox, see [the Firefox instructions](../firefox/README.md).
 
-## SECURITY NOTICE: Difference between extension and extension-no-func
+The Analyst Console is shared source in `chrome/extension/popup.html`, `popup.css`, and `js/popup.js`. The shared background runtime is `js/runtime.js`. `chrome/build/build.js` bundles that runtime with the scanner and copies the UI and browser-specific manifest into each package. Load the built packages, not the source directories.
 
-The default extension loads the downloaded scripts in an iframe and then tries to invoke JavaScript functions from the downloaded repo (like `jQuery.fn.version`) in a sandbox to try to
-detect certain libraries. If this is not acceptable security-wise, you can use extension-no-func, which does not invoke those functions.
+Scanning observes new HTTP(S) script requests. Reload an already-open page to scan it. Enabled and Deep scan default to on; settings persist across browser restarts. Disabling scanning retains results. The badge counts unique vulnerable library occurrences (URL, component, version); Total vulns counts distinct advisory occurrences across those libraries. Search and Show unknown do not change totals or exported data. Results are reset on navigation and retained only for the current browser session.
 
-### Development
+The standard Chrome package executes downloaded JavaScript in an isolated sandbox to detect versions. Use Chrome no-func or Firefox if that behavior is unwanted. Static scanning and AST analysis do not execute downloaded scripts.
 
-Be wary when updating the files, as files not related to no-func, are symlinked between the two versions to avoid having to update in both places.
+## Checks
+
+After compiling Node sources, run `npm test` in `chrome/build` for the extension regression tests. Run `npm run build` there to rebuild the three packages. The repository Node tests and validation tools are unchanged in scope.
+
+Native browser smoke checks are also available from the repository root on Windows with Chrome and Firefox installed in their default locations and Node.js 22 or newer:
+
+```text
+node chrome/test/browser-smoke.cjs chrome
+node chrome/test/browser-smoke.cjs chrome-no-func
+node chrome/test/browser-firefox-smoke.cjs
+```
+
+These checks launch hidden headless browsers with isolated profiles, serve local test pages, and save screenshots and test exports under ignored `tmp/browser-smoke/`. Run them sequentially because they share a local fixture port. They do not access your normal browser profiles. CI runs the unit checks and builds on Windows and Ubuntu; native browser checks are separate.

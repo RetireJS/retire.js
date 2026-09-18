@@ -9,8 +9,13 @@
     "128": "icons/icon128.png"
   },
   "author": "Erlend Oftedal",
-
-  "permissions": ["webRequest", "activeTab", "offscreen", "webNavigation"],
+  "permissions": [
+    "webRequest",
+    "activeTab",
+    "webNavigation",
+    "storage",
+    "offscreen"
+  ],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {
@@ -21,21 +26,14 @@
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' ; object-src 'self'",
-    "sandbox": "sandbox allow-scripts ; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; default-src 'self' * chrome-extension://ibcjobljccofegbhhakbghbaiicchlli ;"
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'unsafe-inline' 'unsafe-eval'; default-src 'none';"
   },
-
   "background": {
     "service_worker": "js/service_worker.js",
     "type": "module"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/content.js"],
-      "run_at": "document_start"
-    }
-  ],
   "sandbox": {
     "pages": ["inner-sandbox.html"]
-  }
+  },
+  "minimum_chrome_version": "116"
 }
