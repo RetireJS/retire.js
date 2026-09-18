@@ -1,12 +1,18 @@
-# Browser extension development
+# Browser extensions
 
-Run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root. Node.js 18 or newer and npm are required. The build compiles the scanner and creates all three packages without relying on symlinks:
+## Install without Node.js
+
+Download this repository using **Code → Download ZIP** on GitHub and extract it, or clone it. Complete prebuilt packages are included:
 
 - `dist/chrome`: Chrome 116+, with sandboxed function detection.
 - `dist/chrome-no-func`: Chrome 116+, static and AST detection only.
 - `dist/firefox`: Firefox 140+, static and AST detection only.
 
-In Chrome, open `chrome://extensions`, enable Developer mode, and Load unpacked from the appropriate `dist` directory. Reload the extension and test page after rebuilding. For Firefox, see [the Firefox instructions](../firefox/README.md).
+In Chrome, open `chrome://extensions`, enable Developer mode, and **Load unpacked** from the appropriate extracted `dist` directory. For Firefox, see [the Firefox instructions](../firefox/README.md). No Node.js installation or build is needed to load these packages.
+
+## Development
+
+Use Node.js 24 LTS and npm. Run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root. The build compiles the scanner and creates all three packages without relying on symlinks. Reload the extension and test page after rebuilding. Include updated `dist` packages when committing changes to their sources; CI checks that the packages match the build.
 
 The Analyst Console is shared source in `chrome/extension/popup.html`, `popup.css`, and `js/popup.js`. The shared background runtime is `js/runtime.js`. `chrome/build/build.js` bundles that runtime with the scanner and copies the UI and browser-specific manifest into each package. Load the built packages, not the source directories.
 

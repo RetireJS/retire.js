@@ -2,7 +2,7 @@
 
 The current extension is a Manifest V3 WebExtension for Firefox 140 or newer. It shares the Analyst Console and static/AST scanner with Chrome; it does not execute downloaded scripts.
 
-1. Run `build_chrome.bat` (Windows) or `./build_chrome.sh` (Unix) from the repository root.
+1. Download this repository using **Code → Download ZIP** on GitHub and extract it, or clone it. The complete prebuilt package is included; Node.js is not required.
 2. Open `about:debugging#/runtime/this-firefox`.
 3. Choose **Load Temporary Add-on**, then select `dist/firefox/manifest.json`.
 4. Allow site access when prompted, open an HTTP(S) page, and reload it to scan its scripts.

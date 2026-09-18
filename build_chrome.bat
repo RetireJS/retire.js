@@ -2,12 +2,12 @@
 setlocal
 cd /d "%~dp0"
 cd node
-call npm ci --no-audit --no-fund
+call npm ci
 if errorlevel 1 exit /b 1
 call npm run build
 if errorlevel 1 exit /b 1
 cd ..\chrome\build
-call npm ci --no-audit --no-fund
+call npm ci
 if errorlevel 1 exit /b 1
 call npm run build
 if errorlevel 1 exit /b 1
