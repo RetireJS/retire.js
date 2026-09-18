@@ -1,296 +1,476 @@
-window.addEventListener(
-  "load",
-  () => {
-    sendMessage("enabled?", null, (response) => {
-      document.querySelector("input[type=checkbox]#enabled").checked =
-        response.enabled;
-    });
-    sendMessage("deepScanEnabled?", null, (response) => {
-      document.querySelector("input[type=checkbox]#deepEnabled").checked =
-        response.enabled;
-    });
+"use strict";
 
-    document.querySelector("input[type=checkbox]#enabled").addEventListener(
-      "click",
-      (e) => {
-        chrome.action.setIcon({
-          path: e.target.checked ? "icons/icon48.png" : "icons/icon_bw48.png",
-        });
-        sendMessage("enable", e.target.checked, null);
-      },
-      false
-    );
-    document.querySelector("input[type=checkbox]#deepEnabled").addEventListener(
-      "click",
-      (e) => {
-        sendMessage("deepScanEnable", e.target.checked, null);
-      },
-      false
-    );
-
-    document.querySelector("input[type=checkbox]#unknown").addEventListener(
-      "click",
-      () => {
-        const r = document.getElementById("results");
-        if (r.className.includes("hideunknown")) {
-          r.className = r.className.replace("hideunknown", "");
-        } else {
-          r.className += " hideunknown";
-        }
-      },
-      false
-    );
-
-    queryForResults();
-    setInterval(queryForResults, 5000);
-  },
-  false
-);
-let lastShown = "";
-
-function queryForResults() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(
-      tabs[0].id,
-      { getDetected: 1 },
-      function (response) {
-        let dt = JSON.stringify(response);
-        if (dt == lastShown) return;
-        lastShown = dt;
-        show(response);
-        console.log(response);
-      }
-    );
-  });
-}
-function mapSeverity(vulns) {
-  if (vulns.some((v) => v.severity == "critical")) return "critical";
-  if (vulns.some((v) => v.severity == "high")) return "high";
-  if (vulns.some((v) => v.severity == "medium")) return "medium";
-  if (vulns.some((v) => v.severity == "low")) return "low";
-  return "high";
-}
-const severityMap = {
-  critical: 4,
-  high: 3,
-  medium: 2,
-  low: 1,
-  unknown: 0,
-};
-const detMapping = {
+const $ = (id) => document.getElementById(id);
+const severityScore = { critical: 4, high: 3, medium: 2, low: 1 };
+const detectionNames = {
   ast: "AST",
   uri: "URI",
   filename: "file name",
   filecontent: "file content",
 };
+let snapshot = null;
+let selected = null;
+let rowsSignature = "";
+let detailSignature = "";
+let refreshing = false;
+let settingWrites = 0;
+let revision = 0;
 
-function show(totalResults) {
-  if (totalResults == null || totalResults == undefined) return;
+function element(tag, text, className) {
+  const node = document.createElement(tag);
+  if (text !== undefined) node.textContent = text;
+  if (className) node.className = className;
+  return node;
+}
 
-  document.getElementById("results").innerHTML = "";
-  console.log(totalResults);
-  var merged = {};
-  totalResults.forEach((rs) => {
-    merged[rs.url] = merged[rs.url] || { url: rs.url, results: [] };
-    rs.results.forEach((r) => {
-      const existing = merged[rs.url].results.find(
-        (x) => x.component == r.component && x.version == r.version
-      );
-      if (existing) {
-        if (r.detection && !existing.detections.includes(r.detection)) {
-          existing.detections.push(r.detection);
-        }
-      } else {
-        merged[rs.url].results.push({
-          ...r,
-          detections: r.detection ? [r.detection] : [],
-        });
+// Chromium exposes callbacks; Firefox's browser namespace exposes promises.
+function extensionCall(target, method, argument) {
+  if (typeof browser !== "undefined") return browser[target][method](argument);
+  return new Promise((resolve, reject) => {
+    const result = chrome[target][method](argument, (value) => {
+      const error = chrome.runtime.lastError;
+      if (error) reject(new Error(error.message));
+      else resolve(value);
+    });
+    if (result && typeof result.then === "function")
+      result.then(resolve, reject);
+  });
+}
+
+function severity(vulnerability) {
+  const value = String(vulnerability.severity || "").toLowerCase();
+  return Object.hasOwn(severityScore, value) ? value : "unknown";
+}
+
+function identifiers(vulnerability) {
+  return Object.entries(vulnerability.identifiers || {})
+    .filter(([key]) => key !== "summary")
+    .flatMap(([, value]) => (Array.isArray(value) ? value : [value]))
+    .filter((value) => typeof value === "string" || typeof value === "number")
+    .map(String);
+}
+
+function libraries(data) {
+  return (data.resources || [])
+    .flatMap((resource) => {
+      const results = resource.results || [];
+      if (!results.length) {
+        return [
+          {
+            component:
+              resource.status === "error"
+                ? "Scan failed"
+                : resource.status === "scanning"
+                  ? "Scanning script…"
+                  : "Unidentified script",
+            version: "—",
+            url: resource.url,
+            status: resource.status,
+            error: resource.error,
+            unknown: resource.status === "complete",
+            vulnerabilities: [],
+            key: JSON.stringify([resource.url, resource.status]),
+          },
+        ];
       }
-    });
-  });
-
-  let results = Object.values(merged);
-  
-  const severityCounts = { critical: 0, high: 0, medium: 0, low: 0 };
-  const vulnerabilities = results.reduce((acc, rs) => {
-    return (
-      acc +
-      rs.results.reduce((acc, r) => {
-        if (r.vulnerabilities) {
-          r.vulnerabilities.forEach((v) => {
-            if (v.severity in severityCounts) severityCounts[v.severity]++;
-          });
-        }
-        return acc + (r.vulnerabilities ? r.vulnerabilities.length : 0);
-      }, 0)
+      return results.map((result) => ({
+        ...result,
+        url: resource.url,
+        status: resource.status,
+        error: resource.error,
+        vulnerabilities: result.vulnerabilities || [],
+        key: JSON.stringify([resource.url, result.component, result.version]),
+      }));
+    })
+    .sort(
+      (a, b) =>
+        rank(b) - rank(a) ||
+        String(a.component).localeCompare(String(b.component)) ||
+        String(a.version).localeCompare(String(b.version)) ||
+        a.url.localeCompare(b.url),
     );
-  }, 0);
-  document.querySelector("#stats").innerHTML = "";
-  document.querySelector("#stats").appendChild(span(`URLs scanned: ${results.length}`));
-  document.querySelector("#stats").appendChild(span(`Vulnerabilities found: ${vulnerabilities}`, vulnerabilities > 0 ? "vuln" : ""));
-  ["critical", "high", "medium", "low"].forEach((severity) => {
-    if (severityCounts[severity] > 0) {
-      document.querySelector("#stats").appendChild(span(`${severity}: ${severityCounts[severity]}`, severity));
-    }
-  });
+}
 
-  results.forEach((rs) => {
-    rs.results.forEach((r) => {
-      r.url = rs.url;
-      r.vulnerable = r.vulnerabilities && r.vulnerabilities.length > 0;
-    });
-    if (rs.results.length == 0) {
-      rs.results = [{ url: rs.url, unknown: true, component: "unknown" }];
-    }
-  });
-  let res = results.reduce((x, y) => {
-    return x.concat(y.results);
-  }, []);
-  function severityScore(r) {
-    if (r.unknown) return -1;
-    if (r.vulnerabilities && r.vulnerabilities.length > 0) {
-      return severityMap[mapSeverity(r.vulnerabilities)] ?? 0;
-    }
-    return 0;
+function rank(library) {
+  if (library.vulnerabilities.length)
+    return Math.max(
+      0.5,
+      ...library.vulnerabilities.map((v) => severityScore[severity(v)] || 0),
+    );
+  return library.unknown ? -1 : 0;
+}
+
+function badge(library) {
+  if (library.vulnerabilities.length) {
+    const highest = [...library.vulnerabilities].sort(
+      (a, b) =>
+        (severityScore[severity(b)] || 0) - (severityScore[severity(a)] || 0),
+    )[0];
+    const value = severity(highest);
+    return element(
+      "span",
+      value === "unknown"
+        ? "Unrated finding"
+        : value[0].toUpperCase() + value.slice(1),
+      `badge ${value}`,
+    );
   }
-  res.sort((x, y) => {
-    const sd = severityScore(y) - severityScore(x);
-    if (sd !== 0) return sd;
-    return (x.component + x.version + x.url).localeCompare(
-      y.component + y.version + y.url
-    );
-  });
-  res.forEach((r) => {
-
-
-    if (r.unknown) {
-      let div = document.createElement("div");
-      document.getElementById("results").appendChild(div);
-      div.className = "unknown";
-      div.appendChild(span(r.url));
-    } else {
-      let details = document.createElement("details");
-      document.getElementById("results").appendChild(details);
-
-      let summary = document.createElement("summary");
-      details.appendChild(summary);
-      let body = document.createElement("div");
-      body.className = "details-body";
-      details.appendChild(body);
-      summary.appendChild(span(`${r.component} ${r.version}`, "lib-name"));
-
-      if (r.vulnerabilities && r.vulnerabilities.length > 0) {
-        r.vulnerabilities.sort((x, y) => {
-          return severityMap[y.severity] - severityMap[x.severity];
-        });
-        const severity = mapSeverity(r.vulnerabilities);
-        details.className = "vulnerable " + severity;
-
-        const counts = {};
-        r.vulnerabilities.forEach((v) => {
-          counts[v.severity] = (counts[v.severity] || 0) + 1;
-        });
-        ["critical", "high", "medium", "low"].forEach((sev) => {
-          if (counts[sev]) {
-            const badge = document.createElement("span");
-            badge.textContent = `${sev}: ${counts[sev]}`;
-            badge.classList.add("severity-badge", sev);
-            summary.appendChild(badge);
-          }
-        });
-      }
-
-      let dNames = (r.detections && r.detections.length > 0
-        ? r.detections
-        : [r.detection]
-      )
-        .filter(Boolean)
-        .map((d) => detMapping[d] ?? d);
-      let urlDiv = document.createElement("div");
-      urlDiv.className = "detection-url";
-      urlDiv.textContent = `${r.url} `;
-      let detSpan = document.createElement("span");
-      detSpan.textContent = `(${dNames.join(", ")} detection)`;
-      detSpan.className = "detection-method";
-      urlDiv.appendChild(detSpan);
-      body.appendChild(urlDiv);
-
-      if (r.vulnerabilities && r.vulnerabilities.length > 0) {
-        r.vulnerabilities.forEach(function (v) {
-          const vulnItem = document.createElement("details");
-          vulnItem.className = "vuln-item " + (v.severity || "");
-          body.appendChild(vulnItem);
-
-          const vulnSummary = document.createElement("summary");
-          vulnItem.appendChild(vulnSummary);
-
-          vulnSummary.appendChild(span(v.severity || "unknown", "severity-text"));
-
-          const ids = v.identifiers || {};
-          const summarySpan = document.createElement("span");
-          summarySpan.className = "vuln-summary";
-          summarySpan.textContent = ids.summary || "";
-          vulnSummary.appendChild(summarySpan);
-
-          const vulnBody = document.createElement("div");
-          vulnBody.className = "vuln-body";
-          vulnItem.appendChild(vulnBody);
-
-          const skipKeys = new Set(["githubID", "CVE", "summary"]);
-          const allChips = [
-            ...[ids.githubID, ...(ids.CVE || [])].filter(Boolean),
-            ...Object.entries(ids)
-              .filter(([k]) => !skipKeys.has(k))
-              .flatMap(([, val]) => Array.isArray(val) ? val : [val])
-              .filter(Boolean),
-          ];
-          if (allChips.length > 0) {
-            const chipsDiv = document.createElement("div");
-            chipsDiv.className = "id-chips";
-            allChips.forEach((id) => chipsDiv.appendChild(span(id, "id-chip")));
-            vulnBody.appendChild(chipsDiv);
-          }
-
-          if (v.details) {
-            const detailsText = document.createElement("p");
-            detailsText.className = "details-text";
-            detailsText.textContent = v.details;
-            vulnBody.appendChild(detailsText);
-          }
-
-          if (v.info && v.info.length > 0) {
-            const ul = document.createElement("ul");
-            ul.className = "info-links";
-            vulnBody.appendChild(ul);
-            v.info.forEach(function (u) {
-              const li = document.createElement("li");
-              const a = document.createElement("a");
-              a.href = u;
-              a.textContent = u;
-              a.target = "_blank";
-              li.appendChild(a);
-              ul.appendChild(li);
-            });
-          }
-        });
-      }
-    }
-  });
-}
-function span(data, className) {
-  const s = document.createElement("span");
-  if (className) s.classList.add(className);
-  s.textContent = data;
-  return s;
-}
-
-
-function sendMessage(message, data, callback) {
-  console.log("Sending message", message, data);
-  chrome.runtime.sendMessage(
-    { to: "background", message: message, data: data },
-    (response) => {
-      callback && callback(response);
-    }
+  return element(
+    "span",
+    library.status === "error"
+      ? "Scan error"
+      : library.status === "scanning"
+        ? "Scanning"
+        : library.unknown
+          ? "Unknown"
+          : "No known findings",
+    "badge neutral",
   );
 }
+
+function safeLink(url, text) {
+  try {
+    const parsed = new URL(url);
+    if (!["https:", "http:"].includes(parsed.protocol)) return null;
+    const link = element("a", text || url);
+    link.href = parsed.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    return link;
+  } catch {
+    return null;
+  }
+}
+
+function renderDetails(library) {
+  const signature = JSON.stringify(library || null);
+  if (signature === detailSignature) return;
+  const sameSelection = $("details").dataset.key === library?.key;
+  const scroll = sameSelection ? $("details").scrollTop : 0;
+  const focusedId = $("details").contains(document.activeElement)
+    ? document.activeElement.id
+    : null;
+  detailSignature = signature;
+  $("details").dataset.key = library?.key || "";
+  $("details").replaceChildren();
+  if (!library) {
+    $("details").append(
+      element("p", "Select a library to view details.", "placeholder"),
+    );
+    return;
+  }
+  const heading = element("div", undefined, "detail-head");
+  heading.append(
+    element("h2", library.component),
+    element("span", library.version, "mono"),
+    badge(library),
+  );
+  const urlrow = element("div", undefined, "urlrow");
+  const url = element("input");
+  url.id = "url";
+  url.readOnly = true;
+  url.value = library.url;
+  url.setAttribute("aria-label", "Detected file URL");
+  const copy = element("button", "Copy URL", "copy");
+  copy.id = "copy";
+  copy.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(library.url);
+      $("feedback").textContent = "URL copied.";
+    } catch {
+      url.focus();
+      url.select();
+      $("feedback").textContent =
+        "Press Ctrl+C / Cmd+C to copy the selected URL.";
+    }
+  };
+  urlrow.append(url, copy);
+  $("details").append(heading, urlrow);
+  const detections =
+    library.detections || (library.detection ? [library.detection] : []);
+  if (detections.length)
+    $("details").append(
+      element(
+        "p",
+        `Detected by ${detections.map((d) => detectionNames[d] || d).join(", ")}.`,
+        "detection",
+      ),
+    );
+  if (library.status === "error")
+    $("details").append(
+      element(
+        "p",
+        library.error || "This script could not be scanned.",
+        "placeholder",
+      ),
+    );
+  else if (!library.vulnerabilities.length)
+    $("details").append(
+      element(
+        "p",
+        library.status === "scanning"
+          ? "This script is still being scanned."
+          : library.unknown
+            ? "Library and version could not be identified."
+            : "No matching advisory. This is not a security guarantee.",
+        "placeholder",
+      ),
+    );
+  [...library.vulnerabilities]
+    .sort(
+      (a, b) =>
+        (severityScore[severity(b)] || 0) - (severityScore[severity(a)] || 0),
+    )
+    .forEach((vulnerability) => {
+      const finding = element("article", undefined, "finding");
+      const level = severity(vulnerability);
+      finding.append(
+        element(
+          "span",
+          `${level[0].toUpperCase() + level.slice(1)} severity`,
+          `badge ${level}`,
+        ),
+      );
+      const ids = identifiers(vulnerability);
+      finding.append(
+        element(
+          "h3",
+          vulnerability.identifiers?.summary || ids.join(" · ") || "Advisory",
+        ),
+      );
+      if (ids.length) finding.append(element("p", ids.join(" · "), "mono"));
+      if (vulnerability.details)
+        finding.append(element("p", vulnerability.details));
+      if (vulnerability.atOrAbove || vulnerability.below)
+        finding.append(
+          element(
+            "p",
+            `Affected versions: ${vulnerability.atOrAbove ? `≥ ${vulnerability.atOrAbove}` : ""}${vulnerability.atOrAbove && vulnerability.below ? ", " : ""}${vulnerability.below ? `< ${vulnerability.below}` : ""}`,
+          ),
+        );
+      const links = new Set([].concat(vulnerability.info || []));
+      ids.forEach((id) => {
+        if (/^CVE-\d{4}-\d+$/i.test(id))
+          links.add(
+            `https://nvd.nist.gov/vuln/detail/${encodeURIComponent(id)}`,
+          );
+        if (/^GHSA-[a-z0-9-]+$/i.test(id))
+          links.add(`https://github.com/advisories/${encodeURIComponent(id)}`);
+      });
+      links.forEach((address) => {
+        const link = safeLink(address);
+        if (link) finding.append(link);
+      });
+      $("details").append(finding);
+    });
+  if (sameSelection && focusedId) $(focusedId)?.focus({ preventScroll: true });
+  $("details").scrollTop = scroll;
+}
+
+function render() {
+  if (!snapshot) return;
+  const settings = snapshot.settings;
+  $("enabled").checked = settings.enabled;
+  $("deep").checked = settings.deepScan;
+  $("unknown").checked = settings.showUnknown;
+  $("mode").textContent = settings.deepScan ? "Deep scan" : "Standard scan";
+  $("scanned").textContent = snapshot.urlsScanned || 0;
+  $("total").textContent = snapshot.totalVulns || 0;
+  $("state").textContent = !settings.enabled
+    ? "Scanning disabled"
+    : snapshot.status === "unsupported"
+      ? "Unsupported page"
+      : snapshot.repositoryError
+        ? "Using saved data"
+        : snapshot.status === "loading"
+          ? "Scanning…"
+          : "Enabled";
+  $("state").classList.toggle(
+    "off",
+    !settings.enabled || snapshot.status === "unsupported",
+  );
+  try {
+    $("domain").textContent = new URL(snapshot.url).hostname || snapshot.url;
+  } catch {
+    $("domain").textContent = snapshot.url || "Current tab";
+  }
+  $("domain").title = snapshot.url || "";
+  const query = $("search").value.trim().toLowerCase();
+  const list = libraries(snapshot).filter(
+    (library) =>
+      (!library.unknown || settings.showUnknown) &&
+      [
+        library.component,
+        library.version,
+        library.url,
+        ...library.vulnerabilities.flatMap(identifiers),
+      ]
+        .join(" ")
+        .toLowerCase()
+        .includes(query),
+  );
+  if (!list.some((library) => library.key === selected))
+    selected = list[0]?.key || null;
+  $("count").textContent = `${list.length} shown`;
+  $("empty").hidden = list.length !== 0;
+  $("empty").textContent =
+    snapshot.status === "unsupported"
+      ? "Scanning is available on HTTP and HTTPS pages."
+      : !settings.enabled
+        ? "Scanning is disabled. Existing results are retained."
+        : snapshot.repositoryError
+          ? snapshot.repositoryError
+          : snapshot.status === "loading"
+            ? "Waiting for scan results…"
+            : query
+              ? "No matching libraries."
+              : "No identified libraries. Enable Show unknown to include unidentified scripts.";
+  const signature = JSON.stringify([list, selected]);
+  if (signature !== rowsSignature) {
+    rowsSignature = signature;
+    const focusedKey = $("rows").contains(document.activeElement)
+      ? document.activeElement.dataset.key
+      : null;
+    const scroll = $("rows").parentElement.parentElement.scrollTop;
+    const fragment = document.createDocumentFragment();
+    list.forEach((library) => {
+      const row = element(
+        "tr",
+        undefined,
+        library.key === selected ? "selected" : "",
+      );
+      const name = element("td");
+      const button = element("button", library.component);
+      button.dataset.key = library.key;
+      button.title = library.url;
+      button.setAttribute("aria-pressed", String(library.key === selected));
+      button.setAttribute("aria-controls", "details");
+      button.onclick = () => {
+        selected = library.key;
+        render();
+      };
+      button.onkeydown = (event) => {
+        const index = list.indexOf(library);
+        const next =
+          event.key === "ArrowDown"
+            ? Math.min(index + 1, list.length - 1)
+            : event.key === "ArrowUp"
+              ? Math.max(index - 1, 0)
+              : event.key === "Home"
+                ? 0
+                : event.key === "End"
+                  ? list.length - 1
+                  : null;
+        if (next === null) return;
+        event.preventDefault();
+        selected = list[next].key;
+        render();
+        [...$("rows").querySelectorAll("button")]
+          .find((b) => b.dataset.key === selected)
+          ?.focus();
+      };
+      name.append(button);
+      const level = element("td");
+      level.append(badge(library));
+      row.append(
+        name,
+        element("td", library.version || "Unknown", "mono"),
+        level,
+      );
+      fragment.append(row);
+    });
+    $("rows").replaceChildren(fragment);
+    if (focusedKey) {
+      const button = [...$("rows").querySelectorAll("button")].find(
+        (b) => b.dataset.key === focusedKey,
+      );
+      (button || $("search")).focus({ preventScroll: true });
+    }
+    $("rows").parentElement.parentElement.scrollTop = scroll;
+  }
+  renderDetails(list.find((library) => library.key === selected));
+  $("export").disabled = false;
+}
+
+async function refresh() {
+  if (refreshing || settingWrites) return;
+  refreshing = true;
+  const requestRevision = revision;
+  try {
+    const tabs = await extensionCall("tabs", "query", {
+      active: true,
+      currentWindow: true,
+    });
+    const tab = tabs[0];
+    const data = await extensionCall("runtime", "sendMessage", {
+      type: "getSnapshot",
+      tabId: tab?.id,
+      url: tab?.url,
+    });
+    if (requestRevision !== revision) return;
+    if (!data || !data.settings) throw new Error("No scan snapshot received.");
+    const repositoryChanged =
+      data.repositoryError !== (snapshot?.repositoryError || null);
+    snapshot = data;
+    if (repositoryChanged)
+      $("feedback").textContent = data.repositoryError || "Repository updated.";
+    render();
+  } catch (error) {
+    $("state").textContent = "Unavailable";
+    $("feedback").textContent = `Could not load scan results: ${error.message}`;
+    if (!snapshot)
+      $("empty").textContent = "Scan results are unavailable. Retrying…";
+  } finally {
+    refreshing = false;
+  }
+}
+
+for (const [id, setting] of [
+  ["enabled", "enabled"],
+  ["deep", "deepScan"],
+  ["unknown", "showUnknown"],
+]) {
+  $(id).onchange = async () => {
+    const value = $(id).checked;
+    settingWrites++;
+    revision++;
+    $(id).disabled = true;
+    try {
+      const result = await extensionCall("runtime", "sendMessage", {
+        type: "setSettings",
+        settings: { [setting]: value },
+      });
+      if (!result?.settings) throw new Error("Setting was not saved.");
+      if (snapshot) {
+        snapshot.settings = result.settings;
+        render();
+      }
+      $("feedback").textContent =
+        `${id === "enabled" ? "Scanning" : id === "deep" ? "Deep scan" : "Show unknown"} ${value ? "enabled" : "disabled"}.`;
+    } catch (error) {
+      $(id).checked = snapshot?.settings[setting] ?? !value;
+      $("feedback").textContent = `Could not save setting: ${error.message}`;
+    } finally {
+      $(id).disabled = false;
+      settingWrites--;
+      refresh();
+    }
+  };
+}
+$("search").oninput = render;
+$("export").onclick = () => {
+  if (!snapshot) return;
+  const url = URL.createObjectURL(
+    new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" }),
+  );
+  const link = element("a");
+  link.href = url;
+  link.download = "retire-scan.json";
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $("feedback").textContent = "Full scan data exported.";
+};
+refresh();
+setInterval(refresh, 1000);
