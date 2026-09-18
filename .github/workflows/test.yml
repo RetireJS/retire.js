@@ -8,11 +8,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
 
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         node-version: [26.x]
 
     steps:
@@ -27,7 +28,17 @@ jobs:
         working-directory: node
       - run: npm test
         working-directory: node
-      - run: ./validate
+      - run: npm run typecheck
+        working-directory: node
+      - run: node node_modules/eslint/bin/eslint.js . --ext .ts --ignore-path ../.gitignore
+        working-directory: node
+      - run: npm ci --no-audit --no-fund
+        working-directory: chrome/build
+      - run: npm test
+        working-directory: chrome/build
+      - run: npm run build
+        working-directory: chrome/build
+      - run: node validate
         working-directory: repository
       - name: Restore cached data for test-detection
         uses: actions/cache@v4
@@ -37,5 +48,5 @@ jobs:
           key: ${{ runner.os }}-test-detection-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-test-detection-
-      - run: ./test-detection.js
+      - run: node test-detection.js
         working-directory: repository
