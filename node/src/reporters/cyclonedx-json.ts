@@ -51,6 +51,10 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
       .map((r) =>
         r.results
           .map((dep) => {
+            dep = {
+              ...dep,
+              version: (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.'),
+            };
             let hashes;
             const filepath = r.file;
             const properties = [];
