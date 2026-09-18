@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import * as assert from 'node:assert';
 import jsonLogger from '../../lib/reporters/cyclonedx-json';
+import xmlLogger from '../../lib/reporters/cyclonedx';
 import jsonLogger1_6 from '../../lib/reporters/cyclonedx-1_6-json';
 import jsonLogger1_7 from '../../lib/reporters/cyclonedx-1_7-json';
 import * as fs from 'fs';
@@ -25,7 +26,7 @@ const spdxSchema = readJson<Schema>('spec/schema/spdx.schema.json');
 import * as path from 'path';
 
 import * as os from 'os';
-import { Repository } from '../../lib/types';
+import { Finding, Repository, Vulnerability } from '../../lib/types';
 
 const tmpDir = os.tmpdir();
 const jqFile = tmpDir + '/jquery.js';
@@ -42,8 +43,13 @@ const loggerOptions: LoggerOptions = {
   jsRepo: ['testrepo.json'],
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function runReporter(reporter: ConfigurableLogger, options: LoggerOptions, licenses: string[] = ['MIT']): any {
+function runReporter(
+  reporter: ConfigurableLogger,
+  options: LoggerOptions,
+  licenses: string[] = ['MIT'],
+  findings?: Finding[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
   const data: unknown[] = [];
   const writer: Writer = {
     out: (a) => data.push(a),
@@ -54,9 +60,9 @@ function runReporter(reporter: ConfigurableLogger, options: LoggerOptions, licen
   reporter.configure(logger, writer, options, hash);
   const results = retire.scanFileContent('/*! jQuery v1.8.1 asdasd ', repo, hash);
   results[0].licenses = licenses;
-  logger.logVulnerableDependency({ results, file: jqFile });
+  for (const finding of findings ?? [{ results, file: jqFile }]) logger.logVulnerableDependency(finding);
   logger.close();
-  return JSON.parse(data.join(''));
+  return reporter === xmlLogger ? data.join('') : JSON.parse(data.join(''));
 }
 
 function validate(output: unknown, schema: Schema) {
@@ -67,6 +73,34 @@ function validate(output: unknown, schema: Schema) {
 }
 
 describe('cyclonedx-json', () => {
+  for (const [format, reporter] of Object.entries({
+    XML: xmlLogger,
+    JSON1_4: jsonLogger,
+    JSON1_6: jsonLogger1_6,
+    JSON1_7: jsonLogger1_7,
+  })) {
+    it(`preserves detected versions without mutating findings in ${format}`, () => {
+      const versions = ['1.2', '1.2.0-beta.1', '1.2.0-beta.1+build.7'];
+      const findings = versions.map((version) => ({
+        file: '',
+        results: [{ component: 'jquery', version, detection: 'filecontent' }],
+      }));
+      const original = JSON.stringify(findings);
+      const output = runReporter(reporter, loggerOptions, [], findings);
+      assert.strictEqual(JSON.stringify(findings), original);
+      for (const [index, version] of versions.entries()) {
+        if (reporter === xmlLogger) {
+          assert.ok(output.includes(`<version>${version}</version>`));
+          assert.ok(output.includes(`<purl>pkg:npm/jquery@${version}</purl>`));
+        } else {
+          assert.strictEqual(output.components[index].version, version);
+          assert.strictEqual(output.components[index].purl, `pkg:npm/jquery@${version}`);
+          if (reporter !== jsonLogger)
+            assert.strictEqual(output.components[index].evidence.identity[0].concludedValue, version);
+        }
+      }
+    });
+  }
   it('should validate report according to schema', () => {
     const output = runReporter(jsonLogger, loggerOptions);
     const res = validate(output, jsonSchema);
@@ -84,6 +118,61 @@ describe('cyclonedx-json', () => {
     { version: '1.7', reporter: jsonLogger1_7, schema: jsonSchema1_7 },
   ]) {
     const suffix = version.replace('.', '_');
+
+    it(`merges duplicate component vulnerabilities and evidence in ${version}`, () => {
+      const first: Vulnerability = {
+        below: '2.0.0',
+        severity: 'high',
+        cwe: [],
+        identifiers: { CVE: ['CVE-2025-1234', 'CVE-2025-1234'] },
+        info: [],
+      };
+      const later: Vulnerability = { ...first, identifiers: { CVE: ['CVE-2025-5678'] } };
+      const component = { component: 'jquery', version: '1.2.0-beta.1', detection: 'filename' };
+      const findings = [
+        { file: jqFile, results: [{ ...component, vulnerabilities: [first] }] },
+        {
+          file: 'spec/repository.json',
+          results: [
+            { ...component, detection: 'filecontent', vulnerabilities: [first, later, { ...first, below: '3.0.0' }] },
+          ],
+        },
+      ];
+      const output = runReporter(
+        reporter,
+        { ...loggerOptions, outputformat: `cyclonedxJSON${suffix}_VEX` },
+        [],
+        [...findings, findings[1]],
+      );
+      const res = validate(output, schema);
+      assert.strictEqual(res.valid, true, res.errors.join('\n'));
+      assert.strictEqual(output.components.length, 1);
+      assert.deepStrictEqual(output.components[0].evidence.occurrences, [
+        { location: relative },
+        { location: path.normalize('spec/repository.json') },
+      ]);
+      assert.deepStrictEqual(
+        output.components[0].evidence.identity.map((identity: { methods: unknown[] }) => identity.methods[0]),
+        [
+          { technique: 'filename', confidence: 0.5, value: 'filename' },
+          { technique: 'source-code-analysis', confidence: 0.8, value: 'filecontent' },
+        ],
+      );
+      assert.deepStrictEqual(
+        output.vulnerabilities.map((v: { id: string }) => v.id),
+        ['CVE-2025-1234', 'CVE-2025-5678'],
+      );
+      assert.deepStrictEqual(output.vulnerabilities[0].affects, [
+        {
+          ref: 'pkg:npm/jquery@1.2.0-beta.1',
+          versions: [
+            { range: 'vers:npm/<2.0.0', status: 'affected' },
+            { range: 'vers:npm/<3.0.0', status: 'affected' },
+          ],
+        },
+      ]);
+      assert.strictEqual(output.vulnerabilities[1].affects.length, 1);
+    });
 
     it(`should validate report according to schema ${version}`, () => {
       const options = { ...loggerOptions, outputformat: `cyclonedxJSON${suffix}` };
@@ -178,10 +267,7 @@ describe('cyclonedx-json', () => {
   it('should map a commercial license to a named license in 1.7', () => {
     const options = { ...loggerOptions, outputformat: 'cyclonedxJSON1_7' };
     const output = runReporter(jsonLogger1_7, options, ['commercial', 'MIT']);
-    assert.deepStrictEqual(output.components[0].licenses, [
-      { license: { name: 'Commercial' } },
-      { expression: 'MIT' },
-    ]);
+    assert.deepStrictEqual(output.components[0].licenses, [{ license: { name: 'Commercial' } }, { expression: 'MIT' }]);
     const res = validate(output, jsonSchema1_7);
     assert.strictEqual(res.valid, true, res.errors.join('\n'));
   });
