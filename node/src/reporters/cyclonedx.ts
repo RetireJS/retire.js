@@ -55,6 +55,10 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
       .map((r) =>
         r.results
           .map((dep) => {
+            dep = {
+              ...dep,
+              version: (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.'),
+            };
             const filepath = r.file;
             let hashes = '';
             if (filepath) {

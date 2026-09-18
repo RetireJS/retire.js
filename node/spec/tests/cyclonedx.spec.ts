@@ -79,24 +79,40 @@ describe('cyclonedx-json', () => {
     JSON1_6: jsonLogger1_6,
     JSON1_7: jsonLogger1_7,
   })) {
-    it(`preserves detected versions without mutating findings in ${format}`, () => {
-      const versions = ['1.2', '1.2.0-beta.1', '1.2.0-beta.1+build.7'];
-      const findings = versions.map((version) => ({
+    it(`preserves legacy version formatting without mutating findings in ${format}`, () => {
+      const versions = ['1', '1.2', '1.2.3', '1.2.0-beta.1', '1.2.0-beta.1+build.7', '1.2.3+build-7'];
+      const expected = ['1.0', '1.2.0', '1.2.3', '1.2.0.beta.1', '1.2.0.beta.1+build.7', '1.2.3+build.7'];
+      const findings: Finding[] = versions.map((version) => ({
         file: '',
-        results: [{ component: 'jquery', version, detection: 'filecontent' }],
+        results: [
+          {
+            component: 'jquery',
+            version,
+            detection: 'filecontent',
+            licenses: ['MIT'],
+            vulnerabilities: [
+              { below: '2.0.0', severity: 'high', cwe: [], identifiers: { CVE: ['CVE-2025-1234'] }, info: [] },
+            ],
+          },
+        ],
       }));
-      const original = JSON.stringify(findings);
+      const original = structuredClone(findings);
       const output = runReporter(reporter, loggerOptions, [], findings);
-      assert.strictEqual(JSON.stringify(findings), original);
-      for (const [index, version] of versions.entries()) {
+      assert.deepStrictEqual(findings, original);
+      for (const [index, version] of expected.entries()) {
         if (reporter === xmlLogger) {
           assert.ok(output.includes(`<version>${version}</version>`));
           assert.ok(output.includes(`<purl>pkg:npm/jquery@${version}</purl>`));
         } else {
           assert.strictEqual(output.components[index].version, version);
           assert.strictEqual(output.components[index].purl, `pkg:npm/jquery@${version}`);
-          if (reporter !== jsonLogger)
+          if (reporter !== jsonLogger) {
+            const ref = `pkg:npm/jquery@${version}`;
+            assert.strictEqual(output.components[index]['bom-ref'], ref);
             assert.strictEqual(output.components[index].evidence.identity[0].concludedValue, version);
+            assert.strictEqual(output.dependencies[0].dependsOn[index], ref);
+            assert.strictEqual(output.dependencies[index + 1].ref, ref);
+          }
         }
       }
     });
@@ -138,12 +154,14 @@ describe('cyclonedx-json', () => {
           ],
         },
       ];
+      const original = structuredClone(findings);
       const output = runReporter(
         reporter,
         { ...loggerOptions, outputformat: `cyclonedxJSON${suffix}_VEX` },
         [],
         [...findings, findings[1]],
       );
+      assert.deepStrictEqual(findings, original);
       const res = validate(output, schema);
       assert.strictEqual(res.valid, true, res.errors.join('\n'));
       assert.strictEqual(output.components.length, 1);
@@ -164,7 +182,7 @@ describe('cyclonedx-json', () => {
       );
       assert.deepStrictEqual(output.vulnerabilities[0].affects, [
         {
-          ref: 'pkg:npm/jquery@1.2.0-beta.1',
+          ref: 'pkg:npm/jquery@1.2.0.beta.1',
           versions: [
             { range: 'vers:npm/<2.0.0', status: 'affected' },
             { range: 'vers:npm/<3.0.0', status: 'affected' },
