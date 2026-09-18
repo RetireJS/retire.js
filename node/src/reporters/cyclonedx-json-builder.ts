@@ -124,7 +124,6 @@ function configureCycloneDXJSONLogger(
       .map((r) =>
         r.results
           .map((dep) => {
-            dep.version = (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.');
             let hashes;
             const filepath = r.file;
             const evidence: Evidence = { occurrences: [] };
@@ -141,13 +140,6 @@ function configureCycloneDXJSONLogger(
             }
             const purl = generatePURL(dep);
             const existing = seen.get(purl);
-            if (existing) {
-              const missing = evidence.occurrences.filter(
-                (x) => !existing.evidence.occurrences.some((y) => y.location == x.location),
-              );
-              existing.evidence.occurrences.push(...missing);
-              return undefined;
-            }
             const identity = mapIdentity(dep);
             if (identity) evidence.identity = [identity];
             const nameParts = dep.component.split('/').reverse();
@@ -178,18 +170,31 @@ function configureCycloneDXJSONLogger(
                     affects: [],
                   });
                 }
-                vulnerabilitiesCyclone.get(id)!.affects.push({
-                  ref: bomRef,
-                  versions: [
-                    {
-                      // "vers:npm/1.2.3|>=2.0.0|<5.0.0"
-                      range: 'vers:npm/' + (vuln.atOrAbove ? '>=' + vuln.atOrAbove + '|' : '') + '<' + vuln.below,
-                      status: 'affected',
-                    },
-                  ],
-                });
+                const affects = vulnerabilitiesCyclone.get(id)!.affects;
+                let affected = affects.find((entry) => entry.ref === bomRef);
+                if (!affected) {
+                  affected = { ref: bomRef, versions: [] };
+                  affects.push(affected);
+                }
+                const range = 'vers:npm/' + (vuln.atOrAbove ? '>=' + vuln.atOrAbove + '|' : '') + '<' + vuln.below;
+                if (!affected.versions.some((entry) => entry.range === range)) {
+                  affected.versions.push({ range, status: 'affected' });
+                }
               });
             });
+            if (existing) {
+              const missing = evidence.occurrences.filter(
+                (x) => !existing.evidence.occurrences.some((y) => y.location == x.location),
+              );
+              existing.evidence.occurrences.push(...missing);
+              if (identity) {
+                const identities = existing.evidence.identity ?? (existing.evidence.identity = []);
+                if (!identities.some((entry) => entry.methods[0].value === identity.methods[0].value)) {
+                  identities.push(identity);
+                }
+              }
+              return undefined;
+            }
             const result: Component = {
               'bom-ref': bomRef,
               type: 'library',
@@ -294,7 +299,8 @@ function mapUrls(vulnerability: Vulnerability) {
   }
   const advisories = vulnerability.info
     .filter(
-      (url) => !url.startsWith('https://nvd.nist.gov/vuln/detail/') && !url.startsWith('https://github.com/advisories/'),
+      (url) =>
+        !url.startsWith('https://nvd.nist.gov/vuln/detail/') && !url.startsWith('https://github.com/advisories/'),
     )
     .map((u) => ({ url: u }));
   return { references, advisories };
@@ -302,6 +308,7 @@ function mapUrls(vulnerability: Vulnerability) {
 
 export function cycloneDXJSONLogger(specVersion: CycloneDXSpecVersion): ConfigurableLogger {
   return {
-    configure: (logger, writer, config, hash) => configureCycloneDXJSONLogger(specVersion, logger, writer, config, hash),
+    configure: (logger, writer, config, hash) =>
+      configureCycloneDXJSONLogger(specVersion, logger, writer, config, hash),
   };
 }
