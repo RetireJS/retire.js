@@ -3,12 +3,12 @@ set -e
 cd "$(dirname "$0")"
 
 cd node
-npm ci --no-audit --no-fund
+npm ci
 npm run build
 cd ..
 
 cd chrome/build
-npm ci --no-audit --no-fund
+npm ci
 npm run build
 cd ../..
 

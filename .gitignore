@@ -14,4 +14,3 @@ node/lib/
 tmp/
 .vscode
 chrome/extension/js/generated/
-dist/

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Retire.js — Analyst Console</title>
+    <link rel="stylesheet" href="popup.css" />
+    <script src="js/popup.js" defer></script>
+  </head>
+  <body>
+    <main class="console" aria-label="Retire.js Analyst Console">
+      <header class="top">
+        <div>
+          <div class="brand">Retire.js</div>
+          <div class="domain" id="domain">Current tab</div>
+        </div>
+        <span id="state" class="state">Loading…</span>
+      </header>
+      <section class="controls" aria-label="Scan controls">
+        <label><input id="enabled" type="checkbox" checked />Enabled</label>
+        <label title="Use additional analysis to identify bundled libraries (slower)"
+          ><input id="deep" type="checkbox" checked />Deep scan</label
+        >
+        <label title="Include scripts with no identified library"
+          ><input id="unknown" type="checkbox" />Show unknown</label
+        >
+      </section>
+      <section class="metrics" aria-label="Scan metrics">
+        <div
+          class="metric"
+          title="Unique script URLs observed, including scans in progress and failures; independent of filters"
+        >
+          <strong id="scanned">0</strong><span>URLs scanned</span>
+        </div>
+        <div
+          class="metric"
+          title="All vulnerability entries, independent of table filters"
+        >
+          <strong class="alert" id="total">0</strong><span>Total vulns</span>
+        </div>
+        <span class="mode" id="mode">Deep scan</span>
+      </section>
+      <div class="searchbar">
+        <input
+          id="search"
+          type="search"
+          placeholder="Search libraries…"
+          aria-label="Search library name, version, URL or advisory ID"
+        /><span class="count" id="count">0 shown</span>
+      </div>
+      <div class="table-wrap">
+        <table aria-label="Detected libraries">
+          <thead>
+            <tr>
+              <th scope="col">LIBRARY</th>
+              <th scope="col">VERSION</th>
+              <th scope="col">SEVERITY</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <p class="placeholder" id="empty">Loading scan results…</p>
+      </div>
+      <section
+        class="inspector"
+        id="details"
+        aria-label="Selected library details"
+      >
+        <p class="placeholder">Select a library to view details.</p>
+      </section>
+      <div
+        class="feedback"
+        id="feedback"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+      <footer class="foot">
+        <span>Version matches do not confirm exploitability.</span
+        ><button class="export" id="export" disabled>Export JSON ↓</button>
+      </footer>
+    </main>
+  </body>
+</html>
