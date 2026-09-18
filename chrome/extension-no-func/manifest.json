@@ -9,8 +9,7 @@
     "128": "icons/icon128.png"
   },
   "author": "Erlend Oftedal",
-
-  "permissions": ["webRequest", "activeTab", "offscreen", "webNavigation"],
+  "permissions": ["webRequest", "activeTab", "webNavigation", "storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {
@@ -22,16 +21,9 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self' ; object-src 'self'"
   },
-
   "background": {
     "service_worker": "js/service_worker.js",
     "type": "module"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/content.js"],
-      "run_at": "document_start"
-    }
-  ]
+  "minimum_chrome_version": "116"
 }
