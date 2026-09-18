@@ -20,6 +20,16 @@ Scanning observes new HTTP(S) script requests. Reload an already-open page to sc
 
 The standard Chrome package executes downloaded JavaScript in an isolated sandbox to detect versions. Use Chrome no-func or Firefox if that behavior is unwanted. Static scanning and AST analysis do not execute downloaded scripts.
 
+## Popup examples
+
+The 600×600 popup provides a searchable resource list above a scrollable library/advisory inspector. Settings persist between sessions; Copy URL copies the selected resource, and Export JSON includes the complete snapshot even when the list is filtered.
+
+These screenshots show the actual Chrome 153 popup on [Google's XSS training page](https://xss-game.appspot.com/level3/frame), captured with Playwright on September 18, 2026. The page loads jQuery 2.1.1: two script URLs were scanned and six advisories matched. The second screenshot scrolls the inspector to CVE-2020-11022. These are version matches, not exploit confirmations. Firefox uses the same UI and is tested separately.
+
+![Resource overview with jQuery 2.1.1 selected](../docs/images/extension-overview.png)
+
+![Advisory inspector showing CVE-2020-11022 and its references](../docs/images/extension-advisory.png)
+
 ## Checks
 
 After compiling Node sources, run `npm test` in `chrome/build` for the extension regression tests. Run `npm run build` there to rebuild the three packages. The repository Node tests and validation tools are unchanged in scope.
