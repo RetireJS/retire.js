@@ -21,25 +21,27 @@ const hash: Hasher = {
   },
 };
 
-function emitResults(finding: Finding, options: Options, repo: Repository) {
+async function emitResults(finding: Finding, options: Options, repo: Repository) {
   if (options.includeOsv === true) {
-    Promise.all(
+    await Promise.all(
       finding.results.map((r) =>
         checkOSV(r.component, r.version, options).then(
           (v) => (r.vulnerabilities = (r.vulnerabilities ?? []).concat(v)),
         ),
       ),
-    ).then(() => filterAndEmitResults(finding, options, repo));
-  } else {
-    filterAndEmitResults(finding, options, repo);
+    );
   }
+  filterAndEmitResults(finding, options, repo);
 }
 
 function getIdentifiers(v: Vulnerability) {
-  return (v.identifiers?.CVE ?? [])
-    .concat(v.identifiers?.bug ?? [])
-    .concat(v.identifiers?.issue ?? [])
-    .concat(v.identifiers?.githubID ?? []);
+  const identifiers = v.identifiers ?? {};
+  const canonical = (identifiers.CVE ?? []).map((id) => `CVE:${id}`);
+  if (identifiers.githubID) canonical.push(`githubID:${identifiers.githubID}`);
+  if (canonical.length) return canonical;
+  return Object.entries(identifiers)
+    .filter(([key, value]) => key !== 'summary' && value != null)
+    .flatMap(([key, value]) => (Array.isArray(value) ? value : [value]).map((id) => `${key}:${id}`));
 }
 
 function uniqueVulnerabilities(vulnerabilities?: Vulnerability[]): Vulnerability[] | undefined {
@@ -115,7 +117,7 @@ function hasIdentifier(identifiers: Record<string, string | string[]>, key: stri
   return Array.isArray(identifier) ? identifier.some((x) => x === value) : identifier === value;
 }
 
-export function scanJsFile(file: string, repo: Repository, options: Options) {
+export async function scanJsFile(file: string, repo: Repository, options: Options) {
   if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
@@ -126,15 +128,15 @@ export function scanJsFile(file: string, repo: Repository, options: Options) {
     if (options.deep) {
       try {
         results = results.concat(deepScan(content, repo));
-      } catch(e) {
+      } catch (e) {
         options.log.warn(`Failed to scan ${file}: ` + e);
       }
     }
   }
-  emitResults({ file: file, results: results }, options, repo);
+  return emitResults({ file: file, results: results }, options, repo);
 }
 
-export function scanBowerFile(file: string, repo: Repository, options: Options) {
+export async function scanBowerFile(file: string, repo: Repository, options: Options) {
   if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
@@ -142,7 +144,7 @@ export function scanBowerFile(file: string, repo: Repository, options: Options) 
     const bower = JSON.parse(fs.readFileSync(file, 'utf-8'));
     if (bower.version) {
       const results = retire.check(bower.name, bower.version, repo);
-      emitResults({ file: file, results: results }, options, repo);
+      return emitResults({ file: file, results: results }, options, repo);
     }
   } catch (e) {
     options.log.warn(`Could not parse file: ${file}`);

@@ -30,7 +30,7 @@ export function evaluateLicense(licenses: string[], version: string): string[] {
     .filter((parsedLicense) => {
       return parsedLicense.ranges.some((range) => {
         if (range.from && range.to) {
-          return isAtOrAbove(version, range.from) && isAtOrAbove(range.to, version);
+          return isAtOrAbove(version, range.from) && !isAtOrAbove(version, range.to);
         }
         if (range.from) {
           return isAtOrAbove(version, range.from);
