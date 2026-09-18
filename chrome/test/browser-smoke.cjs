@@ -75,9 +75,6 @@ async function main() {
     } else if (request.url === "/unknown.js") {
       response.setHeader("Content-Type", "application/javascript");
       response.end("window.smokeUnknown = true;");
-    } else if (request.url === "/concept.html") {
-      response.setHeader("Content-Type", "text/html");
-      response.end(fs.readFileSync(path.join(root, "concept.html")));
     } else {
       response.setHeader("Content-Type", "text/html");
       response.end(
@@ -364,40 +361,6 @@ async function main() {
           popupSession,
         ),
       "unsupported page state",
-    );
-    const conceptTarget = (
-      await client.send("Target.createTarget", {
-        url: "http://127.0.0.1:8767/concept.html",
-      })
-    ).targetId;
-    const conceptSession = (
-      await client.send("Target.attachToTarget", {
-        targetId: conceptTarget,
-        flatten: true,
-      })
-    ).sessionId;
-    await client.send(
-      "Emulation.setDeviceMetricsOverride",
-      { width: 800, height: 1000, deviceScaleFactor: 1, mobile: false },
-      conceptSession,
-    );
-    await until(
-      () =>
-        evaluate('document.querySelector(".console") !== null', conceptSession),
-      "concept page",
-    );
-    const clip = await evaluate(
-      '(()=>{const r=document.querySelector(".console").getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,scale:1}})()',
-      conceptSession,
-    );
-    const concept = await client.send(
-      "Page.captureScreenshot",
-      { format: "png", clip },
-      conceptSession,
-    );
-    fs.writeFileSync(
-      path.join(output, "concept.png"),
-      Buffer.from(concept.data, "base64"),
     );
     console.log(
       "PASS: real detection, native 600×600 popup, search/counts, copy/fallback, full JSON export, settings, unsupported page, no runtime exceptions; screenshots in",
