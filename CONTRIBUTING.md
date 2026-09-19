@@ -15,6 +15,7 @@ See [node/README.md](node/README.md) for usage and options.
 - Build and run the test suite before submitting: `npm run build && npm run test` (specs import from `lib/`, not `src/`, so the build step is required).
 - Run `npm run check` (lint + typecheck).
 - Tests should be split into one test file per module being tested — e.g. don't bundle tests for `x.ts` and `y.ts` into a shared spec file unless there's no reasonable way to separate them.
+- Do not add new dependencies unless absolutely necessary
 
 ## Vulnerability repository (`repository/`)
 
