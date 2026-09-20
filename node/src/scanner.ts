@@ -25,7 +25,7 @@ function emitResults(finding: Finding, options: Options, repo: Repository) {
   if (options.includeOsv === true) {
     Promise.all(
       finding.results.map((r) =>
-        checkOSV(r.component, r.version, options).then(
+        checkOSV(r.npmname ?? r.component, r.version, options).then(
           (v) => (r.vulnerabilities = (r.vulnerabilities ?? []).concat(v)),
         ),
       ),
