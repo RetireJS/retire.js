@@ -8,12 +8,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
 
     strategy:
       matrix:
-        node-version: [26.x]
+        os: [ubuntu-latest, windows-latest]
+        node-version: [24.x, 26.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +28,20 @@ jobs:
         working-directory: node
       - run: npm test
         working-directory: node
-      - run: ./validate
+      - run: npm run typecheck
+        working-directory: node
+      - run: node node_modules/eslint/bin/eslint.js . --ext .ts --ignore-path ../.gitignore
+        working-directory: node
+      - run: npm ci
+        working-directory: chrome/build
+      - run: npm test
+        working-directory: chrome/build
+      - run: npm run build
+        working-directory: chrome/build
+      - name: Verify prebuilt extensions match source
+        shell: bash
+        run: test -z "$(git status --porcelain --untracked-files=all -- dist)"
+      - run: node validate
         working-directory: repository
       - name: Restore cached data for test-detection
         uses: actions/cache@v4
@@ -37,5 +51,5 @@ jobs:
           key: ${{ runner.os }}-test-detection-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-test-detection-
-      - run: ./test-detection.js
+      - run: node test-detection.js
         working-directory: repository
