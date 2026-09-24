@@ -56,7 +56,11 @@ function loadJson<T>(url: string, options: Options): Promise<T | undefined> {
       res.on('data', (c) => data.push(c));
       res.on('end', () => {
         const result = Buffer.concat(data).toString();
-        resolve(JSON.parse(result) as T);
+        try {
+          resolve(JSON.parse(result) as T);
+        } catch (error) {
+          reject(`Invalid JSON from ${url}: ${error}`);
+        }
       });
     });
     req.on('error', (err) => {
