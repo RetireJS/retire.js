@@ -10,6 +10,8 @@ Download this repository using **Code → Download ZIP** on GitHub and extract i
 
 In Chrome, open `chrome://extensions`, enable Developer mode, and **Load unpacked** from the appropriate extracted `dist` directory. For Firefox, see [the Firefox instructions](../firefox/README.md). No Node.js installation or build is needed to load these packages.
 
+All three packages bundle the advisory repository, so they can scan from the first launch without internet access or access to GitHub. When available, repository updates are downloaded and saved locally. If an update fails, scanning continues with saved or bundled data, which may be older, and the popup shows an update warning.
+
 ## Development
 
 Use Node.js 24 LTS and npm. Run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root. The build compiles the scanner and creates all three packages without relying on symlinks. Reload the extension and test page after rebuilding. Include updated `dist` packages when committing changes to their sources; CI checks that the packages match the build.
@@ -23,6 +25,8 @@ The standard Chrome package executes downloaded JavaScript in an isolated sandbo
 ## Popup examples
 
 The 600×600 popup provides a searchable resource list above a scrollable library/advisory inspector. Settings persist between sessions; Copy URL copies the selected resource, and Export JSON includes the complete snapshot even when the list is filtered.
+
+Here, "popup" means the extension window opened by clicking retire.js in the browser's toolbar or Extensions menu. This redesign changes that window; it does not inject an overlay or other content into the web page.
 
 These screenshots show the actual Chrome 153 popup on [Google's XSS training page](https://xss-game.appspot.com/level3/frame), captured with Playwright on September 18, 2026. The page loads jQuery 2.1.1: two script URLs were scanned and six advisories matched. The second screenshot scrolls the inspector to CVE-2020-11022. These are version matches, not exploit confirmations. Firefox uses the same UI and is tested separately.
 

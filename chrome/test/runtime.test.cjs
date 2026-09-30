@@ -42,6 +42,7 @@ const event = () => ({
 function harness({
   session = {},
   local = {},
+  bundledRepo = repo,
   fetch = async () => ({ ok: true, text: async () => "first" }),
   deepScan,
 } = {}) {
@@ -91,7 +92,7 @@ function harness({
   };
   const engine = {
     retire,
-    repo,
+    repo: bundledRepo,
     sha1: () => ({
       update() {
         return this;
@@ -277,6 +278,27 @@ test("invalid remote repository retains cached detectors and exposes update erro
   const snapshot = await h.message({ type: "getSnapshot", tabId: 1 });
   assert.equal(snapshot.totalVulns, 1);
   assert.match(snapshot.repositoryError, /using saved or bundled/);
+});
+
+test("a fresh offline install detects vulnerabilities with the bundled repository", async () => {
+  const downloads = [];
+  const h = harness({
+    local: { repository: undefined },
+    bundledRepo: require("../../repository/jsrepository-v6-combined.json"),
+    fetch: async (url) => {
+      downloads.push(url);
+      throw Error("offline");
+    },
+  });
+  await h.ready;
+  await h.scan("https://example.test/jquery-1.12.4.js");
+  const snapshot = await h.message({ type: "getSnapshot", tabId: 1 });
+  assert.equal(downloads.length, 1);
+  assert.match(downloads[0], /githubusercontent/);
+  assert.equal(snapshot.resources[0].status, "complete");
+  assert.equal(snapshot.resources[0].results[0].component, "jquery");
+  assert.ok(snapshot.totalVulns > 0);
+  assert.match(snapshot.repositoryError, /using saved or bundled data.*offline/);
 });
 
 test("repository refresh updates the repository passed to AST detection", async () => {
