@@ -6057,6 +6057,33 @@
           "https://github.com/moment/moment/security/advisories/GHSA-wc69-rhjr-hc9g",
           "https://security.snyk.io/vuln/SNYK-JS-MOMENT-2944238"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "2.29.2",
+            "below": "2.31.0"
+          }
+        ],
+        "summary": "moment vulnerable to Path Traversal via crafted non-string locale name",
+        "details": "### Impact\n\nmoment before 2.31.0 is vulnerable to path traversal in `moment.locale()`. When an application passes a non-string, attacker-influenced value to `moment.locale()`, a specially crafted object can bypass the locale name validation and cause moment to load a file from an attacker-controlled path. This is a further bypass of the validation added in 2.29.2 for [CVE-2022-24785](https://github.com/moment/moment/security/advisories/GHSA-8hfj-j24r-96c4).\n\nThis affects server-side (npm) users only. Plain string input is not affected: the existing validation correctly rejects strings that contain path separators.\n\n### Patches\n\nThis issue is patched in moment 2.31.0.\n\n### Workarounds\n\nValidate that any user-supplied input is a string before passing it to `moment.locale()`.",
+        "identifiers": {
+          "githubID": "GHSA-4p3w-j4w9-5jqw",
+          "CVE": [
+            "CVE-2026-17495"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-27"
+        ],
+        "info": [
+          "https://github.com/moment/moment/security/advisories/GHSA-4p3w-j4w9-5jqw",
+          "https://github.com/moment/moment/pull/6386",
+          "https://github.com/moment/moment/commit/5f7d983c9881e65e07574de9dda3190d99520c07",
+          "https://cna.openjsf.org/security-advisories.html",
+          "https://github.com/moment/moment/releases/tag/2.31.0"
+        ]
       }
     ],
     "extractors": {
@@ -9009,6 +9036,34 @@
         ],
         "info": [
           "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-6v5v-wf23-fmfq"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "15.0.0",
+            "below": "15.0.1"
+          },
+          {
+            "atOrAbove": "0",
+            "below": "14.3.1"
+          }
+        ],
+        "summary": "markdown-it linkify: true has two quadratic paths, so a few hundred KB of markdown blocks the event loop for tens of seconds",
+        "details": "## Summary\n\nTwo independent quadratic paths in the `linkify: true` handling. Both are in markdown-it's own code rather than in linkify-it, which stays linear on both payloads.\n\n`src/rules_core/linkify.ts` calls `arrayReplaceAt` once per linkified text token, and that rebuilds the whole `children` array each time. A paragraph of N soft-broken lines is one inline token with about 2N children, so you get N rebuilds over a 2N array. Schema-less emails are what reach it. A `http://` link gets consumed by the inline rule first and never arrives as a text token, so those stay linear.\n\n`src/rules_inline/linkify.ts` runs `state.pending.match(SCHEME_RE)` at every `://` in the source. `state.pending` only gets truncated once a link is actually produced, so an unregistered scheme leaves it growing and every `://` rescans the lot.\n\n## Proof of concept\n\nClean install of 15.0.0 from npm, `new MarkdownIt({ linkify: true }).render(payload)`, Node 24.\n\n| N | 5,000 | 10,000 | 20,000 | 40,000 |\n|---|---|---|---|---|\n| `'a@b.co\\n'.repeat(N)`, 34KB to 273KB | 1.1s | 4.7s | 19.6s | 89s |\n| `'a://'.repeat(N)`, 20KB to 156KB | 0.25s | 0.76s | 3.1s | 15.0s |\n\nDoubling the input roughly quadruples the time in both. With `linkify: false` the same inputs run in 25 to 131ms and stay flat.\n\nControls for the first one, all at N=20000: putting every email in a single text token (`'a@b.co '`) takes 0.59s, one email per paragraph (`'a@b.co\\n\\n'`) takes 0.64s, and soft-broken lines with nothing linkifiable take 42ms. So it needs many children AND many of them linkifying. For the second, replaying just the `SCHEME_RE` calls against the same growing prefixes with no markdown-it involved accounts for 11.7s of the 15s.\n\nOrdinary prose does it too. `'ping a@b.co ok\\n'.repeat(20000)` is 293KB and takes 31s.\n\n## Caveat\n\n`linkify` is off by default, so this only reaches apps that turn it on.\n\n## Impact\n\nAvailability only. A few hundred KB of fairly ordinary markdown pins one core for tens of seconds, and because it's quadratic it degrades quickly with size. Nothing is read, written or executed.",
+        "identifiers": {
+          "githubID": "GHSA-253c-mchw-3w2r"
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-253c-mchw-3w2r",
+          "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
+          "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
+          "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
         ]
       }
     ],

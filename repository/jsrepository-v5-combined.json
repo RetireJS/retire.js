@@ -6693,6 +6693,28 @@
             "https://github.com/moment/moment/security/advisories/GHSA-wc69-rhjr-hc9g",
             "https://security.snyk.io/vuln/SNYK-JS-MOMENT-2944238"
           ]
+        },
+        {
+          "atOrAbove": "2.29.2",
+          "below": "2.31.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-27"
+          ],
+          "identifiers": {
+            "summary": "moment vulnerable to Path Traversal via crafted non-string locale name",
+            "githubID": "GHSA-4p3w-j4w9-5jqw",
+            "CVE": [
+              "CVE-2026-17495"
+            ]
+          },
+          "info": [
+            "https://github.com/moment/moment/security/advisories/GHSA-4p3w-j4w9-5jqw",
+            "https://github.com/moment/moment/pull/6386",
+            "https://github.com/moment/moment/commit/5f7d983c9881e65e07574de9dda3190d99520c07",
+            "https://cna.openjsf.org/security-advisories.html",
+            "https://github.com/moment/moment/releases/tag/2.31.0"
+          ]
         }
       ],
       "extractors": {
@@ -9757,6 +9779,44 @@
           },
           "info": [
             "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-6v5v-wf23-fmfq"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "14.3.1",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it linkify: true has two quadratic paths, so a few hundred KB of markdown blocks the event loop for tens of seconds",
+            "githubID": "GHSA-253c-mchw-3w2r"
+          },
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-253c-mchw-3w2r",
+            "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
+            "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
+            "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.1",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it linkify: true has two quadratic paths, so a few hundred KB of markdown blocks the event loop for tens of seconds",
+            "githubID": "GHSA-253c-mchw-3w2r"
+          },
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-253c-mchw-3w2r",
+            "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
+            "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
+            "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
           ]
         }
       ],
