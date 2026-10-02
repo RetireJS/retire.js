@@ -32,8 +32,8 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "test": "TS_NODE_PROJECT=tsconfig.spec.json node --require ts-node/register --test \"spec/tests/**/*.spec.ts\"",
-    "build": "tsc && chmod ugo+x lib/cli.js && cp src/retire.d.ts lib/retire.d.ts && cp ../LICENSE.md .",
+    "test": "node scripts/test.cjs",
+    "build": "tsc && node scripts/build.cjs",
     "watch": "tsc --watch ",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts --fix --ignore-path ../.gitignore",
