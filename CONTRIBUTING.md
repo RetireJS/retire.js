@@ -29,3 +29,6 @@ See [repository/README.md](repository/README.md) for the entry format.
 ## Browser extensions (`chrome/`, `firefox/`)
 
 See [chrome/README.md](chrome/README.md) and [firefox/README.md](firefox/README.md) for extension-specific details. Note the Firefox extension is deprecated.
+
+Browser extensions must not pull in additional dependencies. This is also
+true for the HTML popups (must not use external fonts, images, scripts etc.).
