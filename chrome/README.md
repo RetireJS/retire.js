@@ -1,20 +1,20 @@
 # Browser extensions
 
-## Install without Node.js
+## Build and install
 
-Download this repository using **Code → Download ZIP** on GitHub and extract it, or clone it. Complete prebuilt packages are included:
+Download this repository using **Code → Download ZIP** on GitHub and extract it, or clone it. Install Node.js 24 LTS and npm, then run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root to create:
 
 - `dist/chrome`: Chrome 116+, with sandboxed function detection.
 - `dist/chrome-no-func`: Chrome 116+, static and AST detection only.
 - `dist/firefox`: Firefox 140+, static and AST detection only.
 
-In Chrome, open `chrome://extensions`, enable Developer mode, and **Load unpacked** from the appropriate extracted `dist` directory. For Firefox, see [the Firefox instructions](../firefox/README.md). No Node.js installation or build is needed to load these packages.
+In Chrome, open `chrome://extensions`, enable Developer mode, and **Load unpacked** from the appropriate built `dist` directory. For Firefox, see [the Firefox instructions](../firefox/README.md).
 
 All three packages bundle the advisory repository, so they can scan from the first launch without internet access or access to GitHub. When available, repository updates are downloaded and saved locally. If an update fails, scanning continues with saved or bundled data, which may be older, and the popup shows an update warning.
 
 ## Development
 
-Use Node.js 24 LTS and npm. Run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root. The build compiles the scanner and creates all three packages without relying on symlinks. Reload the extension and test page after rebuilding. Include updated `dist` packages when committing changes to their sources; CI checks that the packages match the build.
+The build compiles the scanner and creates all three packages without relying on symlinks. Reload the extension and test page after rebuilding. Generated `dist` packages are ignored by Git; commit source changes only. CI builds all three packages.
 
 The Analyst Console is shared source in `chrome/extension/popup.html`, `popup.css`, and `js/popup.js`. The shared background runtime is `js/runtime.js`. `chrome/build/build.js` bundles that runtime with the scanner and copies the UI and browser-specific manifest into each package. Load the built packages, not the source directories.
 
