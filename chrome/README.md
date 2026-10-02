@@ -1,24 +1,26 @@
 # Browser extensions
 
-## Build and install
+## Install without Node.js
 
-Download this repository using **Code → Download ZIP** on GitHub and extract it, or clone it. Install Node.js 24 LTS and npm, then run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root to create:
+Download this repository using **Code → Download ZIP** on GitHub and extract it, or clone it. Complete prebuilt packages are included:
 
 - `dist/chrome`: Chrome 116+, with sandboxed function detection.
 - `dist/chrome-no-func`: Chrome 116+, static and AST detection only.
 - `dist/firefox`: Firefox 140+, static and AST detection only.
 
-In Chrome, open `chrome://extensions`, enable Developer mode, and **Load unpacked** from the appropriate built `dist` directory. For Firefox, see [the Firefox instructions](../firefox/README.md).
+In Chrome, open `chrome://extensions`, enable Developer mode, and **Load unpacked** from the appropriate extracted `dist` directory. For Firefox, see [the Firefox instructions](../firefox/README.md). No Node.js installation or build is needed to load these packages.
 
 All three packages bundle the advisory repository, so they can scan from the first launch without internet access or access to GitHub. When available, repository updates are downloaded and saved locally. If an update fails, scanning continues with saved or bundled data, which may be older, and the popup shows an update warning.
 
 ## Development
 
-The build compiles the scanner and creates all three packages without relying on symlinks. Reload the extension and test page after rebuilding. Generated `dist` packages are ignored by Git; commit source changes only. CI builds all three packages.
+Use Node.js 24 LTS and npm. Run `build_chrome.bat` on Windows or `./build_chrome.sh` on Unix from the repository root. The build compiles the scanner and creates all three packages without relying on symlinks. Reload the extension and test page after rebuilding. Include updated `dist` packages when committing changes to their sources; CI checks that the packages match the build.
 
 The Analyst Console is shared source in `chrome/extension/popup.html`, `popup.css`, and `js/popup.js`. The shared background runtime is `js/runtime.js`. `chrome/build/build.js` bundles that runtime with the scanner and copies the UI and browser-specific manifest into each package. Load the built packages, not the source directories.
 
 Scanning observes new HTTP(S) script requests. Reload an already-open page to scan it. Enabled and Deep scan default to on; settings persist across browser restarts. Disabling scanning retains results. The badge counts unique vulnerable library occurrences (URL, component, version); Total vulns counts distinct advisory occurrences across those libraries. Search and Show unknown do not change totals or exported data. Results are reset on navigation and retained only for the current browser session.
+
+Results and pending request ownership use `storage.session` so they survive background worker restarts within that browser session. Closing a tab removes both; startup also removes entries for tabs that are no longer open. Stored results never skip a new scan of the same URL. Separately, scripts served from the browser's in-memory cache may be invisible to `webRequest`; use a hard reload or disable caching in DevTools when checking a page.
 
 The standard Chrome package executes downloaded JavaScript in an isolated sandbox to detect versions. Use Chrome no-func or Firefox if that behavior is unwanted. Static scanning and AST analysis do not execute downloaded scripts.
 

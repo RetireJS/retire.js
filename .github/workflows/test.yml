@@ -38,6 +38,9 @@ jobs:
         working-directory: chrome/build
       - run: npm run build
         working-directory: chrome/build
+      - name: Verify prebuilt extensions match source
+        shell: bash
+        run: test -z "$(git status --porcelain --untracked-files=all -- dist)"
       - run: node validate
         working-directory: repository
 

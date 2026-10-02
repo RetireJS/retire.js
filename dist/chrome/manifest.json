@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "retire.js",
+  "description": "Scanning website for vulnerable js libraries. Icon by studiomx",
+  "version": "5.7.0",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "author": "Erlend Oftedal",
+  "permissions": [
+    "webRequest",
+    "activeTab",
+    "webNavigation",
+    "storage",
+    "offscreen"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_icon": {
+      "48": "icons/icon48.png"
+    },
+    "default_title": "retire.js",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' ; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; script-src 'self' 'unsafe-inline' 'unsafe-eval'; default-src 'none';"
+  },
+  "background": {
+    "service_worker": "js/service_worker.js",
+    "type": "module"
+  },
+  "sandbox": {
+    "pages": ["inner-sandbox.html"]
+  },
+  "minimum_chrome_version": "116"
+}

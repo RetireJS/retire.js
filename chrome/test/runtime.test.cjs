@@ -43,6 +43,7 @@ function harness({
   session = {},
   local = {},
   bundledRepo = repo,
+  openTabs = [{ id: 1, url: "https://example.test/" }],
   fetch = async () => ({ ok: true, text: async () => "first" }),
   deepScan,
 } = {}) {
@@ -70,7 +71,7 @@ function harness({
     tabs: {
       onRemoved: event(),
       async query() {
-        return [{ id: 1, url: "https://example.test/" }];
+        return openTabs;
       },
     },
     storage: {
@@ -238,6 +239,13 @@ test("request ownership survives a worker restart across navigation", async () =
   const session = {};
   const first = harness({ session });
   await first.ready;
+  await first.api.webNavigation.onBeforeNavigate.emit({
+    tabId: 1,
+    frameId: 0,
+    url: "https://example.test/",
+    timeStamp: Date.now(),
+  });
+  await first.scan();
   const details = {
     url: "https://example.test/old.js",
     tabId: 1,
@@ -252,6 +260,10 @@ test("request ownership survives a worker restart across navigation", async () =
     url: "https://example.test/",
     timeStamp: Date.now(),
   });
+  assert.equal(
+    (await first.message({ type: "getSnapshot", tabId: 1 })).totalVulns,
+    0,
+  );
   const second = harness({ session });
   await second.ready;
   await second.api.webRequest.onCompleted.emit({
@@ -385,4 +397,68 @@ test("settings restore and closed tabs are removed from session data", async () 
   await h.api.tabs.onRemoved.emit(1);
   assert.deepEqual(session.tabs, {});
   assert.deepEqual(session.requests, []);
+});
+
+test("closing a tab during a scan discards late results and pending requests", async () => {
+  let finish;
+  const h = harness({
+    fetch: () =>
+      new Promise((resolve) => {
+        finish = resolve;
+      }),
+  });
+  await h.ready;
+  const pending = h.scan();
+  while (!finish) await new Promise((resolve) => setImmediate(resolve));
+  const details = {
+    url: "https://example.test/late.js",
+    tabId: 1,
+    type: "script",
+    requestId: "late",
+    timeStamp: Date.now(),
+  };
+  await h.api.webRequest.onBeforeRequest.emit(details);
+  await h.api.tabs.onRemoved.emit(1);
+  finish({ ok: true, text: async () => "first" });
+  await pending;
+  await h.api.webRequest.onCompleted.emit(details);
+  assert.deepEqual(h.session.tabs, {});
+  assert.deepEqual(h.session.requests, []);
+  assert.equal(
+    (await h.message({ type: "getSnapshot", tabId: 1 })).urlsScanned,
+    0,
+  );
+
+  await h.api.webNavigation.onBeforeNavigate.emit({
+    tabId: 2,
+    frameId: 0,
+    url: "https://new.test/",
+    timeStamp: Date.now(),
+  });
+  assert.equal(
+    (await h.message({ type: "getSnapshot", tabId: 2 })).totalVulns,
+    0,
+  );
+});
+
+test("worker startup removes results and requests for tabs closed while inactive", async () => {
+  const session = {};
+  const first = harness({ session });
+  await first.ready;
+  await first.scan();
+  await first.api.webRequest.onBeforeRequest.emit({
+    url: "https://example.test/pending.js",
+    tabId: 1,
+    type: "script",
+    requestId: "pending",
+    timeStamp: Date.now(),
+  });
+  const second = harness({ session, openTabs: [] });
+  await second.ready;
+  assert.deepEqual(session.tabs, {});
+  assert.deepEqual(session.requests, []);
+  assert.equal(
+    (await second.message({ type: "getSnapshot", tabId: 1 })).urlsScanned,
+    0,
+  );
 });
