@@ -25,7 +25,7 @@ if (process.argv.includes('--node') || process.argv.includes('-n')) {
 /*
  * Parse command line flags.
  */
-async function main() {
+try {
   const prg = program
     .version(retire.version)
     .option('-v, --verbose', 'Show identified files (by default only vulnerable files are shown)')
@@ -90,6 +90,13 @@ async function main() {
     verbose: !!prg.verbose,
   });
 
+  const exitWithError = (msg: string): never => {
+    log.error(colorwarn(String(msg)));
+    process.exitCode = 1;
+    log.close();
+    throw new Error(msg);
+  };
+
   const severity = prg.severity ?? 'none';
   if (!Object.prototype.hasOwnProperty.call(severityLevels, severity)) {
     exitWithError(
@@ -119,13 +126,6 @@ async function main() {
   };
 
   log.info(`retire.js v${retire.version}`);
-
-  function exitWithError(msg: string): never {
-    log.error(colorwarn(String(msg)));
-    process.exitCode = 1;
-    log.close();
-    throw new Error(msg);
-  }
 
   if (prg.cacert) {
     if (!fs.existsSync(prg.cacert)) {
@@ -202,7 +202,7 @@ async function main() {
   scanner.on('vulnerable-dependency-found', log.logVulnerableDependency);
   scanner.on('dependency-found', log.logDependency);
 
-  return Promise.all(
+  Promise.all(
     jsrepolocation.map((jsr) =>
       jsr.match(/^https?:\/\//) ? repo.loadrepository(jsr, config) : repo.loadrepositoryFromFile(jsr, config),
     ),
@@ -236,10 +236,12 @@ async function main() {
       process.exitCode = failProcess ? config.exitwith : 0;
       log.close();
     })
-    .catch(exitWithError);
-}
-
-main().catch((error) => {
+    .catch(exitWithError)
+    .catch((error) => {
+      if (process.exitCode !== 1) console.error(error);
+      process.exitCode = 1;
+    });
+} catch (error) {
   if (process.exitCode !== 1) console.error(error);
   process.exitCode = 1;
-});
+}
