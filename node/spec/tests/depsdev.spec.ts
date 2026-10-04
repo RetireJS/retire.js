@@ -1,23 +1,41 @@
 import { it } from 'node:test';
-import { run } from '../run-script';
+import * as assert from 'node:assert/strict';
+import https from 'node:https';
+import { EventEmitter } from 'node:events';
+import { checkOSV } from '../../lib/depsdev';
+import { options } from '../options';
 
-it('handles malformed OSV JSON through the warning path', () => {
-  run(`
-    const assert = require('node:assert/strict');
-    const https = require('node:https');
-    const { EventEmitter } = require('node:events');
-    https.request = (url, callback) => {
+it('handles malformed OSV JSON through the warning path', async (t) => {
+  t.mock.method(
+    https,
+    'request',
+    (url: string, callback: (response: EventEmitter & { statusCode: number }) => void) => {
       const req = new EventEmitter();
-      req.end = () => setImmediate(() => {
-        const res = new EventEmitter(); res.statusCode = 200; callback(res);
-        res.emit('data', Buffer.from('{')); res.emit('end');
+      return Object.assign(req, {
+        end() {
+          setImmediate(() => {
+            const res = Object.assign(new EventEmitter(), { statusCode: 200 });
+            callback(res);
+            res.emit('data', Buffer.from('{'));
+            res.emit('end');
+          });
+        },
       });
-      return req;
-    };
-    let warning = '';
-    require('./lib/depsdev').checkOSV('sample', '1', { log: { debug() {}, warn(s) { warning = s; } } }).then(result => {
-      assert.deepEqual(result, []);
-      assert.match(warning, /api.deps.dev/);
-    }).catch(e => { console.error(e); process.exitCode = 1; });
-  `);
+    },
+  );
+  let warning = '';
+  const config = {
+    ...options,
+    log: {
+      ...options.log,
+      warn(message: string) {
+        warning = message;
+      },
+    },
+  };
+
+  const result = await checkOSV('sample', '1', config);
+
+  assert.deepEqual(result, []);
+  assert.match(warning, /Invalid JSON from https:\/\/api\.deps\.dev\//);
 });

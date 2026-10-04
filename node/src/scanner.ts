@@ -133,21 +133,24 @@ export async function scanJsFile(file: string, repo: Repository, options: Option
       }
     }
   }
-  return emitResults({ file: file, results: results }, options, repo);
+  await emitResults({ file: file, results: results }, options, repo);
 }
 
 export async function scanBowerFile(file: string, repo: Repository, options: Options) {
   if (options.ignore && shouldIgnorePath([file], options.ignore)) {
     return;
   }
+  let results;
   try {
     const bower = JSON.parse(fs.readFileSync(file, 'utf-8'));
     if (bower.version) {
-      const results = retire.check(bower.name, bower.version, repo);
-      return emitResults({ file: file, results: results }, options, repo);
+      results = retire.check(bower.name, bower.version, repo);
     }
   } catch (e) {
     options.log.warn(`Could not parse file: ${file}`);
+  }
+  if (results) {
+    await emitResults({ file: file, results: results }, options, repo);
   }
 }
 
