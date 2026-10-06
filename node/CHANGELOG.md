@@ -1,11 +1,27 @@
 # Changelog
 
+## [6.1.0]
+
+### Improvements
+
+- Repository validation errors (for an invalid `--jsrepo`, and from `repository/validate`) are now listed one per line with the location of each problem, instead of as a nested JSON tree:
+  ```
+  ✖ Invalid option: expected one of "none"|"low"|"medium"|"high"|"critical"
+    → at jquery.vulnerabilities[0].severity
+  ```
+- Positional arguments (e.g. `retire .` or `retire src/`) are still ignored, but now print a warning. Use `--path <path>` to choose what to scan.
+- Upgraded `commander` to 14 and `zod` to 4.
+
+### Bugfixes
+
+- Repository validation crashed with a `TypeError` on extractor regexes that contain `§§version§§` without a capture group (e.g. `jquery-§§version§§\.js`), instead of reporting the invalid regex. It now reports `Regex must contain (§§version§§) as first capture group`.
+
 ## [6.0.0]
 
 ### Breaking changes
 
 - Requires Node.js 20.19+ or 22.12+ (previously 18+).
-- `--proxy` (and the `http_proxy` environment variable) now only supports `http://` and `https://` proxy URLs. SOCKS (`socks://`, `socks5://`, ...) and PAC (`pac+http://`, ...) proxies are no longer supported and fail with an `Unsupported proxy protocol` error.
+- `--proxy` (and the `http_proxy` environment variable) now only supports `http://` and `https://` proxy URLs. SOCKS (`socks://`, `socks5://`, ...) and PAC (`pac+http://`, ...) proxies are no longer supported and fail with an `Unsupported proxy protocol` error (let us know if socks or pac are needed and we can re-add).
 
 ### Improvements
 
