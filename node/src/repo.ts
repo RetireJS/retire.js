@@ -1,10 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as http from 'http';
-import * as https from 'https';
 import * as retire from './retire';
-import * as URL from 'url';
-import { ProxyAgent } from 'proxy-agent';
+import { get, requestSettings } from './http';
 import { Options, Repository } from './types';
 import * as z from 'zod';
 import { severityLevels } from './types';
@@ -147,44 +144,36 @@ function formatValidationError(error: z.ZodError) {
 }
 
 async function loadJson<T>(url: string, options: Options): Promise<T> {
+  options.log.info('Downloading ' + url + ' ...');
+  let res;
+  try {
+    res = await get(url, requestSettings(options));
+  } catch (e) {
+    throw `Error downloading: ${url}: ${e}`;
+  }
   return new Promise((resolve, reject) => {
-    options.log.info('Downloading ' + url + ' ...');
-    const reqOptions: https.RequestOptions = { ...URL.parse(url), method: 'GET' };
-    const proxyUri = options.proxy || process.env.http_proxy;
-    if (proxyUri) {
-      reqOptions.agent = new ProxyAgent({
-        getProxyForUrl: () => proxyUri,
-      });
+    if (res.statusCode != 200) {
+      res.resume();
+      return reject(`Error downloading: ${url}: HTTP ${res.statusCode} ${res.statusMessage}`);
     }
-    if (options.insecure) {
-      reqOptions.rejectUnauthorized = false;
-    }
-    if (options.cacertbuf) {
-      reqOptions.ca = [options.cacertbuf];
-    }
-    const req = (url.startsWith('http:') ? http : https).get(reqOptions, (res) => {
-      if (res.statusCode != 200)
-        return reject(`Error downloading: ${url}: HTTP ${res.statusCode} ${res.statusMessage}`);
-      const data: Buffer[] = [];
-      res.on('data', (c) => data.push(c));
-      res.on('end', () => {
-        try {
-          let d = Buffer.concat(data).toString();
-          d = options.process ? options.process(d) : d;
-          const json = JSON.parse(d);
-          const vresult = validateRepository(json, options.process);
-          if (vresult.success) {
-            resolve(json);
-          } else {
-            reject(`Invalid repository from ${url}: ${formatValidationError(vresult.error)}`);
-          }
-        } catch (error) {
-          reject(`Invalid repository from ${url}: ${error}`);
+    const data: Buffer[] = [];
+    res.on('data', (c) => data.push(c));
+    res.on('error', (e) => reject(`Error downloading: ${url}: ${e}`));
+    res.on('end', () => {
+      try {
+        let d = Buffer.concat(data).toString();
+        d = options.process ? options.process(d) : d;
+        const json = JSON.parse(d);
+        const vresult = validateRepository(json, options.process);
+        if (vresult.success) {
+          resolve(json);
+        } else {
+          reject(`Invalid repository from ${url}: ${formatValidationError(vresult.error)}`);
         }
-      });
+      } catch (error) {
+        reject(`Invalid repository from ${url}: ${error}`);
+      }
     });
-    req.on('error', (e) => reject(`Error downloading: ${url}: ${e}`));
-    req.end();
   });
 }
 

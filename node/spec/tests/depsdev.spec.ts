@@ -1,28 +1,16 @@
 import { it } from 'node:test';
 import * as assert from 'node:assert/strict';
-import https from 'node:https';
-import { EventEmitter } from 'node:events';
+import { PassThrough } from 'node:stream';
+import * as http from '../../lib/http';
 import { checkOSV } from '../../lib/depsdev';
 import { options } from '../options';
 
 it('handles malformed OSV JSON through the warning path', async (t) => {
-  t.mock.method(
-    https,
-    'request',
-    (url: string, callback: (response: EventEmitter & { statusCode: number }) => void) => {
-      const req = new EventEmitter();
-      return Object.assign(req, {
-        end() {
-          setImmediate(() => {
-            const res = Object.assign(new EventEmitter(), { statusCode: 200 });
-            callback(res);
-            res.emit('data', Buffer.from('{'));
-            res.emit('end');
-          });
-        },
-      });
-    },
-  );
+  t.mock.method(http, 'get', async () => {
+    const res = Object.assign(new PassThrough(), { statusCode: 200 });
+    res.end('{');
+    return res;
+  });
   let warning = '';
   const config = {
     ...options,
