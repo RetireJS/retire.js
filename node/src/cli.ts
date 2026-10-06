@@ -11,8 +11,8 @@ import * as reporting from './reporting';
 import os from 'os';
 import path from 'path';
 import fs from 'fs';
-import { Finding, Options, severityLevels } from './types';
-import * as z from 'zod';
+import { Finding, Options, severityLevels, severityParser } from './types';
+import { parseIgnoreFile } from './parseIgnoreFile';
 
 let failProcess = false;
 const defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
@@ -90,7 +90,7 @@ const log = reporting.open({
 });
 
 const severity = prg.severity ?? 'none';
-const severityParser = z.enum(Object.keys(severityLevels) as [keyof typeof severityLevels]);
+
 const config: Options = {
   path: scanpath,
   ignore: {
@@ -111,78 +111,6 @@ const config: Options = {
   deep: !!prg.deep,
   ext: prg.ext ?? 'js',
 };
-
-const ignoreFileParser = z.array(
-  z
-    .object({
-      justification: z.string(),
-    })
-    .and(
-      z
-        .object({
-          path: z.string(),
-        })
-        .or(
-          z.object({
-            component: z.string(),
-            version: z.string().optional(),
-            identifiers: z.record(z.string(), z.string()).optional(),
-          }),
-        ),
-    ),
-);
-
-try {
-  if (!severityParser.safeParse(severity).success) {
-    throw new Error(
-      `Invalid severity level (${severity}). Valid levels are: ${Object.keys(severityLevels).join(', ')}`,
-    );
-  }
-
-  log.info(`retire.js v${retire.version}`);
-
-  if (prg.cacert) {
-    if (!fs.existsSync(prg.cacert)) {
-      throw new Error(`Could not read cacert file: ${prg.cacert}`);
-    }
-    config.cacertbuf = fs.readFileSync(prg.cacert);
-  }
-
-  if (ignorefile) {
-    if (!fs.existsSync(ignorefile)) {
-      throw new Error(`Could not read ignore file: ${ignorefile}`);
-    }
-    if (ignorefile.substr(-5) === '.json') {
-      try {
-        config.ignore.descriptors = ignoreFileParser.parse(JSON.parse(fs.readFileSync(ignorefile, 'utf-8')));
-      } catch (e) {
-        throw new Error(`Invalid ignore file: ${ignorefile}`);
-      }
-      const ignoredPaths =
-        config.ignore.descriptors
-          ?.map((x) => ('path' in x ? x.path : undefined))
-          ?.filter((x): x is string => x != undefined) ?? [];
-      config.ignore.pathsAsString = config.ignore.pathsAsString.concat(ignoredPaths);
-    } else {
-      const lines = fs
-        .readFileSync(ignorefile, 'utf-8')
-        .split(/\r\n|\n/g)
-        .filter((e) => e !== '');
-      const ignored = lines.map((e) => {
-        return e[0] === '@' ? e.slice(1) : path.resolve(e);
-      });
-      config.ignore.pathsAsString = config.ignore.pathsAsString.concat(ignored);
-    }
-  }
-  config.ignore.paths = config.ignore.pathsAsString
-    .map((p) => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
-    .map((p) => p.replace(/[*]{1,2}/g, (a) => (a.length == 2 ? '.*' : '[^/]*')))
-    .map((s) => new RegExp(s));
-
-  scan();
-} catch (error) {
-  exitWithError(error);
-}
 
 function exitWithError(error: unknown) {
   log.error(colorwarn(String(error)));
@@ -243,4 +171,33 @@ function scan() {
       log.close();
     })
     .catch(exitWithError);
+}
+
+try {
+  if (!severityParser.safeParse(severity).success) {
+    throw new Error(
+      `Invalid severity level (${severity}). Valid levels are: ${Object.keys(severityLevels).join(', ')}`,
+    );
+  }
+
+  log.info(`retire.js v${retire.version}`);
+
+  if (prg.cacert) {
+    if (!fs.existsSync(prg.cacert)) {
+      throw new Error(`Could not read cacert file: ${prg.cacert}`);
+    }
+    config.cacertbuf = fs.readFileSync(prg.cacert);
+  }
+
+  if (ignorefile) {
+    config.ignore.pathsAsString = parseIgnoreFile(ignorefile, config);
+  }
+  config.ignore.paths = config.ignore.pathsAsString
+    .map((p) => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
+    .map((p) => p.replace(/[*]{1,2}/g, (a) => (a.length == 2 ? '.*' : '[^/]*')))
+    .map((s) => new RegExp(s));
+
+  scan();
+} catch (error) {
+  exitWithError(error);
 }
