@@ -61,6 +61,8 @@ const prg = program
   )
   .option('--includeOsv', 'Include OSV advisories in the output')
   .option('--deep', 'Deep scan (slower and experimental)')
+  // Positional arguments were never used, but were silently accepted before commander 13.
+  .allowExcessArguments()
   .parse()
   .opts();
 
@@ -181,6 +183,14 @@ try {
   }
 
   log.info(`retire.js v${retire.version}`);
+
+  if (program.args.length > 0) {
+    log.warn(
+      colorwarn(
+        `Warning: Ignoring unexpected argument(s) ${program.args.map((arg) => `"${arg}"`).join(' ')}. Use --path <path> to choose what to scan (scanning ${scanpath}).`,
+      ),
+    );
+  }
 
   if (prg.cacert) {
     if (!fs.existsSync(prg.cacert)) {

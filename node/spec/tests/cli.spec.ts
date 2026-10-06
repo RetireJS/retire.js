@@ -14,6 +14,25 @@ import { Options } from '../../lib/types';
 
 const root = path.resolve(__dirname, '../..');
 
+it('warns about and ignores positional arguments', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'retire-cli-'));
+  try {
+    const repo = path.join(dir, 'repo.json');
+    fs.writeFileSync(repo, '{}');
+    const result = spawnSync(process.execPath, ['lib/cli.js', '.', 'src/', '--jsrepo', repo, '--path', dir], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.match(
+      result.stdout + result.stderr,
+      /Warning: Ignoring unexpected argument\(s\) "\." "src\/"\. Use --path <path> to choose what to scan \(scanning /,
+    );
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 it('terminates invalid CLI input without scanning or a stack trace', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'retire-cli-'));
   try {
