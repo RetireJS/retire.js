@@ -56,5 +56,10 @@
     "lib/**/*",
     "CHANGELOG.md",
     "LICENSE.md"
-  ]
+  ],
+  "overrides": {
+    "get-uri": {
+      "basic-ftp": "6.2.1"
+    }
+  }
 }
