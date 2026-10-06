@@ -39,9 +39,10 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
 
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
-    const properties = vulnerabilityRepositories(config.jsRepo).map(
-      (repo) => ({ name: 'retirejs:vulnerability-repository', value: repo }),
-    );
+    const properties = vulnerabilityRepositories(config.jsRepo).map((repo) => ({
+      name: 'retirejs:vulnerability-repository',
+      value: repo,
+    }));
     if (config.insecure) {
       properties.push({ name: 'retirejs:ignore-repository-certificate-errors', value: 'true' });
     }

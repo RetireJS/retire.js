@@ -38,6 +38,7 @@
     "watch": "tsc --watch ",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"spec/**/*.ts\"",
     "check": "npm run lint && npm run typecheck"
   },
   "engines": {
