@@ -9,7 +9,6 @@ import { Options, Repository } from './types';
 import * as z from 'zod';
 import { severityLevels } from './types';
 
-
 export function validateRepository(
   repo: Repository,
   replacer?: Options['process'],
@@ -169,14 +168,18 @@ async function loadJson<T>(url: string, options: Options): Promise<T> {
       const data: Buffer[] = [];
       res.on('data', (c) => data.push(c));
       res.on('end', () => {
-        let d = Buffer.concat(data).toString();
-        d = options.process ? options.process(d) : d;
-        const json = JSON.parse(d);
-        const vresult = validateRepository(json, options.process);
-        if (vresult.success) {
-          resolve(json);
-        } else {
-          reject(`Invalid repository from ${url}: ${formatValidationError(vresult.error)}`);
+        try {
+          let d = Buffer.concat(data).toString();
+          d = options.process ? options.process(d) : d;
+          const json = JSON.parse(d);
+          const vresult = validateRepository(json, options.process);
+          if (vresult.success) {
+            resolve(json);
+          } else {
+            reject(`Invalid repository from ${url}: ${formatValidationError(vresult.error)}`);
+          }
+        } catch (error) {
+          reject(`Invalid repository from ${url}: ${error}`);
         }
       });
     });
@@ -192,13 +195,17 @@ async function loadJsonFromFile<T>(file: string, options: Options): Promise<T> {
       if (err) {
         return reject(err.toString());
       }
-      data = options.process ? options.process(data) : data;
-      const json = JSON.parse(data);
-      const vresult = validateRepository(json, options.process);
-      if (vresult.success) {
-        resolve(json);
-      } else {
-        reject(`Invalid repository from ${file}: ${formatValidationError(vresult.error)}`);
+      try {
+        data = options.process ? options.process(data) : data;
+        const json = JSON.parse(data);
+        const vresult = validateRepository(json, options.process);
+        if (vresult.success) {
+          resolve(json);
+        } else {
+          reject(`Invalid repository from ${file}: ${formatValidationError(vresult.error)}`);
+        }
+      } catch (error) {
+        reject(`Invalid repository from ${file}: ${error}`);
       }
     });
   });
