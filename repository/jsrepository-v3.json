@@ -6154,6 +6154,24 @@
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "3.4.16",
+          "severity": "low",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup — pure HTML reparse executes",
+            "githubID": "GHSA-6688-9rhm-gjv2"
+          },
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2",
+            "https://github.com/cure53/DOMPurify/pull/1636",
+            "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
+          ]
+        },
+        {
           "atOrAbove": "3.4.13",
           "below": "3.4.16",
           "severity": "low",
