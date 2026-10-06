@@ -36,5 +36,7 @@ describe('licenses', function () {
 });
 
 it('excludes the upper license boundary', () => {
-  assert.deepStrictEqual(license.evaluateLicense(['MIT >=0 <2.0.0', 'BSD-3-Clause >=2.0.0'], '2.0.0'), ['BSD-3-Clause']);
+  assert.deepStrictEqual(license.evaluateLicense(['MIT >=0 <2.0.0', 'BSD-3-Clause >=2.0.0'], '2.0.0'), [
+    'BSD-3-Clause',
+  ]);
 });
