@@ -1,5 +1,30 @@
 # Changelog
 
+## [6.0.0]
+
+### Breaking changes
+
+- Requires Node.js 20.19+ or 22.12+ (previously 18+).
+- `--proxy` (and the `http_proxy` environment variable) now only supports `http://` and `https://` proxy URLs. SOCKS (`socks://`, `socks5://`, ...) and PAC (`pac+http://`, ...) proxies are no longer supported and fail with an `Unsupported proxy protocol` error.
+
+### Improvements
+
+- Replaced the `proxy-agent` dependency (and its 27 transitive packages) with a small built-in proxy client. Proxy credentials in the URL (`http://user:pass@host:port`) are still supported.
+- Removed the `ansi-colors` dependency.
+
+### Bugfixes
+
+- `--includeOsv` lookups ignored `--proxy`, `--insecure` and `--cacert`. They now use the same settings as the repository download.
+- `--includeOsv` looked up advisories under the repository's display name instead of the npm package name, so most components that declare an `npmname` silently got no OSV results (#626).
+- `--includeOsv` findings could be missing from the report, because the report was closed before the OSV lookups finished (#623).
+- Invalid CLI input (an unknown `--severity`, an unreadable `--cacert` or ignore file) now stops before scanning with an error message instead of a stack trace (#623).
+- Malformed repository files and malformed OSV responses are reported with their source, instead of crashing the scan (#623).
+- Errors while scanning files or `bower.json` are now reported, and the scan exits with code 1 (#623).
+- `bower.json` files were not detected on Windows paths (#623).
+- Distinct CVEs that share an issue were merged into one finding, while repeated advisories for the same vulnerability were not deduplicated (#623).
+- The upper bound of a license version range was treated as inclusive (#623).
+- CycloneDX output could change the scan results used by other reporters, and duplicate components are now merged together with their vulnerabilities and evidence (#625).
+
 ## [5.7.0]
 
 ### Improvements
