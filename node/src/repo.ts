@@ -71,7 +71,7 @@ export function validateRepository(
     if (ctx.path[0] == 'dont check') return;
     try {
       new RegExp(s);
-    } catch (error) {
+    } catch {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Invalid regex: ' + s,

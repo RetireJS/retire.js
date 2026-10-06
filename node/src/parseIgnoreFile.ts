@@ -11,7 +11,7 @@ export function parseIgnoreFile(ignorefile: string, config: Options): string[] {
     try {
       config.ignore.descriptors = ignoreFileParser.parse(JSON.parse(fs.readFileSync(ignorefile, 'utf-8')));
     } catch (e) {
-      throw new Error(`Invalid ignore file: ${ignorefile}`);
+      throw new Error(`Invalid ignore file: ${ignorefile}`, { cause: e });
     }
     const ignoredPaths =
     config.ignore.descriptors
