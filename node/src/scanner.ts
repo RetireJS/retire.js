@@ -146,7 +146,7 @@ export async function scanBowerFile(file: string, repo: Repository, options: Opt
     if (bower.version) {
       results = retire.check(bower.name, bower.version, repo);
     }
-  } catch (e) {
+  } catch {
     options.log.warn(`Could not parse file: ${file}`);
   }
   if (results) {

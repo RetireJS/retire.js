@@ -148,7 +148,7 @@ it(
     });
     process.argv = [process.execPath, 'cli', '--jsrepo', 'fixture', '--includeOsv', '--insecure'];
 
-    await import('../../lib/cli');
+    await import('../../lib/cli.js');
     await closed;
 
     assert.deepEqual(errors, []);

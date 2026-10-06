@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["es2020"],
-    "module": "commonjs",
+    "lib": ["es2020", "es2022.error"],
+    "module": "node20",
     "declaration": true,
     "rootDir": "./src",
     "outDir": "./lib",
     "strict": true,
     "typeRoots": ["./src/types", "./node_modules/@types"],
+    "types": ["node", "walkdir", "read-installed"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true
