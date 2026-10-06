@@ -1,4 +1,4 @@
-import https from 'https';
+import { get, requestSettings } from './http';
 import { Component, Repository, Options } from './types';
 import { check } from './retire';
 import { SeverityLevel } from './types';
@@ -44,29 +44,26 @@ type OsvAdvisory = {
   };
 };
 
-function loadJson<T>(url: string, options: Options): Promise<T | undefined> {
+async function loadJson<T>(url: string, options: Options): Promise<T | undefined> {
   options.log.debug('Downloading ' + url + ' ...');
+  const res = await get(url, requestSettings(options));
   return new Promise((resolve, reject) => {
-    const req = https.request(url, (res) => {
-      if (res.statusCode == 404) return resolve(undefined);
-      if (res.statusCode != 200) {
-        return reject('HTTP ' + res.statusCode + ' ' + res.statusMessage + ' for ' + url);
+    if (res.statusCode != 200) res.resume();
+    if (res.statusCode == 404) return resolve(undefined);
+    if (res.statusCode != 200) {
+      return reject('HTTP ' + res.statusCode + ' ' + res.statusMessage + ' for ' + url);
+    }
+    const data: Buffer[] = [];
+    res.on('data', (c) => data.push(c));
+    res.on('error', reject);
+    res.on('end', () => {
+      const result = Buffer.concat(data).toString();
+      try {
+        resolve(JSON.parse(result) as T);
+      } catch (error) {
+        reject(`Invalid JSON from ${url}: ${error}`);
       }
-      const data: Buffer[] = [];
-      res.on('data', (c) => data.push(c));
-      res.on('end', () => {
-        const result = Buffer.concat(data).toString();
-        try {
-          resolve(JSON.parse(result) as T);
-        } catch (error) {
-          reject(`Invalid JSON from ${url}: ${error}`);
-        }
-      });
     });
-    req.on('error', (err) => {
-      reject(err);
-    });
-    req.end();
   });
 }
 
