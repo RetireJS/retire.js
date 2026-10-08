@@ -12636,6 +12636,50 @@
         ]
       },
       {
+        "atOrAbove": "15.0.0",
+        "below": "15.5.27",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+          "githubID": "GHSA-4jqv-mc3x-m676",
+          "CVE": [
+            "CVE-2026-94543"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+          "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+          "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.5.27",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+          "githubID": "GHSA-mcj8-r9mp-w47p",
+          "CVE": [
+            "CVE-2026-94484"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+          "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+          "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
         "atOrAbove": "15.6.0-canary.0",
         "below": "15.6.0-canary.59",
         "severity": "high",
@@ -13579,6 +13623,130 @@
           "https://github.com/vercel/satori/security/advisories/GHSA-wx4j-mvgx-mqwp",
           "https://github.com/vercel/next.js/commit/868fad38690d72088868f299fa2bef339b26838e",
           "https://github.com/vercel/next.js/releases/tag/v16.3.6"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.8",
+        "severity": "low",
+        "cwe": [
+          "CWE-346"
+        ],
+        "identifiers": {
+          "summary": "Next.js has information disclosure in development server's Model Context Protocol endpoint",
+          "githubID": "GHSA-39w2-rjm5-chcv",
+          "CVE": [
+            "CVE-2026-94486"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-39w2-rjm5-chcv",
+          "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+          "githubID": "GHSA-4jqv-mc3x-m676",
+          "CVE": [
+            "CVE-2026-94543"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+          "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+          "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.8",
+        "severity": "high",
+        "cwe": [
+          "CWE-918"
+        ],
+        "identifiers": {
+          "summary": "Next.js has Server-Side Request Forgery in Image Optimization",
+          "githubID": "GHSA-cjq9-62q9-8jv4",
+          "CVE": [
+            "CVE-2026-94483"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-cjq9-62q9-8jv4",
+          "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-346"
+        ],
+        "identifiers": {
+          "summary": "Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
+          "githubID": "GHSA-f87g-xv8r-7p7x",
+          "CVE": [
+            "CVE-2026-94485"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-f87g-xv8r-7p7x",
+          "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.3.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+          "githubID": "GHSA-mcj8-r9mp-w47p",
+          "CVE": [
+            "CVE-2026-94484"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+          "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+          "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "16.3.0",
+        "below": "16.3.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
+          "githubID": "GHSA-3w37-wq28-93x7",
+          "CVE": [
+            "CVE-2026-94544"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-3w37-wq28-93x7",
+          "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
         ]
       }
     ],
