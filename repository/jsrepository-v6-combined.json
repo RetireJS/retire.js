@@ -13052,6 +13052,52 @@
           ]
         },
         {
+          "atOrAbove": "15.0.0",
+          "below": "15.5.27",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+            "githubID": "GHSA-4jqv-mc3x-m676",
+            "CVE": [
+              "CVE-2026-94543"
+            ]
+          },
+          "details": "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.5.27",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+            "githubID": "GHSA-mcj8-r9mp-w47p",
+            "CVE": [
+              "CVE-2026-94484"
+            ]
+          },
+          "details": "Next.js applications that use a root-level catch-all page together with statically generated or Incremental Static Regeneration routes can have their shared response cache poisoned by a single unauthenticated crafted request.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -14042,6 +14088,136 @@
             "https://github.com/vercel/satori/security/advisories/GHSA-wx4j-mvgx-mqwp",
             "https://github.com/vercel/next.js/commit/868fad38690d72088868f299fa2bef339b26838e",
             "https://github.com/vercel/next.js/releases/tag/v16.3.6"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "low",
+          "cwe": [
+            "CWE-346"
+          ],
+          "identifiers": {
+            "summary": "Next.js has information disclosure in development server's Model Context Protocol endpoint",
+            "githubID": "GHSA-39w2-rjm5-chcv",
+            "CVE": [
+              "CVE-2026-94486"
+            ]
+          },
+          "details": "The Next.js development server (`next dev`) exposes a Model Context Protocol endpoint that does not verify which website a request originates from, allowing a malicious website visited by the developer to read sensitive development data — including the project's location on disk, source code snippets from error reports, the route inventory, and development logs. Only applications run with `next dev` are affected. Production deployments do not serve this endpoint.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-39w2-rjm5-chcv",
+            "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+            "githubID": "GHSA-4jqv-mc3x-m676",
+            "CVE": [
+              "CVE-2026-94543"
+            ]
+          },
+          "details": "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js has Server-Side Request Forgery in Image Optimization",
+            "githubID": "GHSA-cjq9-62q9-8jv4",
+            "CVE": [
+              "CVE-2026-94483"
+            ]
+          },
+          "details": "## Impact\n\nAn attacker-controlled, allow-listed remote URL can lead to server-side request forgery (e.g. to private IPs) during Image Optimization. \n\n## Workaround\n\nAudit allow-listed remote URLs in `images.remotePatterns` (see https://nextjs.org/docs/app/getting-started/images#remote-images) for hosts that may not be trusted with their DNS entries. If no `images.remotePatterns` are configured, your app is not affected.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-cjq9-62q9-8jv4",
+            "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-346"
+          ],
+          "identifiers": {
+            "summary": "Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
+            "githubID": "GHSA-f87g-xv8r-7p7x",
+            "CVE": [
+              "CVE-2026-94485"
+            ]
+          },
+          "details": "In Next.js App Router applications built with webpack, metadata image routes such as opengraph-image and twitter-image ignore the `dynamicParams` route segment option. An attacker can request metadata image URLs for dynamic segments that were deliberately excluded from `generateStaticParams()`.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f87g-xv8r-7p7x",
+            "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+            "githubID": "GHSA-mcj8-r9mp-w47p",
+            "CVE": [
+              "CVE-2026-94484"
+            ]
+          },
+          "details": "Next.js applications that use a root-level catch-all page together with statically generated or Incremental Static Regeneration routes can have their shared response cache poisoned by a single unauthenticated crafted request.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.3.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
+            "githubID": "GHSA-3w37-wq28-93x7",
+            "CVE": [
+              "CVE-2026-94544"
+            ]
+          },
+          "details": "Pending `use cache` fills are shared across requests for the same key without distinguishing Draft Mode requests from regular requests. When two such requests overlap, the second request receives the first request's fill:\n\n- A regular request that overlaps an editor's Draft Mode request receives unpublished content, without any authentication.\n- A Draft Mode request that overlaps a regular request receives published content instead of the draft.\n\nIf the overlapping regular request prerenders a page — for example an on-demand prerender of a route that was not prerendered at build time — the unpublished content can be persisted into the generated page and served to all later visitors of that route until the page is revalidated. Since cached functions can be shared across routes, the poisoned page does not need to be the page the editor is previewing.\n\nSites are affected if they enable Cache Components (or `experimental.useCache`) and serve Draft Mode previews whose cached functions return draft-dependent content.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3w37-wq28-93x7",
+            "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
           ]
         }
       ],
