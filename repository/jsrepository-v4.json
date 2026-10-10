@@ -5084,6 +5084,71 @@
           "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-7rx3-28cr-v5wh",
           "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
         ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-843",
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+          "githubID": "GHSA-8r5x-fm3f-whwj",
+          "CVE": [
+            "CVE-2026-106446"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-8r5x-fm3f-whwj",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1289",
+          "CWE-184"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+          "githubID": "GHSA-p8wg-vrv2-v86f",
+          "CVE": [
+            "CVE-2026-106445"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-p8wg-vrv2-v86f",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/ceec388abe1d1aac8f6369860d5f390fa71ef4fa",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "medium",
+        "cwe": [
+          "CWE-116"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+          "githubID": "GHSA-xw65-4hp5-5hc7",
+          "CVE": [
+            "CVE-2026-106444"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-xw65-4hp5-5hc7",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/609d1b11c833c9a3e00f56f2f34d22f425446725",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
       }
     ],
     "extractors": {
