@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "retire.js",
+  "version": "5.7.0",
+  "description": "Detect JavaScript libraries with known vulnerabilities.",
+  "permissions": ["webRequest", "webNavigation", "activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "retire.js",
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon48.png"
+  },
+  "background": { "scripts": ["js/service_worker.js"] },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "jid1-WraQ74BxTHiaUw@jetpack.org",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": { "required": ["none"] }
+    }
+  }
+}

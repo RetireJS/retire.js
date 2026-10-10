@@ -1,4 +1,4 @@
-var retirechrome = (() => {
+(() => {
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __commonJS = (cb, mod) => function __require() {
     try {
@@ -7,6 +7,453 @@ var retirechrome = (() => {
       throw mod = 0, e;
     }
   };
+
+  // extension/js/runtime.js
+  var require_runtime = __commonJS({
+    "extension/js/runtime.js"(exports, module) {
+      var REPO_URL = "https://raw.githubusercontent.com/RetireJS/retire.js/master/repository/jsrepository-v6-combined.json";
+      var MAX_AGE = 6 * 60 * 60 * 1e3;
+      var DEFAULTS = { enabled: true, deepScan: true, showUnknown: false };
+      function mergeResults(results) {
+        const merged = /* @__PURE__ */ new Map();
+        for (const result of results) {
+          const key = JSON.stringify([result.component, result.version]);
+          let item = merged.get(key);
+          if (!item) {
+            item = { ...result, detections: [], vulnerabilities: [] };
+            merged.set(key, item);
+          }
+          item.detections = [
+            ...new Set(
+              [
+                ...item.detections,
+                ...result.detections || [],
+                result.detection
+              ].filter(Boolean)
+            )
+          ];
+          for (const vulnerability of result.vulnerabilities || []) {
+            const identifiers = (v) => {
+              const entries = Object.entries(v.identifiers || {});
+              const canonical = entries.filter(
+                ([key2]) => key2 === "CVE" || key2 === "githubID"
+              );
+              const values = canonical.flatMap(
+                ([key2, ids2]) => (Array.isArray(ids2) ? ids2 : [ids2]).map((id) => `${key2}:${id}`)
+              );
+              return values.length ? values : entries.filter(([key2]) => key2 !== "summary").flatMap(
+                ([key2, ids2]) => (Array.isArray(ids2) ? ids2 : [ids2]).map((id) => `${key2}:${id}`)
+              );
+            };
+            const ids = identifiers(vulnerability);
+            const existing = item.vulnerabilities.find(
+              (v) => ids.length ? identifiers(v).some((id) => ids.includes(id)) : JSON.stringify(v) === JSON.stringify(vulnerability)
+            );
+            if (!existing) item.vulnerabilities.push({ ...vulnerability });
+          }
+        }
+        return [...merged.values()];
+      }
+      function parseRepository(data, retire) {
+        const parsed = JSON.parse(
+          retire.replaceVersion(
+            typeof data === "string" ? data : JSON.stringify(data)
+          )
+        );
+        if (!parsed || !parsed.advisories || typeof parsed.advisories !== "object" || Array.isArray(parsed.advisories))
+          throw Error("Invalid advisory repository");
+        for (const entry of Object.values(parsed.advisories)) {
+          if (!entry || !entry.extractors || !Array.isArray(entry.vulnerabilities))
+            throw Error("Invalid repository entry");
+          for (const [kind, extractors] of Object.entries(entry.extractors)) {
+            if (kind === "hashes") {
+              if (!extractors || typeof extractors !== "object" || Object.values(extractors).some((v) => typeof v !== "string"))
+                throw Error("Invalid hash extractors");
+            } else {
+              if (!Array.isArray(extractors) || extractors.some((v) => typeof v !== "string"))
+                throw Error("Invalid extractors");
+              if (["uri", "filename", "filecontent"].includes(kind))
+                extractors.forEach((value) => new RegExp(value));
+            }
+          }
+          for (const vulnerability of entry.vulnerabilities) {
+            if (!vulnerability || typeof vulnerability.below !== "string" || !Array.isArray(vulnerability.info))
+              throw Error("Invalid advisory");
+          }
+        }
+        parsed.backdoored ||= {};
+        for (const advisories of Object.values(parsed.backdoored)) {
+          if (!Array.isArray(advisories)) throw Error("Invalid backdoor repository");
+          for (const advisory of advisories) {
+            if (!Array.isArray(advisory.extractors))
+              throw Error("Invalid backdoor extractors");
+            advisory.extractors.forEach((value) => new RegExp(value));
+          }
+        }
+        return parsed;
+      }
+      function startRuntime2(api, engine2, options = {}) {
+        const download = options.fetch || globalThis.fetch.bind(globalThis);
+        let settings = { ...DEFAULTS };
+        let tabs = {};
+        let repository = parseRepository(engine2.repo, engine2.retire);
+        let updatedAt = 0;
+        let attemptedAt = 0;
+        let repositoryError = null;
+        let refresh;
+        let writes = Promise.resolve();
+        let offscreen;
+        let settingsGeneration = 0;
+        const requests = /* @__PURE__ */ new Map();
+        const hasher = {
+          sha1: (content) => engine2.sha1().update(content).digest("hex")
+        };
+        const reportError = (error) => console.warn("Retire.js:", error);
+        async function text(url) {
+          const response = await download(url, {
+            signal: AbortSignal.timeout(15e3)
+          });
+          if (!response.ok) throw Error(`HTTP ${response.status} downloading ${url}`);
+          return response.text();
+        }
+        async function refreshRepository() {
+          if (refresh) return refresh;
+          if (Date.now() - updatedAt < MAX_AGE || Date.now() - attemptedAt < 6e4)
+            return;
+          attemptedAt = Date.now();
+          refresh = (async () => {
+            try {
+              const next = parseRepository(await text(REPO_URL), engine2.retire);
+              repository = next;
+              updatedAt = Date.now();
+              repositoryError = null;
+              await api.storage.local.set({ repository: { data: next, updatedAt } });
+            } catch (error) {
+              repositoryError = `Repository update failed; using saved or bundled data. ${error.message}`;
+            }
+          })().finally(() => {
+            refresh = null;
+          });
+          return refresh;
+        }
+        function persist() {
+          const data = structuredClone(tabs);
+          const pending = [...requests.entries()];
+          writes = writes.catch(reportError).then(() => api.storage.session.set({ tabs: data, requests: pending }));
+          return writes;
+        }
+        function newTab(url = "", timeStamp = Date.now()) {
+          return {
+            url,
+            startedAt: timeStamp,
+            generation: crypto.randomUUID(),
+            resources: {}
+          };
+        }
+        function snapshot(tabId, url) {
+          const tab = tabs[tabId];
+          const resources = Object.values(tab?.resources || {});
+          const results = resources.flatMap((resource) => resource.results);
+          const tabUrl = url || tab?.url || "";
+          return {
+            settings: { ...settings },
+            tabId,
+            url: tabUrl,
+            scannedAt: tab?.scannedAt || null,
+            status: tabUrl && !/^https?:\/\//.test(tabUrl) ? "unsupported" : resources.some((r) => r.status === "scanning") ? "loading" : "ready",
+            repositoryError,
+            urlsScanned: resources.length,
+            totalVulns: results.reduce(
+              (count, result) => count + (result.vulnerabilities?.length || 0),
+              0
+            ),
+            vulnerableCount: results.filter(
+              (result) => result.vulnerabilities?.length
+            ).length,
+            resources
+          };
+        }
+        async function badge(tabId) {
+          if (tabId < 0) return;
+          const count = snapshot(tabId).vulnerableCount;
+          try {
+            await api.action.setBadgeText({
+              tabId: Number(tabId),
+              text: settings.enabled && count ? String(count) : ""
+            });
+          } catch {
+          }
+        }
+        async function icon() {
+          await api.action.setIcon({
+            path: api.runtime.getURL(
+              settings.enabled ? "icons/icon48.png" : "icons/icon_bw48.png"
+            )
+          });
+        }
+        const ready = (async () => {
+          const [local, session] = await Promise.all([
+            api.storage.local.get(["settings", "repository"]),
+            api.storage.session.get(["tabs", "requests"])
+          ]);
+          for (const key of Object.keys(DEFAULTS))
+            if (typeof local.settings?.[key] === "boolean")
+              settings[key] = local.settings[key];
+          tabs = session.tabs || {};
+          if (local.repository) {
+            try {
+              repository = parseRepository(local.repository.data, engine2.retire);
+              updatedAt = local.repository.updatedAt || 0;
+            } catch {
+              repositoryError = "Saved repository is invalid; using bundled data.";
+            }
+          }
+          const openTabs = await api.tabs.query({});
+          const openIds = new Set(openTabs.map((tab) => String(tab.id)));
+          for (const id of Object.keys(tabs)) if (!openIds.has(id)) delete tabs[id];
+          for (const [id, request] of session.requests || [])
+            if (openIds.has(String(request.tabId))) requests.set(id, request);
+          for (const open of openTabs)
+            if (tabs[open.id]?.url && open.url && tabs[open.id].url !== open.url)
+              tabs[open.id] = newTab(open.url);
+          for (const tab of Object.values(tabs))
+            for (const resource of Object.values(tab.resources)) {
+              if (resource.status === "scanning") {
+                resource.status = "error";
+                resource.error = "Scan interrupted. Reload the page to scan again.";
+              }
+            }
+          await persist();
+          await api.action.setBadgeBackgroundColor({ color: "#c13832" });
+          await icon();
+          await Promise.all(Object.keys(tabs).map(badge));
+        })();
+        ready.catch(reportError);
+        async function sandbox(content, url, repo) {
+          if (!options.sandbox) return [];
+          if (!offscreen) {
+            offscreen = (async () => {
+              if (!await api.offscreen.hasDocument())
+                await api.offscreen.createDocument({
+                  url: "background.html",
+                  reasons: ["IFRAME_SCRIPTING"],
+                  justification: "Detect library versions in isolated script sandboxes"
+                });
+            })().finally(() => {
+              offscreen = null;
+            });
+          }
+          await offscreen;
+          const repoFuncs = Object.fromEntries(
+            Object.entries(repo).filter(([, value]) => value.extractors.func).map(([name, value]) => [name, value.extractors.func])
+          );
+          const response = await api.runtime.sendMessage({
+            target: "offscreen",
+            type: "sandbox",
+            content,
+            url,
+            repoFuncs
+          });
+          if (!response || response.error)
+            throw Error(response?.error || "Sandbox did not respond");
+          return response.results.filter(
+            (result) => typeof result.version === "string" && result.version.length <= 100 && Object.hasOwn(repoFuncs, result.component)
+          ).flatMap(
+            (result) => engine2.retire.check(result.component, result.version, repo).map((item) => ({ ...item, detection: "func" }))
+          );
+        }
+        async function scan(details) {
+          await ready;
+          const request = requests.get(details.requestId);
+          requests.delete(details.requestId);
+          if (!request || !settings.enabled || details.tabId < 0 || details.type !== "script" || !/^https?:\/\//.test(details.url)) {
+            await persist();
+            return;
+          }
+          const tab = tabs[details.tabId] ||= newTab("", details.timeStamp);
+          if (request.generation !== tab.generation || details.timeStamp < tab.startedAt) {
+            await persist();
+            return;
+          }
+          const settingEpoch = settingsGeneration;
+          const resource = { url: details.url, status: "scanning", results: [] };
+          tab.resources[details.url] = resource;
+          const current = () => settings.enabled && settingsGeneration === settingEpoch && tabs[details.tabId] === tab && tab.resources[details.url] === resource;
+          await persist();
+          try {
+            await refreshRepository();
+            if (!current()) return;
+            const scanRepo = repository;
+            const advisories = scanRepo.advisories;
+            const results = [];
+            for (const [component, entries] of Object.entries(scanRepo.backdoored)) {
+              const matching = entries.filter(
+                (entry) => entry.extractors.some(
+                  (pattern) => new RegExp(pattern).test(details.url)
+                )
+              );
+              if (matching.length)
+                results.push({
+                  component,
+                  version: "-",
+                  detection: "url",
+                  vulnerabilities: matching.map((v) => ({
+                    ...v,
+                    identifiers: { ...v.identifiers, summary: v.summary }
+                  }))
+                });
+            }
+            results.push(...engine2.retire.scanUri(details.url, advisories));
+            if (!results.length)
+              results.push(
+                ...engine2.retire.scanFileName(
+                  new URL(details.url).pathname.split("/").pop(),
+                  advisories
+                )
+              );
+            if (!results.length) {
+              const content = await text(details.url);
+              if (!current()) return;
+              results.push(
+                ...engine2.retire.scanFileContent(content, advisories, hasher)
+              );
+              if (settings.deepScan) {
+                try {
+                  results.push(
+                    ...engine2.deepScan(content, advisories).map((result) => ({ ...result, detection: "ast" }))
+                  );
+                } catch (error) {
+                  resource.error = `Deep scan failed: ${error.message}`;
+                }
+              }
+              const license = content.match(
+                /^\/\*! For license information please see ([^\r\n]+?) \*\//
+              );
+              if (license) {
+                const licenseUrl = new URL(license[1], details.url);
+                if (/^https?:$/.test(licenseUrl.protocol) && licenseUrl.origin === new URL(details.url).origin) {
+                  try {
+                    results.push(
+                      ...engine2.retire.scanFileContent(
+                        await text(licenseUrl.href),
+                        advisories,
+                        hasher
+                      )
+                    );
+                  } catch (error) {
+                    resource.error = `License file scan failed: ${error.message}`;
+                  }
+                }
+              }
+              if (current() && options.sandbox) {
+                try {
+                  results.push(...await sandbox(content, details.url, advisories));
+                } catch (error) {
+                  resource.error = `Function detection failed: ${error.message}`;
+                }
+              }
+            }
+            if (!current()) return;
+            resource.results = mergeResults(results);
+            resource.status = resource.error ? "error" : "complete";
+          } catch (error) {
+            if (!current()) return;
+            resource.status = "error";
+            resource.error = error.message;
+          }
+          if (current()) {
+            tab.scannedAt = (/* @__PURE__ */ new Date()).toISOString();
+            await persist();
+            await badge(details.tabId);
+          }
+        }
+        api.webRequest.onBeforeRequest.addListener(
+          async (details) => {
+            await ready;
+            if (!settings.enabled || details.tabId < 0 || details.type !== "script")
+              return;
+            const tab = tabs[details.tabId] ||= newTab("", details.timeStamp);
+            requests.set(details.requestId, {
+              generation: tab.generation,
+              tabId: details.tabId
+            });
+            await persist();
+          },
+          { urls: ["http://*/*", "https://*/*"], types: ["script"] }
+        );
+        api.webRequest.onCompleted.addListener(
+          (details) => scan(details).catch(reportError),
+          { urls: ["http://*/*", "https://*/*"], types: ["script"] }
+        );
+        api.webRequest.onErrorOccurred.addListener(
+          async (details) => {
+            await ready;
+            requests.delete(details.requestId);
+            await persist();
+          },
+          { urls: ["http://*/*", "https://*/*"], types: ["script"] }
+        );
+        api.webNavigation.onBeforeNavigate.addListener(async (details) => {
+          if (details.frameId !== 0) return;
+          await ready;
+          tabs[details.tabId] = newTab(details.url, details.timeStamp);
+          await persist();
+          await badge(details.tabId);
+        });
+        api.webNavigation.onCommitted.addListener(async (details) => {
+          if (details.frameId !== 0) return;
+          await ready;
+          const tab = tabs[details.tabId] ||= newTab(
+            details.url,
+            details.timeStamp
+          );
+          tab.url = details.url;
+          await persist();
+        });
+        api.tabs.onRemoved.addListener(async (tabId) => {
+          await ready;
+          delete tabs[tabId];
+          for (const [id, request] of requests)
+            if (request.tabId === tabId) requests.delete(id);
+          await persist();
+        });
+        api.runtime.onMessage.addListener((message, sender, sendResponse) => {
+          if (sender.id !== api.runtime.id || sender.tab || message.target === "offscreen")
+            return false;
+          if (!["getSnapshot", "setSettings"].includes(message.type)) return false;
+          (async () => {
+            await ready;
+            if (message.type === "getSnapshot")
+              return snapshot(message.tabId, message.url);
+            let changed = false;
+            for (const key of Object.keys(DEFAULTS))
+              if (typeof message.settings?.[key] === "boolean" && settings[key] !== message.settings[key]) {
+                settings[key] = message.settings[key];
+                if (key !== "showUnknown") changed = true;
+              }
+            if (changed) {
+              settingsGeneration++;
+              requests.clear();
+              for (const tab of Object.values(tabs))
+                for (const resource of Object.values(tab.resources))
+                  if (resource.status === "scanning") {
+                    resource.status = "error";
+                    resource.error = "Scan settings changed. Reload the page to scan again.";
+                  }
+              await persist();
+            }
+            await api.storage.local.set({ settings });
+            await icon();
+            await Promise.all(Object.keys(tabs).map(badge));
+            return { settings: { ...settings } };
+          })().then(sendResponse, (error) => sendResponse({ error: error.message }));
+          return true;
+        });
+        return { ready };
+      }
+      module.exports = { startRuntime: startRuntime2, mergeResults, parseRepository };
+    }
+  });
 
   // ../../node/node_modules/meriyah/dist/meriyah.cjs
   var require_meriyah = __commonJS({
@@ -9097,7 +9544,7 @@ var retirechrome = (() => {
     "../../node/lib/retire.js"(exports) {
       "use strict";
       var exports = exports || {};
-      exports.version = "6.0.0";
+      exports.version = "6.1.0";
       function isDefined(o) {
         return typeof o !== "undefined";
       }
@@ -16115,6 +16562,25 @@ Reporter: Koda Reef`,
                 ]
               },
               {
+                atOrAbove: "0",
+                below: "3.4.16",
+                severity: "low",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup \u2014 pure HTML reparse executes",
+                  githubID: "GHSA-6688-9rhm-gjv2"
+                },
+                details: "## Environment\n\n- dompurify 3.4.15 (current npm release); reproduced independently on jsdom 30.0.1 and 29.1.1 (Node.js 20.x / 26.x)\n- Config: `DOMPurify.sanitize(node, { IN_PLACE: true })` on a Node input; `SAFE_FOR_XML` at its default (`true`)\n\n## Summary\n\nThe 3.4.9 fix for the IN_PLACE detached-root class added two protections on the IN_PLACE return path: a fail-closed `TypeError` in `_forceRemove` when a node selected for removal cannot be detached, and a `_neutralizeSubtree` pass (`dist/purify.js` line 1336) that strips non-allowlisted **attributes** from removed subtrees.\n\nBoth miss the rawtext **text-content** form. When the force-removed root is a rawtext element (`<style>`), the payload lives in the node's *text*: the node detaches fine (the `TypeError` guard is not reached), `_neutralizeSubtree` strips nothing (there are no attributes), and the IN_PLACE exit returns the detached, never-sanitized `<style>` whose text still carries live markup. Serializing that node and re-parsing it in **plain HTML context** materializes the payload \u2014 no foreign-content context required.\n\nThe same Node input sanitized **without** `IN_PLACE` returns an empty result: the only difference is the IN_PLACE return path handing the killed node back.\n\n## Steps to reproduce\n\n```js\nconst { JSDOM } = require('jsdom');\nconst createDOMPurify = require('dompurify');   // 3.4.15\n\nconst window = new JSDOM('').window;\nconst DOMPurify = createDOMPurify(window);\n\nconst styleRoot = window.document.createElement('style');\nstyleRoot.setAttribute('onclick', 'alert(1)');    // attribute payload\nstyleRoot.textContent = '</style><img src=x onerror=1>';  // text payload\nwindow.document.body.appendChild(styleRoot);\n\nconst returned = DOMPurify.sanitize(styleRoot, { IN_PLACE: true });\n\nconsole.log(returned === styleRoot);                       // true (same node)\nconsole.log(styleRoot.parentNode === null);                // true (detached)\nconsole.log(styleRoot.outerHTML);\n// <style></style><img src=x onerror=1></style>\nconsole.log(styleRoot.getAttribute('onclick'));            // null  (attribute neutralized)\nconsole.log(styleRoot.textContent);                        // '</style><img src=x onerror=1>' (text survives)\n\n// plain HTML reparse (no foreign-content context involved):\nconst probe = window.document.createElement('div');\nprobe.innerHTML = returned.outerHTML || styleRoot.outerHTML;\nconsole.log(probe.querySelectorAll('img').length);         // 1\nconsole.log(probe.querySelector('img').getAttribute('onerror')); // \"1\"\n```\n\nObserved on 3.4.15: one node, one call \u2014 the `onclick` **attribute** is neutralized while the **text** payload (`</style><img src=x onerror=1>`) survives verbatim; serializing and re-parsing the returned node in plain HTML context materializes the `img` with the live `onerror` handler.\n\nContrast on the same Node input without `IN_PLACE`: `RETURN_DOM: true` \u2192 `<body></body>`; `RETURN_DOM_FRAGMENT: true` \u2192 0 children \u2014 the payload is fully sanitized away. The only difference is the IN_PLACE return path.\n\nContrast on the removal trigger: `SAFE_FOR_XML: false` \u2192 the node is not removed (detached stays false); plain CSS text \u2192 not removed. The removal is gated by the mXSS text probes and happens *specifically because* the serialized node would re-open tags on reparse.\n\n## Root cause\n\n`_isUnsafeNode` (`dist/purify.js` 3.4.15, lines 1700\u20131714) removes nodes whose literal text would re-open tags on reparse \u2014 shape (b) in the source comment is \"text-only content that already carries the element's OWN end tag\", detected by the `LITERAL_TEXT_CLOSE` probe (line 385) alongside the `ELEMENT_MARKUP_PROBE` (line 339) rules. `_forceRemove` (line 1122) records the node in `DOMPurify.removed` (`{element}`) and detaches it. The removal is intentional: the upstream comment states these shapes are removed **because the literal serializer emits them verbatim for the HTML parser to re-open**.\n\nThe IN_PLACE exit then hands the force-removed root back to the caller \u2014 the very node whose removal `DOMPurify.removed` just recorded (verified: `DOMPurify.removed.some(e => e.element === root)` is `true` on the returned instance). The 3.4.9 `_neutralizeSubtree` pass (line 1336) addresses only the attribute form \u2014 its own docstring: \"walks a removed subtree and strips every attribute\" (purpose: cancel queued resource events). Rawtext text content is out of its scope, so the removal that was performed *specifically to prevent reparse* is undone by returning the node: you removed it to stop the reparse, then returned it.\n\nDifferential (one node, one call, same removal path): the `onclick` attribute is neutralized by the existing pass while the text payload survives verbatim \u2014 the attribute axis is covered, the text axis is the gap.\n\n## Impact\n\nIdentical blast radius to the published IN_PLACE family: an application that sanitizes a Node in `IN_PLACE` mode and re-inserts (or serializes and then re-inserts) the result materializes attacker markup in plain HTML context: script execution in the page. Moving the returned node via `appendChild` alone is safe; the round trip through serialization is what fires the payload. No foreign-content context is required with the close-tag payload.\n\n## Affected versions\n\n- Verified live: 3.4.15 (current).\n- Source-verified: the attribute-only `_neutralizeSubtree` and the IN_PLACE return path are present in 3.4.9\u20133.4.14; releases before 3.4.9 predate the fix entirely (unconditional return; individual pre-3.4.9 releases not dynamically tested).\n- Per cure53 advisory convention the affected range is reported as `<= 3.4.15` (current at time of writing).\n\n## Suggested remediation\n\n**Primary (root-cause, covers every form):** at the IN_PLACE exit, check whether the returned root was recorded during sanitization \u2014 `DOMPurify.removed.some(e => e.element === root)` \u2014 and fail closed: throw the same `TypeError` style used by the 3.4.9 detach guard (\"a node selected for removal could not be safely returned; refusing to sanitize in place\"), or return `null`. This is consistent with the existing fail-closed design and covers all present and future root-kill reasons in one check.\n\n**Secondary (form-specific):** extend `_neutralizeSubtree` to neutralize **text content of rawtext descendants** \u2014 the elements in `LITERAL_TEXT_ELEMENT_NAMES` (`style`, `script`, `xmp`, `iframe`, `noembed`, `noframes`, `plaintext`, `noscript`) \u2014 by rewriting `textContent` to a defanged form, matching the probe coverage of `_isUnsafeNode`/`LITERAL_TEXT_CLOSE`.\n\nA regression test asserting that a force-removed rawtext root comes back with no `/<[/\\w!]/` match in `textContent` (and is not returned at all under the primary fix) prevents re-introduction.\n\n## Prior art / differentiation\n\n- GHSA-r47g-fvhr-h676 (fixed 3.4.6): clobbered-form **root** removal \u2014 different trigger; this report's root is a normal allowlisted `style` element killed by the text probe.\n- GHSA-55q2-fjhq-7xh7 (low): IN_PLACE **hook removal** leaves a detached subtree executable \u2014 the attribute-form twin (hook-stripped subtree retains onload-class handlers). This report's rawtext **text** form is not covered by `_neutralizeSubtree`'s attribute stripping and is not that advisory.\n- GHSA-h8r8-wccr-v5f2 (medium): mXSS via re-contextualization in the standard (non-IN_PLACE) serialize path \u2014 different mechanism; IN_PLACE is not involved.\n- The 3.4.9 release notes credit @mozfreedyb for the IN_PLACE handling improvements that this residual escapes on the text axis.\n\n## Applicability scope (stated up front)\n\nThe payload materializes when the application **serializes and re-parses** the sanitizer output (`innerHTML` assignment, template rendering, markdown/HTML round trips) or otherwise consumes the returned node's markup. Moving the returned node via `appendChild` alone does not trigger it. Applications that pass **live, connected attacker trees** into `IN_PLACE` are explicitly warned against by upstream's own source comment; this report concerns the serialize-and-reinsert consumption pattern that the IN_PLACE mode exists to serve.",
+                info: [
+                  "https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2",
+                  "https://github.com/cure53/DOMPurify/pull/1636",
+                  "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
+                  "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
+                ]
+              },
+              {
                 atOrAbove: "3.4.13",
                 below: "3.4.16",
                 severity: "low",
@@ -23023,6 +23489,52 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
+                atOrAbove: "15.0.0",
+                below: "15.5.27",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+                  githubID: "GHSA-4jqv-mc3x-m676",
+                  CVE: [
+                    "CVE-2026-94543"
+                  ]
+                },
+                details: "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+                  "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+                  "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
+                atOrAbove: "15.0.0",
+                below: "15.5.27",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+                  githubID: "GHSA-mcj8-r9mp-w47p",
+                  CVE: [
+                    "CVE-2026-94484"
+                  ]
+                },
+                details: "Next.js applications that use a root-level catch-all page together with statically generated or Incremental Static Regeneration routes can have their shared response cache poisoned by a single unauthenticated crafted request.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+                  "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+                  "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
                 atOrAbove: "15.6.0-canary.0",
                 below: "15.6.0-canary.59",
                 severity: "high",
@@ -24013,6 +24525,136 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   "https://github.com/vercel/satori/security/advisories/GHSA-wx4j-mvgx-mqwp",
                   "https://github.com/vercel/next.js/commit/868fad38690d72088868f299fa2bef339b26838e",
                   "https://github.com/vercel/next.js/releases/tag/v16.3.6"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.3.8",
+                severity: "low",
+                cwe: [
+                  "CWE-346"
+                ],
+                identifiers: {
+                  summary: "Next.js has information disclosure in development server's Model Context Protocol endpoint",
+                  githubID: "GHSA-39w2-rjm5-chcv",
+                  CVE: [
+                    "CVE-2026-94486"
+                  ]
+                },
+                details: "The Next.js development server (`next dev`) exposes a Model Context Protocol endpoint that does not verify which website a request originates from, allowing a malicious website visited by the developer to read sensitive development data \u2014 including the project's location on disk, source code snippets from error reports, the route inventory, and development logs. Only applications run with `next dev` are affected. Production deployments do not serve this endpoint.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-39w2-rjm5-chcv",
+                  "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.3.8",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+                  githubID: "GHSA-4jqv-mc3x-m676",
+                  CVE: [
+                    "CVE-2026-94543"
+                  ]
+                },
+                details: "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+                  "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+                  "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.3.8",
+                severity: "high",
+                cwe: [
+                  "CWE-918"
+                ],
+                identifiers: {
+                  summary: "Next.js has Server-Side Request Forgery in Image Optimization",
+                  githubID: "GHSA-cjq9-62q9-8jv4",
+                  CVE: [
+                    "CVE-2026-94483"
+                  ]
+                },
+                details: "## Impact\n\nAn attacker-controlled, allow-listed remote URL can lead to server-side request forgery (e.g. to private IPs) during Image Optimization. \n\n## Workaround\n\nAudit allow-listed remote URLs in `images.remotePatterns` (see https://nextjs.org/docs/app/getting-started/images#remote-images) for hosts that may not be trusted with their DNS entries. If no `images.remotePatterns` are configured, your app is not affected.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-cjq9-62q9-8jv4",
+                  "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.3.8",
+                severity: "medium",
+                cwe: [
+                  "CWE-346"
+                ],
+                identifiers: {
+                  summary: "Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
+                  githubID: "GHSA-f87g-xv8r-7p7x",
+                  CVE: [
+                    "CVE-2026-94485"
+                  ]
+                },
+                details: "In Next.js App Router applications built with webpack, metadata image routes such as opengraph-image and twitter-image ignore the `dynamicParams` route segment option. An attacker can request metadata image URLs for dynamic segments that were deliberately excluded from `generateStaticParams()`.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-f87g-xv8r-7p7x",
+                  "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
+                atOrAbove: "16.0.0",
+                below: "16.3.8",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+                  githubID: "GHSA-mcj8-r9mp-w47p",
+                  CVE: [
+                    "CVE-2026-94484"
+                  ]
+                },
+                details: "Next.js applications that use a root-level catch-all page together with statically generated or Incremental Static Regeneration routes can have their shared response cache poisoned by a single unauthenticated crafted request.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+                  "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+                  "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+                  "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+                ]
+              },
+              {
+                atOrAbove: "16.3.0",
+                below: "16.3.8",
+                severity: "medium",
+                cwe: [
+                  "CWE-524"
+                ],
+                identifiers: {
+                  summary: "Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
+                  githubID: "GHSA-3w37-wq28-93x7",
+                  CVE: [
+                    "CVE-2026-94544"
+                  ]
+                },
+                details: "Pending `use cache` fills are shared across requests for the same key without distinguishing Draft Mode requests from regular requests. When two such requests overlap, the second request receives the first request's fill:\n\n- A regular request that overlaps an editor's Draft Mode request receives unpublished content, without any authentication.\n- A Draft Mode request that overlaps a regular request receives published content instead of the draft.\n\nIf the overlapping regular request prerenders a page \u2014 for example an on-demand prerender of a route that was not prerendered at build time \u2014 the unpublished content can be persisted into the generated page and served to all later visitors of that route until the page is revalidated. Since cached functions can be shared across routes, the poisoned page does not need to be the page the editor is previewing.\n\nSites are affected if they enable Cache Components (or `experimental.useCache`) and serve Draft Mode previews whose cached functions return draft-dependent content.",
+                info: [
+                  "https://github.com/vercel/next.js/security/advisories/GHSA-3w37-wq28-93x7",
+                  "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598",
+                  "https://github.com/vercel/next.js/releases/tag/v16.3.8"
                 ]
               }
             ],
@@ -26810,7 +27452,13 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
       exports.deepScan = deepScan;
     }
   });
-  return require_index();
+
+  // extension/js/service_worker.js
+  var { startRuntime } = require_runtime();
+  var engine = require_index();
+  startRuntime(typeof browser === "undefined" ? chrome : browser, engine, {
+    sandbox: false
+  });
 })();
 /*! Bundled license information:
 
@@ -26821,4 +27469,3 @@ astronomical/lib/index.js:
    * Copyright (c) Erlend Oftedal
    *)
 */
-if (globalThis) globalThis.retirechrome = retirechrome;
