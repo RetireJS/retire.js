@@ -55,7 +55,10 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
       .map((r) =>
         r.results
           .map((dep) => {
-            dep.version = (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.');
+            dep = {
+              ...dep,
+              version: (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.'),
+            };
             const filepath = r.file;
             let hashes = '';
             if (filepath) {
@@ -94,9 +97,13 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
             <name>retire.js</name>
             <version>${retire.version}</version>
         </tool>
-    </tools>${properties ? `
+    </tools>${
+      properties
+        ? `
     <properties>${properties}
-    </properties>` : ''}
+    </properties>`
+        : ''
+    }
   </metadata>
   <components>${components}
   </components>
@@ -106,11 +113,7 @@ function configureCycloneDXLogger(logger: Logger, writer: Writer, config: Logger
 }
 
 function escapeXml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function mapLicenses(licenses: string[] | undefined) {

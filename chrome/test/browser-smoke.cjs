@@ -83,7 +83,7 @@ async function main() {
     }
   });
   await new Promise((resolve) => server.listen(8767, "127.0.0.1", resolve));
-  const extension = path.join(root, "dist", process.argv[2] || "chrome");
+  const extension = path.join(root, "chrome", process.argv[2] === "chrome-no-func" ? "extension-no-func" : "extension");
   const log = fs.openSync(path.join(output, "chrome.log"), "w");
   const child = spawn(
     "C:/Program Files/Google/Chrome/Application/chrome.exe",

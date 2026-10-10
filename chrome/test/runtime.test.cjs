@@ -1,6 +1,6 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { startRuntime, mergeResults } = require("../extension/js/runtime.js");
+const { startRuntime, mergeResults } = require("../build/extension/js/runtime.js");
 const retire = require("../../node/lib/retire.js");
 
 test("distinct Bootstrap CVEs sharing one issue are retained across repeated detections", () => {

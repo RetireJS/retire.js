@@ -30,7 +30,7 @@ jobs:
         working-directory: node
       - run: npm run typecheck
         working-directory: node
-      - run: node node_modules/eslint/bin/eslint.js . --ext .ts --ignore-path ../.gitignore
+      - run: node node_modules/eslint/bin/eslint.js .
         working-directory: node
       - run: npm ci
         working-directory: chrome/build
@@ -63,7 +63,7 @@ jobs:
         working-directory: chrome/build
       - name: Verify prebuilt extensions match source
         shell: bash
-        run: test -z "$(git status --porcelain --untracked-files=all -- dist)"
+        run: test -z "$(git status --porcelain --untracked-files=all -- chrome/extension chrome/extension-no-func dist/firefox)"
 
   detection:
     runs-on: ubuntu-latest

@@ -6158,6 +6158,42 @@
             "https://github.com/cure53/DOMPurify/commit/3067f7746769",
             "https://github.com/cure53/DOMPurify/releases/tag/3.4.13"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "3.4.16",
+          "severity": "low",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup — pure HTML reparse executes",
+            "githubID": "GHSA-6688-9rhm-gjv2"
+          },
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2",
+            "https://github.com/cure53/DOMPurify/pull/1636",
+            "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
+          ]
+        },
+        {
+          "atOrAbove": "3.4.13",
+          "below": "3.4.16",
+          "severity": "low",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify: IN_PLACE: node-removing afterSanitize hook leaves detached subtree event handlers armed, causing DOM XSS",
+            "githubID": "GHSA-p98j-92pf-mc4p"
+          },
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-p98j-92pf-mc4p",
+            "https://github.com/cure53/DOMPurify/pull/1636",
+            "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
+          ]
         }
       ],
       "extractors": {
@@ -6692,6 +6728,28 @@
           "info": [
             "https://github.com/moment/moment/security/advisories/GHSA-wc69-rhjr-hc9g",
             "https://security.snyk.io/vuln/SNYK-JS-MOMENT-2944238"
+          ]
+        },
+        {
+          "atOrAbove": "2.29.2",
+          "below": "2.31.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-27"
+          ],
+          "identifiers": {
+            "summary": "moment vulnerable to Path Traversal via crafted non-string locale name",
+            "githubID": "GHSA-4p3w-j4w9-5jqw",
+            "CVE": [
+              "CVE-2026-17495"
+            ]
+          },
+          "info": [
+            "https://github.com/moment/moment/security/advisories/GHSA-4p3w-j4w9-5jqw",
+            "https://github.com/moment/moment/pull/6386",
+            "https://github.com/moment/moment/commit/5f7d983c9881e65e07574de9dda3190d99520c07",
+            "https://cna.openjsf.org/security-advisories.html",
+            "https://github.com/moment/moment/releases/tag/2.31.0"
           ]
         }
       ],
@@ -8611,31 +8669,6 @@
           ]
         },
         {
-          "atOrAbove": "0.28.0",
-          "below": "0.33.0",
-          "severity": "medium",
-          "cwe": [
-            "CWE-400",
-            "CWE-770"
-          ],
-          "identifiers": {
-            "summary": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
-            "githubID": "GHSA-pmv8-rq9r-6j72",
-            "CVE": [
-              "CVE-2026-67312"
-            ]
-          },
-          "info": [
-            "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
-            "https://github.com/axios/axios/pull/11000",
-            "https://github.com/axios/axios/pull/11001",
-            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
-            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
-            "https://github.com/axios/axios/releases/tag/v0.33.0",
-            "https://github.com/axios/axios/releases/tag/v1.18.0"
-          ]
-        },
-        {
           "atOrAbove": "0.31.0",
           "below": "0.33.0",
           "severity": "medium",
@@ -8731,6 +8764,76 @@
             "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
             "https://github.com/axios/axios/releases/tag/v0.33.0",
             "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.28.0",
+          "below": "0.33.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+            "githubID": "GHSA-pmv8-rq9r-6j72",
+            "CVE": [
+              "CVE-2026-67312"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-pmv8-rq9r-6j72",
+            "https://github.com/axios/axios/pull/11000",
+            "https://github.com/axios/axios/pull/11001",
+            "https://github.com/axios/axios/commit/1417285c69344bbcc6420a021f67dee0c6fedb2d",
+            "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
+            "https://github.com/axios/axios/releases/tag/v0.33.0",
+            "https://github.com/axios/axios/releases/tag/v1.18.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.27.2",
+          "below": "0.34.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype-Pollution Gadget in the Default Instance Allows Inherited Object.prototype.method to Override HTTP Method",
+            "githubID": "GHSA-9fr6-4gfg-395g",
+            "CVE": [
+              "CVE-2026-101902"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-9fr6-4gfg-395g",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v0.34.0",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "0.28.0",
+          "below": "0.34.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype Pollution Gadget in axios toFormData Options",
+            "githubID": "GHSA-x97p-jq2g-jp4f",
+            "CVE": [
+              "CVE-2026-101909"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-x97p-jq2g-jp4f",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/commit/d29be181f85f6fe93397a07b1f69606d9622637b",
+            "https://github.com/axios/axios/releases/tag/v0.34.0",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
           ]
         },
         {
@@ -9589,6 +9692,267 @@
             "https://github.com/axios/axios/commit/32fc489632377d214db55bfa4e2c48486a7d7ce2",
             "https://github.com/axios/axios/releases/tag/v1.18.0"
           ]
+        },
+        {
+          "atOrAbove": "1.0.0",
+          "below": "1.20.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype-Pollution Gadget in the Default Instance Allows Inherited Object.prototype.method to Override HTTP Method",
+            "githubID": "GHSA-9fr6-4gfg-395g",
+            "CVE": [
+              "CVE-2026-101902"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-9fr6-4gfg-395g",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v0.34.0",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.0.0",
+          "below": "1.20.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321",
+            "CWE-74"
+          ],
+          "identifiers": {
+            "summary": "Axios: Header Injection via Inherited headers After Minimal Interceptor",
+            "githubID": "GHSA-j8rh-479h-cp32",
+            "CVE": [
+              "CVE-2026-101904"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-j8rh-479h-cp32",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.7.0",
+          "below": "1.20.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype pollution gadget in fetch adapter can alter outbound requests",
+            "githubID": "GHSA-vh66-26gq-q6x8",
+            "CVE": [
+              "CVE-2026-101908"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-vh66-26gq-q6x8",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.12.0",
+          "below": "1.20.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1321",
+            "CWE-693",
+            "CWE-74"
+          ],
+          "identifiers": {
+            "summary": "Axios: Fetch Adapter Header Injection via Inherited FormData getHeaders",
+            "githubID": "GHSA-4hqw-qxg8-jxx2",
+            "CVE": [
+              "CVE-2026-101900"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-4hqw-qxg8-jxx2",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.13.0",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Axios: HTTP/2 adapter bypasses configured DNS lookup and proxy controls",
+            "githubID": "GHSA-3pq3-5fj3-cg6v",
+            "CVE": [
+              "CVE-2026-101898"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-3pq3-5fj3-cg6v",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.13.0",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "Axios: Denial of Service via Unhandled 'error' Event in HTTP/2 ClientHttp2Session Initialization",
+            "githubID": "GHSA-542g-h47m-68v8",
+            "CVE": [
+              "CVE-2026-101901"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-542g-h47m-68v8",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.0",
+          "below": "1.20.0",
+          "severity": "medium",
+          "cwe": [
+            "CWE-693"
+          ],
+          "identifiers": {
+            "summary": "Axios: CIDR-form NO_PROXY entries are ignored, causing proxy exclusion bypass for internal IP ranges",
+            "githubID": "GHSA-44g4-m2mj-wpvx",
+            "CVE": [
+              "CVE-2026-101899"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-44g4-m2mj-wpvx",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.0",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333",
+            "CWE-400"
+          ],
+          "identifiers": {
+            "summary": "Axios: ReDoS (O(N²)) in shouldBypassProxy host normalization, reachable via untrusted redirect Location",
+            "githubID": "GHSA-mghh-pgcx-3jjj",
+            "CVE": [
+              "CVE-2026-101906"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-mghh-pgcx-3jjj",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.1",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Axios: Prototype Pollution Gadget in axios toFormData Options",
+            "githubID": "GHSA-x97p-jq2g-jp4f",
+            "CVE": [
+              "CVE-2026-101909"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-x97p-jq2g-jp4f",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/commit/d29be181f85f6fe93397a07b1f69606d9622637b",
+            "https://github.com/axios/axios/releases/tag/v0.34.0",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.2",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321",
+            "CWE-441"
+          ],
+          "identifiers": {
+            "summary": "Axios: Node HTTP adapter prototype-pollution gadget allows request socket hijack via inherited createConnection",
+            "githubID": "GHSA-m8m8-qj5v-23w3",
+            "CVE": [
+              "CVE-2026-101905"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-m8m8-qj5v-23w3",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.16.1",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "identifiers": {
+            "summary": "Axios: ReDoS in fromDataURI data: URL parser freezes the Node event loop (DoS)",
+            "githubID": "GHSA-c29m-xwm3-cm6r",
+            "CVE": [
+              "CVE-2026-101903"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-c29m-xwm3-cm6r",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
+        },
+        {
+          "atOrAbove": "1.17.0",
+          "below": "1.20.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-441",
+            "CWE-601"
+          ],
+          "identifiers": {
+            "summary": "Axios: maxRedirects: 0 is not enforced by the fetch adapter, allowing redirect-based SSRF",
+            "githubID": "GHSA-r4gj-5m52-g5wh",
+            "CVE": [
+              "CVE-2026-101907"
+            ]
+          },
+          "info": [
+            "https://github.com/axios/axios/security/advisories/GHSA-r4gj-5m52-g5wh",
+            "https://github.com/axios/axios/pull/11141",
+            "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+            "https://github.com/axios/axios/releases/tag/v1.20.0"
+          ]
         }
       ],
       "extractors": {
@@ -9757,6 +10121,44 @@
           },
           "info": [
             "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-6v5v-wf23-fmfq"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "14.3.1",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it linkify: true has two quadratic paths, so a few hundred KB of markdown blocks the event loop for tens of seconds",
+            "githubID": "GHSA-253c-mchw-3w2r"
+          },
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-253c-mchw-3w2r",
+            "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
+            "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
+            "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.1",
+          "severity": "medium",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it linkify: true has two quadratic paths, so a few hundred KB of markdown blocks the event loop for tens of seconds",
+            "githubID": "GHSA-253c-mchw-3w2r"
+          },
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-253c-mchw-3w2r",
+            "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
+            "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
+            "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
           ]
         }
       ],
@@ -12402,6 +12804,50 @@
           ]
         },
         {
+          "atOrAbove": "15.0.0",
+          "below": "15.5.27",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+            "githubID": "GHSA-4jqv-mc3x-m676",
+            "CVE": [
+              "CVE-2026-94543"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.5.27",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+            "githubID": "GHSA-mcj8-r9mp-w47p",
+            "CVE": [
+              "CVE-2026-94484"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -13327,6 +13773,148 @@
             "https://github.com/vercel/next.js/commit/b0f3460a92b955d3ca41fccff9a525a2b910fbf3",
             "https://github.com/vercel/next.js/releases/tag/v15.5.24",
             "https://github.com/vercel/next.js/releases/tag/v16.3.3"
+          ]
+        },
+        {
+          "atOrAbove": "16.2.0",
+          "below": "16.3.6",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1395"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Remote Code Execution in next/og ImageResponse",
+            "githubID": "GHSA-vcvr-r3jv-pc5j"
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-vcvr-r3jv-pc5j",
+            "https://github.com/vercel/satori/security/advisories/GHSA-wx4j-mvgx-mqwp",
+            "https://github.com/vercel/next.js/commit/868fad38690d72088868f299fa2bef339b26838e",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.6"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "low",
+          "cwe": [
+            "CWE-346"
+          ],
+          "identifiers": {
+            "summary": "Next.js has information disclosure in development server's Model Context Protocol endpoint",
+            "githubID": "GHSA-39w2-rjm5-chcv",
+            "CVE": [
+              "CVE-2026-94486"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-39w2-rjm5-chcv",
+            "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+            "githubID": "GHSA-4jqv-mc3x-m676",
+            "CVE": [
+              "CVE-2026-94543"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "identifiers": {
+            "summary": "Next.js has Server-Side Request Forgery in Image Optimization",
+            "githubID": "GHSA-cjq9-62q9-8jv4",
+            "CVE": [
+              "CVE-2026-94483"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-cjq9-62q9-8jv4",
+            "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-346"
+          ],
+          "identifiers": {
+            "summary": "Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
+            "githubID": "GHSA-f87g-xv8r-7p7x",
+            "CVE": [
+              "CVE-2026-94485"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f87g-xv8r-7p7x",
+            "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+            "githubID": "GHSA-mcj8-r9mp-w47p",
+            "CVE": [
+              "CVE-2026-94484"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p",
+            "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+            "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.27",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.3.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
+            "githubID": "GHSA-3w37-wq28-93x7",
+            "CVE": [
+              "CVE-2026-94544"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-3w37-wq28-93x7",
+            "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
           ]
         }
       ],

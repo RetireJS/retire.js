@@ -12,4 +12,4 @@ npm install
 npm run build
 cd ../..
 
-echo "Built Chrome, Chrome no-func, and Firefox packages in dist."
+echo "Built chrome/extension, chrome/extension-no-func, and dist/firefox."

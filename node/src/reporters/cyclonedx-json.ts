@@ -39,9 +39,10 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
 
   logger.close = function (callback) {
     const write = vulnsFound ? writer.err : writer.out;
-    const properties = vulnerabilityRepositories(config.jsRepo).map(
-      (repo) => ({ name: 'retirejs:vulnerability-repository', value: repo }),
-    );
+    const properties = vulnerabilityRepositories(config.jsRepo).map((repo) => ({
+      name: 'retirejs:vulnerability-repository',
+      value: repo,
+    }));
     if (config.insecure) {
       properties.push({ name: 'retirejs:ignore-repository-certificate-errors', value: 'true' });
     }
@@ -51,7 +52,10 @@ function configureCycloneDXJSONLogger(logger: Logger, writer: Writer, config: Lo
       .map((r) =>
         r.results
           .map((dep) => {
-            dep.version = (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.');
+            dep = {
+              ...dep,
+              version: (dep.version.split('.').length >= 3 ? dep.version : dep.version + '.0').replace(/-/g, '.'),
+            };
             let hashes;
             const filepath = r.file;
             const properties = [];

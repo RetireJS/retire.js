@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var fs = require("fs");
-var validateRepository = require("../node/lib/repo.js").validateRepository;
+var { validateRepository, formatValidationError } = require("../node/lib/repo.js");
 var evaluateLicense = require("../node/lib/license.js").evaluateLicense;
 
 function exitWithError(...msg) {
@@ -78,13 +78,7 @@ const vStart = Date.now();
 const validationResult = validateRepository(currentV4);
 const vEnd = Date.now();
 if (!validationResult.success) {
-  const errorMessage = JSON.stringify(
-    validationResult.error.format(),
-    (key, value) =>
-      Array.isArray(value) && value.length === 0 ? undefined : value,
-    2
-  );
-  exitWithError(errorMessage);
+  exitWithError(formatValidationError(validationResult.error));
 }
 const jsRepo = validationResult.data;
 console.log("Done: " + (vEnd - vStart) + "ms");

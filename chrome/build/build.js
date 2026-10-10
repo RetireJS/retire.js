@@ -3,14 +3,14 @@ const path = require("node:path");
 const esbuild = require("esbuild");
 
 const root = path.resolve(__dirname, "../..");
-const source = path.join(root, "chrome/extension");
+const source = path.join(__dirname, "extension");
 async function build() {
-  for (const [name, manifest, sandbox] of [
-    ["chrome", "chrome/extension/manifest.json", true],
-    ["chrome-no-func", "chrome/extension-no-func/manifest.json", false],
-    ["firefox", "firefox/manifest.json", false],
+  for (const [directory, manifest, sandbox] of [
+    ["chrome/extension", "chrome/build/extension/manifest.json", true],
+    ["chrome/extension-no-func", "chrome/build/extension-no-func/manifest.json", false],
+    ["dist/firefox", "firefox/manifest.json", false],
   ]) {
-    const destination = path.join(root, "dist", name);
+    const destination = path.join(root, directory);
     fs.mkdirSync(path.join(destination, "js"), { recursive: true });
     fs.copyFileSync(
       path.join(root, manifest),
@@ -44,7 +44,7 @@ async function build() {
       define: { FUNCTION_SCANNING: String(sandbox) },
       logLevel: "info",
     });
-    console.log(`Built dist/${name}`);
+    console.log(`Built ${directory}`);
   }
 }
 build().catch((error) => {

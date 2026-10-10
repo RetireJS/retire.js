@@ -10,4 +10,4 @@ The current extension is a Manifest V3 WebExtension for Firefox 140 or newer. It
 
 Temporary installation lasts until Firefox exits. Store signing and publication are not part of this development build. The existing extension ID is preserved in `firefox/manifest.json`.
 
-The files under `firefox/lib`, `firefox/data`, and `firefox/test` belong to the archived Add-on SDK implementation and are not packaged or executed. The modern build uses `chrome/extension` as shared source and `firefox/manifest.json` for Firefox configuration. See [shared development and test instructions](../chrome/README.md).
+The files under `firefox/lib`, `firefox/data`, and `firefox/test` belong to the archived Add-on SDK implementation and are not packaged or executed. The modern build uses `chrome/build/extension` as shared source and `firefox/manifest.json` for Firefox configuration. See [shared development and test instructions](../chrome/README.md).

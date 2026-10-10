@@ -11,11 +11,9 @@ import * as reporting from './reporting';
 import os from 'os';
 import path from 'path';
 import fs from 'fs';
-import { EventEmitter } from 'events';
-import { Finding, Options, severityLevels } from './types';
-import * as z from 'zod';
+import { Finding, Options, severityLevels, severityParser } from './types';
+import { parseIgnoreFile } from './parseIgnoreFile';
 
-const events = new EventEmitter();
 let failProcess = false;
 const defaultIgnoreFiles = ['.retireignore', '.retireignore.json'];
 
@@ -63,6 +61,8 @@ const prg = program
   )
   .option('--includeOsv', 'Include OSV advisories in the output')
   .option('--deep', 'Deep scan (slower and experimental)')
+  // Positional arguments were never used, but were silently accepted before commander 13.
+  .allowExcessArguments()
   .parse()
   .opts();
 
@@ -92,11 +92,6 @@ const log = reporting.open({
 });
 
 const severity = prg.severity ?? 'none';
-if (!(severity in severityLevels)) {
-  exitWithError(
-    `Error: Invalid severity level (${severity}). Valid levels are: ${Object.keys(severityLevels).join(', ')}`,
-  );
-}
 
 const config: Options = {
   path: scanpath,
@@ -114,129 +109,105 @@ const config: Options = {
   includeOsv: !!prg.includeOsv,
   verbose: !!prg.verbose,
   proxy: prg.proxy,
+  insecure: !!prg.insecure,
   deep: !!prg.deep,
   ext: prg.ext ?? 'js',
 };
 
-log.info(`retire.js v${retire.version}`);
-
-function exitWithError(msg: string) {
-  log.error(config.colorwarn(msg));
+function exitWithError(error: unknown) {
+  log.error(colorwarn(String(error)));
   process.exitCode = 1;
   log.close();
 }
 
-if (prg.cacert) {
-  if (!fs.existsSync(prg.cacert)) {
-    exitWithError(`Error: Could not read cacert file: ${prg.cacert}`);
-  }
-  config.cacertbuf = fs.readFileSync(prg.cacert);
-}
-
-const ignoreFileParser = z.array(
-  z
-    .object({
-      justification: z.string(),
-    })
-    .and(
-      z
-        .object({
-          path: z.string(),
-        })
-        .or(
-          z.object({
-            component: z.string(),
-            version: z.string().optional(),
-            identifiers: z.record(z.string(), z.string()).optional(),
-          }),
-        ),
-    ),
-);
-
-if (ignorefile) {
-  if (!fs.existsSync(ignorefile)) {
-    exitWithError(`Error: Could not read ignore file: ${ignorefile}`);
-  }
-  if (ignorefile.substr(-5) === '.json') {
-    try {
-      config.ignore.descriptors = ignoreFileParser.parse(JSON.parse(fs.readFileSync(ignorefile, 'utf-8')));
-    } catch (e) {
-      exitWithError(`Error: Invalid ignore file: ${ignorefile}`);
-    }
-    const ignoredPaths =
-      config.ignore.descriptors
-        ?.map((x) => ('path' in x ? x.path : undefined))
-        ?.filter((x): x is string => x != undefined) ?? [];
-    config.ignore.pathsAsString = config.ignore.pathsAsString.concat(ignoredPaths);
-  } else {
-    const lines = fs
-      .readFileSync(ignorefile, 'utf-8')
-      .split(/\r\n|\n/g)
-      .filter((e) => e !== '');
-    const ignored = lines.map((e) => {
-      return e[0] === '@' ? e.slice(1) : path.resolve(e);
+function scan() {
+  scanner.on('vulnerable-dependency-found', (result: Finding) => {
+    const levels = result.results.map((r) => {
+      return r.vulnerabilities
+        ? r.vulnerabilities.map((v) => {
+            return severityLevels[v.severity ?? 'critical'];
+          })
+        : [];
     });
-    config.ignore.pathsAsString = config.ignore.pathsAsString.concat(ignored);
-  }
-}
-config.ignore.paths = config.ignore.pathsAsString
-  .map((p) => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
-  .map((p) => p.replace(/[*]{1,2}/g, (a) => (a.length == 2 ? '.*' : '[^/]*')))
-  .map((s) => new RegExp(s));
-
-scanner.on('vulnerable-dependency-found', (result: Finding) => {
-  const levels = result.results.map((r) => {
-    return r.vulnerabilities
-      ? r.vulnerabilities.map((v) => {
-          return severityLevels[v.severity ?? 'critical'];
-        })
-      : [];
+    const severity = utils.flatten(levels).reduce((x, y) => (x > y ? x : y));
+    if (severity >= severityLevels[config.severity]) {
+      failProcess = true;
+    }
   });
-  const severity = utils.flatten(levels).reduce((x, y) => (x > y ? x : y));
-  if (severity >= severityLevels[config.severity]) {
-    failProcess = true;
-  }
-});
 
-scanner.on('vulnerable-dependency-found', log.logVulnerableDependency);
-scanner.on('dependency-found', log.logDependency);
+  scanner.on('vulnerable-dependency-found', log.logVulnerableDependency);
+  scanner.on('dependency-found', log.logDependency);
 
-events.on('scan-done', () => {
-  process.exitCode = failProcess ? config.exitwith : 0;
-  log.close();
-});
-
-process.on('uncaughtException', (err, ...rest) => {
-  console.warn('Exception caught: ', err, rest);
-  console.warn(err.stack);
-  process.exit(1);
-});
-
-events.on('stop', (err) => {
-  exitWithError(err);
-});
-
-Promise.all(
-  jsrepolocation.map((jsr) =>
-    jsr.match(/^https?:\/\//) ? repo.loadrepository(jsr, config) : repo.loadrepositoryFromFile(jsr, config),
-  ),
-)
-  .then((jsRepos) => {
-    resolve
-      .scanJsFiles(config.path, config)
-      .on('jsfile', (file) => {
-        jsRepos.forEach((jsRepo) => {
-          scanner.scanJsFile(file, jsRepo, config);
-        });
-      })
-      .on('bowerfile', (bowerfile) => {
-        jsRepos.forEach((jsRepo) => {
-          const bowerRepo = repo.asbowerrepo(jsRepo);
-          scanner.scanBowerFile(bowerfile, bowerRepo, config);
-        });
-      })
-      .on('end', () => {
-        events.emit('scan-done');
+  Promise.all(
+    jsrepolocation.map((jsr) =>
+      jsr.match(/^https?:\/\//) ? repo.loadrepository(jsr, config) : repo.loadrepositoryFromFile(jsr, config),
+    ),
+  )
+    .then(async (jsRepos) => {
+      const scans: Promise<void>[] = [];
+      let scanError: unknown;
+      const failed = (error: unknown) => {
+        scanError = error;
+      };
+      await new Promise<void>((done) => {
+        resolve
+          .scanJsFiles(config.path, config)
+          .on('jsfile', (file) => {
+            jsRepos.forEach((jsRepo) => {
+              scans.push(scanner.scanJsFile(file, jsRepo, config).catch(failed));
+            });
+          })
+          .on('bowerfile', (bowerfile) => {
+            jsRepos.forEach((jsRepo) => {
+              const bowerRepo = repo.asbowerrepo(jsRepo);
+              scans.push(scanner.scanBowerFile(bowerfile, bowerRepo, config).catch(failed));
+            });
+          })
+          .on('fail', (file, err) => failed(`Could not scan ${file}: ${err ?? 'Unknown error'}`))
+          .on('error', failed)
+          .on('end', done);
       });
-  })
-  .catch((e) => events.emit('stop', e));
+      await Promise.all(scans);
+      if (scanError !== undefined) throw scanError;
+      process.exitCode = failProcess ? config.exitwith : 0;
+      log.close();
+    })
+    .catch(exitWithError);
+}
+
+try {
+  if (!severityParser.safeParse(severity).success) {
+    throw new Error(
+      `Invalid severity level (${severity}). Valid levels are: ${Object.keys(severityLevels).join(', ')}`,
+    );
+  }
+
+  log.info(`retire.js v${retire.version}`);
+
+  if (program.args.length > 0) {
+    log.warn(
+      colorwarn(
+        `Warning: Ignoring unexpected argument(s) ${program.args.map((arg) => `"${arg}"`).join(' ')}. Use --path <path> to choose what to scan (scanning ${scanpath}).`,
+      ),
+    );
+  }
+
+  if (prg.cacert) {
+    if (!fs.existsSync(prg.cacert)) {
+      throw new Error(`Could not read cacert file: ${prg.cacert}`);
+    }
+    config.cacertbuf = fs.readFileSync(prg.cacert);
+  }
+
+  if (ignorefile) {
+    config.ignore.pathsAsString = parseIgnoreFile(ignorefile, config);
+  }
+  config.ignore.paths = config.ignore.pathsAsString
+    .map((p) => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
+    .map((p) => p.replace(/[*]{1,2}/g, (a) => (a.length == 2 ? '.*' : '[^/]*')))
+    .map((s) => new RegExp(s));
+
+  scan();
+} catch (error) {
+  exitWithError(error);
+}

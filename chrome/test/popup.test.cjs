@@ -5,7 +5,7 @@ const path = require("node:path");
 const vm = require("node:vm");
 
 const source = fs.readFileSync(
-  path.join(__dirname, "../extension/js/popup.js"),
+  path.join(__dirname, "../build/extension/js/popup.js"),
   "utf8",
 );
 function context(extra = {}) {

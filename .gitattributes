@@ -1,3 +1,5 @@
 *.1 linguist-language=JavaScript
 *.2 linguist-language=JavaScript
-dist/** linguist-generated=true
+chrome/extension/** linguist-generated=true
+chrome/extension-no-func/** linguist-generated=true
+dist/firefox/** linguist-generated=true

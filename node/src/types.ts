@@ -1,3 +1,4 @@
+import z from 'zod';
 import { Logger } from './reporting';
 
 export type Repository = Record<
@@ -64,6 +65,7 @@ export const severityLevels = {
   critical: 4,
 } as const;
 export type SeverityLevel = keyof typeof severityLevels;
+export const severityParser = z.enum(Object.keys(severityLevels) as [SeverityLevel]);
 
 export type PathDescriptor = {
   path: string;
@@ -104,3 +106,23 @@ export type Options = {
   includeOsv?: boolean;
   deep?: boolean;
 };
+
+export const ignoreFileParser = z.array(
+  z
+    .object({
+      justification: z.string(),
+    })
+    .and(
+      z
+        .object({
+          path: z.string(),
+        })
+        .or(
+          z.object({
+            component: z.string(),
+            version: z.string().optional(),
+            identifiers: z.record(z.string(), z.string()).optional(),
+          }),
+        ),
+    ),
+);

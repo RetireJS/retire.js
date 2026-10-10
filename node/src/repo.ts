@@ -1,19 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as http from 'http';
-import * as https from 'https';
 import * as retire from './retire';
-import * as URL from 'url';
-import { ProxyAgent } from 'proxy-agent';
+import { get, requestSettings } from './http';
 import { Options, Repository } from './types';
 import * as z from 'zod';
 import { severityLevels } from './types';
 
-
-export function validateRepository(
-  repo: Repository,
-  replacer?: Options['process'],
-): z.SafeParseReturnType<unknown, Repository> {
+export function validateRepository(repo: Repository, replacer?: Options['process']): z.ZodSafeParseResult<Repository> {
   const keys = Object.keys(severityLevels) as [keyof typeof severityLevels];
   const versionValidator = z.string().regex(/^[\d.]+([a-zA-Z\d.-]+)?$/);
   const numericString = z.string().regex(/^[\d]+$/);
@@ -58,40 +51,38 @@ export function validateRepository(
         .strict()
         .superRefine((o, ctx) => {
           if (Object.keys(o).filter((k) => k != 'summary').length == 0)
-            ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must have at least one identifier' });
+            ctx.addIssue({ code: 'custom', message: 'Must have at least one identifier' });
           const ids = Object.values(o)
             .map((x) => (Array.isArray(x) ? x : [x]))
             .reduce((a, b) => a.concat(b), []).length;
-          if (ids == 0) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must have at least one identifier' });
+          if (ids == 0) ctx.addIssue({ code: 'custom', message: 'Must have at least one identifier' });
         }),
       details: z.string().optional(),
       info: z.array(z.string().regex(/^https?:\/\/.+/)),
     })
     .strict();
   const regexValidator = z.string().superRefine((s, ctx) => {
-    if (ctx.path[0] == 'dont check') return;
     try {
       new RegExp(s);
-    } catch (error) {
+    } catch {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Invalid regex: ' + s,
       });
     }
-    if (s.includes('[]')) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Regex must not contain []: ' + s });
-    if (s.includes('{}')) ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Regex must not contain {}: ' + s });
+    if (s.includes('[]')) ctx.addIssue({ code: 'custom', message: 'Regex must not contain []: ' + s });
+    if (s.includes('{}')) ctx.addIssue({ code: 'custom', message: 'Regex must not contain {}: ' + s });
     [/.*[^\\]\{[^0-9,\\]\}.*/, /[^,0-9\\]\}/, /[^\\]\{[^,0-9]/].forEach((r) => {
-      if (r.test(s))
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'There is something odd with this regex: ' + s });
+      if (r.test(s)) ctx.addIssue({ code: 'custom', message: 'There is something odd with this regex: ' + s });
     });
     let versionMatcher = '§§version§§';
     if (replacer) versionMatcher = JSON.parse(`"${replacer(versionMatcher)}"`);
     const versionIndex = s.indexOf(versionMatcher);
     if (versionIndex == -1 || (versionIndex > 0 && s.substring(versionIndex - 1, versionIndex) == '\\')) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Regex must contain (§§version§§): ' + s });
-    } else if (s.replace(/\(\?:/g, '').replace(/\\\(/g, '').split(/\(/)[1].indexOf(versionMatcher) != 0) {
+      ctx.addIssue({ code: 'custom', message: 'Regex must contain (§§version§§): ' + s });
+    } else if (s.replace(/\(\?:/g, '').replace(/\\\(/g, '').split(/\(/)[1]?.indexOf(versionMatcher) != 0) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message:
           'Regex must contain (§§version§§) as first capture group: ' + s.replace(/\(\?:/g, '').replace(/\\\(/g, ''),
       });
@@ -101,7 +92,7 @@ export function validateRepository(
     .string()
     .regex(/^\/(.*[^\\])\/([^/]+)\/$/, 'RegExp error - should be on format "/search/replacement/"');
 
-  const validator = z.record(
+  const entryValidator = (extractorValidator: z.ZodType<string>) =>
     z
       .object({
         bowername: z.array(z.string().regex(/^[a-z0-9.-]+$/i)).optional(),
@@ -117,9 +108,9 @@ export function validateRepository(
         extractors: z
           .object({
             func: z.array(z.string().min(5)).optional(),
-            uri: z.array(regexValidator).optional(),
-            filename: z.array(regexValidator).optional(),
-            filecontent: z.array(regexValidator).optional(),
+            uri: z.array(extractorValidator).optional(),
+            filename: z.array(extractorValidator).optional(),
+            filecontent: z.array(extractorValidator).optional(),
             filecontentreplace: z.array(replaceValidator).optional(),
             hashes: z.record(z.string().regex(/^[a-f0-9]+$/i), versionValidator).optional(),
             ast: z.array(z.string()).optional(),
@@ -135,40 +126,36 @@ export function validateRepository(
           )
           .optional(),
       })
-      .strict(),
-  );
+      .strict();
+
+  // "dont check" lists URIs that are deliberately not version extractors, so its regexes are not validated.
+  const validator = z
+    .object({ 'dont check': entryValidator(z.string()).optional() })
+    .catchall(entryValidator(regexValidator));
   return validator.safeParse(repo);
 }
-function formatValidationError(error: z.ZodError) {
-  return JSON.stringify(
-    error.format(),
-    (key, value) => (Array.isArray(value) && value.length === 0 ? undefined : value),
-    2,
-  );
-}
 
+export function formatValidationError(error: z.ZodError): string {
+  return z.prettifyError(error);
+}
 async function loadJson<T>(url: string, options: Options): Promise<T> {
+  options.log.info('Downloading ' + url + ' ...');
+  let res;
+  try {
+    res = await get(url, requestSettings(options));
+  } catch (e) {
+    throw `Error downloading: ${url}: ${e}`;
+  }
   return new Promise((resolve, reject) => {
-    options.log.info('Downloading ' + url + ' ...');
-    const reqOptions: https.RequestOptions = { ...URL.parse(url), method: 'GET' };
-    const proxyUri = options.proxy || process.env.http_proxy;
-    if (proxyUri) {
-      reqOptions.agent = new ProxyAgent({
-        getProxyForUrl: () => proxyUri,
-      });
+    if (res.statusCode != 200) {
+      res.resume();
+      return reject(`Error downloading: ${url}: HTTP ${res.statusCode} ${res.statusMessage}`);
     }
-    if (options.insecure) {
-      reqOptions.rejectUnauthorized = false;
-    }
-    if (options.cacertbuf) {
-      reqOptions.ca = [options.cacertbuf];
-    }
-    const req = (url.startsWith('http:') ? http : https).get(reqOptions, (res) => {
-      if (res.statusCode != 200)
-        return reject(`Error downloading: ${url}: HTTP ${res.statusCode} ${res.statusMessage}`);
-      const data: Buffer[] = [];
-      res.on('data', (c) => data.push(c));
-      res.on('end', () => {
+    const data: Buffer[] = [];
+    res.on('data', (c) => data.push(c));
+    res.on('error', (e) => reject(`Error downloading: ${url}: ${e}`));
+    res.on('end', () => {
+      try {
         let d = Buffer.concat(data).toString();
         d = options.process ? options.process(d) : d;
         const json = JSON.parse(d);
@@ -176,12 +163,12 @@ async function loadJson<T>(url: string, options: Options): Promise<T> {
         if (vresult.success) {
           resolve(json);
         } else {
-          reject(`Invalid repository from ${url}: ${formatValidationError(vresult.error)}`);
+          reject(`Invalid repository from ${url}:\n${formatValidationError(vresult.error)}`);
         }
-      });
+      } catch (error) {
+        reject(`Invalid repository from ${url}: ${error}`);
+      }
     });
-    req.on('error', (e) => reject(`Error downloading: ${url}: ${e}`));
-    req.end();
   });
 }
 
@@ -192,13 +179,17 @@ async function loadJsonFromFile<T>(file: string, options: Options): Promise<T> {
       if (err) {
         return reject(err.toString());
       }
-      data = options.process ? options.process(data) : data;
-      const json = JSON.parse(data);
-      const vresult = validateRepository(json, options.process);
-      if (vresult.success) {
-        resolve(json);
-      } else {
-        reject(`Invalid repository from ${file}: ${formatValidationError(vresult.error)}`);
+      try {
+        data = options.process ? options.process(data) : data;
+        const json = JSON.parse(data);
+        const vresult = validateRepository(json, options.process);
+        if (vresult.success) {
+          resolve(json);
+        } else {
+          reject(`Invalid repository from ${file}:\n${formatValidationError(vresult.error)}`);
+        }
+      } catch (error) {
+        reject(`Invalid repository from ${file}: ${error}`);
       }
     });
   });
