@@ -40,7 +40,6 @@ const event = () => ({
   },
 });
 function harness({
-  session = {},
   local = {},
   bundledRepo = repo,
   openTabs = [{ id: 1, url: "https://example.test/" }],
@@ -79,7 +78,6 @@ function harness({
         repository: { data: repo, updatedAt: Date.now() },
         ...local,
       }),
-      session: storage(session),
     },
     action: {
       async setBadgeText(value) {
@@ -125,7 +123,7 @@ function harness({
     await api.webRequest.onBeforeRequest.emit(details);
     await api.webRequest.onCompleted.emit(details);
   };
-  return { api, ready: runtime.ready, message, scan, badges, session };
+  return { api, ready: runtime.ready, message, scan, badges };
 }
 
 test("keeps all AST matches, merges repeated findings, and derives counts", async () => {
@@ -198,22 +196,22 @@ test("late results cannot leak into the next navigation", async () => {
   );
 });
 
-test("background restart restores results and registers request listeners immediately", async () => {
-  const session = {};
-  const first = harness({ session });
+test("background restart discards results, clears badges and registers listeners immediately", async () => {
+  const first = harness();
   await first.ready;
   await first.scan();
-  const second = harness({ session });
+  const second = harness();
   assert.equal(second.api.webRequest.onCompleted.listeners.length, 1);
   await second.ready;
+  assert.ok(second.badges.some((b) => b.tabId === 1 && b.text === ""));
   assert.equal(
     (await second.message({ type: "getSnapshot", tabId: 1 })).totalVulns,
-    1,
+    0,
   );
   await second.scan("https://example.test/second.js");
   assert.equal(
     (await second.message({ type: "getSnapshot", tabId: 1 })).urlsScanned,
-    2,
+    1,
   );
 });
 
@@ -235,9 +233,8 @@ test("failed scripts are reported individually while later scans succeed", async
   assert.equal(snapshot.totalVulns, 1);
 });
 
-test("request ownership survives a worker restart across navigation", async () => {
-  const session = {};
-  const first = harness({ session });
+test("old requests are discarded across same-URL navigation and worker restart", async () => {
+  const first = harness();
   await first.ready;
   await first.api.webNavigation.onBeforeNavigate.emit({
     tabId: 1,
@@ -264,7 +261,7 @@ test("request ownership survives a worker restart across navigation", async () =
     (await first.message({ type: "getSnapshot", tabId: 1 })).totalVulns,
     0,
   );
-  const second = harness({ session });
+  const second = harness();
   await second.ready;
   await second.api.webRequest.onCompleted.emit({
     ...details,
@@ -379,10 +376,8 @@ test("disabling during a download prevents late results even after re-enabling",
   assert.equal(snapshot.resources[0].status, "error");
 });
 
-test("settings restore and closed tabs are removed from session data", async () => {
-  const session = {};
+test("settings restore and closed tabs lose their results", async () => {
   const h = harness({
-    session,
     local: { settings: { enabled: false, deepScan: false, showUnknown: true } },
   });
   await h.ready;
@@ -395,8 +390,7 @@ test("settings restore and closed tabs are removed from session data", async () 
   await h.message({ type: "setSettings", settings: { enabled: true } });
   await h.scan();
   await h.api.tabs.onRemoved.emit(1);
-  assert.deepEqual(session.tabs, {});
-  assert.deepEqual(session.requests, []);
+  assert.equal((await h.message({ type: "getSnapshot", tabId: 1 })).urlsScanned, 0);
 });
 
 test("closing a tab during a scan discards late results and pending requests", async () => {
@@ -422,8 +416,6 @@ test("closing a tab during a scan discards late results and pending requests", a
   finish({ ok: true, text: async () => "first" });
   await pending;
   await h.api.webRequest.onCompleted.emit(details);
-  assert.deepEqual(h.session.tabs, {});
-  assert.deepEqual(h.session.requests, []);
   assert.equal(
     (await h.message({ type: "getSnapshot", tabId: 1 })).urlsScanned,
     0,
@@ -441,24 +433,15 @@ test("closing a tab during a scan discards late results and pending requests", a
   );
 });
 
-test("worker startup removes results and requests for tabs closed while inactive", async () => {
-  const session = {};
-  const first = harness({ session });
-  await first.ready;
-  await first.scan();
-  await first.api.webRequest.onBeforeRequest.emit({
-    url: "https://example.test/pending.js",
-    tabId: 1,
-    type: "script",
-    requestId: "pending",
-    timeStamp: Date.now(),
-  });
-  const second = harness({ session, openTabs: [] });
-  await second.ready;
-  assert.deepEqual(session.tabs, {});
-  assert.deepEqual(session.requests, []);
+test("iframe navigation preserves the current top-level page results", async () => {
+  const h = harness();
+  await h.ready;
+  await h.scan();
+  const navigation = { tabId: 1, frameId: 2, url: "https://frame.test/", timeStamp: Date.now() };
+  await h.api.webNavigation.onBeforeNavigate.emit(navigation);
+  await h.api.webNavigation.onCommitted.emit(navigation);
   assert.equal(
-    (await second.message({ type: "getSnapshot", tabId: 1 })).urlsScanned,
-    0,
+    (await h.message({ type: "getSnapshot", tabId: 1 })).totalVulns,
+    1,
   );
 });

@@ -113,35 +113,30 @@ input[type="checkbox"] {
   align-items: center;
   padding: 13px 20px;
   border-bottom: 1px solid var(--line);
-  gap: 20px;
+  gap: 10px;
+  font-size: 12px;
 }
 .metric {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-}
-.metric + .metric {
-  border-left: 1px solid var(--line);
-  padding-left: 20px;
+  gap: 4px;
+  white-space: nowrap;
 }
 .metric strong {
-  font-size: 23px;
-  line-height: 1;
-  letter-spacing: -0.5px;
+  font-size: inherit;
   font-variant-numeric: tabular-nums;
-  min-width: 2ch;
 }
 .metric span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: inherit;
 }
-.metric .alert {
-  color: #ffb3af;
+#severity-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
 }
-.mode {
-  margin-left: auto;
-  color: var(--muted);
-  font-size: 10px;
+#severity-summary span {
+  white-space: nowrap;
 }
 .searchbar {
   padding: 12px 20px 9px;
@@ -181,7 +176,7 @@ table {
 th {
   text-align: left;
   color: var(--muted);
-  font-size: 9px;
+  font-size: inherit;
   font-weight: 500;
   letter-spacing: 1.3px;
   padding: 6px 10px;
@@ -197,6 +192,7 @@ th:nth-child(2) {
   width: 23%;
 }
 td {
+  vertical-align: middle;
   padding: 9px 10px;
   border-top: 1px solid #303b4980;
   height: 38px;
@@ -247,6 +243,24 @@ td button:hover {
   color: #a8cdec;
 }
 .badge.neutral {
+  background: #ffffff06;
+  color: var(--muted);
+}
+table .mono,
+table .badge {
+  font-size: inherit;
+}
+.severity-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.severity-badges .badge {
+  white-space: nowrap;
+}
+table .badge.info,
+table .badge.unknown {
   background: #ffffff06;
   color: var(--muted);
 }

@@ -201,6 +201,13 @@ async function main() {
       throw error;
     });
     assert(snapshot.totalVulns > 0);
+    const summary = await evaluate('document.querySelector("#severity-summary").textContent', popupSession);
+    assert.match(summary, /\d+ Critical\d+ High\d+ Medium\d+ Low\d+ Info/);
+    assert.equal(await evaluate('document.querySelector("#mode")', popupSession), null);
+    assert.equal(await evaluate(
+      '[...document.querySelectorAll("th, td, td button, td .badge")].every(el => getComputedStyle(el).fontSize === "12px")',
+      popupSession,
+    ), true);
     const functionOnly = snapshot.resources.find((resource) =>
       resource.url.endsWith("/function-only.js"),
     );
@@ -258,7 +265,7 @@ async function main() {
     );
     assert(
       await evaluate(
-        'Number(document.querySelector("#total").textContent)>0',
+        'Array.from(document.querySelectorAll("#severity-summary span"), el => parseInt(el.textContent, 10)).reduce((a, b) => a + b, 0)>0',
         popupSession,
       ),
     );
@@ -291,9 +298,10 @@ async function main() {
       ),
       0,
     );
+    assert.equal(await evaluate('document.querySelector("#severity-summary").textContent', popupSession), summary);
     assert(
       await evaluate(
-        'Number(document.querySelector("#total").textContent)>0',
+        'Array.from(document.querySelectorAll("#severity-summary span"), el => parseInt(el.textContent, 10)).reduce((a, b) => a + b, 0)>0',
         popupSession,
       ),
     );

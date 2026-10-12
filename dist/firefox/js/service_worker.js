@@ -95,13 +95,12 @@
       function startRuntime2(api, engine2, options = {}) {
         const download = options.fetch || globalThis.fetch.bind(globalThis);
         let settings = { ...DEFAULTS };
-        let tabs = {};
+        const tabs = {};
         let repository = parseRepository(engine2.repo, engine2.retire);
         let updatedAt = 0;
         let attemptedAt = 0;
         let repositoryError = null;
         let refresh;
-        let writes = Promise.resolve();
         let offscreen;
         let settingsGeneration = 0;
         const requests = /* @__PURE__ */ new Map();
@@ -135,12 +134,6 @@
             refresh = null;
           });
           return refresh;
-        }
-        function persist() {
-          const data = structuredClone(tabs);
-          const pending = [...requests.entries()];
-          writes = writes.catch(reportError).then(() => api.storage.session.set({ tabs: data, requests: pending }));
-          return writes;
         }
         function newTab(url = "", timeStamp = Date.now()) {
           return {
@@ -192,14 +185,10 @@
           });
         }
         const ready = (async () => {
-          const [local, session] = await Promise.all([
-            api.storage.local.get(["settings", "repository"]),
-            api.storage.session.get(["tabs", "requests"])
-          ]);
+          const local = await api.storage.local.get(["settings", "repository"]);
           for (const key of Object.keys(DEFAULTS))
             if (typeof local.settings?.[key] === "boolean")
               settings[key] = local.settings[key];
-          tabs = session.tabs || {};
           if (local.repository) {
             try {
               repository = parseRepository(local.repository.data, engine2.retire);
@@ -209,24 +198,9 @@
             }
           }
           const openTabs = await api.tabs.query({});
-          const openIds = new Set(openTabs.map((tab) => String(tab.id)));
-          for (const id of Object.keys(tabs)) if (!openIds.has(id)) delete tabs[id];
-          for (const [id, request] of session.requests || [])
-            if (openIds.has(String(request.tabId))) requests.set(id, request);
-          for (const open of openTabs)
-            if (tabs[open.id]?.url && open.url && tabs[open.id].url !== open.url)
-              tabs[open.id] = newTab(open.url);
-          for (const tab of Object.values(tabs))
-            for (const resource of Object.values(tab.resources)) {
-              if (resource.status === "scanning") {
-                resource.status = "error";
-                resource.error = "Scan interrupted. Reload the page to scan again.";
-              }
-            }
-          await persist();
           await api.action.setBadgeBackgroundColor({ color: "#c13832" });
           await icon();
-          await Promise.all(Object.keys(tabs).map(badge));
+          await Promise.all(openTabs.map((tab) => badge(tab.id)));
         })();
         ready.catch(reportError);
         async function sandbox(content, url, repo) {
@@ -267,19 +241,16 @@
           const request = requests.get(details.requestId);
           requests.delete(details.requestId);
           if (!request || !settings.enabled || details.tabId < 0 || details.type !== "script" || !/^https?:\/\//.test(details.url)) {
-            await persist();
             return;
           }
           const tab = tabs[details.tabId] ||= newTab("", details.timeStamp);
           if (request.generation !== tab.generation || details.timeStamp < tab.startedAt) {
-            await persist();
             return;
           }
           const settingEpoch = settingsGeneration;
           const resource = { url: details.url, status: "scanning", results: [] };
           tab.resources[details.url] = resource;
           const current = () => settings.enabled && settingsGeneration === settingEpoch && tabs[details.tabId] === tab && tab.resources[details.url] === resource;
-          await persist();
           try {
             await refreshRepository();
             if (!current()) return;
@@ -363,7 +334,6 @@
           }
           if (current()) {
             tab.scannedAt = (/* @__PURE__ */ new Date()).toISOString();
-            await persist();
             await badge(details.tabId);
           }
         }
@@ -377,7 +347,6 @@
               generation: tab.generation,
               tabId: details.tabId
             });
-            await persist();
           },
           { urls: ["http://*/*", "https://*/*"], types: ["script"] }
         );
@@ -389,7 +358,6 @@
           async (details) => {
             await ready;
             requests.delete(details.requestId);
-            await persist();
           },
           { urls: ["http://*/*", "https://*/*"], types: ["script"] }
         );
@@ -397,7 +365,8 @@
           if (details.frameId !== 0) return;
           await ready;
           tabs[details.tabId] = newTab(details.url, details.timeStamp);
-          await persist();
+          for (const [id, request] of requests)
+            if (request.tabId === details.tabId) requests.delete(id);
           await badge(details.tabId);
         });
         api.webNavigation.onCommitted.addListener(async (details) => {
@@ -408,14 +377,12 @@
             details.timeStamp
           );
           tab.url = details.url;
-          await persist();
         });
         api.tabs.onRemoved.addListener(async (tabId) => {
           await ready;
           delete tabs[tabId];
           for (const [id, request] of requests)
             if (request.tabId === tabId) requests.delete(id);
-          await persist();
         });
         api.runtime.onMessage.addListener((message, sender, sendResponse) => {
           if (sender.id !== api.runtime.id || sender.tab || message.target === "offscreen")
@@ -440,7 +407,6 @@
                     resource.status = "error";
                     resource.error = "Scan settings changed. Reload the page to scan again.";
                   }
-              await persist();
             }
             await api.storage.local.set({ settings });
             await icon();

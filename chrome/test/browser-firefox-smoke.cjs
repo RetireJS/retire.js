@@ -120,13 +120,19 @@ async function main() {
         )
       ).value;
     const metrics = await popup(
-      'return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,rows:document.querySelector("#rows").textContent,total:Number(document.querySelector("#total").textContent)};',
+      'return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,rows:document.querySelector("#rows").textContent,total:Array.from(document.querySelectorAll("#severity-summary span"), el => parseInt(el.textContent, 10)).reduce((a, b) => a + b, 0)};',
     );
     assert.equal(metrics.width, 600);
     assert.equal(metrics.height, 600);
     assert.equal(metrics.scrollWidth, 600);
     assert(metrics.rows.includes("jquery"));
     assert(metrics.total > 0);
+    const summary = await popup('return document.querySelector("#severity-summary").textContent;');
+    assert.match(summary, /\d+ Critical\d+ High\d+ Medium\d+ Low\d+ Info/);
+    assert.equal(await popup('return document.querySelector("#mode");'), null);
+    assert.equal(await popup(
+      'return [...document.querySelectorAll("th, td, td button, td .badge")].every(el => getComputedStyle(el).fontSize === "12px");',
+    ), true);
     console.log("Native popup:", metrics);
     const png = await evaluate(
       'const b=[...document.querySelectorAll("browser")].find(x=>x.currentURI?.spec.endsWith("/popup.html"));return b.browsingContext.currentWindowGlobal.drawSnapshot(new DOMRect(0,0,600,600),1,"rgb(255,255,255)").then(bitmap=>{const c=document.createElementNS("http://www.w3.org/1999/xhtml","canvas");c.width=600;c.height=600;c.getContext("2d").drawImage(bitmap,0,0);return c.toDataURL("image/png").split(",")[1]});',
@@ -144,10 +150,11 @@ async function main() {
     );
     assert.equal(
       await popup(
-        'return Number(document.querySelector("#total").textContent);',
+        'return Array.from(document.querySelectorAll("#severity-summary span"), el => parseInt(el.textContent, 10)).reduce((a, b) => a + b, 0);',
       ),
       metrics.total,
     );
+    assert.equal(await popup('return document.querySelector("#severity-summary").textContent;'), summary);
     await popup(
       'document.querySelector("#search").value="";document.querySelector("#search").dispatchEvent(new Event("input"));document.querySelector("#copy").click();',
     );

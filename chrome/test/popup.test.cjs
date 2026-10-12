@@ -11,7 +11,13 @@ const source = fs.readFileSync(
 function context(extra = {}) {
   const sandbox = vm.createContext({
     URL,
-    document: { createElement: (tag) => ({ tag }) },
+    document: {
+      createElement: (tag) => ({
+        tag, children: [],
+        append(...children) { this.children.push(...children); },
+        setAttribute(name, value) { this[name] = value; },
+      }),
+    },
     ...extra,
   });
   vm.runInContext(
@@ -113,6 +119,24 @@ test("popup renders untrusted strings as text and permits only HTTP(S) advisory 
     "<script>alert(1)</script>",
   );
   assert.equal(source.includes("innerHTML"), false);
+});
+
+test("severity counts distinguish info from unrated and pills omit zero counts", () => {
+  const sandbox = context();
+  sandbox.findings = [
+    { severity: "critical" }, { severity: "HIGH" }, { severity: "high" },
+    { severity: "medium" }, { severity: "none" }, { severity: "info" },
+    {}, { severity: "unexpected" },
+  ];
+  const counts = vm.runInContext("severityCounts(findings)", sandbox);
+  assert.deepEqual(JSON.parse(JSON.stringify(counts)), {
+    critical: 1, high: 2, medium: 1, low: 0, info: 2, unknown: 2,
+  });
+  const pills = vm.runInContext("severityBadges({ vulnerabilities: findings })", sandbox);
+  assert.deepEqual(Array.from(pills.children, (p) => p.textContent), ["1 C", "2 H", "1 M", "2 I", "2 U"]);
+  assert.equal(pills.children[1].title, "2 High");
+  assert.equal(pills.children[1]["aria-label"], "2 High");
+  assert.equal(vm.runInContext("severityBadges({ vulnerabilities: [], status: 'complete' }).textContent", sandbox), "No known findings");
 });
 
 test("popup messaging supports callback Chrome and promise browser APIs, including errors", async () => {

@@ -1,7 +1,7 @@
 "use strict";
 
 const $ = (id) => document.getElementById(id);
-const severityScore = { critical: 4, high: 3, medium: 2, low: 1 };
+const severityScore = { critical: 4, high: 3, medium: 2, low: 1, info: 0 };
 const detectionNames = {
   ast: "AST",
   uri: "URI",
@@ -39,7 +39,32 @@ function extensionCall(target, method, argument) {
 
 function severity(vulnerability) {
   const value = String(vulnerability.severity || "").toLowerCase();
+  if (value === "none") return "info";
   return Object.hasOwn(severityScore, value) ? value : "unknown";
+}
+
+function severityCounts(vulnerabilities) {
+  const counts = { critical: 0, high: 0, medium: 0, low: 0, info: 0, unknown: 0 };
+  for (const vulnerability of vulnerabilities) counts[severity(vulnerability)]++;
+  return counts;
+}
+
+function severityLabel(level) {
+  return level === "unknown" ? "Unrated" : level[0].toUpperCase() + level.slice(1);
+}
+
+function severityBadges(library) {
+  if (!library.vulnerabilities.length) return badge(library);
+  const group = element("span", undefined, "severity-badges");
+  for (const [level, count] of Object.entries(severityCounts(library.vulnerabilities))) {
+    if (!count) continue;
+    const label = severityLabel(level);
+    const pill = element("span", `${count} ${label[0]}`, `badge ${level}`);
+    pill.title = `${count} ${label}`;
+    pill.setAttribute("aria-label", pill.title);
+    group.append(pill);
+  }
+  return group;
 }
 
 function identifiers(vulnerability) {
@@ -273,9 +298,16 @@ function render() {
   $("enabled").checked = settings.enabled;
   $("deep").checked = settings.deepScan;
   $("unknown").checked = settings.showUnknown;
-  $("mode").textContent = settings.deepScan ? "Deep scan" : "Standard scan";
   $("scanned").textContent = snapshot.urlsScanned || 0;
-  $("total").textContent = snapshot.totalVulns || 0;
+  const allLibraries = libraries(snapshot);
+  const counts = severityCounts(allLibraries.flatMap((library) => library.vulnerabilities));
+  $("severity-summary").replaceChildren();
+  for (const [level, count] of Object.entries(counts)) {
+    if (level === "unknown" && !count) continue;
+    const item = element("span", `${count} ${severityLabel(level)}`);
+    item.dataset.severity = level;
+    $("severity-summary").append(item);
+  }
   $("state").textContent = !settings.enabled
     ? "Scanning disabled"
     : snapshot.status === "unsupported"
@@ -296,7 +328,7 @@ function render() {
   }
   $("domain").title = snapshot.url || "";
   const query = $("search").value.trim().toLowerCase();
-  const list = libraries(snapshot).filter(
+  const list = allLibraries.filter(
     (library) =>
       (!library.unknown || settings.showUnknown) &&
       [
@@ -371,7 +403,7 @@ function render() {
       };
       name.append(button);
       const level = element("td");
-      level.append(badge(library));
+      level.append(severityBadges(library));
       row.append(
         name,
         element("td", library.version || "Unknown", "mono"),

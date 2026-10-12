@@ -32,13 +32,9 @@
         >
           <strong id="scanned">0</strong><span>URLs scanned</span>
         </div>
-        <div
-          class="metric"
-          title="All vulnerability entries, independent of table filters"
-        >
-          <strong class="alert" id="total">0</strong><span>Total vulns</span>
-        </div>
-        <span class="mode" id="mode">Deep scan</span>
+        <span aria-hidden="true">|</span>
+        <div id="severity-summary" aria-label="Findings by severity"
+          title="All vulnerability entries, independent of table filters"></div>
       </section>
       <div class="searchbar">
         <input
