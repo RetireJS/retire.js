@@ -304,7 +304,8 @@ function render() {
   $("severity-summary").replaceChildren();
   for (const [level, count] of Object.entries(counts)) {
     if (level === "unknown" && !count) continue;
-    const item = element("span", `${count} ${severityLabel(level)}`);
+    const item = element("span");
+    item.append(element("strong", count), ` ${severityLabel(level)}`);
     item.dataset.severity = level;
     $("severity-summary").append(item);
   }

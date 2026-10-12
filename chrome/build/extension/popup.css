@@ -1,11 +1,28 @@
 :root {
   color-scheme: dark;
-  --bg: #171c24;
-  --surface: #202834;
-  --line: #303b49;
+  --bg: #151d26;
+  --input: #101820;
+  --panel: #1c2733;
+  --surface: #243240;
+  --selected: #263d43;
+  --line: #384858;
+  --outline: #8493a4;
   --text: #e6edf5;
-  --muted: #9baabd;
+  --muted: #b8c4d2;
   --accent: #88d9d0;
+  --accent-container: #164a47;
+  --critical: #ff8fa3;
+  --critical-container: #4b2030;
+  --high: #ffb86b;
+  --high-container: #452b12;
+  --medium: #eadb7a;
+  --medium-container: #38331b;
+  --low: #a6c8ff;
+  --low-container: #23344c;
+  --info: #d5b7ff;
+  --info-container: #352845;
+  --unrated: #bec8d2;
+  --unrated-container: #303942;
 }
 * {
   box-sizing: border-box;
@@ -73,14 +90,14 @@ a:focus-visible {
 .state {
   font-size: 11px;
   color: var(--accent);
-  background: #88d9d011;
-  border: 1px solid #88d9d02a;
+  background: var(--accent-container);
+  border: 1px solid var(--accent);
   padding: 4px 9px;
   border-radius: 20px;
   white-space: nowrap;
 }
 .state.off {
-  color: #b4becc;
+  color: var(--muted);
   border-color: var(--line);
   background: var(--surface);
 }
@@ -124,6 +141,7 @@ input[type="checkbox"] {
 }
 .metric strong {
   font-size: inherit;
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 .metric span {
@@ -147,12 +165,16 @@ input[type="checkbox"] {
 .searchbar input {
   width: 100%;
   min-width: 0;
-  background: #111720;
-  border: 1px solid var(--line);
+  background: var(--input);
+  border: 1px solid var(--outline);
   color: var(--text);
   border-radius: 6px;
   padding: 8px 11px;
   font-size: 12px;
+}
+.searchbar input::placeholder {
+  color: var(--muted);
+  opacity: 1;
 }
 .count {
   white-space: nowrap;
@@ -164,7 +186,7 @@ input[type="checkbox"] {
   flex-shrink: 0;
   overflow: auto;
   padding: 0 20px;
-  scrollbar-color: #405065 transparent;
+  scrollbar-color: var(--outline) transparent;
   scrollbar-width: thin;
 }
 table {
@@ -194,12 +216,12 @@ th:nth-child(2) {
 td {
   vertical-align: middle;
   padding: 9px 10px;
-  border-top: 1px solid #303b4980;
+  border-top: 1px solid var(--line);
   height: 38px;
   overflow-wrap: anywhere;
 }
 tr.selected {
-  background: #88d9d00c;
+  background: var(--selected);
 }
 tr.selected td:first-child {
   box-shadow: inset 2px 0 var(--accent);
@@ -227,24 +249,46 @@ td button:hover {
   font-size: 10px;
   border-radius: 4px;
   padding: 2px 7px;
-  background: #ff898915;
-  color: #ffb3af;
+  background: var(--unrated-container);
+  color: var(--unrated);
 }
 .badge.critical {
-  background: #ff727229;
-  color: #ff9494;
+  background: var(--critical-container);
+}
+.badge.critical,
+#severity-summary [data-severity="critical"] strong {
+  color: var(--critical);
+}
+.badge.high {
+  background: var(--high-container);
+}
+.badge.high,
+#severity-summary [data-severity="high"] strong {
+  color: var(--high);
 }
 .badge.medium {
-  background: #e7b96715;
-  color: #e7c181;
+  background: var(--medium-container);
+}
+.badge.medium,
+#severity-summary [data-severity="medium"] strong {
+  color: var(--medium);
 }
 .badge.low {
-  background: #92bce315;
-  color: #a8cdec;
+  background: var(--low-container);
 }
-.badge.neutral {
-  background: #ffffff06;
-  color: var(--muted);
+.badge.low,
+#severity-summary [data-severity="low"] strong {
+  color: var(--low);
+}
+.badge.info {
+  background: var(--info-container);
+}
+.badge.info,
+#severity-summary [data-severity="info"] strong {
+  color: var(--info);
+}
+#severity-summary [data-severity="unknown"] strong {
+  color: var(--unrated);
 }
 table .mono,
 table .badge {
@@ -259,20 +303,15 @@ table .badge {
 .severity-badges .badge {
   white-space: nowrap;
 }
-table .badge.info,
-table .badge.unknown {
-  background: #ffffff06;
-  color: var(--muted);
-}
 .inspector {
   border-top: 1px solid var(--line);
-  background: #1b222d;
+  background: var(--panel);
   flex: 1;
   min-height: 0;
   overflow: auto;
   padding: 13px 20px;
   scrollbar-width: thin;
-  scrollbar-color: #405065 transparent;
+  scrollbar-color: var(--outline) transparent;
   overflow-wrap: anywhere;
 }
 .detail-head {
@@ -309,7 +348,7 @@ table .badge.unknown {
 .copy {
   font-size: 10px;
   background: transparent;
-  border: 1px solid #445367;
+  border: 1px solid var(--outline);
   color: var(--text);
   border-radius: 4px;
   padding: 3px 8px;
