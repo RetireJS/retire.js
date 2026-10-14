@@ -5001,6 +5001,28 @@
         ]
       },
       {
+        "atOrAbove": "3.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1289",
+          "CWE-184"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+          "githubID": "GHSA-p8wg-vrv2-v86f",
+          "CVE": [
+            "CVE-2026-106445"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-p8wg-vrv2-v86f",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/ceec388abe1d1aac8f6369860d5f390fa71ef4fa",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
         "atOrAbove": "4.0.0",
         "below": "4.7.10",
         "severity": "critical",
@@ -5019,28 +5041,6 @@
           "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-8r5x-fm3f-whwj",
           "https://github.com/handlebars-lang/handlebars.js/pull/2185",
           "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
-          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
-        ]
-      },
-      {
-        "atOrAbove": "4.0.0",
-        "below": "4.7.10",
-        "severity": "critical",
-        "cwe": [
-          "CWE-1289",
-          "CWE-184"
-        ],
-        "identifiers": {
-          "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
-          "githubID": "GHSA-p8wg-vrv2-v86f",
-          "CVE": [
-            "CVE-2026-106445"
-          ]
-        },
-        "info": [
-          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-p8wg-vrv2-v86f",
-          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
-          "https://github.com/handlebars-lang/handlebars.js/commit/ceec388abe1d1aac8f6369860d5f390fa71ef4fa",
           "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
         ]
       },
@@ -6130,7 +6130,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup — pure HTML reparse executes",
-          "githubID": "GHSA-6688-9rhm-gjv2"
+          "githubID": "GHSA-6688-9rhm-gjv2",
+          "CVE": [
+            "CVE-2026-109345"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2",
@@ -6148,7 +6151,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: IN_PLACE: node-removing afterSanitize hook leaves detached subtree event handlers armed, causing DOM XSS",
-          "githubID": "GHSA-p98j-92pf-mc4p"
+          "githubID": "GHSA-p98j-92pf-mc4p",
+          "CVE": [
+            "CVE-2026-109344"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-p98j-92pf-mc4p",
