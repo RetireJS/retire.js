@@ -9,7 +9,7 @@ Retire.js can be used in many ways:
 1. [As command line scanner](https://github.com/RetireJS/retire.js/tree/master/node)
 2. [As a Chrome extension](https://github.com/RetireJS/retire.js/tree/master/chrome) - **Not** officially available in the Chrome web store
 3. [As a Burp Extension](https://github.com/h3xstream/burp-retire-js) or [OWASP ZAP Add-on](https://www.zaproxy.org/docs/desktop/addons/retire.js/)
-4. [As a Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox) - **Deprecated** Let us know if you want to maintain and undeprecate it.
+4. [As a Firefox extension](https://github.com/RetireJS/retire.js/tree/master/firefox) - Manifest V3 development build; see installation instructions.
 5. [A headless web site scanner](https://github.com/RetireJS/retire-site-scanner)
 6. [As a grunt plugin (deprecated)](https://github.com/bekk/grunt-retire)
 7. [As a gulp task (deprecated)](#user-content-gulp-task)
@@ -39,7 +39,7 @@ By default retire.js will exit with code 13 if it finds vulnerabilities. This ca
 
 ## Chrome and firefox extensions
 
-Scans visited sites for references to insecure libraries, and puts warnings in the developer console. An icon on the address bar displays will also indicate if vulnerable libraries were loaded.
+Scans visited sites for JavaScript libraries with known vulnerabilities. The toolbar badge and shared Analyst Console show detections, advisory details, search, and JSON export. See the [Chrome](chrome/README.md) and [Firefox](firefox/README.md) development instructions.
 
 ## Burp Extension and OWASP ZAP Add-on
 

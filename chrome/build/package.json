@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild index.js --bundle --format=iife --platform=browser --global-name=retirechrome --outfile=../extension/js/generated/retire-chrome.js && echo 'if (globalThis) globalThis.retirechrome = retirechrome;' >> ../extension/js/generated/retire-chrome.js"
+    "build": "node build.js",
+    "test": "node --test ../test/*.test.cjs"
   },
   "author": "",
   "license": "ISC",
