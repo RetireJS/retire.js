@@ -10383,6 +10383,79 @@
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "14.3.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+            "githubID": "GHSA-r7fv-28h4-cvq7",
+            "CVE": [
+              "CVE-2026-111759"
+            ]
+          },
+          "details": "### Impact\n\nWhen `typographer: true` is enabled, specially crafted Markdown can cause quadratic processing time in the smartquotes rule, potentially leading to denial of service in applications processing untrusted input.\n\nMany opening double quotes followed by unmatched closing single quotes cause repeated scans of the entire opener stack. The same issue occurs with the quote types reversed.\n\nThe default configuration (`typographer: false`) is not affected, but this option is enabled with high probability.\n\n### Reproduction\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst md = new MarkdownIt({ typographer: true })\n\nfor (const k of [2000, 4000, 8000, 16000, 32000]) {\n  const input = '\"a '.repeat(k) + \"b' \".repeat(k)\n  const start = performance.now()\n  md.render(input)\n  console.log(input.length, (performance.now() - start).toFixed(1), 'ms')\n}\n```\n\nResult:\n\n|input size|time|\n|-|-|\n|12000|18ms|\n|24000|47ms|\n|48000|115ms|\n|96000|428ms|\n|192000|1586ms|\n\n### Patches\n\nFixed in **15.0.2** and **14.3.2**.\n\n### Workarounds\n\nDisable typography with `typographer: false`, or disable only the smartquotes rule:\n\n```js\nmd.disable('smartquotes')\n```",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+            "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+            "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+            "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "14.3.3",
+          "severity": "low",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+            "githubID": "GHSA-vfgh-jcmw-g37q",
+            "CVE": [
+              "CVE-2026-111766"
+            ]
+          },
+          "details": "### Summary\n\nWith `html: true`, markdown-it takes quadratic time to parse repeated unterminated HTML constructs inside a paragraph. This affects HTML comments (`<!--`), processing instructions (`<?`), declarations (`<!A`), and CDATA sections (`<![CDATA[`).\n\nAn attacker-controlled input of a few hundred kilobytes can block the Node.js event loop for seconds or tens of seconds. The default configuration has HTML disabled, but the `commonmark` preset enables it.\n\nThe issue was reported against the published `markdown-it@15.0.2` package on Node.js 20 and reproduced on the current source with Node.js 24.16.0.\n\n### Details\n\n`src/rules_inline/text.ts` treats `<` as a terminator, causing the inline parser to attempt the HTML rule at successive HTML construct openers.\n\nWith HTML enabled, `src/rules_inline/html_inline.ts` applies an anchored regular expression to the remaining input:\n\n```js\nconst match = state.src.slice(pos).match(HTML_TAG_RE)\n```\n\nThe comment, processing instruction, declaration, and CDATA alternatives in `src/common/html_re.ts` scan the remaining input for their respective terminators: `-->`, `?>`, `>`, and `]]>`.\n\nWhen the terminator is absent, matching fails. Parsing eventually reaches the next opener and scans an overlapping suffix again. Repeating this across the paragraph produces quadratic total work. For these inputs, the problem is repeated scanning across separate matches.\n\nThe payload must reach inline parsing. Prefixing it with `x ` keeps it inside a paragraph. Starting a line directly with one of these constructs instead invokes HTML block parsing, which does not exhibit the same repeated inline scans for these payloads.\n\nThe existing `unclosed <!--` test in `test/markdown-it/pathological.test.mjs` already contains a reproducer:\n\n```js\n'</' + '<!--'.repeat(100000)\n```\n\nHowever, it runs with default options, where HTML is disabled.\n\nA fix should avoid repeated searches for absent terminators across all four affected alternatives, for example by caching failed searches on the inline state. Fixing only the comment alternative leaves the other three cases affected. Regression coverage should exercise all four with `html: true`.\n\nThe original report was submitted by [@JarLob](https://github.com/JarLob). It credits the [GitHub Security Lab Taskflow Agent](https://github.com/GitHubSecurityLab/seclab-taskflow-agent) as part of the [GitHub Secure Open Source Fund](https://github.com/open-source/github-secure-open-source-fund).\n\n### Proof of concept\n\nInstall the affected package in an empty directory:\n\n```sh\nnpm install markdown-it@15.0.2\n```\n\nSave the following as `poc.mjs` and run `node poc.mjs`:\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst mdHtml = new MarkdownIt({ html: true })\nconst mdDefault = new MarkdownIt()\nconst sizes = [8000, 16000, 32000, 64000]\n\nfunction measure(md, src) {\n  const start = performance.now()\n  md.render(src)\n  return (performance.now() - start).toFixed(1)\n}\n\nconst variants = {\n  comment: '<!--',\n  processing: '<?x',\n  declaration: '<!A',\n  cdata: '<![CDATA['\n}\n\nfor (const [name, opener] of Object.entries(variants)) {\n  console.log(`\\n${name}`)\n  for (const n of sizes) {\n    const src = 'x ' + opener.repeat(n)\n    console.log({\n      n,\n      bytes: Buffer.byteLength(src),\n      ms: measure(mdHtml, src)\n    })\n  }\n}\n\nconst n = sizes.at(-1)\nconst controls = {\n  'HTML disabled': [mdDefault, 'x ' + '<!--'.repeat(n)],\n  'Closed comments': [mdHtml, 'x ' + '<!---->'.repeat(n)],\n  'HTML block': [mdHtml, '<!--'.repeat(n)],\n  'Plain text': [mdHtml, 'x ' + 'abcd'.repeat(n)]\n}\n\nfor (const [name, [md, src]] of Object.entries(controls)) {\n  console.log({ control: name, ms: measure(md, src) })\n}\n\nconst repoPayload = '</' + '<!--'.repeat(100000)\nconsole.log({\n  payload: 'Existing pathological test',\n  htmlFalseMs: measure(mdDefault, repoPayload),\n  htmlTrueMs: measure(mdHtml, repoPayload)\n})\n```\n\nMeasurements from the original report on `markdown-it@15.0.2`, Node.js 20:\n\n| Construct | 8,000 repetitions | 64,000 repetitions |\n| --- | ---: | ---: |\n| Comment | 170 ms | 8,799 ms |\n| Processing instruction | 26 ms | 1,566 ms |\n| Declaration | 93 ms | 5,628 ms |\n| CDATA | 119 ms | 4,179 ms |\n\nAn eightfold increase in repetitions produces approximately 35–60 times the execution time, consistent with quadratic growth becoming dominant.\n\nFor the comment payload at 64,000 repetitions:\n\n- HTML disabled: 25 ms.\n- Closed comments: 29 ms.\n- Payload at the start of an HTML block: 1 ms.\n- Plain text: 1 ms.\n\nThe existing pathological-test payload with 100,000 comment openers took 33 ms with HTML disabled and 21,030 ms with HTML enabled. A separate comment payload with 128,000 repetitions, approximately 500 KiB, took 32,847 ms.\n\nExact timings depend on the runtime and hardware.\n\n### Impact\n\nThis is an availability issue affecting applications that render attacker-controlled Markdown with `html: true`, including applications using the `commonmark` preset.\n\nOn Node.js, a synchronous `render()` call can occupy a CPU core and block the event loop for seconds or tens of seconds, delaying other requests handled by the same process. Repeated submissions can cause denial of service. Browser applications can similarly become unresponsive when rendering on the main thread.\n\nSanitizing the generated HTML afterwards does not prevent the issue because the expensive processing occurs during Markdown rendering.\n\nThe default configuration, with HTML disabled, is unaffected by these payloads. Disabling HTML or limiting input size can reduce exposure while a fix is prepared.\n\nThe reported affected release is `15.0.2`; the full affected version range has not been established.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+            "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+          ]
+        },
+        {
+          "atOrAbove": "14.1.0",
+          "below": "14.3.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+            "githubID": "GHSA-gfr2-rv44-r23c",
+            "CVE": [
+              "CVE-2026-111758"
+            ]
+          },
+          "details": "### Summary\n\nA link reference definition whose label or title is never closed is O(n²) in markdown-it 15.0.2 with default options. Continuation lines are pulled lazily with str += lineContent in src/rules_block/reference.ts, and the subsequent charCodeAt and slice calls flatten the V8 cons-string, copying everything collected so far; this runs before the rule decides the definition is invalid. It is a regression introduced by PR #1004 in 14.0.0: 13.0.2 processed a 313 KB input in 125 ms, while every version since takes about 11 seconds on the same input. At the sizes below, 200 KB takes 3.6 seconds, 400 KB takes 18.1 seconds, and 800 KB takes 74.0 seconds, which is roughly 4–5× per doubling. No options are required to trigger it.\n\n### Details\n\nsrc/rules_block/reference.ts appends continuation lines with str += lineContent at lines 74, 83, 100, 133, and 150, then keeps indexing the accumulated string via str.charCodeAt(pos) in the label and whitespace loops and str.slice(...) in parseLinkTitle. V8 represents += as a cons-string, and the next charCodeAt or slice flattens it, copying everything collected so far, so one definition spanning n lines costs O(n²). Isolation confirms the rule is responsible: block-only parsing with inline disabled is still quadratic, md.disable('reference') makes the same input linear, and the same text without the leading [ is linear. The fix is to track positions in state.src instead of building str, or to collect line slices in an array and parse across them. At minimum, stop scanning the label after 999 characters (CommonMark §6.3) before pulling more lines, and cap title continuation. Add a pathological test with a 100k-line unclosed title and label. Open PR #1215 edits the same file but its label check runs after the label loop, so it does not bound either variant and the fix can land together with that PR.\n\nThe observed output from PoC was:\nunclosed title n=100000   200009 B    3585.5 ms\nunclosed title n=200000   400009 B   18107.1 ms   (5.05x)\nunclosed title n=400000   800009 B   73954.4 ms   (4.08x)\n\nRegression comparison at 313 KB: 13.0.2 → 125 ms, 14.1.0 → 11.4 s, 15.0.0 → 10.6 s, 15.0.2 → 10.7 s.\n\n### Proof of concept\n\nHow to execute the PoC:\n1. mkdir -p markdown-it-poc && cd markdown-it-poc\n2. npm init -y\n3. npm i markdown-it@15.0.2\n4. node poc_markdown_it.js\n\nPoC below is:\n```javascript\n// poc_markdown_it.js\n// Requires: npm install markdown-it@15.0.2\nconst MarkdownIt = require('markdown-it');\nconst md = new MarkdownIt();\n\nfunction bench(label, src) {\n  const t0 = process.hrtime.bigint();\n  md.render(src);\n  const t1 = process.hrtime.bigint();\n  console.log(\n    `${label.padEnd(30)} ${String(src.length).padStart(9)} B ${(Number(t1 - t0) / 1e6).toFixed(1).padStart(9)} ms`\n  );\n}\n\n// Unclosed title: one reference definition spread over many lines\nfor (const n of [100000, 200000, 400000]) {\n  bench(`unclosed title n=${n}`, '[a]: /u \"' + 'x\\n'.repeat(n));\n}\n\n// Unclosed label\nfor (const n of [5000, 10000, 20000]) {\n  bench(`unclosed label n=${n}`, '[' + 'a\\n'.repeat(n));\n}\n```\n\n### Impact\n\nThis is an algorithmic-complexity denial of service (CWE-407). Any server that renders user Markdown with markdown-it is affected with default options, including comments, issues, chat, wikis, docs previews, and LLM chat UIs. A ~400 KB request body blocks the Node.js event loop for about 18 seconds and an ~800 KB body for about 74 seconds. This is the same class and attacker model as GHSA-253c, but it is reachable without any opt-in option, since the affected path is a core block rule.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+            "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+          ]
+        },
+        {
           "atOrAbove": "15.0.0",
           "below": "15.0.1",
           "severity": "medium",
@@ -10400,6 +10473,79 @@
             "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
             "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
             "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+            "githubID": "GHSA-r7fv-28h4-cvq7",
+            "CVE": [
+              "CVE-2026-111759"
+            ]
+          },
+          "details": "### Impact\n\nWhen `typographer: true` is enabled, specially crafted Markdown can cause quadratic processing time in the smartquotes rule, potentially leading to denial of service in applications processing untrusted input.\n\nMany opening double quotes followed by unmatched closing single quotes cause repeated scans of the entire opener stack. The same issue occurs with the quote types reversed.\n\nThe default configuration (`typographer: false`) is not affected, but this option is enabled with high probability.\n\n### Reproduction\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst md = new MarkdownIt({ typographer: true })\n\nfor (const k of [2000, 4000, 8000, 16000, 32000]) {\n  const input = '\"a '.repeat(k) + \"b' \".repeat(k)\n  const start = performance.now()\n  md.render(input)\n  console.log(input.length, (performance.now() - start).toFixed(1), 'ms')\n}\n```\n\nResult:\n\n|input size|time|\n|-|-|\n|12000|18ms|\n|24000|47ms|\n|48000|115ms|\n|96000|428ms|\n|192000|1586ms|\n\n### Patches\n\nFixed in **15.0.2** and **14.3.2**.\n\n### Workarounds\n\nDisable typography with `typographer: false`, or disable only the smartquotes rule:\n\n```js\nmd.disable('smartquotes')\n```",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+            "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+            "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+            "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+            "githubID": "GHSA-gfr2-rv44-r23c",
+            "CVE": [
+              "CVE-2026-111758"
+            ]
+          },
+          "details": "### Summary\n\nA link reference definition whose label or title is never closed is O(n²) in markdown-it 15.0.2 with default options. Continuation lines are pulled lazily with str += lineContent in src/rules_block/reference.ts, and the subsequent charCodeAt and slice calls flatten the V8 cons-string, copying everything collected so far; this runs before the rule decides the definition is invalid. It is a regression introduced by PR #1004 in 14.0.0: 13.0.2 processed a 313 KB input in 125 ms, while every version since takes about 11 seconds on the same input. At the sizes below, 200 KB takes 3.6 seconds, 400 KB takes 18.1 seconds, and 800 KB takes 74.0 seconds, which is roughly 4–5× per doubling. No options are required to trigger it.\n\n### Details\n\nsrc/rules_block/reference.ts appends continuation lines with str += lineContent at lines 74, 83, 100, 133, and 150, then keeps indexing the accumulated string via str.charCodeAt(pos) in the label and whitespace loops and str.slice(...) in parseLinkTitle. V8 represents += as a cons-string, and the next charCodeAt or slice flattens it, copying everything collected so far, so one definition spanning n lines costs O(n²). Isolation confirms the rule is responsible: block-only parsing with inline disabled is still quadratic, md.disable('reference') makes the same input linear, and the same text without the leading [ is linear. The fix is to track positions in state.src instead of building str, or to collect line slices in an array and parse across them. At minimum, stop scanning the label after 999 characters (CommonMark §6.3) before pulling more lines, and cap title continuation. Add a pathological test with a 100k-line unclosed title and label. Open PR #1215 edits the same file but its label check runs after the label loop, so it does not bound either variant and the fix can land together with that PR.\n\nThe observed output from PoC was:\nunclosed title n=100000   200009 B    3585.5 ms\nunclosed title n=200000   400009 B   18107.1 ms   (5.05x)\nunclosed title n=400000   800009 B   73954.4 ms   (4.08x)\n\nRegression comparison at 313 KB: 13.0.2 → 125 ms, 14.1.0 → 11.4 s, 15.0.0 → 10.6 s, 15.0.2 → 10.7 s.\n\n### Proof of concept\n\nHow to execute the PoC:\n1. mkdir -p markdown-it-poc && cd markdown-it-poc\n2. npm init -y\n3. npm i markdown-it@15.0.2\n4. node poc_markdown_it.js\n\nPoC below is:\n```javascript\n// poc_markdown_it.js\n// Requires: npm install markdown-it@15.0.2\nconst MarkdownIt = require('markdown-it');\nconst md = new MarkdownIt();\n\nfunction bench(label, src) {\n  const t0 = process.hrtime.bigint();\n  md.render(src);\n  const t1 = process.hrtime.bigint();\n  console.log(\n    `${label.padEnd(30)} ${String(src.length).padStart(9)} B ${(Number(t1 - t0) / 1e6).toFixed(1).padStart(9)} ms`\n  );\n}\n\n// Unclosed title: one reference definition spread over many lines\nfor (const n of [100000, 200000, 400000]) {\n  bench(`unclosed title n=${n}`, '[a]: /u \"' + 'x\\n'.repeat(n));\n}\n\n// Unclosed label\nfor (const n of [5000, 10000, 20000]) {\n  bench(`unclosed label n=${n}`, '[' + 'a\\n'.repeat(n));\n}\n```\n\n### Impact\n\nThis is an algorithmic-complexity denial of service (CWE-407). Any server that renders user Markdown with markdown-it is affected with default options, including comments, issues, chat, wikis, docs previews, and LLM chat UIs. A ~400 KB request body blocks the Node.js event loop for about 18 seconds and an ~800 KB body for about 74 seconds. This is the same class and attacker model as GHSA-253c, but it is reachable without any opt-in option, since the affected path is a core block rule.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+            "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.3",
+          "severity": "low",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+            "githubID": "GHSA-vfgh-jcmw-g37q",
+            "CVE": [
+              "CVE-2026-111766"
+            ]
+          },
+          "details": "### Summary\n\nWith `html: true`, markdown-it takes quadratic time to parse repeated unterminated HTML constructs inside a paragraph. This affects HTML comments (`<!--`), processing instructions (`<?`), declarations (`<!A`), and CDATA sections (`<![CDATA[`).\n\nAn attacker-controlled input of a few hundred kilobytes can block the Node.js event loop for seconds or tens of seconds. The default configuration has HTML disabled, but the `commonmark` preset enables it.\n\nThe issue was reported against the published `markdown-it@15.0.2` package on Node.js 20 and reproduced on the current source with Node.js 24.16.0.\n\n### Details\n\n`src/rules_inline/text.ts` treats `<` as a terminator, causing the inline parser to attempt the HTML rule at successive HTML construct openers.\n\nWith HTML enabled, `src/rules_inline/html_inline.ts` applies an anchored regular expression to the remaining input:\n\n```js\nconst match = state.src.slice(pos).match(HTML_TAG_RE)\n```\n\nThe comment, processing instruction, declaration, and CDATA alternatives in `src/common/html_re.ts` scan the remaining input for their respective terminators: `-->`, `?>`, `>`, and `]]>`.\n\nWhen the terminator is absent, matching fails. Parsing eventually reaches the next opener and scans an overlapping suffix again. Repeating this across the paragraph produces quadratic total work. For these inputs, the problem is repeated scanning across separate matches.\n\nThe payload must reach inline parsing. Prefixing it with `x ` keeps it inside a paragraph. Starting a line directly with one of these constructs instead invokes HTML block parsing, which does not exhibit the same repeated inline scans for these payloads.\n\nThe existing `unclosed <!--` test in `test/markdown-it/pathological.test.mjs` already contains a reproducer:\n\n```js\n'</' + '<!--'.repeat(100000)\n```\n\nHowever, it runs with default options, where HTML is disabled.\n\nA fix should avoid repeated searches for absent terminators across all four affected alternatives, for example by caching failed searches on the inline state. Fixing only the comment alternative leaves the other three cases affected. Regression coverage should exercise all four with `html: true`.\n\nThe original report was submitted by [@JarLob](https://github.com/JarLob). It credits the [GitHub Security Lab Taskflow Agent](https://github.com/GitHubSecurityLab/seclab-taskflow-agent) as part of the [GitHub Secure Open Source Fund](https://github.com/open-source/github-secure-open-source-fund).\n\n### Proof of concept\n\nInstall the affected package in an empty directory:\n\n```sh\nnpm install markdown-it@15.0.2\n```\n\nSave the following as `poc.mjs` and run `node poc.mjs`:\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst mdHtml = new MarkdownIt({ html: true })\nconst mdDefault = new MarkdownIt()\nconst sizes = [8000, 16000, 32000, 64000]\n\nfunction measure(md, src) {\n  const start = performance.now()\n  md.render(src)\n  return (performance.now() - start).toFixed(1)\n}\n\nconst variants = {\n  comment: '<!--',\n  processing: '<?x',\n  declaration: '<!A',\n  cdata: '<![CDATA['\n}\n\nfor (const [name, opener] of Object.entries(variants)) {\n  console.log(`\\n${name}`)\n  for (const n of sizes) {\n    const src = 'x ' + opener.repeat(n)\n    console.log({\n      n,\n      bytes: Buffer.byteLength(src),\n      ms: measure(mdHtml, src)\n    })\n  }\n}\n\nconst n = sizes.at(-1)\nconst controls = {\n  'HTML disabled': [mdDefault, 'x ' + '<!--'.repeat(n)],\n  'Closed comments': [mdHtml, 'x ' + '<!---->'.repeat(n)],\n  'HTML block': [mdHtml, '<!--'.repeat(n)],\n  'Plain text': [mdHtml, 'x ' + 'abcd'.repeat(n)]\n}\n\nfor (const [name, [md, src]] of Object.entries(controls)) {\n  console.log({ control: name, ms: measure(md, src) })\n}\n\nconst repoPayload = '</' + '<!--'.repeat(100000)\nconsole.log({\n  payload: 'Existing pathological test',\n  htmlFalseMs: measure(mdDefault, repoPayload),\n  htmlTrueMs: measure(mdHtml, repoPayload)\n})\n```\n\nMeasurements from the original report on `markdown-it@15.0.2`, Node.js 20:\n\n| Construct | 8,000 repetitions | 64,000 repetitions |\n| --- | ---: | ---: |\n| Comment | 170 ms | 8,799 ms |\n| Processing instruction | 26 ms | 1,566 ms |\n| Declaration | 93 ms | 5,628 ms |\n| CDATA | 119 ms | 4,179 ms |\n\nAn eightfold increase in repetitions produces approximately 35–60 times the execution time, consistent with quadratic growth becoming dominant.\n\nFor the comment payload at 64,000 repetitions:\n\n- HTML disabled: 25 ms.\n- Closed comments: 29 ms.\n- Payload at the start of an HTML block: 1 ms.\n- Plain text: 1 ms.\n\nThe existing pathological-test payload with 100,000 comment openers took 33 ms with HTML disabled and 21,030 ms with HTML enabled. A separate comment payload with 128,000 repetitions, approximately 500 KiB, took 32,847 ms.\n\nExact timings depend on the runtime and hardware.\n\n### Impact\n\nThis is an availability issue affecting applications that render attacker-controlled Markdown with `html: true`, including applications using the `commonmark` preset.\n\nOn Node.js, a synchronous `render()` call can occupy a CPU core and block the event loop for seconds or tens of seconds, delaying other requests handled by the same process. Repeated submissions can cause denial of service. Browser applications can similarly become unresponsive when rendering on the main thread.\n\nSanitizing the generated HTML afterwards does not prevent the issue because the expensive processing occurs during Markdown rendering.\n\nThe default configuration, with HTML disabled, is unaffected by these payloads. Disabling HTML or limiting input size can reduce exposure while a fix is prepared.\n\nThe reported affected release is `15.0.2`; the full affected version range has not been established.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+            "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
           ]
         }
       ],
@@ -14873,8 +15019,7 @@
           "identifiers": {
             "summary": "Command Injection in lodash",
             "CVE": [
-              "CVE-2021-23337",
-              "CVE-2026-4800"
+              "CVE-2021-23337"
             ],
             "githubID": "GHSA-35jh-r3h4-6jhm"
           },
@@ -14947,8 +15092,7 @@
             "summary": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution via the _.unset and _.omit functions. An attacker can pass crafted paths to delete methods from global prototypes such as Object.prototype, though the issue only permits deletion and not overwriting of properties.",
             "githubID": "GHSA-xxjr-mmjv-4gpg",
             "CVE": [
-              "CVE-2025-13465",
-              "CVE-2026-2950"
+              "CVE-2025-13465"
             ]
           },
           "details": "### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.",
@@ -14968,7 +15112,6 @@
             "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
             "githubID": "GHSA-f23m-r3pf-42rh",
             "CVE": [
-              "CVE-2025-13465",
               "CVE-2026-2950"
             ]
           },
@@ -14989,7 +15132,6 @@
             "summary": "Lodash _.template is vulnerable to code injection via unsanitized options.imports key names. Untrusted key names are passed to the Function() constructor sink without validation, and the use of assignInWith (which enumerates inherited properties) also means that pre-existing prototype pollution on Object.prototype can flow into the Function() sink and execute arbitrary code at template compilation time.",
             "githubID": "GHSA-r5fr-rjxr-66jc",
             "CVE": [
-              "CVE-2021-23337",
               "CVE-2026-4800"
             ]
           },

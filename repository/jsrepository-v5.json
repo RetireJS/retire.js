@@ -10213,6 +10213,76 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "14.3.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+          "githubID": "GHSA-r7fv-28h4-cvq7",
+          "CVE": [
+            "CVE-2026-111759"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+          "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+          "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+          "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "14.3.3",
+        "severity": "low",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+          "githubID": "GHSA-vfgh-jcmw-g37q",
+          "CVE": [
+            "CVE-2026-111766"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+          "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+        ]
+      },
+      {
+        "atOrAbove": "14.1.0",
+        "below": "14.3.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+          "githubID": "GHSA-gfr2-rv44-r23c",
+          "CVE": [
+            "CVE-2026-111758"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+          "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+        ]
+      },
+      {
         "atOrAbove": "15.0.0",
         "below": "15.0.1",
         "severity": "medium",
@@ -10229,6 +10299,76 @@
           "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
           "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
           "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.0.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+          "githubID": "GHSA-r7fv-28h4-cvq7",
+          "CVE": [
+            "CVE-2026-111759"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+          "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+          "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+          "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.0.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+          "githubID": "GHSA-gfr2-rv44-r23c",
+          "CVE": [
+            "CVE-2026-111758"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+          "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.0.3",
+        "severity": "low",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+          "githubID": "GHSA-vfgh-jcmw-g37q",
+          "CVE": [
+            "CVE-2026-111766"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+          "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
         ]
       }
     ],
@@ -14566,8 +14706,7 @@
         "identifiers": {
           "summary": "Command Injection in lodash",
           "CVE": [
-            "CVE-2021-23337",
-            "CVE-2026-4800"
+            "CVE-2021-23337"
           ],
           "githubID": "GHSA-35jh-r3h4-6jhm"
         },
@@ -14640,8 +14779,7 @@
           "summary": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution via the _.unset and _.omit functions. An attacker can pass crafted paths to delete methods from global prototypes such as Object.prototype, though the issue only permits deletion and not overwriting of properties.",
           "githubID": "GHSA-xxjr-mmjv-4gpg",
           "CVE": [
-            "CVE-2025-13465",
-            "CVE-2026-2950"
+            "CVE-2025-13465"
           ]
         },
         "info": [
@@ -14660,7 +14798,6 @@
           "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
           "githubID": "GHSA-f23m-r3pf-42rh",
           "CVE": [
-            "CVE-2025-13465",
             "CVE-2026-2950"
           ]
         },
@@ -14680,7 +14817,6 @@
           "summary": "Lodash _.template is vulnerable to code injection via unsanitized options.imports key names. Untrusted key names are passed to the Function() constructor sink without validation, and the use of assignInWith (which enumerates inherited properties) also means that pre-existing prototype pollution on Object.prototype can flow into the Function() sink and execute arbitrary code at template compilation time.",
           "githubID": "GHSA-r5fr-rjxr-66jc",
           "CVE": [
-            "CVE-2021-23337",
             "CVE-2026-4800"
           ]
         },
