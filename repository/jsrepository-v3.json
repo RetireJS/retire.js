@@ -14740,6 +14740,313 @@
           "info": [
             "https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+            "githubID": "GHSA-5793-x2q3-c3q7",
+            "CVE": [
+              "CVE-2026-118251"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+            "https://github.com/highcharts/highcharts/pull/25315",
+            "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "6.1.0",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+            "githubID": "GHSA-rmqc-xvr3-v46c",
+            "CVE": [
+              "CVE-2026-118250"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+            "https://github.com/highcharts/highcharts/pull/25313",
+            "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "10.0.0",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+            "githubID": "GHSA-35rr-xwfh-x789",
+            "CVE": [
+              "CVE-2026-118246"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+            "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "10.3.2",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+            "githubID": "GHSA-mw4f-gj5x-6xr4",
+            "CVE": [
+              "CVE-2026-116796"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+            "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+            "githubID": "GHSA-35rr-xwfh-x789",
+            "CVE": [
+              "CVE-2026-118246"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+            "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+            "githubID": "GHSA-5793-x2q3-c3q7",
+            "CVE": [
+              "CVE-2026-118251"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+            "https://github.com/highcharts/highcharts/pull/25315",
+            "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+            "githubID": "GHSA-65hg-cf3f-5m39",
+            "CVE": [
+              "CVE-2026-118244"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+            "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+            "githubID": "GHSA-rmqc-xvr3-v46c",
+            "CVE": [
+              "CVE-2026-118250"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+            "https://github.com/highcharts/highcharts/pull/25313",
+            "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+            "githubID": "GHSA-mw4f-gj5x-6xr4",
+            "CVE": [
+              "CVE-2026-116796"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+            "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+            "githubID": "GHSA-35rr-xwfh-x789",
+            "CVE": [
+              "CVE-2026-118246"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+            "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+            "githubID": "GHSA-5793-x2q3-c3q7",
+            "CVE": [
+              "CVE-2026-118251"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+            "https://github.com/highcharts/highcharts/pull/25315",
+            "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+            "githubID": "GHSA-65hg-cf3f-5m39",
+            "CVE": [
+              "CVE-2026-118244"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+            "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: series column construction writes to Object.prototype",
+            "githubID": "GHSA-gfvx-2c2g-38wq",
+            "CVE": [
+              "CVE-2026-118249"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-gfvx-2c2g-38wq",
+            "https://github.com/highcharts/highcharts/pull/25321",
+            "https://github.com/highcharts/highcharts/commit/d3357705c8f348904441327e32f50ab528c3a205",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+            "githubID": "GHSA-rmqc-xvr3-v46c",
+            "CVE": [
+              "CVE-2026-118250"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+            "https://github.com/highcharts/highcharts/pull/25313",
+            "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+            "githubID": "GHSA-mw4f-gj5x-6xr4",
+            "CVE": [
+              "CVE-2026-116796"
+            ]
+          },
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+            "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+          ]
         }
       ],
       "extractors": {

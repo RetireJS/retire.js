@@ -15072,6 +15072,328 @@
         "info": [
           "https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+          "githubID": "GHSA-5793-x2q3-c3q7",
+          "CVE": [
+            "CVE-2026-118251"
+          ]
+        },
+        "details": "### Impact\nA `credits.href` value beginning with `javascript:` is assigned to the window location when the credits label is clicked, without being checked against an allowed-scheme list. An attacker who controls the chart configuration can therefore run script in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration and that a user click the credits label. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nDrop-in fix - for any versions affected (5.0.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded, but before a chart is created.\n\n```js\n!function(t){if(t&&t.Chart&&!t.Chart.prototype.creditsHrefPatched){var r=t.Chart.prototype,e=r.addCredits;r.addCredits=function(n){var o=t.merge(!0,this.options.credits,n);return o&&o.href&&!c(o.href)&&delete o.href,e.call(this,o)},r.creditsHrefPatched=!0}function c(r){var e=t.AST&&t.AST.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof r&&e.some(function(t){return 0===r.indexOf(t)})}}(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/6a09ws1f/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@ 13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+          "https://github.com/highcharts/highcharts/pull/25315",
+          "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "6.1.0",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+          "githubID": "GHSA-rmqc-xvr3-v46c",
+          "CVE": [
+            "CVE-2026-118250"
+          ]
+        },
+        "details": "### Impact\nA dot-separated key path taken from `series.keys` is followed without filtering the individual segments. An attacker who controls `series.keys` and the matching point data can use a path such as `__proto__.polluted` to set arbitrary properties on `Object.prototype`. The resulting properties are visible to all JavaScript running in the page, not only to the chart. No user interaction is required beyond rendering the chart.\n\nThe injected properties are inert until other code on the page reads them, so consequences depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2). Add the below IIFE to run after Highcharts is loaded.\n\n```javascript\n((H)=>{const X = H.isObject;H.Point.prototype.setNestedProperty = function setNestedProperty(t,e,i){let s=i.split(\".\");return s.some(t=>\"__proto__\"===t||\"constructor\"===t)||s.reduce(function(t,i,s,o){let r=o.length-1===s;return t[i]=r?e:X(t[i],!0)?t[i]:{},t[i]},t),t};})(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/z3rbtm7u/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+          "https://github.com/highcharts/highcharts/pull/25313",
+          "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "10.0.0",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+          "githubID": "GHSA-35rr-xwfh-x789",
+          "CVE": [
+            "CVE-2026-118246"
+          ]
+        },
+        "details": "### Impact\nThe breadcrumbs `style` option is applied to the breadcrumb button as SVG attributes rather than as CSS, and the attribute names are not filtered. An attacker who controls the chart configuration can supply keys under `breadcrumbs.style` that name event handlers, and those keys become live handlers on the breadcrumb button, so the attacker's script runs in the origin of the page hosting the chart. The option is reached through `drilldown.breadcrumbs`, `navigation.breadcrumbs` and the `breadcrumbs` option of the treemap, sunburst and treegraph series. Exploitation requires that untrusted data reach the chart configuration and that a user drill down, or traverse into a level of a hierarchical series, so that the breadcrumbs render, and then hover over or activate the breadcrumb button. Charts rendered in styled mode do not apply the option and are not affected. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nVerified against published bundles on 10.0.0, 11.4.8, 12.3.0 and 13.0.2.\n\nLoad immediately after Highcharts, before any chart is created:\n\n```js\n// Workaround fix for all affected Highcharts versions: 10.0.0-13.0.2\n((H)=>{const S=H.SVGElement.prototype,D=S._defaultSetter;S._defaultSetter=function _defaultSetter(v,k,e){/^on/i.test(k)||D.call(this,v,k,e)};})(Highcharts);\n// End of the workaround fix\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+          "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "10.3.2",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+          "githubID": "GHSA-mw4f-gj5x-6xr4",
+          "CVE": [
+            "CVE-2026-116796"
+          ]
+        },
+        "details": "### Impact\nThe filter applied to markup in text options checks `href`, `src` and a few similar attributes against an allowed-scheme list, but accepts `xlink:href` without that check, so an SVG anchor whose `xlink:href` is a `javascript:` URL passes the filter, whether or not the option is rendered with `useHTML`. In the live page the attribute is written without the XLink namespace, so browsers do not treat the anchor as a link there.\n\nThe attribute is preserved verbatim in the chart's serialised output: the SVG produced by the exporting module, including the default SVG download, declares the XLink namespace and contains the anchor, and so does the markup of the chart container. Any document that parses that output again, such as the downloaded SVG opened in a browser or a page that inlines exported or server-rendered chart markup, then holds a working link, and an attacker who controls the chart configuration can thereby run script in the origin of that document when a user activates the link.\n\nExploitation requires that untrusted data reach a text option such as the title, that the chart be exported or its markup be serialised and parsed again, and that a user activate the link.\n\n### Workarounds\nDrop-in fix for all affected versions (10.3.2 - 13.1.0).\n\nAdd the below IIFE to run after Highcharts is loaded, before creating a chart.\n\n```\n!function(t){var e=t&&t.AST;if(e&&\"function\"==typeof e.filterUserAttributes&&!e.xlinkHrefPatched){var r=e.filterUserAttributes,n=Object.prototype.hasOwnProperty;e.filterUserAttributes=function(t){return t&&n.call(t,\"xlink:href\")&&!o(t[\"xlink:href\"])&&delete t[\"xlink:href\"],r.call(this,t)},e.xlinkHrefPatched=!0}function o(t){var r=e.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof t&&r.some(function(e){return 0===t.indexOf(e)})}}(Highcharts);\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+          "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+          "githubID": "GHSA-35rr-xwfh-x789",
+          "CVE": [
+            "CVE-2026-118246"
+          ]
+        },
+        "details": "### Impact\nThe breadcrumbs `style` option is applied to the breadcrumb button as SVG attributes rather than as CSS, and the attribute names are not filtered. An attacker who controls the chart configuration can supply keys under `breadcrumbs.style` that name event handlers, and those keys become live handlers on the breadcrumb button, so the attacker's script runs in the origin of the page hosting the chart. The option is reached through `drilldown.breadcrumbs`, `navigation.breadcrumbs` and the `breadcrumbs` option of the treemap, sunburst and treegraph series. Exploitation requires that untrusted data reach the chart configuration and that a user drill down, or traverse into a level of a hierarchical series, so that the breadcrumbs render, and then hover over or activate the breadcrumb button. Charts rendered in styled mode do not apply the option and are not affected. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nVerified against published bundles on 10.0.0, 11.4.8, 12.3.0 and 13.0.2.\n\nLoad immediately after Highcharts, before any chart is created:\n\n```js\n// Workaround fix for all affected Highcharts versions: 10.0.0-13.0.2\n((H)=>{const S=H.SVGElement.prototype,D=S._defaultSetter;S._defaultSetter=function _defaultSetter(v,k,e){/^on/i.test(k)||D.call(this,v,k,e)};})(Highcharts);\n// End of the workaround fix\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+          "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+          "githubID": "GHSA-5793-x2q3-c3q7",
+          "CVE": [
+            "CVE-2026-118251"
+          ]
+        },
+        "details": "### Impact\nA `credits.href` value beginning with `javascript:` is assigned to the window location when the credits label is clicked, without being checked against an allowed-scheme list. An attacker who controls the chart configuration can therefore run script in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration and that a user click the credits label. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nDrop-in fix - for any versions affected (5.0.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded, but before a chart is created.\n\n```js\n!function(t){if(t&&t.Chart&&!t.Chart.prototype.creditsHrefPatched){var r=t.Chart.prototype,e=r.addCredits;r.addCredits=function(n){var o=t.merge(!0,this.options.credits,n);return o&&o.href&&!c(o.href)&&delete o.href,e.call(this,o)},r.creditsHrefPatched=!0}function c(r){var e=t.AST&&t.AST.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof r&&e.some(function(t){return 0===r.indexOf(t)})}}(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/6a09ws1f/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@ 13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+          "https://github.com/highcharts/highcharts/pull/25315",
+          "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+          "githubID": "GHSA-65hg-cf3f-5m39",
+          "CVE": [
+            "CVE-2026-118244"
+          ]
+        },
+        "details": "### Impact\nWhen the HTML text parser cannot obtain a document from `DOMParser` because the call throws, it falls back to assigning the raw markup to the `innerHTML` of an element created in the hosting document, and the allow-list is applied only to the resulting DOM afterwards. In Chromium the Trusted Types policy callback that the parser uses throws while a `beforeprint` handler is running, so if the hosting page re-renders the chart from a `beforeprint` handler, every HTML-rendered text option parsed at that moment, such as `useHTML` titles, axis labels and data labels or text set by responsive rules, is inserted unsanitized, and event handlers embedded in that markup run in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration, that the hosting page update the chart from a `beforeprint` handler in Chromium, and that printing be started, which the print item of the exporting menu does on its own. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\n**Drop-in fix - for any versions affected (12.0.0-13.0.2).**\nAdd the below IIFE to run after Highcharts is loaded. \n```\n((n)=>{n.AST.prototype.parseMarkup=function parseMarkup(t){let e,i=[];t=t.trim().replace(/ style=([\"'])/g,\" data-style=$1\");try{e=new DOMParser().parseFromString(tI?tI.createHTML(t):t,\"text/html\")}catch{}if(!e)try{e=new DOMParser().parseFromString(t,\"text/html\")}catch{}e||((e=n.doc.implementation.createHTMLDocument(\"\")).body.innerHTML=t);let s=(t,e)=>{let i=t.localName||t.nodeName.toLowerCase(),o={tagName:i};\"#text\"===i&&(o.textContent=t.textContent||\"\");let r=t.attributes;if(r){let t={};[].forEach.call(r,e=>{\"data-style\"===e.name?o.style=tB.parseStyle(e.value):t[e.name]=e.value}),o.attributes=t}if(t.childNodes.length){let e=[];[].forEach.call(t.childNodes,t=>{s(t,e)}),e.length&&(o.children=e)}e.push(o)};return[].forEach.call(e.body.childNodes,t=>s(t,i)),i};})(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/pb6jLf7g/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example npm install highcharts@13.1.0. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example https://code.highcharts.com/13.1.0/highcharts.js. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+          "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+          "githubID": "GHSA-rmqc-xvr3-v46c",
+          "CVE": [
+            "CVE-2026-118250"
+          ]
+        },
+        "details": "### Impact\nA dot-separated key path taken from `series.keys` is followed without filtering the individual segments. An attacker who controls `series.keys` and the matching point data can use a path such as `__proto__.polluted` to set arbitrary properties on `Object.prototype`. The resulting properties are visible to all JavaScript running in the page, not only to the chart. No user interaction is required beyond rendering the chart.\n\nThe injected properties are inert until other code on the page reads them, so consequences depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2). Add the below IIFE to run after Highcharts is loaded.\n\n```javascript\n((H)=>{const X = H.isObject;H.Point.prototype.setNestedProperty = function setNestedProperty(t,e,i){let s=i.split(\".\");return s.some(t=>\"__proto__\"===t||\"constructor\"===t)||s.reduce(function(t,i,s,o){let r=o.length-1===s;return t[i]=r?e:X(t[i],!0)?t[i]:{},t[i]},t),t};})(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/z3rbtm7u/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+          "https://github.com/highcharts/highcharts/pull/25313",
+          "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+          "githubID": "GHSA-mw4f-gj5x-6xr4",
+          "CVE": [
+            "CVE-2026-116796"
+          ]
+        },
+        "details": "### Impact\nThe filter applied to markup in text options checks `href`, `src` and a few similar attributes against an allowed-scheme list, but accepts `xlink:href` without that check, so an SVG anchor whose `xlink:href` is a `javascript:` URL passes the filter, whether or not the option is rendered with `useHTML`. In the live page the attribute is written without the XLink namespace, so browsers do not treat the anchor as a link there.\n\nThe attribute is preserved verbatim in the chart's serialised output: the SVG produced by the exporting module, including the default SVG download, declares the XLink namespace and contains the anchor, and so does the markup of the chart container. Any document that parses that output again, such as the downloaded SVG opened in a browser or a page that inlines exported or server-rendered chart markup, then holds a working link, and an attacker who controls the chart configuration can thereby run script in the origin of that document when a user activates the link.\n\nExploitation requires that untrusted data reach a text option such as the title, that the chart be exported or its markup be serialised and parsed again, and that a user activate the link.\n\n### Workarounds\nDrop-in fix for all affected versions (10.3.2 - 13.1.0).\n\nAdd the below IIFE to run after Highcharts is loaded, before creating a chart.\n\n```\n!function(t){var e=t&&t.AST;if(e&&\"function\"==typeof e.filterUserAttributes&&!e.xlinkHrefPatched){var r=e.filterUserAttributes,n=Object.prototype.hasOwnProperty;e.filterUserAttributes=function(t){return t&&n.call(t,\"xlink:href\")&&!o(t[\"xlink:href\"])&&delete t[\"xlink:href\"],r.call(this,t)},e.xlinkHrefPatched=!0}function o(t){var r=e.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof t&&r.some(function(e){return 0===t.indexOf(e)})}}(Highcharts);\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+          "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+          "githubID": "GHSA-35rr-xwfh-x789",
+          "CVE": [
+            "CVE-2026-118246"
+          ]
+        },
+        "details": "### Impact\nThe breadcrumbs `style` option is applied to the breadcrumb button as SVG attributes rather than as CSS, and the attribute names are not filtered. An attacker who controls the chart configuration can supply keys under `breadcrumbs.style` that name event handlers, and those keys become live handlers on the breadcrumb button, so the attacker's script runs in the origin of the page hosting the chart. The option is reached through `drilldown.breadcrumbs`, `navigation.breadcrumbs` and the `breadcrumbs` option of the treemap, sunburst and treegraph series. Exploitation requires that untrusted data reach the chart configuration and that a user drill down, or traverse into a level of a hierarchical series, so that the breadcrumbs render, and then hover over or activate the breadcrumb button. Charts rendered in styled mode do not apply the option and are not affected. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nVerified against published bundles on 10.0.0, 11.4.8, 12.3.0 and 13.0.2.\n\nLoad immediately after Highcharts, before any chart is created:\n\n```js\n// Workaround fix for all affected Highcharts versions: 10.0.0-13.0.2\n((H)=>{const S=H.SVGElement.prototype,D=S._defaultSetter;S._defaultSetter=function _defaultSetter(v,k,e){/^on/i.test(k)||D.call(this,v,k,e)};})(Highcharts);\n// End of the workaround fix\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+          "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+          "githubID": "GHSA-5793-x2q3-c3q7",
+          "CVE": [
+            "CVE-2026-118251"
+          ]
+        },
+        "details": "### Impact\nA `credits.href` value beginning with `javascript:` is assigned to the window location when the credits label is clicked, without being checked against an allowed-scheme list. An attacker who controls the chart configuration can therefore run script in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration and that a user click the credits label. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nDrop-in fix - for any versions affected (5.0.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded, but before a chart is created.\n\n```js\n!function(t){if(t&&t.Chart&&!t.Chart.prototype.creditsHrefPatched){var r=t.Chart.prototype,e=r.addCredits;r.addCredits=function(n){var o=t.merge(!0,this.options.credits,n);return o&&o.href&&!c(o.href)&&delete o.href,e.call(this,o)},r.creditsHrefPatched=!0}function c(r){var e=t.AST&&t.AST.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof r&&e.some(function(t){return 0===r.indexOf(t)})}}(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/6a09ws1f/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@ 13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+          "https://github.com/highcharts/highcharts/pull/25315",
+          "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+          "githubID": "GHSA-65hg-cf3f-5m39",
+          "CVE": [
+            "CVE-2026-118244"
+          ]
+        },
+        "details": "### Impact\nWhen the HTML text parser cannot obtain a document from `DOMParser` because the call throws, it falls back to assigning the raw markup to the `innerHTML` of an element created in the hosting document, and the allow-list is applied only to the resulting DOM afterwards. In Chromium the Trusted Types policy callback that the parser uses throws while a `beforeprint` handler is running, so if the hosting page re-renders the chart from a `beforeprint` handler, every HTML-rendered text option parsed at that moment, such as `useHTML` titles, axis labels and data labels or text set by responsive rules, is inserted unsanitized, and event handlers embedded in that markup run in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration, that the hosting page update the chart from a `beforeprint` handler in Chromium, and that printing be started, which the print item of the exporting menu does on its own. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\n**Drop-in fix - for any versions affected (12.0.0-13.0.2).**\nAdd the below IIFE to run after Highcharts is loaded. \n```\n((n)=>{n.AST.prototype.parseMarkup=function parseMarkup(t){let e,i=[];t=t.trim().replace(/ style=([\"'])/g,\" data-style=$1\");try{e=new DOMParser().parseFromString(tI?tI.createHTML(t):t,\"text/html\")}catch{}if(!e)try{e=new DOMParser().parseFromString(t,\"text/html\")}catch{}e||((e=n.doc.implementation.createHTMLDocument(\"\")).body.innerHTML=t);let s=(t,e)=>{let i=t.localName||t.nodeName.toLowerCase(),o={tagName:i};\"#text\"===i&&(o.textContent=t.textContent||\"\");let r=t.attributes;if(r){let t={};[].forEach.call(r,e=>{\"data-style\"===e.name?o.style=tB.parseStyle(e.value):t[e.name]=e.value}),o.attributes=t}if(t.childNodes.length){let e=[];[].forEach.call(t.childNodes,t=>{s(t,e)}),e.length&&(o.children=e)}e.push(o)};return[].forEach.call(e.body.childNodes,t=>s(t,i)),i};})(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/pb6jLf7g/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example npm install highcharts@13.1.0. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example https://code.highcharts.com/13.1.0/highcharts.js. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+          "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: series column construction writes to Object.prototype",
+          "githubID": "GHSA-gfvx-2c2g-38wq",
+          "CVE": [
+            "CVE-2026-118249"
+          ]
+        },
+        "details": "### Impact\nWhen series columns are built from point objects, the point option keys are used directly as data column ids, so the write that populates a column reaches `Object.prototype` and the `Object` constructor. Keys named `__proto__` and `constructor` survive `JSON.parse` as own enumerable properties, so an attacker who controls the point objects can set integer-keyed properties on `Object.prototype`, one per point index, to values of their choosing. Named properties cannot be reached this way. The integer keys still affect every object in the page: reading an out-of-range index on any array or plain object returns the attacker's value, and `for...in` over any object yields the injected keys, so unrelated code can take branches it should not using attacker-supplied data, and rendering can fail as a side effect. The properties remain in place once the chart has been built, and no user interaction is required beyond rendering the chart.\n\nConsequences beyond disruption depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded.\n\n```javascript\n;!function(t){if(t&&t.Point&&!t.Point.prototype.protoPollutionPatched){var o=t.Point.prototype,r=o.optionsToObject,e=o.setNestedProperty,n=Object.prototype.hasOwnProperty;o.optionsToObject=function(t){if(t&&\"object\"==typeof t&&!Array.isArray(t)&&(n.call(t,\"__proto__\")||n.call(t,\"constructor\"))){var o={};for(var e in t)n.call(t,e)&&!c(e)&&(o[e]=t[e]);t=o}return r.call(this,t)},o.setNestedProperty=function(t,o,r){return String(r).split(\".\").some(c)?t:e.call(this,t,o,r)},o.protoPollutionPatched=!0}function c(t){return\"__proto__\"===t||\"constructor\"===t}}(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/nopc6vhj/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-gfvx-2c2g-38wq",
+          "https://github.com/highcharts/highcharts/pull/25321",
+          "https://github.com/highcharts/highcharts/commit/d3357705c8f348904441327e32f50ab528c3a205",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+          "githubID": "GHSA-rmqc-xvr3-v46c",
+          "CVE": [
+            "CVE-2026-118250"
+          ]
+        },
+        "details": "### Impact\nA dot-separated key path taken from `series.keys` is followed without filtering the individual segments. An attacker who controls `series.keys` and the matching point data can use a path such as `__proto__.polluted` to set arbitrary properties on `Object.prototype`. The resulting properties are visible to all JavaScript running in the page, not only to the chart. No user interaction is required beyond rendering the chart.\n\nThe injected properties are inert until other code on the page reads them, so consequences depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2). Add the below IIFE to run after Highcharts is loaded.\n\n```javascript\n((H)=>{const X = H.isObject;H.Point.prototype.setNestedProperty = function setNestedProperty(t,e,i){let s=i.split(\".\");return s.some(t=>\"__proto__\"===t||\"constructor\"===t)||s.reduce(function(t,i,s,o){let r=o.length-1===s;return t[i]=r?e:X(t[i],!0)?t[i]:{},t[i]},t),t};})(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/z3rbtm7u/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+          "https://github.com/highcharts/highcharts/pull/25313",
+          "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+          "githubID": "GHSA-mw4f-gj5x-6xr4",
+          "CVE": [
+            "CVE-2026-116796"
+          ]
+        },
+        "details": "### Impact\nThe filter applied to markup in text options checks `href`, `src` and a few similar attributes against an allowed-scheme list, but accepts `xlink:href` without that check, so an SVG anchor whose `xlink:href` is a `javascript:` URL passes the filter, whether or not the option is rendered with `useHTML`. In the live page the attribute is written without the XLink namespace, so browsers do not treat the anchor as a link there.\n\nThe attribute is preserved verbatim in the chart's serialised output: the SVG produced by the exporting module, including the default SVG download, declares the XLink namespace and contains the anchor, and so does the markup of the chart container. Any document that parses that output again, such as the downloaded SVG opened in a browser or a page that inlines exported or server-rendered chart markup, then holds a working link, and an attacker who controls the chart configuration can thereby run script in the origin of that document when a user activates the link.\n\nExploitation requires that untrusted data reach a text option such as the title, that the chart be exported or its markup be serialised and parsed again, and that a user activate the link.\n\n### Workarounds\nDrop-in fix for all affected versions (10.3.2 - 13.1.0).\n\nAdd the below IIFE to run after Highcharts is loaded, before creating a chart.\n\n```\n!function(t){var e=t&&t.AST;if(e&&\"function\"==typeof e.filterUserAttributes&&!e.xlinkHrefPatched){var r=e.filterUserAttributes,n=Object.prototype.hasOwnProperty;e.filterUserAttributes=function(t){return t&&n.call(t,\"xlink:href\")&&!o(t[\"xlink:href\"])&&delete t[\"xlink:href\"],r.call(this,t)},e.xlinkHrefPatched=!0}function o(t){var r=e.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof t&&r.some(function(e){return 0===t.indexOf(e)})}}(Highcharts);\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+          "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+        ]
       }
     ],
     "extractors": {
