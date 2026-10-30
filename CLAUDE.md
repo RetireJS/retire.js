@@ -102,5 +102,7 @@ Do **not** edit `jsrepository.json` directly — it is generated from master. Do
 
 When bumping the version number of node/package.json, also update the version number in:
 - node/lib/retire.js
-- chrome/extension/manifest.json
-- chrome/extension-no-func/manifest.json
+- chrome/build/extension/manifest.json
+- chrome/build/extension-no-func/manifest.json
+
+Rebuild the extensions to update the prebuilt manifests in `chrome/extension` and `chrome/extension-no-func`.
