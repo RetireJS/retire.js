@@ -1949,6 +1949,28 @@
         ]
       },
       {
+        "atOrAbove": "7.9.3",
+        "below": "7.9.4",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` serialization",
+          "githubID": "GHSA-mf2p-h6hf-fcwm",
+          "CVE": [
+            "CVE-2026-116675"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-mf2p-h6hf-fcwm",
+          "https://github.com/tinymce/tinymce/commit/bd1ab5ef024c648c3f9c0b409e54a6c227c7d8a2",
+          "https://github.com/tinymce/tinymce/releases/tag/8.9.3",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/latest/8.9.3-release-notes/#overview"
+        ]
+      },
+      {
         "atOrAbove": "8.0.0",
         "below": "8.5.1",
         "severity": "high",
@@ -2006,6 +2028,28 @@
           "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
           "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
           "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+        ]
+      },
+      {
+        "atOrAbove": "8.5.1",
+        "below": "8.9.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` serialization",
+          "githubID": "GHSA-mf2p-h6hf-fcwm",
+          "CVE": [
+            "CVE-2026-116675"
+          ]
+        },
+        "info": [
+          "https://github.com/tinymce/tinymce/security/advisories/GHSA-mf2p-h6hf-fcwm",
+          "https://github.com/tinymce/tinymce/commit/bd1ab5ef024c648c3f9c0b409e54a6c227c7d8a2",
+          "https://github.com/tinymce/tinymce/releases/tag/8.9.3",
+          "https://www.tiny.cloud/docs/tinymce/7/7.9.4-release-notes/#overview",
+          "https://www.tiny.cloud/docs/tinymce/latest/8.9.3-release-notes/#overview"
         ]
       }
     ],
@@ -4953,6 +4997,71 @@
           "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-7rx3-28cr-v5wh",
           "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
         ]
+      },
+      {
+        "atOrAbove": "3.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1289",
+          "CWE-184"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+          "githubID": "GHSA-p8wg-vrv2-v86f",
+          "CVE": [
+            "CVE-2026-106445"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-p8wg-vrv2-v86f",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/ceec388abe1d1aac8f6369860d5f390fa71ef4fa",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "critical",
+        "cwe": [
+          "CWE-843",
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+          "githubID": "GHSA-8r5x-fm3f-whwj",
+          "CVE": [
+            "CVE-2026-106446"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-8r5x-fm3f-whwj",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
+      },
+      {
+        "atOrAbove": "4.0.0",
+        "below": "4.7.10",
+        "severity": "medium",
+        "cwe": [
+          "CWE-116"
+        ],
+        "identifiers": {
+          "summary": "Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+          "githubID": "GHSA-xw65-4hp5-5hc7",
+          "CVE": [
+            "CVE-2026-106444"
+          ]
+        },
+        "info": [
+          "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-xw65-4hp5-5hc7",
+          "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+          "https://github.com/handlebars-lang/handlebars.js/commit/609d1b11c833c9a3e00f56f2f34d22f425446725",
+          "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+        ]
       }
     ],
     "extractors": {
@@ -6015,7 +6124,10 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup — pure HTML reparse executes",
-          "githubID": "GHSA-6688-9rhm-gjv2"
+          "githubID": "GHSA-6688-9rhm-gjv2",
+          "CVE": [
+            "CVE-2026-109345"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2",
@@ -6033,13 +6145,80 @@
         ],
         "identifiers": {
           "summary": "DOMPurify: IN_PLACE: node-removing afterSanitize hook leaves detached subtree event handlers armed, causing DOM XSS",
-          "githubID": "GHSA-p98j-92pf-mc4p"
+          "githubID": "GHSA-p98j-92pf-mc4p",
+          "CVE": [
+            "CVE-2026-109344"
+          ]
         },
         "info": [
           "https://github.com/cure53/DOMPurify/security/advisories/GHSA-p98j-92pf-mc4p",
           "https://github.com/cure53/DOMPurify/pull/1636",
           "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
           "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "3.4.17",
+        "severity": "low",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "DOMPurify: SMIL attributeName=href guard is skipped when PARSER_MEDIA_TYPE is application/xhtml+xml",
+          "githubID": "GHSA-c6gr-qvv4-5v3f",
+          "CVE": [
+            "CVE-2026-116802"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c6gr-qvv4-5v3f",
+          "https://github.com/cure53/DOMPurify/pull/1672",
+          "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "3.4.17",
+        "severity": "high",
+        "cwe": [
+          "CWE-693",
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "DOMPurify IN_PLACE: hook that removes a parent or sibling leaves the detached subtree's event handlers armed (incomplete fix for GHSA-p98j-92pf-mc4p)",
+          "githubID": "GHSA-mrv2-3pqr-j5jr",
+          "CVE": [
+            "CVE-2026-116803"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mrv2-3pqr-j5jr",
+          "https://github.com/cure53/DOMPurify/pull/1672",
+          "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+        ]
+      },
+      {
+        "atOrAbove": "3.4.4",
+        "below": "3.4.17",
+        "severity": "critical",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "DOMPurify SAFE_FOR_TEMPLATES bypass: split template expressions survive in attached shadow root content on DOM output modes",
+          "githubID": "GHSA-cg2g-xh64-v4q7",
+          "CVE": [
+            "CVE-2026-116804"
+          ]
+        },
+        "info": [
+          "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cg2g-xh64-v4q7",
+          "https://github.com/cure53/DOMPurify/pull/1672",
+          "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+          "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
         ]
       }
     ],
@@ -7366,6 +7545,94 @@
         "info": [
           "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-x9gp-vjh6-3wv6",
           "https://github.com/ckeditor/ckeditor5/commit/b210e90c6cf84e662ef6c7daf93a92355a961bf2"
+        ]
+      },
+      {
+        "atOrAbove": "29.0.0",
+        "below": "47.7.4",
+        "severity": "low",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+          "githubID": "GHSA-v6mg-96c6-gmpq",
+          "CVE": [
+            "CVE-2026-116687"
+          ]
+        },
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-v6mg-96c6-gmpq",
+          "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+          "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+        ]
+      },
+      {
+        "atOrAbove": "45.0.0",
+        "below": "47.7.4",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+          "githubID": "GHSA-rh54-vffm-5fvp",
+          "CVE": [
+            "CVE-2026-116688"
+          ]
+        },
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rh54-vffm-5fvp",
+          "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+          "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+        ]
+      },
+      {
+        "atOrAbove": "48.0.0",
+        "below": "48.5.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+          "githubID": "GHSA-rh54-vffm-5fvp",
+          "CVE": [
+            "CVE-2026-116688"
+          ]
+        },
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rh54-vffm-5fvp",
+          "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+          "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+        ]
+      },
+      {
+        "atOrAbove": "48.0.0",
+        "below": "48.5.1",
+        "severity": "low",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+          "githubID": "GHSA-v6mg-96c6-gmpq",
+          "CVE": [
+            "CVE-2026-116687"
+          ]
+        },
+        "info": [
+          "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-v6mg-96c6-gmpq",
+          "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+          "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+          "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
         ]
       }
     ],
@@ -9894,6 +10161,76 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "14.3.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+          "githubID": "GHSA-r7fv-28h4-cvq7",
+          "CVE": [
+            "CVE-2026-111759"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+          "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+          "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+          "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "14.3.3",
+        "severity": "low",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+          "githubID": "GHSA-vfgh-jcmw-g37q",
+          "CVE": [
+            "CVE-2026-111766"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+          "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+        ]
+      },
+      {
+        "atOrAbove": "14.1.0",
+        "below": "14.3.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+          "githubID": "GHSA-gfr2-rv44-r23c",
+          "CVE": [
+            "CVE-2026-111758"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+          "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+        ]
+      },
+      {
         "atOrAbove": "15.0.0",
         "below": "15.0.1",
         "severity": "medium",
@@ -9910,6 +10247,76 @@
           "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
           "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
           "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.0.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+          "githubID": "GHSA-r7fv-28h4-cvq7",
+          "CVE": [
+            "CVE-2026-111759"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+          "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+          "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+          "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.0.3",
+        "severity": "high",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+          "githubID": "GHSA-gfr2-rv44-r23c",
+          "CVE": [
+            "CVE-2026-111758"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+          "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.0.3",
+        "severity": "low",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "identifiers": {
+          "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+          "githubID": "GHSA-vfgh-jcmw-g37q",
+          "CVE": [
+            "CVE-2026-111766"
+          ]
+        },
+        "info": [
+          "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+          "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+          "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+          "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+          "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
         ]
       }
     ],
@@ -12586,6 +12993,45 @@
         ]
       },
       {
+        "atOrAbove": "10.0.0",
+        "below": "15.5.28",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1395"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when SVG files are used",
+          "githubID": "GHSA-2464-fhr4-w9xw"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-2464-fhr4-w9xw",
+          "https://github.com/vercel/next.js/commit/5e3b687b5edb868b064bdc058d768a7021e7f6ad",
+          "https://github.com/vercel/next.js/commit/9571ec899f063df6533351bec390ccb2cc0af6a3",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "15.5.28",
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Denial of Service in App Router using Server Actions",
+          "githubID": "GHSA-p3m5-59mp-jv5r",
+          "CVE": [
+            "CVE-2026-94482"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
         "atOrAbove": "15.6.0-canary.0",
         "below": "15.6.0-canary.59",
         "severity": "high",
@@ -13654,6 +14100,82 @@
           "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598",
           "https://github.com/vercel/next.js/releases/tag/v16.3.8"
         ]
+      },
+      {
+        "atOrAbove": "16.3.0",
+        "below": "16.3.8",
+        "severity": "medium",
+        "cwe": [
+          "CWE-524"
+        ],
+        "identifiers": {
+          "summary": "next.js cache leak across root param values in nested 'use cache' functions",
+          "githubID": "GHSA-h694-7cp9-m8p3",
+          "CVE": [
+            "CVE-2026-103004"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-h694-7cp9-m8p3",
+          "https://github.com/vercel/next.js/commit/e92db4536a7f34ae2dbda583cfa1b4e0d06d1865",
+          "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.1",
+        "severity": "critical",
+        "cwe": [
+          "CWE-1395"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when SVG files are used",
+          "githubID": "GHSA-2464-fhr4-w9xw"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-2464-fhr4-w9xw",
+          "https://github.com/vercel/next.js/commit/5e3b687b5edb868b064bdc058d768a7021e7f6ad",
+          "https://github.com/vercel/next.js/commit/9571ec899f063df6533351bec390ccb2cc0af6a3",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.1",
+        "severity": "critical",
+        "cwe": [
+          "CWE-502"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Unauthenticated Remote Code Execution in `use cache` functions returning typed arrays",
+          "githubID": "GHSA-673q-mjm6-r5xr"
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-673q-mjm6-r5xr",
+          "https://github.com/vercel/next.js/commit/a4cea6aec5da89d116b8960e113189cf51745d2f",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-770"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Denial of Service in App Router using Server Actions",
+          "githubID": "GHSA-p3m5-59mp-jv5r",
+          "CVE": [
+            "CVE-2026-94482"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
       }
     ],
     "extractors": {
@@ -13946,6 +14468,313 @@
         "info": [
           "https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057"
         ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+          "githubID": "GHSA-5793-x2q3-c3q7",
+          "CVE": [
+            "CVE-2026-118251"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+          "https://github.com/highcharts/highcharts/pull/25315",
+          "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "6.1.0",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+          "githubID": "GHSA-rmqc-xvr3-v46c",
+          "CVE": [
+            "CVE-2026-118250"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+          "https://github.com/highcharts/highcharts/pull/25313",
+          "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "10.0.0",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+          "githubID": "GHSA-35rr-xwfh-x789",
+          "CVE": [
+            "CVE-2026-118246"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+          "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "10.3.2",
+        "below": "11.4.9",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+          "githubID": "GHSA-mw4f-gj5x-6xr4",
+          "CVE": [
+            "CVE-2026-116796"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+          "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+          "githubID": "GHSA-35rr-xwfh-x789",
+          "CVE": [
+            "CVE-2026-118246"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+          "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+          "githubID": "GHSA-5793-x2q3-c3q7",
+          "CVE": [
+            "CVE-2026-118251"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+          "https://github.com/highcharts/highcharts/pull/25315",
+          "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+          "githubID": "GHSA-65hg-cf3f-5m39",
+          "CVE": [
+            "CVE-2026-118244"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+          "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+          "githubID": "GHSA-rmqc-xvr3-v46c",
+          "CVE": [
+            "CVE-2026-118250"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+          "https://github.com/highcharts/highcharts/pull/25313",
+          "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "12.0.0",
+        "below": "12.6.2",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+          "githubID": "GHSA-mw4f-gj5x-6xr4",
+          "CVE": [
+            "CVE-2026-116796"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+          "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+          "githubID": "GHSA-35rr-xwfh-x789",
+          "CVE": [
+            "CVE-2026-118246"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+          "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+          "githubID": "GHSA-5793-x2q3-c3q7",
+          "CVE": [
+            "CVE-2026-118251"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+          "https://github.com/highcharts/highcharts/pull/25315",
+          "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+          "githubID": "GHSA-65hg-cf3f-5m39",
+          "CVE": [
+            "CVE-2026-118244"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+          "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: series column construction writes to Object.prototype",
+          "githubID": "GHSA-gfvx-2c2g-38wq",
+          "CVE": [
+            "CVE-2026-118249"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-gfvx-2c2g-38wq",
+          "https://github.com/highcharts/highcharts/pull/25321",
+          "https://github.com/highcharts/highcharts/commit/d3357705c8f348904441327e32f50ab528c3a205",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.0",
+        "severity": "high",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+          "githubID": "GHSA-rmqc-xvr3-v46c",
+          "CVE": [
+            "CVE-2026-118250"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+          "https://github.com/highcharts/highcharts/pull/25313",
+          "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+        ]
+      },
+      {
+        "atOrAbove": "13.0.0",
+        "below": "13.1.1",
+        "severity": "high",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+          "githubID": "GHSA-mw4f-gj5x-6xr4",
+          "CVE": [
+            "CVE-2026-116796"
+          ]
+        },
+        "info": [
+          "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+          "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+          "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+        ]
       }
     ],
     "extractors": {
@@ -14206,8 +15035,7 @@
         "identifiers": {
           "summary": "Command Injection in lodash",
           "CVE": [
-            "CVE-2021-23337",
-            "CVE-2026-4800"
+            "CVE-2021-23337"
           ],
           "githubID": "GHSA-35jh-r3h4-6jhm"
         },
@@ -14280,8 +15108,7 @@
           "summary": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution via the _.unset and _.omit functions. An attacker can pass crafted paths to delete methods from global prototypes such as Object.prototype, though the issue only permits deletion and not overwriting of properties.",
           "githubID": "GHSA-xxjr-mmjv-4gpg",
           "CVE": [
-            "CVE-2025-13465",
-            "CVE-2026-2950"
+            "CVE-2025-13465"
           ]
         },
         "info": [
@@ -14300,7 +15127,6 @@
           "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
           "githubID": "GHSA-f23m-r3pf-42rh",
           "CVE": [
-            "CVE-2025-13465",
             "CVE-2026-2950"
           ]
         },
@@ -14320,7 +15146,6 @@
           "summary": "Lodash _.template is vulnerable to code injection via unsanitized options.imports key names. Untrusted key names are passed to the Function() constructor sink without validation, and the use of assignInWith (which enumerates inherited properties) also means that pre-existing prototype pollution on Object.prototype can flow into the Function() sink and execute arbitrary code at template compilation time.",
           "githubID": "GHSA-r5fr-rjxr-66jc",
           "CVE": [
-            "CVE-2021-23337",
             "CVE-2026-4800"
           ]
         },

