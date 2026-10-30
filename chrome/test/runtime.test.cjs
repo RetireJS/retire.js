@@ -171,6 +171,33 @@ test("changed content at the same URL is scanned again", async () => {
   assert.equal(snapshot.totalVulns, 0);
 });
 
+test("refresh discards results and rescans observed scripts without a reload", async () => {
+  let content = "1.0";
+  let downloads = 0;
+  const h = harness({
+    fetch: async () => {
+      downloads++;
+      return { ok: true, text: async () => content };
+    },
+    deepScan: (text) => retire.check("alpha", text, repo.advisories),
+  });
+  await h.ready;
+  await h.scan();
+  content = "3.0";
+  assert.deepEqual(await h.message({ type: "rescan", tabId: 1 }), {
+    rescanned: 1,
+  });
+  let snapshot;
+  do {
+    await new Promise((resolve) => setImmediate(resolve));
+    snapshot = await h.message({ type: "getSnapshot", tabId: 1 });
+  } while (snapshot.resources[0]?.status !== "complete");
+  assert.equal(downloads, 2);
+  assert.equal(snapshot.resources.length, 1);
+  assert.equal(snapshot.resources[0].results[0].version, "3.0");
+  assert.equal(snapshot.totalVulns, 0);
+});
+
 test("late results cannot leak into the next navigation", async () => {
   let finish;
   const h = harness({

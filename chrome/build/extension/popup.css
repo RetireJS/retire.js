@@ -103,6 +103,7 @@ a:focus-visible {
 }
 .controls {
   display: flex;
+  align-items: center;
   gap: 22px;
   padding: 10px 20px 13px;
   border-bottom: 1px solid var(--line);
@@ -405,6 +406,27 @@ table .badge {
   padding: 9px 20px;
   color: var(--muted);
   font-size: 9px;
+}
+.rescan {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  color: var(--accent);
+  background: none;
+  border: 0;
+  font-size: 12px;
+  padding: 0;
+  white-space: nowrap;
+}
+.rescan svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .export {
   color: var(--accent);

@@ -387,11 +387,32 @@
         api.runtime.onMessage.addListener((message, sender, sendResponse) => {
           if (sender.id !== api.runtime.id || sender.tab || message.target === "offscreen")
             return false;
-          if (!["getSnapshot", "setSettings"].includes(message.type)) return false;
+          if (!["getSnapshot", "setSettings", "rescan"].includes(message.type))
+            return false;
           (async () => {
             await ready;
             if (message.type === "getSnapshot")
               return snapshot(message.tabId, message.url);
+            if (message.type === "rescan") {
+              const tabId = message.tabId;
+              const urls = Object.keys(tabs[tabId]?.resources || {});
+              const tab = tabs[tabId] = newTab(tabs[tabId]?.url || message.url);
+              for (const [id, request] of requests)
+                if (request.tabId === tabId) requests.delete(id);
+              for (const url of urls) {
+                const requestId = crypto.randomUUID();
+                requests.set(requestId, { generation: tab.generation, tabId });
+                scan({
+                  requestId,
+                  tabId,
+                  url,
+                  type: "script",
+                  timeStamp: tab.startedAt
+                }).catch(reportError);
+              }
+              await badge(tabId);
+              return { rescanned: urls.length };
+            }
             let changed = false;
             for (const key of Object.keys(DEFAULTS))
               if (typeof message.settings?.[key] === "boolean" && settings[key] !== message.settings[key]) {
@@ -405,7 +426,7 @@
                 for (const resource of Object.values(tab.resources))
                   if (resource.status === "scanning") {
                     resource.status = "error";
-                    resource.error = "Scan settings changed. Reload the page to scan again.";
+                    resource.error = "Scan settings changed. Refresh to scan again.";
                   }
             }
             await api.storage.local.set({ settings });

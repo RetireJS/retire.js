@@ -328,6 +328,8 @@ function render() {
     $("domain").textContent = snapshot.url || "Current tab";
   }
   $("domain").title = snapshot.url || "";
+  $("rescan").disabled =
+    !settings.enabled || snapshot.status === "unsupported";
   const query = $("search").value.trim().toLowerCase();
   const list = allLibraries.filter(
     (library) =>
@@ -491,6 +493,32 @@ for (const [id, setting] of [
   };
 }
 $("search").oninput = render;
+$("rescan").onclick = async () => {
+  revision++;
+  $("rescan").disabled = true;
+  try {
+    const [tab] = await extensionCall("tabs", "query", {
+      active: true,
+      currentWindow: true,
+    });
+    const result = await extensionCall("runtime", "sendMessage", {
+      type: "rescan",
+      tabId: tab?.id,
+      url: tab?.url,
+    });
+    if (typeof result?.rescanned !== "number")
+      throw new Error(result?.error || "No response.");
+    selected = null;
+    $("feedback").textContent = result.rescanned
+      ? `Rescanning ${result.rescanned} script${result.rescanned === 1 ? "" : "s"}.`
+      : "Results cleared. Reload the page to scan scripts loaded earlier.";
+  } catch (error) {
+    $("feedback").textContent = `Could not refresh: ${error.message}`;
+  } finally {
+    $("rescan").disabled = false;
+    refresh();
+  }
+};
 $("export").onclick = () => {
   if (!snapshot) return;
   const url = URL.createObjectURL(
