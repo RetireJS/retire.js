@@ -40,7 +40,7 @@ These screenshots show the actual Chrome 153 popup on [Google's XSS training pag
 
 After compiling Node sources, run `npm test` in `chrome/build` for the extension regression tests. Run `npm run build` there to rebuild the three packages. The repository Node tests and validation tools are unchanged in scope.
 
-Native browser smoke checks are also available from the repository root on Windows with Chrome and Firefox installed in their default locations and Node.js 22 or newer:
+Native browser smoke checks are also available from the repository root with Node.js 22 or newer. They use the default Windows install locations of Chrome and Firefox; set `CHROME_PATH` or `FIREFOX_PATH` to use another browser binary, for example `CHROME_PATH=/usr/bin/google-chrome-stable` on Linux:
 
 ```text
 node chrome/test/browser-smoke.cjs chrome

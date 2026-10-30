@@ -31,7 +31,7 @@ async function main() {
   await new Promise((resolve) => server.listen(8767, "127.0.0.1", resolve));
   const log = fs.openSync(path.join(output, "firefox.log"), "w");
   const child = spawn(
-    "C:/Program Files/Mozilla Firefox/firefox.exe",
+    process.env.FIREFOX_PATH || "C:/Program Files/Mozilla Firefox/firefox.exe",
     [
       "--headless",
       "--no-remote",
@@ -40,7 +40,12 @@ async function main() {
       "--marionette",
       "--remote-allow-system-access",
     ],
-    { windowsHide: true, stdio: ["ignore", log, log] },
+    {
+      windowsHide: true,
+      stdio: ["ignore", log, log],
+      // Firefox 159+ also requires this before chrome-context Marionette calls.
+      env: { ...process.env, MOZ_REMOTE_ALLOW_SYSTEM_ACCESS: "1" },
+    },
   );
   let socket;
   try {

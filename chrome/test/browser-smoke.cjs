@@ -86,7 +86,7 @@ async function main() {
   const extension = path.join(root, "chrome", process.argv[2] === "chrome-no-func" ? "extension-no-func" : "extension");
   const log = fs.openSync(path.join(output, "chrome.log"), "w");
   const child = spawn(
-    "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe",
     [
       "--headless=new",
       "--screen-info={0,0 1280x960}",
@@ -201,8 +201,6 @@ async function main() {
       throw error;
     });
     assert(snapshot.totalVulns > 0);
-    const summary = await evaluate('document.querySelector("#severity-summary").textContent', popupSession);
-    assert.match(summary, /\d+ Critical\d+ High\d+ Medium\d+ Low\d+ Info/);
     assert.equal(await evaluate('document.querySelector("#mode")', popupSession), null);
     assert.equal(await evaluate(
       '[...document.querySelectorAll("th, td, td button, td .badge")].every(el => getComputedStyle(el).fontSize === "12px")',
@@ -242,6 +240,9 @@ async function main() {
         ),
       "popup rows",
     );
+    // The popup polls once per second, so read the summary only after it shows results.
+    const summary = await evaluate('document.querySelector("#severity-summary").textContent', popupSession);
+    assert.match(summary, /\d+ Critical\d+ High\d+ Medium\d+ Low\d+ Info/);
     assert.equal(
       await evaluate("document.body.offsetWidth", popupSession),
       600,
