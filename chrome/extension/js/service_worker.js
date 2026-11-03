@@ -153,7 +153,7 @@
             tabId,
             url: tabUrl,
             scannedAt: tab?.scannedAt || null,
-            status: tabUrl && !/^https?:\/\//.test(tabUrl) ? "unsupported" : resources.some((r) => r.status === "scanning") ? "loading" : "ready",
+            status: tabUrl && !/^https?:\/\//.test(tabUrl) ? "unsupported" : tab?.discovering || resources.some((r) => r.status === "scanning") ? "loading" : "ready",
             repositoryError,
             urlsScanned: resources.length,
             totalVulns: results.reduce(
@@ -201,6 +201,7 @@
           await api.action.setBadgeBackgroundColor({ color: "#c13832" });
           await icon();
           await Promise.all(openTabs.map((tab) => badge(tab.id)));
+          openTabs.filter((tab) => tab.active).forEach((tab) => discover(tab.id, tab.url).catch(reportError));
         })();
         ready.catch(reportError);
         async function sandbox(content, url, repo) {
@@ -337,6 +338,54 @@
             await badge(details.tabId);
           }
         }
+        async function pageScripts(tabId) {
+          try {
+            const frames = await api.scripting.executeScript({
+              target: { tabId, allFrames: true },
+              injectImmediately: true,
+              // shortcut: only scripts the browser loaded; one past the 250-entry resource timing buffer is missed until reload.
+              func: () => performance.getEntriesByType("resource").filter((entry) => entry.initiatorType === "script").map((entry) => entry.name)
+            });
+            return frames.flatMap((frame) => frame.result || []);
+          } catch {
+            return [];
+          }
+        }
+        async function rescan(tabId, url) {
+          const known = Object.keys(tabs[tabId]?.resources || {});
+          const tab = tabs[tabId] = newTab(tabs[tabId]?.url || url);
+          tab.observed = true;
+          for (const request of requests.values())
+            if (request.tabId === tabId) request.generation = tab.generation;
+          const urls = [.../* @__PURE__ */ new Set([...known, ...await pageScripts(tabId)])].filter(
+            (scriptUrl) => /^https?:\/\//.test(scriptUrl)
+          );
+          if (tabs[tabId] !== tab) return 0;
+          for (const scriptUrl of urls) {
+            const requestId = crypto.randomUUID();
+            requests.set(requestId, { generation: tab.generation, tabId });
+            scan({
+              requestId,
+              tabId,
+              url: scriptUrl,
+              type: "script",
+              timeStamp: tab.startedAt
+            }).catch(reportError);
+          }
+          await badge(tabId);
+          return urls.length;
+        }
+        async function discover(tabId, url) {
+          const known = tabs[tabId];
+          if (!settings.enabled || !/^https?:\/\//.test(url || "") || known?.observed || known?.discovering)
+            return;
+          const tab = tabs[tabId] ||= newTab(url);
+          tab.discovering = true;
+          await new Promise((done) => setTimeout(done, options.discoverDelay ?? 3e3));
+          tab.discovering = false;
+          if (tabs[tabId] !== tab || !settings.enabled) return;
+          await rescan(tabId, url);
+        }
         api.webRequest.onBeforeRequest.addListener(
           async (details) => {
             await ready;
@@ -365,6 +414,7 @@
           if (details.frameId !== 0) return;
           await ready;
           tabs[details.tabId] = newTab(details.url, details.timeStamp);
+          tabs[details.tabId].observed = true;
           for (const [id, request] of requests)
             if (request.tabId === details.tabId) requests.delete(id);
           await badge(details.tabId);
@@ -378,6 +428,9 @@
           );
           tab.url = details.url;
         });
+        api.tabs.onActivated.addListener(
+          ({ tabId }) => ready.then(() => api.tabs.get(tabId)).then((tab) => discover(tab.id, tab.url)).catch(reportError)
+        );
         api.tabs.onRemoved.addListener(async (tabId) => {
           await ready;
           delete tabs[tabId];
@@ -391,28 +444,12 @@
             return false;
           (async () => {
             await ready;
-            if (message.type === "getSnapshot")
+            if (message.type === "getSnapshot") {
+              discover(message.tabId, message.url).catch(reportError);
               return snapshot(message.tabId, message.url);
-            if (message.type === "rescan") {
-              const tabId = message.tabId;
-              const urls = Object.keys(tabs[tabId]?.resources || {});
-              const tab = tabs[tabId] = newTab(tabs[tabId]?.url || message.url);
-              for (const [id, request] of requests)
-                if (request.tabId === tabId) requests.delete(id);
-              for (const url of urls) {
-                const requestId = crypto.randomUUID();
-                requests.set(requestId, { generation: tab.generation, tabId });
-                scan({
-                  requestId,
-                  tabId,
-                  url,
-                  type: "script",
-                  timeStamp: tab.startedAt
-                }).catch(reportError);
-              }
-              await badge(tabId);
-              return { rescanned: urls.length };
             }
+            if (message.type === "rescan")
+              return { rescanned: await rescan(message.tabId, message.url) };
             let changed = false;
             for (const key of Object.keys(DEFAULTS))
               if (typeof message.settings?.[key] === "boolean" && settings[key] !== message.settings[key]) {

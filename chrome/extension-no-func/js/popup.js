@@ -911,7 +911,7 @@ $("rescan").onclick = async () => {
     feedback(
       result.rescanned
         ? `Rescanning ${plural(result.rescanned, "script", "scripts")}.`
-        : "Results cleared. Reload the page to scan scripts loaded earlier.",
+        : "No scripts found. Reload the page to scan it again.",
     );
   } catch (error) {
     feedback(`Could not refresh: ${error.message}`);

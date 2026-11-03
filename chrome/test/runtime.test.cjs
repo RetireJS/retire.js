@@ -45,6 +45,7 @@ function harness({
   openTabs = [{ id: 1, url: "https://example.test/" }],
   fetch = async () => ({ ok: true, text: async () => "first" }),
   deepScan,
+  pageScripts = [],
 } = {}) {
   const storage = (data) => ({
     async get() {
@@ -55,6 +56,7 @@ function harness({
     },
   });
   const badges = [];
+  const injected = [];
   const api = {
     runtime: {
       id: "test",
@@ -68,9 +70,20 @@ function harness({
       onErrorOccurred: event(),
     },
     tabs: {
+      onActivated: event(),
       onRemoved: event(),
       async query() {
         return openTabs;
+      },
+      async get(id) {
+        return openTabs.find((tab) => tab.id === id);
+      },
+    },
+    scripting: {
+      async executeScript(injection) {
+        injected.push(injection.target.tabId);
+        if (pageScripts instanceof Error) throw pageScripts;
+        return [{ result: pageScripts }];
       },
     },
     storage: {
@@ -107,7 +120,7 @@ function harness({
           .check("alpha", "1.0", repo.advisories)
           .concat(retire.check("beta", "1.0", repo.advisories))),
   };
-  const runtime = startRuntime(api, engine, { fetch });
+  const runtime = startRuntime(api, engine, { fetch, discoverDelay: 0 });
   const message = (data) =>
     new Promise((resolve) =>
       api.runtime.onMessage.listeners[0](data, { id: "test" }, resolve),
@@ -123,7 +136,7 @@ function harness({
     await api.webRequest.onBeforeRequest.emit(details);
     await api.webRequest.onCompleted.emit(details);
   };
-  return { api, ready: runtime.ready, message, scan, badges };
+  return { api, ready: runtime.ready, message, scan, badges, injected };
 }
 
 test("keeps all AST matches, merges repeated findings, and derives counts", async () => {
@@ -180,6 +193,7 @@ test("refresh discards results and rescans observed scripts without a reload", a
       return { ok: true, text: async () => content };
     },
     deepScan: (text) => retire.check("alpha", text, repo.advisories),
+    pageScripts: new Error("The extensions gallery cannot be scripted."),
   });
   await h.ready;
   await h.scan();
@@ -196,6 +210,97 @@ test("refresh discards results and rescans observed scripts without a reload", a
   assert.equal(snapshot.resources.length, 1);
   assert.equal(snapshot.resources[0].results[0].version, "3.0");
   assert.equal(snapshot.totalVulns, 0);
+});
+
+const settle = async (h) => {
+  let snapshot;
+  do {
+    await new Promise((resolve) => setTimeout(resolve));
+    snapshot = await h.message({ type: "getSnapshot", tabId: 1 });
+  } while (snapshot.status !== "ready");
+  return snapshot;
+};
+
+test("switching to a tab loaded before the worker started scans its page scripts", async () => {
+  const h = harness({ pageScripts: ["https://example.test/app.js", "", "data:,x"] });
+  await h.ready;
+  await h.api.tabs.onActivated.emit({ tabId: 1 });
+  const snapshot = await settle(h);
+  assert.deepEqual(h.injected, [1]);
+  assert.deepEqual(snapshot.resources.map((r) => r.url), ["https://example.test/app.js"]);
+  assert.equal(snapshot.totalVulns, 1);
+});
+
+test("opening the popup completes a tab first seen through a late script request", async () => {
+  const h = harness({ pageScripts: ["https://example.test/app.js"] });
+  await h.ready;
+  await h.scan("https://example.test/late.js");
+  await h.message({ type: "getSnapshot", tabId: 1, url: "https://example.test/" });
+  const snapshot = await settle(h);
+  assert.deepEqual(
+    snapshot.resources.map((r) => r.url).sort(),
+    ["https://example.test/app.js", "https://example.test/late.js"],
+  );
+  await h.api.tabs.onActivated.emit({ tabId: 1 });
+  assert.deepEqual(h.injected, [1], "a discovered tab is not read again");
+});
+
+test("tabs watched from navigation are not read again on activation", async () => {
+  const h = harness({ pageScripts: ["https://example.test/app.js"] });
+  await h.ready;
+  await h.api.webNavigation.onBeforeNavigate.emit({
+    tabId: 1,
+    frameId: 0,
+    url: "https://example.test/",
+    timeStamp: Date.now(),
+  });
+  await h.api.tabs.onActivated.emit({ tabId: 1 });
+  await h.message({ type: "getSnapshot", tabId: 1, url: "https://example.test/" });
+  assert.deepEqual(h.injected, []);
+});
+
+test("the active tab is discovered when the worker starts", async () => {
+  const h = harness({
+    openTabs: [{ id: 1, active: true, url: "https://example.test/" }],
+    pageScripts: ["https://example.test/app.js"],
+  });
+  await h.ready;
+  const snapshot = await settle(h);
+  assert.deepEqual(h.injected, [1]);
+  assert.deepEqual(snapshot.resources.map((r) => r.url), ["https://example.test/app.js"]);
+});
+
+test("navigation during the discover wait is not overwritten", async () => {
+  const h = harness({ pageScripts: ["https://example.test/app.js"] });
+  await h.ready;
+  const pending = h.api.tabs.onActivated.emit({ tabId: 1 });
+  for (let i = 0; i < 10; i++) await null; // let discover() start its wait
+  await h.api.webNavigation.onBeforeNavigate.emit({
+    tabId: 1,
+    frameId: 0,
+    url: "https://example.test/next",
+    timeStamp: Date.now(),
+  });
+  await pending;
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  assert.deepEqual(h.injected, []);
+});
+
+test("refresh keeps scripts still downloading", async () => {
+  const h = harness();
+  await h.ready;
+  const details = {
+    requestId: "late",
+    tabId: 1,
+    url: "https://example.test/chunk.js",
+    type: "script",
+    timeStamp: Date.now(),
+  };
+  await h.api.webRequest.onBeforeRequest.emit(details);
+  await h.message({ type: "rescan", tabId: 1 });
+  await h.api.webRequest.onCompleted.emit({ ...details, timeStamp: Date.now() });
+  const snapshot = await settle(h);
+  assert.deepEqual(snapshot.resources.map((r) => r.url), ["https://example.test/chunk.js"]);
 });
 
 test("late results cannot leak into the next navigation", async () => {

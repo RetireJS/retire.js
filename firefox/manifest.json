@@ -3,7 +3,7 @@
   "name": "retire.js",
   "version": "5.7.0",
   "description": "Detect JavaScript libraries with known vulnerabilities.",
-  "permissions": ["webRequest", "webNavigation", "activeTab", "storage"],
+  "permissions": ["webRequest", "webNavigation", "activeTab", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "icons": {
     "16": "icons/icon16.png",

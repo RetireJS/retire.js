@@ -9,7 +9,7 @@
     "128": "icons/icon128.png"
   },
   "author": "Erlend Oftedal",
-  "permissions": ["webRequest", "activeTab", "webNavigation", "storage"],
+  "permissions": ["webRequest", "activeTab", "webNavigation", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {

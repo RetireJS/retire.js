@@ -14,7 +14,8 @@
     "activeTab",
     "webNavigation",
     "storage",
-    "offscreen"
+    "offscreen",
+    "scripting"
   ],
   "host_permissions": ["<all_urls>"],
   "action": {
