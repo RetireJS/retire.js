@@ -316,7 +316,8 @@ p {
   transform: scale(0.94);
 }
 .icon-button.busy svg {
-  animation: spin 800ms linear infinite;
+  /* The rotate-left icon points anticlockwise, so it spins that way. */
+  animation: spin 800ms linear infinite reverse;
 }
 @media (hover: hover) {
   .icon-button:hover:not(:disabled) {
