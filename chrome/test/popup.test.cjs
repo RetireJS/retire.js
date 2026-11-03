@@ -121,6 +121,49 @@ test("popup renders untrusted strings as text and permits only HTTP(S) advisory 
   assert.equal(source.includes("innerHTML"), false);
 });
 
+test("affected ranges handle numeric, prerelease and open-ended versions", () => {
+  const sandbox = context();
+  const run = (expression) => vm.runInContext(expression, sandbox);
+  assert.ok(run('compareVersions("1.2.10", "1.2.9")') > 0);
+  assert.ok(run('compareVersions("3.0.0", "3.0.0-rc.1")') > 0);
+  assert.ok(run('compareVersions("3.0.0-rc.10", "3.0.0-rc.9")') > 0);
+  assert.equal(run('compareVersions("1.0", "1.0.0")'), 0);
+  assert.equal(run('affectedRange({below:"1.6.0"})'), "Affects versions below 1.6.0");
+  assert.equal(run('affectedRange({atOrAbove:"1.3.0",below:"1.8.4"})'), "Affects 1.3.0 to below 1.8.4");
+  assert.equal(run('affectedRange({atOrAbove:"2.0.0",below:"999.0.0"})'), "Affects 2.0.0 and later");
+  assert.equal(run("affectedRange({})"), "Affects all versions");
+});
+
+test("rows name unmatched scripts after their file and keep the outcome as detail text", () => {
+  const sandbox = context();
+  sandbox.data = {
+    resources: [
+      { url: "https://example.test/js/checkout.js?v=2", status: "complete", results: [] },
+      { url: "https://example.test/", status: "error", error: "HTTP 403", results: [] },
+      { url: "https://example.test/a.js", status: "complete", results: [
+        { component: "jquery", version: "1.12.4", vulnerabilities: [{ severity: "medium" }, { severity: "high" }] },
+        { component: "react", version: "18.2.0", vulnerabilities: [] },
+      ] },
+    ],
+  };
+  const rows = vm.runInContext("libraries(data).map(l => [kind(l), displayName(l), rowDetail(l)])", sandbox);
+  assert.deepEqual(JSON.parse(JSON.stringify(rows)), [
+    ["vulnerable", "jquery", "1.12.4 · 2 advisories"],
+    ["clean", "react", "18.2.0 · No known findings"],
+    ["error", "example.test", "Scan failed"],
+    ["unknown", "checkout.js", "Unidentified script"],
+  ]);
+  assert.equal(vm.runInContext("highest(libraries(data)[0])", sandbox), "high");
+  assert.equal(vm.runInContext("rowDetail(libraries(data)[0], true)", sandbox), "1.12.4 · 2 advisories · a.js");
+  assert.equal(vm.runInContext("rowDetail(libraries(data)[3], true)", sandbox), "Unidentified script · example.test");
+  // A library identified before a later scan step failed is still listed, but not as fully checked.
+  sandbox.data.resources[2].status = "error";
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(vm.runInContext("libraries(data).filter(l => l.component === 'react').map(l => [kind(l), rowDetail(l)])", sandbox))),
+    [["clean", "18.2.0 · Scan incomplete"]],
+  );
+});
+
 test("severity counts distinguish info from unrated and pills omit zero counts", () => {
   const sandbox = context();
   sandbox.findings = [

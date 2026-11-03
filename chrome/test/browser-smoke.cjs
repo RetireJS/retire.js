@@ -202,10 +202,6 @@ async function main() {
     });
     assert(snapshot.totalVulns > 0);
     assert.equal(await evaluate('document.querySelector("#mode")', popupSession), null);
-    assert.equal(await evaluate(
-      '[...document.querySelectorAll("th, td, td button, td .badge")].every(el => getComputedStyle(el).fontSize === "12px")',
-      popupSession,
-    ), true);
     const functionOnly = snapshot.resources.find((resource) =>
       resource.url.endsWith("/function-only.js"),
     );
@@ -235,7 +231,8 @@ async function main() {
     await until(
       () =>
         evaluate(
-          'document.querySelector("#rows")?.textContent.includes("jquery")',
+          // Pending rows are named after their file, so wait for the identified library name.
+          '[...document.querySelectorAll("#rows .row-name")].some(el => el.textContent === "jquery")',
           popupSession,
         ),
       "popup rows",
@@ -243,6 +240,11 @@ async function main() {
     // The popup polls once per second, so read the summary only after it shows results.
     const summary = await evaluate('document.querySelector("#severity-summary").textContent', popupSession);
     assert.match(summary, /\d+ Critical\d+ High\d+ Medium\d+ Low\d+ Info/);
+    // Rows are full-width buttons with at least a 44 px touch target.
+    assert.equal(await evaluate(
+      '[...document.querySelectorAll("#rows .row")].every(el => el.tagName === "BUTTON" && el.getBoundingClientRect().height >= 44)',
+      popupSession,
+    ), true);
     assert.equal(
       await evaluate("document.body.offsetWidth", popupSession),
       600,
@@ -279,6 +281,22 @@ async function main() {
       path.join(output, `popup-${process.argv[2] || "chrome"}.png`),
       Buffer.from(screenshot.data, "base64"),
     );
+    await evaluate('document.querySelector("#rows .row").click()', popupSession);
+    await until(
+      () =>
+        evaluate(
+          'document.body.classList.contains("pushed") && document.activeElement?.id === "back" && document.querySelector("#details").textContent.includes("Advisories")',
+          popupSession,
+        ),
+      "library detail view",
+    );
+    // Let the push transition finish before capturing the detail view.
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    const detailShot = await client.send("Page.captureScreenshot", { format: "png" }, popupSession);
+    fs.writeFileSync(
+      path.join(output, `popup-${process.argv[2] || "chrome"}-detail.png`),
+      Buffer.from(detailShot.data, "base64"),
+    );
     await evaluate('document.querySelector("#copy").click()', popupSession);
     await until(
       () =>
@@ -288,13 +306,15 @@ async function main() {
         ),
       "copy URL or manual fallback",
     );
+    await evaluate('document.querySelector("#back").click()', popupSession);
+    assert.equal(await evaluate('document.body.classList.contains("pushed")', popupSession), false);
     await evaluate(
       'document.querySelector("#search").value="no-such-library";document.querySelector("#search").dispatchEvent(new Event("input"))',
       popupSession,
     );
     assert.equal(
       await evaluate(
-        'document.querySelectorAll("#rows tr").length',
+        'document.querySelectorAll("#rows .row").length',
         popupSession,
       ),
       0,
@@ -312,6 +332,11 @@ async function main() {
       behavior: "allow",
       downloadPath,
     });
+    await evaluate('document.querySelector("#options").click()', popupSession);
+    assert.equal(
+      await evaluate('document.body.classList.contains("sheet-open") && document.querySelector("#stack").inert && document.activeElement?.id === "enabled"', popupSession),
+      true,
+    );
     await evaluate('document.querySelector("#export").click()', popupSession);
     const exported = await until(async () => {
       const file = path.join(downloadPath, "retire-scan.json");

@@ -125,18 +125,18 @@ async function main() {
         )
       ).value;
     const metrics = await popup(
-      'return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,rows:document.querySelector("#rows").textContent,total:Array.from(document.querySelectorAll("#severity-summary span"), el => parseInt(el.textContent, 10)).reduce((a, b) => a + b, 0)};',
+      'return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,rows:[...document.querySelectorAll("#rows .row-name")].map(el => el.textContent).join(" "),total:Array.from(document.querySelectorAll("#severity-summary span"), el => parseInt(el.textContent, 10)).reduce((a, b) => a + b, 0)};',
     );
     assert.equal(metrics.width, 600);
     assert.equal(metrics.height, 600);
     assert.equal(metrics.scrollWidth, 600);
-    assert(metrics.rows.includes("jquery"));
+    assert(metrics.rows.split(" ").includes("jquery"));
     assert(metrics.total > 0);
     const summary = await popup('return document.querySelector("#severity-summary").textContent;');
     assert.match(summary, /\d+ Critical\d+ High\d+ Medium\d+ Low\d+ Info/);
     assert.equal(await popup('return document.querySelector("#mode");'), null);
     assert.equal(await popup(
-      'return [...document.querySelectorAll("th, td, td button, td .badge")].every(el => getComputedStyle(el).fontSize === "12px");',
+      'return [...document.querySelectorAll("#rows .row")].every(el => el.tagName === "BUTTON" && el.getBoundingClientRect().height >= 44);',
     ), true);
     console.log("Native popup:", metrics);
     const png = await evaluate(
@@ -150,7 +150,7 @@ async function main() {
       'document.querySelector("#search").value="no-such-library";document.querySelector("#search").dispatchEvent(new Event("input"));',
     );
     assert.equal(
-      await popup('return document.querySelectorAll("#rows tr").length;'),
+      await popup('return document.querySelectorAll("#rows .row").length;'),
       0,
     );
     assert.equal(
@@ -161,8 +161,11 @@ async function main() {
     );
     assert.equal(await popup('return document.querySelector("#severity-summary").textContent;'), summary);
     await popup(
-      'document.querySelector("#search").value="";document.querySelector("#search").dispatchEvent(new Event("input"));document.querySelector("#copy").click();',
+      'document.querySelector("#search").value="";document.querySelector("#search").dispatchEvent(new Event("input"));document.querySelector("#rows .row").click();',
     );
+    await wait(500);
+    assert.equal(await popup('return document.body.classList.contains("pushed");'), true);
+    await popup('document.querySelector("#copy").click();');
     await wait(500);
     assert.match(
       await popup('return document.querySelector("#feedback").textContent;'),
