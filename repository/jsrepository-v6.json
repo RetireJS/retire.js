@@ -13227,7 +13227,8 @@
         "below": "15.5.18",
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "identifiers": {
           "summary": "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -14266,7 +14267,8 @@
         "below": "16.2.6",
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "identifiers": {
           "summary": "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -15749,26 +15751,6 @@
         ]
       },
       {
-        "atOrAbove": "0",
-        "below": "4.18.0",
-        "severity": "medium",
-        "cwe": [
-          "CWE-1321"
-        ],
-        "identifiers": {
-          "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
-          "githubID": "GHSA-f23m-r3pf-42rh",
-          "CVE": [
-            "CVE-2026-2950"
-          ]
-        },
-        "details": "### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.",
-        "info": [
-          "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
-          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
-        ]
-      },
-      {
         "atOrAbove": "4.0.0",
         "below": "4.18.0",
         "severity": "high",
@@ -15787,6 +15769,26 @@
           "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
           "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
           "https://cna.openjsf.org/security-advisories.html"
+        ]
+      },
+      {
+        "atOrAbove": "4.17.23",
+        "below": "4.18.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
+          "githubID": "GHSA-f23m-r3pf-42rh",
+          "CVE": [
+            "CVE-2026-2950"
+          ]
+        },
+        "details": "### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.",
+        "info": [
+          "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
+          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
         ]
       }
     ],

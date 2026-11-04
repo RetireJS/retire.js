@@ -11451,7 +11451,8 @@
         },
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "info": [
           "https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f",
@@ -13335,8 +13336,8 @@
       {
         "ranges": [
           {
-            "atOrAbove": "0",
-            "below": "4.18.0"
+            "atOrAbove": "4.17.23",
+            "below": "4.18.1"
           }
         ],
         "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
