@@ -3154,23 +3154,6 @@
           ]
         },
         {
-          "below": "1.14",
-          "severity": "high",
-          "cwe": [
-            "CWE-79"
-          ],
-          "identifiers": {
-            "summary": "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
-            "CVE": [
-              "CVE-2018-15494"
-            ],
-            "githubID": "GHSA-84cm-x2q5-8225"
-          },
-          "info": [
-            "https://dojotoolkit.org/blog/dojo-1-14-released"
-          ]
-        },
-        {
           "atOrAbove": "1.14.0",
           "below": "1.14.6",
           "severity": "high",
