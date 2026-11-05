@@ -12972,7 +12972,8 @@
         "below": "15.5.18",
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "identifiers": {
           "summary": "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -13962,7 +13963,8 @@
         "below": "16.2.6",
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "identifiers": {
           "summary": "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -15406,25 +15408,6 @@
         ]
       },
       {
-        "atOrAbove": "0",
-        "below": "4.18.0",
-        "severity": "medium",
-        "cwe": [
-          "CWE-1321"
-        ],
-        "identifiers": {
-          "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
-          "githubID": "GHSA-f23m-r3pf-42rh",
-          "CVE": [
-            "CVE-2026-2950"
-          ]
-        },
-        "info": [
-          "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
-          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
-        ]
-      },
-      {
         "atOrAbove": "4.0.0",
         "below": "4.18.0",
         "severity": "high",
@@ -15442,6 +15425,25 @@
           "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
           "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
           "https://cna.openjsf.org/security-advisories.html"
+        ]
+      },
+      {
+        "atOrAbove": "4.17.23",
+        "below": "4.18.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
+          "githubID": "GHSA-f23m-r3pf-42rh",
+          "CVE": [
+            "CVE-2026-2950"
+          ]
+        },
+        "info": [
+          "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
+          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
         ]
       }
     ],
@@ -16861,6 +16863,28 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "6.11.6",
+        "severity": "critical",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "protobufjs is vulnerable to Remote Code Execution when loading crafted JSON descriptors. Schema-controlled type names and type references reach runtime code generation without sufficient validation, allowing an attacker who can influence the loaded schema to execute arbitrary JavaScript in the process.",
+          "githubID": "GHSA-xq3m-2v4x-88gg",
+          "CVE": [
+            "CVE-2026-41242"
+          ]
+        },
+        "info": [
+          "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-xq3m-2v4x-88gg",
+          "https://github.com/protobufjs/protobuf.js/commit/535df444ac060243722ac5d672db205e5c531d75",
+          "https://github.com/protobufjs/protobuf.js/commit/ff7b2afef8754837cc6dc64c864cd111ab477956",
+          "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.5",
+          "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.1"
+        ]
+      },
+      {
         "atOrAbove": "7.0.0",
         "below": "7.2.5",
         "severity": "critical",
@@ -16886,7 +16910,7 @@
         ]
       },
       {
-        "atOrAbove": "0",
+        "atOrAbove": "7.0.0",
         "below": "7.5.5",
         "severity": "critical",
         "cwe": [
