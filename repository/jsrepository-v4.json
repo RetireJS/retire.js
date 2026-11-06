@@ -3147,23 +3147,6 @@
         ]
       },
       {
-        "below": "1.14",
-        "severity": "high",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
-          "CVE": [
-            "CVE-2018-15494"
-          ],
-          "githubID": "GHSA-84cm-x2q5-8225"
-        },
-        "info": [
-          "https://dojotoolkit.org/blog/dojo-1-14-released"
-        ]
-      },
-      {
         "atOrAbove": "1.14.0",
         "below": "1.14.6",
         "severity": "high",
@@ -3272,6 +3255,36 @@
       },
       "ast": [
         "//BlockStatement/ExpressionStatement/AssignmentExpression[       /:left/:property/:name == \"version\" &&        /:left[         /:object/:name == \"dojo\" ||         /:$object/:init/:properties/:key/:name == \"dojox\"       ]     ]/ObjectExpression[       /Property/:key/:name == \"major\" ||       /Property/:key/:name == \"minor\" ||       /Property/:key/:name == \"patch\"     ]/fn:concat(       /Property[/:key/:name == \"major\"]/:value/:value, \".\",       /Property[/:key/:name == \"minor\"]/:value/:value, \".\",       /Property[/:key/:name == \"patch\"]/:value/:value     )"
+      ]
+    }
+  },
+  "dojox": {
+    "vulnerabilities": [
+      {
+        "below": "1.14.0",
+        "severity": "critical",
+        "cwe": [
+          "CWE-116"
+        ],
+        "identifiers": {
+          "summary": "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
+          "CVE": [
+            "CVE-2018-15494"
+          ],
+          "githubID": "GHSA-84cm-x2q5-8225",
+          "PR": "283"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-84cm-x2q5-8225",
+          "https://github.com/dojo/dojox/pull/283",
+          "https://dojotoolkit.org/blog/dojo-1-14-released"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": [
+        "/(?:dojo-release-)?(§§version§§)(?:-src)?/dojox/.+\\.js",
+        "/dojox@(§§version§§)/.+\\.js"
       ]
     }
   },
