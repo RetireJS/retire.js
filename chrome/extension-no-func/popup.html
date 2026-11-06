@@ -1,1 +1,127 @@
-../extension/popup.html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Retire.js</title>
+    <link rel="stylesheet" href="popup.css" />
+    <script src="js/popup.js" defer></script>
+  </head>
+  <body>
+    <main class="app" aria-label="Retire.js">
+      <div class="stack" id="stack">
+        <section class="view list-view" id="list-view" aria-label="Libraries on this page">
+          <header class="nav">
+            <span class="brand">
+              <img id="brand-icon" src="icons/icon48.png" alt="" width="24" height="24" />
+              <span class="wordmark">retire.js</span>
+            </span>
+            <span class="chip" id="state-chip"
+              ><span class="dot" aria-hidden="true"></span><span id="state">Loading…</span></span
+            >
+            <span class="grow"></span>
+            <button
+              class="icon-button"
+              id="rescan"
+              type="button"
+              aria-label="Rescan this page"
+              title="Discard results and scan this page's scripts again"
+            >
+              <svg class="solid" viewBox="0 0 640 640" aria-hidden="true">
+                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M88 256L232 256C241.7 256 250.5 250.2 254.2 241.2C257.9 232.2 255.9 221.9 249 215L202.3 168.3C277.6 109.7 386.6 115 455.8 184.2C530.8 259.2 530.8 380.7 455.8 455.7C380.8 530.7 259.3 530.7 184.3 455.7C174.1 445.5 165.3 434.4 157.9 422.7C148.4 407.8 128.6 403.4 113.7 412.9C98.8 422.4 94.4 442.2 103.9 457.1C113.7 472.7 125.4 487.5 139 501C239 601 401 601 501 501C601 401 601 239 501 139C406.8 44.7 257.3 39.3 156.7 122.8L105 71C98.1 64.2 87.8 62.1 78.8 65.8C69.8 69.5 64 78.3 64 88L64 232C64 245.3 74.7 256 88 256z"
+                />
+              </svg>
+            </button>
+            <button
+              class="icon-button"
+              id="options"
+              type="button"
+              aria-label="Options"
+              aria-haspopup="dialog"
+              aria-controls="sheet"
+              aria-expanded="false"
+              title="Options"
+            >
+              <svg class="solid" viewBox="0 0 640 640" aria-hidden="true">
+                <!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                <path
+                  d="M96 128C78.3 128 64 142.3 64 160C64 177.7 78.3 192 96 192L182.7 192C195 220.3 223.2 240 256 240C288.8 240 317 220.3 329.3 192L544 192C561.7 192 576 177.7 576 160C576 142.3 561.7 128 544 128L329.3 128C317 99.7 288.8 80 256 80C223.2 80 195 99.7 182.7 128L96 128zM96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L342.7 352C355 380.3 383.2 400 416 400C448.8 400 477 380.3 489.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L489.3 288C477 259.7 448.8 240 416 240C383.2 240 355 259.7 342.7 288L96 288zM96 448C78.3 448 64 462.3 64 480C64 497.7 78.3 512 96 512L150.7 512C163 540.3 191.2 560 224 560C256.8 560 285 540.3 297.3 512L544 512C561.7 512 576 497.7 576 480C576 462.3 561.7 448 544 448L297.3 448C285 419.7 256.8 400 224 400C191.2 400 163 419.7 150.7 448L96 448z"
+                />
+              </svg>
+            </button>
+          </header>
+          <div class="content">
+            <div>
+              <h1 class="large-title" id="domain">Current tab</h1>
+              <p class="subtitle" id="scanned">0 scripts scanned</p>
+            </div>
+            <div class="banner" id="banner" hidden>
+              <span id="banner-text"></span>
+              <button type="button" id="resume">Resume</button>
+            </div>
+            <section class="group summary" aria-labelledby="headline">
+              <h2 id="headline">Waiting for scan results…</h2>
+              <div class="severity-bar" id="severity-bar" aria-hidden="true"></div>
+              <div
+                class="legend"
+                id="severity-summary"
+                aria-label="Advisories by severity"
+                title="All advisories on this page, independent of search"
+              ></div>
+            </section>
+            <label class="field">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M11.5 7a4.5 4.5 0 1 1-9 0a4.5 4.5 0 1 1 9 0" />
+                <path d="m10.5 10.5 3 3" />
+              </svg>
+              <input
+                id="search"
+                type="search"
+                placeholder="Search"
+                autocomplete="off"
+                aria-label="Search library name, version, URL or advisory ID"
+              />
+            </label>
+            <div class="sections" id="rows" aria-label="Detected libraries"></div>
+            <p class="footnote">Version matches do not confirm that this page is exploitable.</p>
+          </div>
+        </section>
+        <div class="dim" aria-hidden="true"></div>
+        <section class="view detail-view" id="details" aria-label="Library details"></section>
+      </div>
+      <div class="scrim" id="scrim"></div>
+      <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <div class="sheet-handle" id="sheet-handle">
+          <div class="grabber" aria-hidden="true"></div>
+          <div class="sheet-head">
+            <h2 id="sheet-title">Options</h2>
+            <button type="button" id="done">Done</button>
+          </div>
+        </div>
+        <div class="group">
+          <label class="option" for="enabled"
+            ><span>Scan pages</span
+            ><input class="switch" id="enabled" type="checkbox" role="switch" checked
+          /></label>
+          <label class="option" for="deep"
+            ><span>Deep scan<small>Finds libraries bundled into other files. Slower.</small></span
+            ><input class="switch" id="deep" type="checkbox" role="switch" checked
+          /></label>
+          <label class="option" for="unknown"
+            ><span
+              >Show unidentified scripts<small>Lists scripts that matched no known library.</small></span
+            ><input class="switch" id="unknown" type="checkbox" role="switch"
+          /></label>
+        </div>
+        <div class="group">
+          <button class="action" id="export" type="button" disabled>Export Results as JSON</button>
+        </div>
+        <p class="footnote">The export contains the full scan, including results hidden by search.</p>
+      </section>
+      <div class="toast" id="feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+    </main>
+  </body>
+</html>
