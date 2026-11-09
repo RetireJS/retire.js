@@ -3281,6 +3281,141 @@
     "dojox": {
       "vulnerabilities": [
         {
+          "atOrAbove": "0",
+          "below": "1.11.9",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+            "githubID": "GHSA-pg97-ww7h-5mjr",
+            "CVE": [
+              "CVE-2019-10785"
+            ]
+          },
+          "details": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+            "https://github.com/dojo/dojox/pull/315",
+            "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+            "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+          ]
+        },
+        {
+          "atOrAbove": "0",
+          "below": "1.11.10",
+          "severity": "low",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Prototype Pollution in Dojox",
+            "githubID": "GHSA-3hw5-q855-g6cw",
+            "CVE": [
+              "CVE-2020-5259"
+            ]
+          },
+          "details": "The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n\t\tvar tobj = {};\n\t\tfor(var x in props){\n\t\t\t// the \"tobj\" condition avoid copying properties in \"props\"\n\t\t\t// inherited from Object.prototype.  For example, if obj has a custom\n\t\t\t// toString() method, don't overwrite it with the toString() method\n\t\t\t// that props inherited from Object.prototype\n\t\t\tif((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n\t\t\t\tif(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n\t\t\t\t\tif(dojo.isArray(props[x])){\n\t\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t\t}else{\n\t\t\t\t\t\tobj[x] = jqMix(obj[x], props[x]);\n\t\t\t\t\t}\n\t\t\t\t}else{\n\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t}\n```",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+            "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+            "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+          ]
+        },
+        {
+          "atOrAbove": "1.12.0",
+          "below": "1.12.7",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+            "githubID": "GHSA-pg97-ww7h-5mjr",
+            "CVE": [
+              "CVE-2019-10785"
+            ]
+          },
+          "details": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+            "https://github.com/dojo/dojox/pull/315",
+            "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+            "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+          ]
+        },
+        {
+          "atOrAbove": "1.12.0",
+          "below": "1.12.8",
+          "severity": "low",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Prototype Pollution in Dojox",
+            "githubID": "GHSA-3hw5-q855-g6cw",
+            "CVE": [
+              "CVE-2020-5259"
+            ]
+          },
+          "details": "The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n\t\tvar tobj = {};\n\t\tfor(var x in props){\n\t\t\t// the \"tobj\" condition avoid copying properties in \"props\"\n\t\t\t// inherited from Object.prototype.  For example, if obj has a custom\n\t\t\t// toString() method, don't overwrite it with the toString() method\n\t\t\t// that props inherited from Object.prototype\n\t\t\tif((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n\t\t\t\tif(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n\t\t\t\t\tif(dojo.isArray(props[x])){\n\t\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t\t}else{\n\t\t\t\t\t\tobj[x] = jqMix(obj[x], props[x]);\n\t\t\t\t\t}\n\t\t\t\t}else{\n\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t}\n```",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+            "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+            "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+          ]
+        },
+        {
+          "atOrAbove": "1.13.0",
+          "below": "1.13.6",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+            "githubID": "GHSA-pg97-ww7h-5mjr",
+            "CVE": [
+              "CVE-2019-10785"
+            ]
+          },
+          "details": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+            "https://github.com/dojo/dojox/pull/315",
+            "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+            "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+          ]
+        },
+        {
+          "atOrAbove": "1.13.0",
+          "below": "1.13.7",
+          "severity": "low",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Prototype Pollution in Dojox",
+            "githubID": "GHSA-3hw5-q855-g6cw",
+            "CVE": [
+              "CVE-2020-5259"
+            ]
+          },
+          "details": "The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n\t\tvar tobj = {};\n\t\tfor(var x in props){\n\t\t\t// the \"tobj\" condition avoid copying properties in \"props\"\n\t\t\t// inherited from Object.prototype.  For example, if obj has a custom\n\t\t\t// toString() method, don't overwrite it with the toString() method\n\t\t\t// that props inherited from Object.prototype\n\t\t\tif((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n\t\t\t\tif(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n\t\t\t\t\tif(dojo.isArray(props[x])){\n\t\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t\t}else{\n\t\t\t\t\t\tobj[x] = jqMix(obj[x], props[x]);\n\t\t\t\t\t}\n\t\t\t\t}else{\n\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t}\n```",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+            "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+            "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+          ]
+        },
+        {
           "below": "1.14.0",
           "severity": "critical",
           "cwe": [
@@ -3298,6 +3433,141 @@
             "https://github.com/advisories/GHSA-84cm-x2q5-8225",
             "https://github.com/dojo/dojox/pull/283",
             "https://dojotoolkit.org/blog/dojo-1-14-released"
+          ]
+        },
+        {
+          "atOrAbove": "1.14.0",
+          "below": "1.14.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+            "githubID": "GHSA-pg97-ww7h-5mjr",
+            "CVE": [
+              "CVE-2019-10785"
+            ]
+          },
+          "details": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+            "https://github.com/dojo/dojox/pull/315",
+            "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+            "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+          ]
+        },
+        {
+          "atOrAbove": "1.14.0",
+          "below": "1.14.6",
+          "severity": "low",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Prototype Pollution in Dojox",
+            "githubID": "GHSA-3hw5-q855-g6cw",
+            "CVE": [
+              "CVE-2020-5259"
+            ]
+          },
+          "details": "The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n\t\tvar tobj = {};\n\t\tfor(var x in props){\n\t\t\t// the \"tobj\" condition avoid copying properties in \"props\"\n\t\t\t// inherited from Object.prototype.  For example, if obj has a custom\n\t\t\t// toString() method, don't overwrite it with the toString() method\n\t\t\t// that props inherited from Object.prototype\n\t\t\tif((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n\t\t\t\tif(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n\t\t\t\t\tif(dojo.isArray(props[x])){\n\t\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t\t}else{\n\t\t\t\t\t\tobj[x] = jqMix(obj[x], props[x]);\n\t\t\t\t\t}\n\t\t\t\t}else{\n\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t}\n```",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+            "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+            "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.0",
+          "below": "1.15.2",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+            "githubID": "GHSA-pg97-ww7h-5mjr",
+            "CVE": [
+              "CVE-2019-10785"
+            ]
+          },
+          "details": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+            "https://github.com/dojo/dojox/pull/315",
+            "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+            "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+          ]
+        },
+        {
+          "atOrAbove": "1.15.0",
+          "below": "1.15.3",
+          "severity": "low",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Prototype Pollution in Dojox",
+            "githubID": "GHSA-3hw5-q855-g6cw",
+            "CVE": [
+              "CVE-2020-5259"
+            ]
+          },
+          "details": "The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n\t\tvar tobj = {};\n\t\tfor(var x in props){\n\t\t\t// the \"tobj\" condition avoid copying properties in \"props\"\n\t\t\t// inherited from Object.prototype.  For example, if obj has a custom\n\t\t\t// toString() method, don't overwrite it with the toString() method\n\t\t\t// that props inherited from Object.prototype\n\t\t\tif((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n\t\t\t\tif(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n\t\t\t\t\tif(dojo.isArray(props[x])){\n\t\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t\t}else{\n\t\t\t\t\t\tobj[x] = jqMix(obj[x], props[x]);\n\t\t\t\t\t}\n\t\t\t\t}else{\n\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t}\n```",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+            "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+            "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+          ]
+        },
+        {
+          "atOrAbove": "1.16.0",
+          "below": "1.16.1",
+          "severity": "medium",
+          "cwe": [
+            "CWE-79"
+          ],
+          "identifiers": {
+            "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+            "githubID": "GHSA-pg97-ww7h-5mjr",
+            "CVE": [
+              "CVE-2019-10785"
+            ]
+          },
+          "details": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+            "https://github.com/dojo/dojox/pull/315",
+            "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+            "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+            "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+          ]
+        },
+        {
+          "atOrAbove": "1.16.0",
+          "below": "1.16.2",
+          "severity": "low",
+          "cwe": [
+            "CWE-94"
+          ],
+          "identifiers": {
+            "summary": "Prototype Pollution in Dojox",
+            "githubID": "GHSA-3hw5-q855-g6cw",
+            "CVE": [
+              "CVE-2020-5259"
+            ]
+          },
+          "details": "The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n\t\tvar tobj = {};\n\t\tfor(var x in props){\n\t\t\t// the \"tobj\" condition avoid copying properties in \"props\"\n\t\t\t// inherited from Object.prototype.  For example, if obj has a custom\n\t\t\t// toString() method, don't overwrite it with the toString() method\n\t\t\t// that props inherited from Object.prototype\n\t\t\tif((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n\t\t\t\tif(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n\t\t\t\t\tif(dojo.isArray(props[x])){\n\t\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t\t}else{\n\t\t\t\t\t\tobj[x] = jqMix(obj[x], props[x]);\n\t\t\t\t\t}\n\t\t\t\t}else{\n\t\t\t\t\tobj[x] = props[x];\n\t\t\t\t}\n```",
+          "info": [
+            "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+            "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+            "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
           ]
         }
       ],
