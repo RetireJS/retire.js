@@ -4,7 +4,7 @@
  */
 
 var exports = exports || {};
-exports.version = '6.1.0';
+exports.version = '6.1.1';
 
 function isDefined(o) {
   return typeof o !== 'undefined';
@@ -69,6 +69,20 @@ function splitAndMatchAll(tokenizer) {
   return function (regex, data) {
     var elm = data.split(tokenizer).pop();
     return simpleMatch('^' + regex + '$', elm);
+  };
+}
+
+// Bundlers put content hashes where a version would be (svelte-890f984e77ad.js).
+// A dotless run of 7 or more hex characters is treated as a hash, not a version.
+function looksLikeHash(version) {
+  return /^[0-9a-f]{7,}$/.test(version.replace(/(\.|-)min$/, ''));
+}
+
+function withoutHashes(matcher) {
+  return function (regex, data) {
+    return matcher(regex, data).filter(function (version) {
+      return !looksLikeHash(version);
+    });
   };
 }
 
@@ -172,14 +186,14 @@ exports.isVulnerable = function (results) {
 };
 
 exports.scanUri = function (uri, repo) {
-  var result = scan(uri, 'uri', repo);
+  var result = scan(uri, 'uri', repo, withoutHashes(simpleMatch));
   return check(result, repo);
 };
 
 exports.scanFileName = function (fileName, repo, includeUri = false) {
-  var result = scan(fileName, 'filename', repo, splitAndMatchAll(/[\/\\]/));
+  var result = scan(fileName, 'filename', repo, withoutHashes(splitAndMatchAll(/[\/\\]/)));
   if (includeUri) {
-    result = result.concat(scan(fileName.replace(/\\/g, '/'), 'uri', repo));
+    result = result.concat(scan(fileName.replace(/\\/g, '/'), 'uri', repo, withoutHashes(simpleMatch)));
   }
   return check(result, repo);
 };

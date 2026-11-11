@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.1.1]
+
+### Bugfixes
+
+- Content hashes in filenames and URLs (e.g. `svelte-890f984e77ad.js`, `vue-7951fbedcefd.min.js`, `/npm/vue@7951fbedcefd`) were interpreted as version numbers and reported as vulnerable. Filename and URI detection now ignores a "version" that is 7 or more hexadecimal characters with no dots. Detection based on file content is unchanged.
+
 ## [6.1.0]
 
 ### Improvements
