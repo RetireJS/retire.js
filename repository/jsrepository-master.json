@@ -14658,7 +14658,8 @@
         "identifiers": {
           "githubID": "GHSA-v3m3-f69x-jf25",
           "CVE": [
-            "CVE-2025-15056"
+            "CVE-2025-15056",
+            "CVE-2026-120350"
           ]
         },
         "severity": "low",

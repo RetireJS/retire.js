@@ -16527,7 +16527,8 @@
           "summary": "Quill 2.0.3 is vulnerable to Cross-Site Scripting (XSS) via insufficient data validation in the HTML export feature, allowing injected HTML content to execute in the browser.",
           "githubID": "GHSA-v3m3-f69x-jf25",
           "CVE": [
-            "CVE-2025-15056"
+            "CVE-2025-15056",
+            "CVE-2026-120350"
           ]
         },
         "info": [
