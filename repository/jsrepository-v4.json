@@ -3147,23 +3147,6 @@
         ]
       },
       {
-        "below": "1.14",
-        "severity": "high",
-        "cwe": [
-          "CWE-79"
-        ],
-        "identifiers": {
-          "summary": "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
-          "CVE": [
-            "CVE-2018-15494"
-          ],
-          "githubID": "GHSA-84cm-x2q5-8225"
-        },
-        "info": [
-          "https://dojotoolkit.org/blog/dojo-1-14-released"
-        ]
-      },
-      {
         "atOrAbove": "1.14.0",
         "below": "1.14.6",
         "severity": "high",
@@ -3272,6 +3255,294 @@
       },
       "ast": [
         "//BlockStatement/ExpressionStatement/AssignmentExpression[       /:left/:property/:name == \"version\" &&        /:left[         /:object/:name == \"dojo\" ||         /:$object/:init/:properties/:key/:name == \"dojox\"       ]     ]/ObjectExpression[       /Property/:key/:name == \"major\" ||       /Property/:key/:name == \"minor\" ||       /Property/:key/:name == \"patch\"     ]/fn:concat(       /Property[/:key/:name == \"major\"]/:value/:value, \".\",       /Property[/:key/:name == \"minor\"]/:value/:value, \".\",       /Property[/:key/:name == \"patch\"]/:value/:value     )"
+      ]
+    }
+  },
+  "dojox": {
+    "vulnerabilities": [
+      {
+        "atOrAbove": "0",
+        "below": "1.11.9",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+          "githubID": "GHSA-pg97-ww7h-5mjr",
+          "CVE": [
+            "CVE-2019-10785"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+          "https://github.com/dojo/dojox/pull/315",
+          "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+          "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+        ]
+      },
+      {
+        "atOrAbove": "0",
+        "below": "1.11.10",
+        "severity": "low",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Prototype Pollution in Dojox",
+          "githubID": "GHSA-3hw5-q855-g6cw",
+          "CVE": [
+            "CVE-2020-5259"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+          "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+          "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+        ]
+      },
+      {
+        "atOrAbove": "1.12.0",
+        "below": "1.12.7",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+          "githubID": "GHSA-pg97-ww7h-5mjr",
+          "CVE": [
+            "CVE-2019-10785"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+          "https://github.com/dojo/dojox/pull/315",
+          "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+          "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+        ]
+      },
+      {
+        "atOrAbove": "1.12.0",
+        "below": "1.12.8",
+        "severity": "low",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Prototype Pollution in Dojox",
+          "githubID": "GHSA-3hw5-q855-g6cw",
+          "CVE": [
+            "CVE-2020-5259"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+          "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+          "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+        ]
+      },
+      {
+        "atOrAbove": "1.13.0",
+        "below": "1.13.6",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+          "githubID": "GHSA-pg97-ww7h-5mjr",
+          "CVE": [
+            "CVE-2019-10785"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+          "https://github.com/dojo/dojox/pull/315",
+          "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+          "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+        ]
+      },
+      {
+        "atOrAbove": "1.13.0",
+        "below": "1.13.7",
+        "severity": "low",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Prototype Pollution in Dojox",
+          "githubID": "GHSA-3hw5-q855-g6cw",
+          "CVE": [
+            "CVE-2020-5259"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+          "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+          "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+        ]
+      },
+      {
+        "below": "1.14.0",
+        "severity": "critical",
+        "cwe": [
+          "CWE-116"
+        ],
+        "identifiers": {
+          "summary": "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
+          "CVE": [
+            "CVE-2018-15494"
+          ],
+          "githubID": "GHSA-84cm-x2q5-8225",
+          "PR": "283"
+        },
+        "info": [
+          "https://github.com/advisories/GHSA-84cm-x2q5-8225",
+          "https://github.com/dojo/dojox/pull/283",
+          "https://dojotoolkit.org/blog/dojo-1-14-released"
+        ]
+      },
+      {
+        "atOrAbove": "1.14.0",
+        "below": "1.14.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+          "githubID": "GHSA-pg97-ww7h-5mjr",
+          "CVE": [
+            "CVE-2019-10785"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+          "https://github.com/dojo/dojox/pull/315",
+          "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+          "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+        ]
+      },
+      {
+        "atOrAbove": "1.14.0",
+        "below": "1.14.6",
+        "severity": "low",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Prototype Pollution in Dojox",
+          "githubID": "GHSA-3hw5-q855-g6cw",
+          "CVE": [
+            "CVE-2020-5259"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+          "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+          "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+        ]
+      },
+      {
+        "atOrAbove": "1.15.0",
+        "below": "1.15.2",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+          "githubID": "GHSA-pg97-ww7h-5mjr",
+          "CVE": [
+            "CVE-2019-10785"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+          "https://github.com/dojo/dojox/pull/315",
+          "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+          "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+        ]
+      },
+      {
+        "atOrAbove": "1.15.0",
+        "below": "1.15.3",
+        "severity": "low",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Prototype Pollution in Dojox",
+          "githubID": "GHSA-3hw5-q855-g6cw",
+          "CVE": [
+            "CVE-2020-5259"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+          "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+          "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+        ]
+      },
+      {
+        "atOrAbove": "1.16.0",
+        "below": "1.16.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-79"
+        ],
+        "identifiers": {
+          "summary": "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+          "githubID": "GHSA-pg97-ww7h-5mjr",
+          "CVE": [
+            "CVE-2019-10785"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+          "https://github.com/dojo/dojox/pull/315",
+          "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+          "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+          "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+        ]
+      },
+      {
+        "atOrAbove": "1.16.0",
+        "below": "1.16.2",
+        "severity": "low",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "Prototype Pollution in Dojox",
+          "githubID": "GHSA-3hw5-q855-g6cw",
+          "CVE": [
+            "CVE-2020-5259"
+          ]
+        },
+        "info": [
+          "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+          "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+          "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+        ]
+      }
+    ],
+    "extractors": {
+      "uri": [
+        "/(?:dojo-release-)?(§§version§§)(?:-src)?/dojox/.+\\.js",
+        "/dojox@(§§version§§)/.+\\.js"
       ]
     }
   },
@@ -12966,7 +13237,8 @@
         "below": "15.5.18",
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "identifiers": {
           "summary": "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -13956,7 +14228,8 @@
         "below": "16.2.6",
         "severity": "high",
         "cwe": [
-          "CWE-288"
+          "CWE-288",
+          "CWE-358"
         ],
         "identifiers": {
           "summary": "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -15400,25 +15673,6 @@
         ]
       },
       {
-        "atOrAbove": "0",
-        "below": "4.18.0",
-        "severity": "medium",
-        "cwe": [
-          "CWE-1321"
-        ],
-        "identifiers": {
-          "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
-          "githubID": "GHSA-f23m-r3pf-42rh",
-          "CVE": [
-            "CVE-2026-2950"
-          ]
-        },
-        "info": [
-          "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
-          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
-        ]
-      },
-      {
         "atOrAbove": "4.0.0",
         "below": "4.18.0",
         "severity": "high",
@@ -15436,6 +15690,25 @@
           "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
           "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
           "https://cna.openjsf.org/security-advisories.html"
+        ]
+      },
+      {
+        "atOrAbove": "4.17.23",
+        "below": "4.18.1",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1321"
+        ],
+        "identifiers": {
+          "summary": "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
+          "githubID": "GHSA-f23m-r3pf-42rh",
+          "CVE": [
+            "CVE-2026-2950"
+          ]
+        },
+        "info": [
+          "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
+          "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
         ]
       }
     ],
@@ -16602,7 +16875,8 @@
           "summary": "Quill 2.0.3 is vulnerable to Cross-Site Scripting (XSS) via insufficient data validation in the HTML export feature, allowing injected HTML content to execute in the browser.",
           "githubID": "GHSA-v3m3-f69x-jf25",
           "CVE": [
-            "CVE-2025-15056"
+            "CVE-2025-15056",
+            "CVE-2026-120350"
           ]
         },
         "info": [
@@ -16855,6 +17129,28 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "6.11.6",
+        "severity": "critical",
+        "cwe": [
+          "CWE-94"
+        ],
+        "identifiers": {
+          "summary": "protobufjs is vulnerable to Remote Code Execution when loading crafted JSON descriptors. Schema-controlled type names and type references reach runtime code generation without sufficient validation, allowing an attacker who can influence the loaded schema to execute arbitrary JavaScript in the process.",
+          "githubID": "GHSA-xq3m-2v4x-88gg",
+          "CVE": [
+            "CVE-2026-41242"
+          ]
+        },
+        "info": [
+          "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-xq3m-2v4x-88gg",
+          "https://github.com/protobufjs/protobuf.js/commit/535df444ac060243722ac5d672db205e5c531d75",
+          "https://github.com/protobufjs/protobuf.js/commit/ff7b2afef8754837cc6dc64c864cd111ab477956",
+          "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.5",
+          "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.1"
+        ]
+      },
+      {
         "atOrAbove": "7.0.0",
         "below": "7.2.5",
         "severity": "critical",
@@ -16880,7 +17176,7 @@
         ]
       },
       {
-        "atOrAbove": "0",
+        "atOrAbove": "7.0.0",
         "below": "7.5.5",
         "severity": "critical",
         "cwe": [

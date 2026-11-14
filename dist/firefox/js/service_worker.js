@@ -483,7 +483,7 @@
   var require_meriyah = __commonJS({
     "../../node/node_modules/meriyah/dist/meriyah.cjs"(exports) {
       "use strict";
-      var version$1 = "7.4.0";
+      var version$1 = "7.4.2";
       var packageJson = {
         version: version$1
       };
@@ -2423,7 +2423,7 @@
                   }
                   if (ch === 33) {
                     const index = parser.index + 1;
-                    if (index + 1 < parser.end && source.charCodeAt(index) === 45 && source.charCodeAt(index + 1) == 45) {
+                    if (parser.options.webcompat && !(context & 2) && index + 1 < parser.end && source.charCodeAt(index) === 45 && source.charCodeAt(index + 1) == 45) {
                       parser.column += 3;
                       parser.currentChar = source.charCodeAt(parser.index += 3);
                       state = skipSingleHTMLComment(parser, source, state, context, 2, parser.tokenStart);
@@ -2503,7 +2503,7 @@
                 const ch = parser.currentChar;
                 if (ch === 45) {
                   advanceChar(parser);
-                  if ((state & 1 || isStartOfLine) && parser.currentChar === 62) {
+                  if (parser.currentChar === 62 && (state & 1 || isStartOfLine || parser.getToken() === 1048576 && parser.line > 1)) {
                     if (!parser.options.webcompat)
                       parser.report(114);
                     advanceChar(parser);
@@ -2773,10 +2773,10 @@
         if ((t & 20480) === 20480) {
           parser.report(102);
         }
-        if (context & (2048 | 2) && t === 209006) {
+        if (context & (2048 | 2) && (t & 2147483647) === 209006) {
           parser.report(112);
         }
-        if (context & (1024 | 1) && t === 241771) {
+        if (context & (1024 | 1) && (t & 2147483647) === 241771) {
           parser.report(97, "yield");
         }
       }
@@ -2834,7 +2834,8 @@
             return false;
           if (context & 1024 && t === 241771)
             return false;
-          return (t & 12288) === 12288;
+          if (context & 1)
+            return (t & 12288) === 12288;
         }
         return (t & 12288) === 12288 || (t & 36864) === 36864;
       }
@@ -2843,6 +2844,9 @@
           if (context & 1)
             parser.report(121);
           parser.flags |= 512;
+        }
+        if (context & 1 && (t & 255) === (241737 & 255)) {
+          parser.report(99);
         }
         if (!isValidIdentifier(context, t))
           parser.report(0);
@@ -3273,12 +3277,13 @@
           this.refs[name] ??= [];
           this.refs[name].push(this.parser.tokenStart);
         }
-        isPrivateIdentifierDefined(name) {
-          return this.hasPrivateIdentifier(name) || Boolean(this.parent?.isPrivateIdentifierDefined(name));
-        }
         validatePrivateIdentifierRefs() {
           for (const name in this.refs) {
-            if (!this.isPrivateIdentifierDefined(name)) {
+            if (this.hasPrivateIdentifier(name))
+              continue;
+            if (this.parent) {
+              (this.parent.refs[name] ??= []).push(...this.refs[name]);
+            } else {
               const { index, line, column } = this.refs[name][0];
               throw new ParseError({ index, line, column }, { index: index + name.length, line, column: column + name.length }, 4, name);
             }
@@ -3682,7 +3687,7 @@
           case 86090:
             return parseLexicalDeclaration(parser, context, scope, privateScope, 16);
           case 241737:
-            return parseLetIdentOrVarDeclarationStatement(parser, context, scope, privateScope, origin);
+            return parseLetIdentOrVarDeclarationStatement(parser, context, scope, privateScope, labels, origin);
           case 209013:
             return parseUsingDeclarationOrExpressionStatement(parser, context, scope, privateScope, labels, origin);
           case 209006:
@@ -3703,7 +3708,7 @@
                 parser.report(103, "import");
             }
           case 209005:
-            return parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, labels, 1, origin);
+            return parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, labels, 1, 1, origin);
           default:
             return parseStatement(parser, context, scope, privateScope, labels, 1, origin);
         }
@@ -3741,7 +3746,7 @@
           case 20560:
             return parseDebuggerStatement(parser, context);
           case 209005:
-            return parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, labels, 0, origin);
+            return parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, labels, 0, allowFuncDecl, origin);
           case 20557:
             parser.report(164);
           case 20566:
@@ -3767,7 +3772,7 @@
               parser.report(84);
             break;
           default:
-            expr = parsePrimaryExpression(parser, context, privateScope, 2, 0, 1, 0, 1, parser.tokenStart, 0, 1);
+            expr = parsePrimaryExpression(parser, context, privateScope, 2, 0, 1, 0, 1, parser.tokenStart, 1, 1);
         }
         return finishExpressionOrLabelledStatement(parser, context, scope, privateScope, labels, allowFuncDecl, expr, token, tokenValue, tokenStart, origin);
       }
@@ -3824,17 +3829,17 @@
           body
         }, start);
       }
-      function parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, labels, allowFuncDecl, origin) {
+      function parseAsyncArrowOrAsyncFunctionDeclaration(parser, context, scope, privateScope, labels, allowAsyncFuncDecl, allowFuncDecl, origin) {
         const { tokenValue, tokenStart: start } = parser;
         const token = parser.getToken();
         let expr = parseIdentifier(parser, context);
         if (parser.getToken() === 21) {
-          return parseLabelledStatement(parser, context, scope, privateScope, labels, tokenValue, expr, token, 1, start, origin);
+          return parseLabelledStatement(parser, context, scope, privateScope, labels, tokenValue, expr, token, allowFuncDecl, start, origin);
         }
         const asyncNewLine = parser.flags & 1;
         if (!asyncNewLine) {
           if (parser.getToken() === 86104) {
-            if (!allowFuncDecl)
+            if (!allowAsyncFuncDecl)
               parser.report(125);
             return parseFunctionDeclaration(parser, context, scope, privateScope, 1, 0, 1, start, origin);
           }
@@ -3854,8 +3859,9 @@
               parser.flags |= 256;
             }
             expr = parseArrowFromIdentifier(parser, context | 2048, privateScope, parser.tokenValue, expr, 0, 1, 0, start);
+          } else {
+            parser.assignable = 1;
           }
-          parser.assignable = 1;
         }
         expr = parseMemberOrUpdateExpression(parser, context, privateScope, expr, 0, 0, start);
         expr = parseAssignmentExpression(parser, context, privateScope, 0, 0, start, expr);
@@ -4096,7 +4102,7 @@
       }
       function parseStaticBlock(parser, context, scope, privateScope, start) {
         scope = scope?.createChildScope();
-        const ctorContext = 512 | 4096 | 1024 | 4 | 128;
+        const ctorContext = 512 | 4096 | 1024 | 4 | 128 | 32768;
         context = (context | ctorContext) ^ ctorContext | 256 | 2048 | 524288 | 65536;
         return parseBlock(parser, context, scope, privateScope, {}, start, "StaticBlock");
       }
@@ -4115,7 +4121,7 @@
           test
         }, start);
       }
-      function parseLetIdentOrVarDeclarationStatement(parser, context, scope, privateScope, origin) {
+      function parseLetIdentOrVarDeclarationStatement(parser, context, scope, privateScope, labels, origin) {
         const { tokenValue, tokenStart, currentLocation } = parser;
         const token = parser.getToken();
         let expr = parseIdentifier(parser, context);
@@ -4132,7 +4138,7 @@
         if (context & 1)
           parser.report(85);
         if (parser.getToken() === 21) {
-          return parseLabelledStatement(parser, context, scope, privateScope, {}, tokenValue, expr, token, 0, tokenStart, origin);
+          return parseLabelledStatement(parser, context, scope, privateScope, labels, tokenValue, expr, token, 1, tokenStart, origin);
         }
         if (parser.getToken() === 10) {
           let scope2 = void 0;
@@ -4303,6 +4309,9 @@
       function parseForStatement(parser, context, scope, privateScope, labels) {
         const start = parser.tokenStart;
         nextToken(parser, context);
+        if (context & 524288 && parser.getToken() === 209006) {
+          parser.report(179);
+        }
         const forAwait = ((context & 2048) > 0 || (context & 2) > 0 && (context & 8) > 0) && consumeOpt(parser, context, 209006);
         consume(parser, context | 32, 67174411);
         scope = scope?.createChildScope(1);
@@ -4738,7 +4747,9 @@
       }
       function parseImportCallDeclaration(parser, context, privateScope, start) {
         let expr = parseImportExpression(parser, context, privateScope, 0, start);
+        parser.assignable = 2;
         expr = parseMemberOrUpdateExpression(parser, context, privateScope, expr, 0, 0, start);
+        expr = parseAssignmentExpression(parser, context, privateScope, 0, 0, start, expr);
         if (parser.getToken() === 18) {
           expr = parseSequenceExpression(parser, context, privateScope, 0, start, expr);
         }
@@ -4772,22 +4783,26 @@
               const { tokenStart } = parser;
               declaration = parseIdentifier(parser, context);
               const { flags } = parser;
-              if ((flags & 1) === 0) {
-                if (parser.getToken() === 86104) {
-                  declaration = parseFunctionDeclaration(parser, context, scope, void 0, 1, 1, 1, tokenStart, 4);
-                } else {
-                  if (parser.getToken() === 67174411) {
-                    declaration = parseAsyncArrowOrCallExpression(parser, context, void 0, declaration, 1, 1, flags, tokenStart);
-                    declaration = parseMemberOrUpdateExpression(parser, context, void 0, declaration, 0, 0, tokenStart);
-                    declaration = parseAssignmentExpression(parser, context, void 0, 0, 0, tokenStart, declaration);
-                  } else if (parser.getToken() & 143360) {
-                    if (scope)
-                      scope = createArrowHeadParsingScope(parser, context, parser.tokenValue, parser.tokenStart, parser.currentLocation);
-                    declaration = parseIdentifier(parser, context);
-                    declaration = parseArrowFunctionExpression(parser, context, scope, void 0, [declaration], 1, tokenStart);
-                  }
-                }
+              if ((flags & 1) === 0 && parser.getToken() === 86104) {
+                declaration = parseFunctionDeclaration(parser, context, scope, void 0, 1, 1, 1, tokenStart, 4);
+                break;
               }
+              if (parser.getToken() === 10) {
+                declaration = parseArrowFromIdentifier(parser, context & -9, void 0, "async", declaration, 0, 1, 0, tokenStart);
+              } else if ((flags & 1) === 0 && parser.getToken() === 67174411) {
+                declaration = parseAsyncArrowOrCallExpression(parser, context, void 0, declaration, 1, 1, flags, tokenStart);
+                declaration = parseMemberOrUpdateExpression(parser, context, void 0, declaration, 0, 0, tokenStart);
+                declaration = parseAssignmentExpression(parser, context, void 0, 0, 0, tokenStart, declaration);
+              } else if ((flags & 1) === 0 && parser.getToken() & 143360) {
+                if (scope)
+                  scope = createArrowHeadParsingScope(parser, context, parser.tokenValue, parser.tokenStart, parser.currentLocation);
+                declaration = parseIdentifier(parser, context);
+                declaration = parseArrowFunctionExpression(parser, context, scope, void 0, [declaration], 1, tokenStart);
+              } else {
+                declaration = parseMemberOrUpdateExpression(parser, context, void 0, declaration, 0, 0, tokenStart);
+                declaration = parseAssignmentExpression(parser, context, void 0, 0, 0, tokenStart, declaration);
+              }
+              matchOrInsertSemicolon(parser, context | 32);
               break;
             }
             default:
@@ -5004,6 +5019,10 @@
         }, start);
       }
       function parseBinaryExpression(parser, context, privateScope, inGroup, start, minPrecedence, operator, left) {
+        if ((parser.flags & 16384) === 16384) {
+          parser.flags = (parser.flags | 16384) ^ 16384;
+          return left;
+        }
         const bit = -((context & 131072) > 0) & 8673330;
         let t;
         let precedence;
@@ -5109,6 +5128,12 @@
           } else if (parser.getToken() === 8391476) {
             parser.report(30, KeywordDescTable[parser.getToken() & 255]);
           }
+          if (parser.getToken() & (67108864 | 8388608)) {
+            if (argument === null && (parser.flags & 1) === 0) {
+              parser.report(30, KeywordDescTable[parser.getToken() & 255]);
+            }
+            parser.flags |= 16384;
+          }
           parser.assignable = 2;
           return parser.finishNode({
             type: "YieldExpression",
@@ -5118,9 +5143,9 @@
         }
         if (context & 1)
           parser.report(97, "yield");
-        return parseIdentifierOrArrow(parser, context, privateScope);
+        return parseIdentifierOrArrow(parser, context, privateScope, 0, canAssign);
       }
-      function parseAwaitExpressionOrIdentifier(parser, context, privateScope, inNew, inGroup, start) {
+      function parseAwaitExpressionOrIdentifier(parser, context, privateScope, inNew, inGroup, canAssign, start) {
         if (inGroup) {
           if ((parser.destructible & 128) === 0) {
             parser.firstAwaitLocation ??= { start, end: parser.currentLocation };
@@ -5131,8 +5156,8 @@
           parser.report(179);
         const isEscaped = (parser.getToken() & -2147483648) !== 0;
         const allowRegExp = !isEscaped && context & (2048 | 2) ? 1 : 0;
-        const possibleIdentifierOrArrowFunc = parseIdentifierOrArrow(parser, context, privateScope, allowRegExp);
-        const isIdentifier = isEscaped || possibleIdentifierOrArrowFunc.type === "ArrowFunctionExpression" || (parser.getToken() & 65536) === 0;
+        const possibleIdentifierOrArrowFunc = parseIdentifierOrArrow(parser, context, privateScope, allowRegExp, canAssign);
+        const isIdentifier = isEscaped || possibleIdentifierOrArrowFunc.type === "ArrowFunctionExpression" || (parser.getToken() & 65536) === 0 && (parser.getToken() & 36864) !== 36864;
         if (isIdentifier) {
           if (context & 2048)
             throw new ParseError(start, parser.startPosition, 178);
@@ -5249,8 +5274,9 @@
         return parseMemberOrUpdateExpression(parser, context, privateScope, expression, inGroup, 0, start);
       }
       function parseUpdateExpression(parser, context, expr, start) {
-        if (parser.assignable & 2)
+        if (parser.assignable & 2 || expr.type === "ArrayExpression" || expr.type === "ObjectExpression") {
           parser.report(55);
+        }
         const token = parser.getToken();
         nextToken(parser, context);
         parser.assignable = 2;
@@ -5265,6 +5291,10 @@
         if ((parser.getToken() & 33619968) === 33619968 && (parser.flags & 1) === 0) {
           expr = parseUpdateExpression(parser, context, expr, start);
         } else if ((parser.getToken() & 67108864) === 67108864) {
+          if ((parser.flags & 16384) === 16384) {
+            parser.flags = (parser.flags | 16384) ^ 16384;
+            return expr;
+          }
           context = (context | 131072) ^ 131072;
           switch (parser.getToken()) {
             case 67108877: {
@@ -5321,7 +5351,7 @@
                 parser.flags = (parser.flags | 2048) ^ 2048;
               }
               const args = parseArguments(parser, context, privateScope, inGroup);
-              if (!(context & 1) && parser.options.webcompat) {
+              if (!restoreHasOptionalChaining && !(context & 1) && parser.options.webcompat) {
                 parser.assignable = 4;
               } else {
                 parser.assignable = 2;
@@ -5390,11 +5420,7 @@
           }, start);
         } else if (parser.getToken() === 67174411) {
           const args = parseArguments(parser, context, privateScope, 0);
-          if (!(context & 1) && parser.options.webcompat) {
-            parser.assignable = 4;
-          } else {
-            parser.assignable = 2;
-          }
+          parser.assignable = 2;
           node = parser.finishNode({
             type: "CallExpression",
             callee: expr,
@@ -5447,7 +5473,7 @@
           switch (parser.getToken()) {
             case 209006:
             case 209006 | -2147483648:
-              return parseAwaitExpressionOrIdentifier(parser, context, privateScope, inNew, inGroup, start);
+              return parseAwaitExpressionOrIdentifier(parser, context, privateScope, inNew, inGroup, canAssign, start);
             case 241771:
               return parseYieldExpressionOrIdentifier(parser, context, privateScope, inGroup, canAssign, start);
             case 209005:
@@ -5465,8 +5491,8 @@
             }
             return parseArrowFromIdentifier(parser, context, privateScope, tokenValue, expr, inNew, canAssign, 0, start, origin);
           }
-          if (context & 16 && !(context & 32768) && !(context & 8192) && parser.tokenValue === "arguments")
-            parser.report(132);
+          if (context & 16 && !(context & 32768) && !(context & 8192) && parser.tokenValue === "arguments" && !(origin & 1 && parser.getToken() === 21))
+            throw new ParseError(start, parser.startPosition, 132);
           if ((token & 255) === (241737 & 255)) {
             if (context & 1)
               parser.report(115);
@@ -5498,7 +5524,7 @@
           case 69271571:
             return parseArrayLiteral(parser, context, privateScope, canAssign ? 0 : 1, inGroup);
           case 67174411:
-            return parseParenthesizedExpression(parser, context | 64, privateScope, canAssign, 1, start, origin);
+            return parseParenthesizedExpression(parser, context, privateScope, canAssign, 1, start, origin);
           case 86021:
           case 86022:
           case 86023:
@@ -5539,8 +5565,9 @@
             if (parser.options.jsx)
               return parseJSXRootElementOrFragment(parser, context, privateScope, 0, parser.tokenStart);
           default:
-            if (isValidIdentifier(context, parser.getToken()))
-              return parseIdentifierOrArrow(parser, context, privateScope);
+            if (isValidIdentifier(context, parser.getToken())) {
+              return parseIdentifierOrArrow(parser, context, privateScope, 0, canAssign);
+            }
             parser.report(30, KeywordDescTable[parser.getToken() & 255]);
         }
       }
@@ -5908,6 +5935,8 @@
         if (parser.destructible & 8) {
           parser.report(62);
         }
+        if (expr.type === "ArrayExpression")
+          parser.assignable = 2;
         return expr;
       }
       function parseArrayExpressionOrPattern(parser, context, scope, privateScope, skipInitializer, inGroup, isPattern, kind, origin = 0) {
@@ -5985,8 +6014,10 @@
               if (parser.getToken() !== 18 && parser.getToken() !== 20)
                 parser.report(30, KeywordDescTable[parser.getToken() & 255]);
             } else {
-              left = parseLeftHandSideExpression(parser, context, privateScope, 1, 0, 1);
+              left = parseLeftHandSideExpression(parser, context, privateScope, 1, 0, 1, context & 131072 ? 0 : 1);
               if (parser.getToken() !== 18 && parser.getToken() !== 20) {
+                if (parser.getToken() !== 1077936155)
+                  destructible |= 16;
                 left = parseAssignmentExpression(parser, context, privateScope, inGroup, isPattern, tokenStart, left);
                 if ((kind & (2 | 1)) === 0 && token === 67174411)
                   destructible |= 16;
@@ -6091,19 +6122,18 @@
           }
         } else {
           destructible |= 32;
-          argument = parseLeftHandSideExpression(parser, context, privateScope, 1, inGroup, 1);
-          const { tokenStart: tokenStart2 } = parser;
+          argument = parseLeftHandSideExpression(parser, context, privateScope, 1, inGroup, 1, context & 131072 ? 0 : 1);
           const token2 = parser.getToken();
           if (token2 === 1077936155) {
             if (parser.assignable & 2)
               parser.report(26);
-            argument = parseAssignmentExpression(parser, context, privateScope, inGroup, isPattern, tokenStart2, argument);
+            argument = parseAssignmentExpression(parser, context, privateScope, inGroup, isPattern, tokenStart, argument);
             destructible |= 16;
           } else {
             if (token2 === 18) {
               destructible |= 16;
             } else if (token2 !== closingToken) {
-              argument = parseAssignmentExpression(parser, context, privateScope, inGroup, isPattern, tokenStart2, argument);
+              argument = parseAssignmentExpression(parser, context, privateScope, inGroup, isPattern, tokenStart, argument);
             }
             destructible |= parser.assignable & 1 ? 32 : 16;
           }
@@ -6150,7 +6180,7 @@
         let scope = parser.createScopeIfLexical(256);
         const params = parseMethodFormals(parser, (context | 8192) & -524289, scope, privateScope, kind, 1, inGroup);
         scope = scope?.createChildScope(64);
-        const body = parseFunctionBody(parser, context & -655373 | 32768 | 4096, scope, privateScope, void 0, scope?.parent);
+        const body = parseFunctionBody(parser, context & -655501 | 32768 | 4096, scope, privateScope, void 0, scope?.parent);
         return parser.finishNode({
           type: "FunctionExpression",
           params,
@@ -6168,6 +6198,8 @@
         if (parser.destructible & 8) {
           parser.report(62);
         }
+        if (expr.type === "ObjectExpression")
+          parser.assignable = 2;
         return expr;
       }
       function parseObjectLiteralOrPattern(parser, context, scope, privateScope, skipInitializer, inGroup, isPattern, kind, origin = 0) {
@@ -6192,6 +6224,8 @@
               key = parseIdentifier(parser, context);
               if (parser.getToken() === 18 || parser.getToken() === 1074790415 || parser.getToken() === 1077936155) {
                 state |= 4;
+                if (context & 16 && !(context & 32768) && !(context & 8192) && tokenValue === "arguments")
+                  throw new ParseError(tokenStart, currentLocation, 132);
                 if (context & 1 && (token & 537079808) === 537079808) {
                   destructible |= 16;
                 } else {
@@ -6275,7 +6309,7 @@
                     }
                   }
                 } else {
-                  value = parseLeftHandSideExpression(parser, context, privateScope, 1, inGroup, 1);
+                  value = parseLeftHandSideExpression(parser, context, privateScope, 1, inGroup, 1, context & 131072 ? 0 : 1);
                   destructible |= parser.assignable & 1 ? 32 : 16;
                   if (parser.getToken() === 18 || parser.getToken() === 1074790415) {
                     if (parser.assignable & 2)
@@ -6406,7 +6440,7 @@
                     }
                   }
                 } else {
-                  value = parseLeftHandSideExpression(parser, context, privateScope, 1, 0, 1);
+                  value = parseLeftHandSideExpression(parser, context, privateScope, 1, 0, 1, context & 131072 ? 0 : 1);
                   destructible |= parser.assignable & 1 ? 32 : 16;
                   if (parser.getToken() === 18 || parser.getToken() === 1074790415) {
                     if (parser.assignable & 2) {
@@ -6485,7 +6519,7 @@
                     }
                   }
                 } else {
-                  value = parseLeftHandSideExpression(parser, context, privateScope, 1, 0, 1);
+                  value = parseLeftHandSideExpression(parser, context, privateScope, 1, 0, 1, context & 131072 ? 0 : 1);
                   destructible |= parser.assignable & 1 ? 32 : 16;
                   if (parser.getToken() === 18 || parser.getToken() === 1074790415) {
                     if (parser.assignable & 2)
@@ -6602,7 +6636,7 @@
                 parser.flags |= 512;
               }
             }
-            left = parseAndClassifyIdentifier(parser, context, scope, kind | 1);
+            left = parseAndClassifyIdentifier(parser, context, scope, type);
           } else {
             if (parser.getToken() === 2162700) {
               left = parseObjectLiteralOrPattern(parser, context, scope, privateScope, 1, inGroup, 1, type);
@@ -6744,7 +6778,7 @@
                 expressions
               }, tokenAfterParenthesesStart);
             }
-            consume(parser, context, 16);
+            consume(parser, context | 64, 16);
             parser.destructible = destructible | previousAwaitYield;
             if (previousFirstAwaitLocation) {
               parser.firstAwaitLocation = previousFirstAwaitLocation;
@@ -6778,7 +6812,7 @@
             expressions
           }, tokenAfterParenthesesStart);
         }
-        consume(parser, context, 16);
+        consume(parser, context | 64, 16);
         if (destructible & 16 && destructible & 8)
           parser.report(153);
         destructible |= (parser.destructible & 256 ? 256 : 0) | (parser.destructible & 128 ? 128 : 0);
@@ -6828,7 +6862,7 @@
           expression: expr
         }, parenthesesStart) : expr;
       }
-      function parseIdentifierOrArrow(parser, context, privateScope, allowRegExp = 0) {
+      function parseIdentifierOrArrow(parser, context, privateScope, allowRegExp = 0, canAssign = 1) {
         const { tokenValue, tokenStart, currentLocation } = parser;
         let isNonSimpleParameterList = 0;
         let hasStrictReserved = 0;
@@ -6840,6 +6874,8 @@
         const expr = parseIdentifier(parser, context, allowRegExp);
         parser.assignable = 1;
         if (parser.getToken() === 10) {
+          if (!canAssign)
+            parser.report(57);
           const scope = parser.options.lexical ? createArrowHeadParsingScope(parser, context, tokenValue, tokenStart, currentLocation) : void 0;
           if (isNonSimpleParameterList)
             parser.flags |= 128;
@@ -6869,7 +6905,7 @@
         if (parser.flags & 1)
           parser.report(48);
         consume(parser, context | 32, 10);
-        const modifierFlags = 1024 | 2048 | 8192 | 524288;
+        const modifierFlags = 1024 | 2048 | 8192 | 524288 | 8;
         context = (context | modifierFlags) ^ modifierFlags | (isAsync ? 2048 : 0);
         const expression = parser.getToken() !== 2162700;
         let body;
@@ -6879,7 +6915,7 @@
           body = parseExpression(parser, context, privateScope, 1, 0, parser.tokenStart);
         } else {
           scope = scope?.createChildScope(64);
-          const modifierFlags2 = 4 | 131072 | 8;
+          const modifierFlags2 = 4 | 128 | 131072 | 8;
           body = parseFunctionBody(parser, (context | modifierFlags2) ^ modifierFlags2 | 4096, scope, privateScope, void 0, void 0, 16);
           switch (parser.getToken()) {
             case 69271571:
@@ -6889,7 +6925,9 @@
               parser.flags |= 8192;
               break;
             case 67108877:
+            case 67108991:
             case 67174409:
+            case 67174408:
             case 22:
               parser.report(119);
             case 67174411:
@@ -7038,9 +7076,9 @@
         }
         const expr = parsePrimaryExpression(parser, context, privateScope, 2, 1, 0, inGroup, 1, tokenStart);
         context = (context | 131072) ^ 131072;
+        const callee = parseMemberExpressionNoCall(parser, context, privateScope, expr, inGroup, tokenStart);
         if (parser.getToken() === 67108991)
           parser.report(170);
-        const callee = parseMemberExpressionNoCall(parser, context, privateScope, expr, inGroup, tokenStart);
         parser.assignable = 2;
         return parser.finishNode({
           type: "NewExpression",
@@ -7478,8 +7516,6 @@
           return parseStaticBlock(parser, context | 16, scope, privateScope, start);
         } else if (token === -2147483526) {
           key = parseIdentifier(parser, context);
-          if (parser.getToken() !== 67174411)
-            parser.report(30, KeywordDescTable[parser.getToken() & 255]);
         } else {
           parser.report(30, KeywordDescTable[parser.getToken() & 255]);
         }
@@ -7490,7 +7526,7 @@
             key = parseLiteral(parser, context);
           } else if (parser.getToken() === 69271571) {
             kind |= 2;
-            key = parseComputedPropertyName(parser, context, privateScope, 0);
+            key = parseComputedPropertyName(parser, inheritedContext, privateScope, 0);
           } else if (parser.getToken() === 131) {
             kind |= 8192;
             key = parsePrivateIdentifier(parser, context, privateScope, kind);
@@ -7560,7 +7596,7 @@
           const { tokenStart } = parser;
           if (parser.getToken() === 537079928)
             parser.report(121);
-          const modifierFlags = 1024 | 2048 | 8 | 8192 | ((state & 64) === 0 ? 512 | 16384 : 0);
+          const modifierFlags = 1024 | 2048 | 8 | 8192 | 32768 | ((state & 64) === 0 ? 512 | 16384 : 0);
           context = (context | modifierFlags) ^ modifierFlags | (state & 8 ? 1024 : 0) | (state & 16 ? 2048 : 0) | (state & 64 ? 16384 : 0) | 256 | 65536;
           value = parsePrimaryExpression(parser, context | 16, privateScope, 2, 0, 1, 0, 1, tokenStart, 0, 1);
           if ((parser.getToken() & 1073741824) !== 1073741824 || (parser.getToken() & 4194304) === 4194304) {
@@ -9568,7 +9604,7 @@
     "../../node/lib/retire.js"(exports) {
       "use strict";
       var exports = exports || {};
-      exports.version = "6.1.0";
+      exports.version = "6.1.1";
       function isDefined(o) {
         return typeof o !== "undefined";
       }
@@ -9628,6 +9664,16 @@
         return function(regex, data) {
           var elm = data.split(tokenizer).pop();
           return simpleMatch("^" + regex + "$", elm);
+        };
+      }
+      function looksLikeHash(version) {
+        return /^[0-9a-f]{7,}$/.test(version.replace(/(\.|-)min$/, ""));
+      }
+      function withoutHashes(matcher) {
+        return function(regex, data) {
+          return matcher(regex, data).filter(function(version) {
+            return !looksLikeHash(version);
+          });
         };
       }
       function scanhash(hash, repo) {
@@ -9717,13 +9763,13 @@
         return false;
       };
       exports.scanUri = function(uri, repo) {
-        var result = scan(uri, "uri", repo);
+        var result = scan(uri, "uri", repo, withoutHashes(simpleMatch));
         return check(result, repo);
       };
       exports.scanFileName = function(fileName, repo, includeUri = false) {
-        var result = scan(fileName, "filename", repo, splitAndMatchAll(/[\/\\]/));
+        var result = scan(fileName, "filename", repo, withoutHashes(splitAndMatchAll(/[\/\\]/)));
         if (includeUri) {
-          result = result.concat(scan(fileName.replace(/\\/g, "/"), "uri", repo));
+          result = result.concat(scan(fileName.replace(/\\/g, "/"), "uri", repo, withoutHashes(simpleMatch)));
         }
         return check(result, repo);
       };
@@ -13451,23 +13497,6 @@ Upgrade to version 1.9.0 or later.`,
                 ]
               },
               {
-                below: "1.14",
-                severity: "high",
-                cwe: [
-                  "CWE-79"
-                ],
-                identifiers: {
-                  summary: "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
-                  CVE: [
-                    "CVE-2018-15494"
-                  ],
-                  githubID: "GHSA-84cm-x2q5-8225"
-                },
-                info: [
-                  "https://dojotoolkit.org/blog/dojo-1-14-released"
-                ]
-              },
-              {
                 atOrAbove: "1.14.0",
                 below: "1.14.6",
                 severity: "high",
@@ -13576,6 +13605,306 @@ Upgrade to version 1.9.0 or later.`,
               },
               ast: [
                 '//BlockStatement/ExpressionStatement/AssignmentExpression[       /:left/:property/:name == "version" &&        /:left[         /:object/:name == "dojo" ||         /:$object/:init/:properties/:key/:name == "dojox"       ]     ]/ObjectExpression[       /Property/:key/:name == "major" ||       /Property/:key/:name == "minor" ||       /Property/:key/:name == "patch"     ]/fn:concat(       /Property[/:key/:name == "major"]/:value/:value, ".",       /Property[/:key/:name == "minor"]/:value/:value, ".",       /Property[/:key/:name == "patch"]/:value/:value     )'
+              ]
+            }
+          },
+          dojox: {
+            vulnerabilities: [
+              {
+                atOrAbove: "0",
+                below: "1.11.9",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+                  githubID: "GHSA-pg97-ww7h-5mjr",
+                  CVE: [
+                    "CVE-2019-10785"
+                  ]
+                },
+                details: "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+                  "https://github.com/dojo/dojox/pull/315",
+                  "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+                  "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+                ]
+              },
+              {
+                atOrAbove: "0",
+                below: "1.11.10",
+                severity: "low",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "Prototype Pollution in Dojox",
+                  githubID: "GHSA-3hw5-q855-g6cw",
+                  CVE: [
+                    "CVE-2020-5259"
+                  ]
+                },
+                details: 'The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n		var tobj = {};\n		for(var x in props){\n			// the "tobj" condition avoid copying properties in "props"\n			// inherited from Object.prototype.  For example, if obj has a custom\n			// toString() method, don\'t overwrite it with the toString() method\n			// that props inherited from Object.prototype\n			if((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n				if(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n					if(dojo.isArray(props[x])){\n						obj[x] = props[x];\n					}else{\n						obj[x] = jqMix(obj[x], props[x]);\n					}\n				}else{\n					obj[x] = props[x];\n				}\n```',
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+                  "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+                  "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+                ]
+              },
+              {
+                atOrAbove: "1.12.0",
+                below: "1.12.7",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+                  githubID: "GHSA-pg97-ww7h-5mjr",
+                  CVE: [
+                    "CVE-2019-10785"
+                  ]
+                },
+                details: "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+                  "https://github.com/dojo/dojox/pull/315",
+                  "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+                  "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+                ]
+              },
+              {
+                atOrAbove: "1.12.0",
+                below: "1.12.8",
+                severity: "low",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "Prototype Pollution in Dojox",
+                  githubID: "GHSA-3hw5-q855-g6cw",
+                  CVE: [
+                    "CVE-2020-5259"
+                  ]
+                },
+                details: 'The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n		var tobj = {};\n		for(var x in props){\n			// the "tobj" condition avoid copying properties in "props"\n			// inherited from Object.prototype.  For example, if obj has a custom\n			// toString() method, don\'t overwrite it with the toString() method\n			// that props inherited from Object.prototype\n			if((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n				if(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n					if(dojo.isArray(props[x])){\n						obj[x] = props[x];\n					}else{\n						obj[x] = jqMix(obj[x], props[x]);\n					}\n				}else{\n					obj[x] = props[x];\n				}\n```',
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+                  "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+                  "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+                ]
+              },
+              {
+                atOrAbove: "1.13.0",
+                below: "1.13.6",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+                  githubID: "GHSA-pg97-ww7h-5mjr",
+                  CVE: [
+                    "CVE-2019-10785"
+                  ]
+                },
+                details: "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+                  "https://github.com/dojo/dojox/pull/315",
+                  "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+                  "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+                ]
+              },
+              {
+                atOrAbove: "1.13.0",
+                below: "1.13.7",
+                severity: "low",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "Prototype Pollution in Dojox",
+                  githubID: "GHSA-3hw5-q855-g6cw",
+                  CVE: [
+                    "CVE-2020-5259"
+                  ]
+                },
+                details: 'The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n		var tobj = {};\n		for(var x in props){\n			// the "tobj" condition avoid copying properties in "props"\n			// inherited from Object.prototype.  For example, if obj has a custom\n			// toString() method, don\'t overwrite it with the toString() method\n			// that props inherited from Object.prototype\n			if((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n				if(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n					if(dojo.isArray(props[x])){\n						obj[x] = props[x];\n					}else{\n						obj[x] = jqMix(obj[x], props[x]);\n					}\n				}else{\n					obj[x] = props[x];\n				}\n```',
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+                  "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+                  "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+                ]
+              },
+              {
+                below: "1.14.0",
+                severity: "critical",
+                cwe: [
+                  "CWE-116"
+                ],
+                identifiers: {
+                  summary: "In Dojo Toolkit before 1.14.0, there is unescaped string injection in dojox/Grid/DataGrid.",
+                  CVE: [
+                    "CVE-2018-15494"
+                  ],
+                  githubID: "GHSA-84cm-x2q5-8225",
+                  PR: "283"
+                },
+                info: [
+                  "https://github.com/advisories/GHSA-84cm-x2q5-8225",
+                  "https://github.com/dojo/dojox/pull/283",
+                  "https://dojotoolkit.org/blog/dojo-1-14-released"
+                ]
+              },
+              {
+                atOrAbove: "1.14.0",
+                below: "1.14.5",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+                  githubID: "GHSA-pg97-ww7h-5mjr",
+                  CVE: [
+                    "CVE-2019-10785"
+                  ]
+                },
+                details: "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+                  "https://github.com/dojo/dojox/pull/315",
+                  "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+                  "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+                ]
+              },
+              {
+                atOrAbove: "1.14.0",
+                below: "1.14.6",
+                severity: "low",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "Prototype Pollution in Dojox",
+                  githubID: "GHSA-3hw5-q855-g6cw",
+                  CVE: [
+                    "CVE-2020-5259"
+                  ]
+                },
+                details: 'The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n		var tobj = {};\n		for(var x in props){\n			// the "tobj" condition avoid copying properties in "props"\n			// inherited from Object.prototype.  For example, if obj has a custom\n			// toString() method, don\'t overwrite it with the toString() method\n			// that props inherited from Object.prototype\n			if((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n				if(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n					if(dojo.isArray(props[x])){\n						obj[x] = props[x];\n					}else{\n						obj[x] = jqMix(obj[x], props[x]);\n					}\n				}else{\n					obj[x] = props[x];\n				}\n```',
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+                  "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+                  "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+                ]
+              },
+              {
+                atOrAbove: "1.15.0",
+                below: "1.15.2",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+                  githubID: "GHSA-pg97-ww7h-5mjr",
+                  CVE: [
+                    "CVE-2019-10785"
+                  ]
+                },
+                details: "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+                  "https://github.com/dojo/dojox/pull/315",
+                  "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+                  "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+                ]
+              },
+              {
+                atOrAbove: "1.15.0",
+                below: "1.15.3",
+                severity: "low",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "Prototype Pollution in Dojox",
+                  githubID: "GHSA-3hw5-q855-g6cw",
+                  CVE: [
+                    "CVE-2020-5259"
+                  ]
+                },
+                details: 'The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n		var tobj = {};\n		for(var x in props){\n			// the "tobj" condition avoid copying properties in "props"\n			// inherited from Object.prototype.  For example, if obj has a custom\n			// toString() method, don\'t overwrite it with the toString() method\n			// that props inherited from Object.prototype\n			if((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n				if(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n					if(dojo.isArray(props[x])){\n						obj[x] = props[x];\n					}else{\n						obj[x] = jqMix(obj[x], props[x]);\n					}\n				}else{\n					obj[x] = props[x];\n				}\n```',
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+                  "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+                  "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+                ]
+              },
+              {
+                atOrAbove: "1.16.0",
+                below: "1.16.1",
+                severity: "medium",
+                cwe: [
+                  "CWE-79"
+                ],
+                identifiers: {
+                  summary: "XSS in dojox due to insufficient escape in dojox.xmpp.util.xmlEncode ",
+                  githubID: "GHSA-pg97-ww7h-5mjr",
+                  CVE: [
+                    "CVE-2019-10785"
+                  ]
+                },
+                details: "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPotential XSS vulnerability for users of `dojox/xmpp` and `dojox/dtl`.\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\nYes, patches are available for the 1.11 through 1.16 versions. Users should upgrade to one of these versions of Dojo:\n\n* 1.16.1\n* 1.15.2\n* 1.14.5\n* 1.13.6\n* 1.12.7\n* 1.11.9\n\nUsers of Dojo 1.10.x and earlier should review this change and determine if it impacts them, and backport the change as appropriate.\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nThe change applied in https://github.com/dojo/dojox/pull/315 could get added separately as a patch.\n\n### For more information\nIf you have any questions or comments about this advisory:\n* Open an issue in [dojo/dojox](https://github.com/dojo/dojox/)",
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-pg97-ww7h-5mjr",
+                  "https://github.com/dojo/dojox/pull/315",
+                  "https://github.com/dojo/dojox/commit/abd033a787c718abc1a390f480ac3ea61288e5ee",
+                  "https://lists.debian.org/debian-lts-announce/2020/02/msg00033.html",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257",
+                  "https://snyk.io/vuln/SNYK-JS-DOJOX-548257,"
+                ]
+              },
+              {
+                atOrAbove: "1.16.0",
+                below: "1.16.2",
+                severity: "low",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "Prototype Pollution in Dojox",
+                  githubID: "GHSA-3hw5-q855-g6cw",
+                  CVE: [
+                    "CVE-2020-5259"
+                  ]
+                },
+                details: 'The Dojox jQuery wrapper `jqMix` mixin method is vulnerable to Prototype Pollution. \n\nAffected Area:\n```\n//https://github.com/dojo/dojox/blob/master/jq.js#L442\n		var tobj = {};\n		for(var x in props){\n			// the "tobj" condition avoid copying properties in "props"\n			// inherited from Object.prototype.  For example, if obj has a custom\n			// toString() method, don\'t overwrite it with the toString() method\n			// that props inherited from Object.prototype\n			if((tobj[x] === undefined || tobj[x] != props[x]) && props[x] !== undefined && obj != props[x]){\n				if(dojo.isObject(obj[x]) && dojo.isObject(props[x])){\n					if(dojo.isArray(props[x])){\n						obj[x] = props[x];\n					}else{\n						obj[x] = jqMix(obj[x], props[x]);\n					}\n				}else{\n					obj[x] = props[x];\n				}\n```',
+                info: [
+                  "https://github.com/dojo/dojox/security/advisories/GHSA-3hw5-q855-g6cw",
+                  "https://github.com/dojo/dojox/commit/47d1b302b5b23d94e875b77b9b9a8c4f5622c9da",
+                  "https://lists.debian.org/debian-lts-announce/2020/03/msg00012.html"
+                ]
+              }
+            ],
+            extractors: {
+              uri: [
+                "/(?:dojo-release-)?(\xA7\xA7version\xA7\xA7)(?:-src)?/dojox/.+\\.js",
+                "/dojox@(\xA7\xA7version\xA7\xA7)/.+\\.js"
               ]
             }
           },
@@ -23892,7 +24221,8 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 below: "15.5.18",
                 severity: "high",
                 cwe: [
-                  "CWE-288"
+                  "CWE-288",
+                  "CWE-358"
                 ],
                 identifiers: {
                   summary: "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -24931,7 +25261,8 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 below: "16.2.6",
                 severity: "high",
                 cwe: [
-                  "CWE-288"
+                  "CWE-288",
+                  "CWE-358"
                 ],
                 identifiers: {
                   summary: "The fix for CVE-2026-44575 (middleware authorization bypass) was not applied to middleware.ts when using Turbopack. Applications using Turbopack for compilation remain vulnerable to the same middleware bypass as described in that advisory.",
@@ -26414,26 +26745,6 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
-                atOrAbove: "0",
-                below: "4.18.0",
-                severity: "medium",
-                cwe: [
-                  "CWE-1321"
-                ],
-                identifiers: {
-                  summary: "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
-                  githubID: "GHSA-f23m-r3pf-42rh",
-                  CVE: [
-                    "CVE-2026-2950"
-                  ]
-                },
-                details: "### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.",
-                info: [
-                  "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
-                  "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
-                ]
-              },
-              {
                 atOrAbove: "4.0.0",
                 below: "4.18.0",
                 severity: "high",
@@ -26452,6 +26763,26 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
                   "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
                   "https://cna.openjsf.org/security-advisories.html"
+                ]
+              },
+              {
+                atOrAbove: "4.17.23",
+                below: "4.18.1",
+                severity: "medium",
+                cwe: [
+                  "CWE-1321"
+                ],
+                identifiers: {
+                  summary: "Lodash 4.17.23 and earlier are vulnerable to a prototype pollution bypass in _.unset and _.omit. The fix for CVE-2025-13465 only guards against string key members, so attackers can bypass it by passing array-wrapped path segments to delete properties from built-in prototypes including Object.prototype, Number.prototype, and String.prototype.",
+                  githubID: "GHSA-f23m-r3pf-42rh",
+                  CVE: [
+                    "CVE-2026-2950"
+                  ]
+                },
+                details: "### Impact\n\nLodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the `_.unset` and `_.omit` functions. The fix for [CVE-2025-13465](https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as `Object.prototype`, `Number.prototype`, and `String.prototype`.\n\nThe issue permits deletion of prototype properties but does not allow overwriting their original behavior.\n\n### Patches\n\nThis issue is patched in 4.18.0.\n\n### Workarounds\n\nNone. Upgrade to the patched version.",
+                info: [
+                  "https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh",
+                  "https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg"
                 ]
               }
             ],
@@ -27641,7 +27972,8 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                   summary: "Quill 2.0.3 is vulnerable to Cross-Site Scripting (XSS) via insufficient data validation in the HTML export feature, allowing injected HTML content to execute in the browser.",
                   githubID: "GHSA-v3m3-f69x-jf25",
                   CVE: [
-                    "CVE-2025-15056"
+                    "CVE-2025-15056",
+                    "CVE-2026-120350"
                   ]
                 },
                 details: "A lack of data validation vulnerability in the HTML export feature in Quill in allows Cross-Site Scripting (XSS).\n\nThis issue affects Quill: 2.0.3.",
@@ -27901,6 +28233,29 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
+                atOrAbove: "0",
+                below: "6.11.6",
+                severity: "critical",
+                cwe: [
+                  "CWE-94"
+                ],
+                identifiers: {
+                  summary: "protobufjs is vulnerable to Remote Code Execution when loading crafted JSON descriptors. Schema-controlled type names and type references reach runtime code generation without sufficient validation, allowing an attacker who can influence the loaded schema to execute arbitrary JavaScript in the process.",
+                  githubID: "GHSA-xq3m-2v4x-88gg",
+                  CVE: [
+                    "CVE-2026-41242"
+                  ]
+                },
+                details: "## Summary\n\nprotobufjs could execute generated JavaScript code derived from protobuf schema metadata. When loading a crafted JSON descriptor, schema-controlled type names and type references could reach runtime code generation without sufficient validation.\n\n## Impact\n\nAn attacker who can provide a malicious protobuf definition or JSON descriptor to an application may be able to execute arbitrary JavaScript in the context of the process using protobufjs.\n\nThis requires control over the protobuf schema or descriptor being loaded. Applications that only decode messages using trusted, application-defined schemas are not directly affected by this issue.\n\n## Preconditions\n\n- The application must allow an attacker to control or influence a protobuf definition or JSON descriptor.\n- The application must load that definition through protobufjs reflection APIs such as descriptor loading.\n- The affected generated-code path must be reached, for example by performing an operation on the loaded type.\n\n## Workarounds\n\nDo not load protobuf definitions or JSON descriptors from untrusted sources with affected versions. If untrusted schemas must be accepted, validate or restrict them before loading and run schema processing in an isolated environment.",
+                info: [
+                  "https://github.com/protobufjs/protobuf.js/security/advisories/GHSA-xq3m-2v4x-88gg",
+                  "https://github.com/protobufjs/protobuf.js/commit/535df444ac060243722ac5d672db205e5c531d75",
+                  "https://github.com/protobufjs/protobuf.js/commit/ff7b2afef8754837cc6dc64c864cd111ab477956",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v7.5.5",
+                  "https://github.com/protobufjs/protobuf.js/releases/tag/protobufjs-v8.0.1"
+                ]
+              },
+              {
                 atOrAbove: "7.0.0",
                 below: "7.2.5",
                 severity: "critical",
@@ -27927,7 +28282,7 @@ Fix: shouldBypassProxy() should resolve loopback aliases \u2014 localhost, 127.0
                 ]
               },
               {
-                atOrAbove: "0",
+                atOrAbove: "7.0.0",
                 below: "7.5.5",
                 severity: "critical",
                 cwe: [
