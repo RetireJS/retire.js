@@ -41,8 +41,32 @@ jobs:
       - run: node validate
         working-directory: repository
 
-  prebuilt:
+  changes:
     if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+    outputs:
+      outside-repository: ${{ steps.files.outputs.outside-repository }}
+    steps:
+      - name: Check whether the PR changes anything outside repository/
+        id: files
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files="$(gh api --paginate "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --jq '.[].filename')"
+          if printf '%s\n' "$files" | grep -qv '^repository/'; then
+            echo "outside-repository=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "outside-repository=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  prebuilt:
+    # Skipped for PRs that only touch repository/ (e.g. advisory auto-updates).
+    needs: changes
+    if: needs.changes.outputs.outside-repository == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
