@@ -149,6 +149,21 @@ function libraries(data) {
     );
 }
 
+// A search also finds unidentified scripts by URL while they are hidden from the list.
+function matches(library, query, showUnknown) {
+  if (library.unknown && !showUnknown)
+    return Boolean(query) && library.url.toLowerCase().includes(query);
+  return [
+    library.component,
+    library.version,
+    library.url,
+    ...library.vulnerabilities.flatMap(identifiers),
+  ]
+    .join(" ")
+    .toLowerCase()
+    .includes(query);
+}
+
 function rank(library) {
   if (library.vulnerabilities.length)
     return Math.max(
@@ -488,7 +503,7 @@ function emptyState(settings, query) {
               ? ["No matching libraries", "Try a library name, version, URL or advisory ID."]
               : [
                   "No identified libraries",
-                  "Turn on Show unidentified scripts in Options to list every script.",
+                  "Search by URL, or turn on Show unidentified scripts in Options to list every script.",
                 ];
   const box = element("div", undefined, "group empty");
   box.id = "empty";
@@ -642,19 +657,7 @@ function render() {
   $("resume").hidden = settings.enabled;
 
   const query = $("search").value.trim().toLowerCase();
-  const list = allLibraries.filter(
-    (library) =>
-      (!library.unknown || settings.showUnknown) &&
-      [
-        library.component,
-        library.version,
-        library.url,
-        ...library.vulnerabilities.flatMap(identifiers),
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(query),
-  );
+  const list = allLibraries.filter((library) => matches(library, query, settings.showUnknown));
   renderRows(list, settings, query);
   // A row's key changes when its scan finishes; keep the same script open. Keys start with the URL.
   const current =

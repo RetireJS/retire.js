@@ -164,6 +164,33 @@ test("rows name unmatched scripts after their file and keep the outcome as detai
   );
 });
 
+test("search finds hidden unidentified scripts by URL only", () => {
+  const sandbox = context();
+  sandbox.data = {
+    resources: [
+      { url: "https://cdn.example.test/app/Checkout.js", status: "complete", results: [] },
+      {
+        url: "https://cdn.example.test/jquery.js",
+        status: "complete",
+        results: [{ component: "jquery", version: "1.0.0", vulnerabilities: [] }],
+      },
+    ],
+  };
+  const found = (query, showUnknown) =>
+    Array.from(
+      vm.runInContext(
+        `libraries(data).filter((l) => matches(l, ${JSON.stringify(query)}, ${showUnknown})).map((l) => l.url.split("/").pop())`,
+        sandbox,
+      ),
+    );
+  assert.deepEqual(found("", false), ["jquery.js"]);
+  assert.deepEqual(found("checkout", false), ["Checkout.js"]);
+  assert.deepEqual(found("cdn.example", false), ["jquery.js", "Checkout.js"]);
+  assert.deepEqual(found("unidentified", false), []);
+  assert.deepEqual(found("unidentified", true), ["Checkout.js"]);
+  assert.deepEqual(found("", true), ["jquery.js", "Checkout.js"]);
+});
+
 test("severity counts distinguish info from unrated and pills omit zero counts", () => {
   const sandbox = context();
   sandbox.findings = [
