@@ -14705,6 +14705,27 @@
             "https://github.com/vercel/next.js/releases/tag/v15.5.28",
             "https://github.com/vercel/next.js/releases/tag/v16.4.1"
           ]
+        },
+        {
+          "atOrAbove": "16.3.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-362"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Information disclosure across root params when a 'use cache' function is called through unstable_cache()",
+            "githubID": "GHSA-mfr8-8qww-v76h",
+            "CVE": [
+              "CVE-2026-119790"
+            ]
+          },
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-mfr8-8qww-v76h",
+            "https://github.com/vercel/next.js/commit/d605874e5a4b8b6b7dca1b6e07bcabb44d0e2e5b",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
         }
       ],
       "extractors": {
