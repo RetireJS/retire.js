@@ -15049,6 +15049,50 @@
           "https://github.com/vercel/next.js/releases/tag/v15.5.28",
           "https://github.com/vercel/next.js/releases/tag/v16.4.1"
         ]
+      },
+      {
+        "atOrAbove": "16.2.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-362"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Cache leak across root param values in nested 'use cache' functions via delayed inner stream metadata",
+          "githubID": "GHSA-vc7v-qv4w-wrv8",
+          "CVE": [
+            "CVE-2026-119351"
+          ]
+        },
+        "details": "With Cache Components enabled, an outer `'use cache'` function can be keyed incorrectly even when its inner `'use cache'` call generates a fresh entry. If the inner function reads a root param (via `next/root-params`) and returns a value that still contains pending promises — for example an object with data that is ready immediately alongside slower data — React Flight delivers the ready portion to the outer function before the inner entry has finished publishing its root param dependencies. The outer function can then finish, and its cache entry is persisted under a key that omits that root param. The entry is written once and reused for all root param values, so a response for one root param value can serve content produced for a different value. Entries written this way can also ignore tag invalidation and cache lifetimes of the nested caches they consumed.\n\nWhat values are leaked cannot be attacker controlled. Which value's content is served depends only on which invocation wrote the entry first.\n\nThis is a variant of https://github.com/advisories/GHSA-h694-7cp9-m8p3 that the fix for that advisory does not cover: it does not require the inner call to be served from an existing entry, and it does not depend on a slow cache handler.",
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-vc7v-qv4w-wrv8",
+          "https://github.com/vercel/next.js/commit/80c96ede21798d4ad54da12fe50d5b00a09b06e3",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.3.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-362"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Information disclosure across root params when a 'use cache' function is called through unstable_cache()",
+          "githubID": "GHSA-mfr8-8qww-v76h",
+          "CVE": [
+            "CVE-2026-119790"
+          ]
+        },
+        "details": "Next.js applications with `'use cache'` can disclose cached data across root params when the same `'use cache'` function is called both directly during rendering and through `unstable_cache()`, and that function reads a root param. Root params are route parameters of the root layout, and applications commonly use them to scope data, for example per locale.\n\nDuring a cold process start, a cross-request deduplication race allowed an `unstable_cache()` call to join the in-flight fill of a concurrent direct call and receive its result, bypassing the root param check that would normally reject it. `unstable_cache()` then stored that result under a cache key without root params, so subsequent requests for other root param values received the same entry until it is revalidated or evicted. Cached data produced for one root param value is returned to requests for other values.\n\nExploitation requires the `unstable_cache()` request to arrive while the function's first fill after a process start is still in flight. Outside this race, the nesting already throws an error: `'use cache' inside unstable_cache() is unsupported`, and avoiding it is a complete workaround.",
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mfr8-8qww-v76h",
+          "https://github.com/vercel/next.js/commit/d605874e5a4b8b6b7dca1b6e07bcabb44d0e2e5b",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
       }
     ],
     "extractors": {
