@@ -13398,6 +13398,76 @@
         ]
       },
       {
+        "atOrAbove": "0",
+        "below": "15.5.29",
+        "severity": "medium",
+        "cwe": [
+          "CWE-444"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Cross-client response injection and disclosure in self-hosted Next.js applications forwarding fetched responses",
+          "githubID": "GHSA-pc58-hwjq-p385",
+          "CVE": [
+            "CVE-2026-119348"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-pc58-hwjq-p385",
+          "https://github.com/vercel/next.js/commit/2842833be3a5a1e5fef0c5fb8c96df74742eef2a",
+          "https://github.com/vercel/next.js/commit/848ec29a3fbe68c02edb022efe19b04356997c32",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.5.29",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1287"
+        ],
+        "identifiers": {
+          "summary": "Next.js: SVG rejection bypass in the image optimization",
+          "githubID": "GHSA-7qx7-33qx-rqx2",
+          "CVE": [
+            "CVE-2026-119347"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-7qx7-33qx-rqx2",
+          "https://github.com/vercel/next.js/commit/4f133352e639589ad9872b9b55307b89b258e41b",
+          "https://github.com/vercel/next.js/commit/e66e656e7d423a828bdca5f87e82cef7038c57a6",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "15.0.0",
+        "below": "15.5.29",
+        "severity": "medium",
+        "cwe": [
+          "CWE-200",
+          "CWE-201"
+        ],
+        "identifiers": {
+          "summary": "Next.js: HttpOnly cookie exposure through internal response header on Next.js Edge runtime routes",
+          "githubID": "GHSA-f3mh-rxg3-f5g2",
+          "CVE": [
+            "CVE-2026-119346"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-f3mh-rxg3-f5g2",
+          "https://github.com/vercel/next.js/commit/809be725f033ec7aa4c658ba2b7a084cb039d1f2",
+          "https://github.com/vercel/next.js/commit/9fc04bd869ded4900bed7d069832aa2c5f56fa29",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
         "atOrAbove": "15.6.0-canary.0",
         "below": "15.6.0-canary.59",
         "severity": "high",
@@ -14542,6 +14612,160 @@
           "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
           "https://github.com/vercel/next.js/releases/tag/v15.5.28",
           "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-1287"
+        ],
+        "identifiers": {
+          "summary": "Next.js: SVG rejection bypass in the image optimization",
+          "githubID": "GHSA-7qx7-33qx-rqx2",
+          "CVE": [
+            "CVE-2026-119347"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-7qx7-33qx-rqx2",
+          "https://github.com/vercel/next.js/commit/4f133352e639589ad9872b9b55307b89b258e41b",
+          "https://github.com/vercel/next.js/commit/e66e656e7d423a828bdca5f87e82cef7038c57a6",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-200",
+          "CWE-201"
+        ],
+        "identifiers": {
+          "summary": "Next.js: HttpOnly cookie exposure through internal response header on Next.js Edge runtime routes",
+          "githubID": "GHSA-f3mh-rxg3-f5g2",
+          "CVE": [
+            "CVE-2026-119346"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-f3mh-rxg3-f5g2",
+          "https://github.com/vercel/next.js/commit/809be725f033ec7aa4c658ba2b7a084cb039d1f2",
+          "https://github.com/vercel/next.js/commit/9fc04bd869ded4900bed7d069832aa2c5f56fa29",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-444"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Cross-client response injection and disclosure in self-hosted Next.js applications forwarding fetched responses",
+          "githubID": "GHSA-pc58-hwjq-p385",
+          "CVE": [
+            "CVE-2026-119348"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-pc58-hwjq-p385",
+          "https://github.com/vercel/next.js/commit/2842833be3a5a1e5fef0c5fb8c96df74742eef2a",
+          "https://github.com/vercel/next.js/commit/848ec29a3fbe68c02edb022efe19b04356997c32",
+          "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.0.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-694"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Cross-user cache disclosure and poisoning in Next.js use cache with binary arguments",
+          "githubID": "GHSA-rhh4-g77r-r9qj",
+          "CVE": [
+            "CVE-2026-119349"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-rhh4-g77r-r9qj",
+          "https://github.com/vercel/next.js/commit/6596840a0fa3c2633735b05e41ca3d9ab01ece41",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.2.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-362"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Cache leak across root param values in nested 'use cache' functions via delayed inner stream metadata",
+          "githubID": "GHSA-vc7v-qv4w-wrv8",
+          "CVE": [
+            "CVE-2026-119351"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-vc7v-qv4w-wrv8",
+          "https://github.com/vercel/next.js/commit/80c96ede21798d4ad54da12fe50d5b00a09b06e3",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.3.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-362"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Information disclosure across root params when a 'use cache' function is called through unstable_cache()",
+          "githubID": "GHSA-mfr8-8qww-v76h",
+          "CVE": [
+            "CVE-2026-119790"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-mfr8-8qww-v76h",
+          "https://github.com/vercel/next.js/commit/d605874e5a4b8b6b7dca1b6e07bcabb44d0e2e5b",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
+        ]
+      },
+      {
+        "atOrAbove": "16.4.0",
+        "below": "16.4.5",
+        "severity": "medium",
+        "cwe": [
+          "CWE-349"
+        ],
+        "identifiers": {
+          "summary": "Next.js: Cache poisoning of shared fallback shells in Cache Components via request-supplied placeholder route params",
+          "githubID": "GHSA-vvgp-ww4w-46vf",
+          "CVE": [
+            "CVE-2026-119350"
+          ]
+        },
+        "info": [
+          "https://github.com/vercel/next.js/security/advisories/GHSA-vvgp-ww4w-46vf",
+          "https://github.com/vercel/next.js/commit/18eeffb5fabd91911852d44cf56948b3f2cbee04",
+          "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+          "https://nextjs.org/blog/november-2026-security-release"
         ]
       }
     ],
