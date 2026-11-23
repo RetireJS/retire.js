@@ -13848,6 +13848,79 @@
           ]
         },
         {
+          "atOrAbove": "0",
+          "below": "15.5.29",
+          "severity": "medium",
+          "cwe": [
+            "CWE-444"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cross-client response injection and disclosure in self-hosted Next.js applications forwarding fetched responses",
+            "githubID": "GHSA-pc58-hwjq-p385",
+            "CVE": [
+              "CVE-2026-119348"
+            ]
+          },
+          "details": "Self-hosted Next.js applications (App Router route handlers and the fetch cache) that return a fetched upstream response unchanged can emit a response whose declared framing does not match the body actually sent. When such an application sits behind an HTTP/1.1 reverse proxy that permits pipelined response queueing, a crafted upstream response can desynchronize responses between clients, enabling response injection and disclosure of other clients' responses.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-pc58-hwjq-p385",
+            "https://github.com/vercel/next.js/commit/2842833be3a5a1e5fef0c5fb8c96df74742eef2a",
+            "https://github.com/vercel/next.js/commit/848ec29a3fbe68c02edb022efe19b04356997c32",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.5.29",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1287"
+          ],
+          "identifiers": {
+            "summary": "Next.js: SVG rejection bypass in the image optimization",
+            "githubID": "GHSA-7qx7-33qx-rqx2",
+            "CVE": [
+              "CVE-2026-119347"
+            ]
+          },
+          "details": "On self-hosted deployments, the Next.js image optimizer (`/_next/image`) can be made to process an attacker-supplied SVG even when SVG support is disabled with `dangerouslyAllowSVG: false` (the default). This reaches an SVG parser the application intended to keep disabled, increasing exposure to denial of service and SVG decoder vulnerabilities.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-7qx7-33qx-rqx2",
+            "https://github.com/vercel/next.js/commit/4f133352e639589ad9872b9b55307b89b258e41b",
+            "https://github.com/vercel/next.js/commit/e66e656e7d423a828bdca5f87e82cef7038c57a6",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "15.0.0",
+          "below": "15.5.29",
+          "severity": "medium",
+          "cwe": [
+            "CWE-200",
+            "CWE-201"
+          ],
+          "identifiers": {
+            "summary": "Next.js: HttpOnly cookie exposure through internal response header on Next.js Edge runtime routes",
+            "githubID": "GHSA-f3mh-rxg3-f5g2",
+            "CVE": [
+              "CVE-2026-119346"
+            ]
+          },
+          "details": "Next.js applications that set cookies through `NextResponse` on Edge runtime routes — App Router route handlers and Pages Router Edge API routes — send an internal `x-middleware-set-cookie` header in the public response, duplicating the cookie value and its attributes. This makes HttpOnly cookies, such as session tokens, readable by JavaScript running on the same origin when an application sets a sensitive cookie on an affected response.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f3mh-rxg3-f5g2",
+            "https://github.com/vercel/next.js/commit/809be725f033ec7aa4c658ba2b7a084cb039d1f2",
+            "https://github.com/vercel/next.js/commit/9fc04bd869ded4900bed7d069832aa2c5f56fa29",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
           "atOrAbove": "15.6.0-canary.0",
           "below": "15.6.0-canary.59",
           "severity": "high",
@@ -15049,6 +15122,167 @@
             "https://github.com/vercel/next.js/security/advisories/GHSA-p3m5-59mp-jv5r",
             "https://github.com/vercel/next.js/releases/tag/v15.5.28",
             "https://github.com/vercel/next.js/releases/tag/v16.4.1"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-1287"
+          ],
+          "identifiers": {
+            "summary": "Next.js: SVG rejection bypass in the image optimization",
+            "githubID": "GHSA-7qx7-33qx-rqx2",
+            "CVE": [
+              "CVE-2026-119347"
+            ]
+          },
+          "details": "On self-hosted deployments, the Next.js image optimizer (`/_next/image`) can be made to process an attacker-supplied SVG even when SVG support is disabled with `dangerouslyAllowSVG: false` (the default). This reaches an SVG parser the application intended to keep disabled, increasing exposure to denial of service and SVG decoder vulnerabilities.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-7qx7-33qx-rqx2",
+            "https://github.com/vercel/next.js/commit/4f133352e639589ad9872b9b55307b89b258e41b",
+            "https://github.com/vercel/next.js/commit/e66e656e7d423a828bdca5f87e82cef7038c57a6",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-200",
+            "CWE-201"
+          ],
+          "identifiers": {
+            "summary": "Next.js: HttpOnly cookie exposure through internal response header on Next.js Edge runtime routes",
+            "githubID": "GHSA-f3mh-rxg3-f5g2",
+            "CVE": [
+              "CVE-2026-119346"
+            ]
+          },
+          "details": "Next.js applications that set cookies through `NextResponse` on Edge runtime routes — App Router route handlers and Pages Router Edge API routes — send an internal `x-middleware-set-cookie` header in the public response, duplicating the cookie value and its attributes. This makes HttpOnly cookies, such as session tokens, readable by JavaScript running on the same origin when an application sets a sensitive cookie on an affected response.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-f3mh-rxg3-f5g2",
+            "https://github.com/vercel/next.js/commit/809be725f033ec7aa4c658ba2b7a084cb039d1f2",
+            "https://github.com/vercel/next.js/commit/9fc04bd869ded4900bed7d069832aa2c5f56fa29",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-444"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cross-client response injection and disclosure in self-hosted Next.js applications forwarding fetched responses",
+            "githubID": "GHSA-pc58-hwjq-p385",
+            "CVE": [
+              "CVE-2026-119348"
+            ]
+          },
+          "details": "Self-hosted Next.js applications (App Router route handlers and the fetch cache) that return a fetched upstream response unchanged can emit a response whose declared framing does not match the body actually sent. When such an application sits behind an HTTP/1.1 reverse proxy that permits pipelined response queueing, a crafted upstream response can desynchronize responses between clients, enabling response injection and disclosure of other clients' responses.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-pc58-hwjq-p385",
+            "https://github.com/vercel/next.js/commit/2842833be3a5a1e5fef0c5fb8c96df74742eef2a",
+            "https://github.com/vercel/next.js/commit/848ec29a3fbe68c02edb022efe19b04356997c32",
+            "https://github.com/vercel/next.js/releases/tag/v15.5.29",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "16.0.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-694"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cross-user cache disclosure and poisoning in Next.js use cache with binary arguments",
+            "githubID": "GHSA-rhh4-g77r-r9qj",
+            "CVE": [
+              "CVE-2026-119349"
+            ]
+          },
+          "details": "Next.js App Router applications that pass binary arguments (such as Uint8Array or Blob values) to functions using the `use cache` directive can produce identical cache keys for distinct arguments, allowing cached results to be shared across users — cross-user disclosure of cached data or cache poisoning. This affects applications using `use cache` with binary arguments.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-rhh4-g77r-r9qj",
+            "https://github.com/vercel/next.js/commit/6596840a0fa3c2633735b05e41ca3d9ab01ece41",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "16.2.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-362"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache leak across root param values in nested 'use cache' functions via delayed inner stream metadata",
+            "githubID": "GHSA-vc7v-qv4w-wrv8",
+            "CVE": [
+              "CVE-2026-119351"
+            ]
+          },
+          "details": "With Cache Components enabled, an outer `'use cache'` function can be keyed incorrectly even when its inner `'use cache'` call generates a fresh entry. If the inner function reads a root param (via `next/root-params`) and returns a value that still contains pending promises — for example an object with data that is ready immediately alongside slower data — React Flight delivers the ready portion to the outer function before the inner entry has finished publishing its root param dependencies. The outer function can then finish, and its cache entry is persisted under a key that omits that root param. The entry is written once and reused for all root param values, so a response for one root param value can serve content produced for a different value. Entries written this way can also ignore tag invalidation and cache lifetimes of the nested caches they consumed.\n\nWhat values are leaked cannot be attacker controlled. Which value's content is served depends only on which invocation wrote the entry first.\n\nThis is a variant of https://github.com/advisories/GHSA-h694-7cp9-m8p3 that the fix for that advisory does not cover: it does not require the inner call to be served from an existing entry, and it does not depend on a slow cache handler.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-vc7v-qv4w-wrv8",
+            "https://github.com/vercel/next.js/commit/80c96ede21798d4ad54da12fe50d5b00a09b06e3",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "16.3.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-362"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Information disclosure across root params when a 'use cache' function is called through unstable_cache()",
+            "githubID": "GHSA-mfr8-8qww-v76h",
+            "CVE": [
+              "CVE-2026-119790"
+            ]
+          },
+          "details": "Next.js applications with `'use cache'` can disclose cached data across root params when the same `'use cache'` function is called both directly during rendering and through `unstable_cache()`, and that function reads a root param. Root params are route parameters of the root layout, and applications commonly use them to scope data, for example per locale.\n\nDuring a cold process start, a cross-request deduplication race allowed an `unstable_cache()` call to join the in-flight fill of a concurrent direct call and receive its result, bypassing the root param check that would normally reject it. `unstable_cache()` then stored that result under a cache key without root params, so subsequent requests for other root param values received the same entry until it is revalidated or evicted. Cached data produced for one root param value is returned to requests for other values.\n\nExploitation requires the `unstable_cache()` request to arrive while the function's first fill after a process start is still in flight. Outside this race, the nesting already throws an error: `'use cache' inside unstable_cache() is unsupported`, and avoiding it is a complete workaround.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-mfr8-8qww-v76h",
+            "https://github.com/vercel/next.js/commit/d605874e5a4b8b6b7dca1b6e07bcabb44d0e2e5b",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
+          ]
+        },
+        {
+          "atOrAbove": "16.4.0",
+          "below": "16.4.5",
+          "severity": "medium",
+          "cwe": [
+            "CWE-349"
+          ],
+          "identifiers": {
+            "summary": "Next.js: Cache poisoning of shared fallback shells in Cache Components via request-supplied placeholder route params",
+            "githubID": "GHSA-vvgp-ww4w-46vf",
+            "CVE": [
+              "CVE-2026-119350"
+            ]
+          },
+          "details": "Self-hosted Next.js applications served with `next start` and built with `cacheComponents: true` but without Partial Prefetching accept a request-supplied route param value as a prerender placeholder. One unauthenticated GET request can poison the fallback shell cache entry that a family of routes shares.\n\nSuch a route is served from a shell that keeps its never-prerenderable params as placeholders, so every value of those params shares one cache entry. A path segment equal to the percent-encoded, bracketed name of its own route param is treated as an unresolved placeholder, and only that param is deferred. A layout above it then renders its concrete value into the shell during the blocking render, and the result, including its HTTP status, is stored under the shared key.\n\nDepending on the application, the stored entry is one of the following:\n\n- A persistent 404, when the layout rejects the value with `notFound()`: served to every URL under the shell key with `\"revalidate\": false`, across server restarts, with no error logged.\n- A substituted param value, when the layout renders the value: the server-rendered HTML renders the attacker's value for that param in place of the visitor's own. A JavaScript client corrects it on hydration. No markup or script injection is possible, and no data is disclosed.\n\n### Preconditions\n\n1. `cacheComponents: true` with `partialPrefetching` unset or `false`.\n2. Self-hosted serving with `next start`.\n3. A dynamic route with a prerenderable param (`generateStaticParams`) whose requested value was not generated at build time.\n4. At least two never-prerenderable params below it: a layout reading the shallower one inside a Suspense boundary, and a deeper one the request supplies as the placeholder.\n5. A blocking fallback shell.\n\n### Workarounds\n\nSet `partialPrefetching: true` in `next.config`. Otherwise, apps should upgrade to the patched version as soon as possible.",
+          "info": [
+            "https://github.com/vercel/next.js/security/advisories/GHSA-vvgp-ww4w-46vf",
+            "https://github.com/vercel/next.js/commit/18eeffb5fabd91911852d44cf56948b3f2cbee04",
+            "https://github.com/vercel/next.js/releases/tag/v16.4.5",
+            "https://nextjs.org/blog/november-2026-security-release"
           ]
         }
       ],
