@@ -18364,6 +18364,17 @@
       ]
     }
   },
+  "es-toolkit": {
+    "vulnerabilities": [],
+    "extractors": {
+      "filename": [
+        "es-toolkit-(§§version§§)(?:\\.min)?\\.js"
+      ],
+      "uri": [
+        "/es-toolkit@(§§version§§)/"
+      ]
+    }
+  },
   "dont check": {
     "licenses": [],
     "vulnerabilities": [],

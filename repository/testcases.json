@@ -1390,5 +1390,16 @@
         ".min"
       ]
     }
+  },
+  "es-toolkit": {
+    "https://cdn.jsdelivr.net/npm/es-toolkit@§§version§§/dist/browser.global.js": {
+      "versions": [
+        "1.20.0",
+        "1.30.0",
+        "1.39.0",
+        "1.53.2"
+      ],
+      "allowContentMiss": ["1.20.0", "1.30.0", "1.39.0", "1.53.2"]
+    }
   }
 }
