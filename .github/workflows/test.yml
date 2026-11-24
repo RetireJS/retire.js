@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    needs: changes
+    if: always() && (github.event_name != 'pull_request' || needs.changes.outputs.outside-repository == 'true')
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
 
@@ -38,8 +40,6 @@ jobs:
         working-directory: chrome/build
       - run: npm run build
         working-directory: chrome/build
-      - run: node validate
-        working-directory: repository
 
   changes:
     if: github.event_name == 'pull_request'
@@ -110,4 +110,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-test-detection-
       - run: node test-detection.js
+        working-directory: repository
+      - run: node validate
         working-directory: repository
