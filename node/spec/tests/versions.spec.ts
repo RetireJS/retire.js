@@ -68,4 +68,14 @@ describe('versions', function () {
     const result = retire.scanUri('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', repo);
     assert.isVulnerable(result);
   });
+  it('should_treat_build_metadata_as_release_version', function () {
+    repo.jquery.vulnerabilities = [{ below: '1.8.3' }];
+    assert.isNotVulnerable(retire.check('jquery', '1.8.3+1', repo));
+    repo.jquery.vulnerabilities = [{ below: '1.8.4' }];
+    assert.isVulnerable(retire.check('jquery', '1.8.3+1', repo));
+    repo.jquery.vulnerabilities = [{ atOrAbove: '1.8.3', below: '1.8.4' }];
+    assert.isVulnerable(retire.check('jquery', '1.8.3+1', repo));
+    repo.jquery.vulnerabilities = [{ atOrAbove: '1.8.4', below: '2.0.0' }];
+    assert.isNotVulnerable(retire.check('jquery', '1.8.3+1', repo));
+  });
 });
