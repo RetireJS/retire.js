@@ -9604,7 +9604,7 @@
     "../../node/lib/retire.js"(exports) {
       "use strict";
       var exports = exports || {};
-      exports.version = "6.1.1";
+      exports.version = "6.1.2";
       function isDefined(o) {
         return typeof o !== "undefined";
       }
@@ -9730,8 +9730,8 @@
         return results;
       }
       function isAtOrAbove(version1, version2) {
-        var v1 = version1.split(/[\.\-]/g);
-        var v2 = version2.split(/[\.\-]/g);
+        var v1 = version1.split(/[\.\-+]/g);
+        var v2 = version2.split(/[\.\-+]/g);
         var l = v1.length > v2.length ? v1.length : v2.length;
         for (var i = 0; i < l; i++) {
           var v1_c = toComparable(v1[i]);

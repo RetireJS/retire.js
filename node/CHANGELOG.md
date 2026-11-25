@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.1.2]
+
+### Bugfixes
+
+- Versions with SemVer build metadata (e.g. jQuery `1.8.3+1`) were compared incorrectly, so `1.8.3+1` was treated as lower than `1.8.0`. Advisories with an `atOrAbove` bound could be missed, and fixed versions such as `3.5.0+1` could still be matched by `below: 3.5.0`. Such versions are now compared like the release version (`1.8.3`). ([#672](https://github.com/RetireJS/retire.js/issues/672))
+
 ## [6.1.1]
 
 ### Bugfixes
